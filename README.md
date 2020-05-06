@@ -7,10 +7,13 @@
 
 本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下：
 
+
+
 <div align="center">
 <div style="width:80%; height:80%">
 
-![image][1]
+![text](https://developer.niutrans.com/mtbook/guideline.png)
+
 
 </div>
 </div>
@@ -54,15 +57,15 @@ Part III 神经机器翻译
 
 在编译中可能会遇到内存不足的问题，可以通过以下方式解决：
 #### Windows下使用MiKTeX或CTEX
-1. 运行cmd打开命令行窗口，输入：initexmf --edit-config-file=xelatex
+1. 运行cmd打开命令行窗口，输入：`initexmf --edit-config-file=xelatex`
 
-2. 在弹出的文件中输入以下内容：main_memory=5000000 extra_mem_bot=5000000  font_mem_size=5000000 pool_size=5000000 buf_size=5000000
+2. 在弹出的文件中输入以下内容：`main_memory=5000000 extra_mem_bot=5000000  font_mem_size=5000000 pool_size=5000000 buf_size=5000000`
 
-3. 在cmd窗口输入： initexmf --dump=pdflatex 更新latex格式文件
+3. 在cmd窗口输入： `initexmf --dump=pdflatex` 更新latex格式文件
 
 #### TeXLive & MacTeX（Linux，OS X等）
 
-1. 打开texmf.cnf文件，更改其内容为：main_memory=5000000 extra_mem_bot=5000000 font_mem_size=5000000 pool_size=5000000 buf_size=5000000
+1. 打开texmf.cnf文件，更改其内容为：`main_memory=5000000 extra_mem_bot=5000000 font_mem_size=5000000 pool_size=5000000 buf_size=5000000`
 
 2. 调用texhash更新latex格式文件
 
