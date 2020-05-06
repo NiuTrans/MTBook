@@ -17,13 +17,58 @@
 
 ## 内容
 
+<a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="封面和目录">封面和目录</a>
 
+Part I 机器翻译基础
+* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译简介">1. 机器翻译简介</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译的概念">1.1 机器翻译的概念</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译简史">1.2 机器翻译简史</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译现状">1.3 机器翻译现状</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译方法">1.4 机器翻译方法</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="翻译质量评价">1.5 翻译质量评价</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译应用">1.6 机器翻译应用</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="开源项目与评测">1.7 开源项目与评测</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="推荐学习资源">1.8 推荐学习资源</a>
+* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="词法、语法及统计建模基础">2. 词法、语法及统计建模基础</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="问题概述">2.1 问题概述</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="概率论基础">2.2 概率论基础</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="n-gram 语言模型">2.3 *n*-gram 语言模型</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="句法分析（短语结构分析）">2.4 句法分析（短语结构分析）</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">2.5 小结及深入阅读</a>
+
+Part II 统计机器翻译
+
+Part III 神经机器翻译
 
 ## 源代码及编译
 
-本书基于latex编写，源代码置于src目录下。编译需要XXX和XXX。可以使用如下指令进行编译
 
-在编译中可能会遇到内存不足的问题，可以通过XXX
+本书基于tex编写，源代码地址为：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+
+编译前需要安装XXX，。之后，编译src目录下的mt-book-xelatex.tex即可得到pdf文件，编译指令如下：
+
+`xelatex mt-book-xelatex`<br/>
+`biber mt-book-xelatex`<br/>
+`makeindex mt-book-xelatex`<br/>
+`xelatex mt-book-xelatex `<br/>
+
+在编译中可能会遇到内存不足的问题，可以通过以下方式解决：
+#### Windows下使用MiKTeX或CTEX
+1. 运行cmd打开命令行窗口，输入：initexmf --edit-config-file=xelatex
+
+2. 在弹出的文件中输入以下内容：main_memory=5000000 extra_mem_bot=5000000  font_mem_size=5000000 pool_size=5000000 buf_size=5000000
+
+3. 在cmd窗口输入： initexmf --dump=pdflatex 更新latex格式文件
+
+#### TeXLive & MacTeX（Linux，OS X等）
+
+1. 打开texmf.cnf文件，更改其内容为：main_memory=5000000 extra_mem_bot=5000000 font_mem_size=5000000 pool_size=5000000 buf_size=5000000
+
+2. 调用texhash更新latex格式文件
+
+注：编译latex文件会依赖许多宏包。如果有任何编译错误，建议将宏包至最新版本。
+
+## 开源协议
 
 本书的开源内容基于The Creative Commons Attribution-NonCommercial 4.0 Unported License（[link](http://creativecommons.org/licenses/by-nc/4.0)）
 
