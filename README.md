@@ -9,7 +9,7 @@ Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 
 
 
-这是一个教程，对机器翻译的统计建模和深度学习方法进行较为全面的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，也可以作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书的所有源代码（tex）均已开放。
+这是一个教程，对机器翻译的统计建模和深度学习方法进行较为全面的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，也可以作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
 本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下（如果无法显示图片可以[修改hosts文件](https://blog.csdn.net/weixin_42128813/article/details/102915578)或fanqiang）：
 
@@ -90,12 +90,14 @@ Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 A">附录 A：基准数据集与评价工具</a>
 * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 B">附录 B：IBM模型3-5训练方法</a>
 
+**Part V <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="参考文献">参考文献</a>**
+
 注：本书的pdf版本可以在Github仓库获取[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
 ## 源代码
 
 
-本书基于tex编写，源代码地址为：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+本书的tex源代码地址为：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
 编译前需要安装[MikTeX](https://miktex.org/)，并在MikTeX Console中下载并更新编译所需宏包。之后，编译src目录下的mt-book-xelatex.tex即可得到pdf文件，编译指令如下：
 
