@@ -18,7 +18,7 @@
 
 <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="封面、导读和目录">封面、导读和目录</a>
 
-Part I 机器翻译基础
+**Part I 机器翻译基础**
 1. 机器翻译简介
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译的概念">1.1 机器翻译的概念</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="机器翻译简史">1.2 机器翻译简史</a>
@@ -35,7 +35,7 @@ Part I 机器翻译基础
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="句法分析（短语结构分析）">2.4 句法分析（短语结构分析）</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">2.5 小结及深入阅读</a>
 
-Part II 统计机器翻译
+**Part II 统计机器翻译**
 3. 基于词的机器翻译模型
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="什么是基于词的翻译模型">3.1 什么是基于词的翻译模型</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="构建一个简单的机器翻译系统">3.2 构建一个简单的机器翻译系统</a>
@@ -51,7 +51,7 @@ Part II 统计机器翻译
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="基于语言学句法的模型">4.4 基于语言学句法的模型</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">4.5 小结及深入阅读</a>
 
-Part III 神经机器翻译
+**Part III 神经机器翻译**
 5.  人工神经网络和神经语言建模
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="深度学习与人工神经网络">5.1 深度学习与人工神经网络</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="神经网络基础">5.2 神经网络基础</a>
@@ -76,11 +76,11 @@ Part III 神经机器翻译
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="进阶技术">7.5 进阶技术</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">7.6 小结及深入阅读</a>
 
-Part IV 附录
-* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 A">A.  附录 A：基准数据集与评价工具</a>
-* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 B">B.  附录 B：IBM模型3-5训练方法</a>
+**Part IV 附录**
+* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 A">附录 A：基准数据集与评价工具</a>
+* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 B">附录 B：IBM模型3-5训练方法</a>
 
-## 源代码及编译
+## 源代码
 
 
 本书基于tex编写，源代码地址为：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
@@ -118,7 +118,7 @@ xelatex mt-book-xelatex
 
 感谢所有为本书的编辑和排版做出贡献的人
 
-*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、张裕浩、李炎洋、林野、刘晓倩、牛蕊*
+*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、张裕浩、李炎洋、林野、刘晓倩、牛蕊、田丰宁、杜权*
 
 ## 联系我们
 
