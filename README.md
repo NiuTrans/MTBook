@@ -3,6 +3,12 @@
 
 *东北大学自然语言处理实验室* / *小牛翻译*
 
+网站：[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
+
+Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+
+
+
 这是一个教程，对机器翻译的统计建模和深度学习方法进行较为全面的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，也可以作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书的所有源代码（tex）均已开放。
 
 本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下（如果无法显示图片可以[修改hosts文件](https://blog.csdn.net/weixin_42128813/article/details/102915578)或fanqiang）：
