@@ -77,7 +77,7 @@ Part III 神经机器翻译
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">7.6 小结及深入阅读</a>
 
 Part IV 附录
-* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 A">A.  附录 A：基准数据集和评价工具</a>
+* <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 A">A.  附录 A：基准数据集与评价工具</a>
 * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 B">B.  附录 B：IBM模型3-5训练方法</a>
 
 ## 源代码及编译
@@ -108,7 +108,7 @@ xelatex mt-book-xelatex
 
 2. 调用texhash更新latex格式文件
 
-注：编译latex文件会依赖许多宏包。如果有任何编译错误，建议将宏包更新至最新版本。
+注：编译tex文件会依赖许多宏包。如果有任何编译错误，建议将宏包更新至最新版本。
 
 ## 开源协议
 
