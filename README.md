@@ -1,15 +1,15 @@
 # **机器翻译：统计建模与深度学习方法**
 *肖桐*    *朱靖波*
 
-*东北大学自然语言处理实验室* / *小牛翻译*
+*东北大学自然语言处理实验室 / 小牛翻译*
 
 网站：[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
 
-Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
 
 
-这是一个教程，对机器翻译的统计建模和深度学习方法进行较为全面的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
+这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
 本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下（如果无法显示图片可以稍后再试）：
 
@@ -38,13 +38,14 @@ Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 2. 词法、语法及统计建模基础
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="问题概述">2.1 问题概述</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="概率论基础">2.2 概率论基础</a>
-  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="n-gram 语言模型">2.3 *n*-gram 语言模型</a>
-  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="句法分析（短语结构分析）">2.4 句法分析（短语结构分析）</a>
-  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">2.5 小结及深入阅读</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="中文分词">2.3 中文分词</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="n-gram 语言模型">2.4 *n*-gram 语言模型</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="句法分析（短语结构分析）">2.5 句法分析（短语结构分析）</a>
+  * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="小结及深入阅读">2.6 小结及深入阅读</a>
 
 **Part II 统计机器翻译**
 
-3. 基于词的机器翻译模型
+1. 基于词的机器翻译模型
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="什么是基于词的翻译模型">3.1 什么是基于词的翻译模型</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="构建一个简单的机器翻译系统">3.2 构建一个简单的机器翻译系统</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="基于词的翻译建模">3.3 基于词的翻译建模</a>
@@ -92,7 +93,7 @@ Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 
 **<a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="参考文献">参考文献</a>**
 
-注：本书的pdf版本可以从Github仓库获取[https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
+注：本书的pdf版本可以从GitHub仓库获取[https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
 
 ## 源代码
 
@@ -122,7 +123,7 @@ xelatex mt-book-xelatex
 
 2. 调用texhash更新latex格式文件
 
-注：编译tex文件会依赖许多宏包。如果有任何编译错误，建议将宏包更新至最新版本。
+注：编译tex文件会依赖一些宏包。如果有任何编译错误，建议将宏包更新至最新版本。
 
 ## 开源协议
 
