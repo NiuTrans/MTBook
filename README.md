@@ -9,7 +9,7 @@ Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 
 
 
-这是一个教程，对机器翻译的统计建模和深度学习方法进行较为全面的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，也可以作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
+这是一个教程，对机器翻译的统计建模和深度学习方法进行较为全面的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
 本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下（如果无法显示图片可以[修改hosts文件](https://blog.csdn.net/weixin_42128813/article/details/102915578)或fanqiang）：
 
@@ -90,9 +90,9 @@ Github：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 A">附录 A：基准数据集与评价工具</a>
 * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="附录 B">附录 B：IBM模型3-5训练方法</a>
 
-**Part V <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="参考文献">参考文献</a>**
+**<a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="参考文献">参考文献</a>**
 
-注：本书的pdf版本可以在Github仓库获取[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+注：本书的pdf版本可以从Github仓库获取[https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
 
 ## 源代码
 
@@ -130,7 +130,7 @@ xelatex mt-book-xelatex
 
 ## 致谢
 
-感谢所有为本书的编辑和排版做出贡献的人
+感谢所有为本书的排版和校对做出贡献的人
 
 *曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、张裕浩、李炎洋、林野、刘晓倩、牛蕊、田丰宁、杜权*
 
