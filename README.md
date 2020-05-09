@@ -45,7 +45,7 @@ GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 
 **Part II 统计机器翻译**
 
-1. 基于词的机器翻译模型
+3. 基于词的机器翻译模型
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="什么是基于词的翻译模型">3.1 什么是基于词的翻译模型</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="构建一个简单的机器翻译系统">3.2 构建一个简单的机器翻译系统</a>
   * <a href="http://47.105.50.196/NiuTrans/Toy-MT-Introduction" title="基于词的翻译建模">3.3 基于词的翻译建模</a>
