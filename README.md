@@ -80,7 +80,7 @@ GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 
 7.  神经机器翻译实战 —— 参加一次比赛
   * <a href="http://opensource.niutrans.com/mtbook/section7-1.html" title="神经机器翻译并不简单">7.1 神经机器翻译并不简单</a>
-  * <a href="http://opensource.niutrans.com/mtbook/section71-2.html" title="数据处理">7.2 数据处理</a>
+  * <a href="http://opensource.niutrans.com/mtbook/section7-2.html" title="数据处理">7.2 数据处理</a>
   * <a href="http://opensource.niutrans.com/mtbook/section7-3.html" title="建模与训练">7.3 建模与训练</a>
   * <a href="http://opensource.niutrans.com/mtbook/section7-4.html" title="推断">7.4 推断</a>
   * <a href="http://opensource.niutrans.com/mtbook/section7-5.html" title="进阶技术">7.5 进阶技术</a>
