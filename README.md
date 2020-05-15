@@ -89,7 +89,7 @@ GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 **Part IV 附录**
 
 * <a href="http://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 A">附录 A：基准数据集和评价工具</a>
-* <a href="http://opensource.niutrans.com/mtbook/appendix-b.htmll" title="附录 B">附录 B：IBM模型3-5训练方法</a>
+* <a href="http://opensource.niutrans.com/mtbook/appendix-b.html" title="附录 B">附录 B：IBM模型3-5训练方法</a>
 
 **<a href="http://opensource.niutrans.com/mtbook/references.html" title="参考文献">参考文献</a>**
 
