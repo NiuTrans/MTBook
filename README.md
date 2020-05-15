@@ -16,7 +16,7 @@ GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook
 <div align="center">
 
 <!-- <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% /> -->
-<img src="https://39.99.132.142:8082/guideline1.png" width=80% height=80% />
+<img src="http://39.99.132.142:8082/guideline1.png" width=80% height=80% />
 
 </div>
 
