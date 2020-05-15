@@ -1,0 +1,25 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\begin{tikzpicture}
+\begin{axis}[  
+  width=8cm, height=5cm, 
+  xtick={-6,-4,...,6},
+  ytick={0,0.5,1},
+  xlabel={\small{$x$}},
+  ylabel={\small{Softmax($x$)}},
+  xlabel style={xshift=3.0cm,yshift=1cm},
+  axis y line=middle,
+  ylabel style={xshift=-2.4cm,yshift=-0.2cm},
+  x axis line style={->},
+  axis line style={very thick},
+ % ymajorgrids,
+  %xmajorgrids,
+ axis x line*=bottom,
+  xmin=-6,
+  xmax=6,
+  ymin=0,
+  ymax=1]
+\addplot[draw=ublue,very thick]{(tanh(x/2) + 1)/2};
+\end{axis}
+\end{tikzpicture}
+
+%---------------------------------------------------------------------

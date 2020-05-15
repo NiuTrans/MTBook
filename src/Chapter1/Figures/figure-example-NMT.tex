@@ -1,0 +1,116 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\begin{tikzpicture}
+
+\begin{scope}
+{
+{\footnotesize
+\node [anchor=south west,minimum width=15em] (source) at (0,0.57) {\textbf{source}: 我\ \ \ \ 对\ \ \ \ 你\ \ \ \ 感到\ \ \ \ 满意};
+}
+{\footnotesize
+\node [anchor=south west,minimum width=15em] (target) at ([yshift=11em]source.north west) {\textbf{target}: I\ \ am\ \ \ satisfied\ \ \ with\ \ \ you};
+}
+{
+\node [anchor=center,minimum width=9.6em,minimum height=1.8em,draw,rounded corners=0.3em] (hidden) at ([yshift=5em]source.north) {};
+\node [anchor=west,minimum width=1.5em,minimum size=1.5em,fill=ugreen!20] (cell01) at ([xshift=0.2em]hidden.west) {\footnotesize{.2}};
+\node [anchor=west,minimum width=1.5em,minimum size=1.5em,fill=ugreen!10] (cell02) at (cell01.east) {\footnotesize{-1}};
+\node [anchor=west,minimum width=1.5em,minimum size=1.5em,fill=ugreen!70] (cell03) at (cell02.east) {\footnotesize{6}};
+\node [anchor=west,minimum width=1.5em,minimum size=1.5em,fill=ugreen!50] (cell04) at (cell03.east) {\footnotesize{5}};
+\node [anchor=west,minimum width=1.5em,minimum size=1.5em,fill=ugreen!30] (cell05) at (cell04.east) {\footnotesize{.7}};
+\node [anchor=west,minimum width=1.5em,minimum size=1.5em,fill=ugreen!10] (cell06) at (cell05.east) {\footnotesize{-2}};
+}
+
+{
+\filldraw [fill=red!20,draw=white] (source.north west) -- (source.north east) -- ([xshift=-0.2em,yshift=-0.1em]hidden.south east) -- ([xshift=0.2em,yshift=-0.1em]hidden.south west);
+}
+{
+\filldraw [fill=blue!20,draw=white] (target.south west) -- (target.south east) -- ([xshift=-0.2em,yshift=0.1em]hidden.north east) -- ([xshift=0.2em,yshift=0.1em]hidden.north west);
+}
+{
+\draw [->,thick] (source.north west) -- ([xshift=0.2em,yshift=-0.1em]hidden.south west);
+\draw [->,thick] (source.north east) -- ([xshift=-0.2em,yshift=-0.1em]hidden.south east);
+}
+{
+\draw [->,thick] ([xshift=0.2em,yshift=0.1em]hidden.north west) -- (target.south west);
+\draw [->,thick] ([xshift=-0.2em,yshift=0.1em]hidden.north east) -- (target.south east);
+}
+}
+
+{
+\node [anchor=south] (enclabel) at ([xshift=-0.1em,yshift=1.4em]source.north) {\large{\textbf{Encoder}}};
+\node [anchor=north] (declabel) at ([xshift=-0.1em,yshift=-1em]target.south) {\large{\textbf{Decoder}}};
+\node [anchor=east,align=left] (hiddenlabel) at (hidden.west) {\scriptsize{represe-}\\\scriptsize{ntation}};
+}
+
+\end{scope}
+
+\begin{scope}[xshift=16.8em,yshift=6em]
+
+{
+\tikzstyle{numbernode} = [fill=blue!30,minimum height=0.8em,minimum width=0.8em,circle,draw,inner sep=1pt]
+\tikzstyle{numbernode2} = [fill=ugreen!30,minimum height=0.8em,minimum width=0.8em,circle,draw,inner sep=1pt]
+
+\node[anchor=west,numbernode] (neuron01) at (0,0) {};
+\node[anchor=west,numbernode] (neuron02) at ([xshift=0.3em]neuron01.east) {};
+\node[anchor=west,numbernode] (neuron03) at ([xshift=0.3em]neuron02.east) {};
+\node[anchor=west,numbernode] (neuron04) at ([xshift=0.3em]neuron03.east) {};
+
+\node[anchor=west,numbernode] (neuron11) at ([xshift=2em]neuron04.east) {};
+\node[anchor=west,numbernode] (neuron12) at ([xshift=0.3em]neuron11.east) {};
+\node[anchor=west,numbernode] (neuron13) at ([xshift=0.3em]neuron12.east) {};
+\node[anchor=west,numbernode] (neuron14) at ([xshift=0.3em]neuron13.east) {};
+
+\node[anchor=west,numbernode2] (neuron21) at ([xshift=1.5em,yshift=3em]neuron02.north) {};
+\node[anchor=west,numbernode2] (neuron22) at ([xshift=0.3em]neuron21.east) {};
+\node[anchor=west,numbernode2] (neuron23) at ([xshift=0.3em]neuron22.east) {};
+\node[anchor=west,numbernode2] (neuron24) at ([xshift=0.3em]neuron23.east) {};
+\node[anchor=west,numbernode2] (neuron25) at ([xshift=0.3em]neuron24.east) {};
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron01) (neuron02) (neuron03) (neuron04)] (layer1) {};
+\node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron11) (neuron12) (neuron13) (neuron14)] (layer2) {};
+\node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron21) (neuron22) (neuron23) (neuron24) (neuron25)] (layer3) {};
+}
+\end{pgfonlayer}
+
+% input and output labels
+\draw[->,thick,align=center] ([yshift=-0.8em]layer1.south)--([yshift=-0.1em]layer1.south) node [pos=0,anchor=north,inner sep=3pt] (word01) {\footnotesize{input} \footnotesize{(word)}};
+\draw[->,thick,align=center] ([yshift=-0.8em]layer2.south)--([yshift=-0.1em]layer2.south) node [pos=0,anchor=north,inner sep=3pt] (word02) {\footnotesize{input} \footnotesize{(word)}};
+\draw[<-,thick,align=center] ([yshift=0.8em]layer3.north)--([yshift=0.1em]layer3.north) node [pos=0,anchor=south,inner sep=0] (outputnode) {\footnotesize{output} \footnotesize{(representation)}};
+
+% layer and neuron labels
+\node[anchor=west] (layerlabel3) at (layer3.east) {\footnotesize{layer}};
+
+% connections
+\draw[-] (neuron01)--(neuron21); \draw[-] (neuron02)--(neuron21); \draw[-] (neuron03)--(neuron21); \draw[-] (neuron04)--(neuron21);
+\node[anchor=north] (connections) at ([yshift=-0.7em,xshift=0.5em]layer3.south) {\textbf{...}};
+\node[anchor=west] (conntections2) at ([xshift=0.5em]connections.east) {\textbf{...}};
+
+\begin{pgfonlayer}{background}
+{
+\node[draw,thin,minimum width=11em,align=left,rounded corners=1pt,fill=red!5,drop shadow] [fit = (outputnode) (word01) (word02) ] (netbox) {};
+\node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron01) (neuron02) (neuron03) (neuron04)] (layer1) {};
+\node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron11) (neuron12) (neuron13) (neuron14)] (layer2) {};
+\node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron21) (neuron22) (neuron23) (neuron24) (neuron25)] (layer3) {};
+}
+\end{pgfonlayer}
+
+\draw [->,very thick,dotted] (enclabel.east) ..controls + (east:2em) and +(west:2em).. ([yshift=-1em]netbox.west);
+
+\node [anchor=north] (netlabel) at (netbox.south) {\footnotesize{sample network of the encoder}};
+}
+
+\end{scope}
+
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+
+

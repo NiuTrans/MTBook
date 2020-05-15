@@ -1,0 +1,15 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 短语 -> 句法
+\begin{tikzpicture}
+
+\node[anchor=west, fill=blue!30, inner sep=0.05cm] (sp1) at (0, 0) {进口\ \ };
+\node[anchor=west] (sp2) at (2.5em, 0) {在\ 过去\ 的\ 五\ 到\ 十\ 年\ 间};
+\node[anchor=west, fill=red!30, inner sep=0.05cm] (sp3) at (14em, 0) {有了\ 大幅度\ 下降};
+\draw[->] (sp1) edge [out=15, in=170] (sp3);
+
+\node[anchor=west, fill=blue!30, inner sep=0.05cm] (tp1) at (0, -1.2) {The imports};
+\node[anchor=west, fill=red!30, inner sep=0.05cm] (tp2) at (5.3em, -1.2) {drastically fell};
+\node[anchor=west] (tp3) at (11.3em, -1.2) {in the past five to ten years};
+\path[->] (tp1) edge [out=30, in=150] (tp2);
+
+\end{tikzpicture}

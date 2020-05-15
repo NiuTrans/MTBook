@@ -1,0 +1,156 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX encoding = UTF-8 Unicode
+
+
+%----------------------------------------------------------------------------------------
+%	BASIC CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt]{book} % font and book template
+\input{structure.tex} % self-defined template
+
+\usepackage{hyperref}
+%\hypersetup{pdftitle={Title},pdfauthor={Author}} % Uncomment and fill out to include PDF metadata for the author and title of the book
+
+\usepackage {xeCJK}
+\usepackage{ctex}
+\setCJKmainfont{SimSun}
+\setCJKmonofont{SimSun}
+\setmainfont{Times New Roman}
+
+%----------------------------------------------------------------------------------------
+%	CHINESE FONTS AND MATH FONTS
+%----------------------------------------------------------------------------------------
+
+{\newcommand{\mycfont}{song}}
+{\newcommand{\mycfont}{gbsn}}
+
+% math fount = Computer Modern Roman
+\AtBeginDocument{
+\SetSymbolFont{operators}{normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}{normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}{normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}{bold}{OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}{bold}{OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}{bold}{OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}{OMX}{cmex}{m}{n}
+
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}{OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{m}{n}
+}
+\renewcommand{\baselinestretch}{1.2} % spacing
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY OF THE BOOK
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+%\begin{CJK}{UTF8}{\mycfont}%原来的CJK
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begingroup
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture,overlay]
+\node[inner sep=0pt] (background) at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{fig-cover.jpg}};
+
+\end{tikzpicture}
+\vfill
+\endgroup·
+
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+\newpage
+~\vfill
+\thispagestyle{empty}
+
+\noindent Copyright \copyright\ 2020 肖桐\ \ 朱靖波\\
+
+\noindent \textsc{东北大学自然语言处理实验室\ $\cdot$\ 小牛翻译}\\
+
+\noindent \textsc{\url{https://opensource.niutrans.com/mtbook/index.html}}\\
+\noindent \textsc{\url{https://github.com/NiuTrans/MTBook}}\\
+
+\noindent {\red{Licensed under the Creative Commons Attribution-NonCommercial 4.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/4.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.}}\\
+
+\noindent \textit{\today}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGE PAGE
+%----------------------------------------------------------------------------------------
+
+\newpage
+~\vfill
+\thispagestyle{empty}
+
+{\large
+\noindent {\color{red} 在此感谢所有为本书做出贡献的人} \\
+
+\noindent 曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、张裕浩、李炎洋、林野、陈贺轩、刘晓倩、牛蕊、田丰宁、杜权 \\
+}
+
+%----------------------------------------------------------------------------------------
+%	PREFACE PAGES
+%----------------------------------------------------------------------------------------
+\newpage
+\include{ChapterPreface/ChapterPreface}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+%\usechapterimagefalse % If you don't want to include a chapter image, use this to toggle images off - it can be enabled later with \usechapterimagetrue
+\chapterimage{fig-NEU-1.jpg} % Image of the content page
+\pagestyle{empty} % Disable headers and footers for the following pages
+\tableofcontents % Show contents
+\cleardoublepage % Place the first page of each chapter on odd pages
+\pagestyle{fancy} % Enable headers and footers
+
+
+%----------------------------------------------------------------------------------------
+%	CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\include{Chapter1/chapter1}
+\include{Chapter2/chapter2}
+\include{Chapter3/chapter3}
+\include{Chapter4/chapter4}
+\include{Chapter5/chapter5}
+\include{Chapter6/chapter6}
+\include{Chapter7/chapter7}
+\include{ChapterAppend/chapterappend}
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\chapterimage{fig-NEU-10.jpg} % Image of the header
+\cleardoublepage % Make sure the index starts on an odd (right side) page
+\printbibliography
+
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+\chapterimage{fig-NEU-10.jpg} % Image of the header
+\cleardoublepage % Make sure the index starts on an odd (right side) page
+%\phantomsection
+%\setlength{\columnsep}{0.75cm} % Space between the 2 columns of the index
+%\addcontentsline{toc}{chapter}{\textcolor{ocre}{Index}} % Add an Index heading to the table of contents
+\printindex % Show index
+
+%-------------------------
+
+%\end{CJK}
+\end{document}

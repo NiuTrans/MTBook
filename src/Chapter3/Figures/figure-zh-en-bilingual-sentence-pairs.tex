@@ -1,0 +1,29 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+{
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {$s_1$:在};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=2em]s1.east) {$s_2$:桌子};
+    \node [anchor=west,inner sep=2pt] (s3) at ([xshift=2em]s2.east) {$s_3$:上};
+
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-2.4em]s1.center) {$t_1$:on};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-2.4em]s2.center) {$t_2$:the};
+    \node [anchor=north,inner sep=2pt] (t3) at ([yshift=-2.4em]s3.center) {$t_3$:table};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-2.2em]t1.west) {$t_0$};
+
+    \draw [-,dashed,thick] (s1.south) -- (t0.north);
+    \draw [-,dashed,thick] (s2.south) -- (t3.north);
+    \draw [-,dashed,thick] (s3.south) -- (t1.north);
+    }
+ \begin{pgfonlayer}{background}
+    {
+    \path [fill=red!20] (s2.north west) -- (s2.south west) -- (t3.north west) -- (t3.south west) -- (t3.south east) -- (t3.north east) -- (s2.south east) -- (s2.north east) -- (s2.north west);
+    }
+    \end{pgfonlayer}
+    \end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+
+

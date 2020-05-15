@@ -1,0 +1,156 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\begin{tikzpicture}
+
+{
+\begin{scope}
+{\scriptsize
+\node [anchor=north west] (example1) at (0,0) {\textbf{1:} 源=``他 在 哪 ?''};
+\node [anchor=north west] (example1part2) at ([yshift=0.2em]example1.south west) {\hspace{1em} 译=``Where is he ?''};
+\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=``我 真高兴''};
+\node [anchor=north west] (example2part2) at ([yshift=0.2em]example2.south west) {\hspace{1em} 译=``I'm so happy''};
+\node [anchor=north west] (example3) at ([yshift=0.1em]example2part2.south west) {\textbf{3:} 源=``出发 ！''};
+\node [anchor=north west] (example3part2) at ([yshift=0.2em]example3.south west) {\hspace{1em} 译=``Let's go!''};
+\node [anchor=north west] (example4) at ([yshift=0.1em]example3part2.south west) {\hspace{1em} ...};
+\node [anchor=north west] (example5) at ([yshift=0.1em]example4.south west) {\hspace{1em}\quad};
+\node [anchor=north west] (example6) at ([yshift=0.1em]example5.south west) {\hspace{1em}\quad};
+\node [anchor=south west] (bidatalabel) at (example1.north west) {{\color{ublue}\small{资源1:双语平行语料}}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (example1) (example1part2) (example2) (example2part2) (example3) (example3part2) (example4) (bidatalabel)(example6)] (bidata) {};
+}
+\end{pgfonlayer}
+
+\end{scope}
+}
+
+{
+\begin{scope} [yshift=-1.55in]
+{\scriptsize
+\node [anchor=north west] (entry1) at (0,0) {\textbf{1:} What is NiuTrans ?\qquad \qquad };
+\node [anchor=north west] (entry2) at ([yshift=0.0em]entry1.south west) {\textbf{2:} Are you fulfilled ?};
+\node [anchor=north west] (entry3) at ([yshift=0.0em]entry2.south west) {\textbf{3:} Yes, you are right .};
+\node [anchor=north west] (entry4) at ([yshift=0.0em]entry3.south west) {\hspace{1em} ...};
+\node [anchor=north west] (entry5) at ([yshift=0.1em]entry4.south west) {\hspace{1em}{\quad}};
+\node [anchor=north west] (entry6) at ([xshift=11.6em,yshift=0.65em]entry5.south west) {};
+\node [anchor=south west] (monodatalabel) at (entry1.north west) {{\color{ublue}\small{资源2:单语语料}}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (entry5)(entry6)(monodatalabel)] (monodata) {};
+}
+\end{pgfonlayer}
+
+\end{scope}
+}
+
+{
+\begin{scope}[xshift=1.7in]
+{\scriptsize
+\node [anchor=north west] (phrase1) at (0,0) {$\textrm{Pr}(\textrm{我} \to \textrm{I}) = 0.7$};
+\node [anchor=north west] (phrase2) at ([yshift=0.1em]phrase1.south west) {$\textrm{Pr}(\textrm{我} \to \textrm{me}) = 0.3$};
+\node [anchor=north west] (phrase3) at ([yshift=0.1em]phrase2.south west) {$\textrm{Pr}(\textrm{你} \to \textrm{you}) = 0.9$};
+\node [anchor=north west] (phrase4) at ([yshift=0.1em]phrase3.south west) {$\textrm{Pr}(\textrm{开心} \to \textrm{happy})$};
+\node [anchor=north west] (phrase4part2) at ([yshift=0.5em]phrase4.south west) {$ = 0.5$};
+\node [anchor=north west] (phrase5) at ([yshift=0.1em]phrase4part2.south west) {$\textrm{Pr}(\textrm{满意} \to \textrm{satisfied})$};
+\node [anchor=north west] (phrase5part2) at ([yshift=0.5em]phrase5.south west) {$ = 0.4$};
+\node [anchor=north west] (phrase6) at ([yshift=0.0em]phrase5part2.south west) {...\vspace{2em}};
+\node [anchor=north west] (phrase7) at ([yshift=0.6em]phrase6.south west) {};
+\node [anchor=south west] (phrasetablelabel) at (phrase1.north west) {{\color{ublue} \small{翻译模型}}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (phrase1) (phrase2) (phrase3) (phrase4) (phrase4part2) (phrase5) (phrase5part2) (phrase6)(phrase7) (phrasetablelabel)] (phrasetable) {};
+}
+\end{pgfonlayer}
+
+\end{scope}
+}
+
+{
+\begin{scope}[xshift=1.7in,yshift=-1.55in]
+{\scriptsize
+\node [anchor=north west] (ngram1) at (0,0) {$\textrm{Pr}(\textrm{I}) = 0.0001$};
+\node [anchor=north west] (ngram2) at ([yshift=0.0em]ngram1.south west) {$\textrm{Pr}(\textrm{I} \to \textrm{am}) = 0.623$};
+\node [anchor=north west] (ngram3) at ([yshift=0.0em]ngram2.south west) {$\textrm{Pr}(\textrm{I} \to \textrm{was}) = 0.21$};
+\node [anchor=north west] (ngram4) at ([yshift=-0.2em]ngram3.south west) {...};
+\node [anchor=south west] (lmlabel) at (ngram1.north west) {{\color{ublue} \small{语言模型}}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (ngram1) (ngram2) (ngram3) (ngram4) (lmlabel)] (langaugemodel) {};
+}
+\end{pgfonlayer}
+
+\end{scope}
+}
+
+{
+\draw[->,thick,ublue] (bidata.east)--([xshift=2.2em]bidata.east) node[pos=0.5,above] (simexample) {\color{red}{\scriptsize{\scriptsize{学习}}}};
+}
+
+{
+\draw[->,thick,ublue] (monodata.east)--([xshift=2.2em]monodata.east) node[pos=0.5,above] (simexample) {\color{red}{\scriptsize{\scriptsize{学习}}}};
+}
+
+\begin{scope}[xshift=3.6in]
+{\footnotesize
+{
+\node[anchor=center] (srcsentence) at (0,0) {我 对 你 感到 满意};
+}
+
+{
+\node[anchor=north west] (translations) at ([xshift=-1em,yshift=-1em]srcsentence.south west) {
+{\scriptsize
+\begin{tabular}{l | l}
+翻译假设 & {概率} \\
+\hline
+I to you happy & {0.01}\\
+You satisfied & {0.02}\\
+I satisfied with you & {0.10}\\
+I'm satisfied with you & {0.46}\\
+I satisfied you, what & {0.23}\\
+You can have it & {0.01}\\
+You and me & {0.02}\\
+\end{tabular}
+}
+};
+}
+
+{
+\node[anchor=west,double,draw=ublue,thick] (decoder) at ([xshift=1em,yshift=-13em]srcsentence.south west) {翻译引擎};
+
+\draw[->,thick,ublue] ([yshift=1em]phrasetable.south east) .. controls +(east:1.0em) and +(west:2.5em) .. (decoder.west);
+\draw[->,thick,ublue] ([yshift=-2em]langaugemodel.east) .. controls +(east:1.0em) and +(west:1.5em) .. (decoder.west);
+}
+
+{
+\draw[->,thick,double,ublue] (decoder.north) -- ([yshift=2.2em]decoder.north) node[pos=0.5,right] (decodinglabel) {\color{red}{\tiny{枚举所有可能}}};
+}
+
+{
+\draw[->,thick,double,ublue] (decoder.east) .. controls +(east:3.5em) .. ([xshift=3.5em,yshift=3.0em]decoder.east) node[xshift=0.5em,pos=0.3,below] (decodinglabel) {\color{red}{\tiny{计算翻译可能性}}};
+}
+
+{
+\node[anchor=west,draw,thick,red,minimum width=11.5em,minimum height=1em] (outputlabel) at ([xshift=-0.3em,yshift=-6.1em]srcsentence.south west){};
+\node[anchor=west] (outputlabel2) at ([xshift=-0.3em]outputlabel.east) {\color{red}{\tiny{输出}}};
+}
+
+}
+\end{scope}
+
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+

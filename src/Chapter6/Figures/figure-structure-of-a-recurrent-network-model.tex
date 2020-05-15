@@ -1,0 +1,62 @@
+
+
+%------------------------------------------------------------
+
+\begin{tikzpicture}
+
+\begin{scope}[scale=0.9]
+{\Large
+\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=3em,minimum height=0.8em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
+\node [anchor=west,rnnnode] (node11) at (0,0) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node12) at ([xshift=1em]node11.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node13) at ([xshift=1em]node12.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node14) at ([xshift=1em]node13.east) {\scriptsize{RNN Cell}};
+
+\node [anchor=north,rnnnode,fill=blue!30!white] (e1) at ([yshift=-1em]node11.south) {\scriptsize{}};
+\node [anchor=north,rnnnode,fill=blue!30!white] (e2) at ([yshift=-1em]node12.south) {\scriptsize{}};
+\node [anchor=north,rnnnode,fill=blue!30!white] (e3) at ([yshift=-1em]node13.south) {\scriptsize{}};
+\node [anchor=north,rnnnode,fill=blue!30!white] (e4) at ([yshift=-1em]node14.south) {\scriptsize{}};
+\node [anchor=north,inner sep=2pt] (w1) at ([yshift=-1em]e1.south) {\footnotesize{$<$sos$>$}};
+\node [anchor=north,inner sep=2pt] (w2) at ([yshift=-1em]e2.south) {\footnotesize{让}};
+\node [anchor=north,inner sep=2pt] (w3) at ([yshift=-1em]e3.south) {\footnotesize{我们}};
+\node [anchor=north,inner sep=2pt] (w4) at ([yshift=-1em]e4.south) {\footnotesize{开始}};
+
+\draw [->,thick] ([yshift=0.1em]w1.north)--([yshift=-0.1em]e1.south);
+\draw [->,thick] ([yshift=0.1em]w2.north)--([yshift=-0.1em]e2.south);
+\draw [->,thick] ([yshift=0.1em]w3.north)--([yshift=-0.1em]e3.south);
+\draw [->,thick] ([yshift=0.1em]w4.north)--([yshift=-0.1em]e4.south);
+
+\draw [->,thick] ([yshift=0.1em]e1.north)--([yshift=-0.1em]node11.south);
+\draw [->,thick] ([yshift=0.1em]e2.north)--([yshift=-0.1em]node12.south);
+\draw [->,thick] ([yshift=0.1em]e3.north)--([yshift=-0.1em]node13.south);
+\draw [->,thick] ([yshift=0.1em]e4.north)--([yshift=-0.1em]node14.south);
+
+\node [anchor=south,rnnnode,fill=blue!30!white] (node21) at ([yshift=1.0em]node11.north) {\scriptsize{}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node22) at ([yshift=1.0em]node12.north) {\scriptsize{}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node23) at ([yshift=1.0em]node13.north) {\scriptsize{}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node24) at ([yshift=1.0em]node14.north) {\scriptsize{}};
+
+\node [anchor=south] (output1) at ([yshift=1em]node21.north) {\Large{\textbf{}}};
+\node [anchor=south] (output2) at ([yshift=1em]node22.north) {\Large{\textbf{}}};
+\node [anchor=south] (output3) at ([yshift=1em]node23.north) {\Large{\textbf{}}};
+\node [anchor=south] (output4) at ([yshift=1em]node24.north) {\Large{\textbf{}}};
+
+\draw [->,thick] ([yshift=0.1em]node21.north)--([yshift=-0.1em]output1.south);
+\draw [->,thick] ([yshift=0.1em]node22.north)--([yshift=-0.1em]output2.south);
+\draw [->,thick] ([yshift=0.1em]node23.north)--([yshift=-0.1em]output3.south);
+\draw [->,thick] ([yshift=0.1em]node24.north)--([yshift=-0.1em]output4.south);
+
+\draw [->,thick] ([yshift=0.1em]node11.north)--([yshift=-0.1em]node21.south);
+\draw [->,thick] ([yshift=0.1em]node12.north)--([yshift=-0.1em]node22.south);
+\draw [->,thick] ([yshift=0.1em]node13.north)--([yshift=-0.1em]node23.south);
+\draw [->,thick] ([yshift=0.1em]node14.north)--([yshift=-0.1em]node24.south);
+
+\draw [->,thick] ([xshift=-1em]node11.west)--([xshift=-0.1em]node11.west);
+\draw [->,thick] ([xshift=0.1em]node11.east)--([xshift=-0.1em]node12.west);
+\draw [->,thick] ([xshift=0.1em]node12.east)--([xshift=-0.1em]node13.west);
+\draw [->,thick] ([xshift=0.1em]node13.east)--([xshift=-0.1em]node14.west);
+\draw [->,thick] ([xshift=0.1em]node14.east)--([xshift=1em]node14.east);
+}
+\end{scope}
+
+\end{tikzpicture}

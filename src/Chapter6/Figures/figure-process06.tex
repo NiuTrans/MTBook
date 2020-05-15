@@ -1,0 +1,116 @@
+
+
+
+%-----------------------------------------
+
+           \begin{tikzpicture}
+                \setlength{\base}{0.9em}
+                \tikzstyle{rnnnode} = [rounded corners=1pt,minimum size=1\base,draw,inner sep=0pt,outer sep=0pt,fill=blue!30!white]
+                \tikzstyle{wordnode} = [font=\footnotesize,align=center]
+
+                \begin{scope}
+                    % rnn[layer][step]
+                    \coordinate (rnn00) at (0,0);
+                    \foreach \i [count=\j from 0] in {1,2,3}
+                        \node[wordnode] (rnn\i0) at ([yshift=2\base]rnn\j0) {$0$};
+                    \foreach \i [count=\j from 0] in {1,2,...,4}
+                        \coordinate (rnn0\i) at ([xshift=2\base]rnn0\j);
+
+                    % step 1
+                    {
+                        \node[rnnnode] (rnn11) at ([xshift=2\base]rnn10) {};
+                        \draw[-latex'] ([yshift=0.5\base]rnn01) to (rnn11);
+                        \draw[-latex'] ([xshift=0.5\base]rnn10) to (rnn11);
+                    }
+                    
+
+                    % step 2
+                    {
+                        \node[rnnnode] (rnn12) at ([xshift=2\base]rnn11) {};
+                        \node[rnnnode] (rnn21) at ([yshift=2\base]rnn11) {};
+                        \draw[-latex'] ([yshift=0.5\base]rnn02) to (rnn12);
+                        \draw[-latex'] ([xshift=0.5\base]rnn20) to (rnn21);
+                        \draw[-latex'] (rnn11) to (rnn12);
+                        \draw[-latex'] (rnn11) to (rnn21);
+                    }
+                    
+
+                    % step 3
+                    {
+                        \node[rnnnode] (rnn13) at ([xshift=2\base]rnn12) {};
+                        \node[rnnnode] (rnn31) at ([yshift=2\base]rnn21) {};
+                        \node[rnnnode] (rnn22) at ([xshift=2\base]rnn21) {};
+                        \node[wordnode,anchor=south] (o1) at ([yshift=\base]rnn31.north) {很};
+                        \draw[-latex'] ([yshift=0.5\base]rnn03) to (rnn13);
+                        \draw[-latex'] ([xshift=0.5\base]rnn30) to (rnn31);
+                        \draw[-latex'] (rnn12) to (rnn13);
+                        \draw[-latex'] (rnn21) to (rnn31);
+                        \draw[-latex'] (rnn12) to (rnn22);
+                        \draw[-latex'] (rnn21) to (rnn22);
+                        \draw[-latex'] (rnn31) to (o1);
+                    }
+                    
+
+                    % step 4
+                    {
+                        \node[rnnnode] (rnn14) at ([xshift=2\base]rnn13) {};
+                        \node[rnnnode] (rnn23) at ([xshift=2\base]rnn22) {};
+                        \node[rnnnode] (rnn32) at ([xshift=2\base]rnn31) {};
+                        \node[wordnode,anchor=south] (o2) at ([yshift=\base]rnn32.north) {不错};
+                        \draw[-latex'] ([yshift=0.5\base]rnn04) to (rnn14);
+                        \draw[-latex'] (rnn13) to (rnn14);
+                        \draw[-latex'] (rnn13) to (rnn23);
+                        \draw[-latex'] (rnn22) to (rnn23);
+                        \draw[-latex'] (rnn22) to (rnn32);
+                        \draw[-latex'] (rnn31) to (rnn32);
+                        \draw[-latex'] (rnn32) to (o2);
+                    }
+                    
+
+             % step 5
+                    {
+                        \node[rnnnode] (rnn24) at ([xshift=2\base]rnn23) {};
+                        \node[rnnnode] (rnn33) at ([xshift=2\base]rnn32) {};
+                        \node[wordnode,anchor=south] (o3) at ([yshift=\base]rnn33.north) {。};
+                        \draw[-latex'] (rnn14) to (rnn24);
+                        \draw[-latex'] (rnn23) to (rnn24);
+                        \draw[-latex'] (rnn23) to (rnn33);
+                        \draw[-latex'] (rnn32) to (rnn33);
+                        \draw[-latex'] (rnn33) to (o3);
+                    }
+                    
+
+ 		% step 6
+                    {
+                        \node[rnnnode] (rnn34) at ([xshift=2\base]rnn33) {};
+                        \node[wordnode,anchor=south] (o4) at ([yshift=\base]rnn34.north) {$\langle$eos$\rangle$};
+                        \draw[-latex'] (rnn33) to (rnn34);
+                        \draw[-latex'] (rnn24) to (rnn34);
+                        \draw[-latex'] (rnn34) to (o4);
+                    }
+                   {
+                        % frontier
+                        \node[rnnnode,fill=purple] () at (rnn34) {};
+                        \node[draw=red,thick,inner sep=5pt,rounded corners=0.3em,rotate fit=-45,label={[font=\scriptsize,align=center]90:正在运算的\\{\color{red} 循环单元}},fit=(rnn34)] () {};
+                    }
+
+                    % labels
+                    {
+                        \draw[decorate,decoration={brace}] ([yshift=-\base]rnn10.west) to node[wordnode,align=right,left,font=\scriptsize] {空闲的\\设备1} ([yshift=\base]rnn10.west);
+                    }
+                    {
+                        \draw[decorate,decoration={brace}] ([yshift=-\base]rnn20.west) to node[wordnode,align=right,left,font=\scriptsize] {空闲的\\设备2} ([yshift=\base]rnn20.west);
+                    }
+                    {
+                        \draw[decorate,decoration={brace}] ([yshift=-\base]rnn30.west) to node[wordnode,align=right,left,text=red,font=\scriptsize] {正在使用的\\设备3} ([yshift=\base]rnn30.west);
+                    }
+
+                    \foreach \i in {1,2,3}
+                        \node[wordnode,font=\tiny,anchor=south west] () at ([yshift=-0.25em]rnn\i0.north west) {第\i 层};
+
+                    \node[wordnode,font=\scriptsize] () at (rnn01) {你};
+                    \node[wordnode,font=\scriptsize] () at (rnn02) {很};
+                    \node[wordnode,font=\scriptsize] () at (rnn03) {不错};
+                    \node[wordnode,font=\scriptsize] () at ([xshift=0.25em]rnn04) {。};
+                \end{scope}
+            \end{tikzpicture}

@@ -1,0 +1,44 @@
+
+%----------------------------------
+
+
+          \begin{tikzpicture}
+                \setlength{\base}{1.5em}
+                \tikzstyle{samplenode} = [rounded corners=1pt,minimum size=1\base,draw,inner sep=3pt,outer sep=0pt,fill=green!30!white]
+                \tikzstyle{rnnnode} = [rounded corners=1pt,minimum size=1\base,draw,inner sep=0pt,outer sep=0pt,fill=blue!30!white]
+                \tikzstyle{wordnode} = [font=\footnotesize,align=center]
+
+                \begin{scope}
+                    \coordinate (batch0) at (0,0);
+
+                    \foreach \i [count=\j from 0,evaluate=\i as \k using int(4-\i)] in {1,2,3}
+                        \node [samplenode,anchor=south west,font=\scriptsize] (batch\i) at ([shift={(-1em,-0.5em)}]batch\j.south west) {句子\k};
+                    \draw [decorate,decoration={brace}] (batch1.south east) to node [auto,rotate=30,anchor=north,font=\scriptsize] {batch大小} (batch3.south east);
+
+                    \node [samplenode,anchor=west,font=\scriptsize] (sample2) at ([xshift=4em]batch2.east) {句子2};
+                    \node [samplenode,anchor=south,font=\scriptsize] (sample3) at ([yshift=3em]sample2.north) {句子3};
+                    \node [samplenode,anchor=north,font=\scriptsize] (sample1) at ([yshift=-3em]sample2.south) {句子1};
+
+                    \foreach \i in {1,2,3}
+                        \draw [->,thick] ([xshift=1.5em]batch2.east) -- ([xshift=-3pt]sample\i.west);
+
+                    \foreach \i in {1,2,3}
+                    {
+                        \coordinate (start) at ([xshift=2em]sample\i.east);
+                        \node [wordnode,anchor=west] (rnn0) at (start) {$0$};
+                        \foreach \j [count=\k from 0] in {1,2,3}
+                        {
+                            \node [rnnnode,anchor=west] (rnn\j) at ([xshift=1em]rnn\k.east) {};
+                            \draw [-latex'] (rnn\k) to (rnn\j);
+                            \coordinate (in\j) at ([yshift=-1em]rnn\j.south);
+                            \draw [-latex'] (in\j) to (rnn\j.south);
+                            \coordinate (out\j) at ([yshift=1em]rnn\j.north);
+                            \draw [-latex'] (rnn\j.north) to (out\j);
+                        }
+                        \node [wordnode,anchor=west] (rnn4) at ([xshift=1em]rnn3.east) {$\cdots$};
+                        \draw [-latex'] (rnn3) to (rnn4);
+                        \node [draw,densely dashed,thick,rounded corners=0.3em,fit=(start) (in3) (out3) (rnn4),label={[font=\footnotesize,rotate=90,anchor=north]0:设备\i}] (rnn) {};
+                        \draw [->,double] ([xshift=3pt]sample\i.east) -- ([xshift=-3pt]rnn.west);
+                    }
+                \end{scope}
+            \end{tikzpicture}

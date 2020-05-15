@@ -1,0 +1,67 @@
+
+
+%-----------------------------------------
+
+           \begin{tikzpicture}
+                \setlength{\base}{0.9em}
+                \tikzstyle{rnnnode} = [rounded corners=1pt,minimum size=1\base,draw,inner sep=0pt,outer sep=0pt,fill=blue!30!white]
+                \tikzstyle{wordnode} = [font=\footnotesize,align=center]
+                \tikzstyle{test} = [rounded corners=1pt,minimum size=1\base,inner sep=0pt,outer sep=0pt]
+
+                \begin{scope}
+                    % rnn[layer][step]
+                    \coordinate (rnn00) at (0,0);
+                    \foreach \i [count=\j from 0] in {1,2,3}
+                        \node[wordnode] (rnn\i0) at ([yshift=2\base]rnn\j0) {$0$};
+                    \foreach \i [count=\j from 0] in {1,2,...,4}
+                        \coordinate (rnn0\i) at ([xshift=2\base]rnn0\j);
+
+                    % step 1
+                   {
+                        \node[rnnnode] (rnn11) at ([xshift=2\base]rnn10) {};
+                        \draw[-latex'] ([yshift=0.5\base]rnn01) to (rnn11);
+                        \draw[-latex'] ([xshift=0.5\base]rnn10) to (rnn11);
+                    }
+                    {
+                        % frontier
+                        \node[rnnnode,fill=purple] () at (rnn11) {};
+                        \node[draw=red,thick,inner sep=5pt,rounded corners=0.3em,rotate fit=-45,label={[font=\scriptsize,align=center]90:正在运算的\\{\color{red} 循环单元}},fit=(rnn11)] () {};
+                    }
+
+                    % 占位
+                    {
+                        \node[test] (z2) at ([xshift=2\base]rnn10) {};
+                        \node[test] (z3) at ([xshift=2\base]z2) {};
+                        \node[test] (z4) at ([xshift=2\base]z3) {};
+                        \node[test] (z5) at ([xshift=2\base]z4) {};
+                        \node[test] (z6) at ([xshift=2\base]z5) {};
+                        \node[test] (z7) at ([xshift=2\base]z6) {};
+                        %\node[test] (z8) at ([xshift=2\base]z7) {};
+                    }
+
+                    % labels
+                    %\alt<1-4>
+                    {
+                        \draw[decorate,decoration={brace}] ([yshift=-\base]rnn10.west) to node[wordnode,align=right,left,text=red,font=\scriptsize] {正在使用的\\设备1} ([yshift=\base]rnn10.west);
+                    }
+                    %\alt<2-5>
+                  {
+                        \draw[decorate,decoration={brace}] ([yshift=-\base]rnn20.west) to node[wordnode,align=right,left,font=\scriptsize] {空闲的\\设备2} ([yshift=\base]rnn20.west);
+                    }
+                    %\alt<3-6>
+                   {
+                        \draw[decorate,decoration={brace}] ([yshift=-\base]rnn30.west) to node[wordnode,align=right,left,font=\scriptsize] {空闲的\\设备3} ([yshift=\base]rnn30.west);
+                    }
+
+                    \foreach \i in {1,2,3}
+                        \node[wordnode,font=\tiny,anchor=south west] () at ([yshift=-0.25em]rnn\i0.north west) {第\i 层};
+               
+					\node[wordnode,font=\scriptsize] () at (rnn01) {你};
+                    \node[wordnode,font=\scriptsize] () at (rnn02) {很};
+                    \node[wordnode,font=\scriptsize] () at (rnn03) {不错};
+                    \node[wordnode,font=\scriptsize] () at ([xshift=0.25em]rnn04) {。};
+                    
+					
+                \end{scope}
+                
+            \end{tikzpicture}

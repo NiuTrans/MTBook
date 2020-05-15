@@ -1,0 +1,29 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  规则实例(树到树)
+\begin{center}
+\begin{tikzpicture}
+
+{
+\begin{scope}[sibling distance=5pt, level distance = 22pt]
+\Tree[.\node(s1){VP}; [.\node(s2){PP}; ] [.\node(s3){VP}; [.\node(s4){VV}; \node[fill=white](w1){表示}; ] [.\node(s5){NN}; ] ] ]
+\end{scope}
+
+\begin{scope}[xshift=1.2in, yshift=-0.2in, sibling distance=5pt, level distance = 22pt]
+\Tree[.\node(ws1){NN}; \node(ws2){满意}; ]
+\end{scope}
+
+\node (anchor=west] (arrow) at ([xshift=0.4in]ws2.east) {\large{$\Rightarrow$}};
+
+\begin{pgfonlayer}{background}
+\node [inner sep=0,fill=red!20] [fit = (ws1)] (snode1) {};
+\node [inner sep=0,fill=red!20] [fit = (s5)] (snode2) {};
+\draw [<-,thick,dotted] ([xshift=0.1em]s5.east) ..controls +(east:3em) and +(west:3em).. ([xshift=-0.1em]ws1.west);
+\end{pgfonlayer}
+
+\begin{scope}[xshift=2.5in, sibling distance=5pt, level distance = 22pt]
+\Tree[.\node(s1){VP}; [.\node(s2){PP}; ] [.\node(s3){VP}; [.\node(s4){VV}; \node[fill=white](w1){表示}; ] [.\node(s5){NN}; \node(w2){满意}; ] ] ]
+\end{scope}
+}
+
+\end{tikzpicture}
+\end{center}

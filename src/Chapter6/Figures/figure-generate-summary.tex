@@ -1,0 +1,40 @@
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+%第一段----------------------------------------------
+%原文-------------
+\node [pos=0.4,left,xshift=-32em,yshift=10em,font=\small] (original0) {输入文本：};
+\node [pos=0.4,left,xshift=-2em,yshift=2.3em,font=\small] (original1) {
+\begin{tabular}[t]{l}
+\parbox{32em}{
+Jenson Button was denied his 100th race for McLaren after an ERS prevented him from making it to the startline. It capped a miserable weekend for the Briton; his time in Bahrain plagued by reliability issues. Button spent much of the race on Twitter delivering his verdict as the action unfolded. ’Kimi is the man to watch,’ and ’loving the sparks’, were among his pearls of wisdom, but the tweet which courted the most attention was a rather mischievous one: ’Ooh is Lewis backing his team mate into Vettel?’ he quizzed after Rosberg accused Hamilton of pulling off such a manoeuvre in China. Jenson Button waves to the crowd ahead of the Bahrain Grand Prix which he failed to start Perhaps a career in the media beckons... Lewis Hamilton has out-qualified and finished ahead of Nico Rosberg at every race this season. Indeed Rosberg has now beaten his Mercedes team-mate only once in the 11 races since the pair infamously collided in Belgium last year. Hamilton secured the 36th win of his career in Bahrain and his 21st from pole position. Only Michael Schumacher (40), Ayrton Senna (29) and Sebastian Vettel (27) have more. (...) 
+}
+\end{tabular}
+};
+%译文1--------------mt1
+\node[font=\small] (mt1) at ([xshift=0em,yshift=-16.8em]original0.south) {系统生成\quad};
+\node[font=\small] (mt-2) at ([xshift=0em,yshift=-0.5em]mt1.south) {的摘要：\quad };
+\node[font=\small] (ts1) at ([xshift=0em,yshift=-3em]original1.south)  {
+\begin{tabular}[t]{l}
+\parbox{32em}{
+Button was denied his 100th race for McLaren. The ERS prevented him from making it to the start-line. Button was his team mate in the 11 races in Bahrain. He quizzed after Nico Rosberg accused Lewis Hamilton of pulling off such a manoeuvre in China.
+}
+\end{tabular}
+};
+
+%{
+%\draw[dotted,thick,ublue] ([xshift=10.3em,yshift=0.3em]mt8.south west)--%([xshift=-5.2em,yshift=-0.3em]ht8.north);
+%}
+
+
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original0)(mt1)(mt-2)(ts1)(original1)] {};
+}
+\end{pgfonlayer}
+
+
+\end{tikzpicture}

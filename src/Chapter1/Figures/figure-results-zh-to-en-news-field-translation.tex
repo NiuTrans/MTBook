@@ -1,0 +1,39 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+%%% outline
+%-------------------------------------------------------------------------
+
+{
+\begin{tikzpicture}
+\node [anchor=south west, fill=blue!50, minimum width=1.1cm, minimum height=2.3cm] (mt) at (1,0) {{\color{white} {\small\sffamily\bfseries{机器}}}};
+\node [anchor=south west, fill=red!50, minimum width=1.1cm, minimum height=2.7cm] (human) at ([xshift=0.5cm]mt.south east) {{\color{white} {\small\sffamily\bfseries{人}}}};
+\node [anchor=south] (mtscore) at (mt.north) {3.9};
+\node [anchor=south] (humanscore) at (human.north) {4.7};
+\draw [->,thick] ([xshift=-0.5cm]mt.south west) -- ([xshift=0.5cm]human.south east);
+\draw [->,thick] ([xshift=-0.5cm]mt.south west) -- ([xshift=-0.5cm,yshift=3.2cm]mt.south west);
+
+\node [anchor=south west, fill=blue!50, minimum width=1.1cm, minimum height=1.5cm] (mt1) at ([xshift=13.0em,yshift=-3.0em]mt.east) {{\color{white} {\small\sffamily\bfseries{机器}}}};
+\node [anchor=south west, fill=red!50, minimum width=1.1cm, minimum height=2.7cm] (human1) at ([xshift=0.5cm]mt1.south east) {{\color{white} {\small\sffamily\bfseries{人}}}};
+\node [anchor=south] (mtscore1) at (mt1.north) {47\%};
+\node [anchor=south] (humanscore1) at (human1.north) {100\%};
+\draw [->,thick] ([xshift=-0.5cm]mt1.south west) -- ([xshift=0.5cm]human1.south east);
+\draw [->,thick] ([xshift=-0.5cm]mt1.south west) -- ([xshift=-0.5cm,yshift=3.2cm]mt1.south west);
+
+\node[anchor=south](footname1) at ([xshift=2.1em,yshift=-2.0em]mt.south){\footnotesize{人工评价(5分满)}};
+\node[anchor=south](footname2) at ([xshift=2.1em,yshift=-2.0em]mt1.south){\footnotesize{自动评价}};
+\end{tikzpicture}
+
+}
+
+
+
+
+
+
+%---------------------------------------------------------------------
+
+
+

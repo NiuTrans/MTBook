@@ -1,0 +1,33 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+{
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+		\begin{tikzpicture}
+
+		\begin{scope}
+		\node [anchor=west] (s1) at (0,0) {我};
+		\node [anchor=west] (s2) at ([xshift=0.8em]s1.east) {对};
+		\node [anchor=west] (s3) at ([xshift=0.8em]s2.east) {你};
+		\node [anchor=west] (s4) at ([xshift=0.9em]s3.east) {感到};
+		\node [anchor=west] (s5) at ([xshift=1.2em]s4.east) {满意};
+		\end{scope}
+
+		\begin{scope}[yshift=-3em]
+		\node [anchor=west] (t1) at (0.35em,0) {I};
+		\node [anchor=west] (t2) at ([xshift=0.5em,yshift=-0.1em]t1.east) {am};
+		\node [anchor=west] (t3) at ([xshift=0.5em,yshift=0.1em]t2.east) {satisfied};
+		\node [anchor=west] (t4) at ([xshift=0.5em]t3.east) {with};
+		\node [anchor=west] (t5) at ([xshift=0.5em,yshift=-0.2em]t4.east) {you};
+		\end{scope}
+
+		{
+		\draw [-,thick,ublue,dashed] (s1.south) -- (t1.north);
+		\draw [-,thick,ublue,dashed] (s4.south) -- ([yshift=0.3em]t2.north);
+		\draw [-,thick,ublue,dashed] (s2.south) ..controls +(south:1em) and +(north:1em).. (t4.north);
+		\draw [-,thick,ublue,dashed] (s3.south) ..controls +(south:0.5em) and +(north:1.5em).. (t5.north);
+		\draw [-,thick,ublue,dashed] (s5.south) -- (t3.north);
+		}
+		\end{tikzpicture}
+}
+%---------------------------------------------------------------------

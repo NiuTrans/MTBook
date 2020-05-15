@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+
+\begin{scope}
+\node [anchor=south west,draw,thick,red,minimum width=0.9in,minimum height=0.7in] (space1) at (0,0) {};
+\node [anchor=south west,fill=blue,minimum width=0.1in,minimum height=0.1in] (unit1) at (0.2,0.8) {};
+\node [anchor=south west,fill=ugreen,minimum width=0.1in,minimum height=0.1in] (unit2) at (0.7,0.3) {};
+\node [anchor=south west,fill=blue,minimum width=0.1in,minimum height=0.1in] (unit3) at (1.3,1.3) {};
+\node [anchor=south west,fill=ugreen,minimum width=0.1in,minimum height=0.1in] (unit4) at ([xshift=0.1em]unit3.south east) {};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=2pt,rounded corners=1pt,draw,thick] [fit = (unit3) (unit4)] (unitbox) {};
+\end{pgfonlayer}
+
+\draw [->] ([yshift=1pt]unit1.north) .. controls +(north:0.23) and +(west:0.2) .. ([yshift=0.2em,xshift=-1pt]unitbox.west);
+\draw [->] ([xshift=1pt]unit2.east) .. controls +(east:0.5) and +(south:0.2) .. ([xshift=0.2em,yshift=-1pt]unitbox.south);
+
+\node [anchor=south] (spacelabel1) at (space1.north) {\scriptsize{离散表示空间}};
+\node [anchor=north] (captain1) at ([yshift=-0.5em]space1.south) {\scriptsize{(a) \textbf{统计机器翻译}}};
+
+\end{scope}
+
+\begin{scope}[xshift=1.3in]
+\node [anchor=south west,draw,thick,red,minimum width=0.9in,minimum height=0.7in] (space1) at (0,0) {};
+\node [anchor=south west,fill=blue,minimum width=0.1in,minimum height=0.1in] (unit1) at (0.2,0.8) {};
+\node [anchor=south west,fill=ugreen,minimum width=0.1in,minimum height=0.1in] (unit2) at (0.7,0.3) {};
+
+\node [anchor=south west,draw,thick,red,minimum width=0.9in,minimum height=0.7in] (space2) at (1.1in,0) {};
+\node [anchor=south west,circle,fill=orange,minimum width=0.1in,minimum height=0.1in] (unit3) at (1.5in,1.3) {};
+
+\draw [->] ([yshift=1pt]unit1.north) .. controls +(north:0.4) and +(west:2) .. ([yshift=0.0em,xshift=-1pt]unit3.west);
+\draw [->] ([xshift=1pt]unit2.east) .. controls +(east:1.5) and +(south:1) .. ([xshift=0.0em,yshift=-1pt]unit3.south);
+
+\node [anchor=south] (spacelabel1) at (space1.north) {\scriptsize{离散表示空间}};
+\node [anchor=south] (spacelabel2) at (space2.north) {\scriptsize{连续表示空间}};
+\node [anchor=north] (captain1) at ([yshift=-0.5em,xshift=1em]space1.south east) {\scriptsize{(b) \textbf{神经机器翻译}}};
+
+\end{scope}
+
+\end{tikzpicture}

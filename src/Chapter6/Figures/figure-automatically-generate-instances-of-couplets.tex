@@ -1,0 +1,24 @@
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{lnode} = [minimum height=2.5em,minimum width=12em,inner sep=3pt,rounded corners=2pt,draw=red!75!black,fill=red!5];
+\tikzstyle{rnode} = [minimum height=2.5em,minimum width=12em,inner sep=3pt,rounded corners=2pt,draw=blue!75!black,fill=blue!5];
+\tikzstyle{standard} = [rounded corners=3pt]
+
+\node [lnode,anchor=west] (l1) at (0,0) {上联：翠竹千支歌盛世};
+\node [rnode,anchor=west] (l2) at ([xshift=1em]l1.east) {下联：红梅万点报新春};
+
+\node [lnode,anchor=north] (l3) at ([yshift=-0.8em]l1.south) {上联：一帆风顺年年好};
+\node [rnode,anchor=west] (l4) at ([xshift=1em]l3.east) {下联：万事如意步步高};
+
+\node [lnode,anchor=north] (l5) at ([yshift=-0.8em]l3.south) {上联：佳节迎春春生笑脸};
+\node [rnode,anchor=west] (l6) at ([xshift=1em]l5.east) {下联：新年纳福富华满堂};
+
+\node [lnode,anchor=north] (l7) at ([yshift=-0.8em]l5.south) {上联：腊梅吐芳迎红日};
+\node [rnode,anchor=west] (l8) at ([xshift=1em]l7.east) {下联：绿柳展枝舞春风};
+
+\node [lnode,anchor=north] (l9) at ([yshift=-0.8em]l7.south) {上联：雪兆丰年丛岭翠};
+\node [rnode,anchor=west] (l10) at ([xshift=1em]l9.east) {下联：春回大地满园红};
+
+\end{scope}
+\end{tikzpicture}

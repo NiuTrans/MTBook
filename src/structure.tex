@@ -1,0 +1,655 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX encoding = UTF-8 Unicode
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This file was modified on top of 
+% The Legrand Orange Book
+% Structural Definitions File
+%
+% Original author:
+% Mathias Legrand (legrand.mathias@gmail.com) with modifications by:
+% Vel (vel@latextemplates.com)
+%
+% Current Version is maintained by 
+% Tong Xiao (xiaotong@mail.neu.edu.cn)
+% Runzhe Cao (854581319@qq.com)
+%
+% License of This File:
+% CC BY-NC-SA 4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	VARIOUS REQUIRED PACKAGES AND CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage{graphicx} % Required for including pictures
+\graphicspath{{Figures/}} % Specifies the directory where pictures are stored
+
+\usepackage{lipsum} % Inserts dummy text
+
+\usepackage{tikz} % Required for drawing custom shapes
+
+\usepackage[english]{babel} % English language/hyphenation
+
+\usepackage{enumitem} % Customize lists
+\setlist{nolistsep} % Reduce spacing between bullet points and numbered lists
+
+\usepackage{booktabs} % Required for nicer horizontal rules in tables
+
+\usepackage{xcolor} % Required for specifying colors by name
+\definecolor{ocre}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
+
+%----------------------------------------------------------------------------------------
+%	MARGINS
+%----------------------------------------------------------------------------------------
+
+\usepackage{geometry} % Required for adjusting page dimensions and margins
+
+\geometry{
+	paper=b5paper, % Paper size, change to letterpaper for US letter size
+	%papersize={185mm,260mm}, % specify paper size by (width,height)
+	top=2cm, % Top margin
+	bottom=1.5cm, % Bottom margin原来1.5cm
+	left=1.8cm, % Left margin
+	right=1.8cm, % Right margin
+	headheight=10pt, % Header height
+	footskip=1.4cm, % Space from the bottom margin to the baseline of the footer
+	headsep=10pt, % Space from the top margin to the baseline of the header
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%	FONTS
+%----------------------------------------------------------------------------------------
+
+\usepackage{avant} % Use the Avantgarde font for headings
+%\usepackage{times} % Use the Times font for headings
+\usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
+
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage[utf8]{inputenc} % Required for including letters with accents
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY AND INDEX
+%----------------------------------------------------------------------------------------
+
+\usepackage[style=numeric,citestyle=numeric,sorting=anyt,sortcites=true,maxbibnames=40,minbibnames=30,autopunct=true,babel=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber]{biblatex}
+%maxbibnames 设置参考文献最多显示作者数目
+%minbibnames 如果作者数目超过maxbibnames，则只显示minbibnames个作者
+\addbibresource{bibliography.bib} % BibTeX bibliography file
+\defbibheading{bibempty}{}
+
+\usepackage{calc} % For simpler calculation - used for spacing the index letter headings correctly
+\usepackage{makeidx} % Required to make an index
+\makeindex % Tells LaTeX to create the files required for indexing
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}%参考文献上标
+
+%----------------------------------------------------------------------------------------
+%	MAIN TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\usepackage{titletoc} % Required for manipulating the table of contents
+
+\contentsmargin{0cm} % Removes the default margin
+
+% Part text styling (this is mostly taken care of in the PART HEADINGS section of this file)
+\titlecontents{part}
+	[0cm] % Left indentation
+	{\addvspace{20pt}\bfseries} % Spacing and font options for parts
+	{}
+	{}
+	{}
+
+% Chapter text styling
+\titlecontents{chapter}
+	[1.25cm] % Left indentation
+	{\addvspace{12pt}\large\sffamily\bfseries} % Spacing and font options for chapters
+	{\color{ocre!60}\contentslabel[\Large\thecontentslabel]{1.25cm}\color{ocre}} % Formatting of numbered sections of this type
+	{\color{ocre}} % Formatting of numberless sections of this type
+	{\color{ocre!60}\normalsize\;\titlerule*[.5pc]{.}\;\thecontentspage} % Formatting of the filler to the right of the heading and the page number
+
+% Section text styling
+\titlecontents{section}
+	[1.25cm] % Left indentation
+	{\addvspace{3pt}\sffamily\bfseries} % Spacing and font options for sections
+	{\contentslabel[\thecontentslabel]{1.25cm}} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\titlerule*[.5pc]{.}\;\thecontentspage}%
+	%{\hfill\color{black}\thecontentspage} % Formatting of the filler to the right of the heading and the page number
+% Subsection text styling
+\titlecontents{subsection}
+	[1.25cm] % Left indentation
+	{\addvspace{1pt}\sffamily\small} % Spacing and font options for subsections
+	{\contentslabel[\thecontentslabel]{1.25cm}} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\ \titlerule*[.5pc]{.}\;\thecontentspage} % Formatting of the filler to the right of the heading and the page number
+
+% Figure text styling
+\titlecontents{figure}
+	[1.25cm] % Left indentation
+	{\addvspace{1pt}\sffamily\small} % Spacing and font options for figures
+	{\thecontentslabel\hspace*{1em}} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\ \titlerule*[.5pc]{.}\;\thecontentspage} % Formatting of the filler to the right of the heading and the page number
+
+% Table text styling
+\titlecontents{table}
+	[1.25cm] % Left indentation
+	{\addvspace{1pt}\sffamily\small} % Spacing and font options for tables
+	{\thecontentslabel\hspace*{1em}} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\ \titlerule*[.5pc]{.}\;\thecontentspage} % Formatting of the filler to the right of the heading and the page number
+
+%----------------------------------------------------------------------------------------
+%	MINI TABLE OF CONTENTS IN PART HEADS
+%----------------------------------------------------------------------------------------
+
+% Chapter text styling
+\titlecontents{lchapter}
+	[0em] % Left indentation
+	{\addvspace{15pt}\large\sffamily\bfseries} % Spacing and font options for chapters
+	{\color{ocre}\contentslabel[\Large\thecontentslabel]{1.25cm}\color{ocre}} % Chapter number
+	{}
+	{\color{ocre}\normalsize\sffamily\bfseries\;\titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+
+% Section text styling
+\titlecontents{lsection}
+	[0em] % Left indentation
+	{\sffamily\small} % Spacing and font options for sections
+	{\contentslabel[\thecontentslabel]{1.25cm}} % Section number
+	{}
+	{}
+
+% Subsection text styling (note these aren't shown by default, display them by searchings this file for tocdepth and reading the commented text)
+\titlecontents{lsubsection}
+	[.5em] % Left indentation
+	{\sffamily\footnotesize} % Spacing and font options for subsections
+	{\contentslabel[\thecontentslabel]{1.25cm}}
+	{}
+	{}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+\usepackage{fancyhdr} % Required for header and footer configuration
+
+\pagestyle{fancy} % Enable the custom headers and footers
+
+\renewcommand{\chaptermark}[1]{\markboth{\sffamily\normalsize\bfseries\chaptername\ \thechapter.\ #1 \quad 肖桐\ 朱靖波}{}} % Styling for the current chapter in the header
+\renewcommand{\sectionmark}[1]{\markright{\sffamily\normalsize\thesection\hspace{5pt}#1}{}} % Styling for the current section in the header
+
+\fancyhf{} % Clear default headers and footers
+\fancyhead[LE,RO]{\sffamily\normalsize\thepage} % Styling for the page number in the header
+\fancyhead[LO]{\rightmark} % Print the nearest section name on the left side of odd pages
+\fancyhead[RE]{\leftmark} % Print the current chapter name on the right side of even pages
+%\fancyfoot[RE]{\tiny{肖桐\ 朱靖波}}
+%O-odd page,E-even page,R-right area,L-left area,C-center area
+%\fancyfoot[C]{\thepage} % Uncomment to include a footer底部中间页码
+
+\renewcommand{\headrulewidth}{0.5pt} % Thickness of the rule under the header
+
+\fancypagestyle{plain}{% Style for when a plain pagestyle is specified
+	\fancyhead{}\renewcommand{\headrulewidth}{0pt}%
+}
+
+% Removes the header from odd empty pages at the end of chapters
+\makeatletter
+\renewcommand{\cleardoublepage}{
+\clearpage\ifodd\c@page\else
+\hbox{}
+\vspace*{\fill}
+\thispagestyle{empty}
+\newpage
+\fi}
+
+%----------------------------------------------------------------------------------------
+%	THEOREM STYLES
+%----------------------------------------------------------------------------------------
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % For math equations, theorems, symbols, etc
+
+\newcommand{\intoo}[2]{\mathopen{]}#1\,;#2\mathclose{[}}
+\newcommand{\ud}{\mathop{\mathrm{{}d}}\mathopen{}}
+\newcommand{\intff}[2]{\mathopen{[}#1\,;#2\mathclose{]}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newtheorem{notation}{Notation}[chapter]
+
+% Boxed/framed environments
+\newtheoremstyle{ocrenumbox}% Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+
+\newtheoremstyle{blacknumex}% Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% Body font
+{} % Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily{\tiny\ensuremath{\blacksquare}}\nobreakspace\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+\newtheoremstyle{blacknumbox} % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% Body font
+{}% Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+% Non-boxed/non-framed environments
+\newtheoremstyle{ocrenum}% Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\makeatother
+
+% Defines the theorem text style for each type of theorem to one of the three styles above
+\newcounter{dummy}
+\numberwithin{dummy}{section}
+\theoremstyle{ocrenumbox}
+\newtheorem{theoremeT}[dummy]{Theorem}
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{exerciseT}{Example}[chapter]
+\theoremstyle{blacknumex}
+\newtheorem{exampleT}{Example}[chapter]
+\theoremstyle{blacknumbox}
+\newtheorem{vocabulary}{Vocabulary}[chapter]
+\newtheorem{definitionT}{Definition}[section]
+\newtheorem{corollaryT}[dummy]{Corollary}
+\theoremstyle{ocrenum}
+\newtheorem{proposition}[dummy]{Proposition}
+
+%----------------------------------------------------------------------------------------
+%	DEFINITION OF COLORED BOXES
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[framemethod=default]{mdframed} % Required for creating the theorem, definition, exercise and corollary boxes
+
+% Theorem box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+backgroundcolor=black!5,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+innerbottommargin=5pt]{tBox}
+
+% Exercise box	
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+backgroundcolor=ocre!10,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+innerbottommargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt]{eBox}	
+
+% Definition box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=0pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=0pt]{dBox}	
+
+% Corollary box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=gray,
+backgroundcolor=black!5,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=5pt]{cBox}
+
+% Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
+\newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
+\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{ocre}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}				
+\newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
+\newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
+\newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
+
+%----------------------------------------------------------------------------------------
+%	REMARK ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+\leftmargin=35pt % Indentation on the left
+\rightmargin=25pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
+\advance\baselineskip 1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+
+%----------------------------------------------------------------------------------------
+%	SECTION NUMBERING IN THE MARGIN
+%----------------------------------------------------------------------------------------
+%调整各级标题的段前段后间距
+\makeatletter
+\renewcommand{\@seccntformat}[1]{\llap{\textcolor{ocre}{\csname the#1\endcsname}\hspace{1em}}}
+\renewcommand{\section}{\@startsection{section}{1}{\z@}
+{-4ex \@plus -1ex \@minus -.4ex}
+{1ex \@plus.2ex }
+{\color{ublue}\normalfont\Large\sffamily\bfseries}}
+\renewcommand{\subsection}{\@startsection {subsection}{2}{\z@}
+{-3ex \@plus -0.1ex \@minus -.4ex}
+{0.5ex \@plus.2ex }
+{\normalfont\large\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection {subsubsection}{3}{\z@}
+{-3ex \@plus -0.1ex \@minus -.4ex}
+{.4ex \@plus.2ex }
+{\normalfont\normalsize\sffamily\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+{-2ex \@plus-.2ex \@minus .2ex}
+{.1ex}
+{\normalfont\small\sffamily\bfseries}}
+
+%----------------------------------------------------------------------------------------
+%	PART HEADINGS
+%----------------------------------------------------------------------------------------
+
+% Numbered part in the table of contents
+\newcommand{\@mypartnumtocformat}[2]{%
+	\setlength\fboxsep{0pt}%
+	\noindent\colorbox{ocre!20}{\strut\parbox[c][.7cm]{\ecart}{\color{ocre!70}\Large\sffamily\bfseries\centering#1}}\hskip\esp\colorbox{ocre!40}{\strut\parbox[c][.7cm]{\linewidth-\ecart-\esp}{\Large\sffamily\centering#2}}%
+}
+
+% Unnumbered part in the table of contents
+\newcommand{\@myparttocformat}[1]{%
+	\setlength\fboxsep{0pt}%
+	\noindent\colorbox{ocre!40}{\strut\parbox[c][.7cm]{\linewidth}{\Large\sffamily\centering#1}}%
+}
+
+\newlength\esp
+\setlength\esp{4pt}
+\newlength\ecart
+\setlength\ecart{1.2cm-\esp}
+\newcommand{\thepartimage}{}%
+\newcommand{\partimage}[1]{\renewcommand{\thepartimage}{#1}}%
+\def\@part[#1]#2{%
+\ifnum \c@secnumdepth >-2\relax%
+\refstepcounter{part}%
+\addcontentsline{toc}{part}{\texorpdfstring{\protect\@mypartnumtocformat{\thepart}{#1}}{\partname~\thepart\ ---\ #1}}
+\else%
+\addcontentsline{toc}{part}{\texorpdfstring{\protect\@myparttocformat{#1}}{#1}}%
+\fi%
+\startcontents%
+\markboth{}{}%
+{\thispagestyle{empty}%
+\begin{tikzpicture}[remember picture,overlay]%
+\node at (current page.north west){\begin{tikzpicture}[remember picture,overlay]%	
+\fill[ocre!20](0cm,0cm) rectangle (\paperwidth,-\paperheight);
+\node[anchor=north] at (4cm,-3.25cm){\color{ocre!40}\fontsize{220}{100}\sffamily\bfseries\thepart};
+\node[anchor=south east] at (\paperwidth-1cm,-\paperheight+1cm){\parbox[t][][t]{8.5cm}{
+\printcontents{l}{0}{\setcounter{tocdepth}{1}}% The depth to which the Part mini table of contents displays headings; 0 for chapters only, 1 for chapters and sections and 2 for chapters, sections and subsections
+}};
+\node[anchor=north east] at (\paperwidth-1.5cm,-3.25cm){\parbox[t][][t]{15cm}{\strut\raggedleft\color{white}\fontsize{30}{30}\sffamily\bfseries#2}};
+\end{tikzpicture}};
+\end{tikzpicture}}%
+\@endpart}
+\def\@spart#1{%
+\startcontents%
+\phantomsection
+{\thispagestyle{empty}%
+\begin{tikzpicture}[remember picture,overlay]%
+\node at (current page.north west){\begin{tikzpicture}[remember picture,overlay]%	
+\fill[ocre!20](0cm,0cm) rectangle (\paperwidth,-\paperheight);
+\node[anchor=north east] at (\paperwidth-1.5cm,-3.25cm){\parbox[t][][t]{15cm}{\strut\raggedleft\color{white}\fontsize{30}{30}\sffamily\bfseries#1}};
+\end{tikzpicture}};
+\end{tikzpicture}}
+\addcontentsline{toc}{part}{\texorpdfstring{%
+\setlength\fboxsep{0pt}%
+\noindent\protect\colorbox{ocre!40}{\strut\protect\parbox[c][.7cm]{\linewidth}{\Large\sffamily\protect\centering #1\quad\mbox{}}}}{#1}}%
+\@endpart}
+\def\@endpart{\vfil\newpage
+\if@twoside
+\if@openright
+\null
+\thispagestyle{empty}%
+\newpage
+\fi
+\fi
+\if@tempswa
+\twocolumn
+\fi}
+
+%----------------------------------------------------------------------------------------
+%	SPECIAL FONTS
+%----------------------------------------------------------------------------------------
+
+\newcommand\bfnew[1]{\sffamily\bfseries{#1}}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER HEADINGS
+%----------------------------------------------------------------------------------------
+
+% A switch to conditionally include a picture, implemented by Christian Hupfer
+\newif\ifusechapterimage
+\usechapterimagetrue
+\newcommand{\thechapterimage}{}%
+\newcommand{\chapterimage}[1]{\ifusechapterimage\renewcommand{\thechapterimage}{#1}\fi}%
+\newcommand{\autodot}{.}
+\def\@makechapterhead#1{%
+{\parindent \z@ \raggedright \normalfont
+\ifnum \c@secnumdepth >\m@ne
+\if@mainmatter
+\begin{tikzpicture}[remember picture,overlay]
+\node at (current page.north west)
+{\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north west,inner sep=0pt] at (0,0) {\ifusechapterimage\includegraphics[width=\paperwidth]{\thechapterimage}\fi};
+\draw[anchor=west] (\Gm@lmargin,-7cm) node [line width=2pt,rounded corners=15pt,draw=ocre,fill=white,fill opacity=0.5,inner sep=15pt]{\strut\makebox[22cm]{}};
+\draw[anchor=west] (\Gm@lmargin+.3cm,-7cm) node {\huge\sffamily\bfseries\color{black}\thechapter\autodot~#1\strut};
+\end{tikzpicture}};
+\end{tikzpicture}
+\else
+\begin{tikzpicture}[remember picture,overlay]
+\node at (current page.north west)
+{\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north west,inner sep=0pt] at (0,0) {\ifusechapterimage\includegraphics[width=\paperwidth]{\thechapterimage}\fi};
+\draw[anchor=west] (\Gm@lmargin,-7cm) node [line width=2pt,rounded corners=15pt,draw=ocre,fill=white,fill opacity=0.5,inner sep=15pt]{\strut\makebox[22cm]{}};
+\draw[anchor=west] (\Gm@lmargin+.3cm,-7cm) node {\huge\sffamily\bfseries\color{black}#1\strut};
+\end{tikzpicture}};
+\end{tikzpicture}
+\fi\fi\par\vspace*{270\p@}}}
+
+%-------------------------------------------
+
+\def\@makeschapterhead#1{%
+\begin{tikzpicture}[remember picture,overlay]
+\node at (current page.north west)
+{\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north west,inner sep=0pt] at (0,0) {\ifusechapterimage\includegraphics[width=\paperwidth]{\thechapterimage}\fi};
+\draw[anchor=west] (\Gm@lmargin,-7cm) node [line width=2pt,rounded corners=15pt,draw=ocre,fill=white,fill opacity=0.5,inner sep=15pt]{\strut\makebox[22cm]{}};
+\draw[anchor=west] (\Gm@lmargin+.3cm,-7cm) node {\huge\sffamily\bfseries\color{black}#1\strut};
+\end{tikzpicture}};
+\end{tikzpicture}
+\par\vspace*{270\p@}}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	LINKS
+%----------------------------------------------------------------------------------------
+
+\usepackage{hyperref}
+\hypersetup{hidelinks,backref=true,pagebackref=true,hyperindex=true,colorlinks=false,breaklinks=true,urlcolor=ocre,bookmarks=true,bookmarksopen=true}
+%backref反向引用
+%pagebackref反向引用页码
+%hyperindex索引链接
+%colorlinks彩色链接
+%breaklinks允许链接断行
+%urlcolor网页与电邮链接颜色
+%bookmarks生成书签
+%bookmarksopen书签目录展开
+
+\usepackage{bookmark}
+\bookmarksetup{
+open,
+numbered,
+depth=2, %设置PDF的书签级别,2显示到subsection,3显示到subsubsection
+addtohook={%
+\ifnum\bookmarkget{level}=0 % chapter
+\bookmarksetup{bold}%
+\fi
+\ifnum\bookmarkget{level}=-1 % part
+\bookmarksetup{color=ocre,bold}%
+\fi
+}
+}
+
+%----------------------------------------------------------------------------------------
+%	NEW PAGE FOR SUBSECTION
+%----------------------------------------------------------------------------------------
+%\newcommand{\sectionnewpage}{\clearpage}
+\newcommand{\sectionnewpage}{}
+
+%----------------------------------------------------------------------------------------
+%	Chapter 3
+%----------------------------------------------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathreplacing}
+\usetikzlibrary{positioning,fit,calc}
+\usetikzlibrary{shadows} % LATEX and plain TEX when using Tik Z
+\usetikzlibrary{mindmap,backgrounds} % mind map
+\usepackage{type1cm}%设置公式字体
+\usepackage{caption}%设置图片标题字体大小
+\captionsetup{font={footnotesize}}
+\usepackage{pstricks}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{setspace}%调整行间距
+
+%\usepackage{tocbibind}
+
+%----------------------------------------------------------------------------------------
+%	Chapter 1
+%----------------------------------------------------------------------------------------
+\usepackage{chngpage}
+\usepackage[justification=centering]{caption}%强制图片居中
+\usepackage{subfigure}
+\newcommand{\parinterval}{\noindent\hspace{2em}}%定义变量替代原来开头的控制缩进
+\usepackage{tikz-qtree}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{bm}
+\usetikzlibrary{shapes.misc}
+\usepackage{appendix}
+\usepackage{pgfplots}
+\usepackage{tikz}
+
+%----------------------------------------------------------------------------------------
+%	Chapter 4
+%----------------------------------------------------------------------------------------
+\usepackage{pgffor}%图片中使用\foreach语句
+
+%----------------------------------------------------------------------------------------
+%	Chapter 6
+%----------------------------------------------------------------------------------------
+\usepackage{multirow}
+\usepackage{tcolorbox}
+\newcommand{\dash}{\raisebox{0.5mm}{------}}%中文破折号
+\usepackage{colortbl} %table上色
+
+\newlength{\base}
+\newdimen\XCoord
+\newdimen\YCoord
+\newdimen\TMP
+\newcommand*{\ExtractCoordinate}[1]{\path (#1); \pgfgetlastxy{\XCoord}{\YCoord};}%
+\newcommand*{\ExtractX}[1]{\path (#1); \pgfgetlastxy{\XCoord}{\TMP};}%
+\newcommand*{\ExtractY}[1]{\path (#1); \pgfgetlastxy{\TMP}{\YCoord};}%
+\newcommand{\specialcell}[3][c]{%
+ \begin{tabular}[#1]{@{}#2@{}}#3\end{tabular}}
+
+\usetikzlibrary{calc,intersections}
+\usetikzlibrary{matrix}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+\usepgflibrary{arrows}
+%\usetikzlibrary{arrows}
+%\usetikzlibrary{decorations}
+\usetikzlibrary{arrows,shapes}
+
+%%%%%%%%%%%chapter5图片等---------------------------------------
+\usepackage{tikz-3dplot}
+\usepackage{pifont}
+\tcbuselibrary{skins}
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+\definecolor{lgreen}{rgb}{0.9,1,0.8}
+\definecolor{xtgreen1}{rgb}{0.824,0.898,0.8}
+\definecolor{xtgreen}{rgb}{0.914,0.945,0.902}
+\definecolor{lightgray}{gray}{0.85}
+
+%%%%%%%%%%%%appendix-------------------------------
+\makeatletter
+\def\UrlAlphabet{%
+      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+      \do\Y\do\Z}
+\def\UrlDigits{\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro{\UrlBreaks}{\UrlOrds}%特殊符号
+\g@addto@macro{\UrlBreaks}{\UrlAlphabet}%26个字母表
+\g@addto@macro{\UrlBreaks}{\UrlDigits}%10个阿拉伯数字
+\makeatother
+%上述设置的作用是URL自动换行
+
+%%%%%%%%%%%chapter 7---------------------------------------
+%\definecolor{myblack}{rgb}{0.15,0.15,0.15}
+\definecolor{myblack}{rgb}{0.2,0.2,205.2}
+\newlength{\hseg}
+\newlength{\wnode}
+\newlength{\hnode}
+\newlength{\wseg}
+\usepackage{collcell}
+\usepackage[mathscr]{euscript}
+

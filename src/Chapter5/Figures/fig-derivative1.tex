@@ -1,0 +1,48 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{axis}[  
+  name=sigmoid,
+  width=6cm, height=4.5cm, 
+  xtick={-5,-2.5,...,6},
+  ytick={0,0.5,1.0},
+  xlabel={$x$},
+  ylabel={$y$},
+  xlabel style={xshift=2.4cm,yshift=0.7cm},
+  axis y line=middle,%y轴居中
+  ylabel style={xshift=0.1cm,yshift=0cm},
+  x axis line style={->},%x轴箭头
+  axis line style={very thick},
+  axis x line*=bottom,%将上面的x轴去掉，仅保留下面的x轴
+  xmin=-6,
+  xmax=6,
+  ymin=0,
+  ymax=1.4]
+\addplot[draw=red,very thick]{1/(1 + exp( -x))};
+\end{axis}
+\node [anchor=north] (labelc) at (2.3,-0.5) {\footnotesize{(a)}};
+\begin{axis}[
+  at={(sigmoid.east)},
+  anchor=east, 
+  xshift=6cm,
+  yshift=0cm,  
+  width=6cm, height=4.5cm, 
+  xtick={-4,-2,...,4},
+  ytick={0,0.1,0.2},
+  xlabel={$x$},
+  ylabel={$y$},
+  xlabel style={xshift=2.4cm,yshift=0.7cm},
+  axis y line=middle,%y轴居中
+  ylabel style={xshift=0.1cm,yshift=0cm},
+  x axis line style={->},%x轴箭头
+  axis line style={very thick},
+  axis x line*=bottom,%将上面的x轴去掉，仅保留下面的x轴
+  xmin=-6,
+  xmax=6,
+  ymin=0,
+  ymax=0.3]
+\addplot[draw=ublue,very thick]{(1/(1 + exp( -x)))*(1-(1/(1 + exp( -x))))};
+\end{axis}
+\node [anchor=north] (labelc) at (8.2,-0.5) {\footnotesize{(b)}};
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

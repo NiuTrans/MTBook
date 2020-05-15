@@ -1,0 +1,58 @@
+\begin{tikzpicture}
+   
+
+\node[rounded corners=1pt,minimum width=11.0em,minimum height=2.0em,fill=pink!30,draw=black](p1) at (0,0) {\small{Self-Attention}};
+
+\node[anchor=north](word1) at ([xshift=0.0em,yshift=-2.0em]p1.south) {\small \textbf{K}};
+\node[anchor=west](word2) at ([xshift=2.2em]word1.east) {\small \textbf{V}};
+\node[anchor=east](word3) at ([xshift=-2.2em]word1.west) {\small \textbf{Q}};
+
+\draw[->,thick](word1.north)--(p1.south);
+\draw[->,thick]([xshift=-3.6em]word1.north)--([xshift=-3.6em]p1.south);
+\draw[->,thick]([xshift=3.6em]word1.north)--([xshift=3.6em]p1.south);
+
+\node[anchor=north,rounded corners=1pt,minimum width=11.0em,minimum height=3.5em,draw=ugreen!70,very thick,dotted](p1-1) at ([yshift=-5.2em]p1.south) {\small{解码端每个位置的表示}};
+
+\draw [->,thick,dashed] (word3.south) .. controls +(south:1.5em) and +(north:1.5em) .. ([xshift=-0.4em]p1-1.north);
+\draw [->,thick,dashed](word1.south) --(p1-1.north);
+\draw [->,thick,dashed] (word2.south) .. controls +(south:1.0em) and +(north:1.5em) .. ([xshift=0.4em]p1-1.north);
+
+\node[anchor=north](caption1) at ([xshift=0.0em,yshift=-9.5em]p1.south){\small{(a) Self-Attention的输入}};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[anchor=west,rounded corners=1pt,minimum width=14.0em,minimum height=2.0em,fill=pink!30,draw=black](p2) at ([xshift=5.0em]p1.east){\small{Encoder-Decoder Attention}};
+
+\node[anchor=north](word1-2) at ([xshift=0.0em,yshift=-2.0em]p2.south) {\small \textbf{K}};
+\node[anchor=west](word2-2) at ([xshift=2.2em]word1-2.east) {\small \textbf{V}};
+\node[anchor=east](word3-2) at ([xshift=-2.2em]word1-2.west) {\small \textbf{Q}};
+
+\draw[->,thick](word1-2.north)--(p2.south);
+\draw[->,thick]([xshift=-3.6em]word1-2.north)--([xshift=-3.6em]p2.south);
+\draw[->,thick]([xshift=3.6em]word1-2.north)--([xshift=3.6em]p2.south);
+
+\node[anchor=north,rounded corners=1pt](p2-1) at ([xshift=-3.55em,yshift=-5.5em]p2.south) {\small{解码端每个}};
+\node[anchor=north,rounded corners=1pt](p2-2) at ([xshift=-3.55em,yshift=-6.8em]p2.south) {\small{位置的表示}};
+\begin{pgfonlayer}{background}
+{
+\node[rounded corners=1pt,draw=ugreen!70,very thick,dotted] [fit = (p2-1) (p2-2)] (p2-12) {};
+}
+\end{pgfonlayer}
+
+
+\node[anchor=north,rounded corners=1pt](p2-3) at ([xshift=3.55em,yshift=-5.5em]p2.south) {\small{编码端每个}};
+\node[anchor=north,rounded corners=1pt](p2-4) at ([xshift=3.55em,yshift=-6.8em]p2.south) {\small{位置的表示}};
+\begin{pgfonlayer}{background}
+{
+\node[rounded corners=1pt,draw=ugreen!70,very thick,dotted] [fit = (p2-3) (p2-4)] (p2-34) {};
+}
+\end{pgfonlayer}
+
+\draw[<-,thick,dashed]([xshift=-3.6em,yshift=-3.2em]word1-2.north)--([xshift=-3.6em,yshift=-3.2em]p2.south);
+\draw[<-,thick,dashed]([xshift=3.6em,yshift=-3.2em]word1-2.north)--([xshift=3.6em,yshift=-3.2em]p2.south);
+\draw [->,thick,dashed] (word1-2.south) .. controls +(south:1em) and +(north:1.5em) .. ([yshift=0.3em,xshift=-0.4em]p2-3.north);
+
+
+\node[anchor=north](caption2) at ([xshift=0.0em,yshift=-9.5em]p2.south){\small{(b) Encoder-Decoder Attention的输入}};
+
+
+
+    \end{tikzpicture}

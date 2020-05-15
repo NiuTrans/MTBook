@@ -1,0 +1,38 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tcolorbox}[enhanced,width=12cm,frame engine=empty,boxrule=0.1mm,size=title,colback=blue!10!white]
+\begin{flushleft}
+{\scriptsize
+\begin{tabbing}
+\texttt{XTensor a, b, c, d, e;} \hspace{9em} \= // 声明张量tensor \\
+\texttt{InitTensor3D(\&a, 2, 3, 4);} \> // a为2*3*4的3阶张量 \\
+\texttt{InitTensor3D(\&b, 2, 3, 4);} \> // b为2*3*4的3阶张量 \\
+\texttt{InitTensor3D(\&c, 2, 3, 4);} \> // c为2*3*4的3阶张量 \\
+\texttt{a.SetDataRand();} \> // 随机初始化a \\
+\texttt{b.SetDataRand();} \> // 随机初始化b \\
+\texttt{c.SetDataRand();} \> // 随机初始化c \\
+\texttt{d = a + b * c;} \> // d被赋值为 a + b * c \\
+\texttt{d = ((a + b) * d - b / c ) * d;} \> // d可以被嵌套使用 \\
+\texttt{e = Sigmoid(d);} \> // d经过激活函数Sigmoid赋值给e
+\end{tabbing}
+}
+\end{flushleft}
+\end{tcolorbox}
+\hspace{0.1in} \scriptsize{(a) 张量进行1阶运算}
+\\
+\begin{tcolorbox}[enhanced,width=12cm,frame engine=empty,boxrule=0.1mm,size=title,colback=blue!10!white]
+\begin{flushleft}
+{\scriptsize
+\begin{tabbing}
+\texttt{XTensor a, b, c;} \hspace{12.0em} \= // 声明张量tensor \\
+\texttt{InitTensor4D(\&a, 2, 2, 3, 4);} \> // a为2*2*3*4的4阶张量 \\
+\texttt{InitTensor2D(\&b, 4, 5);} \> // b为4*5的矩阵 \\
+\texttt{a.SetDataRand();} \> // 随机初始化a \\
+\texttt{b.SetDataRand();} \> // 随机初始化b \\
+\texttt{c = MMul(a, b);} \> // 矩阵乘的结果为2*2*3*5的4阶张量
+\end{tabbing}
+}
+\end{flushleft}
+\end{tcolorbox}
+\hspace{0.1in} \scriptsize{(b) 张量之间的矩阵乘法}
+%%%------------------------------------------------------------------------------------------------------------
+

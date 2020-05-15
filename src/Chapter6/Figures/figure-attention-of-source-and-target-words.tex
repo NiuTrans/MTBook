@@ -1,0 +1,59 @@
+
+%
+
+%---------------------------------------
+
+
+\begin{tikzpicture}
+\begin{scope}
+
+%\newlength{\mystep}
+%\setlength{\mystep}{1.6em}
+
+\foreach \x in {1,2,...,6}
+    \node[] (s\x) at (\x * 1.6em,0) {};
+
+\node [] (ws1) at (s1) {\scriptsize{这}};
+\node [] (ws2) at (s2) {\scriptsize{是}};
+\node [] (ws3) at (s3) {\scriptsize{个}};
+\node [] (ws4) at (s4) {\scriptsize{很长}};
+\node [] (ws5) at (s5) {\scriptsize{的}};
+\node [] (ws6) at (s6) {\scriptsize{句子}};
+
+\foreach \x in {1,2,...,6}
+    \node[] (t\x) at (\x * 1.6em + 2.4in,0) {};
+
+\node [] (wt1) at (t1) {\scriptsize{This}};
+\node [] (wt2) at (t2) {\scriptsize{is}};
+\node [] (wt3) at ([yshift=-1pt]t3) {\scriptsize{a}};
+\node [] (wt4) at ([yshift=-0.1em]t4) {\scriptsize{very}};
+\node [] (wt5) at (t5) {\scriptsize{long}};
+\node [] (wt6) at ([xshift=1em]t6) {\scriptsize{sentence}};
+
+\node [anchor=south west,fill=red!30,minimum width=1.6in,minimum height=1.5em] (encoder) at ([yshift=1.0em]ws1.north west) {\footnotesize{Encoder}};
+\node [anchor=west,fill=blue!30,minimum width=1.9in,minimum height=1.5em] (decoder) at ([xshift=4.5em]encoder.east) {\footnotesize{Decoder}};
+\node [anchor=west,fill=green!30,minimum height=1.5em] (representation) at ([xshift=1em]encoder.east) {\footnotesize{表示}};
+\draw [->,thick] ([xshift=1pt]encoder.east)--([xshift=-1pt]representation.west);
+\draw [->,thick] ([xshift=1pt]representation.east)--([xshift=-1pt]decoder.west);
+
+\foreach \x in {1,2,...,6}
+    \draw[->] ([yshift=0.1em]s\x.north) -- ([yshift=1.2em]s\x.north);
+
+\foreach \x in {1,2,...,5}
+    \draw[<-] ([yshift=0.1em]t\x.north) -- ([yshift=1.2em]t\x.north);
+
+\draw[<-] ([yshift=0.1em,xshift=1em]t6.north) -- ([yshift=1.2em,xshift=1em]t6.north);
+
+
+{
+\draw [<->,ublue,thick] ([xshift=0.3em]ws4.south) .. controls +(-60:1) and +(south:1) .. (wt4.south);
+\draw [<->,ublue,thick] (ws4.south) .. controls +(south:1.0) and +(south:1.5) .. (wt5.south);
+}
+
+{
+\node [anchor=north,fill=green!30] (attentionlabel) at ([yshift=-3.4em]representation.south) {\footnotesize{词语的关注度}};
+\draw [->,dotted,very thick,ublue] ([yshift=0.1em]attentionlabel.north)--([yshift=-0.1em]representation.south);
+}
+
+\end{scope}
+\end{tikzpicture}

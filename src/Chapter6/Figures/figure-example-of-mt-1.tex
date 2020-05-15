@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+%第一段----------------------------------------------
+%原文-------------
+\node [pos=0.4,left,xshift=-36em,yshift=7.3em,font=\small] (original0) {原文：};
+\node [pos=0.4,left,xshift=-2em,yshift=3.3em,font=\small] (original1) {
+\begin{tabular}[t]{l}
+\parbox{36em}{During Soviet times, if a city’s population topped one million, it would become eligible for its own metro. Planners wanted to brighten the lives of everyday Soviet citizens, and saw the metros, with their tens of thousands of daily passengers, as a singular opportunity to do so. In 1977, Tashkent, the capital of Uzbekistan, became the seventh Soviet city to have a metro built. Grand themes celebrating the history of Uzbekistan and the Soviet Union were brought to life, as art was commissioned and designers set to work. The stations reflected different themes, some with domed ceilings and painted tiles reminiscent of Uzbekistan’s Silk Road mosques, while others ...}
+\end{tabular}
+};
+%译文1--------------mt1
+\node[font=\small] (mt1) at ([xshift=0em,yshift=-9.1em]original0.south) {译文1：};
+\node[font=\small] (ts1) at ([xshift=0em,yshift=-4em]original1.south)  {
+\begin{tabular}[t]{l}
+\parbox{36em}{在苏联时代，如果一个城市的人口突破一百万，这将成为合资格为自己的地铁。规划者想去照亮每天的苏联公民的生命，看到地铁，与他们的数十每天数千乘客，作为一个独特的机会来这样做。1977年，塔什干，乌兹别克斯坦的首都，成了苏联第七城市建有地铁。宏大主题，庆祝乌兹别克斯坦和苏联的历史被带到生活，因为艺术是委托和设计师开始工作。车站反映了不同的主题，有的圆顶天花板和绘瓷砖让人想起乌兹别克斯坦是丝绸之路的清真寺，而另一些则装饰着...}
+\end{tabular}
+};
+
+
+
+%{
+%\draw[dotted,thick,ublue] ([xshift=10.3em,yshift=0.3em]mt8.south west)--%([xshift=-5.2em,yshift=-0.3em]ht8.north);
+%}
+
+
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original0)(mt1)(mt1)(ts1)(original1)] {};
+}
+\end{pgfonlayer}
+
+
+\end{tikzpicture}

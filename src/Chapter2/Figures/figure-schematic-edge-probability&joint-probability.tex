@@ -1,0 +1,22 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+
+
+
+\begin{scope}[scale=1.0]
+{
+
+\node [anchor=north west,minimum width=7em, minimum height=2.5em,fill=blue!30](num1)  at (0,0) {$A$\quad \quad \quad \quad  };
+\node [anchor=west,minimum width=7em, minimum height=5em,fill=ugreen!30](num2)  at ([xshift=-3em]num1.east) {\quad \quad $B$};
+\node [anchor=west,minimum width=3em, minimum height=2.5em,fill=yellow!30](part1)  at (num2.west) {$C$};
+
+\draw [-,thick] (num1.north west) -- (num1.north east) -- (num1.south east) -- (num1.south west) -- (num1.north west);
+\draw [-,very thick,dotted] (num2.north west) -- (num2.north east) -- (num2.south east) -- (num2.south west) -- (num2.north west);
+
+}
+\end{scope}
+\end{tikzpicture}
+%---------------------------------------------------------------------
+

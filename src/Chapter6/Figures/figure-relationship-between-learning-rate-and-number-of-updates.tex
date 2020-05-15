@@ -1,0 +1,20 @@
+
+
+
+            \begin{tikzpicture}
+            \footnotesize{
+                \begin{axis}[
+                    width=.60\textwidth,
+                    height=.40\textwidth,
+                    legend style={at={(0.60,0.08)}, anchor=south west},
+                    xlabel={\scriptsize{更新次数}},
+                    ylabel={\scriptsize{学习率}},
+                    xtick=\empty,
+                    ytick=\empty,
+                    ylabel style={yshift=-2.5em},xlabel style={yshift=1.5em},
+                    legend style={yshift=-6pt, legend plot pos=right,font=\scriptsize,cells={anchor=west}}
+                ]
+                \addplot[orange,line width=1.25pt] coordinates {(329,0.000045) (447,0.000078) (540,0.00012) (661,0.0002) (752,0.00032) (856,0.00051) (975,0.00089) (996,0.001) (6599,0.001) (6624,0.0005) (7200,0.0005) (7218,0.00025) (7784,0.00025) (7821,0.000125) (8398,0.000125)};
+                \end{axis}
+            }
+            \end{tikzpicture}

@@ -1,0 +1,14 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  基于树的解码方法 - chart-based decoding
+\begin{center}
+\begin{tikzpicture}\footnotesize
+\begin{scope}[scale=0.2]
+\node[anchor=south east] (g1) at (0,0) {\small{$\textrm{S} \to \textrm{AB}\ \ \ \textrm{A} \to \textrm{CD}\  \vert \  \textrm{CF}\ \ \ \textrm{B} \to \textrm{c}\  \vert \  \textrm{BE}$}};
+\node[anchor=north west] (g2) at ([yshift=0.3em]g1.south west) {\small{$\textrm{C} \to \textrm{a}\ \ \ \  \textrm{D} \to \textrm{b}\ \ \ \ \textrm{E} \to \textrm{c}\ \ \ \ \textrm{F} \to \textrm{AD}$}};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.1em,rounded corners=1pt,fill=green!10,drop shadow,draw=ugreen] [fit = (g1) (g2)] (gl1) {};
+\end{pgfonlayer}
+\end{scope}
+\end{tikzpicture}
+\end{center}

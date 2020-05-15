@@ -1,0 +1,72 @@
+
+\begin{tikzpicture}
+\begin{scope}
+\begin{scope}[scale=0.65, level distance=27pt]
+\Tree[.S
+        [.NP
+            [.DT \node(ew1){the}; ]
+            [.NNS \node(ew2){imports}; ]
+        ]
+        [.VP
+            [.VBZ \node(ew3){have}; ]
+            [.ADVP
+                [.RB \node(ew4){drastically}; ]
+                [.VBN \node(ew5){fallen}; ]
+            ]
+        ]
+     ]
+\end{scope}
+
+\begin{scope}[scale=0.65, level distance=27pt, grow'=up, xshift=-13pt, yshift=-3.5in, sibling distance=22pt]
+\Tree[.IP
+        [.NN \node(cw1){进口}; ]
+        [.VP
+            [.AD \node(cw2){大幅度}; ]
+            [.VP
+                [.VV \node(cw3){下降}; ]
+                [.AS \node(cw4){了}; ]
+            ]
+        ]
+     ]
+\end{scope}
+
+{
+\draw[-, dashed] (cw1) -- (ew2);
+\draw[-, dashed] (cw2) -- (ew4);
+\draw[-, dashed] (cw3) -- (ew5);
+\draw[-, dashed] (cw4) .. controls +(north:1.0) and +(south:1.6) .. (ew1);
+}
+
+{
+\draw[-, red, dashed,thick] (cw4) .. controls +(north:1.0) and +(south:1.6) .. (ew1);
+}
+
+
+\end{scope}
+
+\node[anchor=north](t1) at (4.5,0.3){{\small{抽取得到的规则}}};
+\node[anchor=north](t2) at ([xshift=5.5em,yshift=0.5em]t1.south){\underline{\qquad \qquad \qquad \quad  \qquad \qquad \qquad \qquad \qquad}};
+\node[anchor=north](t3) at ([xshift=-7.7em,yshift=0.0em]t2.south){\small{$r_1$}};
+\node[anchor=west](t3-1) at ([xshift=0.0em,yshift=0.0em]t3.east){\small{AS(了) $\rightarrow$ DT(the)}};
+\node[anchor=north](t4) at ([xshift=0.0em,yshift=0.0em]t3.south){\small{$r_2$}};
+\node[anchor=west](t4-1) at ([xshift=0.0em,yshift=0.0em]t4.east){\small{NN(进口) $\rightarrow$ NNS(imports)}};
+\node[anchor=north](t5) at ([xshift=0.0em,yshift=0.0em]t4.south){\small{$r_3$}};
+\node[anchor=west](t5-1) at ([xshift=0.0em,yshift=0.0em]t5.east){\small{AD(大幅度) $\rightarrow$ RB(drastically)}};
+\node[anchor=north](t6) at ([xshift=0.0em,yshift=0.0em]t5.south){\small{$r_4$}};
+\node[anchor=west](t6-1) at ([xshift=0.0em,yshift=0.0em]t6.east){\small{VV(下降) $\rightarrow$ VBN(fallen)}};
+\node[anchor=north](t7) at ([xshift=0.0em,yshift=0.0em]t6.south){\small{$r_6$}};
+\node[anchor=west](t7-1) at ([xshift=0.0em,yshift=0.0em]t7.east){\small{IP(NN$_1$ VP(AD$_2$ VP(VV$_3$ AS$_4$)) $\rightarrow$}};
+\node[anchor=north](t8) at ([xshift=9.4em,yshift=0.0em]t7.south){\scriptsize{S(NP(DT$_4$ NNS$_1$) VP(VBZ(have) ADVP(RB$_2$ VBN$_3$))}};
+
+\node[anchor=north](s1) at ([yshift=-8.0em]t1.south){{\small{无法得到的规则}}};
+\node[anchor=north](s2) at ([xshift=5.5em,yshift=0.5em]s1.south){\underline{\qquad \qquad \qquad \quad  \qquad \qquad \qquad \qquad \qquad}};
+\node[anchor=north](s3) at ([xshift=-7.7em,yshift=0.0em]s2.south){\small{$r_{?}$}};
+\node[anchor=west](s3-1) at ([xshift=0.0em,yshift=0.0em]s3.east){\small{AS(了) $\rightarrow$ VBZ(have)}};
+\node[anchor=north](s4) at ([xshift=0.0em,yshift=0.0em]s3.south){\small{$r_{?}$}};
+\node[anchor=west](s4-1) at ([xshift=0.0em,yshift=0.0em]s4.east){\small{NN(进口) $\rightarrow$}\small{NP(DT(the) NNS(imports))}};
+\node[anchor=north](s6) at ([xshift=0.0em,yshift=0.0em]s4.south){\small{$r_{?}$}};
+\node[anchor=west](s6-1) at ([xshift=0.0em,yshift=0.0em]s6.east){\small{IP(NN$_1$ VP$_2$) $\rightarrow$ S(NP$_1$ VP$_2$)}};
+
+\end{tikzpicture}
+
+

@@ -1,0 +1,80 @@
+%%%------------------------------------------------------------------------------------------------------------
+ \begin{tcolorbox}
+[bicolor,sidebyside,width=11cm,righthand width=4cm,size=title,frame engine=empty,
+ colback=blue!10!white,colbacklower=black!5!white]
+ {\scriptsize
+\begin{tabbing}
+\texttt{XTensor x[3], y[3], r, wh;} \\
+\texttt{XTensor h1, h2, w1, b1, h3, h4;} \\
+\texttt{XList splits;} \\
+\texttt{...} \\
+\texttt{for(unsigned i = 0; i < 3; i++)\{} \\
+\texttt{\hspace{2em}r = Concatenate(x[i] + r) * wh;}\\
+\texttt{\hspace{2em}splits.Add(\&r);}\\
+\texttt{\}}\\
+
+\texttt{} \\
+\texttt{h1 = Merge(splits, 0);}\\
+\texttt{h2 = Relu(h1 * w1 + b1);}\\
+\texttt{h3 = h1 + h2;} \\
+\texttt{h4 = Softmax(h3);} \\
+
+
+\texttt{} \\
+\texttt{Split(h4, splits, 0);} \\
+\texttt{} \\
+\texttt{for(unsigned i = 0; i < 3; i++)\{} \\
+\texttt{\hspace{2em}y[i] = *(XTensor*)splits.Get(i);}\\
+\texttt{\hspace{2em}y[i].Dump(stdout);}\\
+\texttt{\}}
+
+\end{tabbing}
+}
+\tcblower
+\begin{center}
+\begin{tikzpicture}
+\node [draw,circle,inner sep=1pt,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (x1) at (0,0) {\footnotesize{$\textrm{x}_1$}};
+\node [anchor=west,draw,circle,inner sep=1pt,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (x2) at ([xshift=2em]x1.east) {\footnotesize{$\textrm{x}_2$}};
+\node [anchor=west,draw,circle,inner sep=1pt,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (x3) at ([xshift=2em]x2.east) {\footnotesize{$\textrm{x}_3$}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=2.5em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (rlayer1) at ([yshift=1em]x1.north) {\tiny{rlayer}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=2.5em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (rlayer2) at ([yshift=1em]x2.north) {\tiny{rlayer}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=2.5em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (rlayer3) at ([yshift=1em]x3.north) {\tiny{rlayer}};
+\draw [->,thick] (x1.north) -- (rlayer1.south);
+\draw [->,thick] (x2.north) -- (rlayer2.south);
+\draw [->,thick] (x3.north) -- (rlayer3.south);
+\draw [->,thick] (rlayer1.east) -- (rlayer2.west);
+\draw [->,thick] (rlayer2.east) -- (rlayer3.west);
+\draw [->,thick] (rlayer1.north) -- ([yshift=1em]rlayer1.north);
+\draw [->,thick] (rlayer2.north) -- ([yshift=1em]rlayer2.north);
+\draw [->,thick] (rlayer3.north) -- ([yshift=1em]rlayer3.north);
+
+{
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=9.4em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h1) at ([yshift=1em]rlayer2.north) {\scriptsize{h1 = Merge($\cdot$)}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=9.4em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h2) at ([yshift=1em]h1.north) {\scriptsize{h2 = Relu($\cdot$)}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=9.4em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h3) at ([yshift=1em]h2.north) {\scriptsize{h3 = Sum($\cdot$)}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=9.4em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h4) at ([yshift=1em]h3.north) {\scriptsize{h4 = Softmax($\cdot$)}};
+\draw [->,thick] (h1.north) -- (h2.south);
+\draw [->,thick] (h2.north) -- (h3.south);
+\draw [->,thick] (h3.north) -- (h4.south);
+\draw [->,thick,rounded corners] (h1.east) -- ([xshift=0.5em]h1.east) -- ([xshift=0.5em,yshift=0.5em]h2.north east) -- ([xshift=-2em,yshift=0.5em]h2.north east) -- ([xshift=-2em,yshift=1em]h2.north east);
+}
+
+{
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=9.4em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (slayer) at ([yshift=1em]h4.north) {\scriptsize{Split($\cdot$)}};
+\node [anchor=south,draw,circle,inner sep=1pt,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (y2) at ([yshift=1em]slayer.north) {\footnotesize{$\textrm{y}_2$}};
+\node [anchor=east,draw,circle,inner sep=1pt,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (y1) at ([xshift=-2em]y2.west) {\footnotesize{$\textrm{y}_1$}};
+\node [anchor=west,draw,circle,inner sep=1pt,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (y3) at ([xshift=2em]y2.east) {\footnotesize{$\textrm{y}_3$}};
+\draw [<-,thick] (y1.south) -- ([yshift=-1em]y1.south);
+\draw [<-,thick] (y2.south) -- ([yshift=-1em]y2.south);
+\draw [<-,thick] (y3.south) -- ([yshift=-1em]y3.south);
+}
+
+{
+\draw [->,thick] (h4.north) -- (slayer.south);
+}
+
+\end{tikzpicture}
+\end{center}
+\end{tcolorbox}
+%%%------------------------------------------------------------------------------------------------------------
+

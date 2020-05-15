@@ -1,0 +1,60 @@
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{rnode} = [draw,minimum width=3.5em,minimum height=1.2em]
+
+\node [rnode,anchor=south west,fill=red!20!white] (e1) at (0,0) {\scriptsize{$\textbf{e}(\textrm{``沈阳''})$}};
+\node [rnode,anchor=south west,fill=red!20!white] (e2) at ([xshift=1em]e1.south east) {\scriptsize{$\textbf{e}(\textrm{``到''})$}};
+\node [rnode,anchor=south west,fill=red!20!white] (e3) at ([xshift=1em]e2.south east) {\scriptsize{$\textbf{e}(\textrm{``广州''})$}};
+\node [rnode,anchor=south west,fill=red!20!white] (e4) at ([xshift=1em]e3.south east) {\scriptsize{$\textbf{e}(\textrm{``的''})$}};
+\node [rnode,anchor=south west,fill=red!20!white] (e5) at ([xshift=1em]e4.south east) {\scriptsize{$\textbf{e}(\textrm{``机票''})$}};
+
+\node [rnode,anchor=south west,fill=green!20!white] (h1) at ([yshift=1.5em]e1.north west) {\scriptsize{$\textbf{h}(\textrm{``沈阳''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (h2) at ([yshift=1.5em]e2.north west) {\scriptsize{$\textbf{h}(\textrm{``到''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (h3) at ([yshift=1.5em]e3.north west) {\scriptsize{$\textbf{h}(\textrm{``广州''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (h4) at ([yshift=1.5em]e4.north west) {\scriptsize{$\textbf{h}(\textrm{``的''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (h5) at ([yshift=1.5em]e5.north west) {\scriptsize{$\textbf{h}(\textrm{``机票''})$}};
+
+\foreach \x in {1,2,3,4,5}{
+	\node [anchor=north] (plus\x) at ([yshift=-0em]e\x.south) {\scriptsize{$\mathbf{\oplus}$}};
+}
+
+\node [rnode,anchor=north,fill=yellow!20!white] (pos1) at ([yshift=-1.1em]e1.south) {\scriptsize{$\textbf{PE}(1)$}};
+\node [rnode,anchor=north,fill=yellow!20!white] (pos2) at ([yshift=-1.1em]e2.south) {\scriptsize{$\textbf{PE}(2)$}};
+\node [rnode,anchor=north,fill=yellow!20!white] (pos3) at ([yshift=-1.1em]e3.south) {\scriptsize{$\textbf{PE}(3)$}};
+\node [rnode,anchor=north,fill=yellow!20!white] (pos4) at ([yshift=-1.1em]e4.south) {\scriptsize{$\textbf{PE}(4)$}};
+\node [rnode,anchor=north,fill=yellow!20!white] (pos5) at ([yshift=-1.1em]e5.south) {\scriptsize{$\textbf{PE}(5)$}};
+
+
+\foreach \x in {1,2,3,4,5}{
+	\node [rectangle,inner sep=0.1em,rounded corners=1pt,very thick,dotted,draw=red!60] [fit = (e\x) (pos\x)] (box\x) {};
+}
+
+\node [anchor=north] (inputs1) at ([yshift=-1em]pos1.south) {\scriptsize{沈阳}};
+\node [anchor=north] (inputs2) at ([yshift=-1em]pos2.south) {\scriptsize{到}};
+\node [anchor=north] (inputs3) at ([yshift=-1em]pos3.south) {\scriptsize{广州}};
+\node [anchor=north] (inputs4) at ([yshift=-1em]pos4.south) {\scriptsize{的}};
+\node [anchor=north] (inputs5) at ([yshift=-1em]pos5.south) {\scriptsize{机票}};
+
+\draw [->] ([yshift=0.1em]e1.north) .. controls +(north:0.5) and +(south:0.5) .. ([xshift=-1em,yshift=-0.1em]h3.south);
+\draw [->] ([yshift=0.1em]e2.north) .. controls +(north:0.3) and +(south:0.6) .. ([xshift=-0.5em,yshift=-0.1em]h3.south);
+\draw [->] ([yshift=0.1em]e3.north) -- ([yshift=-0.1em]h3.south);
+\draw [->] ([yshift=0.1em]e4.north) .. controls +(north:0.3) and +(south:0.6) .. ([xshift=0.5em,yshift=-0.1em]h3.south);
+\draw [->] ([yshift=0.1em]e5.north) .. controls +(north:0.5) and +(south:0.5) .. ([xshift=1em,yshift=-0.1em]h3.south);
+\draw [->] ([yshift=0.1em]e1.north) -- ([yshift=-0.1em]h1.south);
+\draw [->] ([yshift=0.1em]e2.north) -- ([yshift=-0.1em]h2.south);
+\draw [->] ([yshift=0.1em]e4.north) -- ([yshift=-0.1em]h4.south);
+\draw [->] ([yshift=0.1em]e5.north) -- ([yshift=-0.1em]h5.south);
+
+\foreach \x in {1,2,3,4,5}{
+	\draw [->] ([yshift=-0.1em]inputs\x.north) -- ([yshift=-0.2em]pos\x.south);
+}
+
+
+\node [anchor=north] (dot1) at ([xshift=0.4em,yshift=-0.2em]h1.south) {\tiny{...}};
+\node [anchor=north] (dot2) at ([xshift=0.4em,yshift=-0.2em]h2.south) {\tiny{...}};
+\node [anchor=north] (dot4) at ([xshift=-0.4em,yshift=-0.2em]h4.south) {\tiny{...}};
+\node [anchor=north] (dot5) at ([xshift=-0.4em,yshift=-0.2em]h5.south) {\tiny{...}};
+
+\end{scope}
+\end{tikzpicture}
