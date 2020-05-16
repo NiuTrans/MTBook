@@ -1,5 +1,5 @@
 # **机器翻译：统计建模与深度学习方法**
-<font size=5>**Machine Translation: Statistical Modeling and Deep Learning Methods**</font>
+<font size=14>**Machine Translation: Statistical Modeling and Deep Learning Methods**</font>
 
 *肖桐 (Tong Xiao)*    *朱靖波 (Jingbo Zhu)*
 
@@ -8,8 +8,7 @@
 网站：[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
 
 GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
-
-
+</br>
 
 这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
