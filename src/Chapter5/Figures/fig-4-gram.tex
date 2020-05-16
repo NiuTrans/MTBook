@@ -1,4 +1,3 @@
-%%%------------------------------------------------------------------------------------------------------------
 \begin{tikzpicture}
 \begin{scope}
 \node [anchor=west] (w0) at (0,0) {\footnotesize{$w_{i-3}$}};
@@ -7,11 +6,13 @@
 \node [anchor=north] (index0) at ([yshift=0.5em]w0.south) {\tiny(index)};
 \node [anchor=north] (index1) at ([yshift=0.5em]w1.south) {\tiny(index)};
 \node [anchor=north] (index2) at ([yshift=0.5em]w2.south) {\tiny(index)};
-\node [anchor=south,draw,inner sep=3pt] (e0) at ([yshift=1em]w0.north) {\tiny{$\textbf{e}_0=w_{i-3} \textbf{C}$}};
-\node [anchor=south,draw,inner sep=3pt] (e1) at ([yshift=1em]w1.north) {\tiny{$\textbf{e}_1=w_{i-2} \textbf{C}$}};
-\node [anchor=south,draw,inner sep=3pt] (e2) at ([yshift=1em]w2.north) {\tiny{$\textbf{e}_2=w_{i-1} \textbf{C}$}};
-\node [anchor=south,draw,minimum width=9em,inner sep=3pt] (h0) at ([yshift=1.5em]e1.north) {\tiny{$\textbf{h}_0=\textrm{Tanh}([\textbf{e}_0,\textbf{e}_1,\textbf{e}_2] \textbf{H} + \textbf{d})$}};
-\node [anchor=south,draw,minimum width=9em,inner sep=3pt] (h1) at ([yshift=1.5em]h0.north) {\tiny{$\textbf{y}=\textrm{Softmax}(\textbf{h}_0 \textbf{U})$}};
+
+\node [anchor=south,draw,inner sep=3pt,fill=blue!20!white] (e0) at ([yshift=1em]w0.north) {\tiny{$\textbf{e}_0=w_{i-3} \textbf{C}$}};
+\node [anchor=south,draw,inner sep=3pt,fill=blue!20!white] (e1) at ([yshift=1em]w1.north) {\tiny{$\textbf{e}_1=w_{i-2} \textbf{C}$}};
+\node [anchor=south,draw,inner sep=3pt,fill=blue!20!white] (e2) at ([yshift=1em]w2.north) {\tiny{$\textbf{e}_2=w_{i-1} \textbf{C}$}};
+
+\node [anchor=south,draw,minimum width=9em,inner sep=3pt,fill=orange!20!white] (h0) at ([yshift=1.5em]e1.north) {\tiny{$\textbf{h}_0=\textrm{Tanh}([\textbf{e}_0,\textbf{e}_1,\textbf{e}_2] \textbf{H} + \textbf{d})$}};
+\node [anchor=south,draw,minimum width=9em,inner sep=3pt,fill=orange!20!white] (h1) at ([yshift=1.5em]h0.north) {\tiny{$\textbf{y}=\textrm{Softmax}(\textbf{h}_0 \textbf{U})$}};
 \node [anchor=south] (ylabel) at ([yshift=1em]h1.north) {\footnotesize{$\textrm{P}(w_i|w_{i-3}w_{i-2}w_{i-1})$}};
 
 \draw [->,line width=1pt] ([yshift=0.1em]w0.north) -- ([yshift=-0.1em]e0.south);
@@ -37,17 +38,7 @@
 }
 \end{pgfonlayer}
 
-{
-\node [anchor=south,draw,inner sep=3pt,fill=blue!20!white] (e0) at ([yshift=1em]w0.north) {\tiny{$\textbf{e}_0=w_{i-3} \textbf{C}$}};
-\node [anchor=south,draw,inner sep=3pt,fill=blue!20!white] (e1) at ([yshift=1em]w1.north) {\tiny{$\textbf{e}_1=w_{i-2} \textbf{C}$}};
-\node [anchor=south,draw,inner sep=3pt,fill=blue!20!white] (e2) at ([yshift=1em]w2.north) {\tiny{$\textbf{e}_2=w_{i-1} \textbf{C}$}};
-}
-{
-\node [anchor=south,draw,minimum width=9em,inner sep=3pt,fill=orange!20!white] (h0) at ([yshift=1.5em]e1.north) {\tiny{$\textbf{h}_0=\textrm{Tanh}([\textbf{e}_0,\textbf{e}_1,\textbf{e}_2] \textbf{H} + \textbf{d})$}};
-\node [anchor=south,draw,minimum width=9em,inner sep=3pt,fill=orange!20!white] (h1) at ([yshift=1.5em]h0.north) {\tiny{$\textbf{y}=\textrm{Softmax}(\textbf{h}_0 \textbf{U})$}};
-}
+
 
 \end{scope}
 \end{tikzpicture}
-%%%------------------------------------------------------------------------------------------------------------
-

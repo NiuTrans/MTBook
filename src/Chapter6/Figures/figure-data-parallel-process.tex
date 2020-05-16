@@ -11,8 +11,10 @@
                 \begin{scope}
                     \coordinate (batch0) at (0,0);
 
-                    \foreach \i [count=\j from 0,evaluate=\i as \k using int(4-\i)] in {1,2,3}
-                        \node [samplenode,anchor=south west,font=\scriptsize] (batch\i) at ([shift={(-1em,-0.5em)}]batch\j.south west) {句子\k};
+                    \foreach \i [count=\j from 0,evaluate=\i as \k using int(4-\i)] in {1,2}
+                        \node [samplenode,anchor=south west,font=\scriptsize] (batch\i) at ([shift={(-1em,-0.5em)}]batch\j.south west) {\qquad \k};
+                    \foreach \i [count=\j from 2,evaluate=\i as \k using int(4-\i)] in {3}
+                        \node [samplenode,anchor=south west,font=\scriptsize] (batch\i) at ([shift={(-1em,-0.5em)}]batch\j.south west) {句子 \k};
                     \draw [decorate,decoration={brace}] (batch1.south east) to node [auto,rotate=30,anchor=north,font=\scriptsize] {batch大小} (batch3.south east);
 
                     \node [samplenode,anchor=west,font=\scriptsize] (sample2) at ([xshift=4em]batch2.east) {句子2};

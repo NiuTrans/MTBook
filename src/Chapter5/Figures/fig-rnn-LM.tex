@@ -1,4 +1,3 @@
-%%%------------------------------------------------------------------------------------------------------------
 \begin{tikzpicture}
 \begin{scope}
 \tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=4em,minimum height=1.5em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
@@ -28,22 +27,15 @@
 \draw [->,thick] ([yshift=0.1em]e4.north)--([yshift=-0.1em]node14.south);
 
 {
-\node [anchor=south,rnnnode] (node21) at ([yshift=1.5em]node11.north) {\scriptsize{RNN Cell}};
-\node [anchor=south,rnnnode] (node22) at ([yshift=1.5em]node12.north) {\scriptsize{RNN Cell}};
-\node [anchor=south,rnnnode] (node23) at ([yshift=1.5em]node13.north) {\scriptsize{RNN Cell}};
-\node [anchor=south,rnnnode] (node24) at ([yshift=1.5em]node14.north) {\scriptsize{RNN Cell}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node21) at ([yshift=1.5em]node11.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node22) at ([yshift=1.5em]node12.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node23) at ([yshift=1.5em]node13.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!30!white] (node24) at ([yshift=1.5em]node14.north) {\scriptsize{Softmax($\cdot$)}};
 
 \node [anchor=south,rnnnode,fill=blue!30!white] (node31) at ([yshift=1.5em]node21.north) {\scriptsize{Softmax($\cdot$)}};
 \node [anchor=south,rnnnode,fill=blue!30!white] (node32) at ([yshift=1.5em]node22.north) {\scriptsize{Softmax($\cdot$)}};
 \node [anchor=south,rnnnode,fill=blue!30!white] (node33) at ([yshift=1.5em]node23.north) {\scriptsize{Softmax($\cdot$)}};
 \node [anchor=south,rnnnode,fill=blue!30!white] (node34) at ([yshift=1.5em]node24.north) {\scriptsize{Softmax($\cdot$)}};
-}
-
-{
-\node [anchor=south,rnnnode,fill=blue!30!white] (node21) at ([yshift=1.5em]node11.north) {\scriptsize{Softmax($\cdot$)}};
-\node [anchor=south,rnnnode,fill=blue!30!white] (node22) at ([yshift=1.5em]node12.north) {\scriptsize{Softmax($\cdot$)}};
-\node [anchor=south,rnnnode,fill=blue!30!white] (node23) at ([yshift=1.5em]node13.north) {\scriptsize{Softmax($\cdot$)}};
-\node [anchor=south,rnnnode,fill=blue!30!white] (node24) at ([yshift=1.5em]node14.north) {\scriptsize{Softmax($\cdot$)}};
 }
 
 {
@@ -64,7 +56,7 @@
 \draw [->,thick] ([xshift=0.1em]node24.east)--([xshift=1em]node24.east);
 }
 
-{
+
 \draw [->,thick] ([yshift=0.1em]node11.north)--([yshift=-0.1em]node21.south);
 \draw [->,thick] ([yshift=0.1em]node12.north)--([yshift=-0.1em]node22.south);
 \draw [->,thick] ([yshift=0.1em]node13.north)--([yshift=-0.1em]node23.south);
@@ -75,9 +67,7 @@
 \draw [->,thick] ([xshift=0.1em]node12.east)--([xshift=-0.1em]node13.west);
 \draw [->,thick] ([xshift=0.1em]node13.east)--([xshift=-0.1em]node14.west);
 \draw [->,thick] ([xshift=0.1em]node14.east)--([xshift=1em]node14.east);
-}
+
 
 \end{scope}
 \end{tikzpicture}
-%%%------------------------------------------------------------------------------------------------------------
-
