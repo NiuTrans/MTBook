@@ -1,5 +1,5 @@
 # **机器翻译：统计建模与深度学习方法**
-**Machine Translation: Statistical Modeling and Deep Learning Methods**
+<font size=5>**Machine Translation: Statistical Modeling and Deep Learning Methods**</font>
 
 *肖桐 (Tong Xiao)*    *朱靖波 (Jingbo Zhu)*
 
