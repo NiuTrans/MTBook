@@ -1,0 +1,364 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX encoding = UTF-8 Unicode
+
+%----------------------------------------------------------------------------------------
+% 机器翻译：统计建模与深度学习方法
+% Machine Translation: Statistical Modeling and Deep Learning Methods
+%
+% Copyright 2020
+% 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%    CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\part{附录}
+
+\renewcommand\figurename{图}%将figure改为图
+\renewcommand\tablename{表}%将figure改为图
+\chapterimage{fig-NEU-1.jpg} % Chapter heading image
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER  APPENDIX A
+%----------------------------------------------------------------------------------------
+
+\begin{appendices}
+\chapter{附录A}
+\label{appendix-A}
+\parinterval 在构建机器翻译系统的过程中，数据是必不可少的，尤其是现在主流的神经机器翻译系统，系统的性能往往受限于语料库规模和质量。所幸的是，随着语料库语言学的发展，一些主流语种的相关语料资源已经十分丰富。
+
+\parinterval 为了方便读者进行相关研究，我们汇总了几个常用的基准数据集，这些数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作可以进行复现和对比。同时，我们收集了一下常用的平行语料，方便读者进行一些探索。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{基准数据集}
+
+%----------------------------------------------
+\begin{table}[htp]{
+\footnotesize
+\begin{center}
+\caption{基准数据集}
+\label{tab:Reference-data-set}
+\begin{tabular}{p{1.6cm} | p{1.2cm} p{1.6cm} p{2.6cm} p{3.9cm}}
+{任务} & {语种} &{领域} &{描述} &{数据集地址} \\
+\hline
+\rule{0pt}{15pt}WMT & En Zh& 新闻、医学 & 以英语为核心的多& {http://www.statmt.org/wmt19/} \\
+ & De Ru等 & 、翻译 & 语种机器翻译数据 & \\
+ & & & 集，涉及多种任务 & \\
+\rule{0pt}{15pt}IWSLT & En De Fr & 口语翻译 & 文本翻译数据集来 & {https://wit3.fbk.eu/} \\
+ &  Cs Zh等 &  &自TED演讲，数 & \\
+ &  &  & 据规模较小 & \\
+\rule{0pt}{15pt}NIST & Zh-En等 & 新闻翻译 & 评测集包括4句参 & {https://www.ldc.upenn.edu/coll} \\
+ &  Cs Zh等 &  & 考译文，质量较高 & aborations/evaluations/nist \\
+\end{tabular}
+\end{center}
+}\end{table}
+%----------------------------------------------
+
+%----------------------------------------------
+\begin{table}[htp]{
+\footnotesize
+\begin{center}
+\begin{tabular}{p{1.6cm} | p{1.2cm} p{1.6cm} p{2.6cm} p{3.9cm}}
+\rule{0pt}{15pt}{任务} & {语种} &{领域} &{描述} &{数据集地址} \\
+\hline
+\rule{0pt}{15pt}TVsub & Zh-En & 字幕翻译 & 数据抽取自电视剧 & {https://github.com/longyuewan} \\
+ &   &   & 字幕，用于对话中 & gdcu/tvsub \\
+ &   &  & 长距离上下文研究 & \\
+\rule{0pt}{15pt}Flickr30K & En-De & 多模态翻译 & 31783张图片，每 & {http://shannon.cs.illinois.edu/D} \\
+ & &  & 张图片5个语句标 & enotationGraph/ \\
+ &   &  & 注 & \\
+\rule{0pt}{15pt}Multi30K  & En-De & 多模态翻译 & 31014张图片，每 & {http://www.statmt.org/wmt16/} \\
+ &  En-Fr &  & 张图片5个语句标 & multimodal-task.html \\
+ &   &  & 注 & \\
+\rule{0pt}{15pt}IAPRTC-12 & En-De & 多模态翻译 & 20000张图片及对 & {https://www.imageclef.org} \\
+ &   &  & 应标注  & /photodata \\
+\rule{0pt}{15pt}IKEA & En-De & 多模态翻译 & 3600张图片及对应  & {https://github.com/sampalomad} \\
+ &  En-Fr &  & 标注 & /IKEA-Dataset.git \\
+\end{tabular}
+\end{center}
+}\end{table}
+%----------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{平行语料}
+\parinterval 神经机器翻译系统的训练需要大量的双语数据，这里我们汇总了一些公开的平行语料，方便读者获取。
+\vspace{0.5em}
+\begin{itemize}
+\item News Commentary Corpus：包括汉语、英语等12个语种，64个语言对的双语数据，爬取自Project Syndicate网站的政治、经济评论。URL：\url{http://www.casmacat.eu/corpus/news-commentary.html}
+\vspace{0.5em}
+\item CWMT Corpus：中国计算机翻译研讨会社区收集和共享的中英平行语料，涵盖多种领域，例如新闻、电影字幕、小说和政府文档等。URL：\url{http://nlp.nju.edu.cn/cwmt-wmt/}
+\vspace{0.5em}
+\item Common Crawl corpus：包括捷克语、德语、俄语、法语4种语言到英语的双语数据，爬取自互联网网页。URL：\url{http://www.statmt.org/wmt13/training-parallel-commoncrawl.tgz}
+\vspace{0.5em}
+\item Europarl Corpus：包括保加利亚语、捷克语等20种欧洲语言到英语的双语数据，来源于欧洲议会记录。URL：\url{http://www.statmt.org/europarl/}
+\vspace{0.5em}
+\item ParaCrawl Corpus：包括23种欧洲语言到英语的双语语料，数据来源于网络爬取。URL：\url{https://www.paracrawl.eu/index.php}
+\vspace{0.5em}
+\item United Nations Parallel Corpus：包括阿拉伯语、英语、西班牙语、法语、俄语、汉语6种联合国正式语言，30种语言对的双语数据，来源自联合国公共领域的官方记录和其他会议文件。URL：\url{https://conferences.unite.un.org/UNCorpus/}
+\vspace{0.5em}
+\item TED Corpus：TED大会演讲在其网站公布了自2007年以来的演讲字幕，以及超过100种语言的翻译版本。WIT收集整理了这些数据，以方便科研工作者使用，同时，会为每年的IWSLT评测比赛提供评测数据集。URL：\url{https://wit3.fbk.eu/}
+\vspace{0.5em}
+\item OpenSubtile：由P. Lison和J. Tiedemann收集自opensubtiles电影字幕网站，包含62种语言、1782个语种对的平行语料，资源相对比较丰富。URL：\url{http://opus.nlpl.eu/OpenSubtitles2018.php}
+\vspace{0.5em}
+\item Wikititles Corpus：包括古吉拉特语等14个语种，11个语言对的双语数据，数据来源自维基百科的标题。URL：\url{http://data.statmt.org/wikititles/v1/}
+\vspace{0.5em}
+\item CzEng:捷克语和英语的平行语料，数据来源于欧洲法律、信息技术和小说领域。URL:\url{ http://ufal.mff.cuni.cz/czeng/czeng17}
+\vspace{0.5em}
+\item Yandex Corpus：俄语和英语的平行语料，爬取自互联网网页。URL：\url{https://translate.yandex.ru/corpus}
+\vspace{0.5em}
+\item Tilde MODEL Corpus：欧洲语言的多语言开放数据，包含多个数据集，数据来自于经济、新闻、政府、旅游等门户网站。URL：\url{https://tilde-model.s3-eu-west-1.amazonaws.com/Tilde_MODEL_Corpus.html}
+\vspace{0.5em}
+\item Setimes Corpus：包括克罗地亚语、阿尔巴尼亚等9种巴尔干语言，72个语言对的双语数据，来源于东南欧时报的新闻报道。URL：\url{http://www.statmt.org/setimes/}
+\vspace{0.5em}
+\item TVsub：收集自电视剧集字幕的中英文对话语料库，包含超过200万的句对，可用于对话领域和长距离上下文信息的研究。URL：\url{https://github.com/longyuewangdcu/tvsub}
+\vspace{0.5em}
+\item Recipe Corpus：由Cookpad公司创建的日英食谱语料库，包含10万多的句对。URL：\url{http://lotus.kuee.kyoto-u.ac.jp/WAT/recipe-corpus/}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{相关工具}
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{数据预处理工具}
+\parinterval 数据处理是搭建神经机器翻译系统的重要步骤，这里我们提供了一些开源工具供读者进行使用。
+\vspace{0.5em}
+\begin{itemize}
+\item Moses：Moses 提供了很多数据预处理的脚本和工具，被机器翻译研究者广泛使用。其中包括符号标准化、分词、大小写转换和长度过滤等。URL：\url{https://github.com/moses-smt/mosesdecoder/tree/master/scripts}
+\vspace{0.5em}
+\item Jieba：常用的中文分词工具。URL：\url{https://github.com/fxsjy/jieba}
+\vspace{0.5em}
+\item Subword-nmt：基于BPE算法的子词切分工具。URL：\url{https://github.com/rsennrich/subword-nmt}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{评价工具}
+\parinterval 机器翻译领域已经有多种自动评价指标，包括BLEU、TER和METEOR等，这里我们提供了一些自动评价指标的工具，方便读者使用。
+\vspace{0.5em}
+\begin{itemize}
+\item Moses：其中包括了通用的BLEU评测脚本。URL：\url{https://github.com/moses-smt/mosesdecoder/tree/master/scripts/generic}
+\vspace{0.5em}
+\item Tercom：自动评价指标TER的计算工具，只有java版本。URL：\url{http://www.cs.umd.edu/~snover/tercom/}
+\vspace{0.5em}
+\item Meteor：自动评价指标METEOR的实现。URL：\url{https://www.cs.cmu.edu/~alavie/METEOR/}
+\end{itemize}
+
+\end{appendices}
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER  APPENDIX B
+%----------------------------------------------------------------------------------------
+
+\begin{appendices}
+\chapter{附录B}
+\label{appendix-B}
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{IBM模型3训练方法}
+\parinterval 模型3的参数估计与模型1和模型2采用相同的方法。这里直接给出辅助函数。
+\begin{eqnarray}
+h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \textrm{P}_{\theta}(\mathbf{s}|\mathbf{t})-\sum_{t}\lambda_{t}\big(\sum_{s}t(s|t)-1\big)  \nonumber \\
+& & -\sum_{i}\mu_{iml}\big(\sum_{j}d(j|i,m,l)-1\big) \nonumber \\
+& & -\sum_{t}\nu_{t}\big(\sum_{\varphi}n(\varphi|t)-1\big)-\zeta(p^0+p^1-1)
+\label{eq:1.1}
+\end{eqnarray}
+
+\parinterval 由于篇幅所限这里略去了推导步骤直接给出一些用于参数估计的等式。
+\begin{eqnarray}
+c(s|t,\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m} (\delta(s_j,s) \cdot \delta(t_{a_{j}},t))\big] \label{eq:1.2} \\
+c(j|i,m,l;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \delta(i,a_j)\big] \label{eq:1.3} \\
+c(\varphi|t;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{i=1}^{l}\delta(\varphi,\varphi_{i})\delta(t,t_i)\big]
+\label{eq:1.4}
+\end{eqnarray}
+
+\begin{eqnarray}
+c(0|\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})  \times (m-2\varphi_0) \big] \label{eq:1.5} \\
+c(1|\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \varphi_0 \big] \label{eq:1.6}
+\end{eqnarray}
+
+\parinterval 进一步，对于由$K$个样本组成的训练集，有：
+\begin{eqnarray}
+t(s|t) & = & \lambda_{t}^{-1} \times \sum_{k=1}^{K}c(s|t;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.7} \\
+d(j|i,m,l) & = & \mu_{iml}^{-1} \times \sum_{k=1}^{K}c(j|i,m,l;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.8} \\
+n(\varphi|t) & = & \nu_{t}^{-1} \times \sum_{s=1}^{K}c(\varphi |t;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.9} \\
+p_x & = & \zeta^{-1} \sum_{k=1}^{K}c(x;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.10}
+\end{eqnarray}
+
+\parinterval 在模型3中，因为产出率的引入，并不能像模型1和模型2那样，在保证正确性的情况下加速参数估计的过程。这就使得每次迭代过程中，都不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单且直接的方法就是仅利用Viterbi对齐来进行参数估计\footnote{Viterbi词对齐可以被简单的看作搜索到的最好词对齐。}。 遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})$达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。式\ref{eq:1.2}可以被修改为：
+\begin{eqnarray}
+c(s|t,\mathbf{s},\mathbf{t}) \approx \sum_{\mathbf{a} \in \mathbf{S}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m}(\delta(s_j,\mathbf{s}) \cdot \delta(t_{a_{j}},\mathbf{t})) \big]
+\label{eq:1.11}
+\end{eqnarray}
+
+\parinterval 同理可以获得式\ref{eq:1.3}-\ref{eq:1.6}的修改结果。进一步，在IBM模型3中，可以定义$S$如下：
+\begin{eqnarray}
+S = N(b^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))))
+\label{eq:1.12}
+\end{eqnarray}
+
+\parinterval 为了理解这个公式，先介绍几个概念。
+\begin{itemize}
+\item $V(\mathbf{s}|\mathbf{t})$表示Viterbi词对齐，$V(\mathbf{s}|\mathbf{t},1)$、$V(\mathbf{s}|\mathbf{t},2)$和$V(\mathbf{s}|\mathbf{t},3)$就分别对应了模型1、2 和3 的Viterbi 词对齐；
+\item 把那些满足第$j$个源语言单词对应第$i$个目标语言单词（$a_j=i$）的词对齐构成的集合记为$\mathbf{A}_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$。通常称这些对齐中$j$和$i$被``钉''在了一起。在$\mathbf{A}_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$中使$\textrm{P}(\mathbf{a}|\mathbf{s},\mathbf{t})$达到最大的那个词对齐被记为$V_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$；
+\item 如果两个词对齐，通过交换两个词对齐连接就能互相转化，则称它们为邻居。一个词对齐$\mathbf{a}$的所有邻居记为$N(\mathbf{a})$。
+\end{itemize}
+
+\vspace{0.5em}
+\parinterval 公式\ref{eq:1.12}中，$b^{\infty}(V(\mathbf{s}|\mathbf{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))$ 分别是对 $V(\mathbf{s}|\mathbf{t};3)$ 和 $V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},3)$ 的估计。在计算$S$的过程中，需要知道一个对齐$\bf{a}$的邻居$\bf{a}^{'}$的概率，即通过$\textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t})$计算$\textrm{p}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t})$。在模型3中，如果$\bf{a}$和$\bf{a}'$仅区别于某个源语单词对齐到的目标位置上（$a_j \neq a_{j}'$），那么
+
+\begin{eqnarray}
+\textrm{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t}) & = & \textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot  \nonumber \\
+                                                                                   &     & \frac{\varphi_{i'}+1}{\varphi_i} \cdot \frac{n(\varphi_{i'}+1|t_{i'})}{n(\varphi_{i'}|t_{i'})} \cdot \frac{n(\varphi_{i}-1|t_{i})}{n(\varphi_{i}|t_{i})} \cdot \nonumber \\
+                                                                                   &     & \frac{t(s_j|t_{i'})}{t(s_{j}|t_{i})} \cdot \frac{d(j|i',m,l)}{d(j|i,m,l)}
+\label{eq:1.13}
+\end{eqnarray}
+
+\parinterval 如果$\bf{a}$和$\bf{a}'$区别于两个位置$j_1$和$j_2$的对齐上，$a_{j_{1}}=a_{j_{2}^{'}}$且$a_{j_{2}}=a_{j_{1}^{'}}$，那么
+\begin{eqnarray}
+\textrm{P}_{\theta}(\mathbf{a'},\mathbf{s}|\mathbf{t}) = \textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot \frac{t(s_{j_{2}}|t_{a_{j_{2}}})}{t(s_{j_{1}}|t_{a_{j_{1}}})} \cdot \frac{d(j_{2}|a_{j_{2}},m,l)}{d(j_{1}|a_{j_{1}},m,l)}
+\label{eq:1.14}
+\end{eqnarray}
+
+\parinterval 相比整个词对齐空间，$S$只是一个非常小的子集，因此运算复杂度可以被大大降低。可以看到，模型3的参数估计过程是建立在模型1和模型2的参数估计结果上的。这不仅是因为模型3要利用模型2的Viterbi对齐，而且还因为模型3参数的初值也要直接利用模型2的参数。从这个角度说，模型1，2，3是有序的且向前依赖的。单独的对模型3的参数进行估计是极其困难的。实际上IBM的模型4和模型5也具有这样的性质，即它们都可以利用前一个模型参数估计的结果作为自身参数的初始值。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{IBM模型4训练方法}
+
+\parinterval 模型4的参数估计基本与模型3一致。需要修改的是扭曲度的估计公式，对于目标语第$i$个cept.生成的第一单词，可以得到（假设有$K$个训练样本）：
+\begin{eqnarray}
+d_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t}) = \mu_{1cacb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|ca,cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+\label{eq:1.15}
+\end{eqnarray}
+
+其中，
+
+\begin{eqnarray}
+c_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t})           & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|ca,cb;\mathbf{a},\mathbf{s},\mathbf{t})\big] \label{eq:1.16} \\
+s_1(\Delta_j|ca,cb;\rm{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\phi_i) \cdot \delta(\pi_{i1}-\odot _{i},\Delta_j) \cdot \nonumber \\
+                                                                           &     & \delta(A(t_{i-1}),ca) \cdot \delta(B(\tau_{i1}),cb) \big] \label{eq:1.17}
+\end{eqnarray}
+
+且
+
+\begin{eqnarray}
+\varepsilon(x) = \begin{cases}
+0 & x \leq 0 \\
+1 & x > 0
+\end{cases}
+\label{eq:1.21}
+\end{eqnarray}
+
+对于目标语第$i$个cept.生成的其他单词（非第一个单词），可以得到：
+
+\begin{eqnarray}
+d_{>1}(\Delta_j|cb;\mathbf{s},\mathbf{t}) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+\label{eq:1.18}
+\end{eqnarray}
+
+其中，
+
+\begin{eqnarray}
+c_{>1}(\Delta_j|cb;\mathbf{s},\mathbf{t})                  & = & \sum_{\mathbf{a}}\big[\textrm{p}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) \big] \label{eq:1.19} \\
+s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\phi_i-1)\sum_{k=2}^{\phi_i}\delta(\pi_{[i]k}-\pi_{[i]k-1},\Delta_j) \cdot \nonumber ß\\
+                                                                                  &    & \delta(B(\tau_{[i]k}),cb) \big] \label{eq:1.20}
+\end{eqnarray}
+
+\noindent 这里，$ca$和$cb$分别表示目标语言和源语言的某个词类。模型4需要像模型3一样，通过定义一个词对齐集合$S$，使得每次迭代都在$S$上进行，进而降低运算量。模型4中$S$的定义为：
+
+\begin{eqnarray}
+\textrm{S} = N(\tilde{b}^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(\tilde{b}_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))))
+\label{eq:1.22}
+\end{eqnarray}
+
+\parinterval 对于一个对齐$\mathbf{a}$，可用模型3对它的邻居进行排名，即按$\textrm{P}_{\theta}(b(\mathbf{a})|\mathbf{s},\mathbf{t};3)$排序，其中$b(\mathbf{a})$表示$\mathbf{a}$的邻居。$\tilde{b}(\mathbf{a})$ 表示这个排名表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};4) > \textrm{P}_{\theta}⁡(\mathbf{a}|\mathbf{s},\mathbf{t};4)$的最高排名的$\mathbf{a}'$。同理可知$\tilde{b}_{i \leftrightarrow j}^{\infty}(\mathbf{a})$ 的意义。这里之所以不用模型3中采用的方法直接利用$b^{\infty}(\mathbf{a})$得到模型4中高概率的对齐，是因为模型4中，要想获得某个对齐$\mathbf{a}$的邻居$\mathbf{a}'$，必须做很大调整，比如：调整$\tau_{[i]1}$和$\odot_{i}$等等。这个过程要比模型3的相应过程复杂得多。因此在模型4中只能借助于模型3的中间步骤来进行参数估计。
+\setlength{\belowdisplayskip}{3pt}%调整空白大小
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{IBM模型5训练方法}
+\parinterval 模型5的参数估计过程也与模型3的过程基本一致，二者的区别在于扭曲度的估计公式。在模型5中，对于目标语第$i$个cept.生成的第一单词，可以得到（假设有$K$个训练样本）：
+
+\begin{eqnarray}
+d_1(\Delta_j|cb;\mathbf{s},\mathbf{t}) = \mu_{1cb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+\label{eq:1.23}
+\end{eqnarray}
+
+其中，
+
+\begin{eqnarray}
+c_1(\Delta_j|cb,v_x,v_y;\mathbf{s},\mathbf{t})                   & = & \sum_{\mathbf{a}}\Big[ \textrm{P}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.24} \\
+s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \Big [ \varepsilon(\phi_i) \cdot \delta(v_{\pi_{i1}},\Delta_j) \cdot \delta(v_{\odot _{i-1}},v_x) \nonumber \\
+                                                                                          &    & \cdot \delta(v_m-\phi_i+1,v_y) \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1} )\Big] \label{eq:1.25}
+\end{eqnarray}
+
+
+对于目标语第$i$个cept.生成的其他单词（非第一个单词），可以得到：
+
+\begin{eqnarray}
+d_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t}) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb,v;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+\label{eq:1.26}
+\end{eqnarray}
+
+其中，
+
+\begin{eqnarray}
+c_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t})                   & =  & \sum_{\mathbf{a}}\Big[\textrm{P}(\mathbf{a},\mathbf{s}|\mathbf{t}) \times s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.27} \\
+s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l\Big[\varepsilon(\phi_i-1)\sum_{k=2}^{\phi_i} \big[\delta(v_{\pi_{ik}}-v_{\pi_{[i]k}-1},\Delta_j)  \nonumber \\
+                                                                                    &     & \cdot \delta(B(\tau_{[i]k}) ,cb) \cdot \delta(v_m-v_{\pi_{i(k-1)}}-\phi_i+k,v) \nonumber \\
+                                                                                    &     & \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1}) \big] \Big] \label{eq:1.28}
+\end{eqnarray}
+
+\vspace{0.5em}
+
+\parinterval 从式(\ref{eq:1.24})中可以看出因子$\delta(v_{\pi_{i1}},v_{\pi_{i1}-1})$保证了，即使对齐$\mathbf{a}$不合理（一个源语位置对应多个目标语位置）也可以避免在这个不合理的对齐上计算结果。需要注意的是因子$\delta(v_{\pi_{p1}},v_{\pi_{p1-1}})$，确保了$\mathbf{a}$中不合理的部分不产生坏的影响，而$\mathbf{a}$中其他正确的部分仍会参与迭代。
+
+\parinterval 不过上面的参数估计过程与IBM前4个模型的参数估计过程并不完全一样。IBM前4个模型在每次迭代中，可以在给定$\mathbf{s}$、$\mathbf{t}$和一个对齐$\mathbf{a}$的情况下直接计算并更新参数。但是在模型5的参数估计过程中（如公式\ref{eq:1.24}），需要模拟出由$\mathbf{t}$生成$\mathbf{s}$的过程才能得到正确的结果，因为从$\mathbf{t}$、$\mathbf{s}$和$\mathbf{a}$中是不能直接得到 的正确结果的。具体说，就是要从目标语言句子的第一个单词开始到最后一个单词结束，依次生成每个目标语言单词对应的源语言单词，每处理完一个目标语言单词就要暂停，然后才能计算式\ref{eq:1.24}中求和符号里面的内容。这也就是说即使给定了$\mathbf{s}$、$\mathbf{t}$和一个对齐$\mathbf{a}$，也不能直接在它们上进行计算，必须重新模拟$\mathbf{t}$到$\mathbf{s}$的生成过程。
+
+\parinterval 从前面的分析可以看出，虽然模型5比模型4更精确，但是模型5过于复杂以至于给参数估计增加了计算量（对于每组$\mathbf{t}$、$\mathbf{s}$和$\mathbf{a}$都要模拟$\mathbf{t}$生成$\mathbf{s}$的翻译过程）。因此模型5的开发对于系统实现是一个挑战。
+
+\parinterval 在模型5中同样需要定义一个词对齐集合$S$，使得每次迭代都在$S$上进行。可以对$S$进行如下定义
+\begin{eqnarray}
+\textrm{S} = N(\tilde{\tilde{b}}^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(\tilde{\tilde{b}}_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))))
+\label{eq:1.29}
+\end{eqnarray}
+\vspace{0.5em}
+
+\parinterval 这里$\tilde{\tilde{b}}(\mathbf{a})$借用了模型4中$\tilde{b}(\mathbf{a})$的概念。不过$\tilde{\tilde{b}}(\mathbf{a})$表示在利用模型3进行排名的列表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};5)$的最高排名的词对齐。
+\end{appendices}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

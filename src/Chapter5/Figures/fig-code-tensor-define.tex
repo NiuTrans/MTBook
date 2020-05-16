@@ -1,0 +1,28 @@
+%------------------------------------------------------------------------------------------------------------
+\begin{tcolorbox}[enhanced,width=12cm,frame engine=empty,boxrule=0.1mm,size=title,colback=blue!10!white]
+\begin{flushleft}
+{\scriptsize
+\begin{tabbing}
+\texttt{\#include "source/tensor/XTensor.h"} \hspace{6em} \= // 引用XTensor定义的头文件 \\
+
+\texttt{using namespace nts;} \> // 引用nts命名空间 \\
+\ \\
+
+\texttt{int main(int argc, const char ** argv)\{} \\
+\ \ \ \ \texttt{XTensor tensor;} \> // 声明张量tensor \\
+
+\ \ \ \ \texttt{InitTensor2D(\&tensor, 2, 2, X\_FLOAT);} \> // 定义张量为2*2的矩阵 \\
+
+\ \ \ \ \texttt{tensor.SetDataRand();} \> // [0,1]均匀分布初始化张量 \\
+
+\ \ \ \ \texttt{tensor.Dump(stdout);} \> // 输出张量内容 \\
+
+\ \ \ \ \texttt{return 0;}\\
+\texttt{\}}
+
+\end{tabbing}
+}
+\end{flushleft}
+\end{tcolorbox}
+%%%------------------------------------------------------------------------------------------------------------
+

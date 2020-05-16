@@ -1,0 +1,44 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 什么是解码
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[minimum height = 16pt]
+
+\node[anchor=east] (s0) at (-0.8em, 0) {$\textbf{s}$:};
+\node[anchor=west] (s1) at (0, 0) {桌子};
+\node[anchor=west] (s2) at ([xshift=2em]s1.east) {上};
+\node[anchor=west] (s3) at ([xshift=2.3em]s2.east) {有};
+\node[anchor=west] (s4) at ([xshift=2em]s3.east) {一个};
+\node[anchor=west] (s5) at ([xshift=1.6em]s4.east) {苹果};
+
+\node [anchor=north,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=3em] (t11) at ([yshift=-0.5em]s1.south) {table};
+\node [anchor=north,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=3em] (t12) at ([yshift=-0.2em]t11.south) {desk};
+
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3em] (t21) at ([yshift=-0.5em]s2.south) {on};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3em] (t22) at ([yshift=-0.2em]t21.south) {up};
+
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.4em] (t31) at ([yshift=-0.5em]s3.south) {have};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.4em] (t32) at ([yshift=-0.2em]t31.south) {there is};
+
+\node [anchor=north,inner sep=2pt,fill=orange!20,minimum height=1.5em,minimum width=3em] (t41) at ([yshift=-0.5em]s4.south) {one};
+\node [anchor=north,inner sep=2pt,fill=orange!20,minimum height=1.5em,minimum width=3em] (t42) at ([yshift=-0.2em]t41.south) {an};
+
+\node [anchor=north,inner sep=2pt,fill=purple!20,minimum height=1.5em,minimum width=3em] (t51) at ([yshift=-0.5em]s5.south) {apple};
+\node [anchor=north,inner sep=2pt,fill=purple!20,minimum height=1.5em,minimum width=3em] (t52) at ([yshift=-0.2em]t51.south) {apples};
+
+\node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=7.2em] (t13) at ([yshift=-3.7em]t12.south west) {on table};
+\node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=7.2em] (t14) at ([yshift=-0.2em]t13.south west) {on the table};
+
+\node [anchor=north west,inner sep=2pt,fill=orange!20,minimum height=1.5em,minimum width=7.35em] (t43) at ([yshift=-0.2em]t42.south west) {one apple};
+\node [anchor=north west,inner sep=2pt,fill=orange!20,minimum height=1.5em,minimum width=7.35em] (t44) at ([yshift=-0.2em]t43.south west) {an apple};
+
+\node [anchor=north west,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=7.25em] (t23) at ([yshift=-0.2em]t22.south west) {upon there};
+
+\node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=11.5em] (t15) at ([yshift=-1.95em]t12.south west) {upon the table};
+
+\node [anchor=north west,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=11.8em] (t33) at ([yshift=-3.7em]t32.south west) {there is an apple};
+\node [anchor=north west,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=11.8em] (t34) at ([yshift=-0.2em]t33.south west) {have an apple...};
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

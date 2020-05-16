@@ -1,0 +1,17 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  基于树的解码方法 - chart-based decoding
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=north west] (w1) at (0, 0) {猫};
+\node [anchor=west] (w2) at ([xshift=0.3em]w1.east) {喜欢};
+\node [anchor=west] (w3) at ([xshift=0.3em]w2.east) {吃};
+\node [anchor=west] (w4) at ([xshift=0.3em]w3.east) {鱼};
+\node [anchor=north east] (p0) at ([xshift=0.3em]w1.south west) {\blue{0}};
+\node [anchor=north east] (p1) at ([xshift=0.3em]w2.south west) {\blue{1}};
+\node [anchor=north east] (p2) at ([xshift=0.3em]w3.south west) {\blue{2}};
+\node [anchor=north east] (p3) at ([xshift=0.3em]w4.south west) {\blue{3}};
+\node [anchor=north west] (p4) at ([xshift=-0.4em]w4.south east) {\blue{4}};
+\end{scope}
+\end{tikzpicture}
+\end{center}

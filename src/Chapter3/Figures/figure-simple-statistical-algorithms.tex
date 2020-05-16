@@ -1,0 +1,27 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+{
+\node [pos=0.5,left,xshift=-0.5em,yshift=2.0em] (label2) {Input: a word pair (x, y) and a sentence pair (s, t)};
+\node [anchor=north west] (label2part2) at ([yshift=0.3em]label2.south west) {Output: the number of (x, y) in the (s, t)};
+\node [anchor=north west] (label2part3) at ([yshift=0.3em]label2part2.south west) {{1：$count$ $\leftarrow$ 0}};
+\node [anchor=north west] (label2part4) at ([yshift=0.3em]label2part3.south west) {{2：\textbf{for} $s\underline{\hbox to 0.1cm{}}word$ $\leftarrow$ $S_1$ … $S_{length(s)}$ \textbf{do}    }};
+\node [anchor=north west] (label2part5)at ([yshift=0.3em]label2part4.south west)  {{3：\quad\textbf{for} $t\underline{\hbox to 0.1cm{}}word$ $\leftarrow$ $t_1$ … $t_{length(t)}$ \textbf{do}    }};
+\node [anchor=north west] (label2part6)at ([yshift=0.3em]label2part5.south west)  {{4：\quad\quad\textbf{if} $s\underline{\hbox to 0.1cm{}}word$ == x \textbf{and}  $t\underline{\hbox to 0.1cm{}}word$==y \textbf{then}      }};
+\node [anchor=north west] (label2part7) at ([yshift=0.3em]label2part6.south west) {{5：\quad\quad\quad\quad $count$ $\leftarrow$ $count$ + 1     }};
+\node [anchor=north west] (label2part8) at ([yshift=0.3em]label2part7.south west) {{6：\quad\quad \textbf{end if}     }};
+\node [anchor=north west] (label2part9) at ([yshift=0.3em]label2part8.south west) {{7：\quad \textbf{end for}     }};
+\node [anchor=north west] (label2part10) at ([yshift=0.3em]label2part9.south west) {{8： \textbf{end for}     }};
+
+}
+
+\end{scope}
+\end{tikzpicture}
+
+
+%---------------------------------------------------------------------
+
+
+

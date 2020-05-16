@@ -1,0 +1,50 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{axis}[  
+  name=relu,
+  width=6cm, height=4.5cm, 
+  xtick={-1.0,-0.5,...,1.0},
+  ytick={0.5,1.0},
+  xlabel={$x$},
+  ylabel={$y$},
+  xlabel style={xshift=2.4cm,yshift=0.7cm},
+  axis y line=middle,%y轴居中
+  ylabel style={xshift=0.1cm,yshift=0cm},
+  x axis line style={->},%x轴箭头
+  axis line style={very thick},
+  axis x line*=middle,%将上面的x轴去掉，仅保留下面的x轴
+  xmin=-1.2,
+  xmax=1.2,
+  ymin=0,
+  ymax=1.2]
+\addplot[domain=-1:0,draw=red,very thick]{0};
+\addplot[domain=0:1,draw=red,very thick]{x};
+\end{axis}
+\node [anchor=north] (labelc) at (2.3,-0.5) {\footnotesize{(a)}};
+\begin{axis}[  
+  at={(relu.east)},
+  anchor=east, 
+  xshift=6cm,
+  yshift=0cm, 
+  width=6cm, height=4.5cm, 
+  xtick={-4,-2,...,4},
+  ytick={0,0.2,...,1.0},
+  xlabel={$x$},
+  ylabel={$y$},
+  xlabel style={xshift=2.4cm,yshift=0.7cm},
+  axis y line=middle,%y轴居中
+  ylabel style={xshift=0.1cm,yshift=0cm},
+  x axis line style={->},%x轴箭头
+  axis line style={very thick},
+  axis x line*=middle,%将上面的x轴去掉，仅保留下面的x轴
+  xmin=-5,
+  xmax=5,
+  ymin=0,
+  ymax=1.2]
+\addplot[domain=-4:0,draw=ublue,very thick]{0};
+\addplot[domain=0:4,draw=ublue,very thick]{1};
+\end{axis}
+\node [anchor=north] (labelc) at (8.2,-0.5) {\footnotesize{(b)}};
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

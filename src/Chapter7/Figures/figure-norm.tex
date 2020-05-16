@@ -1,0 +1,84 @@
+
+\begin{tikzpicture}
+	\tikzstyle{sublayernode} = [rectangle,draw,thick,inner sep=3pt,rounded corners=2pt,align=center,minimum height=1.5em,minimum width=1.5em,font=\scriptsize]
+	\tikzstyle{inputnode} = [rectangle,inner sep=3pt,align=center,font=\scriptsize]
+	%\tikzstyle{circlenode} = [circle,draw,thick,minimum size=0.3\base,font=\small,inner sep=0pt]
+	\tikzstyle{mnode} = [circle,thick,minimum size=0.7em,font=\small,inner sep=0pt,draw]
+	  
+	\node[anchor=south west,inputnode] (input) at (0,0) {$x_{i}^{l}$};
+
+	\node[anchor=west,sublayernode,fill=red!10] (ln) at ([xshift=1.2em]input.east) {LN};
+	\node[anchor=west,sublayernode,fill=green!10] (fn) at ([xshift=1.2em]ln.east) {F};
+	\node[anchor=west,mnode] (m) at ([xshift=2em]fn.east) {};
+	\node[] (res) at ([xshift=2.4em]fn.east) {+};
+
+	\node[anchor=west,sublayernode,fill=red!10] (ln1) at ([xshift=2em]m.east) {LN};
+	\node[anchor=west,sublayernode,fill=green!10] (fn1) at ([xshift=1.2em]ln1.east) {F};
+	\node[anchor=west,mnode] (m1) at ([xshift=2em]fn1.east) {};
+	\node[] (res1) at ([xshift=2.4em]fn1.east) {+};
+
+	\node[anchor=west,inputnode] (output) at ([xshift=1.2em]res1.east) {$x_{i}^{l+1}$};
+	\node[anchor=west,inputnode] (legend1) at (6em,-1em) {(a) 标准Transformer网络};
+
+	%\coordinate (mend) at ([xshift=1em]m.west);
+	\draw[-latex',thick] (input)--(ln);
+	\draw[-latex',thick] (ln)--(fn);
+	\draw[-latex',thick] (fn)--(m);
+	%\draw[-,thick] (mend)--(res);
+	\coordinate (h) at ([xshift=-0.7em]ln.west);
+	\draw[-latex',thick,rounded corners] (h) -- ([yshift=1.35em]h.north) -- ([yshift=1em]m.north) -- (m.north);
+	
+	%\coordinate (mend1) at ([xshift=1.0\hseg]m1.west);
+	\draw[-latex',thick] (m)--(ln1);
+	\draw[-latex',thick] (ln1)--(fn1);
+	\draw[-latex',thick] (fn1)--(m1);
+	%\draw[-,thick] (mend1)--(res1);
+	\draw[-latex',thick] (m1)--(output);
+	\coordinate (h1) at ([xshift=-0.7em]ln1.west);
+	\draw[-latex',thick,rounded corners] (h1) -- ([yshift=1.35em]h1.north) -- ([yshift=1em]m1.north) -- (m1.north);
+	%--------------------------------------------------------
+	
+	\node[anchor=south west,inputnode] (input_2) at (0,-6em) {$x_{i}^{l}$};
+	
+	\node[anchor=west,sublayernode,fill=red!10] (ln_2) at ([xshift=1.2em]input_2.east) {LN};
+	\node[anchor=west,sublayernode,fill=green!10] (fn_2) at ([xshift=1.2em]ln_2.east) {F};
+	\node[anchor=west,mnode] (m_2) at ([xshift=2em]fn_2.east) {};
+	\node[] (res_2) at ([xshift=2.4em]fn_2.east) {+};
+	
+	\node[anchor=west,sublayernode,fill=red!10] (ln1_2) at ([xshift=2em]m_2.east) {LN};
+	\node[anchor=west,sublayernode,fill=green!10] (fn1_2) at ([xshift=1.2em]ln1_2.east) {F};
+	\node[anchor=west,mnode] (m1_2) at ([xshift=2em]fn1_2.east) {};
+	\node[] (res1_2) at ([xshift=2.4em]fn1_2.east) {+};
+	
+	\node[anchor=west,inputnode] (output_2) at ([xshift=1.2em]res1_2.east) {$x_{i}^{l+1}$};
+	\node[anchor=west,inputnode] (legend2) at (2.5em,-7.5em) {(b) 引入Layer Dropout后的Transformer网络};
+
+	\node[anchor=south west,inputnode,red,font=\tiny] (mlable) at ([xshift=-2.2em,yshift=-0.6em]m_2.south) {M=1};
+
+    \node[anchor=south west,inputnode,red,font=\tiny] (mlable1) at ([xshift=-2.2em,yshift=-0.6em]m1_2.south) {M=0};
+    
+      \coordinate (start_1) at ([xshift=-1.3em]m_2.west);
+	\coordinate (end_1) at ([xshift=-0.5em]m_2.west);
+	%\node[red,font=\scriptsize] (dot1) at (start_1) {$\cdot$};
+	\draw[-latex',thick] (input_2)--(ln_2);
+	\draw[-latex',thick] (ln_2)--(fn_2);
+	\draw[-latex',thick] (fn_2)--(start_1);
+	\draw[-,thick,red] (start_1)--(end_1);
+	\draw[-,thick] (end_1)--(m_2);	
+	%\draw[-,thick] (mend)--(res);
+	\coordinate (h_2) at ([xshift=-0.7em]ln_2.west);
+	\draw[-latex',thick,rounded corners] (h_2) -- ([yshift=1.35em]h_2.north) -- ([yshift=1em]m_2.north) -- (m_2.north);
+	
+	%\coordinate (mend1) at ([xshift=1.0\hseg]m1.west);
+	\coordinate (start_2) at ([xshift=-1.3em]m1_2.west);
+	\coordinate (end_2) at ([xshift=-0.5em]m1_2.west);
+	\draw[-latex',thick] (m_2)--(ln1_2);
+	\draw[-latex',thick] (ln1_2)--(fn1_2);
+	\draw[-latex',thick] (fn1_2)--(start_2);
+	\draw[-,thick,red] (start_2)--([yshift=0.3em]end_2);
+	\draw[-,thick] (end_2)--(m1_2);
+	%\draw[-,thick] (mend1)--(res1);
+	\draw[-latex',thick] (m1_2)--(output_2);
+	\coordinate (h1_2) at ([xshift=-0.7em]ln1_2.west);
+	\draw[-latex',thick,rounded corners] (h1_2) -- ([yshift=1.35em]h1_2.north) -- ([yshift=1em]m1_2.north) -- (m1_2.north);	
+\end{tikzpicture}

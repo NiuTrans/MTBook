@@ -1,0 +1,105 @@
+
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{rnnnode} = [minimum height=1.1em,minimum width=2.1em,inner sep=2pt,rounded corners=1pt,draw,fill=red!20];
+\tikzstyle{lossnode} = [minimum height=1.1em,minimum width=6em,inner sep=2pt,rounded corners=1pt,draw,fill=red!20];
+
+\node [rnnnode,anchor=west] (h1) at (0,0) {\tiny{$\textbf{h}_1$}};
+\node [rnnnode,anchor=west] (h2) at ([xshift=1em]h1.east) {\tiny{$\textbf{h}_2$}};
+\node [rnnnode,anchor=west] (h3) at ([xshift=1em]h2.east) {\tiny{$\textbf{h}_3$}};
+\node [rnnnode,anchor=north,fill=green!20] (e1) at ([yshift=-1em]h1.south) {\tiny{$e_x()$}};
+\node [rnnnode,anchor=west,fill=green!20] (e2) at ([xshift=1em]e1.east) {\tiny{$e_x()$}};
+\node [rnnnode,anchor=west,fill=green!20] (e3) at ([xshift=1em]e2.east) {\tiny{$e_x()$}};
+\node [anchor=north,inner sep=2pt] (w1) at ([yshift=-0.6em]e1.south) {\tiny{你}};
+\node [anchor=north,inner sep=2pt] (w2) at ([yshift=-0.6em]e2.south) {\tiny{好}};
+\node [anchor=north,inner sep=2pt] (w3) at ([yshift=-0.6em]e3.south) {\tiny{$\langle$eos$\rangle$}};
+\node [anchor=south] (dot1) at ([xshift=0.4em,yshift=-0.7em]h1.south) {\tiny{...}};
+\node [anchor=south] (dot2) at ([xshift=-0.4em,yshift=-0.7em]h3.south) {\tiny{...}};
+
+\draw [->] (w1.north) -- ([yshift=-0.1em]e1.south);
+\draw [->] (w2.north) -- ([yshift=-0.1em]e2.south);
+\draw [->] (w3.north) -- ([yshift=-0.1em]e3.south);
+\draw [->] ([yshift=0.1em]e1.north) -- ([yshift=-0.1em]h1.south);
+\draw [->] ([yshift=0.1em]e2.north) -- ([yshift=-0.1em]h2.south);
+\draw [->] ([yshift=0.1em]e3.north) -- ([yshift=-0.1em]h3.south);
+\draw [->] ([xshift=0.2em,yshift=0.1em]e1.north) .. controls +(north:0.3) and +(south:0.4) .. ([xshift=-0.3em,yshift=-0.1em]h2.south);
+\draw [->] ([xshift=-0.2em,yshift=0.1em]e3.north) .. controls +(north:0.3) and +(south:0.4) .. ([xshift=0.3em,yshift=-0.1em]h2.south);
+\node [anchor=south] (encoder) at ([xshift=-0.2em]h1.north west) {\scriptsize{\textbf{编码器}}};
+
+{
+\node [rnnnode,anchor=west,fill=green!20] (t1) at ([xshift=3em]e3.east) {\tiny{$e_y()$}};
+\node [rnnnode,anchor=west,fill=green!20] (t2) at ([xshift=1.5em]t1.east) {\tiny{$e_y()$}};
+\node [rnnnode,anchor=west,fill=green!20] (t3) at ([xshift=1.5em]t2.east) {\tiny{$e_y()$}};
+\node [rnnnode,anchor=west,fill=green!20] (t4) at ([xshift=1.5em]t3.east) {\tiny{$e_y()$}};
+}
+{
+\node [rnnnode,anchor=south] (s1) at ([yshift=1em]t1.north) {\tiny{$\textbf{s}_1$}};
+\node [rnnnode,anchor=south] (s2) at ([yshift=1em]t2.north) {\tiny{$\textbf{s}_2$}};
+\node [rnnnode,anchor=south] (s3) at ([yshift=1em]t3.north) {\tiny{$\textbf{s}_3$}};
+\node [rnnnode,anchor=south] (s4) at ([yshift=1em]t4.north) {\tiny{$\textbf{s}_4$}};
+%\node [anchor=south] (dot3) at ([xshift=-0.4em,yshift=-0.7em]s3.south) {\tiny{...}};
+\node [anchor=south] (dot4) at ([xshift=-0.4em,yshift=-0.7em]s4.south) {\tiny{...}};
+\draw [->] ([xshift=-0.6em,yshift=-0.5em]s3.south) .. controls +(north:0) and +(south:0.2) .. ([xshift=-0.3em,yshift=-0.1em]s3.south);
+    \draw [->] ([xshift=-1.5em,yshift=-0.5em]s3.south) .. controls +(north:0) and +(south:0.15) .. ([xshift=-0.6em,yshift=-0.1em]s3.south);
+}
+
+{
+\node [rnnnode,anchor=south] (f1) at ([yshift=1em]s1.north) {\tiny{$\textbf{f}_1$}};
+\node [rnnnode,anchor=south] (f2) at ([yshift=1em]s2.north) {\tiny{$\textbf{f}_2$}};
+\node [rnnnode,anchor=south] (f3) at ([yshift=1em]s3.north) {\tiny{$\textbf{f}_3$}};
+\node [rnnnode,anchor=south] (f4) at ([yshift=1em]s4.north) {\tiny{$\textbf{f}_4$}};
+\node [rnnnode,anchor=south,fill=blue!20] (o1) at ([yshift=1em]f1.north) {\tiny{softmax}};
+\node [rnnnode,anchor=south,fill=blue!20] (o2) at ([yshift=1em]f2.north) {\tiny{softmax}};
+\node [rnnnode,anchor=south,fill=blue!20] (o3) at ([yshift=1em]f3.north) {\tiny{softmax}};
+\node [rnnnode,anchor=south,fill=blue!20] (o4) at ([yshift=1em]f4.north) {\tiny{softmax}};
+\node [anchor=east] (decoder) at ([xshift=-0.3em,yshift=0.5em]o1.north west) {\scriptsize{\textbf{解码器}}};
+\node [anchor=south,fill=black!5!white,minimum height=1.1em,minimum width=13em,inner sep=2pt,rounded corners=1pt,draw] (loss) at ([xshift=1.8em,yshift=1em]o2.north) {\scriptsize{\textbf{Cross Entropy Loss}}};
+}
+{
+\node [anchor=north,inner sep=2pt] (wt1) at ([yshift=-0.6em]t1.south) {\tiny{$\langle$eos$\rangle$}};
+\node [anchor=north,inner sep=2pt] (wt2) at ([yshift=-0.6em]t2.south) {\tiny{How}};
+\node [anchor=north,inner sep=2pt] (wt3) at ([yshift=-0.8em]t3.south) {\tiny{are}};
+\node [anchor=north,inner sep=2pt] (wt4) at ([yshift=-0.8em]t4.south) {\tiny{you}};
+}
+
+{
+\foreach \x in {1,2,3,4}{
+    \draw [->] ([yshift=-0.7em]t\x.south) -- ([yshift=-0.1em]t\x.south);
+    \draw [->] ([yshift=0.1em]t\x.north) -- ([yshift=-0.1em]s\x.south);
+\draw [->] ([xshift=0.2em,yshift=0.1em]t1.north) .. controls +(north:0.3) and +(south:0.3) .. ([xshift=-0.3em,yshift=-0.1em]s2.south);
+}
+}
+
+{
+\foreach \x in {1,2,3,4}{
+    \draw [->] ([yshift=0.1em]s\x.north) -- ([yshift=-0.1em]f\x.south);
+    \draw [->] ([yshift=0.1em]f\x.north) -- ([yshift=-0.1em]o\x.south);
+    \draw [->] ([yshift=0.1em]o\x.north) -- ([yshift=0.8em]o\x.north);
+}
+}
+
+{
+\node [circle,draw,anchor=south,inner sep=3pt,fill=orange!20] (c1) at ([yshift=2em]h2.north) {\tiny{$\textbf{C}_1$}};
+\node [anchor=south] (c1label) at (c1.north) {\tiny{\textbf{编码-解码注意力机制：上下文}}};
+\draw [->] (h1.north) .. controls +(north:0.6) and +(250:0.9) .. (c1.250);
+\draw [->] (h2.north) .. controls +(north:0.6) and +(270:0.9) .. (c1.270);
+\draw [->] (h3.north) .. controls +(north:0.6) and +(290:0.9) .. (c1.290);
+\draw [->] ([yshift=0.3em]s1.west) .. controls +(west:1) and +(east:1) .. (c1.-30);
+\draw [->] (c1.0) .. controls +(east:1) and +(west:1) .. ([yshift=0em]f1.west);
+}
+
+{
+\node [circle,draw,anchor=north,inner sep=3pt,fill=orange!20] (c2) at ([yshift=-2em]t1.south) {\tiny{$\textbf{C}_2$}};
+\draw [->] ([xshift=-0.7em]c2.west) -- ([xshift=-0.1em]c2.west);
+\draw [->] ([xshift=0.1em]c2.east) .. controls +(east:0.6) and +(west:0.8) ..([yshift=-0.3em,xshift=-0.1em]f2.west);
+\node [circle,draw,anchor=north,inner sep=3pt,fill=orange!20] (c3) at ([yshift=-2em]t2.south) {\tiny{$\textbf{C}_3$}};
+\draw [->] ([xshift=-0.7em]c3.west) -- ([xshift=-0.1em]c3.west);
+\draw [->] ([xshift=0.1em]c3.east) .. controls +(east:0.6) and +(west:0.8) ..([yshift=-0.3em,xshift=-0.1em]f3.west);
+\node [circle,draw,anchor=north,inner sep=3pt,fill=orange!20] (c4) at ([yshift=-2em]t3.south) {\tiny{$\textbf{C}_4$}};
+\draw [->] ([xshift=-0.7em]c4.west) -- ([xshift=-0.1em]c4.west);
+\draw [->] ([xshift=0.1em]c4.east) .. controls +(east:0.6) and +(west:0.8) ..([yshift=-0.3em,xshift=-0.1em]f4.west);
+}
+
+\end{scope}
+\end{tikzpicture}

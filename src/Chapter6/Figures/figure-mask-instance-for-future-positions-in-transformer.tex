@@ -1,0 +1,76 @@
+
+
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{attnode} = [minimum size=1.5em,inner sep=0pt,rounded corners=1pt,draw]
+\tikzstyle{srcnode} = [rotate=45,font=\small,anchor=south west]
+\tikzstyle{tgtnode} = [left,font=\small,anchor=north east]
+\tikzstyle{masknode} = [minimum size=5.8em,inner sep=0pt,rounded corners=1pt,draw]
+\tikzstyle{elementnode} = [rectangle,text=white,anchor=center]
+%\setlength{\hnode}{1.0cm}
+%\node [anchor=west,attnode] (node1) at (0,0) {\tiny{}};
+%\node [anchor=west,attnode] (node2) at ([xshift=1em]node1.east) {\tiny{}};
+{
+\foreach \i / \j / \c in
+    {0/5/0.25, 1/5/0.15, 2/5/0.15, 3/5/0.35, 4/5/0.25, 5/5/0.15,
+    0/4/0.15, 1/4/0.25, 2/4/0.2, 3/4/0.30, 4/4/0.15, 5/4/0.15,
+    0/3/0.15, 1/3/0.15, 2/3/0.5, 3/3/0.25, 4/3/0.15, 5/3/0.25,
+    0/2/0.15, 1/2/0.15, 2/2/0.15, 3/2/0.15, 4/2/0.25, 5/2/0.3,
+    0/1/0.25, 1/1/0.15, 2/1/0.15, 3/1/0.15, 4/1/0.5, 5/1/0.15,
+    0/0/0.15, 1/0/0.15, 2/0/0.15, 3/0/0.15, 4/0/0.25, 5/0/0.40}
+    \node[elementnode,minimum size=0.6*1.0cm*\c,inner sep=0.1pt,fill=blue] (a\i\j) at (0.5*1.0cm*\i-5.4*0.5*1.0cm,0.5*1.0cm*\j-1.05*1.0cm) {};
+
+% source
+\node[srcnode] (src1) at (-5.4*0.5*1.0cm,-1.05*1.0cm+5.5*0.5*1.0cm) {\scriptsize{Have}};
+\node[srcnode] (src2) at ([xshift=0.5cm]src1.south west) {\scriptsize{you}};
+\node[srcnode] (src3) at ([xshift=0.5cm]src2.south west) {\scriptsize{learned}};
+\node[srcnode] (src4) at ([xshift=0.5cm]src3.south west) {\scriptsize{nothing}};
+\node[srcnode] (src5) at ([xshift=0.5cm]src4.south west) {\scriptsize{?}};
+\node[srcnode] (src6) at ([xshift=0.5cm]src5.south west) {\scriptsize{$\langle$eos$\rangle$}};
+
+% target
+\node[tgtnode] (tgt1) at (-6.0*0.5*1.0cm,-1.05*1.0cm+5.5*0.5*1.0cm) {\scriptsize{Have}};
+\node[tgtnode] (tgt2) at ([yshift=-0.5cm]tgt1.north east) {\scriptsize{you}};
+\node[tgtnode] (tgt3) at ([yshift=-0.5cm]tgt2.north east) {\scriptsize{learned}};
+\node[tgtnode] (tgt4) at ([yshift=-0.5cm]tgt3.north east) {\scriptsize{nothing}};
+\node[tgtnode] (tgt5) at ([yshift=-0.5cm]tgt4.north east) {\scriptsize{?}};
+\node[tgtnode] (tgt6) at ([yshift=-0.5cm]tgt5.north east) {\scriptsize{$\langle$eos$\rangle$}};
+
+
+{
+\filldraw [fill=blue!20,draw,thick,fill opacity=0.85] ([xshift=-0.9em,yshift=0.5em]a15.north west) -- ([xshift=0.5em,yshift=-0.9em]a51.south east) --  ([xshift=0.5em,yshift=0.5em]a55.north east) -- ([xshift=-0.9em,yshift=0.5em]a15.north west);
+\node[anchor=west] (labelmask) at ([xshift=0.3em,yshift=0.5em]a23.north east) {Masked};
+}
+
+{
+\foreach \i / \j / \c in
+    {0/5/0.25,
+    0/4/0.15, 1/4/0.25,
+    0/3/0.15, 1/3/0.15, 2/3/0.5,
+    0/2/0.15, 1/2/0.15, 2/2/0.15, 3/2/0.15,
+    0/1/0.25, 1/1/0.15, 2/1/0.15, 3/1/0.15, 4/1/0.5,
+    0/0/0.15, 1/0/0.15, 2/0/0.15, 3/0/0.15, 4/0/0.25, 5/0/0.40}
+    \node[elementnode,minimum size=0.6*1.0cm*\c,inner sep=0.1pt,fill=blue] (a\i\j) at (0.5*1.0cm*\i+6*0.5*1.0cm,0.5*1.0cm*\j-1.05*1.0cm) {};
+
+% source
+\node[srcnode] (src1) at (6*0.5*1.0cm,-1.05*1.0cm+5.5*0.5*1.0cm) {\scriptsize{Have}};
+\node[srcnode] (src2) at ([xshift=0.5cm]src1.south west) {\scriptsize{you}};
+\node[srcnode] (src3) at ([xshift=0.5cm]src2.south west) {\scriptsize{learned}};
+\node[srcnode] (src4) at ([xshift=0.5cm]src3.south west) {\scriptsize{nothing}};
+\node[srcnode] (src5) at ([xshift=0.5cm]src4.south west) {\scriptsize{?}};
+\node[srcnode] (src6) at ([xshift=0.5cm]src5.south west) {\scriptsize{$\langle$eos$\rangle$}};
+
+% target
+\node[tgtnode] (tgt1) at (5.4*0.5*1.0cm,-1.05*1.0cm+5.5*0.5*1.0cm) {\scriptsize{Have}};
+\node[tgtnode] (tgt2) at ([yshift=-0.5cm]tgt1.north east) {\scriptsize{you}};
+\node[tgtnode] (tgt3) at ([yshift=-0.5cm]tgt2.north east) {\scriptsize{learned}};
+\node[tgtnode] (tgt4) at ([yshift=-0.5cm]tgt3.north east) {\scriptsize{nothing}};
+\node[tgtnode] (tgt5) at ([yshift=-0.5cm]tgt4.north east) {\scriptsize{?}};
+\node[tgtnode] (tgt6) at ([yshift=-0.5cm]tgt5.north east) {\scriptsize{$\langle$eos$\rangle$}};
+
+
+}
+}
+\end{scope}
+\end{tikzpicture}

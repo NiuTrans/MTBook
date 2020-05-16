@@ -1,0 +1,100 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\node [anchor=east,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s11) at (-0.5em, 0) {};
+\node [rectangle,anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s12) at ([xshift=2em]s11.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s13) at ([xshift=2em]s12.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s14) at ([xshift=2em]s13.east) {};
+
+\node [anchor=north,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s21) at ([yshift=-2.5em]s11.south) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s22) at ([xshift=2em]s21.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s23) at ([xshift=2em]s22.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s24) at ([xshift=2em]s23.east) {};
+
+\node [anchor=north,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s31) at ([yshift=-2.5em]s21.south) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s32) at ([xshift=2em]s31.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s33) at ([xshift=2em]s32.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s34) at ([xshift=2em]s33.east) {};
+
+\node [anchor=north,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s41) at ([yshift=-2.5em]s31.south) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s42) at ([xshift=2em]s41.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s43) at ([xshift=2em]s42.east) {};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (s44) at ([xshift=2em]s43.east) {};
+
+\node [anchor=east] (p1) at ([xshift=-3.5em]s11.west) {$p=\infty$};
+\node [anchor=east] (p2) at ([xshift=-4em]s21.west) {$p=1$};
+\node [anchor=east] (p3) at ([xshift=-4em]s31.west) {$p=2$};
+\node [anchor=east] (p4) at ([xshift=-4em]s41.west) {$p=4$};
+\node [anchor=north] (p5) at ([yshift=-1em]p3.south) {$\cdots$};
+\node [anchor=south,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (b1) at ([xshift=-0.6em,yshift=1.2em]p1.north) {};
+\node [anchor=west] (b2) at (b1.east) {\footnotesize{:Layer}};
+\node [anchor=west,draw=red,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em,dashed,line width=0.8pt] (b3) at ([xshift=1em]b2.east) {};
+\node [anchor=west] (b4) at (b3.east) {\footnotesize{:Block}};
+
+\draw [-latex, line width=0.8pt] ([xshift=-2em]s11.west) -- (s11.west);
+\draw [-latex, line width=0.8pt] (s11.east) -- (s12.west);
+\draw [-latex, line width=0.8pt] (s12.east) -- (s13.west);
+\draw [-latex, line width=0.8pt] (s13.east) -- (s14.west);
+\draw [-latex, line width=0.8pt] (s14.east) -- ([xshift=2em]s14.east);
+
+\draw [-latex, line width=0.8pt] ([xshift=-2em]s21.west) -- (s21.west);
+\draw [-latex, line width=0.8pt] (s21.east) -- (s22.west);
+\draw [-latex, line width=0.8pt] (s22.east) -- (s23.west);
+\draw [-latex, line width=0.8pt] (s23.east) -- (s24.west);
+\draw [-latex, line width=0.8pt] (s24.east) -- ([xshift=2em]s24.east);
+
+\draw [-latex, line width=0.8pt] ([xshift=-2em]s31.west) -- (s31.west);
+\draw [-latex, line width=0.8pt] (s31.east) -- (s32.west);
+\draw [-latex, line width=0.8pt] (s32.east) -- (s33.west);
+\draw [-latex, line width=0.8pt] (s33.east) -- (s34.west);
+\draw [-latex, line width=0.8pt] (s34.east) -- ([xshift=2em]s34.east);
+
+\draw [-latex, line width=0.8pt] ([xshift=-2em]s41.west) -- (s41.west);
+\draw [-latex, line width=0.8pt] (s41.east) -- (s42.west);
+\draw [-latex, line width=0.8pt] (s42.east) -- (s43.west);
+\draw [-latex, line width=0.8pt] (s43.east) -- (s44.west);
+\draw [-latex, line width=0.8pt] (s44.east) -- ([xshift=2em]s44.east);
+
+
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=1.7em,dashed,line width=0.8pt] (x21) at (s21) {};
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=1.7em,dashed,line width=0.8pt] (x22) at (s22) {};
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=1.7em,dashed,line width=0.8pt] (x23) at (s23) {};
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=1.7em,dashed,line width=0.8pt] (x24) at (s24) {};
+
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=5.2em,dashed,line width=0.8pt] (x31) at ([xshift=1.75em]s31) {};
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=5.2em,dashed,line width=0.8pt] (x32) at ([xshift=1.75em]s33) {};
+
+\node [draw=red,rounded corners=3pt,minimum height=1.7em,minimum width=12.2em,dashed,line width=0.8pt] (x41) at ([xshift=1.75em]s42) {};
+
+{
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s21.west).. controls +(58:0.6) and +(122:0.6) .. ([xshift=1em]s21.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s22.west).. controls +(58:0.6) and +(122:0.6) .. ([xshift=1em]s22.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s23.west).. controls +(58:0.6) and +(122:0.6) .. ([xshift=1em]s23.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s24.west).. controls +(58:0.6) and +(122:0.6) .. ([xshift=1em]s24.east);
+}
+
+{
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s21.west).. controls +(65:0.8) and +(115:0.8) .. ([xshift=1em]s22.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s22.west).. controls +(65:0.8) and +(115:0.8) .. ([xshift=1em]s23.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s23.west).. controls +(65:0.8) and +(115:0.8) .. ([xshift=1em]s24.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s31.west).. controls +(65:0.8) and +(115:0.8) .. ([xshift=1em]s32.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s33.west).. controls +(65:0.8) and +(115:0.8) .. ([xshift=1em]s34.east);
+}
+
+{
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s21.west).. controls +(70:1.0) and +(110:1.0) .. ([xshift=1em]s23.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s22.west).. controls +(70:1.0) and +(110:1.0) .. ([xshift=1em]s24.east);
+}
+
+{
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s21.west).. controls +(75:1.2) and +(105:1.2) .. ([xshift=1em]s24.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s31.west).. controls +(75:1.2) and +(105:1.2) .. ([xshift=1em]s34.east);
+\draw [-latex, line width=0.8pt] ([xshift=-1em]s41.west).. controls +(75:1.2) and +(105:1.2) .. ([xshift=1em]s44.east);
+}
+\end{scope} 
+\end{tikzpicture}
+\end{center}
+
+

@@ -1,0 +1,33 @@
+
+
+\begin{tikzpicture}
+
+\begin{scope}[scale=1.5]
+{\Large
+\tikzstyle{snode} = [draw,inner sep=1pt,minimum width=3em,minimum height=0.5em,rounded corners=1pt,fill=green!30!white]
+\tikzstyle{pnode} = [draw,inner sep=1pt,minimum width=1em,minimum height=0.5em,rounded corners=1pt]
+\node [anchor=west,snode] (s1) at (0,0) {};
+\node [anchor=north west,snode,minimum width=6.5em] (s2) at ([yshift=-0.3em]s1.south west) {};
+\node [anchor=north west,snode,minimum width=2em] (s3) at ([yshift=-0.3em]s2.south west) {};
+
+\node [anchor=east] (label1) at ([xshift=-0.8em,yshift=0.6em]s1.west) {\scriptsize{Shuffled:}};
+
+\node [anchor=west,pnode,minimum width=3em] (p1) at ([xshift=0.3em]s1.east) {};
+\node [anchor=west,pnode,minimum width=4em] (p3) at ([xshift=0.3em]s3.east) {};
+
+\node [anchor=west,snode,minimum width=5em] (s4) at ([xshift=4em]p1.east) {};
+\node [anchor=north west,snode,minimum width=5em] (s5) at ([yshift=-0.3em]s4.south west) {};
+\node [anchor=north west,snode,minimum width=6.5em] (s6) at ([yshift=-0.3em]s5.south west) {};
+
+\node [anchor=east] (label2) at ([xshift=-0.8em,yshift=0.6em]s4.west) {\scriptsize{Sorted:}};
+
+\node [anchor=west,pnode,minimum width=1em] (p4) at ([xshift=0.3em]s4.east) {};
+\node [anchor=west,pnode,minimum width=1em] (p5) at ([xshift=0.3em]s5.east) {};
+
+\node [rectangle,inner sep=0.5em,rounded corners=2pt,very thick,dotted,draw=ugreen!80] [fit = (s1) (s3) (p1) (p3)] (box0) {};
+\node [rectangle,inner sep=0.5em,rounded corners=2pt,very thick,dotted,draw=ugreen!80] [fit = (s4) (s6) (p4) (p5)] (box0) {};
+}
+\end{scope}
+
+
+\end{tikzpicture}

@@ -1,0 +1,33 @@
+
+
+%-----------------------------------------------------
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{rnode} = [draw,minimum width=3em,minimum height=1.2em]
+
+\node [rnode,anchor=south west,fill=blue!20!white] (value1) at (0,0) {\scriptsize{value$_1$}};
+\node [rnode,anchor=south west,fill=blue!20!white] (value2) at ([xshift=1em]value1.south east) {\scriptsize{value$_2$}};
+\node [rnode,anchor=south west,fill=red!20!white] (value3) at ([xshift=1em]value2.south east) {\scriptsize{value$_3$}};
+\node [rnode,anchor=south west,fill=blue!20!white] (value4) at ([xshift=1em]value3.south east) {\scriptsize{value$_4$}};
+
+\node [rnode,anchor=south west,pattern=north east lines] (key1) at ([yshift=0.2em]value1.north west) {};
+\node [rnode,anchor=south west,pattern=dots] (key2) at ([yshift=0.2em]value2.north west) {};
+\node [rnode,anchor=south west,pattern=horizontal lines] (key3) at ([yshift=0.2em]value3.north west) {};
+\node [rnode,anchor=south west,pattern=crosshatch dots] (key4) at ([yshift=0.2em]value4.north west) {};
+\node [fill=white,inner sep=1pt] (key1label) at (key1) {\scriptsize{key$_1$}};
+\node [fill=white,inner sep=1pt] (key1label) at (key2) {\scriptsize{key$_2$}};
+\node [fill=white,inner sep=1pt] (key1label) at (key3) {\scriptsize{key$_3$}};
+\node [fill=white,inner sep=1pt] (key1label) at (key4) {\scriptsize{key$_4$}};
+
+\node [rnode,anchor=east,pattern=horizontal lines] (query) at ([xshift=-3em]key1.west) {};
+\node [anchor=east] (querylabel) at ([xshift=-0.2em]query.west) {\scriptsize{query}};
+
+\draw [->] ([yshift=1pt]query.north) .. controls +(90:2em) and +(90:2em) .. ([yshift=1pt]key3.north) node [pos=0.5,below,yshift=0.2em] {\scriptsize{匹配}};
+
+\node [anchor=north] (result) at (value3.south) {\scriptsize{ {\red 返回结果} }};
+
+\end{scope}
+\end{tikzpicture}
+

@@ -1,0 +1,19 @@
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{lnode} = [minimum height=2em,minimum width=8em,inner sep=3pt,rounded corners=2pt,draw,fill=red!20];
+\tikzstyle{standard} = [rounded corners=3pt]
+
+\node [lnode,anchor=west] (l1) at (0,0) {编码器};
+\node [lnode,anchor=west,fill=blue!20] (l2) at ([xshift=3em]l1.east) {解码器};
+\node [anchor=north] (inputs) at ([xshift=-1.5em,yshift=-1em]l1.south) {Inputs: 五 星 红 旗};
+\node [anchor=south] (outputs) at ([xshift=-3.5em,yshift=2em]l2.north) {Outputs: {\color{red}五}云深处小蓬莱\ \ {\color{red}星}斗阑干次第开};
+\node [anchor=south] (outputs1) at ([xshift=-1.5em,yshift=1em]l2.north) {{\color{red}红}旆壁幢春色里\ \ {\color{red}旗}亭鼓吹乐声来};
+\draw [->,very thick] ([yshift=-1em]l1.south) -- ([yshift=-0.1em]l1.south);
+\draw [->,very thick] ([yshift=0.1em]l2.north) -- ([yshift=1em]l2.north);
+\draw [->,very thick] ([xshift=0.1em]l1.east) -- ([xshift=-0.1em]l2.west);
+
+\node [rectangle,inner sep=0.5em,rounded corners=1pt,very thick,dotted,draw=ugreen!80] [fit = (l1) (l2)] (box0) {};
+
+\end{scope}
+\end{tikzpicture}

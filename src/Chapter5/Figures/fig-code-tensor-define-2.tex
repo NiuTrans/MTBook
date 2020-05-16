@@ -1,0 +1,42 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tcolorbox}[enhanced,width=12cm,frame engine=empty,boxrule=0.1mm,size=title,colback=blue!10!white]
+\begin{flushleft}
+{\scriptsize
+\begin{tabbing}
+\texttt{XTensor tensor;} \hspace{14em} \= // 声明张量tensor \\
+\texttt{int sizes[6] = \{2,3,4,2,3,4\};} \> // 张量的形状为2*3*4*2*3*4 \\
+\texttt{InitTensor(\&tensor, 6, sizes, X\_FLOAT);} \> // 定义形状为sizes的6阶张量
+\end{tabbing}
+}
+\end{flushleft}
+\end{tcolorbox}
+\hspace{0.1in} \scriptsize{(a) NiuTensor定义张量程序}
+\\
+\begin{tcolorbox}[enhanced,width=12cm,frame engine=empty,boxrule=0.1mm,size=title,colback=blue!10!white]
+\begin{flushleft}
+{\scriptsize
+\begin{tabbing}
+\texttt{XTensor a, b, c;} \hspace{13.5em} \= // 声明张量tensor \\
+\texttt{InitTensor1D(\&a, 10, X\_INT);} \> // 10维的整数型向量\\
+\texttt{InitTensor1D(\&b, 10);} \> // 10维的向量，缺省类型(浮点)\\
+\texttt{InitTensor4D(\&c, 10, 20, 30, 40);} \> // 10*20*30*40的4阶张量(浮点)
+\end{tabbing}
+}
+\end{flushleft}
+\end{tcolorbox}
+\hspace{0.1in} \scriptsize{(b) 定义张量的简便方式程序}
+\\
+\begin{tcolorbox}[enhanced,width=12cm,frame engine=empty,boxrule=0.1mm,size=title,colback=blue!10!white]
+\begin{flushleft}
+{\scriptsize
+\begin{tabbing}
+\texttt{XTensor tensorGPU;} \hspace{12.5em} \= // 声明张量tensor \\
+\texttt{InitTensor2D(\&tensorGPU, 10, 20,} $\backslash$ \> // 在编号为0的GPU上定义张量 \\
+\hspace{6.7em} \texttt{X\_FLOAT, 0);}
+\end{tabbing}
+}
+\end{flushleft}
+\end{tcolorbox}
+\hspace{0.1in} \scriptsize{(c) 在GPU上定义张量程序}
+%%%------------------------------------------------------------------------------------------------------------
+

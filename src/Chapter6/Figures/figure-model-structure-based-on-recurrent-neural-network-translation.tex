@@ -1,0 +1,127 @@
+%--------------------------------------------------------------------------
+   \begin{tikzpicture}
+   
+        \setlength{\base}{0.9cm}
+
+        \tikzstyle{rnnnode} = [rounded corners=1pt,minimum size=0.5\base,draw,inner sep=0pt,outer sep=0pt]
+        \tikzstyle{wordnode} = [font=\tiny]
+
+        % RNN translation model
+        \begin{scope}[local bounding box=RNNMT]
+            % RNN Encoder
+            \coordinate (eemb0) at (0,0);
+            \foreach \x [count=\y from 0] in {1,2,...,10}
+                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.4\base]eemb\y.east) {};
+            \foreach \x in {1,2,...,10}
+                \node[rnnnode,fill=blue!30!white,anchor=south] (enc\x) at ([yshift=0.5\base]eemb\x.north) {};
+            \node[wordnode,left=0.4\base of enc1] (init) {$0$};
+
+            \node[wordnode,below=0pt of eemb1] () {你};
+            \node[wordnode,below=0pt of eemb2] () {知道};
+            \node[wordnode,below=0pt of eemb3] () {去};
+            \node[wordnode,below=0pt of eemb4] () {北京站};
+            \node[wordnode,below=0pt of eemb5] () {的};
+            \node[wordnode,below=0pt of eemb6] () {路};
+            \node[wordnode,below=0pt of eemb7] () {怎么};
+            \node[wordnode,below=0pt of eemb8] () {走};
+            \node[wordnode,below=0pt of eemb9] () {吗};
+            \node[wordnode,below=0pt of eemb10] () {$\langle$eos$\rangle$};
+
+            % RNN Decoder
+            \foreach \x in {1,2,...,10}
+                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=south] (demb\x) at ([yshift=2\base]enc\x.north) {};
+            \foreach \x in {1,2,...,10}
+                \node[rnnnode,fill=blue!30!white,anchor=south] (dec\x) at ([yshift=0.5\base]demb\x.north) {};
+            \foreach \x in {1,2,...,10}
+                \node[rnnnode,minimum height=0.5\base,fill=red!30!white,anchor=south] (softmax\x) at ([yshift=0.5\base]dec\x.north) {};
+
+            % Decoder input words
+            \node[wordnode,below=0pt of demb1] (decwordin) {$\langle$sos$\rangle$};
+            \ExtractX{$(demb2.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Do};
+            \ExtractX{$(demb3.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {you};
+            \ExtractX{$(demb4.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {know};
+            \ExtractX{$(demb5.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {the};
+            \ExtractX{$(demb6.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {way};
+            \ExtractX{$(demb7.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {to};
+            \ExtractX{$(demb8.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Beijing};
+            \ExtractX{$(demb9.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Railway};
+            \ExtractX{$(demb10.south)$}
+            \ExtractY{$(decwordin.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Station};
+
+            % Decoder output words
+            \node[wordnode,above=0pt of softmax1] (decwordout) {Do};
+            \ExtractX{$(softmax2.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {you};
+            \ExtractX{$(softmax3.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {know};
+            \ExtractX{$(softmax4.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {the};
+            \ExtractX{$(softmax5.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {way};
+            \ExtractX{$(softmax6.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {to};
+            \ExtractX{$(softmax7.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Beijing};
+            \ExtractX{$(softmax8.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Railway};
+            \ExtractX{$(softmax9.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {Station};
+            \ExtractX{$(softmax10.north)$}
+            \ExtractY{$(decwordout.base)$}
+            \node[wordnode,anchor=base] () at (\XCoord,\YCoord) {$\langle$eos$\rangle$};
+
+            % Connections
+            \draw[-latex'] (init.east) to (enc1.west);
+            \foreach \x in {1,2,...,10}
+                \draw[-latex'] (eemb\x) to (enc\x);
+            \foreach \x in {1,2,...,10}
+                \draw[-latex'] (demb\x) to (dec\x);
+            \foreach \x in {1,2,...,10}
+                \draw[-latex'] (dec\x.north) to ([yshift=0.5\base]dec\x.north);
+            \foreach \x [count=\y from 2] in {1,2,...,9}
+            {
+                \draw[-latex'] (enc\x.east) to (enc\y.west);
+                \draw[-latex'] (dec\x.east) to (dec\y.west);
+            }
+            \coordinate (bridge) at ([yshift=-1.2\base]demb2);
+            \draw[-latex'] (enc10.north) .. controls +(north:\base) and +(east:1.5\base) .. (bridge) .. controls +(west:2.5\base) and +(west:0.6\base) .. (dec1.west);
+        \end{scope}
+
+        % legend
+        \begin{scope}[shift={(10\base,2.5\base)}]
+            \node[rnnnode,minimum height=0.5\base,fill=green!30!white,label={[label distance=3pt,font=\scriptsize]0:词嵌入层}] (emb) at (0,0) {};
+            \node[rnnnode,fill=blue!30!white,anchor=north west,label={[label distance=3pt,font=\scriptsize]0:循环单元}] (rnn) at ([yshift=2\base]emb.south west) {};
+            \node[rnnnode,minimum height=0.5\base,fill=red!30!white,anchor=north west,label={[label distance=3pt,font=\scriptsize]0:输出层}] (softmax) at ([yshift=2\base]rnn.south west) {};
+            \node [anchor=north west] (softmax2) at ([xshift=0.6\base]softmax.south west) {\scriptsize{Softmax}};
+            \node [anchor=north west] (rnn2) at ([xshift=0.6\base]rnn.south west) {\scriptsize{LSTM}};
+
+            \node [anchor=west] (reprlabel) at ([xshift=1em]enc10.east) {\scriptsize{句子表示}};
+            \draw [->,dashed] (reprlabel.west) -- ([xshift=0.1em]enc10.east);
+            \node [rnnnode,fill=purple!30!white] at (enc10) {};
+        \end{scope}
+    \end{tikzpicture}

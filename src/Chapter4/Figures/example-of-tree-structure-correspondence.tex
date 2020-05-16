@@ -1,0 +1,28 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  规则实例(树到树)
+\begin{center}
+\begin{tikzpicture}
+
+{\small
+\begin{scope}[sibling distance=5pt, level distance = 22pt]
+\Tree[.\node(s1){VP}; [.\node(s2){PP}; ] [.\node(s3){VP}; [.\node(s4){VV}; \node[fill=white](w1){表示}; ] [.\node(s5){NN}; ] ] ]
+\end{scope}
+
+\begin{scope}[xshift=2in,sibling distance=5pt, level distance = 22pt]
+\Tree[.\node(t1){VP}; [.\node(t2){VBZ}; \node(w2){was}; ] [.\node(t3){VP}; [.\node(t4){VBN}; ] [.\node(t5){PP}; ] ] ]
+\end{scope}
+
+\begin{pgfonlayer}{background}
+\node [anchor=west] (arrow) at ([xshift=3em]s5.east) {\Large{\textbf{$\to$}}};{
+\node [inner sep=0,fill=blue!20] [fit = (s2)] (snode1) {};
+\node [inner sep=0,fill=red!20] [fit = (s5)] (snode2) {};
+\node [inner sep=0,fill=red!20] [fit = (t4)] (tnode1) {};
+\node [inner sep=0,fill=blue!20] [fit = (t5)] (tnode2) {};
+\draw [<->,dotted,thick] (snode2.south) ..controls +(south:2.5em) and +(south:2.5em).. (tnode1.south);
+\draw [<->,dotted,thick] (snode1.south) ..controls +(south:8em) and +(south:4.5em).. (tnode2.south);
+}
+\end{pgfonlayer}
+}
+
+\end{tikzpicture}
+\end{center}

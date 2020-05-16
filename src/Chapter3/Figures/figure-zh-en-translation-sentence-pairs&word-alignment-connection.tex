@@ -1,0 +1,39 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+
+
+\begin{tikzpicture}
+
+\begin{scope}
+\node [anchor=west] (s1) at (0,0) {我\footnotesize{$_1$}};
+\node [anchor=west] (s2) at ([xshift=0.5em]s1.east) {对\footnotesize{$_2$}};
+\node [anchor=west] (s3) at ([xshift=0.5em]s2.east) {你\footnotesize{$_3$}};
+\node [anchor=west] (s4) at ([xshift=0.5em]s3.east) {感到\footnotesize{$_4$}};
+\node [anchor=west] (s5) at ([xshift=0.5em]s4.east) {满意\footnotesize{$_5$}};
+\node [anchor=east] (s) at (s1.west) {$\mathbf{s}=$};
+\end{scope}
+
+\begin{scope}[yshift=-3.0em]
+\node [anchor=west] (t1) at (0.35em,0) {I\footnotesize{$_1$}};
+\node [anchor=west] (t2) at ([xshift=0.3em,yshift=-0.1em]t1.east) {am\footnotesize{$_2$}};
+\node [anchor=west] (t3) at ([xshift=0.3em,yshift=0.1em]t2.east) {satisfied\footnotesize{$_3$}};
+\node [anchor=west] (t4) at ([xshift=0.3em]t3.east) {with\footnotesize{$_4$}};
+\node [anchor=west] (t5) at ([xshift=0.3em,yshift=-0.2em]t4.east) {you\footnotesize{$_5$}};
+\node [anchor=east] (t) at ([xshift=-0.3em]t1.west) {$\mathbf{t}=$};
+\end{scope}
+
+
+\draw [-,thick,ublue,dashed] (s1.south) -- (t1.north);
+\draw [-,thick,ublue,dashed] (s4.south) -- ([yshift=0.3em]t2.north);
+\draw [-,thick,ublue,dashed] (s2.south) ..controls +(south:1em) and +(north:1em).. (t4.north);
+\draw [-,thick,ublue,dashed] (s3.south) ..controls +(south:0.5em) and +(north:1.5em).. (t5.north);
+\draw [-,thick,ublue,dashed] (s5.south) -- (t3.north);
+
+\end{tikzpicture}
+
+
+%---------------------------------------------------------------------
+
+
+

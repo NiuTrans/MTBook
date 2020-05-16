@@ -1,0 +1,26 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  树到串规则
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}[scale=1]
+\Tree[.\node(sn1){VP};
+        [.\node(sn2){VV}; \node(scw1){提高}; ]
+        [.\node(sn3){NN}; ]
+     ]
+
+\path [draw, ->, thick] ([xshift=1em]sn3.east) -- ([xshift=2.5em]sn3.east);
+
+\node [anchor=west] (tw1) at ([xshift=3.5em]sn3.east) {increases};
+\node [anchor=west,fill=red!20] (tw2) at ([xshift=0.3em]tw1.east) {NN};
+
+\draw[dotted,thick,<->] ([yshift=-0.1em]sn3.south)..controls +(south:1.2) and +(south: 1.2)..([yshift=-0.1em]tw2.south);
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0em,fill=red!20] [fit = (sn3)] (nn1) {};
+\end{pgfonlayer}
+
+\end{scope}
+
+\end{tikzpicture}
+\end{center}

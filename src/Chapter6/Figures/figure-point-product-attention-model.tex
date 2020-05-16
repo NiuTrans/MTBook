@@ -1,0 +1,87 @@
+
+
+
+
+
+\begin{tikzpicture}
+\begin{scope}
+
+\node [anchor=south west,fill=white,draw,inner sep=4pt,minimum width=4em,fill=blue!20!white] (MatMul) at (0,0) {\tiny{MatMul}};
+\node [anchor=north] (Q1) at ([xshift=-1.4em,yshift=-1em]MatMul.south) {\footnotesize{$\mathbf{Q}$}};
+\node [anchor=north] (K1) at ([xshift=1.4em,yshift=-1em]MatMul.south) {\footnotesize{$\mathbf{K}$}};
+\node [anchor=south,draw,inner sep=4pt,fill=yellow!30,minimum width=2.5em] (Scale3) at ([yshift=1em]MatMul.north) {\tiny{Scale}};
+\node [anchor=south,draw,inner sep=4pt,fill=purple!20,minimum width=3.5em] (Mask) at ([yshift=0.8em]Scale3.north) {\tiny{Mask(opt.)}};
+\node [anchor=south,draw,inner sep=4pt,fill=ugreen!20!white] (SoftMax) at ([yshift=1em]Mask.north) {\tiny{SoftMax}};
+\node [anchor=south,draw,minimum width=4em,inner sep=4pt,fill=blue!20!white] (MatMul1) at ([xshift=1.7em,yshift=1em]SoftMax.north) {\tiny{MatMul}};
+\node [anchor=north] (V1) at ([xshift=2em]K1.north) {\footnotesize{$\mathbf{V}$}};
+\node [anchor=north] (null) at ([yshift=0.8em]MatMul1.north) {};
+
+\draw [->] ([yshift=0.1em]Q1.north) -- ([xshift=-1.4em,yshift=-0.1em]MatMul.south);
+\draw [->] ([yshift=0.1em]K1.north) -- ([xshift=1.4em,yshift=-0.1em]MatMul.south);
+\draw [->] ([yshift=0.1em]MatMul.north) -- ([yshift=-0.1em]Scale3.south);
+\draw [->] ([yshift=0.1em]Scale3.north) -- ([yshift=-0.1em]Mask.south);
+\draw [->] ([yshift=0.1em]Mask.north) -- ([yshift=-0.1em]SoftMax.south);
+\draw [->] ([yshift=0.1em]SoftMax.north) -- ([yshift=0.9em]SoftMax.north);
+\draw [->] ([yshift=0.1em]V1.north) -- ([yshift=9.3em]V1.north);
+\draw [->] ([yshift=0.1em]MatMul1.north) -- ([yshift=0.8em]MatMul1.north);
+
+{
+\node [anchor=east] (line1) at ([xshift=-4em,yshift=1em]MatMul.west) {\scriptsize{自注意力机制的Query}};
+\node [anchor=north west] (line2) at ([yshift=0.3em]line1.south west) {\scriptsize{Key和Value均来自同一句子}};
+\node [anchor=north west] (line3) at ([yshift=0.3em]line2.south west) {\scriptsize{编码-解码注意力机制}};
+\node [anchor=north west] (line4) at ([yshift=0.3em]line3.south west) {\scriptsize{与前面讲的一样}};
+}
+{
+\node [anchor=west] (line11) at ([xshift=3em,yshift=0em]MatMul.east) {\scriptsize{Query和Key的转置}};
+\node [anchor=north west] (line12) at ([yshift=0.3em]line11.south west) {\scriptsize{进行点积,得到句子内部}};
+\node [anchor=north west] (line13) at ([yshift=0.3em]line12.south west) {\scriptsize{各个位置的相关性}};
+}
+
+{
+\node [anchor=west] (line21) at ([yshift=5em]line11.west) {\scriptsize{相关性矩阵在训练中}};
+\node [anchor=north west] (line22) at ([yshift=0.3em]line21.south west) {\scriptsize{方差变大，不利于训练}};
+\node [anchor=north west] (line23) at ([yshift=0.3em]line22.south west) {\scriptsize{所以对其进行缩放}};
+}
+
+{
+\node [anchor=west] (line31) at ([yshift=6em]line1.west) {\scriptsize{在编码端，对句子补齐}};
+\node [anchor=north west] (line32) at ([yshift=0.3em]line31.south west) {\scriptsize{填充的部分进行屏蔽}};
+\node [anchor=north west] (line33) at ([yshift=0.3em]line32.south west) {\scriptsize{解码时看不到未来的信息}};
+\node [anchor=north west] (line34) at ([yshift=0.3em]line33.south west) {\scriptsize{需要对未来的信息进行屏蔽}};
+}
+
+{
+\node [anchor=west] (line41) at ([yshift=4em]line21.west) {\scriptsize{用归一化的相关性打分}};
+\node [anchor=north west] (line42) at ([yshift=0.3em]line41.south west) {\scriptsize{对Value进行加权求和}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=green!10,drop shadow,draw=ugreen] [fit = (line1) (line2) (line3) (line4)] (box1) {};
+\node [rectangle,inner sep=0.1em,rounded corners=1pt,very thick,dotted,draw=ugreen] [fit = (Q1) (K1) (V1)] (box0) {};
+\draw [->,dotted,very thick,ugreen] ([yshift=-1.5em,xshift=1.2em]box1.east) -- ([yshift=-1.5em,xshift=0.1em]box1.east);
+}
+{
+\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=blue!20!white,drop shadow,draw=blue] [fit = (line11) (line12) (line13)] (box2) {};
+\draw [->,dotted,very thick,blue] ([yshift=1em,xshift=-2.8em]box2.west) -- ([yshift=1em,xshift=-0.1em]box2.west);
+}
+
+{
+\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=yellow!20,drop shadow,draw=black] [fit = (line21) (line22) (line23)] (box3) {};
+\draw [->,dotted,very thick,black] ([xshift=0.1em]Scale3.east) .. controls +(east:1) and +(west:1) .. ([yshift=1.0em]box3.west) ;
+}
+
+{
+\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=red!10,drop shadow,draw=red] [fit = (line31) (line32) (line33) (line34)] (box4) {};
+\draw [->,dotted,very thick,red] ([yshift=-1.2em,xshift=2.2em]box4.east) -- ([yshift=-1.2em,xshift=0.1em]box4.east);
+}
+
+{
+\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=blue!20!white,drop shadow,draw=blue] [fit = (line41) (line42)] (box5) {};
+\draw [->,dotted,very thick,blue] ([yshift=-0.3em,xshift=-1em]box5.west) -- ([yshift=-0.3em,xshift=-0.1em]box5.west);
+}					
+\end{pgfonlayer}
+
+
+\end{scope}
+\end{tikzpicture}

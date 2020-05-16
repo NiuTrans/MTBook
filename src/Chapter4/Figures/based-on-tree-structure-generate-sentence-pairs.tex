@@ -1,0 +1,149 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  规则的组装对应翻译过程
+
+\begin{tikzpicture}
+
+% target side
+\begin{scope}[xshift=-1em, level distance=25pt]
+
+\node[scale=0.8] at (1.5, 2.2) {目标语言};
+
+\node[scale=0.6, inner sep=0.1cm, draw,xshift=1em] (tfrag1) at
+   (0,0.05) {\Tree[.NP [.DT the ] [.NNS imports ]]};
+
+{
+\node[scale=0.6, inner sep=0.1cm, draw, sibling distance=100pt] (tfrag2) at
+   (1.4,1.4) {\Tree[.S [.NP ] [.VP ]]};
+}
+
+{
+\node[scale=0.6, inner sep=0.1cm, draw, sibling distance=30pt] (tfrag3) at
+   (3,-0.2) {\Tree[.VP [.VBZ have ] [.ADVP [.RB ] [.VBN fallen ]]]};
+}
+
+{
+\node[scale=0.6, inner sep=0.1cm, draw,xshift=-1.5em] (tfrag4) at
+   (2.8,-1.8) {\Tree[.RB drastically ]};
+}
+
+{\draw[*-*] (0.15,0.7) -- (0.15,1.05);}
+{\draw[*-*] (2.7,0.7) -- (2.7,1.05);}
+{\draw[*-*] (2.4,-1.4) .. controls +(north:0.6) and +(south:0.6) .. (3.0,-0.6);}
+\end{scope}
+
+% source side
+\begin{scope}[scale=0.8, level distance=25pt, xshift=-20em, yshift=1em]
+
+\node[scale=0.8] at (2.1, 2.45) {源语言};
+
+{
+\node[scale=0.6, inner sep=0.1cm, draw] (sfrag1) at
+   (0,0) {\Tree[.NN 进口 ]};
+}
+
+{
+\node[scale=0.6, inner sep=0.1cm, draw, sibling distance=135pt] (sfrag2) at
+   (2.0,1.4) {\Tree[.IP [.NN ] [.VP ]]};
+}
+
+{
+\node[scale=0.6, inner sep=0.1cm, xshift=1em, draw] (sfrag3) at
+   (4,-0.7) {\Tree[.VP [.AD ] [.ADVP [.VV 下降 ] [.AS 了 ]]]};
+}
+
+{
+\node[scale=0.6, inner sep=0.1cm, draw] (sfrag4) at
+   (1.3,-1.3) {\Tree[.AD 大幅度 ]};
+}
+
+{\draw[*-*] (0.05,0.5) -- (0.05,0.95);}
+{\draw[*-*] (4.15,0.5) -- (4.15,0.95);}
+{\draw[*-*] (1.55,-0.95) .. controls +(east:1.0) and +(south:0.4) .. (3.5,-0.6);}
+
+\draw[*-*] (-0.2,-2.5)--(0.3,-2.5) ;
+\node[scale=0.6] (sfrag5) at
+   ([xshift=2em,yshift=-3.2em]sfrag4) {{表示对变量的替换操作}};
+
+\end{scope}
+
+% rule 1
+\begin{scope}[scale=0.6, xshift=-22em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-6em] \Tree[.NN 进口 ] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west] \Tree[.NP [.DT the ] [.NNS imports ]] \end{scope}
+
+\end{scope}
+
+% rule 2
+\begin{scope}[scale=0.6, xshift=-11em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-6em] \Tree[.AD 大幅度 ] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west] \Tree[.RB drastically ] \end{scope}
+
+\end{scope}
+
+% rule 3
+\begin{scope}[scale=0.6, xshift=2em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-7em] \Tree[.VP [.AD ] [.ADVP [.VV 下降 ] [.AS 了 ]]] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west, xshift=1em] \Tree[.VP [.VBZ have ] [.ADVP [.RB ] [.VBN fallen ]]] \end{scope}
+
+\end{scope}
+
+% rule 4
+\begin{scope}[scale=0.6, xshift=16em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-6em] \Tree[.IP [.NN ] [.VP ]] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west,xshift=-1em] \Tree[.S [.NP ] [.VP ]] \end{scope}
+
+\end{scope}
+
+% red rule 1
+\begin{scope}[scale=0.6, xshift=-22em, yshift=-11em, level distance=20pt]
+
+{
+\begin{scope}[anchor=north east, xshift=-6em] \Tree[.NN 进口 ] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west] \Tree[.NP [.DT the ] [.NNS imports ]] \end{scope}
+}
+
+\end{scope}
+
+{
+% red rule 2
+\begin{scope}[scale=0.6, xshift=-11em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-6em] \Tree[.AD 大幅度 ] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west] \Tree[.RB drastically ] \end{scope}
+
+\end{scope}
+}
+
+{
+% red rule 3
+\begin{scope}[scale=0.6, xshift=2em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-7em] \Tree[.VP [.AD ] [.ADVP [.VV 下降 ] [.AS 了 ]]] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west, xshift=1em] \Tree[.VP [.VBZ have ] [.ADVP [.RB ] [.VBN fallen ]]] \end{scope}
+
+\end{scope}
+}
+
+{
+% red rule 4
+\begin{scope}[scale=0.6, xshift=16em, yshift=-11em, level distance=20pt]
+
+\begin{scope}[anchor=north east, xshift=-6em] \Tree[.IP [.NN ] [.VP ]] \end{scope}
+\draw[->] (-1.7,0.1) -- (-0.9,0.1);
+\begin{scope}[anchor=north west,xshift=-1em] \Tree[.S [.NP ] [.VP ]] \end{scope}
+
+\end{scope}
+}
+
+\end{tikzpicture}

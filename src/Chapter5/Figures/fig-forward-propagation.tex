@@ -1,0 +1,42 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{layernode} = [draw,thick,fill=ugreen!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}];
+
+\node [anchor=center,layernode,minimum height=4em,minimum width=1em] (layer01) at (0,0) {};
+\node [anchor=north west,layernode,minimum height=3em,minimum width=1em] (layer02) at ([xshift=3em]layer01.north east) {};
+\node [anchor=south west,layernode,minimum height=3em,minimum width=1em] (layer03) at ([xshift=7em]layer01.south east) {};
+\node [anchor=south west,layernode,minimum height=4em,minimum width=1em] (layer04) at ([xshift=11em]layer01.south east) {};
+\node [anchor=south west,layernode,minimum height=4em,minimum width=1em] (layer05) at ([xshift=3em]layer04.south east) {};
+
+\node [anchor=east] (input) at ([xshift=-1em]layer01.west){\scriptsize{输入}};
+\node [anchor=west] (output) at ([xshift=1em]layer05.east){\scriptsize{输出}};
+
+
+{
+\draw [->,very thick,ublue] ([xshift=-1em]layer01.west) -- ([xshift=-0.1em]layer01.west)node [pos=0.5,above] {\small{\ding{172}}};;
+}
+{
+\draw [->,very thick,ublue] ([xshift=0.1em,yshift=-0.5em]layer01.north east) -- ([xshift=-0.1em,yshift=-0.5em]layer02.north west)node [pos=0.5,above] {\small{\ding{173}}};
+}
+{
+\draw [->,very thick,ublue] ([xshift=0.1em,yshift=0.5em]layer01.south east) -- ([xshift=-0.1em,yshift=0.5em]layer03.south west)node [pos=0.5,below] {\small{\ding{174}}};
+}
+{
+\draw [->,very thick,ublue] ([xshift=0.1em,yshift=-0.5em]layer02.north east) -- ([xshift=-0.1em,yshift=-0.5em]layer04.north west)node [pos=0.5,above] {\small{\ding{175}}};
+\draw [->,very thick,ublue] ([xshift=0.1em,yshift=0.5em]layer03.south east) -- ([xshift=-0.1em,yshift=0.5em]layer04.south west)node [pos=0.5,below] {\small{\ding{176}}};
+\draw [->,very thick,ublue] ([xshift=0.1em]layer04.east) -- ([xshift=-0.1em]layer05.west)node [pos=0.5,above] {\small{\ding{177}}};
+\draw [->,very thick,ublue] ([xshift=0.1em]layer05.east) -- ([xshift=1.0em]layer05.east)node [pos=0.5,above] {\small{\ding{178}}};
+}
+
+
+
+{
+\draw [<-,thin] ([xshift=0.3em,yshift=0.3em]layer04.east) .. controls +(35:1) and +(215:1) .. ([xshift=-2em,yshift=0.3em]layer05.north west) node [pos=1,above] {\scriptsize{前向：层$i$ 的输出$h_{i}$}};
+}
+
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

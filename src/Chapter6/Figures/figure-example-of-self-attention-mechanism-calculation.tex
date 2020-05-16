@@ -1,0 +1,30 @@
+
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{rnode} = [draw,minimum width=2.8em,minimum height=1.2em]
+
+
+
+\node [rnode,anchor=south west,fill=green!20!white] (key11) at (0,0) {\scriptsize{$\textbf{h}(\textrm{``你''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (key12) at ([xshift=0.8em]key11.south east) {\scriptsize{$\textbf{h}(\textrm{``什么''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (key13) at ([xshift=0.8em]key12.south east) {\scriptsize{$\textbf{h}(\textrm{``也''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (key14) at ([xshift=0.8em]key13.south east) {\scriptsize{$\textbf{h}(\textrm{``没''})$}};
+\node [rnode,anchor=south west,fill=green!20!white] (key15) at ([xshift=0.8em]key14.south east) {\scriptsize{$\textbf{h}(\textrm{``学''})$}};
+
+\node [rnode,anchor=east] (query1) at ([xshift=-1em]key11.west) {\scriptsize{$\textbf{h}(\textrm{``你''})$}};
+
+\draw [->] ([yshift=1pt,xshift=4pt]query1.north) .. controls +(90:0.6em) and +(90:0.6em) .. ([yshift=1pt]key11.north);
+\draw [->] ([yshift=1pt,xshift=0pt]query1.north) .. controls +(90:1.0em) and +(90:1.0em) .. ([yshift=1pt]key12.north);
+\draw [->] ([yshift=1pt,xshift=-4pt]query1.north) .. controls +(90:1.4em) and +(90:1.4em) .. ([yshift=1pt]key13.north);
+\draw [->] ([yshift=1pt,xshift=-8pt]query1.north) .. controls +(90:1.8em) and +(90:1.8em) .. ([yshift=1pt]key14.north);
+\draw [->] ([yshift=1pt,xshift=-12pt]query1.north) .. controls +(90:2.2em) and +(90:2.2em) .. ([yshift=1pt]key15.north);
+\node [anchor=south west] (alpha11) at ([xshift=0.3em]key11.north) {\scriptsize{$\alpha_1$}};
+\node [anchor=south west] (alpha12) at ([xshift=0.3em]key12.north) {\scriptsize{$\alpha_2$}};
+\node [anchor=south west] (alpha13) at ([xshift=0.3em]key13.north) {\scriptsize{$\alpha_3$}};
+\node [anchor=south west] (alpha14) at ([xshift=0.3em]key14.north) {\scriptsize{$\alpha_4$}};
+\node [anchor=south west] (alpha15) at ([xshift=0.3em]key15.north) {\scriptsize{$\alpha_5$}};
+
+\end{scope}
+\end{tikzpicture}

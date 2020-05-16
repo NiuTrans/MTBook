@@ -1,0 +1,33 @@
+
+
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{lnode} = [minimum height=1.5em,minimum width=3em,inner sep=3pt,rounded corners=1.5pt,draw,fill=orange!20];
+\tikzstyle{standard} = [rounded corners=3pt]
+
+\node [lnode,anchor=west] (l1) at (0,0) {\scriptsize{子层$n$}};
+\node [lnode,anchor=west] (l2) at ([xshift=3em]l1.east) {\scriptsize{层正则化}};
+\node [lnode,anchor=west] (l3) at ([xshift=4em]l2.east) {\scriptsize{层正则化}};
+\node [lnode,anchor=west] (l4) at ([xshift=1.5em]l3.east) {\scriptsize{子层$n$}};
+
+\node [anchor=west] (plus1) at ([xshift=0.9em]l1.east) {\scriptsize{$\mathbf{\oplus}$}};
+\node [anchor=west] (plus2) at ([xshift=0.9em]l4.east) {\scriptsize{$\mathbf{\oplus}$}};
+
+\node [anchor=north] (label1) at ([xshift=3em,yshift=-0.5em]l1.south) {\scriptsize{(a)后正则化}};
+\node [anchor=north] (label2) at ([xshift=3em,yshift=-0.5em]l3.south) {\scriptsize{(b)前正则化}};
+
+\draw [->,thick] ([xshift=-1.5em]l1.west) -- ([xshift=-0.1em]l1.west);
+\draw [->,thick] ([xshift=0.1em]l1.east) -- ([xshift=0.2em]plus1.west);
+\draw [->,thick] ([xshift=-0.2em]plus1.east) -- ([xshift=-0.1em]l2.west);
+\draw [->,thick] ([xshift=0.1em]l2.east) -- ([xshift=1em]l2.east);
+\draw [->,thick] ([xshift=-1.5em]l3.west) -- ([xshift=-0.1em]l3.west);
+\draw [->,thick] ([xshift=0.1em]l3.east) -- ([xshift=-0.1em]l4.west);
+\draw [->,thick] ([xshift=0.1em]l4.east) -- ([xshift=0.2em]plus2.west);
+\draw [->,thick] ([xshift=-0.2em]plus2.east) -- ([xshift=1em]plus2.east);
+
+\draw[->,standard,thick] ([xshift=-0.8em]l1.west) -- ([xshift=-0.8em,yshift=2em]l1.west) -- ([yshift=2em]plus1.center) -- ([yshift=-0.2em]plus1.north);
+\draw[->,standard,thick] ([xshift=-0.8em]l3.west) -- ([xshift=-0.8em,yshift=2em]l3.west) -- ([yshift=2em]plus2.center) -- ([yshift=-0.2em]plus2.north);
+
+\end{scope}
+\end{tikzpicture}

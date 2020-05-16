@@ -1,0 +1,65 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\begin{tikzpicture}%画图中的属性如xshift应该是通用的，前面的关键字如xlabel规定了修改的部分
+\begin{axis}[  
+  width=10cm, height=4.5cm, 
+  symbolic x coords={未抽取词,do,want,what,am,people,look},%自定义x坐标
+  xtick=data,%自定义x坐标
+  ytick={0,0.05,0.1,0.15,0.2,0.25},
+  xlabel={低概率词汇},
+  ylabel={词汇概率},
+  legend pos=outer north east,%图标位置
+  xlabel style={align=right,xshift=5.3cm,yshift=0.8cm,font=\footnotesize},
+  ylabel style={rotate=-90,yshift=2cm,xshift=1cm,font=\footnotesize},
+  y tick style={opacity=0},%隐藏y轴刻度线
+  x tick style={opacity=0},%隐藏x轴刻度线
+  x tick label style={anchor=base,font=\footnotesize,yshift=-0.5cm},
+  y tick label style={font=\footnotesize,/pgf/number format/.cd,fixed,precision=2},%y轴精度，不用科学表示
+  y axis line style={opacity=0},%隐藏y轴
+  tick align=inside,%原本的横行线
+  ymajorgrids,%显示横行网格线
+  axis x line*=bottom,%显示x轴坐标汉字（应该是对齐）
+  major grid style={dotted,draw=ublue},%横行线颜色
+  axis on top,%网格线位于顶层
+  legend style={anchor=north west,font=\footnotesize},%图标格式
+  ymin=0,
+  ymax=0.25]
+  \addplot [ybar,bar shift=-2mm,bar width=4mm,fill=blue!40,draw=blue!40,area legend] coordinates{(未抽取词,0) (do,0.05) (want,0.05) (what,0.05) (am,0.1) (people,0.15) (look,0.2)};%area legend图例显示长方形颜色
+  \addplot [ybar,bar shift=2mm,bar width=4mm,fill=red!40,draw=red!40,area legend] coordinates{(未抽取词,0.03) (do,0.062) (want,0.062) (what,0.062) (am,0.09) (people,0.122) (look,0.138)};
+  \legend{未平滑,平滑后}%右上图例
+\end{axis}
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

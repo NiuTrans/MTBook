@@ -1,0 +1,63 @@
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{minipage}[t]{0.32\linewidth}
+\vspace{1.5em}
+\begin{tikzpicture}
+\begin{scope}[sibling distance=3pt, level distance=25pt]
+{\small
+\Tree[.IP
+          [.NP
+               [.NN \node(sw1){猫}; ]
+          ]
+          [.VP
+               [.VV \node(sw2){喜欢}; ]
+               [.VP
+                     [.VV \node(sw1){吃}; ]
+                     [.NN \node(sw1){鱼}; ]
+               ]
+          ]
+     ]
+}
+\end{scope}
+\end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.32\linewidth}
+{\small
+\begin{eqnarray}
+& & \textrm{\textbf{推导1}} \nonumber \\
+& & \textrm{IP} \nonumber \\
+& \overset{r_8}{\Rightarrow} & \textrm{NP VP} \nonumber \\
+& \overset{r_5}{\Rightarrow} & \textrm{NN VP} \nonumber \\
+& \overset{r_1}{\Rightarrow} & \textrm{猫 VP} \nonumber \\
+& \overset{r_7}{\Rightarrow} & \textrm{猫 VV VP} \nonumber \\
+& \overset{r_2}{\Rightarrow} & \textrm{猫 喜欢 VP} \nonumber \\
+& \overset{r_6}{\Rightarrow} & \textrm{猫 喜欢 VV NN} \nonumber \\
+& \overset{r_3}{\Rightarrow} & \textrm{猫 喜欢 吃 NN} \nonumber \\
+& \overset{r_4}{\Rightarrow} & \textrm{猫 喜欢 吃 鱼} \nonumber
+\end{eqnarray}
+}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.32\linewidth}
+{\small
+\begin{eqnarray}
+& & \textrm{\textbf{推导2}} \nonumber \\
+& & \textrm{IP} \nonumber \\
+& \overset{r_8}{\Rightarrow} & \textrm{NP VP} \nonumber \\
+& \overset{r_7}{\Rightarrow} & \textrm{NP VV VP} \nonumber \\
+& \overset{r_2}{\Rightarrow} & \textrm{NP 喜欢 VP} \nonumber \\
+& \overset{r_6}{\Rightarrow} & \textrm{NP 喜欢 VV NN} \nonumber \\
+& \overset{r_4}{\Rightarrow} & \textrm{NP 喜欢 VV 鱼} \nonumber \\
+& \overset{r_5}{\Rightarrow} & \textrm{NN 喜欢 VV 鱼} \nonumber \\
+& \overset{r_3}{\Rightarrow} & \textrm{NN 喜欢 吃 鱼} \nonumber \\
+& \overset{r_1}{\Rightarrow} & \textrm{猫 喜欢 吃 鱼} \nonumber
+\end{eqnarray}
+}
+\end{minipage}
+
+%---------------------------------------------------------------------
+
+
