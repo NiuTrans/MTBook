@@ -1,13 +1,15 @@
 # **机器翻译：统计建模与深度学习方法**
 # **Machine Translation: Statistical Modeling and Deep Learning Methods**
 
-*肖桐 (Tong Xiao)*    *朱靖波 (Jingbo Zhu)*
+*作者：肖桐 (Tong Xiao)*    *朱靖波 (Jingbo Zhu)*
 
-*东北大学自然语言处理实验室 (NEUNLPLab) / 小牛翻译 (NiuTrans Research)*
+*单位：东北大学自然语言处理实验室 (NEUNLPLab) / 小牛翻译 (NiuTrans Research)*
 
-网站：[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
+*顾问：姚天顺 (Tianshun Yao)*    *王宝库 (Boku Wang)*
 
-GitHub：[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+*网站：*[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
+
+*GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 </div>
 
 这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
@@ -134,7 +136,7 @@ xelatex mt-book-xelatex
 
 感谢所有为本书的排版和校对做出贡献的人
 
-*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、张裕浩、李炎洋、林野、陈贺轩、刘晓倩、牛蕊、田丰宁、杜权、李垠桥、许晨、张裕浩、胡驰、冯凯、王泽洋、刘腾博、张春良、王会珍、张俐、杨木润、宁义明、李洋、秦浩、胡明涵*
+*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、张裕浩、李炎洋、林野、陈贺轩、刘晓倩、牛蕊、田丰宁、杜权、李垠桥、许晨、张裕浩、胡驰、冯凯、王泽洋、刘腾博、刘兴宇、徐萍、赵闯、高博、张春良、王会珍、张俐、杨木润、宁义明、李洋、秦浩、胡明涵*
 
 ## 联系我们
 
