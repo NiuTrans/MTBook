@@ -5,7 +5,7 @@
 
 *单位：东北大学自然语言处理实验室 (NEUNLPLab) / 小牛翻译 (NiuTrans Research)*
 
-*顾问：姚天顺 (Tianshun Yao)*    *王宝库 (Boku Wang)*
+*顾问：姚天顺 (Tianshun Yao)*    *王宝库 (Baoku Wang)*
 
 *网站：*[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
 
