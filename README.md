@@ -81,7 +81,7 @@
   * <a href="https://opensource.niutrans.com/mtbook/section6-5.html" title="序列到序列问题及应用">6.5 序列到序列问题及应用</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-6.html" title="小结及深入阅读">6.6 小结及深入阅读</a>
 
-7.  神经机器翻译实战 —— 参加一次比赛
+7.  神经机器翻译实战
   * <a href="https://opensource.niutrans.com/mtbook/section7-1.html" title="神经机器翻译并不简单">7.1 神经机器翻译并不简单</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-2.html" title="数据处理">7.2 数据处理</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-3.html" title="建模与训练">7.3 建模与训练</a>
