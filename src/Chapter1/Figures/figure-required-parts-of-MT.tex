@@ -2,7 +2,8 @@
 \definecolor{ugreen}{rgb}{0,0.5,0}
 \begin{tikzpicture}
 \node [thick,rounded corners=3mm,draw=blue!50!black!50,top color=white,bottom color=blue!50!black!20] (s) at (0,0) {输入文字};
-\node [thick,minimum width=6em,draw=red!50!black!50,top color=white,bottom color=red!50!black!20,anchor=west] (mt) at ([xshift=0.5in]s.east) {\begin{tabular}{c}机器翻译\\???\end{tabular}};
+\node [thick,minimum width=6em,minimum height=3em,draw=red!50!black!50,anchor=west] (mt) at ([xshift=0.5in]s.east) {};
+\node [thick,minimum width=6em,minimum height=1.5em,draw=red!50!black!50,top color=white,bottom color=red!50!black!20,anchor=north] (mt1) at (mt.north) {机器翻译};
 \node [thick,rounded corners=3mm,draw=blue!50!black!50,top color=white,bottom color=blue!50!black!20,anchor=west] (t) at ([xshift=0.5in]mt.east) {输出译文};
 {
 \node [draw=ugreen,fill=ugreen,minimum width=3.1em,minimum height=1.5em,anchor=south west] (part1) at (mt.south west) {{\color{white} 1}};
@@ -14,7 +15,7 @@
 {
 \begin{scope}[yshift=-1.0in]
 \node [] (part1label) at (0,0) {\includegraphics[scale=0.10]{./Chapter1/Figures/figure-oil.jpg}};
-\node [anchor=north west] (part1text) at ([xshift=-1em,yshift=0.0em]part1label.south west) {\begin{tabular}{l}{\color{red}{资源}}：可以使机器翻译\\系统运行的"汽油"\end{tabular}};
+\node [anchor=north west] (part1text) at ([xshift=-1em,yshift=0.0em]part1label.south west) {\begin{tabular}{l}{\color{red}{资源}}：可以使机器翻译\\系统运行的``汽油''\end{tabular}};
 \end{scope}
 }
 
