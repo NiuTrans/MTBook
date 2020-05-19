@@ -118,7 +118,7 @@ xelatex mt-book-xelatex
 
 2. 在弹出的文件中输入以下内容：`main_memory=5000000 extra_mem_bot=5000000  font_mem_size=5000000 pool_size=5000000 buf_size=5000000`
 
-3. 在cmd窗口输入： `initexmf --dump=pdflatex` 更新latex格式文件
+3. 在cmd窗口输入： `initexmf --dump=xelatex` 更新latex格式文件
 
 #### TeXLive & MacTeX（Linux，OS X等）
 
