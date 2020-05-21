@@ -34,13 +34,10 @@
 \node[anchor=north west] (original4-2) at ([yshift=0.3em]original4-1.south west)  {\scriptsize{！''``我帮不了你。你全身都湿透了，会弄坏我这漂亮的小船的。''悲哀来了，爱向他求助：``}};
 \node[anchor=north west] (original4-3) at ([yshift=0.3em]original4-2.south west)  {\scriptsize{悲哀，让我跟你去吧！''``哦，……爱，我实在太悲哀了，想自己一个人呆一会儿！''悲哀答}};
 \node[anchor=north west] (original4-4) at ([yshift=0.3em]original4-3.south west)  {\scriptsize{道。快乐走近爱的身边，但是她太快乐了，竟然没有听见爱在叫她！}};
-%机器翻译--------------
-\node [anchor=north west] (mt4) at ([xshift=-3.5em,yshift=0.3em]original4-4.south west) {\scriptsize{机器翻译：At this time, Richness {\color{red}\underline{passed by}} in a big ship. Love said, ``Rich, can you take me away?'' Richness}};
-\node [anchor=north west] (mt4-1) at ([xshift=3.5em,yshift=0.4em]mt4.south west) {\scriptsize{replied, ``No, {\color{red}\underline{there are many treasures}} of gold and silver in my ship,and there is no place for you.''}};
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original1)(ht1)(mt1)(mt4-1)] {};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original1)(ht1)(mt1)(original4-4)] {};
 }
 \end{pgfonlayer}
 

@@ -23,7 +23,7 @@
 \node [anchor=north] (eq1) at ([xshift=2em,yshift=-2em]exampleeq.south west) {$\sum\limits_{y_1=0}^{2} \sum\limits_{y_2=0}^{2} \alpha(1,y_1)\alpha(2,y_2)$};
 \node [anchor=west] (eq1part2) at ([xshift=-1em,yshift=-3em]eq1.west) {$=$};
 \node [anchor=west] (eq1part3) at ([xshift=-0.5em]eq1part2.east) {$\sum\limits_{y_1=0}^{2} \sum\limits_{y_2=0}^{2} \prod\limits_{x=1}^{2} $};
-\node [anchor=west,inner sep=2pt] (eq1part4) at ([xshift=-0.3em]eq1part3.east) {$\alpha(x,y_x)$};
+\node [anchor=west,inner sep=2pt] (eq1part4) at ([xshift=-0.3em]eq1part3.east) {};
 }
 
 {
@@ -31,7 +31,7 @@
 \node [anchor=west] (eq2part2) at ([yshift=-1.5em]eq2.west) {$(\alpha(2,0)+\alpha(2,1)+\alpha(2,2))$};
 \node [anchor=west] (eq2part3) at ([xshift=2.1in]eq1part2.east){$=$};
 \node [anchor=west] (eq2part4) at ([xshift=-0.5em]eq2part3.east){$\prod\limits_{x=1}^{2} \sum\limits_{y=0}^{2}$};
-\node [anchor=west,inner sep=2pt] (eq2part5) at ([xshift=-0.3em]eq2part4.east){$\alpha(x,y)$};
+\node [anchor=west,inner sep=2pt] (eq2part5) at ([xshift=-0.3em]eq2part4.east){};
 }
 }
 
@@ -64,8 +64,8 @@
 \node [anchor=west,inner sep=2pt,fill=blue!20] (feqpart5) at ([xshift=-0.3em]feqpart4.east) {$f(s_j|t_i)$};
 }
 
-\draw [->,thick] (eq1part4.south) .. controls +(south:2.5em) and +(north:2.5em) .. (feqpart2.north);
-\draw [->,thick] (eq2part5.south) .. controls +(south:1.5em) and +(north:1.5em) .. (feqpart5.north);
+\draw [->,thick] ([xshift=1.4em]eq1part4.south) .. controls +(south:2.5em) and +(north:2.5em) .. (feqpart2.north);
+\draw [->,thick] ([xshift=1.2em]eq2part5.south) .. controls +(south:1.5em) and +(north:1.5em) .. (feqpart5.north);
 
 \node [anchor=west,inner sep=2pt,fill=blue!20] (eq1part4) at ([xshift=-0.3em]eq1part3.east) {\footnotesize{$\alpha(x,y_x)$}};
 \node [anchor=west,inner sep=2pt,fill=blue!20] (eq2part5) at ([xshift=-0.3em]eq2part4.east){\footnotesize{$\alpha(x,y)$}};

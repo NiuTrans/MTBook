@@ -4,8 +4,10 @@
 %%% outline
 %-------------------------------------------------------------------------
 \begin{tikzpicture}
-\node [pos=0.4,left,xshift=-0.4em,yshift=2.0em,,opacity=0.0] (original1) {\scriptsize{源 \qquad 文：从前有一个小岛，上面住着快乐、悲哀、知识和爱，还有其他各种情感。一天，情感们得知}};
-\node [anchor=north west] (mt4-2) at ([xshift=3.5em,yshift=0.3em]original1.south west) {\scriptsize{ Love saw vanity in a magnificent boat and said, ``Vanity, help me!'' ``I can't help you. You are {\color{red}\underline{soak}}}};
+%机器翻译--------------
+\node [pos=0.4,left,xshift=-0.4em,yshift=2.0em] (mt4) {\scriptsize{机器翻译：At this time, Richness {\color{red}\underline{passed by}} in a big ship. Love said, ``Rich, can you take me away?'' Richness}};
+\node [anchor=north west] (mt4-1) at ([xshift=3.5em,yshift=0.4em]mt4.south west) {\scriptsize{replied, ``No, {\color{red}\underline{there are many treasures}} of gold and silver in my ship,and there is no place for you.''}};
+\node [anchor=north west] (mt4-2) at ([xshift=0em,yshift=0.3em]mt4-1.south west) {\scriptsize{ Love saw vanity in a magnificent boat and said, ``Vanity, help me!'' ``I can't help you. You are {\color{red}\underline{soak}}}};
 \node [anchor=north west] (mt4-3) at ([yshift=0.4em]mt4-2.south west) {\scriptsize{{\color{red}\underline{-ed to the skin}} and will damage my beautiful boat.'' When sorrow came, love asked him for help: ``}};
 
 \node [anchor=north west] (mt4-4) at ([yshift=0.4em]mt4-3.south west) {\scriptsize{sorrow, let me go with you!'' ``Oh,...love, I am so sad that I want to be alone for a while!'' Sadly rep}};
@@ -48,7 +50,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (mt4-2)(ht4)(ht8-4)] {};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (mt4)(ht4)(ht8-4)] {};
 }
 \end{pgfonlayer}
 

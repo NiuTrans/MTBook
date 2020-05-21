@@ -15,7 +15,7 @@
                     [.\node(n8){NN}; \node(cw3){回答}; ]
                 ]
      		]
-     		[.\node(n9){VP};
+     		[.\node[minimum height=0.7em,minimum width=1.8em](n9){};
      			[.\node(n10){VV}; \node(cw4){表示}; ]
      			[.\node(n11){NN}; \node(cw5){满意}; ]
      		]
@@ -24,7 +24,7 @@
 
 \node[anchor=north,minimum size=18pt,align=center] (tw1) at ([yshift=-6.0em]cw1.south){he\\\footnotesize{1}};
 \node[anchor=west,minimum size=18pt,align=center] (tw2) at ([yshift=-0.1em,xshift=1.1em]tw1.east){was\\\footnotesize{2}};
-\node[anchor=west,minimum size=18pt,align=center] (tw3) at ([yshift=0.1em,xshift=1.1em]tw2.east){satisfied\\\footnotesize{3}};
+\node[anchor=west,minimum size=18pt,align=center,minimum height=2.6em,minimum width=4em] (tw3) at ([yshift=0.1em,xshift=1.1em]tw2.east){};
 \node[anchor=west,minimum size=18pt,align=center] (tw4) at ([xshift=1.1em]tw3.east){with\\\footnotesize{4}};
 \node[anchor=west,minimum size=18pt,align=center] (tw5) at ([xshift=1.1em]tw4.east){the\\\footnotesize{5}};
 \node[anchor=west,minimum size=18pt,align=center] (tw6) at ([yshift=-0.1em,xshift=1.1em]tw5.east){answer\\\footnotesize{6}};
@@ -66,7 +66,7 @@
 \node [anchor=west] (land2label) at (land2.east) {\footnotesize{不可信}};
 
 {
-\node [draw,thick,red,fill=red!20] [fit = (n9)] (var1) {{\color{black} VP}};
+\node [draw,thick,red,fill=red!20,anchor=north,minimum height=2.2em,minimum width=2.5em] (var1) at ([yshift=1.2em]n9.north) {{\color{black} VP}};
 \node [draw,thick,red,fill=red!20] [fit = (tw3)] (var1v2) {{\color{black} \large{VP}}};
 \node [anchor=west] (var1label) at ([yshift=0.5em]var1.east) {\footnotesize{\red{变量}}};
 \node [anchor=south] (var1v2label) at ([xshift=-2em]var1v2.north) {\footnotesize{\red{变量}}};

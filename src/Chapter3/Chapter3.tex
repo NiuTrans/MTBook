@@ -329,7 +329,6 @@
 
 \subsubsection{基础模型}
 
-\vspace{0.5em}
 \parinterval 计算句子级翻译概率并不简单。因为自然语言非常灵活，任何数据无法覆盖足够多的句子，因此，无法像公式\ref{eq:3-4}一样直接用简单计数的方式对句子的翻译概率进行估计。这里，采用一个退而求其次的方法：找到一个函数$g(\mathbf{s},\mathbf{t})\ge 0$来模拟翻译概率对译文可能性进行估计。可以定义一个新的函数$g(\mathbf{s},\mathbf{t})$，令其满足：给定$\mathbf{s}$，翻译结果$\mathbf{t}$出现的可能性越大，$g(\mathbf{s},\mathbf{t})$的值越大；$\mathbf{t}$出现的可能性越小，$g(\mathbf{s},\mathbf{t})$的值越小。换句话说，$g(\mathbf{s},\mathbf{t})$的单调性和翻译概率$\textrm{P}(\mathbf{t}|\mathbf{s})$呈正相关。如果存在这样的函数$g(\mathbf{s},\mathbf{t}
 )$，可以利用$g(\mathbf{s},\mathbf{t})$近似表示$\textrm{P}(\mathbf{t}|\mathbf{s})$，如下：
 \begin{eqnarray}
@@ -640,23 +639,23 @@ g(\mathbf{s},\mathbf{t}) \equiv \prod_{j,i \in \widehat{A}}{\textrm{P}(s_j,t_i)}
 \begin{figure}[htp]
     \centering
 \input{./Chapter3/Figures/figure-different-alignment-comparison}
+\setlength{\belowcaptionskip}{-0.5em}
     \caption{不同词对齐对比}
     \label{fig:3-15}
 \end{figure}
 %----------------------------------------------
 
-\vspace{0.5em}
 \item 源语言单词可以翻译为空，这时它对应到一个虚拟或伪造的目标语单词$t_0$。在图\ref{fig:3-16}所示的例子中，``在''没有对应到``on the table''中的任意一个词，而是把它对应到$t_0$上。这样，所有的源语言单词都能找到一个目标语单词对应。这种设计也很好地引入了{\small\sffamily\bfseries{空对齐}}\index{空对齐}的思想，即源语言单词不对应任何真实存在的单词的情况。而这种空对齐的情况在翻译中是频繁出现的，比如虚词的翻译。
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
 \input{./Chapter3/Figures/figure-word-alignment-instance}
+\setlength{\belowcaptionskip}{-0.5em}
     \caption{词对齐实例（``在''对应到$t_0$）}
     \label{fig:3-16}
 \end{figure}
 %----------------------------------------------
-\vspace{0.5em}
 \end{itemize}
 
 \parinterval 通常，把词对齐记为$\mathbf{a}$，它由$a_1$到$a_m$共$m$个词对齐连接组成，即$\mathbf{a}=a_1...a_m$。$a_j$表示第$j$个源语单词$s_j$对应的目标语单词的位置。在图\ref{fig:3-16}的例子中，词对齐关系可以记为$a_1=0, a_2=3, a_3=1$，即第1个源语单词``在''对应到目标语译文的第0个位置，第2个源语单词``桌子''对应到目标语译文的第3个位置，第3个源语单词``上''对应到目标语译文的第1个位置。
@@ -752,22 +751,20 @@ g(\mathbf{s},\mathbf{t}) \equiv \prod_{j,i \in \widehat{A}}{\textrm{P}(s_j,t_i)}
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
+\vspace{-0.5em}
 \subsection{IBM模型1}
 \parinterval IBM模型1对公式\ref{eq:3-18}中的三项进行了简化。具体方法如下：
 
 \begin{itemize}
-\vspace{0.5em}
 \item 假设$\textrm{P}(m|\mathbf{t})$为常数$\varepsilon$，即源语言的长度的生成概率服从均匀分布，如下：
 \begin{eqnarray}
 \textrm{P}(m|\mathbf{t})\; \equiv \; \varepsilon
 \label{eq:3-20}
 \end{eqnarray}
-%\vspace{0.5em}
 \item 对齐概率$\textrm{P}(a_j|a_1^{j-1},s_1^{j-1},m,\mathbf{t})$仅依赖于译文长度$l$，即每个词对齐连接的概率也服从均匀分布。换句话说，对于任何源语言位置$j$对齐到目标语言任何位置都是等概率的。比如译文为``on the table''，再加上$t_0$共4个位置，相应的，任意源语单词对齐到这4个位置的概率是一样的。具体描述如下：
 \begin{eqnarray}
 \textrm{P}(a_j|a_1^{j-1},s_1^{j-1},m,\mathbf{t}) \equiv \frac{1}{l+1}
 \label{eq:3-21}
-\vspace{0.5em}
 \end{eqnarray}
 
 \item 源语单词$s_j$的生成概率$\textrm{P}(s_j|a_1^{j},s_1^{j-1},m,\mathbf{t})$仅依赖与其对齐的译文单词$t_{a_j}$，即词汇翻译概率$f(s_j|t_{a_j})$。此时词汇翻译概率满足$\sum_{s_j}{f(s_j|t_{a_j})}=1$。比如在图\ref{fig:3-18}表示的例子中，源语单词``上''出现的概率只和与它对齐的单词``on''有关系，与其他单词没有关系。
@@ -778,16 +775,6 @@ g(\mathbf{s},\mathbf{t}) \equiv \prod_{j,i \in \widehat{A}}{\textrm{P}(s_j,t_i)}
 
 用一个简单的例子对公式\ref{eq:3-22}进行说明。比如，在图\ref{fig:3-18}中，``桌子''对齐到``table''，可被描述为$f(s_2 |t_{a_2})=f(\textrm{``桌子''}|\textrm{``table''})$，表示给定``table''翻译为``桌子''的概率。通常，$f(s_2 |t_{a_2})$被认为是一种概率词典，它反应了两种语言词汇一级的对应关系。
 \end{itemize}
-%\vspace{3.0em}
-
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-\input{./Chapter3/Figures/figure-zh-en-bilingual-sentence-pairs}
-    \caption{汉译英双语句对及词对齐}
-    \label{fig:3-18}
-\end{figure}
-%----------------------------------------------
 
 \parinterval 将上述三个假设和公式\ref{eq:3-18}代入公式\ref{eq:3-17}中，得到$\textrm{P}(\mathbf{s}|\mathbf{t})$的表达式：
 \begin{eqnarray}
@@ -797,6 +784,15 @@ g(\mathbf{s},\mathbf{t}) \equiv \prod_{j,i \in \widehat{A}}{\textrm{P}(s_j,t_i)}
                         & = & \sum_{\mathbf{a}}{\frac{\varepsilon}{(l+1)^m}}\prod_{j=1}^{m}f(s_j|t_{a_j})
 \label{eq:3-23}
 \end{eqnarray}
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter3/Figures/figure-zh-en-bilingual-sentence-pairs}
+    \caption{汉译英双语句对及词对齐}
+    \label{fig:3-18}
+\end{figure}
+%----------------------------------------------
 
 \parinterval 在公式\ref{eq:3-23}中，需要遍历所有的词对齐，即$ \sum_{\mathbf{a}}{\cdot}$。但这种表示不够直观，因此可以把这个过程重新表示为如下形式：
 \begin{eqnarray}
@@ -1149,6 +1145,8 @@ a(i|j,m,l) &=\frac{\sum_{k=0}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^
 
 \parinterval 这里将会给出另一个翻译模型，能在一定程度上解决上面提到的问题。该模型把译文生成源文的过程分解为如下几个步骤：首先，确定每个目标语言单词生成源语言单词的个数，这里把它称为{\small\sffamily\bfseries{产出率}}\index{产出率}或{\small\sffamily\bfseries{繁衍率}}\index{繁衍率}（Fertility）\index{Fertility}；其次，决定译文中每个单词生成的源语言单词都是什么，即决定生成的第一个源语言单词是什么，生成的第二个源语言单词是什么，以此类推。这样每个目标语单词就对应了一个源语言单词列表；最后把各组源语言单词列表中的每个单词都放置到合适的位置上，完成目标语言译文到源语言句子的生成。
 
+\parinterval 对于句对$(\mathbf{s},\mathbf{t})$，令$\varphi$表示产出率，同时令${\tau}$表示每个目标语单词对应的源语言单词列表。图{\ref{fig:3-29}}描述了一个英文句子生成中文句子的过程。首先，对于每个英语单词$t_i$决定它的产出率$\varphi_{i}$。比如``Scientists''的产出率是2，可表示为${\varphi}_{1}=2$。这表明它会生成2个中文单词；其次，确定英文句子中每个单词生成的中文单词列表。比如``Scientists''生成``科学家''和``们''两个中文单词，可表示为${\tau}_1=\{{\tau}_{11}=\textrm{``科学家''},{\tau}_{12}=\textrm{``们''}$。这里用特殊的空标记NULL表示翻译对空的情况；最后，把生成的所有中文单词放在合适的位置。比如``科学家''和``们''分别放在$\mathbf{s}$的位置1和位置2。可以用符号$\pi$记录生成的单词在源语言句子$\mathbf{s}$中的位置。比如``Scientists''生成的中文单词在$\mathbf{s}$ 中的位置表示为${\pi}_{1}=\{{\pi}_{11}=1,{\pi}_{12}=2\}$。
+
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -1158,12 +1156,18 @@ a(i|j,m,l) &=\frac{\sum_{k=0}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^
 \end{figure}
 %----------------------------------------------
 
-\parinterval 对于句对$(\mathbf{s},\mathbf{t})$，令$\varphi$表示产出率，同时令${\tau}$表示每个目标语单词对应的源语言单词列表。图{\ref{fig:3-29}}描述了一个英文句子生成中文句子的过程。首先，对于每个英语单词$t_i$决定它的产出率$\varphi_{i}$。比如``Scientists''的产出率是2，可表示为${\varphi}_{1}=2$。这表明它会生成2个中文单词；其次，确定英文句子中每个单词生成的中文单词列表。比如``Scientists''生成``科学家''和``们''两个中文单词，可表示为${\tau}_1=\{{\tau}_{11}=\textrm{``科学家''},{\tau}_{12}=\textrm{``们''}$。这里用特殊的空标记NULL表示翻译对空的情况；最后，把生成的所有中文单词放在合适的位置。比如``科学家''和``们''分别放在$\mathbf{s}$的位置1和位置2。可以用符号$\pi$记录生成的单词在源语言句子$\mathbf{s}$中的位置。比如``Scientists''生成的中文单词在$\mathbf{s}$ 中的位置表示为${\pi}_{1}=\{{\pi}_{11}=1,{\pi}_{12}=2\}$。
-
 \parinterval 为了表述清晰，我们重新说明每个符号的含义。$\mathbf{s}$、$\mathbf{t}$、$m$和$l$分别表示源语言句子、目标语译文、源语言单词数量以及译文单词数量。$\mathbf{\varphi}$、$\mathbf{\tau}$和$\mathbf{\pi}$分别记录产出率、生成的源语言单词以及它们在源文中的位置。${\varphi}_{i}$表示第$i$个译文单词$t_i$的产出率。${\tau}_{i}$和${\pi}_i$分别表示$t_i$生成的源语言单词列表及其在源语言句子$\mathbf{s}$中的位置列表。
 
 \parinterval 可以看出，一组$\tau$和$\pi$（记为$<\tau,\pi>$）可以决定一个对齐$\mathbf{a}$和一个源语句子$\mathbf{s}$。
-\vspace{0.5em}
+
+\noindent 相反的，一个对齐$\mathbf{a}$和一个源语句子$\mathbf{s}$可以对应多组$<\tau,\pi>$。如图\ref{fig:3-30}所示，不同的$<\tau,\pi>$对应同一个源语言句子和词对齐。它们的区别在于目标语单词``Scientists''生成的源语言单词``科学家''和``们''的顺序不同。这里把不同的$<\tau,\pi>$对应到的相同的源语句子$\mathbf{s}$和对齐$\mathbf{a}$记为$<\mathbf{s},\mathbf{a}>$。因此计算$\textrm{P}(\mathbf{s},\mathbf{a}| \mathbf{t})$时需要把每个可能结果的概率加起来，如下：
+\begin{equation}
+\textrm{P}(\mathbf{s},\mathbf{a}| \mathbf{t})=\sum_{{<\tau,\pi>}\in{<\mathbf{s},\mathbf{a}>}}{\textrm{P}(\tau,\pi|\mathbf{t}) }
+\label{eq:3-66}
+\end{equation}
+
+\parinterval 不过$<\mathbf{s},\mathbf{a}>$中有多少个元素呢？通过图\ref{fig:3-29}中的例子，可以推出$<\mathbf{s},\mathbf{a}>$应该包含$\prod_{i=0}^{l}{\varphi_i !}$个不同的二元组$<\tau,\pi>$。 这是因为在给定源语言句子和词对齐时，对于每一个$\tau_i$都有$\varphi_{i}!$种排列。
+
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -1172,15 +1176,6 @@ a(i|j,m,l) &=\frac{\sum_{k=0}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^
    \label{fig:3-30}
 \end{figure}
 %----------------------------------------------
-
-\vspace{-0.2em}
-\noindent 相反的，一个对齐$\mathbf{a}$和一个源语句子$\mathbf{s}$可以对应多组$<\tau,\pi>$。如图\ref{fig:3-30}所示，不同的$<\tau,\pi>$对应同一个源语言句子和词对齐。它们的区别在于目标语单词``Scientists''生成的源语言单词``科学家''和``们''的顺序不同。这里把不同的$<\tau,\pi>$对应到的相同的源语句子$\mathbf{s}$和对齐$\mathbf{a}$记为$<\mathbf{s},\mathbf{a}>$。因此计算$\textrm{P}(\mathbf{s},\mathbf{a}| \mathbf{t})$时需要把每个可能结果的概率加起来，如下：
-\begin{equation}
-\textrm{P}(\mathbf{s},\mathbf{a}| \mathbf{t})=\sum_{{<\tau,\pi>}\in{<\mathbf{s},\mathbf{a}>}}{\textrm{P}(\tau,\pi|\mathbf{t}) }
-\label{eq:3-66}
-\end{equation}
-
-\parinterval 不过$<\mathbf{s},\mathbf{a}>$中有多少个元素呢？通过图\ref{fig:3-29}中的例子，可以推出$<\mathbf{s},\mathbf{a}>$应该包含$\prod_{i=0}^{l}{\varphi_i !}$个不同的二元组$<\tau,\pi>$。 这是因为在给定源语言句子和词对齐时，对于每一个$\tau_i$都有$\varphi_{i}!$种排列。
 
 \parinterval 进一步，$\textrm{P}(\tau,\pi|\mathbf{t})$可以被表示如图\ref{fig:3-31}的形式。其中$\tau_{i1}^{k-1}$表示$\tau_{i1}\tau_{i2}\cdots \tau_{i(k-1)}$，$\pi_{i1}^{ k-1}$表示$\pi_{i1}\pi_{i2}\cdots \pi_{i(k-1)}$。可以把图\ref{fig:3-31}中的公式分为5个部分，并用不同的序号和颜色进行标注。每部分的具体含义是：
 
@@ -1197,15 +1192,6 @@ a(i|j,m,l) &=\frac{\sum_{k=0}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^
 \item $i=0$时的扭曲度建模（{\color{gray!70} 灰色}），即空标记$t_0$生成的源语言单词在源语言句子中位置的概率。
 \end{itemize}
 
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-\input{./Chapter3/Figures/figure-expression}
-   \caption{{$\textrm{P}(\tau,\pi|t)$}的详细表达式}
-   \label{fig:3-31}
-\end{figure}
-%----------------------------------------------
-
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
@@ -1213,6 +1199,18 @@ a(i|j,m,l) &=\frac{\sum_{k=0}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^
 \subsection{IBM 模型3}
 
 \parinterval IBM模型3通过一些假设对图\ref{fig:3-31}所表示的基本模型进行了化简。具体来说，对于每个$i\in[1,l]$，假设$\textrm{P}(\varphi_i |\varphi_1^{i-1},\mathbf{t})$仅依赖于$\varphi_i$和$t_i$，$\textrm{P}(\pi_{ik}|\pi_{i1}^{k-1},\pi_1^{i-1},\tau_0^l,\varphi_0^l,\mathbf{t})$仅依赖于$\pi_{ik}$、$i$、$m$和$l$。而对于所有的$i\in[0,l]$，假设$\textrm{P}(\tau_{ik}|\tau_{i1}^{k-1},\tau_1^{i-1},\phi_0^l,\mathbf{t})$仅依赖于$\tau_{ik}$和$t_i$。形式化这些假设，可以得到：
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter3/Figures/figure-expression}
+   \caption{{$\textrm{P}(\tau,\pi|t)$}的详细表达式}
+\setlength{\belowcaptionskip}{-0.5em}
+   \label{fig:3-31}
+\end{figure}
+%----------------------------------------------
+
+\vspace{-3.0em}
 \begin{eqnarray}
 \textrm{P}(\varphi_i|\varphi_1^{i-1},\mathbf{t})                                                              & = &{\textrm{P}(\varphi_i|t_i)} \label{eq:3-67} \\
 \textrm{P}(\tau_{ik} = s_j |\tau_{i1}^{k-1},\tau_{1}^{i-1},\varphi_0^t,\mathbf{t})             & = & t(s_j|t_i) \label{eq:3-68} \\
@@ -1263,13 +1261,10 @@ p_0+p_1                            & = & 1 \label{eq:3-56}
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
-\vspace{-2em}
+
 \subsection{IBM 模型4}
 
 \parinterval IBM模型3仍然存在问题，比如，它不能很好地处理一个目标语言单词生成多个源语言单词的情况。这个问题在模型1和模型2中也存在。如果一个目标语言单词对应多个源语言单词，往往这些源语言单词构成短语或搭配。但是模型1-3把这些源语言单词看成独立的单元，而实际上它们是一个整体。这就造成了在模型1-3中这些源语言单词可能会``分散''开。为了解决这个问题，模型4对模型3进行了进一步修正。
-
-\parinterval 为了更清楚的阐述，这里引入新的术语\ \dash \ {\small\bfnew{概念单元}}\index{概念单元}或{\small\bfnew{概念}}\index{概念}（Concept）\index{Concept}。词对齐可以被看作概念之间的对应。这里的概念是指具有独立语法或语义功能的一组单词。依照Brown等人的表示方法\cite{Peter1993The}，可以把概念记为cept.。每个句子都可以被表示成一系列的cept.。这里要注意的是，源语言句子中的cept.数量不一定等于目标句子中的cept.数量。因为有些cept. 可以为空，因此可以把那些空对的单词看作空cept.。比如，在图\ref{fig:3-32}的实例中，``了''就对应一个空cept.。
-\vspace{3em}
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1279,6 +1274,8 @@ p_0+p_1                            & = & 1 \label{eq:3-56}
    \label{fig:3-32}
 \end{figure}
 %----------------------------------------------
+
+\parinterval 为了更清楚的阐述，这里引入新的术语\ \dash \ {\small\bfnew{概念单元}}\index{概念单元}或{\small\bfnew{概念}}\index{概念}（Concept）\index{Concept}。词对齐可以被看作概念之间的对应。这里的概念是指具有独立语法或语义功能的一组单词。依照Brown等人的表示方法\cite{Peter1993The}，可以把概念记为cept.。每个句子都可以被表示成一系列的cept.。这里要注意的是，源语言句子中的cept.数量不一定等于目标句子中的cept.数量。因为有些cept. 可以为空，因此可以把那些空对的单词看作空cept.。比如，在图\ref{fig:3-32}的实例中，``了''就对应一个空cept.。
 
 \parinterval 在IBM模型的词对齐框架下，目标语的cept.只能是那些非空对齐的目标语单词，而且每个cept.只能由一个目标语单词组成（通常把这类由一个单词组成的cept.称为独立单词cept.）。这里用$[i]$表示第$i$ 个独立单词cept.在目标语言句子中的位置。换句话说，$[i]$表示第$i$个非空对的目标语单词的位置。比如在本例中``mind''在$\mathbf{t}$中的位置表示为$[3]$。
 

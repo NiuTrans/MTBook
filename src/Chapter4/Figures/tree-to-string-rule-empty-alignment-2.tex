@@ -43,7 +43,7 @@
 \end{scope}
 
 \node[scale=0.9,anchor=north,minimum size=18pt] (tw11) at ([xshift=-0.3em,yshift=-1.2em]cfrag1.south){he};
-\node[scale=0.9,anchor=west,minimum size=18pt] (tw12) at ([yshift=-0.1em,xshift=0.5em]tw11.east){was};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw12) at ([yshift=-0.1em,xshift=0.5em]tw11.east){\red{was}};
 \node[scale=0.9,anchor=west,minimum size=18pt] (tw13) at ([yshift=0.1em,xshift=0.5em]tw12.east){satisfied};
 \node[scale=0.9,anchor=west,minimum size=18pt] (tw14) at ([xshift=0.5em]tw13.east){with};
 \node[scale=0.9,anchor=west,minimum size=18pt] (tw15) at ([xshift=0.5em]tw14.east){the};
@@ -77,24 +77,11 @@
 {
 \node [fill=blue,circle,inner sep=2pt] (rlabel7) at (cfrag7.south west) {{\color{white} \tiny{7}}};
 }
-{
-\node [fill=white,draw=red,thick] (tw12label) at (tw12) {\red{was}};
-}
-
-{
-\draw [->,red] ([xshift=0.2em]tw12label.north west) .. controls +(north:0.4) and +(south:0.4) .. ([xshift=0em]cfrag1.south);
-}
-{
-\draw [->,red] ([xshift=0.8em]tw12label.north west) -- ([xshift=0.8em,yshift=18.4em]tw12label.north west);
-}
-{
-\draw [->,red] ([xshift=0.2em]tw12label.north) .. controls +(north:7em) and +(south:11em) .. ([xshift=0em,yshift=0em]cfrag6.south);
-}
-{
-\draw [->,red] ([xshift=0.6em]tw12label.north) -- ([xshift=-2em]cfrag4.south);
-}
 
 \begin{pgfonlayer}{background}
+{
+\node [fill=white,draw=red,thick,minimum height=1.2em,minimum width=2.2em] (tw12label) at (tw12) {};
+}
 {
 \node [fill=green!20,inner sep=0pt] (cfrag1back) [fit = (cfrag1)] {};
 }
@@ -108,6 +95,19 @@
 \node [fill=green!20,inner sep=0pt] (cfrag1back) [fit = (cfrag7)] {};
 }
 \end{pgfonlayer}
+
+{
+\draw [->,red] ([xshift=0.2em]tw12label.north west) .. controls +(north:0.4) and +(south:0.4) .. ([xshift=0em]cfrag1.south);
+}
+{
+\draw [->,red] ([xshift=0.8em]tw12label.north west) -- ([xshift=0.8em,yshift=18.4em]tw12label.north west);
+}
+{
+\draw [->,red] ([xshift=0.2em]tw12label.north) .. controls +(north:7em) and +(south:11em) .. ([xshift=0em,yshift=0em]cfrag6.south);
+}
+{
+\draw [->,red] ([xshift=0.6em]tw12label.north) -- ([xshift=-2em]cfrag4.south);
+}
 
 }
 \end{scope}

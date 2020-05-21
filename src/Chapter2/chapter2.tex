@@ -44,7 +44,7 @@
 \begin{figure}[htp]
     \centering
  	\subfigure[机器翻译系统被看作一个黑盒] {\input{./Chapter2/Figures/figure-mt-system-as-a-black-box}  }
- 	\subfigure[机器翻系统 = 前/后处理 + 翻译引擎] {\input{./Chapter2/Figures/figure-mt=language-analysis+translation-engine}}
+ 	\subfigure[机器翻译系统 = 前/后处理 + 翻译引擎] {\input{./Chapter2/Figures/figure-mt=language-analysis+translation-engine}}
 	\caption{机器翻译系统的结构}
     \label{fig:2-1}
 \end{figure}
@@ -65,7 +65,7 @@
 \vspace{0.5em}
 \item {\small\bfnew{分词}}\index{分词}（Segmentation）\index{Segmentation}：这个过程会把词串进行切分，切割成最小的单元。因为只有知道了什么是待处理字符串的最小单元，机器翻译系统才能对其进行表示、分析和生成。
 \vspace{0.5em}
-\item {\small\bfnew{句法分析}}\index{句法分析}（Parsing）\index{Parsing}：这个过程会对分词的结果进行进一步分析，得到句子的句法结构。这种结构是对句子的进一步抽象，比如，NP+VP就可以表示由名词短语(NP)和动词短语(VP)构成的主谓结构。利用这些信息，机器翻译可以更加准确地对语言的结构进行分析和生成。
+\item {\small\bfnew{句法分析}}\index{句法分析}（Parsing）\index{Parsing}：这个过程会对分词的结果进行进一步分析，得到句子的句法结构。这种结构是对句子的进一步抽象，比如，NP+VP就可以表示由名词短语（NP）和动词短语（VP）构成的主谓结构。利用这些信息，机器翻译可以更加准确地对语言的结构进行分析和生成。
 \vspace{0.5em}
 \end{itemize}
 
@@ -105,8 +105,6 @@
 
 \parinterval 在实际问题中，往往需要得到随机变量的概率值。但是，真实的概率值可能是无法准确知道的，这时就需要对概率进行{\small\sffamily\bfseries{估计}}\index{估计}，得到的结果是概率的{\small\sffamily\bfseries{估计值}}\index{估计值}（Estimate）\index{Estimate}。在概率论中，一个很简单的方法是利用相对频度作为概率的估计值。如果$\{x_1,x_2,\dots,x_n \}$是一个试验的样本空间，在相同情况下重复试验$N$次，观察到样本$x_i (1\leq{i}\leq{n})$的次数为$n (x_i )$，那么$x_i$在这$N$次试验中的相对频率是$\frac{n(x_i )}{N}$。当$N$越来越大时，相对概率也就越来越接近真实概率$\textrm{P}(x_i)$，即$\lim_{N \to \infty}\frac{n(x_i )}{N}=\textrm{P}(x_i)$。 实际上，很多概率模型都等同于相对频度估计，比如，对于一个服从多项式分布的变量的极大似然估计就可以用相对频度估计实现。
 
-\parinterval 概率函数是用函数形式给出离散变量每个取值发生的概率，其实就是将变量的概率分布转化为数学表达形式。如果把$A$看做一个离散变量，$a$看做变量$A$的一个取值，那么$\textrm{P}(A)$被称作变量$A$的概率函数，$\textrm{P}(A=a)$被称作$A = a$的概率值，简记为$\textrm{P}(a)$。例如，在相同条件下掷一个骰子50次，用$A$表示投骰子出现的点数这个离散变量，$a_i$表示点数的取值，$\textrm{P}_i$表示$A=a_i$的概率值。下表为$A$的概率分布，给出了$A$的所有取值及其概率。
-
 %--------------------------------------------------------------------
 \begin{table}[htp]
 \centering
@@ -120,15 +118,9 @@
 \end{table}
 %--------------------------------------------------------------------
 
-\parinterval 除此之外，概率函数$\textrm{P}(\cdot)$还具有非负性、归一性等特点，非负性是指，所有的概率函数$\textrm{P}(\cdot)$都必须是大于等于0的数值，概率函数中不可能出现负数，即$\forall{x},\textrm{P}{(x)}\geq{0}$。归一性，又称规范性，简单的说就是所有可能发生的事件的概率总和为1，即$\sum_{x}\textrm{P}{(x)}={1}$。
+\parinterval 概率函数是用函数形式给出离散变量每个取值发生的概率，其实就是将变量的概率分布转化为数学表达形式。如果把$A$看做一个离散变量，$a$看做变量$A$的一个取值，那么$\textrm{P}(A)$被称作变量$A$的概率函数，$\textrm{P}(A=a)$被称作$A = a$的概率值，简记为$\textrm{P}(a)$。例如，在相同条件下掷一个骰子50次，用$A$表示投骰子出现的点数这个离散变量，$a_i$表示点数的取值，$\textrm{P}_i$表示$A=a_i$的概率值。表\ref{tab:2-1}为$A$的概率分布，给出了$A$的所有取值及其概率。
 
-\parinterval 对于离散变量$A$，$\textrm{P}(A=a)$是个确定的值，可以表示事件$A=a$的可能性大小；而对于连续变量，求在某个定点处的概率是无意义的，只能求其落在某个取值区间内的概率。因此，用{\small\sffamily\bfseries{概率分布函数}}\index{概率分布函数}$F(x)$和{\small\sffamily\bfseries{概率密度函数}}\index{概率密度函数}$f(x)$来统一描述随机变量取值的分布情况（如图\ref{fig:2-3}）。概率分布函数$F(x)$表示取值小于等于某个值的概率，是概率的累加（或积分）形式。假设$A$是一个随机变量，$a$是任意实数，将函数$F(a)=\textrm{P}\{A\leq a\}$，$-\infty<a<\infty $定义为$A$的分布函数。通过分布函数，可以清晰地表示任何随机变量的概率。
-
-\parinterval 概率密度函数反映了变量在某个区间内的概率变化快慢，概率密度函数的值是概率的变化率，该连续变量的概率也就是对概率密度函数求积分得到的结果。设$f(x) \geq 0$是连续变量$X$的概率密度函数，$X$的分布函数就可以用如下公式定义：
-\begin{eqnarray}
-F(x)=\int_{-\infty}^x f(x)dx
-\label{eq:2-1}
-\end{eqnarray}
+\parinterval 除此之外，概率函数$\textrm{P}(\cdot)$还具有非负性、归一性等特点。非负性是指，所有的概率函数$\textrm{P}(\cdot)$都必须是大于等于0的数值，概率函数中不可能出现负数，即$\forall{x},\textrm{P}{(x)}\geq{0}$。归一性，又称规范性，简单的说就是所有可能发生的事件的概率总和为1，即$\sum_{x}\textrm{P}{(x)}={1}$。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -139,6 +131,14 @@ F(x)=\int_{-\infty}^x f(x)dx
 \end{figure}
 %-------------------------------------------
 
+\parinterval 对于离散变量$A$，$\textrm{P}(A=a)$是个确定的值，可以表示事件$A=a$的可能性大小；而对于连续变量，求在某个定点处的概率是无意义的，只能求其落在某个取值区间内的概率。因此，用{\small\sffamily\bfseries{概率分布函数}}\index{概率分布函数}$F(x)$和{\small\sffamily\bfseries{概率密度函数}}\index{概率密度函数}$f(x)$来统一描述随机变量取值的分布情况（如图\ref{fig:2-3}）。概率分布函数$F(x)$表示取值小于等于某个值的概率，是概率的累加（或积分）形式。假设$A$是一个随机变量，$a$是任意实数，将函数$F(a)=\textrm{P}\{A\leq a\}$，$-\infty<a<\infty $定义为$A$的分布函数。通过分布函数，可以清晰地表示任何随机变量的概率。
+
+\parinterval 概率密度函数反映了变量在某个区间内的概率变化快慢，概率密度函数的值是概率的变化率，该连续变量的概率也就是对概率密度函数求积分得到的结果。设$f(x) \geq 0$是连续变量$X$的概率密度函数，$X$的分布函数就可以用如下公式定义：
+\begin{eqnarray}
+F(x)=\int_{-\infty}^x f(x)dx
+\label{eq:2-1}
+\end{eqnarray}
+
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
@@ -146,7 +146,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 \subsection{联合概率、条件概率和边缘概率}
 \parinterval {\small\sffamily\bfseries{联合概率}}\index{联合概率}（Joint Probability）\index{Joint Probability}是指多个事件共同发生，每个随机变量满足各自条件的概率，表示为$\textrm{P}(AB)$或$\textrm{P}(A\cap{B})$。{\small\sffamily\bfseries{条件概率}}\index{条件概率}（Conditional Probability）\index{Conditional Probability}是指$A$、$B$为任意的两个事件，在事件$A$已出现的前提下，事件$B$出现的概率，使用$\textrm{P}(B \mid A)$表示。
 
-\parinterval 贝叶斯法则(见\ref{sec:2.2.3}小节)是条件概率计算时的重要依据，条件概率可以表示为
+\parinterval 贝叶斯法则（见\ref{sec:2.2.3}小节）是条件概率计算时的重要依据，条件概率可以表示为
 \begin{eqnarray}
 \textrm{P}{(B|A)} & = & \frac{\textrm{P}(A\cap{B})}{\textrm{P}(A)}  \nonumber \\
                            & = & \frac{\textrm{P}(A)\textrm{P}(B|A)}{\textrm{P}(A)}  \nonumber \\
@@ -166,7 +166,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 \label{eq:2-4}
 \end{eqnarray}
 
-\parinterval 为了更好的区分条件概率、边缘概率和联合概率，这里用一个图形面积的计算来举例说明。如图\ref{fig:2-4}所示，矩形$A$代表事件$X$发生所对应的所有可能状态，矩形$B$代表事件$Y$发生所对应的所有可能状态，矩形$C$代表$A$和$B$的交集，则
+\parinterval 为了更好地区分条件概率、边缘概率和联合概率，这里用一个图形面积的计算来举例说明。如图\ref{fig:2-4}所示，矩形$A$代表事件$X$发生所对应的所有可能状态，矩形$B$代表事件$Y$发生所对应的所有可能状态，矩形$C$代表$A$和$B$的交集，则
 
 \begin{itemize}
 \vspace{0.5em}
@@ -193,10 +193,10 @@ F(x)=\int_{-\infty}^x f(x)dx
 
 \subsection{链式法则}
 
-\parinterval 条件概率公式$\textrm{P}(a \mid b)=\textrm{P}(ab)/\textrm{P}(b)$反应了事件$b$发生的条件下事件$a$发生的概率。如果将其推广到三个事件$a$、$b$、$c$，为了计算$\textrm{P}(a,b,c)$，我们可以运用两次$\textrm{P}(a \mid b)=\textrm{P}(ab)/\textrm{P}(b)$，计算过程如下：
+\parinterval 条件概率公式$\textrm{P}(A \mid B)=\textrm{P}(AB)/\textrm{P}(B)$反映了事件$B$发生的条件下事件$A$发生的概率。如果将其推广到三个事件$A$、$B$、$C$，为了计算$\textrm{P}(A,B,C)$，我们可以运用两次$\textrm{P}(A \mid B)=\textrm{P}(AB)/\textrm{P}(B)$，计算过程如下：
 \begin{eqnarray}
-\textrm{P}(a,b,c) & = & \textrm{P}(a \mid b ,c)\textrm{P}(b,c) \nonumber \\
-                           & = & \textrm{P}(a \mid b,c)\textrm{P}(b \mid c)\textrm{P}(c)
+\textrm{P}(A,B,C) & = & \textrm{P}(A \mid B ,C)\textrm{P}(B,C) \nonumber \\
+                           & = & \textrm{P}(A \mid B,C)\textrm{P}(B \mid C)\textrm{P}(C)
 \label{eq:2-5}
 \end{eqnarray}
 
@@ -239,7 +239,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 
 \subsection{贝叶斯法则}\label{sec:2.2.3}
 
-\parinterval 首先介绍一下全概率公式：{\small\bfnew{全概率公式}}\index{全概率公式}（Law of Total Probability）\index{Law of Total Probability}是概率论中重要的公式，它可以将一个复杂事件发生的概率分解成不同情况的小事件发生概率的和。这里先介绍一个概念——划分。集合$S$的一个划分事件为$\{B_1,...,B_n\}$是指它们满足,$\bigcup_{i=1}^n B_i=S \textrm{且}B_iB_j=\varnothing , i,j=1,...,n,i\neq j$。此时事件$A$的全概率公式可以被描述为：
+\parinterval 首先介绍一下全概率公式：{\small\bfnew{全概率公式}}\index{全概率公式}（Law of Total Probability）\index{Law of Total Probability}是概率论中重要的公式，它可以将一个复杂事件发生的概率分解成不同情况的小事件发生概率的和。这里先介绍一个概念——划分。集合$S$的一个划分事件为$\{B_1,...,B_n\}$是指它们满足$\bigcup_{i=1}^n B_i=S \textrm{且}B_iB_j=\varnothing , i,j=1,...,n,i\neq j$。此时事件$A$的全概率公式可以被描述为：
 
 \begin{eqnarray}
 \textrm{P}(A)=\sum_{k=1}^n \textrm{P}(A \mid B_k)\textrm{P}(B_k)
@@ -282,7 +282,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 \label{eq:2-12}
 \end{eqnarray}
 
-\parinterval 贝叶斯公式常用于根据已知的结果来推断使之发生的各因素的可能性。
+\parinterval 贝叶斯公式常用于根据已知的结果来推断使之发生的各因素的可能性。 \\ \\ 
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -397,7 +397,8 @@ F(x)=\int_{-\infty}^x f(x)dx
 \vspace{0.5em}
 \begin{definition} 词
 
-语言里最小的可以独立运用的单位：词汇。
+\vspace{0.5em}
+语言里最小的可以独立运用的单位。
 \begin{flushright}——《新华字典》\end{flushright}
 
 单词（word），含有语义内容或语用内容，且能被单独念出来的的最小单位。
@@ -405,17 +406,14 @@ F(x)=\int_{-\infty}^x f(x)dx
 
 語句中具有完整概念，能獨立自由運用的基本單位。
 \begin{flushright}——《国语辞典》\end{flushright}
-
-说话或诗歌、文章、戏剧中的语句。
-\begin{flushright}——《现代汉语词典》\end{flushright}
 \end{definition}
 %-------------------------------------------
 
 \parinterval 从语言学的角度来看，人们普遍认为词是可以单独运用的、包含意义的基本单位。这样可以使用有限的词组合出无限的句子，这也正体现出自然语言的奇妙之处。
 
-\parinterval 不过，机器翻译并不仅仅局限在语言学定义的单词。比如，神经机器翻译中广泛使用的BPE子词切分方法（见第七章），可以被理解为将词的一部分也进行切开，也就是得到词片段送给机器翻译系统使用。比如，对如下英文字符串，可以得到如下切分结果
-\vspace{0.5em}
+\parinterval 不过，机器翻译并不仅仅局限在语言学定义的单词。比如，神经机器翻译中广泛使用的BPE子词切分方法（见第七章），可以被理解为将词的一部分也进行切开，也就是得到词片段送给机器翻译系统使用。比如，对如下英文字符串，可以得到如下切分结果：
 
+\newpage
 \parinterval Interesting \; $\to$ \; Interest/ing  selection \hspace{0.08em} $\to$ \;se/lect/ion  procession \hspace{0.43em} $\to$ \; pro/cess/ion
 
 \parinterval Interested \hspace{0.62em} $\to$ \; Interest/ed   selecting \hspace{0.34em} $\to$ \; se/lect/ing  processing \hspace{0.22em} $\to$ \; pro/cess/ing
@@ -482,6 +480,8 @@ F(x)=\int_{-\infty}^x f(x)dx
 \vspace{0.5em}
 \end{itemize}
 
+\parinterval 图\ref{fig:2-10} 给出了一个基于统计建模的汉语分词实例。左侧是标注数据，其中每个句子是已经经过人工标注的分词结果（单词用斜杠分开）。之后，建立一个统计模型，记为$\textrm{P}(\cdot)$。模型通过在标注数据上的学习来对问题进行描述，即学习$\textrm{P}(\cdot)$。最后，对于新的未分词的句子，使用模型$\textrm{P}(\cdot)$对每个可能的切分方式进行概率估计，之后选择概率最高的切分结果输出。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -491,9 +491,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 \label{fig:2-10}
 \end{figure}
 %-------------------------------------------
-
-\parinterval 图\ref{fig:2-10} 给出了一个基于统计建模的汉语分词实例。左侧是标注数据，其中每个句子是已经经过人工标注的分词结果（单词用斜杠分开）。之后，建立一个统计模型，记为$\textrm{P}(\cdot)$。模型通过在标注数据上的学习来对问题进行描述，即学习$\textrm{P}(\cdot)$。最后，对于新的未分词的句子，使用模型$\textrm{P}(\cdot)$对每个可能的切分方式进行概率估计，之后选择概率最高的切分结果输出。
-\vspace{-0.5em}
+\vspace{-1em}
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -522,7 +520,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 \end{eqnarray}
 
 \vspace{-0.5em}
-\parinterval 但是这个游戏没有人规定骰子是均匀的（有些被坑了的感觉）。如果骰子的六个面不均匀呢？我们可以用一种更加``聪明''的方式定义一种新的模型，即定义骰子的每一个面都以一定的概率出现，而不是相同的概率。描述如下：
+\parinterval 但是这个游戏没有人规定骰子是均匀的（有些被坑了的感觉）。如果骰子的六个面不均匀呢？我们可以用一种更加``聪明''的方式定义一种新的模型，即定义骰子的\\ \\ \\每一个面都以一定的概率出现，而不是相同的概率。描述如下：
 \begin{eqnarray}
 \textrm{P(``1'')} &=&\theta_1 \nonumber \\
 \textrm{P(``2'')} &=&\theta_2 \nonumber \\
@@ -699,8 +697,9 @@ F(x)=\int_{-\infty}^x f(x)dx
 \label{eq:2-23}
 \end{eqnarray}
 
-\parinterval 这样，整个序列$w_1 w_2...w_m$的生成概率可以被重新定义为：
+\parinterval 这样，整个序列$w_1 w_2...w_m$的生成概率可以被重新定义为：\\ \\ \\
 
+\vspace{0.5em}
 \begin{center}
 {\footnotesize
 \begin{tabular}{l|l|l l|l}
@@ -717,6 +716,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 }
 \end{center}
 
+\vspace{-1.5em}
 \parinterval 可以看到，1-gram语言模型只是$n$-gram语言模型的一种特殊形式。$n$-gram的优点在于，它所使用的历史信息是有限的，即$n-1$个单词。这种性质也反映了经典的马尔可夫链的思想\cite{liuke-markov-2004}\cite{resnick1992adventures}，有时也被称作马尔可夫假设或者马尔可夫属性。因此$n$-gram也可以被看作是变长序列上的一种马尔可夫模型，比如，2-gram语言模型对应着1阶马尔可夫模型，3-gram语言模型对应着2阶马尔可夫模型，以此类推。
 
 \parinterval 那么，如何计算$\textrm{P}(w_m|w_{m-n+1} ... w_{m-1})$呢？有很多种选择，比如：
@@ -732,14 +732,15 @@ F(x)=\int_{-\infty}^x f(x)dx
 
 其中，$\textrm{count}(\cdot)$是在训练数据中统计频次的函数。
 
-\vspace{0.3em}
+\vspace{0.5em}
 \item {\small\bfnew{人工神经网络方法}}\index{人工神经网络方法}。构建一个人工神经网络估计$\textrm{P}(w_m|w_{m-n+1} ... w_{m-1})$的值，比如，可以构建一个前馈神经网络来对$n$-gram进行建模。
 \end{itemize}
-\vspace{0.3em}
+\vspace{0.5em}
 
 \parinterval 极大似然估计方法和前面介绍的统计分词中的方法是一致的，它的核心是使用$n$-gram出现的频度进行参数估计，因此也是自然语言处理中一类经典的$n$-gram方法。基于人工神经网络的方法在近些年也非常受关注，它直接利用多层神经网络对问题的输入$(w_{m-n+1}...w_{m-1})$和输出$\textrm{P}(w_m|w_{m-n+1} ... w_{m-1})$进行建模，而模型的参数通过网络中神经元之间连接的权重进行体现。严格意义上了来说，基于人工神经网络的方法并不算基于$n$-gram的方法，或者说它并没有显性记录$n$-gram的生成概率，也不依赖$n$-gram的频度进行参数估计。为了保证内容的连贯性，本章将仍以传统$n$-gram语言模型为基础进行讨论，基于人工神经网络的方法将会在第五章和第六章进行详细介绍。
 
 \parinterval $n$-gram语言模型的使用非常简单。可以像\ref{sec2:statistical-seg}节中一样，直接用它来对词序列出现的概率进行计算。比如，可以使用一个2-gram语言模型计算一个分词序列的概率：
+
 \begin{eqnarray}
  & &\textrm{P}_{2-gram}{(\textrm{``确实}/\textrm{现在}/\textrm{数据}/\textrm{很}/\textrm{多''})} \nonumber \\
 &= & \textrm{P}(\textrm{``确实''}) \times\textrm{P}(\textrm{``现在''}|\textrm{``确实''})\times\textrm{P}(\textrm{``数据''}|\textrm{``现在''}) \times \nonumber \\
@@ -747,7 +748,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 \label{eq:2-25}
 \end{eqnarray}
 
-\parinterval 以$n$-gram语言模型为代表的统计语言模型的应用非常广泛。除了分词，在文本生成、信息检索、摘要等自然语言处理任务中，语言模型都有举足轻重的地位。包括近些年非常受关注的预训练模型，本质上也是统计语言模型。这些技术都会在后续章节进行介绍。值得注意的是，统计语言模型为解决自然语言处理问题提供了一个非常好的建模思路，即：把整个序列生成的问题转化为逐个生成单词的问题。很快我们就会看到，这种建模方式会被广泛的用于机器翻译建模，在统计机器翻译和神经机器翻译中都会有明显的体现。
+\parinterval 以$n$-gram语言模型为代表的统计语言模型的应用非常广泛。除了分词，在文本生成、信息检索、摘要等自然语言处理任务中，语言模型都有举足轻重的地位。包括近些年非常受关注的预训练模型，本质上也是统计语言模型。这些技术都会在后续章节进行介绍。值得注意的是，统计语言模型为解决自然语言处理问题提供了一个非常好的建模思路，即：把整个序列生成的问题转化为逐个生成单词的问题。很快我们就会看到，这种建模方式会被广泛地用于机器翻译建模，在统计机器翻译和神经机器翻译中都会有明显的体现。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -789,8 +790,8 @@ F(x)=\int_{-\infty}^x f(x)dx
 \parinterval 加法平滑方法假设每个$n$-gram出现的次数比实际统计次数多$\theta$次，$0 \le \theta\le 1$。这样，计算概率的时候分子部分不会为0。重新计算$\textrm{P}(\textrm{现在}|\textrm{确实})$，可以得到：
 
 \begin{eqnarray}
-\textrm{P}(\textrm{现在}|\textrm{确实}) & =  & \frac{\theta + \textrm{count}(\textrm{确实/现在})}{\sum_{w}^{|V|}(\theta + \textrm{count}(\textrm{确实/}w))} \nonumber \\
-                                                             & =  & \frac{\theta + \textrm{count}(\textrm{确实/现在})}{\theta{|V|} + \textrm{count}(\textrm{确实})}
+\textrm{P}(\textrm{``现在''}|\textrm{``确实''}) & =  & \frac{\theta + \textrm{count}(\textrm{``确实''/``现在''})}{\sum_{w}^{|V|}(\theta + \textrm{count}(\textrm{``确实''/}w))} \nonumber \\
+                                                             & =  & \frac{\theta + \textrm{count}(\textrm{``确实''/``现在''})}{\theta{|V|} + \textrm{count}(\textrm{``确实''})}
 \label{eq:2-27}
 \end{eqnarray}
 
@@ -813,6 +814,7 @@ F(x)=\int_{-\infty}^x f(x)dx
 
 \subsubsection{古德-图灵估计法}
 
+\vspace{-0.5em}
 \parinterval {\small\bfnew{古德-图灵估计法}}\index{古德-图灵估计法}（Good-Turing Estimate）\index{Good-Turing Estimate}是图灵（Alan Turing）和他的助手古德（I.J.Good）开发的，作为他们在二战期间破解德国密码机Enigma所使用的方法的一部分，在1953 年古德将其发表，这一方法也是很多平滑算法的核心，其基本思路是：把非零的$n$元语法单元的概率降低匀给一些低概率$n$元语法单元，以减小最大似然估计与真实概率之间的偏离\cite{good1953population}\cite{gale1995good}。
 
 \parinterval 假定在语料库中出现$r$次的$n$-gram有$n_r$个，特别的，出现0次的$n$-gram（即未登录词及词串）出现的次数为$n_0$个。语料库中全部词语的个数为$N$，显然
@@ -832,8 +834,9 @@ r^* = (r + 1)\frac{n_{r + 1}}{n_r}
 \textrm{P}_r=\frac{r^*}{N}
 \label{eq:2-30}
 \end{eqnarray}
+\vspace{5em}
 
-其中
+\noindent 其中
 \begin{eqnarray}
 N & = & \sum_{r=0}^{\infty}{r^{*}n_r} \nonumber \\
   & = & \sum_{r=0}^{\infty}{(r + 1)n_{r + 1}} \nonumber \\
@@ -899,9 +902,9 @@ I cannot see without my reading \underline{\ \ \ \ \ \ \ \ }
 \end{center}
 \vspace{0.0em}
 
-\noindent 直觉上应该会猜测这个地方的词应该是glasses，但是在训练语料库中Francisco 出现的频率非常高。如果在预测时仍然使用的是标准的1-gram模型，那么系统会高概率选择Francisco填入下划线出，这个结果明显是不合理的。当使用的是混合的插值模型时，如果reading Francisco这种二元语法并没有出现在语料中，就会导致1-gram对结果的影响变大，使得仍然会做出与标准1-gram模型相同的结果，犯下相同的错误。
+\noindent 直觉上应该会猜测这个地方的词应该是``glasses''，但是在训练语料库中``Francisco''出现的频率非常高。如果在预测时仍然使用的是标准的1-gram模型，那么系统会高概率选择``Francisco''填入下划线出，这个结果明显是不合理的。当使用的是混合的插值模型时，如果``reading Francisco''这种二元语法并没有出现在语料中，就会导致1-gram对结果的影响变大，使得仍然会做出与标准1-gram模型相同的结果，犯下相同的错误。
 
-\parinterval 观察语料中的2-gram发现，Francisco的前一个词仅可能是San，不会出现reading。这个分析提醒了我们，考虑前一个词的影响是有帮助的，比如仅在前一个词时San时，才给Francisco赋予一个较高的概率值。基于这种想法，改进原有的1-gram模型，创造一个新的1-gram模型$\textrm{P}_{\textrm{continuation}}$，简写为$\textrm{P}_{\textrm{cont}}$。这个模型可以通过考虑前一个词的影响评估当前词作为第二个词出现的可能性。
+\parinterval 观察语料中的2-gram发现，``Francisco''的前一个词仅可能是``San''，不会出现``reading''。这个分析提醒了我们，考虑前一个词的影响是有帮助的，比如仅在前一个词时``San''时，才给``Francisco''赋予一个较高的概率值。基于这种想法，改进原有的1-gram模型，创造一个新的1-gram模型$\textrm{P}_{\textrm{continuation}}$，简写为$\textrm{P}_{\textrm{cont}}$。这个模型可以通过考虑前一个词的影响评估当前词作为第二个词出现的可能性。
 
 \parinterval 为了评估$\textrm{P}_{\textrm{cont}}$，统计使用当前词作为第二个词所出现二元语法的种类，二元语法种类越多，这个词作为第二个词出现的可能性越高，呈正比：
 \begin{eqnarray}
@@ -962,7 +965,7 @@ c_{\textrm{KN}}(\cdot) = \left\{\begin{array}{ll}
 
 \sectionnewpage
 \section{句法分析（短语结构分析）}
-\parinterval 通过前面两节的内容，已经了解什么叫做``词''、如何对分词问题进行统计建模。同时也了解了如何对词序列的生成进行概率描述。无论是分词还是语言模型都是句子浅层词串信息的一种表示。对于一个自然语言句子来说，它更深层次的结构信息可以通过句法信息来描述，而句法信息也是机器翻译和自然语言处理其他任务中常用的知识之一。
+\parinterval 通过前面两节的内容，读者已经了解什么叫做``词''、如何对分词问题进行统计建模。同时也了解了如何对词序列的生成进行概率描述。无论是分词还是语言模型都是句子浅层词串信息的一种表示。对于一个自然语言句子来说，它更深层次的结构信息可以通过句法信息来描述，而句法信息也是机器翻译和自然语言处理其他任务中常用的知识之一。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -1149,10 +1152,6 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
 
 \parinterval 显然，规则顺序的不同会导致句法树的推导这一确定的过程变得不确定。因此，需要进行{\small\bfnew{消歧}}\index{消歧}（Disambiguation）\index{Disambiguation}。这里，可以使用启发式方法：要求规则使用都服从最左优先原则，这样得到的推导被称为{\small\bfnew{最左优先推导}}\index{最左优先推导}（Left-most Derivation）\index{Left-most Derivation}。图\ref{fig:2-23}中的推导1 就是符合最左优先原则的推导。
 
-\parinterval 这样，对于一个上下文无关文法，每一棵句法树都有唯一的最左推导与之对应。于是，句法分析可以被描述为：对于一个句子找到能够生成它的最佳推导，这个推导所对应的句法树就是这个句子的句法分析结果。
-
-\parinterval 不过问题又回来了，怎样才能知道什么样的推导或者句法树是``最佳''的呢？如图\ref{fig:2-24}所示，对于语言学专家，他们可以很确定的分辨出哪些句法树是正确的，哪些句法树是错误。甚至普通人也可以通过一些课本中学到的知识产生一些模糊的判断。而计算机如何进行判别呢？沿着前面介绍的统计建模的思想，计算机可以得出不同句法树出现的概率，进而选择概率最高的句法树作为输出，而这正是统计句法分析所做的事情。
-
 %-------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -1161,6 +1160,10 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
     \label{fig:2-24}
 \end{figure}
 %-------------------------------------------
+
+\parinterval 这样，对于一个上下文无关文法，每一棵句法树都有唯一的最左推导与之对应。于是，句法分析可以被描述为：对于一个句子找到能够生成它的最佳推导，这个推导所对应的句法树就是这个句子的句法分析结果。
+
+\parinterval 不过问题又回来了，怎样才能知道什么样的推导或者句法树是``最佳''的呢？如图\ref{fig:2-24}所示，对于语言学专家，他们可以很确定的分辨出哪些句法树是正确的，哪些句法树是错误。甚至普通人也可以通过一些课本中学到的知识产生一些模糊的判断。而计算机如何进行判别呢？沿着前面介绍的统计建模的思想，计算机可以得出不同句法树出现的概率，进而选择概率最高的句法树作为输出，而这正是统计句法分析所做的事情。
 
 \parinterval 在统计句法分析中，需要对每个推导进行统计建模，于是定义一个模型$\textrm{P}( \cdot )$，对于任意的推导$d$，都可以用$\textrm{P}(d)$计算出推导$d$的概率。这样，给定一个输入句子，我们可以对所有可能的推导用$\textrm{P}(d)$计算其概率值，并选择概率最大的结果作为句法分析的结果输出（图\ref{fig:2-25}）。
 
