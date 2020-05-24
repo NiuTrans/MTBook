@@ -994,7 +994,7 @@ y_{j}^{ls}=(1-\alpha) \cdot \tilde{y}_j + \alpha \cdot q
 
 \noindent 即译文单词$y_j$依赖前面已经生成的单词$\mathbf{y}_{<j}=\{y_1,...,y_{j-1}\}$和源语言句子$\mathbf{x}$。显然，这个模型中，每一个目标语位置$j$都需要等待前面$j-1$个位置输出的结果。因此，自回归翻译会阻碍不同译文单词生成的并行化。特别是在GPU上，翻译的自回归性会大大降低计算的并行度，导致推断过程的效率不高。
 
-\parinterval 对于这个问题，研究者也考虑移除翻译的自归回性\cite{Gu2017NonAutoregressiveNM}，进行{\small\bfnew{非自回归翻译}}\index{非自回归翻译}（Regressive Translation）\index{Regressive Translation}。非自回归翻译可以用如下公式描述：
+\parinterval 对于这个问题，研究者也考虑移除翻译的自归回性\cite{Gu2017NonAutoregressiveNM}，进行{\small\bfnew{非自回归翻译}}\index{非自回归翻译}（Non-Autoregressive Translation）\index{Non-Autoregressive Translation}。非自回归翻译可以用如下公式描述：
 \begin{eqnarray}
 \textrm{P}(\mathbf{y}|\mathbf{x}) = \prod_{j=1}^{n} \textrm{P}(y_j| \mathbf{x})
 \label{eq:7-7}
@@ -1524,7 +1524,7 @@ p_l=\frac{l}{2L}\cdot \varphi
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{单语数据的使用}\label{subsection-4.2.6}
+\subsection{单语数据的使用}\label{subsection-7.2.6}
 
 \parinterval 在统计机器翻译时代，使用单语数据训练语言模型就是构建机器翻译系统的关键步骤。好的语言模型往往会带来性能的增益。而这个现象在神经机器翻译中似乎并不明显，因为在大多数神经机器翻译的范式中，并不要求使用大规模单语数据来帮助机器翻译系统。甚至，连语言模型都不会作为一个独立的模块。这一方面是由于神经机器翻译系统的解码端本身就起着语言模型的作用，另一方面是由于数据的增多使得翻译模型可以更好的捕捉目标语言的规律。
 
@@ -1618,7 +1618,7 @@ p_l=\frac{l}{2L}\cdot \varphi
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter7/Figures/figure-MASS}
+\input{./Chapter7/Figures/figure-mass}
 \caption{MASS 预训练方法}
 \label{fig:7-39}
 \end{figure}
@@ -1672,7 +1672,7 @@ p_l=\frac{l}{2L}\cdot \varphi
 
 \begin{itemize}
 \vspace{0.5em}
-\item ``知识''在模型间是可迁移的。也就是说，一个模型中蕴含的规律可以被另一个模型使用。最典型的例子就是预训练模型（见\ref{subsection-4.2.6}）。使用单语数据学习到的表示模型，在双语的翻译任务中仍然可以发挥很好的作用。也就是，把单语语言模型学习到的知识迁移到双语翻译中对句子表示的任务中；
+\item ``知识''在模型间是可迁移的。也就是说，一个模型中蕴含的规律可以被另一个模型使用。最典型的例子就是预训练模型（见\ref{subsection-7.2.6}）。使用单语数据学习到的表示模型，在双语的翻译任务中仍然可以发挥很好的作用。也就是，把单语语言模型学习到的知识迁移到双语翻译中对句子表示的任务中；
 \vspace{0.5em}
 \item 模型所蕴含的``知识''比原始数据中的``知识''更容易被学习到。比如，机器翻译中大量使用的回译（伪数据）方法，就把模型的输出作为数据让系统进行学习。
 \vspace{0.5em}
