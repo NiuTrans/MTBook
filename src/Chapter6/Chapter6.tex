@@ -137,7 +137,7 @@
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-numbers-of-WMT-systems}
+\input{./Chapter6/Figures/figure-numbers-of-wmt-systems}
 \caption{WMT冠军系统的数量}
 \label{fig:6-3}
 \end{figure}
@@ -148,7 +148,7 @@
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-score-of-mTER}
+\input{./Chapter6/Figures/figure-score-of-mter}
 \caption{不同系统在不同长度句子上的mTER分值（得分越低越好）}
 \label{fig:6-4}
 \end{figure}
@@ -341,7 +341,7 @@ NMT                     & $ 21.7^{\ast}$          & $18.7^{\ast}$           & -1
 \end{figure}
 %----------------------------------------------
 
-\parinterval 翻译过程的神经网络结构如图\ref{fig:6-7}所示，其中下方是编码器，上方是解码器。编码器会顺序处理源语言单词，将每个单词都表示成一个实数向量，也就是每个单词的词嵌入结果（绿色方框）。在词嵌入的基础上运行循环神经网络（蓝色方框）。在编码下一个时间步状态的时候，上一个时间步的隐藏状态会作为历史信息传入给循环神经网络。这样，句子中每个位置的信息都被向后传递，最后一个时间步的隐藏状态（红色方框）就包含了整个源语言句子的信息，也就得到了编码器的编码结果$\ \dash\ $源语言句子的分布式表示。
+\parinterval 翻译过程的神经网络结构如图\ref{fig:6-7}所示，其中左边是编码器，右边是解码器。编码器会顺序处理源语言单词，将每个单词都表示成一个实数向量，也就是每个单词的词嵌入结果（绿色方框）。在词嵌入的基础上运行循环神经网络（蓝色方框）。在编码下一个时间步状态的时候，上一个时间步的隐藏状态会作为历史信息传入给循环神经网络。这样，句子中每个位置的信息都被向后传递，最后一个时间步的隐藏状态（红色方框）就包含了整个源语言句子的信息，也就得到了编码器的编码结果$\ \dash\ $源语言句子的分布式表示。
 
 \parinterval 解码器直接把源语言句子的分布式表示作为输入的隐层状态，之后像编码器一样依次读入目标语言单词，这是一个标准的循环神经网络的执行过程。与编码器不同的是，解码器会有一个输出层，用于根据当前时间步的隐层状态生成目标语单词及其概率分布。可以看到，解码端当前时刻的输出单词与下一个时刻的输入单词是一样的。从这个角度说，解码器也是一种神经语言模型，只不过它会从另外一种语言（源语言）获得一些信息，而不是仅仅做单语句子的生成。具体来说，当生成第一个单词``I''时，解码器利用了源语言句子表示（红色方框）和目标语的起始词``<sos>''。在生成第二个单词``am''时，解码器利用了上一个时间步的隐藏状态（隐藏层变量）和已经生成的``I''的信息。这个过程会循环执行，直到生成完整的目标语句子。
 
@@ -504,7 +504,7 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
- \input{./Chapter6/Figures/figure-3-base-problom-of-P}
+ \input{./Chapter6/Figures/figure-3-base-problom-of-p}
 \caption{求解$\textrm{P} (y_j | \mathbf{y}_{<j},\mathbf{x})$的三个基本问题}
 \label{fig:6-11}
 \end{figure}
@@ -638,10 +638,10 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\subfigure[遗忘门]{\input{./Chapter6/Figures/figure-LSTM01}}
-\subfigure[输入门]{\input{./Chapter6/Figures/figure-LSTM02}}
-\subfigure[记忆更新]{\input{./Chapter6/Figures/figure-LSTM03}}
-\subfigure[输出门]{\input{./Chapter6/Figures/figure-LSTM04}}
+\subfigure[遗忘门]{\input{./Chapter6/Figures/figure-lstm01}}
+\subfigure[输入门]{\input{./Chapter6/Figures/figure-lstm02}}
+\subfigure[记忆更新]{\input{./Chapter6/Figures/figure-lstm03}}
+\subfigure[输出门]{\input{./Chapter6/Figures/figure-lstm04}}
 \caption{LSTM中的门控结构}
 \label{fig:6-15}
 \end{figure}
@@ -687,7 +687,7 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-the-whole-of-LSTM}
+\input{./Chapter6/Figures/figure-the-whole-of-lstm}
 \caption{LSTM的整体结构}
 \label{fig:6-16}
 \end{figure}
@@ -706,9 +706,9 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\subfigure[重置门]{\input{./Chapter6/Figures/figure-GRU01}}
-\subfigure[更新门]{\input{./Chapter6/Figures/figure-GRU02}}
-\subfigure[隐藏状态更新]{\input{./Chapter6/Figures/figure-GRU03}}
+\subfigure[重置门]{\input{./Chapter6/Figures/figure-gru01}}
+\subfigure[更新门]{\input{./Chapter6/Figures/figure-gru02}}
+\subfigure[隐藏状态更新]{\input{./Chapter6/Figures/figure-gru03}}
 \caption{GRU中的门控结构}
 \label{fig:6-17}
 \end{figure}
@@ -747,7 +747,7 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-bi-RNN}
+\input{./Chapter6/Figures/figure-bi-rnn}
 \caption{基于双向循环神经网络的机器翻译模型结构}
 \label{fig:6-18}
 \end{figure}
@@ -768,7 +768,7 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-double-layer-RNN} \hspace{10em}
+\input{./Chapter6/Figures/figure-double-layer-rnn} \hspace{10em}
 \caption{基于双层循环神经网络的机器翻译模型结构}
 \label{fig:6-19}
 \end{figure}
@@ -861,7 +861,7 @@ $\textrm{P}({y_j | \mathbf{s}_{j-1} ,y_{j-1},\mathbf{C}})$由Softmax实现，Sof
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-calculation-process-of-context-vector-C}
+\input{./Chapter6/Figures/figure-calculation-process-of-context-vector-c}
 \caption{上下文向量$\mathbf{C}_j$的计算过程}
 \label{fig:6-23}
 \end{figure}
@@ -1353,7 +1353,7 @@ L(\mathbf{Y},\widehat{\mathbf{Y}}) = \sum_{j=1}^n L_{\textrm{ce}}(\mathbf{y}_j,\
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-structure-of-GNMT}
+\input{./Chapter6/Figures/figure-structure-of-gnmt}
 \caption{GNMT结构}
 \label{fig:6-35}
 \end{figure}
@@ -1538,7 +1538,7 @@ L(\mathbf{Y},\widehat{\mathbf{Y}}) = \sum_{j=1}^n L_{\textrm{ce}}(\mathbf{y}_j,\
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter6/Figures/figure-calculation-of-context-vector-C}
+\input{./Chapter6/Figures/figure-calculation-of-context-vector-c}
 \caption{``机票''的更进一步抽象表示$\tilde{\mathbf{h}}$的计算}
 \label{fig:6-41}
 \end{figure}

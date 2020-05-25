@@ -18,7 +18,7 @@
 \renewcommand\tablename{表}% Table => 表
 \definecolor{ublue}{rgb}{0.152,0.250,0.545} % Color of deep blue
 \definecolor{ugreen}{rgb}{0,0.5,0} % Color of deep green
-\chapterimage{fig-NEU-6.jpg} % Chapter heading image
+\chapterimage{../Figures/fig-NEU-6.jpg} % Chapter heading image
 
 %----------------------------------------------------------------------------------------
 %    CHAPTER 5
@@ -1372,7 +1372,7 @@ y&=&{\rm{Sigmoid}}({\rm{Tanh}}(\mathbf x\cdot \mathbf w^{[1]}+\mathbf b^{[1]})\c
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\includegraphics{./Chapter5/Figures/fig-gradient-descent.pdf}
+\input{./Chapter5/Figures/fig-gradient-descent}
 \caption{函数上一个点沿着不同方向移动的示例}
 \label{fig:5-43}
 \end{figure}
@@ -2144,7 +2144,7 @@ w_{t+1}&=&w_t-\frac{\eta}{\sqrt{z_t+\epsilon}} v_t
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter5/Figures/fig-code-FNNLM}
+\input{./Chapter5/Figures/fig-code-fnnlm}
 \caption{FNNLM模型代码示例（NiuTensor）}
 \label{fig:5-61}
 \end{figure}
@@ -2197,7 +2197,7 @@ w_{t+1}&=&w_t-\frac{\eta}{\sqrt{z_t+\epsilon}} v_t
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter5/Figures/fig-rnn-LM}
+\input{./Chapter5/Figures/fig-rnn-lm}
 \caption{基于循环神经网络的语言模型结构}
 \label{fig:5-62}
 \end{figure}
@@ -2220,7 +2220,7 @@ w_{t+1}&=&w_t-\frac{\eta}{\sqrt{z_t+\epsilon}} v_t
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\input{./Chapter5/Figures/fig-transformer-LM}
+\input{./Chapter5/Figures/fig-transformer-lm}
 \caption{Transformer语言模型结构}
 \label{fig:5-63}
 \end{figure}
