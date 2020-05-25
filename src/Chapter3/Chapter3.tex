@@ -17,7 +17,7 @@
 \renewcommand\tablename{表}% Table => 表
 \definecolor{ublue}{rgb}{0.152,0.250,0.545} % Color of deep blue
 \definecolor{ugreen}{rgb}{0,0.5,0} % Color of deep green
-\chapterimage{fig-NEU-4.jpg} % Chapter heading image
+\chapterimage{../Figures/fig-NEU-4.jpg} % Chapter heading image
 
 %----------------------------------------------------------------------------------------
 %	PART 2
@@ -37,7 +37,7 @@
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\section{什么是基于词的翻译模型}
+\section{词在翻译中的作用}
 
 \parinterval 在机器翻译中，我们希望得到一个源语言到目标语言的翻译。对于人类来说这个问题很简单，但是让计算机做这样的工作却很困难，因为我们需要把翻译``描述''成计算机可以计算的形式。这里面临的第一个问题是：如何对翻译进行建模？从计算机的角度来看，这就需要把自然语言的翻译问题转换为计算机可计算的问题。
 
@@ -82,7 +82,7 @@
 %----------------------------------------------------------------------------------------
 
 \sectionnewpage
-\section{构建一个简单的机器翻译系统}
+\section{一个简单的翻译系统}
 \label{sec:simple-mt-example}
 
 \parinterval 本节首先对比人工翻译和机器翻译过程的异同点，从中归纳出构建机器翻译系统的两个主要步骤：训练和解码。之后，会从学习翻译知识和运用翻译知识两个方面描述如何构建一个简单的机器翻译系统。
@@ -317,7 +317,7 @@
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figurerole-of-P-in-sentence-level-translation}
+\input{./Chapter3/Figures/figurerole-of-p-in-sentence-level-translation}
     \caption{$\textrm{P}(\mathbf{t}|\mathbf{s})$在句子级翻译中的作用}
     \label{fig:3-6}
 \end{figure}
@@ -615,7 +615,7 @@ g(\mathbf{s},\mathbf{t}) \equiv \prod_{j,i \in \widehat{A}}{\textrm{P}(s_j,t_i)}
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figure-correspondence-between-IBM-model&formula-1.13}
+\input{./Chapter3/Figures/figure-correspondence-between-ibm-model&formula-1.13}
     \caption{IBM模型与公式\ref{eq:3-10}的对应关系}
     \label{fig:3-14}
 \end{figure}
@@ -824,7 +824,7 @@ g(\mathbf{s},\mathbf{t}) \equiv \prod_{j,i \in \widehat{A}}{\textrm{P}(s_j,t_i)}
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figure-different-translation-result-in-different-score-IBM1}
+\input{./Chapter3/Figures/figure-different-translation-result-in-different-score-ibm1}
     \caption{不同的译文导致不同IBM模型1得分的情况}
     \label{fig:3-20}
 \end{figure}
@@ -949,7 +949,7 @@ L(f,\lambda)=\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f(s_j|t_i)
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figure-lagrange-multiplier-method-(IBM-model-1)}
+\input{./Chapter3/Figures/figure-lagrange-multiplier-method-(ibm-model-1)}
    \caption{拉格朗日乘数法（IBM模型1）}
    \label{fig:3-23}
 \end{figure}
@@ -1010,7 +1010,7 @@ f(s_u|t_v) = \lambda_{t_v}^{-1} \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figure-IBM-model-iteration-process-diagram}
+\input{./Chapter3/Figures/figure-ibm-model-iteration-process-diagram}
    \caption{IBM模型迭代过程示意图}
    \label{fig:3-24}
 \end{figure}
@@ -1095,7 +1095,7 @@ f(s_u|t_v)=\frac{c_{\mathbb{E}}(s_u|t_v;\mathbf{s},\mathbf{t})}  { \sum\limits_{
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-    \input{./Chapter3/Figures/figure-EM-algorithm-flow-chart}
+    \input{./Chapter3/Figures/figure-em-algorithm-flow-chart}
   %\setlength{\belowcaptionskip}{-0.5em}
    \caption{EM算法流程图（IBM模型1）}
    \label{fig:3-28}
@@ -1310,7 +1310,7 @@ p_0+p_1                            & = & 1 \label{eq:3-56}
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figure-word-alignment&probability-distribution-in-IBM-model-3}
+\input{./Chapter3/Figures/figure-word-alignment&probability-distribution-in-ibm-model-3}
     \caption{IBM模型3的词对齐及概率分配}
     \label{fig:3-33}
 \end{figure}
@@ -1357,7 +1357,7 @@ p_0+p_1                            & = & 1 \label{eq:3-56}
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter3/Figures/figure-example-HMM}
+\input{./Chapter3/Figures/figure-example-hmm}
     \caption{抛硬币的隐马尔可夫模型实例}
     \label{fig:3-34}
 \end{figure}

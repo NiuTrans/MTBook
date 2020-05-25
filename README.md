@@ -49,8 +49,8 @@
 **Part II 统计机器翻译**
 
 3. 基于词的机器翻译模型
-  * <a href="https://opensource.niutrans.com/mtbook/section3-1.html" title="什么是基于词的翻译模型">3.1 什么是基于词的翻译模型</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section3-2.html" title="构建一个简单的机器翻译系统">3.2 构建一个简单的机器翻译系统</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section3-1.html" title="词在翻译中的作用">3.1 词在翻译中的作用</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section3-2.html" title="一个简单的翻译系统">3.2 一个简单的翻译系统</a>
   * <a href="https://opensource.niutrans.com/mtbook/section3-3.html" title="基于词的翻译建模">3.3 基于词的翻译建模</a>
   * <a href="https://opensource.niutrans.com/mtbook/section3-4.html" title="IBM 模型 1-2">3.4 IBM 模型 1-2</a>
   * <a href="https://opensource.niutrans.com/mtbook/section3-5.html" title="IBM 模型 3-5 及隐马尔可夫模型">3.5 IBM 模型 3-5 及隐马尔可夫模型</a>
