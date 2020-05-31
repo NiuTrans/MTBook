@@ -454,8 +454,7 @@ Candidate：the the the the
 \label{eq:1-2}
 \end{eqnarray}
 
-\parinterval 但是，该方法更倾向于对短句子打出更高的分数。一个极端的例子是译文只有很少的几个词，但是都命中答案，准确率很高可显然不是好的译文。因此，BLEU引入{\small\bfnew{短句惩罚因子}}\index{短句惩罚因子}（Brevity Penalty\index{Brevity Penalty}, BP）的概念，对短句进行惩罚，
-
+\parinterval 但是，该方法更倾向于对短句子打出更高的分数。一个极端的例子是译文只有很少的几个词，但是都命中答案，准确率很高可显然不是好的译文。因此，BLEU引入{\small\bfnew{短句惩罚因子}}\index{短句惩罚因子}（Brevity Penalty\index{Brevity Penalty}, BP）的概念，对短句进行惩罚：
 \begin{eqnarray}
 \textrm{BP}=
 \begin{cases}
@@ -466,7 +465,6 @@ e^{(1-\frac{r}{c})}& c \le r
 \end{eqnarray}
 
 \noindent 其中$c$表示译文的句子长度，$r$表示参考译文的句子长度。最终BLEU的计算公式为：
-
 \begin{eqnarray}
 \textrm{BLEU}=\textrm{BP} \cdot \exp(\sum_{i=1}^{N}w_n \cdot \log{\textrm{P}_n})
 \label{eq:1-4}
