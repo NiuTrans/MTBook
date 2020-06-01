@@ -130,7 +130,7 @@ xelatex mt-book-xelatex
 
 ## 课件
 
-本书各章节配套的课件均已开放，pdf版本地址[https://github.com/NiuTrans/MTBook/blob/master/slides](https://github.com/NiuTrans/MTBook/blob/master/slides)
+本书各章节配套的课件均已开放。pdf版本的地址为[https://github.com/NiuTrans/MTBook/blob/master/slides](https://github.com/NiuTrans/MTBook/blob/master/slides)
 
 ## 开源协议
 
