@@ -128,6 +128,10 @@ xelatex mt-book-xelatex
 
 注：编译tex文件会依赖一些宏包。如果有任何编译错误，建议将宏包更新至最新版本。
 
+## 课件
+
+本书各章节配套的课件均已开放，pdf版本地址[https://github.com/NiuTrans/MTBook/blob/master/slides](https://github.com/NiuTrans/MTBook/blob/master/slides)
+
 ## 开源协议
 
 本书的开源内容基于The Creative Commons Attribution-NonCommercial 4.0 Unported License（[link](https://creativecommons.org/licenses/by-nc/4.0)）
