@@ -904,7 +904,7 @@ I cannot see without my reading \underline{\ \ \ \ \ \ \ \ }
 
 \noindent 直觉上应该会猜测这个地方的词应该是``glasses''，但是在训练语料库中``Francisco''出现的频率非常高。如果在预测时仍然使用的是标准的1-gram模型，那么系统会高概率选择``Francisco''填入下划线出，这个结果明显是不合理的。当使用的是混合的插值模型时，如果``reading Francisco''这种二元语法并没有出现在语料中，就会导致1-gram对结果的影响变大，使得仍然会做出与标准1-gram模型相同的结果，犯下相同的错误。
 
-\parinterval 观察语料中的2-gram发现，``Francisco''的前一个词仅可能是``San''，不会出现``reading''。这个分析提醒了我们，考虑前一个词的影响是有帮助的，比如仅在前一个词时``San''时，才给``Francisco''赋予一个较高的概率值。基于这种想法，改进原有的1-gram模型，创造一个新的1-gram模型$\textrm{P}_{\textrm{continuation}}$，简写为$\textrm{P}_{\textrm{cont}}$。这个模型可以通过考虑前一个词的影响评估当前词作为第二个词出现的可能性。
+\parinterval 观察语料中的2-gram发现，``Francisco''的前一个词仅可能是``San''，不会出现``reading''。这个分析提醒了我们，考虑前一个词的影响是有帮助的，比如仅在前一个词是``San''时，才给``Francisco''赋予一个较高的概率值。基于这种想法，改进原有的1-gram模型，创造一个新的1-gram模型$\textrm{P}_{\textrm{continuation}}$，简写为$\textrm{P}_{\textrm{cont}}$。这个模型可以通过考虑前一个词的影响评估当前词作为第二个词出现的可能性。
 
 \parinterval 为了评估$\textrm{P}_{\textrm{cont}}$，统计使用当前词作为第二个词所出现二元语法的种类，二元语法种类越多，这个词作为第二个词出现的可能性越高，呈正比：
 \begin{eqnarray}
