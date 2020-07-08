@@ -37,7 +37,7 @@
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\section{词在翻译中的作用}
+\section{什么是基于词的翻译模型}
 
 \parinterval 在机器翻译中，我们希望得到一个源语言到目标语言的翻译。对于人类来说这个问题很简单，但是让计算机做这样的工作却很困难，因为我们需要把翻译``描述''成计算机可以计算的形式。这里面临的第一个问题是：如何对翻译进行建模？从计算机的角度来看，这就需要把自然语言的翻译问题转换为计算机可计算的问题。
 
@@ -82,7 +82,7 @@
 %----------------------------------------------------------------------------------------
 
 \sectionnewpage
-\section{一个简单的翻译系统}
+\section{构建一个简单的机器翻译系统}
 \label{sec:simple-mt-example}
 
 \parinterval 本节首先对比人工翻译和机器翻译过程的异同点，从中归纳出构建机器翻译系统的两个主要步骤：训练和解码。之后，会从学习翻译知识和运用翻译知识两个方面描述如何构建一个简单的机器翻译系统。
@@ -111,7 +111,7 @@
 %----------------------------------------------
 \vspace{-0.2em}
 
-\parinterval 图\ref{fig:3-3}展示了人在翻译``我 对 你表示 满意''时可能会思考的内容。具体来说，有如下两方面内容。
+\parinterval 图\ref{fig:3-3}展示了人在翻译``我\;对\;你\;感到\;满意''时可能会思考的内容。具体来说，有如下两方面内容。
 
 \begin{itemize}
 \vspace{0.5em}
@@ -243,9 +243,9 @@
 \begin{example}
 一个汉英互译的句对
 
-\qquad\qquad\quad $\mathbf{s}$ = 机器\quad {\color{red}翻译}\; 就\; 是\; 用\; 计算机\; 来\; 进行\; {\color{red}翻译}
+$\mathbf{s}$ = 机器\quad {\color{red}翻译}\; 就\; 是\; 用\; 计算机\; 来\; 生成\; {\color{red}翻译}\; 的\; 过程
 
-\qquad\qquad\quad $\mathbf{t}$ = machine\; {\color{red}translation}\; is\; just\; {\color{red}translation}\; by\; computer
+$\mathbf{t}$ = machine\; {\color{red}translation}\; is\; a\; process\; of\; generating\; a\;  {\color{red}translation}\; by\; computer
 \label{eg:3-1}
 \end{example}
 
@@ -253,14 +253,14 @@
 \begin{eqnarray}
 \textrm{P}(\text{``翻译''},\text{``translation''}; \mathbf{s},\mathbf{t})  & = & \frac{c(\textrm{``翻译''},\textrm{``translation''};\mathbf{s},\mathbf{t})}{\sum_{x',y'} c(x',y';\mathbf{s},\mathbf{t})} \nonumber \\
                                                                                                          & =  & \frac{4}{|\mathbf{s}|\times |\mathbf{t}|} \nonumber \\
-                                                                                                         & = & \frac{4}{63}
+                                                                                                         & = & \frac{4}{121}
 \label{eq:3-2}
 \end{eqnarray}
 
 \noindent 这里运算$|\cdot|$表示句子长度。类似的，可以得到``机器''和``translation''、``机器''和``look''的单词翻译概率：
 \begin{eqnarray}
-\textrm{P}(\text{``机器''},\text{``translation''}; \mathbf{s},\mathbf{t})  & = & \frac{2}{63} \\
-\textrm{P}(\text{``机器''},\text{``look''}; \mathbf{s},\mathbf{t})  & =  & \frac{0}{63}
+\textrm{P}(\text{``机器''},\text{``translation''}; \mathbf{s},\mathbf{t})  & = & \frac{2}{121} \\
+\textrm{P}(\text{``机器''},\text{``look''}; \mathbf{s},\mathbf{t})  & =  & \frac{0}{121}
 \label{eq:3-3}
 \end{eqnarray}
 
@@ -283,13 +283,13 @@
 \begin{example}
 两个汉英互译的句对
 
-\qquad\qquad \; $\mathbf{s}^1$ = 机器\quad {\color{red}翻译}\; 就\; 是\; 用\; 计算机\; 来\; 进行\; {\color{red}翻译}
+$\mathbf{s}^{[1]}$ = 机器\quad {\color{red}翻译}\; 就\; 是\; 用\; 计算机\; 来\; 生成\; {\color{red}翻译}\; 的\; 过程
 
-\qquad\qquad\; $\mathbf{s}^1$ = Machine\; {\color{red}translation}\; is\; just\; {\color{red}translation}\; by\; computer
+$\mathbf{t}^{[1]}$ = machine\; {\color{red}translation}\; is\; a\; process\; of\; generating\; a\;  {\color{red}translation}\; by\; computer
 
-\qquad\qquad\; $\mathbf{s}^2$ = 那\quad 人工\quad {\color{red}翻译}\quad 呢\quad ?
+$\mathbf{s}^{[2]}$ = 那\quad 人工\quad {\color{red}翻译}\quad 呢\quad ?
 
-\qquad\qquad\; $\mathbf{t}^2$ = So\; ,\; what\; is\; human\; {\color{red}translation}\; ?
+$\mathbf{t}^{[2]}$ = So\; ,\; what\; is\; human\; {\color{red}translation}\; ?
 \label{eg:3-2}
 \end{example}
 
@@ -298,8 +298,8 @@
 \begin{eqnarray}
 {\textrm{P}(\textrm{``翻译''},\textrm{``translation''})} & = & {\frac{c(\textrm{``翻译''},\textrm{``translation''};\mathbf{s}^{[1]},\mathbf{t}^{[1]})+c(\textrm{``翻译''},\textrm{``translation''};\mathbf{s}^{[2]},\mathbf{t}^{[2]})}{\sum_{x',y'} c(x',y';\mathbf{s}^{[1]},\mathbf{t}^{[1]}) + \sum_{x',y'} c(x',y';\mathbf{s}^{[2]},\mathbf{t}^{[2]})}} \nonumber \\
                                                                             & = & \frac{4 + 1}{|\mathbf{s}^{[1]}| \times |\mathbf{t}^{[1]}| + |\mathbf{s}^{[2]}| \times |\mathbf{t}^{[2]}|} \nonumber \\
-                                                                            & = & \frac{4 + 1}{9 \times 7 + 5 \times 7} \nonumber \\
-                                                                            & = & \frac{5}{98}
+                                                                            & = & \frac{4 + 1}{11 \times 11 + 5 \times 7} \nonumber \\
+                                                                            & = & \frac{5}{156}
 \label{eq:3-5}
 \end{eqnarray}
 }
