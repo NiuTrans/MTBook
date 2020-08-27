@@ -173,7 +173,7 @@
 %----------------------------------------------------------------------------------------
 
 \section{IBM模型3训练方法}
-\parinterval 模型3的参数估计与模型1和模型2采用相同的方法。这里直接给出辅助函数。
+\parinterval IBM模型3的参数估计与模型1和模型2采用相同的方法。这里直接给出辅助函数。
 \begin{eqnarray}
 h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \textrm{P}_{\theta}(\mathbf{s}|\mathbf{t})-\sum_{t}\lambda_{t}\big(\sum_{s}t(s|t)-1\big)  \nonumber \\
 & & -\sum_{i}\mu_{iml}\big(\sum_{j}d(j|i,m,l)-1\big) \nonumber \\
@@ -181,7 +181,7 @@ h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \textrm{P}_{\theta}(\mathbf{s}|\mathb
 \label{eq:1.1}
 \end{eqnarray}
 
-\parinterval 由于篇幅所限这里略去了推导步骤直接给出一些用于参数估计的等式。
+\parinterval 由于篇幅所限这里略去了推导步骤直接给出具体公式。
 \begin{eqnarray}
 c(s|t,\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m} (\delta(s_j,s) \cdot \delta(t_{a_{j}},t))\big] \label{eq:1.2} \\
 c(j|i,m,l;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \delta(i,a_j)\big] \label{eq:1.3} \\
@@ -202,9 +202,9 @@ n(\varphi|t) & = & \nu_{t}^{-1} \times \sum_{s=1}^{K}c(\varphi |t;\mathbf{s}^{[k
 p_x & = & \zeta^{-1} \sum_{k=1}^{K}c(x;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.10}
 \end{eqnarray}
 
-\parinterval 在模型3中，因为产出率的引入，并不能像模型1和模型2那样，在保证正确性的情况下加速参数估计的过程。这就使得每次迭代过程中，都不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单且直接的方法就是仅利用Viterbi对齐来进行参数估计\footnote{Viterbi词对齐可以被简单的看作搜索到的最好词对齐。}。 遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})$达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。式\ref{eq:1.2}可以被修改为：
+\parinterval 在模型3中，因为繁衍率的引入，并不能像模型1和模型2那样，在保证正确性的情况下加速参数估计的过程。这就使得每次迭代过程中，都不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单的方法是仅使用Viterbi对齐来进行参数估计，这里Viterbi 词对齐可以被简单的看作搜索到的最好词对齐。遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})$ 达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。式\ref{eq:1.2}可以被修改为：
 \begin{eqnarray}
-c(s|t,\mathbf{s},\mathbf{t}) \approx \sum_{\mathbf{a} \in \mathbf{S}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m}(\delta(s_j,\mathbf{s}) \cdot \delta(t_{a_{j}},\mathbf{t})) \big]
+c(s|t,\mathbf{s},\mathbf{t}) \approx \sum_{\mathbf{a} \in S}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m}(\delta(s_j,\mathbf{s}) \cdot \delta(t_{a_{j}},\mathbf{t})) \big]
 \label{eq:1.11}
 \end{eqnarray}
 
@@ -222,7 +222,7 @@ S = N(b^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(
 \end{itemize}
 
 \vspace{0.5em}
-\parinterval 公式\ref{eq:1.12}中，$b^{\infty}(V(\mathbf{s}|\mathbf{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))$ 分别是对 $V(\mathbf{s}|\mathbf{t};3)$ 和 $V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},3)$ 的估计。在计算$S$的过程中，需要知道一个对齐$\bf{a}$的邻居$\bf{a}^{'}$的概率，即通过$\textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t})$计算$\textrm{p}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t})$。在模型3中，如果$\bf{a}$和$\bf{a}'$仅区别于某个源语单词对齐到的目标位置上（$a_j \neq a_{j}'$），那么
+\parinterval 公式\ref{eq:1.12}中，$b^{\infty}(V(\mathbf{s}|\mathbf{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))$ 分别是对 $V(\mathbf{s}|\mathbf{t};3)$ 和 $V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},3)$ 的估计。在计算$S$的过程中，需要知道一个对齐$\bf{a}$的邻居$\bf{a}^{'}$的概率，即通过$\textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t})$计算$\textrm{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t})$。在模型3中，如果$\bf{a}$和$\bf{a}'$仅区别于某个源语单词对齐到的目标位置上（$a_j \neq a_{j}'$），那么
 
 \begin{eqnarray}
 \textrm{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t}) & = & \textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot  \nonumber \\
@@ -247,7 +247,7 @@ S = N(b^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(
 
 \parinterval 模型4的参数估计基本与模型3一致。需要修改的是扭曲度的估计公式，对于目标语第$i$个cept.生成的第一单词，可以得到（假设有$K$个训练样本）：
 \begin{eqnarray}
-d_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t}) = \mu_{1cacb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|ca,cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+d_1(\Delta_j|ca,cb) = \mu_{1cacb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|ca,cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
 \label{eq:1.15}
 \end{eqnarray}
 
@@ -255,7 +255,7 @@ d_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t}) = \mu_{1cacb}^{-1} \times \sum_{k=1}^{
 
 \begin{eqnarray}
 c_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t})           & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|ca,cb;\mathbf{a},\mathbf{s},\mathbf{t})\big] \label{eq:1.16} \\
-s_1(\Delta_j|ca,cb;\rm{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\phi_i) \cdot \delta(\pi_{i1}-\odot _{i},\Delta_j) \cdot \nonumber \\
+s_1(\Delta_j|ca,cb;\rm{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\varphi_i) \cdot \delta(\pi_{i1}-\odot _{i},\Delta_j) \cdot \nonumber \\
                                                                            &     & \delta(A(t_{i-1}),ca) \cdot \delta(B(\tau_{i1}),cb) \big] \label{eq:1.17}
 \end{eqnarray}
 
@@ -272,7 +272,7 @@ s_1(\Delta_j|ca,cb;\rm{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\vareps
 对于目标语第$i$个cept.生成的其他单词（非第一个单词），可以得到：
 
 \begin{eqnarray}
-d_{>1}(\Delta_j|cb;\mathbf{s},\mathbf{t}) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+d_{>1}(\Delta_j|cb) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
 \label{eq:1.18}
 \end{eqnarray}
 
@@ -280,7 +280,7 @@ d_{>1}(\Delta_j|cb;\mathbf{s},\mathbf{t}) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K
 
 \begin{eqnarray}
 c_{>1}(\Delta_j|cb;\mathbf{s},\mathbf{t})                  & = & \sum_{\mathbf{a}}\big[\textrm{p}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) \big] \label{eq:1.19} \\
-s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\phi_i-1)\sum_{k=2}^{\phi_i}\delta(\pi_{[i]k}-\pi_{[i]k-1},\Delta_j) \cdot \nonumber ß\\
+s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\varphi_i-1)\sum_{k=2}^{\varphi_i}\delta(\pi_{[i]k}-\pi_{[i]k-1},\Delta_j) \cdot \nonumber ß\\
                                                                                   &    & \delta(B(\tau_{[i]k}),cb) \big] \label{eq:1.20}
 \end{eqnarray}
 
@@ -291,7 +291,7 @@ s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\va
 \label{eq:1.22}
 \end{eqnarray}
 
-\parinterval 对于一个对齐$\mathbf{a}$，可用模型3对它的邻居进行排名，即按$\textrm{P}_{\theta}(b(\mathbf{a})|\mathbf{s},\mathbf{t};3)$排序，其中$b(\mathbf{a})$表示$\mathbf{a}$的邻居。$\tilde{b}(\mathbf{a})$ 表示这个排名表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};4) > \textrm{P}_{\theta}⁡(\mathbf{a}|\mathbf{s},\mathbf{t};4)$的最高排名的$\mathbf{a}'$。同理可知$\tilde{b}_{i \leftrightarrow j}^{\infty}(\mathbf{a})$ 的意义。这里之所以不用模型3中采用的方法直接利用$b^{\infty}(\mathbf{a})$得到模型4中高概率的对齐，是因为模型4中，要想获得某个对齐$\mathbf{a}$的邻居$\mathbf{a}'$，必须做很大调整，比如：调整$\tau_{[i]1}$和$\odot_{i}$等等。这个过程要比模型3的相应过程复杂得多。因此在模型4中只能借助于模型3的中间步骤来进行参数估计。
+\parinterval 对于一个对齐$\mathbf{a}$，可用模型3对它的邻居进行排名，即按$\textrm{P}_{\theta}(b(\mathbf{a})|\mathbf{s},\mathbf{t};3)$排序，其中$b(\mathbf{a})$表示$\mathbf{a}$的邻居。$\tilde{b}(\mathbf{a})$ 表示这个排名表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};4) > \textrm{P}_{\theta}⁡(\mathbf{a}|\mathbf{s},\mathbf{t};4)$的最高排名的$\mathbf{a}'$。 同理可知$\tilde{b}_{i \leftrightarrow j}^{\infty}(\mathbf{a})$ 的意义。这里之所以不用模型3中采用的方法直接利用$b^{\infty}(\mathbf{a})$得到模型4中高概率的对齐，是因为模型4中要想获得某个对齐$\mathbf{a}$的邻居$\mathbf{a}'$必须做很大调整，比如：调整$\tau_{[i]1}$和$\odot_{i}$等等。这个过程要比模型3的相应过程复杂得多。因此在模型4中只能借助于模型3的中间步骤来进行参数估计。
 \setlength{\belowdisplayskip}{3pt}%调整空白大小
 
 %----------------------------------------------------------------------------------------
@@ -299,10 +299,10 @@ s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\va
 %----------------------------------------------------------------------------------------
 
 \section{IBM模型5训练方法}
-\parinterval 模型5的参数估计过程也与模型3的过程基本一致，二者的区别在于扭曲度的估计公式。在模型5中，对于目标语第$i$个cept.生成的第一单词，可以得到（假设有$K$个训练样本）：
+\parinterval 模型5的参数估计过程也模型4的过程基本一致，二者的区别在于扭曲度的估计公式。在模型5中，对于目标语第$i$个cept.生成的第一单词，可以得到（假设有$K$个训练样本）：
 
 \begin{eqnarray}
-d_1(\Delta_j|cb;\mathbf{s},\mathbf{t}) = \mu_{1cb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+d_1(\Delta_j|cb) = \mu_{1cb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|cb;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
 \label{eq:1.23}
 \end{eqnarray}
 
@@ -310,15 +310,15 @@ d_1(\Delta_j|cb;\mathbf{s},\mathbf{t}) = \mu_{1cb}^{-1} \times \sum_{k=1}^{K}c_1
 
 \begin{eqnarray}
 c_1(\Delta_j|cb,v_x,v_y;\mathbf{s},\mathbf{t})                   & = & \sum_{\mathbf{a}}\Big[ \textrm{P}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.24} \\
-s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \Big [ \varepsilon(\phi_i) \cdot \delta(v_{\pi_{i1}},\Delta_j) \cdot \delta(v_{\odot _{i-1}},v_x) \nonumber \\
-                                                                                          &    & \cdot \delta(v_m-\phi_i+1,v_y) \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1} )\Big] \label{eq:1.25}
+s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \Big [ \varepsilon(\varphi_i) \cdot \delta(v_{\pi_{i1}},\Delta_j) \cdot \delta(v_{\odot _{i-1}},v_x) \nonumber \\
+                                                                                          &    & \cdot \delta(v_m-\varphi_i+1,v_y) \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1} )\Big] \label{eq:1.25}
 \end{eqnarray}
 
 
 对于目标语第$i$个cept.生成的其他单词（非第一个单词），可以得到：
 
 \begin{eqnarray}
-d_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t}) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb,v;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
+d_{>1}(\Delta_j|cb,v) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb,v;\mathbf{s}^{[k]},\mathbf{t}^{[k]})
 \label{eq:1.26}
 \end{eqnarray}
 
@@ -326,18 +326,18 @@ d_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t}) = \mu_{>1cb}^{-1} \times \sum_{k=1}^
 
 \begin{eqnarray}
 c_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t})                   & =  & \sum_{\mathbf{a}}\Big[\textrm{P}(\mathbf{a},\mathbf{s}|\mathbf{t}) \times s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.27} \\
-s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l\Big[\varepsilon(\phi_i-1)\sum_{k=2}^{\phi_i} \big[\delta(v_{\pi_{ik}}-v_{\pi_{[i]k}-1},\Delta_j)  \nonumber \\
-                                                                                    &     & \cdot \delta(B(\tau_{[i]k}) ,cb) \cdot \delta(v_m-v_{\pi_{i(k-1)}}-\phi_i+k,v) \nonumber \\
+s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l\Big[\varepsilon(\varphi_i-1)\sum_{k=2}^{\varphi_i} \big[\delta(v_{\pi_{ik}}-v_{\pi_{[i]k}-1},\Delta_j)  \nonumber \\
+                                                                                    &     & \cdot \delta(B(\tau_{[i]k}) ,cb) \cdot \delta(v_m-v_{\pi_{i(k-1)}}-\varphi_i+k,v) \nonumber \\
                                                                                     &     & \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1}) \big] \Big] \label{eq:1.28}
 \end{eqnarray}
 
 \vspace{0.5em}
 
-\parinterval 从式(\ref{eq:1.24})中可以看出因子$\delta(v_{\pi_{i1}},v_{\pi_{i1}-1})$保证了，即使对齐$\mathbf{a}$不合理（一个源语位置对应多个目标语位置）也可以避免在这个不合理的对齐上计算结果。需要注意的是因子$\delta(v_{\pi_{p1}},v_{\pi_{p1-1}})$，确保了$\mathbf{a}$中不合理的部分不产生坏的影响，而$\mathbf{a}$中其他正确的部分仍会参与迭代。
+\parinterval 从式\ref{eq:1.24}中可以看出因子$\delta(v_{\pi_{i1}},v_{\pi_{i1}-1})$保证了，即使对齐$\mathbf{a}$不合理（一个源语言位置对应多个目标语言位置）也可以避免在这个不合理的对齐上计算结果。需要注意的是因子$\delta(v_{\pi_{p1}},v_{\pi_{p1-1}})$，确保了$\mathbf{a}$中不合理的部分不产生坏的影响，而$\mathbf{a}$中其他正确的部分仍会参与迭代。
 
 \parinterval 不过上面的参数估计过程与IBM前4个模型的参数估计过程并不完全一样。IBM前4个模型在每次迭代中，可以在给定$\mathbf{s}$、$\mathbf{t}$和一个对齐$\mathbf{a}$的情况下直接计算并更新参数。但是在模型5的参数估计过程中（如公式\ref{eq:1.24}），需要模拟出由$\mathbf{t}$生成$\mathbf{s}$的过程才能得到正确的结果，因为从$\mathbf{t}$、$\mathbf{s}$和$\mathbf{a}$中是不能直接得到 的正确结果的。具体说，就是要从目标语言句子的第一个单词开始到最后一个单词结束，依次生成每个目标语言单词对应的源语言单词，每处理完一个目标语言单词就要暂停，然后才能计算式\ref{eq:1.24}中求和符号里面的内容。这也就是说即使给定了$\mathbf{s}$、$\mathbf{t}$和一个对齐$\mathbf{a}$，也不能直接在它们上进行计算，必须重新模拟$\mathbf{t}$到$\mathbf{s}$的生成过程。
 
-\parinterval 从前面的分析可以看出，虽然模型5比模型4更精确，但是模型5过于复杂以至于给参数估计增加了计算量（对于每组$\mathbf{t}$、$\mathbf{s}$和$\mathbf{a}$都要模拟$\mathbf{t}$生成$\mathbf{s}$的翻译过程）。因此模型5的开发对于系统实现是一个挑战。
+\parinterval 从前面的分析可以看出，虽然模型5比模型4更精确，但是模型5过于复杂以至于给参数估计增加了计算量（对于每组$\mathbf{t}$、$\mathbf{s}$和$\mathbf{a}$都要模拟$\mathbf{t}$生成$\mathbf{s}$的翻译过程）。因此模型5的系统实现是一个挑战。
 
 \parinterval 在模型5中同样需要定义一个词对齐集合$S$，使得每次迭代都在$S$上进行。可以对$S$进行如下定义
 \begin{eqnarray}
@@ -346,7 +346,7 @@ s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l\Big[\v
 \end{eqnarray}
 \vspace{0.5em}
 
-\parinterval 这里$\tilde{\tilde{b}}(\mathbf{a})$借用了模型4中$\tilde{b}(\mathbf{a})$的概念。不过$\tilde{\tilde{b}}(\mathbf{a})$表示在利用模型3进行排名的列表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};5)$的最高排名的词对齐。
+\noindent 其中，$\tilde{\tilde{b}}(\mathbf{a})$借用了模型4中$\tilde{b}(\mathbf{a})$的概念。不过$\tilde{\tilde{b}}(\mathbf{a})$表示在利用模型3进行排名的列表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};5)$的最高排名的词对齐，这里$\mathbf{a}'$表示$\mathbf{a}$的邻居。
 \end{appendices}
 
 
