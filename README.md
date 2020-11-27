@@ -41,7 +41,7 @@
   * <a href="https://opensource.niutrans.com/mtbook/section2-2.html" title="掷骰子游戏">2.2 掷骰子游戏</a>
   * <a href="https://opensource.niutrans.com/mtbook/section2-3.html" title="n-gram 语言模型">2.3 *n*-gram 语言模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section2-4.html" title="预测与搜索">2.4 预测与搜索</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section2-5.html" title="小结及扩展阅读">2.5 小结及扩展阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section2-5.html" title="小结及拓展阅读">2.5 小结及拓展阅读</a>
 
 **Part II 统计机器翻译**
 
@@ -57,7 +57,7 @@
   * <a href="https://opensource.niutrans.com/mtbook/section4-2.html" title="人工评价">4.2 人工评价</a>
   * <a href="https://opensource.niutrans.com/mtbook/section4-3.html" title="有参考答案的自动评价">4.3 有参考答案的自动评价</a>
   * <a href="https://opensource.niutrans.com/mtbook/section4-4.html" title="无参考答案的自动评价">4.4 无参考答案的自动评价</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section4-5.html" title="小结及深入阅读">4.5 小结及深入阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section4-5.html" title="小结及拓展阅读">4.5 小结及拓展阅读</a>
 
 **Part II 统计机器翻译**
 
@@ -67,7 +67,7 @@
   * <a href="https://opensource.niutrans.com/mtbook/section5-3.html" title="噪声信道模型">5.3 噪声信道模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section5-4.html" title="统计机器翻译的三个基本问题">5.4 统计机器翻译的三个基本问题</a>
   * <a href="https://opensource.niutrans.com/mtbook/section5-5.html" title="IBM 模型1">5.5 IBM 模型1</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section5-6.html" title="小结及深入阅读">5.6 小结及深入阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section5-6.html" title="小结及拓展阅读">5.6 小结及拓展阅读</a>
 
 6.  基于扭曲度和繁衍率的翻译模型
   * <a href="https://opensource.niutrans.com/mtbook/section6-1.html" title="基于扭曲度的翻译模型">6.1 基于扭曲度的翻译模型</a>
@@ -108,20 +108,20 @@
   * <a href="https://opensource.niutrans.com/mtbook/section10-3.html" title="基于循环神经网络的翻译模型">10.3 基于循环神经网络的翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section10-4.html" title="注意力机制">10.4 注意力机制</a>
   * <a href="https://opensource.niutrans.com/mtbook/section10-5.html" title="训练及推断">10.5 训练及推断</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section10-6.html" title="小节及拓展阅读">10.6 小节及拓展阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section10-6.html" title="小结及拓展阅读">10.6 小结及拓展阅读</a>
 
 11.    基于卷积神经网络的模型
   * <a href="https://opensource.niutrans.com/mtbook/section11-1.html" title="卷积神经网络">11.1 卷积神经网络</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-2.html" title="基于卷积神经网络的机器翻译模型">11.2 基于卷积神经网络的机器翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-3.html" title="局部模型的改进">11.3 局部模型的改进</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section11-4.html" title="小节及拓展阅读">11.4 小节及拓展阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section11-4.html" title="小结及拓展阅读">11.4 小结及拓展阅读</a>
 
 12.    基于自注意力的模型
   * <a href="https://opensource.niutrans.com/mtbook/section12-1.html" title="自注意力机制">12.1 自注意力机制</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-2.html" title="Transformer 架构">12.2 Transformer 架构</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-3.html" title="位置编码">12.3 位置编码</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-4.html" title="基于点乘的多头注意力机制">12.4 基于点乘的多头注意力机制</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section12-5.html" title="残差网络和层正则化">12.5 残差网络和层正则化</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section12-5.html" title="残差网络和层标准化">12.5 残差网络和层标准化</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-6.html" title="前馈全连接网络子层">12.6 前馈全连接网络子层</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-7.html" title="训练">12.7 训练</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-8.html" title="推断">12.8 推断</a>
