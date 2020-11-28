@@ -17,8 +17,8 @@
 <font color='red'>本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下（如果无法显示图片可以稍后再试）：</font>
 
 <div align="center">
-<!-- <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% /> -->
-<img src="https://opensource.niutrans.com/guideline.png" width=80% height=80% />
+<!-- <img src="guideline.png" width=80% height=80% /> -->
+<img src="guideline.png" width=80% height=80% />
 
 </div>
 
