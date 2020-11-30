@@ -1,0 +1,57 @@
+
+\begin{tikzpicture}
+
+\node [anchor=west,inner sep=2pt,fill=green!20] (eq1) at (0,0) {$L(f,\lambda)$};
+\node [anchor=west,inner sep=2pt] (eq2) at (eq1.east) {$=$};
+\node [anchor=west,inner sep=2pt] (eq3) at (eq2.east) {$\frac{\epsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l}$};
+\node [anchor=west,inner sep=2pt] (eq4) at (eq3.east) {\black{$f(s_j|t_{i})$}};
+\node [anchor=west,inner sep=2pt] (eq5) at (eq4.east) {$-$};
+\node [anchor=north west,inner sep=2pt] (eq6) at ([yshift=-6pt]eq3.south west) {$\sum_{t_y}$};
+\node [anchor=west,inner sep=1pt,minimum height=1.85em] (eq7) at (eq6.east) {$\lambda_{t_y}$};
+\node [anchor=west,inner sep=1pt,minimum height=1.5em] (eq8) at ([xshift=3pt]eq7.east) {$(\sum_{s_x}$};
+\node [anchor=west,inner sep=1pt,minimum height=1.5em] (eq9) at (eq8.east) {\black{$f(s_x|t_y)$}};
+\node [anchor=west,inner sep=1pt,minimum height=1.5em] (eq10) at (eq9.east) {$-1)$};
+
+{
+\node [anchor=west,inner sep=2pt,fill=green!20] (eq1) at (0,0) {$L(f,\lambda)$};
+\node [anchor=west,inner sep=2pt] (eq2) at (eq1.east) {$=$};
+\node [anchor=west,inner sep=2pt] (eq3) at (eq2.east) {$\frac{\epsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l}$};
+\node [anchor=west,inner sep=2pt,draw,ublue,fill=blue!20] (eq4) at (eq3.east) {\black{$f(s_j|t_{i})$}};
+\node [anchor=west,inner sep=2pt] (eq5) at (eq4.east) {$-$};
+\node [anchor=north west,inner sep=2pt] (eq6) at ([yshift=-6pt]eq3.south west) {$\sum_{t_y}$};
+\node [anchor=west,inner sep=1pt,fill=purple!20,minimum height=1.85em] (eq7) at (eq6.east) {$\lambda_{t_y}$};
+\node [anchor=west,inner sep=1pt,minimum height=1.5em] (eq8) at ([xshift=3pt]eq7.east) {$(\sum_{s_x}$};
+\node [anchor=west,inner sep=1pt,draw,ublue,fill=blue!20,minimum height=1.5em] (eq9) at (eq8.east) {\black{$f(s_x|t_y)$}};
+\node [anchor=west,inner sep=1pt,minimum height=1.5em] (eq10) at (eq9.east) {$-1)$};
+}
+
+\begin{pgfonlayer}{background}
+\node[rectangle,red,inner sep=2pt,fill=red!20] [fit = (eq3) (eq4)] (oldobj) {};
+{
+\node[rectangle,red,inner sep=2pt,fill=orange!20] [fit = (eq8) (eq9) (eq10)] (constraint) {};
+}
+\end{pgfonlayer}
+
+\node [anchor=west,draw,fill=green!20] (label1) at ([xshift=-2em,yshift=3em]eq1.north west) {新目标函数};
+\node [anchor=west,draw,fill=red!20] (label2) at ([xshift=2em]label1.east) {旧目标函数};
+
+{
+\node [anchor=west,draw,fill=blue!20] (label3) at ([xshift=2em]label2.east) {参数：词翻译概率};
+\node [anchor=west,draw,fill=purple!20] (label4) at ([xshift=-4em,yshift=-2.5em]eq6.south west) {参数：拉格朗日乘数};
+\node [anchor=west,draw,fill=orange!20] (label5) at ([xshift=3em]label4.east) {参数约束条件};
+}
+
+\draw [<-,thick] ([xshift=-1em]label1.south) .. controls +(south:2em) and +(north:2em) .. (eq1.north);
+\draw [<-,thick] ([xshift=-1em]label2.south) .. controls +(south:1.0em) and +(north:1.0em) .. (oldobj.north);
+
+{
+\draw [<-,thick] ([xshift=0em]label3.south) .. controls +(south:6.5em) and +(north:1.5em) .. (eq9.north);
+\draw [<-,thick] ([xshift=0em]label3.south) .. controls +(south:1.5em) and +(north:1.5em) .. (eq4.north);
+\draw [<-,thick] ([xshift=-2em]label4.north) .. controls +(north:1.5em) and +(south:1.5em) .. (eq7.south);
+\draw [<-,thick] ([xshift=0em]label5.north) .. controls +(north:1.5em) and +(south:1.5em) .. (constraint.south);
+}
+
+\end{tikzpicture}
+
+
+

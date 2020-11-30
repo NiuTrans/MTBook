@@ -1,0 +1,85 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\begin{tikzpicture}
+\begin{scope}
+{
+{\footnotesize
+\node [anchor=north west] (rule1) at (0,0) {\textbf{1: If} 源=``我'', \textbf{then} 译=``I''};
+\node [anchor=north west] (rule2) at ([yshift=0.1em]rule1.south west) {\textbf{2: If} 源=``你'', \textbf{then} 译=``you''};
+\node [anchor=north west] (rule3) at ([yshift=0.1em]rule2.south west) {\textbf{3: If} 源=``感到 满意'',};
+\node [anchor=north west] (rule3part2) at ([yshift=0.5em]rule3.south west) {\textbf{\hspace{0.95em} then} 译=``be satisfied with''};
+\node [anchor=north west] (rule4) at ([yshift=0.1em]rule3part2.south west) {\textbf{4: If} 源=``对 ... 动词[表态度]''};
+\node [anchor=north west] (rule4part2) at ([yshift=0.5em]rule4.south west) {\textbf{\hspace{0.95em} then} 调序[动词 + 对象]};
+\node [anchor=north west] (rule5) at ([yshift=0.1em]rule4part2.south west) {\textbf{5: If} 译文主语是``I''};
+\node [anchor=north west] (rule5part2) at ([yshift=0.5em]rule5.south west) {\textbf{\hspace{0.95em} then} be动词为``am/was''};
+\node [anchor=north west] (rule6) at ([yshift=0.1em]rule5part2.south west) {\textbf{6: If} 源语是主谓结构};
+\node [anchor=north west] (rule6part2) at ([yshift=0.5em]rule6.south west) {\textbf{\hspace{0.95em} then} 译文为主谓结构};
+\node [anchor=south west] (rulebaselabel) at (rule1.north west) {{\color{ublue} 资源：规则库}};
+}
+
+\begin{pgfonlayer}{background}
+{
+  \node[rectangle,draw=ublue, inner sep=0mm] [fit = (rule1) (rule2) (rule3) (rule3part2) (rule4) (rule4part2) (rule5) (rule5part2) (rule6) (rule6part2) (rulebaselabel)] {};
+}
+\end{pgfonlayer}
+}
+
+\end{scope}
+
+\begin{scope}[xshift=2.3in]
+{\footnotesize
+\node [anchor=north west,inner sep=1mm] (w1) at (0,0em) {我};
+\node [anchor=north west,inner sep=1mm] (w2) at ([xshift=0.3em]w1.north east) {对};
+\node [anchor=north west,inner sep=1mm] (w3) at ([xshift=0.3em]w2.north east) {你};
+\node [anchor=north west,inner sep=1mm] (w4) at ([xshift=0.3em]w3.north east) {感到};
+\node [anchor=north west,inner sep=1mm] (w5) at ([xshift=0.3em]w4.north east) {满意};
+}
+\end{scope}
+
+{\footnotesize
+\node [anchor=north,inner sep=1mm] (t1) at ([yshift=-0.6em]w1.south) {I};
+\draw[->,thick,ublue] (w1.south)--(t1.north);
+}
+
+{\footnotesize
+\node [anchor=north,inner sep=1mm] (t3) at ([yshift=-0.6em]w3.south) {you};
+\draw[->,thick,ublue] (w3.south)--(t3.north);
+}
+
+{\footnotesize
+\draw[-] ([yshift=0.2em]w4.south west)--([yshift=0.2em]w5.south east);
+\node [anchor=north,inner sep=1mm] (t45) at ([yshift=-2em]w5.south) {be satisfied with};
+\draw[->,thick,ublue] ([yshift=0.1em]w4.south east)..controls +(south:0.6) and +(north:0.6)..(t45.north);
+}
+
+{\footnotesize
+\node [anchor=north west,inner sep=1mm] (t35) at ([yshift=-3.0em,xshift=-1em]t3.south) {be satisfied with you};
+\draw[->,thick,ublue] (t3.south)..controls +(south:1.3) and +(north:0.9)..([xshift=-1em,yshift=-0.2em]t35.north east);
+\draw[->,thick,ublue] (t45.south)..controls +(south:0.7) and +(north:0.5)..([xshift=3em,yshift=-0.2em]t35.north west);
+}
+
+{\footnotesize
+\node [anchor=north west,inner sep=1mm] (t15) at ([yshift=-1.5em,xshift=-2em]t35.south west) {I be satisfied with you};
+\draw[->,thick,ublue] (t35.south)..controls +(south:0.5) and +(north:0.5)..([xshift=-5em]t15.north east);
+\draw[->,thick,ublue] (t1.south)..controls +(south:1.5) and +(north:1.5)..([xshift=0.5em]t15.north west);
+}
+
+
+{\footnotesize
+\node [anchor=north west,inner sep=1mm] (t15final) at ([yshift=-1.5em]t15.south west) {I am satisfied with you};
+\node [draw,circle,thick,dotted,ublue,minimum width=1.3em] (be1) at ([xshift=1.35em,yshift=0.1em]t15.west) {};
+\draw[->,thick,ublue] ([xshift=-0em]be1.south)..controls +(south:0.3) and +(north:0.4)..([xshift=1.6em,yshift=-0.2em]t15final.north west);
+}
+{
+\draw[->,dotted,thick,red] ([xshift=-0.2em]rule5part2.east)..controls +(east:1.5) and +( west:1.5)..(t15final.west) node[pos=0.9,below,xshift=0.3em,yshift=0.0em] (applyr6) {\color{red}{\tiny\sffamily\bfseries{规则5}}};
+}
+
+\end{tikzpicture}
+%---------------------------------------------------------------------
+
+
