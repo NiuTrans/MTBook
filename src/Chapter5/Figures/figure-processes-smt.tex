@@ -1,0 +1,63 @@
+%%% outline
+%-------------------------------------------------------------------------
+
+\begin{tikzpicture}
+
+{\scriptsize
+\node [anchor=north west,inner sep=1pt] (entry1) at (0,0) {\tiny{\textbf{1:} 这 是 数据 $\leftrightarrow$ This is data \; \;}};
+\node [anchor=north west,inner sep=1pt] (entry2) at ([yshift=0.1em]entry1.south west) {\tiny{\textbf{2:} 小心 ！$\leftrightarrow$ Look out !}};
+\node [anchor=north west,inner sep=1pt] (entry3) at ([yshift=0.1em]entry2.south west) {\tiny{\textbf{3:} 你 是 谁 $\leftrightarrow$ Who are you}};
+\node [anchor=north west,inner sep=2pt] (entry4) at ([yshift=0.1em]entry3.south west) {...};
+\node [anchor=south west] (corpuslabel) at (entry1.north west) {{\color{ublue} \sffamily\bfseries{双语平行数据}}};
+
+\begin{pgfonlayer}{background}
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow,minimum height=1.6cm] [fit = (entry1) (entry2) (entry3) (entry4) (corpuslabel)] (corpus) {};
+\end{pgfonlayer}
+}
+
+\node [anchor=west,ugreen] (P) at ([xshift=5em,yshift=-0.7em]corpus.east){$\funp{P}(\seq{t}|\seq{s})$};
+\node [anchor=south] (modellabel) at (P.north) {{\color{ublue} {\scriptsize \sffamily\bfseries{翻译模型}}}};
+
+\begin{pgfonlayer}{background}
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow,minimum height=1.6cm] [fit = (P) (modellabel)] (model) {};
+\end{pgfonlayer}
+
+\draw [->,very thick,ublue] ([xshift=0.2em]corpus.east) -- ([xshift=4.2em]corpus.east)  node [pos=0.5, above] {\color{black}{\scriptsize{训练}}};
+
+{
+\draw [->,very thick,ublue] ([xshift=0.4em]model.east) -- ([xshift=4.4em]model.east)  node [inner sep=0pt,pos=0.5, above,yshift=0.3em] (decodingarrow) {\color{black}{\scriptsize{解码}}};
+
+{\scriptsize
+\node [anchor=north west,inner sep=2pt] (sentlabel) at ([xshift=6.5em,yshift=-0.9em]model.north east) {{\color{ublue} \sffamily\bfseries{机器翻译引擎}}};
+\node [anchor=north west] (sent) at ([yshift=-0.5em]sentlabel.south west) {{对任意句子进行翻译}};
+\node [anchor=north west] (sentpart2) at ([yshift=0.3em]sent.south west) {\textbf{\quad}};
+}
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow,minimum height=1.6cm] [fit = (sentlabel) (sent) (sentpart2)] (segsystem) {};
+}
+\end{pgfonlayer}
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

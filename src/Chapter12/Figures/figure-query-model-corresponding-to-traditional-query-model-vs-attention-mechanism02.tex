@@ -1,0 +1,40 @@
+
+
+
+%-----------------------------------------------------
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{rnode} = [draw,minimum width=3em,minimum height=1.2em]
+
+\node [rnode,anchor=south west,fill=red!20!white] (value1) at (0,0) {\scriptsize{value$_1$}};
+\node [rnode,anchor=south west,fill=red!20!white] (value2) at ([xshift=1em]value1.south east) {\scriptsize{value$_2$}};
+\node [rnode,anchor=south west,fill=red!20!white] (value3) at ([xshift=1em]value2.south east) {\scriptsize{value$_3$}};
+\node [rnode,anchor=south west,fill=red!20!white] (value4) at ([xshift=1em]value3.south east) {\scriptsize{value$_4$}};
+
+\node [rnode,anchor=south west,pattern=north east lines] (key1) at ([yshift=0.2em]value1.north west) {};
+\node [rnode,anchor=south west,pattern=dots] (key2) at ([yshift=0.2em]value2.north west) {};
+\node [rnode,anchor=south west,pattern=horizontal lines] (key3) at ([yshift=0.2em]value3.north west) {};
+\node [rnode,anchor=south west,pattern=crosshatch dots] (key4) at ([yshift=0.2em]value4.north west) {};
+\node [fill=white,inner sep=1pt] (key1label) at (key1) {\scriptsize{key$_1$}};
+\node [fill=white,inner sep=1pt] (key1label) at (key2) {\scriptsize{key$_2$}};
+\node [fill=white,inner sep=1pt] (key1label) at (key3) {\scriptsize{key$_3$}};
+\node [fill=white,inner sep=1pt] (key1label) at (key4) {\scriptsize{key$_4$}};
+
+\node [rnode,anchor=east,pattern=vertical lines] (query) at ([xshift=-3em]key1.west) {};
+\node [anchor=east] (querylabel) at ([xshift=-0.2em]query.west) {\scriptsize{query}};
+
+\draw [->] ([yshift=1pt,xshift=6pt]query.north) .. controls +(90:1em) and +(90:1em) .. ([yshift=1pt]key1.north);
+\draw [->] ([yshift=1pt,xshift=3pt]query.north) .. controls +(90:1.5em) and +(90:1.5em) .. ([yshift=1pt]key2.north);
+\draw [->] ([yshift=1pt]query.north) .. controls +(90:2em) and +(90:2em) .. ([yshift=1pt]key3.north);
+\draw [->] ([yshift=1pt,xshift=-3pt]query.north) .. controls +(90:2.5em) and +(90:2.5em) .. ([yshift=1pt]key4.north);
+\node [anchor=south east] (alpha1) at (key1.north east) {\scriptsize{$\alpha_1$}};
+\node [anchor=south east] (alpha2) at (key2.north east) {\scriptsize{$\alpha_2$}};
+\node [anchor=south east] (alpha3) at (key3.north east) {\scriptsize{$\alpha_3$}};
+\node [anchor=south east] (alpha4) at (key4.north east) {\scriptsize{$\alpha_4$}};
+
+\node [anchor=north] (result) at ([xshift=-1.5em]value2.south east) {\scriptsize{{\red 返回结果}=$\alpha_1 \cdot \textrm{value}_1 + \alpha_2 \cdot \textrm{value}_2 + \alpha_3 \cdot \textrm{value}_3 + \alpha_4 \cdot \textrm{value}_4$}};
+
+\end{scope}
+\end{tikzpicture}

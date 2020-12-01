@@ -1,0 +1,79 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 引入短语翻译
+\begin{minipage}[c]{0.48\linewidth}
+\vspace{1em}
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}
+\begin{scope}
+{\footnotesize
+\node [anchor=west] (s1) at (0,0) {我};
+\node [anchor=west] (s2) at ([xshift=1.0em]s1.east) {喜欢};
+\node [anchor=west] (s3) at ([xshift=1.0em]s2.east) {\red{红}};
+\node [anchor=west] (s4) at ([xshift=1.0em]s3.east) {茶};
+\node [anchor=east] (s) at (s1.west) {$\seq{s}=$};
+}
+\end{scope}
+
+\begin{scope}[yshift=-3.0em]
+{\small
+\node [anchor=west] (t1) at (0.25em,0) {I};
+\node [anchor=west] (t2) at ([xshift=0.8em,yshift=-0.0em]t1.east) {like};
+\node [anchor=west] (t3) at ([xshift=0.6em,yshift=-0.0em]t2.east) {red};
+\node [anchor=west] (t4) at ([xshift=1.15em,yshift=-0.1em]t3.east) {tea};
+\node [anchor=east] (t) at ([xshift=-0.2em]t1.west) {$\seq{t}=$};
+}
+\end{scope}
+
+
+\draw [-] (s1.south) -- (t1.north);
+\draw [-] (s2.south) ..controls +(south:1.0em) and +(north:1.0em).. (t2.north);
+\draw [-] (s3.south) ..controls +(south:1.0em) and +(north:1.0em).. (t3.north);
+\draw [-] (s4.south) -- (t4.north);
+
+\node [anchor=center,draw=ublue,circle,thick,fill=white,inner sep=2pt,circular drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}] (head1) at ([xshift=2.5em,yshift=-0.5em]s4.south east) {{\color{red} \small{\textbf{No}}}};
+
+\end{scope}
+
+{
+\begin{scope}[yshift=-5.0em]
+\begin{scope}
+{\footnotesize
+\node [anchor=west] (s1) at (0,0) {我};
+\node [anchor=west] (s2) at ([xshift=1.0em]s1.east) {喜欢};
+\node [anchor=west] (s3) at ([xshift=1.0em]s2.east) {\red{红}};
+\node [anchor=west] (s4) at ([xshift=1.0em]s3.east) {茶};
+\node [anchor=east] (s) at (s1.west) {$\seq{s}=$};
+}
+\end{scope}
+
+\begin{scope}[yshift=-3.0em]
+{\small
+\node [anchor=west] (t1) at (0.25em,0) {I};
+\node [anchor=west] (t2) at ([xshift=0.8em,yshift=-0.0em]t1.east) {like};
+\node [anchor=west] (t3) at ([xshift=0.6em,yshift=-0.0em]t2.east) {black};
+\node [anchor=west] (t4) at ([xshift=1.0em,yshift=-0.1em]t3.east) {tea};
+\node [anchor=east] (t) at ([xshift=-0.2em]t1.west) {$\seq{t}=$};
+}
+\end{scope}
+
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,draw=black,thick,inner sep=0.0em,fill=white] [fit = (s3) (s4)] (sphrase1) {};
+\node [rectangle,draw=black,thick,inner sep=0.0em,fill=white] [fit = (t3) (t4)] (tphrase1) {};
+}
+\end{pgfonlayer}
+
+\draw [-] (s1.south) -- (t1.north);
+\draw [-] (s2.south) ..controls +(south:1.0em) and +(north:1.0em).. (t2.north);
+\draw [-] (sphrase1.south) ..controls +(south:1.0em) and +(north:1.0em).. ([xshift=-1em]tphrase1.north);
+
+\node [anchor=center,draw=ublue,circle,thick,fill=white,inner sep=1pt,circular drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}] (head1) at ([xshift=2.5em,yshift=-0.5em]s4.south east) {{\color{ugreen} \small{\textbf{Yes}}}};
+
+\end{scope}
+}
+
+\end{tikzpicture}
+\end{center}
+\end{minipage}

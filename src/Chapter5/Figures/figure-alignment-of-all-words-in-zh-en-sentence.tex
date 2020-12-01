@@ -1,0 +1,153 @@
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+    \begin{scope}
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- (t0.north);
+    \draw [-] (s2.south) -- (t0.north);
+   {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[xshift=1.5in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- (t0.north);
+    \draw [-] (s2.south) -- (t1.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[xshift=3in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- (t0.north);
+    \draw [-] (s2.south) -- (t2.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[yshift=-0.6in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- ([yshift=-0.2em]t1.north);
+    \draw [-] (s2.south) -- (t0.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[xshift=1.5in,yshift=-0.6in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- ([yshift=-0.2em]t1.north);
+    \draw [-] (s2.south) -- ([yshift=-0.2em]t1.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[xshift=3in,yshift=-0.6in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- ([yshift=-0.2em]t1.north);
+    \draw [-] (s2.south) -- (t2.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[yshift=-1.2in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- (t2.north);
+    \draw [-] (s2.south) -- (t0.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[xshift=1.5in,yshift=-1.2in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- (t2.north);
+    \draw [-] (s2.south) -- (t1.north);
+   {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\small{+}};
+    }
+    }
+    \end{scope}
+    \begin{scope}[xshift=3in,yshift=-1.2in]
+    {
+    \node [anchor=west,inner sep=2pt] (s1) at (0,0) {谢谢};
+    \node [anchor=west,inner sep=2pt] (s2) at ([xshift=0.4em]s1.east) {你};
+    \node [anchor=north,inner sep=2pt] (t1) at ([yshift=-1.4em]s1.center) {thank};
+    \node [anchor=north,inner sep=2pt] (t2) at ([yshift=-1.6em]s2.center) {you};
+    \node [anchor=east,inner sep=2pt] (t0) at ([xshift=-0.2em,yshift=-0.05em]t1.west) {$t_0$};
+    \draw [-] (s1.south) -- (t2.north);
+    \draw [-] (s2.south) -- (t2.north);
+    {
+    \node [anchor=south east,inner sep=0pt] (p) at (t0.north west) {\small{{\color{ugreen} $\funp{P}$\;(}}};
+    \node [anchor=south west,inner sep=0pt] (p2) at ([yshift=0.2em]t2.north east) {\small{{\color{ugreen} )}}};
+    \node [anchor=west] (eq) at ([xshift=0.7em]p2.east) {\normalsize{= \ $\funp{P}$\,($\seq{s}|\seq{t}$)}};
+    }
+    }
+    \end{scope}
+    \end{tikzpicture}
+
+%---------------------------------------------------------------------
+

@@ -1,0 +1,18 @@
+
+
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=west] (w0) at (0,0) {$w_1$};
+\node [anchor=west] (w1) at ([xshift=0.5em]w0.east) {$w_2$};
+\node [anchor=west] (w2) at ([xshift=0.5em]w1.east) {$w_3$};
+\node [anchor=west] (w3) at ([xshift=0.5em]w2.east) {$...$};
+\node [anchor=west] (w4) at ([xshift=0.5em]w3.east) {$w_{m-1}$};
+\node [anchor=west,fill=green!20!white] (w5) at ([xshift=0.5em]w4.east) {$w_{m}$};
+\draw [->,thick,red] (w1.north).. controls +(130:0.5) and +(50:0.5) .. (w0.north);
+\draw [->,thick,red] (w2.north).. controls +(130:0.5) and +(50:0.5) .. (w1.north);
+\draw [->,thick,red] ([yshift=0.2em]w3.north).. controls +(130:0.5) and +(50:0.5) .. (w2.north);
+\draw [->,thick,red] (w4.north).. controls +(130:0.5) and +(50:0.5) .. ([yshift=0.2em]w3.north);
+\draw [->,thick,red] (w5.north).. controls +(130:0.5) and +(50:0.5) .. (w4.north);
+\draw [->,very thick,red] ([xshift=-5em]w0.west) -- ([xshift=-6.5em]w0.west) node [pos=0,right] {\scriptsize{信息传递}};
+\end{scope}
+\end{tikzpicture}

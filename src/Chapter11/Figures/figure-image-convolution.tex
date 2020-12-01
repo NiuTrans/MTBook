@@ -1,0 +1,39 @@
+
+\begin{tikzpicture}
+	%\tikzstyle{every node}=[scale=0.8]
+	\tikzstyle{data} = [inner sep=4pt, minimum size=1.6em,draw,thick]
+	
+	\node[data] at (0em,0em) {6};
+	\node[data,fill=cyan!40] at (0em,1.6em) {3};
+	\node[data,fill=cyan!40] at (0em,3.2em) {0};
+	
+	\node[data] at (1.6em,0em) {7};
+	\node[data,fill=cyan!40] at (1.6em,1.6em) {4};
+	\node[data,fill=cyan!40] at (1.6em,3.2em) {1};
+	
+	\node[data] at (3.2em,0em) {8};
+	\node[data] at (3.2em,1.6em) {5};
+	\node[data] at (3.2em,3.2em) {2};
+	
+	\node[data,fill=cyan!40] at (8em,0.8em) {2};
+	\node[data,fill=cyan!40] at (9.6em,0.8em) {3};
+	\node[data,fill=cyan!40] at (8em,2.4em) {0};
+	\node[data,fill=cyan!40] at (9.6em,2.4em) {1};
+	
+	\node[data,inner sep=2pt] at (14.4em,0.8em) {37};
+	\node[data,inner sep=2pt] at (16em,0.8em) {43};
+	\node[data,inner sep=2pt,fill=cyan!40] at (14.4em,2.4em) {19};
+	\node[data,inner sep=2pt] at (16em,2.4em) {25};
+	
+	\node[font=\footnotesize] (in) at (1.6em,-1.8em) {输入：$3\times 3$};
+	\node[font=\footnotesize] at (8.8em,-1.8em) {卷积核：$2\times 2$};
+	\node[font=\footnotesize] (out) at (15.2em,-1.8em) {输出：$2\times 2$};
+
+	%\node[font=\footnotesize,dashed,draw=cyan,very thick,fill=cyan!5,align=center] at ([yshift=-0.3cm,xshift=1.8cm]out.east) {*\ \ ：表示\\卷积计算};
+	%\node[] at ([yshift=-0.3cm,xshift=-2.3cm]in.east) {\ \ \ \ \ };
+	
+	\node at (5.6em, 1.6em) {*};
+	\node at (12em, 1.6em) {=};
+
+	
+\end{tikzpicture}

@@ -1,0 +1,58 @@
+
+\begin{tikzpicture}
+	\tikzstyle{every node}=[scale=1.5]
+	\tikzstyle{unit} = [inner sep=0pt, minimum size=1em,draw,very thick]
+	\tikzstyle{vuale} = [inner sep=0pt,font=\tiny]
+
+	
+	\begin{scope}
+	\foreach \point in {0,1,2,3}{
+	\node[unit] (l1_\point) at (0, 0+\point*1.5em){};
+	\node[unit] (l2_\point) at (0, 8em+\point*1.5em){};
+	
+	\node[unit] (r1_\point) at (5em, 0+\point*1.5em){};
+	\node[unit] (r2_\point) at (5em, 8em+\point*1.5em){};
+	}
+	
+	\foreach \point in {1,2}{
+	\draw[line width=0.9pt, ugreen!80, -latex] (l\point_0.east) -- (r2_0.west);
+	\draw[line width=0.9pt, orange!80, -latex] (l\point_1.east) -- (r2_1.west);
+	\draw[line width=0.9pt, cyan!80, -latex] (l\point_2.east) -- (r2_2.west);
+	\draw[line width=0.9pt, gray!80, -latex] (l\point_3.east) -- (r2_3.west);
+	}
+	
+	\node[vuale] at (-1.5em, 1.9em) {$\mathbi{x}_2$};
+	\node[vuale] at (-1.5em, 9.9em) {$\mathbi{x}_1$};
+	\node[vuale] at (6.5em, 1.9em) {$\mathbi{z}_2$};
+	\node[vuale] at (6.5em, 9.9em) {$\mathbi{z}_1$};
+	
+	\node (t2) at (2.5em, -1em) {\large{$\cdots$}};
+	\node [anchor=north,font=\tiny] at ([yshift=-0.2em]t2.south) {深度卷积};
+	\end{scope}
+
+	\begin{scope}[xshift=4cm]
+	\foreach \point in {0,1,2,3}{
+	\node[unit] (l1_\point) at (0, 0+\point*1.5em){};
+	\node[unit] (l2_\point) at (0, 8em+\point*1.5em){};
+	
+	\node[unit] (r1_\point) at (5em, 0+\point*1.5em){};
+	\node[unit] (r2_\point) at (5em, 8em+\point*1.5em){};
+	}
+	
+	\foreach \point in {1,2}{
+	\draw[line width=0.9pt, orange!80, -latex] (l\point_0.east) -- (r2_0.west);
+	\draw[line width=0.9pt, cyan!80, -latex] (l\point_1.east) -- (r2_1.west);
+	\draw[line width=0.9pt, orange!80, -latex] (l\point_2.east) -- (r2_2.west);
+	\draw[line width=0.9pt, cyan!80, -latex] (l\point_3.east) -- (r2_3.west);
+	}
+	
+	\node[vuale] at (-1.5em, 1.9em) {$\mathbi{x}_2$};
+	\node[vuale] at (-1.5em, 9.9em) {$\mathbi{x}_1$};
+	\node[vuale] at (6.5em, 1.9em) {$\mathbi{z}_2$};
+	\node[vuale] at (6.5em, 9.9em) {$\mathbi{z}_1$};
+	
+	\node (t2) at (2.5em, -1em) {\large{$\cdots$}};
+	\node [anchor=north,font=\tiny] at ([yshift=-0.2em]t2.south) {轻量卷积};
+	\end{scope}
+	
+\end{tikzpicture}

@@ -11,16 +11,16 @@
 \begin{tikzpicture}
 
 \node [anchor=west] (label1) at (0,0) {总词数：$6 + 8 + 5 = 20$};
-\node [anchor=north west] (p1) at (label1.south west) {$\textrm{P}(\textrm{“很”})=1/20=0.05$};
-\node [anchor=north west] (p2) at (p1.south west) {$\textrm{P}(\textrm{“。”})=3/20=0.15$};
-\node [anchor=north west] (p3) at (p2.south west) {$\textrm{P}(\textrm{“确实”})=1/20=0.05$};
+\node [anchor=north west] (p1) at (label1.south west) {$\funp{P}(\textrm{很})=1/20=0.05$};
+\node [anchor=north west] (p2) at (p1.south west) {$\funp{P}(\textrm{。})=3/20=0.15$};
+\node [anchor=north west] (p3) at (p2.south west) {$\funp{P}(\textrm{确实})=1/20=0.05$};
 
 
 
-\node [anchor=north west] (label11) at ([xshift=18.0em,yshift=1.63em]label1.south west) {更多数据-总词数:100K $\sim$ 1M};
-\node [anchor=north west] (p12) at (label11.south west) {$\textrm{P}(\textrm{“很”})=0.000010$};
-\node [anchor=north west] (p22) at (p12.south west) {$\textrm{P}(\textrm{“。”})=0.001812$};
-\node [anchor=north west] (p32) at (p22.south west) {$\textrm{P}(\textrm{“确实”})=0.000001$};
+\node [anchor=north west] (label11) at ([xshift=18.0em,yshift=1.63em]label1.south west) {更多数据-总词数:1百万个词};
+\node [anchor=north west] (p12) at (label11.south west) {$\funp{P}(\textrm{很})=0.000010$};
+\node [anchor=north west] (p22) at (p12.south west) {$\funp{P}(\textrm{。})=0.001812$};
+\node [anchor=north west] (p32) at (p22.south west) {$\funp{P}(\textrm{确实})=0.000001$};
 
 
 

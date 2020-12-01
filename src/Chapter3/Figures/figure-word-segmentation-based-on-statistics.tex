@@ -1,0 +1,109 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\vspace{-0.5em}
+
+\begin{tikzpicture}
+
+{\scriptsize
+{
+\node [anchor=north west] (entry1) at (0,0) {1: 这 / 是 / 数据};
+\node [anchor=north west] (entry2) at ([yshift=0.1em]entry1.south west) {2: 现在 / 已经 / 实现};
+\node [anchor=north west] (entry3) at ([yshift=0.1em]entry2.south west) {3: 确实 / 有 / 很 / 多};
+\node [anchor=north west] (entry4) at ([yshift=0.1em]entry3.south west) {...};
+\node [anchor=south west] (corpuslabel) at (entry1.north west) {{\color{ublue} \textbf{学习用数据}}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (entry1) (entry2) (entry3) (entry4) (corpuslabel)] (corpus) {};
+}
+\end{pgfonlayer}
+
+}
+
+{
+\node [anchor=west,ugreen] (P) at ([xshift=5.2em,yshift=-0.8em]corpus.east){{$\funp{P}(\cdot)$}};
+\node [anchor=south] (modellabel) at (P.north) {{\color{ublue} {\scriptsize \textbf{统计模型}}}};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (P) (modellabel)] (model) {};
+}
+\end{pgfonlayer}
+
+{
+\draw [->,very thick,ublue] ([xshift=0.2em]corpus.east) -- ([xshift=4.2em]corpus.east)  node [pos=0.5, above] {\color{black}{\scriptsize{统计学习}}};
+}
+
+{
+\draw [->,very thick,ublue] ([xshift=0.2em]model.east) -- ([xshift=4.2em]model.east)  node [pos=0.5, above] {\color{black}{\scriptsize{推断}}};
+}
+
+{\scriptsize
+{
+\node [anchor=north west] (sentlabel) at ([xshift=6.8em,yshift=2em]model.north east) {\color{black}{新的句子}};
+\node [anchor=north west] (sent) at (sentlabel.south west) {\textbf{确实现在数据很多}};
+}
+{
+\node [anchor=north west] (seg1) at ([xshift=1.0em]sent.south west) {确/实现/在/数/据很/多};
+\node [anchor=north west] (seg2) at (seg1.south west) {确实/现在/数据/很/多};
+\node [anchor=north west] (seg3) at (seg2.south west) {确实/现在/数/据/很/多};
+}
+{
+\node [anchor=north west] (seg4) at ([xshift=-1.0em,yshift=0.4em]seg3.south west) {...};
+\node [anchor=east,ugreen] (p1seg1) at ([xshift=0.5em]seg1.west) {$\funp{P}($};
+\node [anchor=west,ugreen] (p2seg1) at ([xshift=-0.5em]seg1.east) {)=0.1};
+\node [anchor=east,ugreen] (p1seg2) at ([xshift=0.5em]seg2.west) {$\funp{P}($};
+\node [anchor=west,ugreen] (p2seg2) at ([xshift=-0.5em]seg2.east) {)=0.6};
+\node [anchor=east,ugreen] (p1seg3) at ([xshift=0.5em]seg3.west) {$\funp{P}($};
+\node [anchor=west,ugreen] (p2seg3) at ([xshift=-0.5em]seg3.east) {)=0.2};
+}
+
+{
+\node [anchor=east,draw,dashed,red,thick,minimum width=13.2em,minimum height=1.4em] (final) at (p2seg2.east) {};
+\node [anchor=west,red] (finallabel) at ([xshift=3.1em]sentlabel.east) {输出概率最大的结果};
+%\node [anchor=north east,red] (finallabel2) at ([yshift=0.5em]finallabel.south east) {的结果};
+\draw [->,thick,red] ([xshift=0.0em,yshift=-0.5em]final.north east) ..controls +(east:0.2) and +(south:1.0).. ([xshift=2.0em]finallabel.south);
+}
+
+}
+
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

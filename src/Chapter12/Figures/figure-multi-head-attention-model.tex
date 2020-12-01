@@ -1,0 +1,63 @@
+
+
+\begin{tikzpicture}
+\begin{scope}
+
+\node [anchor=west,draw=black!30,inner sep=4pt,fill=ugreen!20!white,text=ugreen!20!white] (Linear0) at (0,0) {\footnotesize{Linear}};
+\node [anchor=south west,draw=black!50,fill=ugreen!20!white,draw,inner sep=4pt,text=ugreen!20!white] (Linear01) at ([shift={(-0.2em,-0.2em)}]Linear0.south west) {\footnotesize{Linear}};
+\node [anchor=south west,fill=ugreen!20!white,draw,inner sep=4pt] (Linear02) at ([shift={(-0.2em,-0.2em)}]Linear01.south west) {\footnotesize{Linear}};
+\node [anchor=north] (Q) at ([xshift=0em,yshift=-1em]Linear02.south) {\footnotesize{$\mathbi{Q}$}};
+
+\node [anchor=west,draw=black!30,inner sep=4pt,fill=ugreen!20!white,text=ugreen!20!white] (Linear1) at ([xshift=1.5em]Linear0.east) {\footnotesize{Linear}};
+\node [anchor=south west,draw=black!50,fill=ugreen!20!white,draw,inner sep=4pt,text=ugreen!20!white] (Linear11) at ([shift={(-0.2em,-0.2em)}]Linear1.south west) {\footnotesize{Linear}};
+\node [anchor=south west,fill=ugreen!20!white,draw,inner sep=4pt] (Linear12) at ([shift={(-0.2em,-0.2em)}]Linear11.south west) {\footnotesize{Linear}};
+\node [anchor=north] (K) at ([xshift=0em,yshift=-1em]Linear12.south) {\footnotesize{$\mathbi{K}$}};
+
+\node [anchor=west,draw=black!30,inner sep=4pt,fill=ugreen!20!white,text=ugreen!20!white] (Linear2) at ([xshift=1.5em]Linear1.east) {\footnotesize{Linear}};
+\node [anchor=south west,draw=black!50,fill=ugreen!20!white,draw,inner sep=4pt,text=ugreen!20!white] (Linear21) at ([shift={(-0.2em,-0.2em)}]Linear2.south west) {\footnotesize{Linear}};
+\node [anchor=south west,fill=ugreen!20!white,draw,inner sep=4pt] (Linear22) at ([shift={(-0.2em,-0.2em)}]Linear21.south west) {\footnotesize{Linear}};
+\node [anchor=north] (V) at ([xshift=0em,yshift=-1em]Linear22.south) {\footnotesize{$\mathbi{V}$}};
+
+\node [anchor=south,draw=black!30,minimum width=12em,minimum height=2em,inner sep=4pt,fill=blue!20!white] (Scale) at ([yshift=1em]Linear1.north) {\footnotesize{}};
+\node [anchor=south west,draw=black!50,minimum width=12em,minimum height=2em,fill=blue!20!white,draw,inner sep=4pt] (Scale1) at ([shift={(-0.2em,-0.2em)}]Scale.south west) {\footnotesize{}};
+\node [anchor=south west,fill=blue!20!white,draw,minimum width=12em,minimum height=2em,inner sep=4pt] (Scale2) at ([shift={(-0.2em,-0.2em)}]Scale1.south west) {\footnotesize{Scaled Dot-Product Attention}};
+
+\node [anchor=south,draw,minimum width=4em,inner sep=4pt,fill=yellow!30] (Concat) at ([yshift=1em]Scale2.north) {\footnotesize{Concat}};
+
+\node [anchor=south,draw,minimum width=4em,inner sep=4pt,fill=ugreen!20!white] (Linear) at ([yshift=1em]Concat.north) {\footnotesize{Linear}};
+
+
+\draw [->] ([yshift=0.1em]Q.north) -- ([yshift=-0.1em]Linear02.south);
+\draw [-,draw=black!50] ([yshift=0.1em]Q.north) -- ([xshift=0.2em,yshift=-0.1em]Linear02.south);
+\draw [-,draw=black!30] ([yshift=0.1em]Q.north) -- ([xshift=0.4em,yshift=-0.1em]Linear02.south);
+
+\draw [->] ([yshift=0.1em]K.north) -- ([yshift=-0.1em]Linear12.south);
+\draw [-,draw=black!50] ([yshift=0.1em]K.north) -- ([xshift=0.2em,yshift=-0.1em]Linear12.south);
+\draw [-,draw=black!30] ([yshift=0.1em]K.north) -- ([xshift=0.4em,yshift=-0.1em]Linear12.south);
+
+\draw [->] ([yshift=0.1em]V.north) -- ([yshift=-0.1em]Linear22.south);
+\draw [-,draw=black!50] ([yshift=0.1em]V.north) -- ([xshift=0.2em,yshift=-0.1em]Linear22.south);
+\draw [-,draw=black!30] ([yshift=0.1em]V.north) -- ([xshift=0.4em,yshift=-0.1em]Linear22.south);
+
+\draw [->] ([yshift=0em]Linear02.north) -- ([yshift=1em]Linear02.north);
+\draw [-,draw=black!50] ([yshift=0em]Linear01.north) -- ([yshift=0.8em]Linear01.north);
+\draw [-,draw=black!30] ([yshift=0em]Linear0.north) -- ([yshift=0.6em]Linear0.north);
+
+\draw [->] ([yshift=0em]Linear12.north) -- ([yshift=1em]Linear12.north);
+\draw [-,draw=black!50] ([yshift=0em]Linear11.north) -- ([yshift=0.8em]Linear11.north);
+\draw [-,draw=black!30] ([yshift=0em]Linear1.north) -- ([yshift=0.6em]Linear1.north);
+
+\draw [->] ([yshift=0em]Linear22.north) -- ([yshift=1em]Linear22.north);
+\draw [-,draw=black!50] ([yshift=0em]Linear21.north) -- ([yshift=0.8em]Linear21.north);
+\draw [-,draw=black!30] ([yshift=0em]Linear2.north) -- ([yshift=0.6em]Linear2.north);
+
+\draw [->] ([yshift=0em]Scale2.north) -- ([yshift=0em]Concat.south);
+\draw [-,draw=black!50] ([yshift=0em]Scale1.north) -- ([yshift=0.8em]Scale1.north);
+\draw [-,draw=black!30] ([yshift=0em]Scale.north) -- ([yshift=0.6em]Scale.north);
+
+\draw [->] ([yshift=0em]Concat.north) -- ([yshift=0em]Linear.south);
+\draw [->] ([yshift=0em]Linear.north) -- ([yshift=1em]Linear.north);
+
+
+\end{scope}
+\end{tikzpicture}

@@ -10,2421 +10,923 @@
 %----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
-%    CONFIGURATIONS configurations
+%    CONFIGURATIONS
 %----------------------------------------------------------------------------------------
+
 \renewcommand\figurename{图}%将figure改为图
 \renewcommand\tablename{表}%将figure改为图
-\chapterimage{fig-NEU-5.jpg} % Chapter heading image
+\chapterimage{fig-NEU-2.jpg} % Chapter heading image
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER 4
 %----------------------------------------------------------------------------------------
 
-\chapter{基于短语和句法的机器翻译模型}
+\chapter{翻译质量评价}
 
-\parinterval 机器翻译的一个问题是要定义翻译的基本单元是什么。比如，可以像第三章介绍的那样，以单词为单位进行翻译，即把句子的翻译看作是单词之间对应关系的一种组合。基于单词的模型是符合人类对翻译问题的认知的，因为单词本身就是人类加工语言的一种基本单元。另一方面，在进行翻译时也可以使用一些更``复杂''的知识。比如，很多词语间的搭配需要根据语境的变化进行调整，而且对于句子结构的翻译往往需要更上层的知识，如句法知识。因此，在对单词翻译进行建模的基础上，需要探索其他类型的翻译知识，使得搭配和结构翻译等问题可以更好地被建模。
+\parinterval 人们在使用机器翻译系统时需要评估系统输出结果的质量。这个过程也被称作机器翻译译文质量评价，简称为{\small\sffamily\bfseries{译文质量评价}}\index{译文质量评价}（Quality Evaluation of Translation）\index{Quality Evaluation of Translation}。在机器翻译的发展进程中，译文质量评价有着非常重要的作用。不论在系统研发的反复迭代中，还是在诸多的机器翻译应用场景中，都存在大量的译文质量评价环节。从某种意义上说，没有译文质量评价，机器翻译也不会发展成今天的样子。比如，本世纪初研究人员提出了译文质量自动评价方法BLEU\upcite{DBLP:conf/acl/PapineniRWZ02}。该方法使得机器系统的评价变得自动、快速、便捷，而且评价过程可以重复。正是由于BLEU等自动评价方法的提出，机器翻译研究人员可以在更短的时间内得到译文质量的评价结果，加速系统研发的进程。
 
-\parinterval 本章会介绍基于短语和基于句法的翻译模型。在过去二十年中，它们一直是机器翻译的主流方法。相比于基于单词的翻译模型，基于短语和基于句法的模型可以更好地对单词之间的依赖关系进行描述，同时可以对句子的上层结构进行有效的表示。这些方法也在相当长的一段时期内占据着机器翻译的统治地位。虽然近些年随着神经机器翻译的崛起，基于短语和基于句法的统计翻译模型有些``降温''，但是它仍然是机器翻译的主要框架之一，其中的思想和很多技术手段对今天的机器翻译研究仍然有很好的借鉴意义。
+\parinterval 时至今日，译文质量评价方法已经非常丰富，针对不同的使用场景研究人员陆续提出了不同的方法。本章将会对其中的典型方法进行介绍，包括：人工评价、有参考答案自动评价、无参考答案自动评价等。相关方法及概念也会在本章的后续章节中被广泛使用。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\section{翻译中的结构信息}
+\section{译文质量评价所面临的挑战}
 
-\parinterval 首先，回顾一下基于单词的统计翻译模型是如何完成翻译的。图\ref{fig:4-1}展示了一个实例。其中，左侧是一个单词的``翻译表''，它记录了源语言（中文）单词和目标语言（英文）单词之间的对应关系，以及这种对应的可能性大小（用P表示）。在翻译时，会使用这些单词一级的对应，生成目标语言译文。比如，图\ref{fig:4-1}右侧就展示了一个基于词的模型生成的翻译结果，其中$\mathbf{s}$和$\mathbf{t}$分别表示源语言和目标语言句子，单词之间的连线表示两个句子中单词一级的对应。
+\parinterval 一般来说，译文质量评价可以被看作是一个对译文进行打分或者排序的过程，打分或者排序的结果代表了翻译质量的好坏。比如，表\ref{tab:4-1}展示一个汉译英的译文质量评价结果。这里采用了5分制打分，1代表最低分，5代表最高分。可以看出，流畅的高质量译文得分较高，相反，存在问题的译文得分较低。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l r}
-\subfigure{\input{./Chapter4/Figures/example-of-translation-base-word-1}} & \subfigure{\input{./Chapter4/Figures/example-of-translation-base-word-2}} \\
+\begin{table}[htp]{
+\begin{center}
+\caption{汉译英译文质量评价实例}
+{
+\begin{tabular}{c|l|c}
+源文 & 那只敏捷的棕色狐狸跳过了那只懒惰的狗。 & 评价得分 \\
+\hline
+\rule{0pt}{10pt} 机器译文1 & The quick brown fox jumped over the lazy dog. & 5 \\
+\rule{0pt}{10pt} 机器译文2 & The fast brown fox jumped over a sleepy dog. & 4 \\
+\rule{0pt}{10pt} 机器译文3 & The fast brown fox jumps over the dog. & 3 \\
+\rule{0pt}{10pt} 机器译文4 & The quick brown fox jumps over dog. & 2 \\
+\rule{0pt}{10pt} 机器译文5 & A fast fox jump dog. & 1 \\
 \end{tabular}
-\caption{基于单词的翻译实例}
-\label{fig:4-1}
-\end{figure}
-%-------------------------------------------
+\label{tab:4-1}
+}
+\end{center}
+}\end{table}
 
-\parinterval 图\ref{fig:4-1}体现的是一个典型的基于单词对应关系的翻译方法。它非常适合{\small\bfnew{组合性翻译}}\index{组合性翻译}（Compositional Translation）\index{Compositional Translation}的情况，也就是通常说的直译。不过，自然语言作为人类创造的高级智能的载体，远比想象的复杂。比如，即使是同一个单词，词义也会根据不同的语境产生变化。
+\parinterval 这里的一个核心问题是：从哪个角度对译文质量进行评价呢？常用的标准有：{\small\sffamily\bfseries{流畅度}}\index{流畅度}（Fluency）\index{Fluency}和{\small\sffamily\bfseries{忠诚度}}\index{忠诚度}（Fidelity）\index{Fidelity}\upcite{DBLP:journals/mt/ChurchH93}。其中流畅度是指译文在目标语言中的流畅程度，越通顺的译文流畅度越高；忠诚度是指译文表达源文意思的程度，如果译文能够全面、准确的表达源文的意思，那么它具有较高的翻译忠诚度。在一些极端的情况下，译文可以非常流畅，但是与源文完全不对应。或者，译文可以非常好的对应源文，但是读起来非常不连贯。这些译文都不是很好的译文。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l r}
-\subfigure{\input{./Chapter4/Figures/example-of-translation-black-tea-1}} & \subfigure{\input{./Chapter4/Figures/example-of-translation-black-tea-2}}
-\end{tabular}
-\caption{基于单词的模型对搭配``红\ 茶''进行翻译}
-\label{fig:4-2}
-\end{figure}
-%-------------------------------------------
+\parinterval 传统观点把翻译分为“信”、“达”、“雅”三个层次，而忠诚度体现的是一种“信”的思想，而流畅度体现的是一种“达”的思想。不过“雅”在机器翻译评价中还不是一个常用的标准，而且机器翻译还没有达到“雅”的水平，是未来所追求的目标。
 
+\parinterval 给定评价标准，译文质量评价有很多实现方式。比如，可以使用人工评价的方式让评委对每个译文进行打分（\ref{Manual evaluation}节），也可以用自动评价的方式让计算机比对译文和参考答案之间的匹配的程度（\ref{Automatic evaluation with reference answers}节）。但是，自然语言的翻译是最复杂的人工智能问题之一。这不仅仅体现在相关问题的建模和系统实现的复杂性上，译文质量评价也同样面临着诸多挑战。
 
-\parinterval 图\ref{fig:4-2}给出了一个新的例子。如果同样使用概率化的单词翻译对问题进行建模，对于输入的句子``我\ 喜欢\ 红\ 茶''，翻译概率最大的译文是``I like red tea''。显然，``red tea''并不是英文中``红\ 茶''的说法，正确的译文应该是``black tea''。
-
-\parinterval 这里的问题在于，``black tea''不能通过``红''和``茶''这两个单词直译的结果组合而成，也就是，把``红''翻译为``red''并不符合``红\ 茶''这种特殊的搭配的翻译。即使在训练数据中``红''有很高的概率被翻译为``red''，在这个例子中，应该选择概率更低的译文``black''。那如何做到这一点呢？如果让人来做，这个事不难，因为所有人学习英语的时候都知道``红''和``茶''放在一起构成了一个短语，或者说一种搭配，这种搭配的译文是固定的，记住就好。同理，如果机器翻译系统也能学习并记住这样的搭配，显然可以做得更好。这也就形成了基于短语和句法的机器翻译建模的基本思路。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{更大粒度的翻译单元}
-
-\parinterval 既然仅仅使用单词的直译不能覆盖所有的翻译现象，那就可以考虑在翻译中使用更大颗粒度的单元，这样能够对更大范围的搭配和依赖关系进行建模。一种非常简单的方法是把单词扩展为$n$-gram（这里视为{\small\bfnew{短语}}\index{短语}）。也就是，翻译的基本单元是一个个连续的词串，而非一个个相互独立的单词。
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{译文不唯一}}。自然语言表达的丰富性决定了同一个意思往往有很多种表达方式。同一句话，由不同译者的翻译也往往存在差异。译者的背景、翻译水平、翻译所处的语境，甚至译者的情绪都会对译文产生影响。如何在评价过程中尽可能考虑多样的译文，是译文质量评价中最具挑战的问题之一。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{评价标准不唯一}}。虽然流畅度和忠诚度给译文质量评价提供了很好的参考依据，但是在实践中往往会有更多样的需求。比如，在专利翻译中，术语翻译的准确性就是必须要考虑的因素，一个术语的翻译错误会导致整个译文不可用。此外，术语翻译的一致性也是非常重要的，即使同一个术语有多种正确的译文，但是在同一个专利文档中，术语翻译需要保持一致。不同的需求使得很难用统一的标准对译文质量进行评价。在实践中，往往需要针对不同应用场景设计不同的评价标准。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{自动评价与人工评价存在着偏差}}。固然使用人工的方式可以准确地评估译文质量，但是这种方式费时、费力。而且由于人工评价的主观性，其结果不易重现，也就是不同人的评价结果会有差异。这些因素也造成了人工评价不能被过于频繁的使用。翻译质量的自动评价可以充分利用计算机的计算能力，对译文与参考答案进行比对，具有速度快、结果可重现的优点，但是其精度不如人工评价。使用何种评价方法也是实践中需要考虑的重要问题之一。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{参考答案不容易获得}}。很多情况下，译文的正确答案并不容易获取。甚至对于某些低资源语种，相关的语言学家都很稀缺。这时很难进行基于标准答案的评价。如何在没有参考答案的情况下对译文质量进行估计是极具应用前景且颇具挑战的方向。
+\vspace{0.5em}
+\end{itemize}
 
 %----------------------------------------------
 \begin{figure}[htp]
-\centering
-\begin{tabular}{l r}
-\subfigure{\input{./Chapter4/Figures/example-of-n-gram-1}} & \subfigure{\input{./Chapter4/Figures/example-of-n-gram-2}} \\
-\end{tabular}
-\caption{基于短语（$n$-gram）的翻译的实例}
-\label{fig:4-3}
+    \centering
+	\input{./Chapter4/Figures/figure-logic-diagram-of-translation-quality-evaluation-method}
+   \caption{译文质量评价方法逻辑图}
+   \label{fig:4-2}
 \end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-3}展示了一个引入短语之后的翻译结果。其中的翻译表不仅包含源语言和目标语言单词之间的对应，同时也包括短语（$n$-gram）的翻译。这样，``红\ 茶''可以作为一个短语包含在翻译表中，它所对应译文是``black tea''。对于待翻译句子，可以使用单词翻译的组合得到``红\ 茶''的译文``red tea''，也可以直接使用短语翻译得到``black tea''。由于短语翻译``红\ 茶 $\to$ black tea''的概率更高，因此最终会输出正确的译文``black tea''。
-
-\parinterval 一般来说，统计机器翻译的建模对应着一个两阶段的过程：首先，得到每个翻译单元所有可能的译文；然后，通过对这些译文的组合得到可能的句子翻译结果，并选择最佳的目标语言句子输出。如果基本的翻译单元被定义下来，机器翻译系统可以学习这些单元翻译所对应的翻译知识（对应训练过程），之后运用这些知识对新的句子进行翻译（对应解码过程）。
-
 %----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/word-translation-regard-as-path}
-\caption{基于单词的翻译被看作是一条``路径''}
-\label{fig:4-4}
-\end{figure}
-%-------------------------------------------
 
-\parinterval 图\ref{fig:4-4}给出了基于单词的机器翻译过程的一个示例。首先，每个单词的候选译文都被列举出来，而机器翻译系统就是要找到覆盖所有源语言单词的一条路径，它所对应的译文概率是最高的。比如，图中的红色折线就代表了一条翻译路径，也就是一个单词译文的序列\footnote[1]{为了简化问题，这里没有描述单词译文的调序。对于调序的建模，可以把它当作是对目标语单词串的排列，这个排列的好坏需要用额外的调序模型进行描述。详细内容见\ref{subsection-4.2.4}节。}。
+\parinterval 针对以上问题，研究人员设计出多种不同的译文质量评价方法。根据人工参与方式的不同，可以分为人工评价、有参考答案的自动评价、无参考答案的自动评价。这些方法也对应了不同的使用场景。
 
-\parinterval 在引入短语翻译之后，并不需要对上述过程进行太大的修改。仍然可以把翻译当作是一条贯穿源语言所有单词译文的路径，只是这条路径中会包含短语，而非一个个单词。图\ref{fig:4-5}给出了一个实例，其中的蓝色折线表示包含短语的翻译路径。
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{人工评价}}。当需要对系统进行准确的评估时，往往采用人工评价。比如，对于机器翻译的一些互联网应用，在系统上线前都会采用人工评价对机器翻译系统性能进行测试。当然，这种方法的时间和人力成本是最高的。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{有参考答案的自动评价}}。由于机器翻译系统研发过程中需要频繁地对系统性能进行评价，这时可以让人标注一些正确的译文，之后把这些译文作为参考答案与机器翻译系统输出的结果进行比对。这种自动评价的结果获取成本低，可以多次重复，而且可以用于对系统结果的快速反馈，指导系统优化的方向。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{无参考答案的自动评价}}。在很多应用场景中，在系统输出译文时，使用者希望提前知道译文的质量，即使这时并没有可比对的参考答案。这样，系统使用者可以根据这个对质量的“估计”结果有选择地使用机器翻译译文。严格意义上说，这并不是一个传统的译文质量评价方法，而是一种对译文置信度和可能性的估计。
+\vspace{0.5em}
+\end{itemize}
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/word-and-phrase-translation-regard-as-path}
-\caption{翻译被看作是由单词和短语组成的``路径''}
-\label{fig:4-5}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 实际上，单词本身也是一种短语。从这个角度说，基于单词的翻译模型是包含在基于短语的翻译模型中的。而这里的所说的短语包括多个连续的单词，可以直接捕捉翻译中的一些局部依赖。而且，由于引入了更多样翻译单元，可选择的翻译路径数量也大大增加。本质上，引入更大颗粒度的翻译单元给建模增加了灵活性，同时增大了翻译假设空间。如果建模合理，更多的翻译路径会增加找到高质量译文的机会。在\ref{section-4.2}节还将看到，基于短语的模型会从多个角度对翻译问题进行描述，包括基础数学建模、调序等等。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{句子的结构信息}
-
-\parinterval 使用短语的优点在于可以捕捉具有完整意思的连续词串，因此能够对局部上下文信息进行建模。当单词之间的搭配和依赖关系出现在连续词串中时，短语可以很好地对其进行描述。但是，当单词之间距离很远时，使用短语的``效率''很低。同$n$-gram语言模型一样，当短语长度变长时，数据会变得非常稀疏。比如，很多实验已经证明，测试数据中超过5个的连续单词在训练数据中往往是很低频的现象，更长的短语甚至都很难在训练数据中找到。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/long-distance-dependence-in-zh2en-translation}
-\caption{汉英翻译中的长距离依赖}
-\label{fig:4-6}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 当然，可以使用平滑算法对长短语的概率进行估计，但是使用过长的短语在实际系统研发中仍然不现实。图\ref{fig:4-6}展示了一个汉语到英语的翻译实例。源语言的两个短语（蓝色和红色高亮）在译文中产生了调序。但是，这两个短语在源语言句子中横跨11个单词。如果直接使用这个11个单词构成的短语进行翻译，显然会有非常严重的数据稀疏问题，因为很难期望在训练数据中见到一模一样的短语。
-
-\parinterval 如果仅仅使用连续词串不能处理所有的翻译问题，根本的原因在于句子的表层串很难描述片段之间大范围的依赖。一个新的思路是使用句子的结构信息进行建模。第二章已经介绍了句子的句法表示形式。对于每个句子，都可以用句法树描述它的结构。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/chinese-syntax-tree}
-\caption{一个英文句法树（短语结构树）}
-\label{fig:4-7}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-7}就展示了一棵英文句法树（短语结构树）。句法树描述了一种递归的结构，每个句法结构都可以用一个子树来描述，子树之间的组合可以构成更大的子树，最终完成整个句子的表示。相比线性的序列模型，树结构更容易处理大片段之间的关系。比如，两个在序列中距离``很远''的单词，在树结构中可能会``很近''。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-translation-use-syntactic-structure}
-\caption{使用句法结构进行机器翻译的实例}
-\label{fig:4-8}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 句法树结构可以赋予机器翻译一种对语言进一步抽象的能力，这样，并不需要使用连续词串，而是通过句法结构来对大范围的译文生成和调序进行建模。图\ref{fig:4-8}是一个在翻译中融入源语言（中文）句法信息的实例。这个例子中，介词短语包含15个单词，因此，使用短语很难涵盖``在 $...$ 后''这样的片段。这时，系统会把``在 $...$ 后''错误的翻译为``In $...$''。通过句法树，可以知道``在 $...$ 后''对应着一个完整的子树结构PP（介词短语）。因此也很容易知道介词短语中``在 $...$ 后''是一个模板（红色），而``在''和``后''之间的部分构成从句部分（蓝色）。最终得到正确的译文``After $...$''。
-
-\parinterval 使用句法信息在机器翻译中不新鲜。在基于规则和模板的翻译模型中，就大量地使用了句法等结构信息。只是由于早期句法分析技术不成熟，系统的整体效果并不突出。在统计机器翻译时代，句法可以很好地融合在统计建模中。通过概率化的文法设计，可以对翻译过程进行很好的描述。在本章的\ref{section-4.3}节和\ref{section-4.4}节中将会详细讨论句法信息在统计机器翻译中的应用。
+\parinterval 图\ref{fig:4-2}给出了机器翻译译文评价方法的逻辑关系图。需要注意的是，很多时候，译文质量评价结果是用于机器翻译系统优化的。在随后的章节中也会看到，译文评价的结果会被用于不同的机器翻译模型优化中。甚至很多统计指标（如极大似然估计）也可以被看作是一种对译文的“评价”，这样就可以把机器翻译的建模和译文评价联系在了一起。本章的后半部分将重点介绍传统的译文质量评价方法。与译文质量评价相关的模型优化方法将会在后续章节详细论述。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
 \sectionnewpage
-\section{基于短语的翻译模型}\label{section-4.2}
+\section{人工评价}\label{Manual evaluation}
 
-\parinterval 基于短语的翻译模型是统计机器翻译最具代表性的模型之一\cite{koehn2003statistical,chiang2007hierarchical}。这类模型易于实现，而且性能突出。统计机器翻译中很多经典的方法都出自基于短语的模型，比如：统计调序模型、最小错误率训练等等。下面就来了解一下基于短语的机器翻译是如何工作的。
+\parinterval 顾名思义，人工评价是指评价者根据翻译结果好坏对译文进行评价。例如，可以根据句子的忠诚度和流畅度对其进行打分，这样能够准确评定出译文是否准确翻译出源文的意思以及译文是否通顺。在人工评价时，一般由多个评价者匿名对译文打分，之后综合所有评价者的评价结果给出最终的得分。人工评价可以准确反映句子的翻译质量，是最权威、可信度最高的评价方法，但是其缺点也十分明显：需要耗费人力物力，而且评价的周期长，不能及时得到有效的反馈。因此在实际系统开发中，纯人工评价不会过于频繁地被使用，它往往和自动评价一起配合，帮助系统研发人员准确的了解当前系统的状态。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{机器翻译中的短语}
+\subsection{评价策略}
 
-\parinterval 基于短语的机器翻译的基本假设是：双语句子的生成可以用短语之间的对应关系进行表示。图\ref{fig:4-9}展示了一个基于短语的翻译实例。可以看到，这里的翻译单元是连续的词串。比如，``进口''的译文``The imports have''就包含了三个单词，而``下降\ 了''也是一个包含两个单词的源语言片段。
+\parinterval 合理的评价指标是人工评价得以顺利进行的基础。机器译文质量的人工评价可以追溯到1966年，自然语言处理咨询委员会提出{\small\sffamily\bfseries{可理解度}}\index{可理解度}（Intelligibility）\index{Intelligibility}和忠诚度作为机器译文质量人工评价指标\upcite{DBLP:journals/mtcl/Carroll66}。1994 年，{\small\sffamily\bfseries{充分性}}\index{充分性}（Adequacy）\index{Adequacy}、流畅度和{\small\sffamily\bfseries{信息性}}\index{信息性}（Informativeness）\index{Informativeness}成为为ARPA MT\footnote{ARPA MT计划是美国高级研究计划局软件和智能系统技术处人类语言技术计划的一部分。}的人工评价标准\upcite{DBLP:conf/amta/WhiteOO94}。此后，有不少研究者提出了更多的机器译文质量人工评估指标，例如将{\small\sffamily\bfseries{清晰度}}\index{清晰度}（Clarity）\index{Clarity}和{\small\sffamily\bfseries{连贯性}}\index{连贯性}（Coherence）\index{Coherence}加入人工评价指标中\upcite{Miller:2005:MTS}。甚至有人将各种人工评价指标集中在一起，组成了尽可能全面的机器翻译评估框架\upcite{king2003femti}。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-zh2en-translation-base-phrase}
-\caption{基于短语的汉英翻译实例}
-\label{fig:4-9}
-\end{figure}
-%-------------------------------------------
+\parinterval 人工评价的策略非常多。考虑不同的因素，往往会使用不同的评价方案，比如：
 
-\parinterval 不过，这里所说的短语并不是语言学上的短语，本身也没有任何语言学句法的结构约束。在基于短语的模型中，可以把短语简单地理解为一个词串。具体来说，有如下定义。
-
-%-------------------------------------------
-\begin{definition} 短语
-
-{\small
-对于一个句子$\mathbf{w} = w_1...w_n$，任意子串$w_i...w_j$($i\leq j$且$0\leq i,j\leq n$)都是句子$\mathbf{w}$的一个{\small\bfnew{短语}}。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 根据这个定义，对于一个由$n$个单词构成的句子，可以包含$\frac{n(n-1)}{2}$个短语（子串）。进一步，可以把每个句子看作是由一系列短语构成的序列。组成这个句子的短语序列也可以被看作是句子的一个{\small\bfnew{短语切分}}\index{短语切分}（Phrasal Segmentation）\index{Phrasal Segmentation}。
-
-%-------------------------------------------
+\begin{itemize}
 \vspace{0.5em}
-\begin{definition} 句子的短语切分
-
-{\small
-如果一个句子$\mathbf{w} = w_1...w_n$可以被切分为$m$个子串，则称$\mathbf{w}$由$m$个短语组成，记为$\mathbf{w} = p_1...p_m$，其中$p_i$是$\mathbf{w}$的一个短语，$p_1...p_m$也被称作句子$\mathbf{w}$的一个{\small\bfnew{短语切分}}。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 比如，对于一个句子，``$\text{机器}\ \text{翻译}\ \text{是}\ \text{一}\ \text{项}\ \text{很}\ \text{有}\ \text{挑战}\ \text{的}\ \text{问题}$''，一种可能的短语切分为：
-\begin{eqnarray}
-p_1 &=& \text{机器}\ \text{翻译} \nonumber \\
-p_2 &=& \text{是}\ \text{一}\ \text{项} \nonumber \\
-p_3 &=& \text{很有}\ \text{挑战}\ \text{的} \nonumber \\
-p_4 &=& \text{问题}\nonumber
-\end{eqnarray}
-
-\parinterval 进一步，把单语短语的概念推广到双语的情况：
-
-%-------------------------------------------
+\item {\small\sffamily\bfseries{是否呈现源语言文本}}。在进行人工评价时，可以向评价者提供源语言文本或参考答案，也可以同时提供源语言文本和参考答案。从评价的角度，参考答案已经能够帮助评价者进行正确评价，但是源语言文本可以提供更多信息帮助评估译文的准确性。
 \vspace{0.5em}
-\begin{definition} 双语短语（或短语对）
-
-{\small
-对于源语和目标语句对($\mathbf{s}$,$\mathbf{t}$)，$\mathbf{s}$中的一个短语$\bar{s}_i$和$\mathbf{t}$中的一个短语$\bar{t}_j$可以构成一个双语短语对($\bar{s}_i,\bar{t}_j$)，简称{\small\bfnew{短语对}}\index{短语对}($\bar{s}_i,\bar{t}_j$)。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 也就是说，源语言句子中任意的短语和目标语言句子中任意的短语都构成一个双语短语。这里用$\leftrightarrow$表示互译关系。对于一个双语句对``进口\ 大幅度\ 下降\ 了 $\leftrightarrow$ the imports have drastically fallen''，可以得到很多双语短语，比如：
-\begin{eqnarray}
-&&\text{大幅度}\ \leftrightarrow\ \textrm{drastically} \nonumber \\
-&&\text{大幅度}\ \ \text{下降}\ \leftrightarrow\ \textrm{have}\ \textrm{drastically}\ \textrm{fallen} \nonumber \\
-&&\text{进口}\ \ \text{大幅度}\ \leftrightarrow\ \textrm{imports}\ \textrm{have}\ \textrm{drastically} \nonumber \\
-&&\text{大幅度}\ \ \text{下降}\ \ \text{了}\ \leftrightarrow\ \textrm{drastically}\ \textrm{fallen} \nonumber \\
-&&\text{了}\ \leftrightarrow\ \textrm{have}\ \textrm{drastically} \nonumber \\
-&&... \nonumber
-\end{eqnarray}
-
-\parinterval 接下来的问题是，如何使用双语短语描述双语句子的生成，即句子翻译的建模问题。在基于词的翻译模型里，可以用词对齐来描述双语句子的对应关系。类似的，也可以使用双语短语描述句子的翻译。这里，借用形式文法中{\small\bfnew{推导}}\index{推导}（Derivation）\index{Derivation}的概念。把生成双语句对的过程定义为一个基于短语的翻译推导：
-
-%-------------------------------------------
+\item {\small\sffamily\bfseries{评价者选择}}。理想情况下，评价者应同时具有源语言和目标语言的语言能力。但是，很多时候具备双语能力的评价者很难招募，因此这时会考虑使用目标语为母语的评价者。配合参考答案，单语评价者也可以准确地评价译文质量。
 \vspace{0.5em}
-\begin{definition} 基于短语的翻译推导
+\item {\small\sffamily\bfseries{多个系统同时评价}}。如果有多个不同系统的译文需要评价，可以直接使用每个系统单独打分的方法。但是，如果仅仅是想了解不同译文之间的相对好坏，也可以采用竞评的方式，即对于每个句子，对不同系统根据译文质量进行排序，这样做的效率会高于直接打分，而且评价准确性也能够得到保证。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{数据选择}}。评价数据一般需要根据目标任务进行采集，为了避免和系统训练数据重复，往往会搜集最新的数据。而且，评价数据的规模越大，评价结果越科学。常用的做法是搜集一定量的评价数据，之后从中采样出所需的数据。由于不同的采样会得到不同的评价集合，这样的方法可以复用多次，得到不同的测试集。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{面向应用的评价}}。除了人工直接打分，一种更有效的方法是把机器翻译的译文嵌入到下游应用中，通过机器翻译对下游应用的改善效果评估机器翻译译文质量。比如，可以把机器翻译放入译后编辑流程中，通过对比译员翻译效率的提升来评价译文质量。再比如，把机器翻译放入线上应用中，通过点击率或者用户反馈来评价机器翻译的品质。
+\vspace{0.5em}
+\end{itemize}
 
-{\small
-对于源语言和目标语言句对($\mathbf{s}, \mathbf{t}$)，分别有短语切分$\{\bar{s}_i\}$和$\{\bar{t}_j\}$，且$\{\bar{s}_i\}$和$\{\bar{t}_j\}$之间存在一一对应的关系。令$\{\bar{a}_j\}$表示$\{\bar{t}_j\}$ 中每个短语对应到源语言短语的编号，则称短语对$\{(\bar{s}_{\bar{a}_j},\bar{t}_j)\}$构成了$\mathbf{s}$到$\mathbf{t}$的{\small\bfnew{基于短语的翻译推导}}(简称推导)，记为$d(\{(\bar{s}_{\bar{a}_j},\bar{t}_j)\},\mathbf{s},\mathbf{t})$(简记为$d(\{(\bar{s}_{\bar{a}_j},\bar{t}_j)\})$或$d$)。
-}
-\end{definition}
-%-------------------------------------------
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
 
-\parinterval 基于短语的翻译推导定义了一种从源语言短语序列到目标语言短语序列的对应，其中源语言短语序列是源语言句子的一种切分，同样的，目标语言短语序列是目标语言句子的一种切分。翻译推导提供了一种描述翻译过程的手段：对于一个源语言句子，可以找到从它出发的翻译推导，推导中短语的目标语部分就构成了译文。也就是，每个源语言句子$\mathbf{s}$上的一个推导$d$都蕴含着一个目标语句子$\mathbf{t}$。
+\subsection{打分标准} \label{sec:human-eval-scoring}
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/derivation-consist-of-bilingual-phrase}
-\caption{三个双语短语$\{(\bar{s}_{\bar{a}_1},\bar{t}_1),(\bar{s}_{\bar{a}_2},\bar{t}_2),(\bar{s}_{\bar{a}_3},\bar{t}_3)\}$构成的翻译推导}
-\label{fig:4-10}
-\end{figure}
-%-------------------------------------------
+\parinterval 如何对译文进行打分是机器翻译评价的核心问题。在人工评价方法中，一种被广泛使用的方法是{\small\sffamily\bfseries{直接评估}}\index{直接评估}（Direct Assessment，DA）\index{Direct Assessment}\upcite{DBLP:conf/amta/WhiteOO94}，这种评价方法需要评价者给出对机器译文的绝对评分：在给定一个机器译文和一个参考答案的情况下，评价者直接给出1-100的分数用来表征机器译文的质量。与其类似的策略是对机器翻译质量进行等级评定\upcite{DBLP:journals/mt/PrzybockiPBS09}，常见的是在5级或7级标准中指定单一等级用以反映机器翻译质量。也有研究者提出利用语言测试技术对机器翻译质量进行评价\upcite{reeder2006direct}，其中涉及多等级内容的评价：第一等级测试简单的短语、成语、词汇等；第二等级利用简单的句子测试机器翻译在简单文本上的表现；第三等级利用稍复杂的句子测试机器翻译在复杂语法结构上的表现；第四等级测试引入更加复杂的补语结构和附加语等等。
 
-\parinterval 图\ref{fig:4-10}给出了一个由三个双语短语$\{(\bar{s}_{\bar{a}_1},\bar{t}_1),(\bar{s}_{\bar{a}_2},\bar{t}_2),(\bar{s}_{\bar{a}_3},\bar{t}_3)\}$ 构成的汉英互译句对，其中短语对齐信息为$\bar{a}_1 = 1$，$\bar{a}_2 = 2$，$\bar{a}_3 = 3$。这里，可以把这三个短语对的组合看作是翻译推导，形式化表示为如下公式。其中，${} \circ $表示短语的组合\footnote[2]{短语的组合是指将两个短语a和b进行拼接，形成新的短语ab。在机器翻译中，可以把双语短语的组合看作是对目标语短语的组合。比如，对于两个双语短语$(\bar{s}_{\bar{a}_1},\bar{t}_1),(\bar{s}_{\bar{a}_2},\bar{t}_2)$，短语的组合表示将$\bar{t}_1$和$\bar{t}_2$进行组合，而源语言端作为输入已经给定，因此直接匹配源语言句子中相应的部分即可。根据两个短语在源语言中位置的不同，通常又分为顺序翻译、反序翻译、不连续翻译。关于这部分内容将会在后面\ref{subsection-4.2.4}节调序模型的部分进行介绍。}。
+\parinterval 除了对译文进行简单的打分，另一种经典的人工评价方法是{\small\sffamily\bfseries{相对排序}}\index{相对排序}（Relative Ranking，RR）\index{Relative Ranking}\upcite{DBLP:conf/wmt/Callison-BurchF07}。这种方法通过对不同机器翻译的译文质量进行相对排序得到最终的评价结果。举例来说：
+
+\parinterval （1）在每次评价过程中，若干个等待评价的机器翻译系统被分为5个一组，评价者被提供3个连续的源文片段和1组机器翻译系统的相应译文；
+
+\parinterval （2）评价者需要对本组的机器译文根据其质量进行排序，不过评价者并不需要一次性将5个译文排序，而是将其两两进行比较，判出胜负或是平局。在评价过程中，由于排序是两两一组进行的，为了评价的公平性，将采用排列组合的方式进行分组和比较，若共有$n$个机器翻译系统，则会为被分为 $\textrm{C}_n^5$组，组内每个系统都将与其他4个系统进行比较，由于需要针对3个源文片段进行评价对比，则意味着每个系统都需要被比较$\textrm{C}_n^5 \times 4 \times 3$次；
+
+\parinterval （3）最终根据多次比较的结果，对所有参与评价的系统进行总体排名。对于如何获取合理的总体排序，有三种常见的策略：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{根据系统胜出的次数进行排序}}\upcite{DBLP:conf/wmt/Callison-BurchK12}。以系统${S}_j$和系统${S}_k$为例，两个系统都被比较了$\textrm{C}_n^5 \times 4 \times 3$ 次，其中系统${S}_j$获胜20次，系统${S}_k$获胜30次，总体排名中系统${S}_k$优于系统${S}_j$。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{根据冲突次数进行排序}}\upcite{DBLP:conf/wmt/Lopez12}。第一种排序策略中存在冲突现象：例如在每次两两比较中，系统${S}_j$胜过系统${S}_k$ 的次数比系统${S}_j$不敌系统${S}_k$的次数多，若待评价系统仅有系统${S}_j$、${S}_k$，显然系统${S}_j$的排名高于系统${S}_k$。但当待评价系统很多时，可能系统${S}_j$在所有比较中获胜的次数低于系统${S}_k$，此时就出现了总体排序与局部排序不一致的冲突。因此，有研究者提出，能够与局部排序冲突最少的总体排序才是最合理的。令$O$表示一个对若干个系统的排序，该排序所对应的冲突定义为：
 \begin{eqnarray}
-d = {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)} \circ {(\bar{s}_{\bar{a}_3},\bar{t}_3)}
+\textrm{conflict}(O) = \sum\limits_{{{S}_j} \in O,{{S}_k} \in O,j \ne k} {{\textrm{max}}(0,\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) - \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k}))}
 \label{eq:4-1}
 \end{eqnarray}
 
-\parinterval 到此为止，就得到了一个基于短语的翻译模型。对于每个双语句对($\mathbf{s}, \mathbf{t}$)，每个翻译推导$d$都对应了一个基于短语的翻译过程。而基于短语的机器翻译的目标就是对$d$进行描述。有四个基本问题：
+    其中，${S}_j$和${S}_k$是成对比较的两个系统，$\textrm{count}_{\textrm{win}}({S}_j,{S}_k)$和$\textrm{count}_{\textrm{loss}}({S}_j,{S}_k)$分别是${S}_j$、${S}_k$进行成对比较时系统${S}_j$ 胜利和失败的次数。而使得$\textrm{conflict}(O)$最低的$O$就是最终的系统排序结果。
 
-\begin{itemize}
 \vspace{0.5em}
-\item 如何用统计模型描述每个翻译推导的好坏\ \dash \ 即翻译的统计建模问题；
-\vspace{0.5em}
-\item 如何获得可使用的双语短语对\ \dash \ 即短语翻译获取问题；
-\vspace{0.5em}
-\item 如何对翻译中的调序问题进行建模\ \dash \ 即调序问题；
-\vspace{0.5em}
-\item 如何找到输入句子$\mathbf{s}$的最佳译文\ \dash \ 即解码问题。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 这四个问题也构成了基于短语的翻译模型的核心，下面对其逐一展开讨论。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{数学建模及判别式模型}\label{subsection-4.2.2}
-
-\parinterval 对于统计机器翻译，其目的是找到输入句子的可能性最大的译文：
+\item {\small\sffamily\bfseries{根据某系统最终获胜的期望进行排序}}\upcite{DBLP:conf/iwslt/Koehn12}。以系统${S}_j$为例，若共有$n$个待评价的系统，则进行总体排序时系统 ${S}_j$ 的得分为其最终获胜的期望，即：
 \begin{eqnarray}
-\hat{\mathbf{t}} = \argmax_{\mathbf{t}} \textrm{P}(\mathbf{t}|\mathbf{s})
+\textrm{score}({{S}_j}) = \frac{1}{n}\sum\limits_{k,k \ne j} {\frac{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k})}{{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) + \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k})}}}
 \label{eq:4-2}
 \end{eqnarray}
 
-\parinterval 公式\ref{eq:4-2}中，$\mathbf{s}$是输入的源语言句子，$\mathbf{t}$是一个目标语译文。$\textrm{P}(\mathbf{t}|\mathbf{s})$被称为翻译模型，它描述了把$\mathbf{s}$翻译为$\mathbf{t}$的可能性。通过$\argmax \textrm{P}(\mathbf{t}|\mathbf{s})$可以找到使$\textrm{P}(\mathbf{t}|\mathbf{s})$达到最大的$\mathbf{t}$。
+根据公式\eqref{eq:4-2}可以看出，该策略去除了平局的影响。
 
-\parinterval 这里的第一个问题是如何定义$\textrm{P}(\mathbf{t}|\mathbf{s})$。直接描述$\textrm{P}(\mathbf{t}|\mathbf{s})$是非常困难的，因为$\mathbf{s}$和$\mathbf{t}$分别对应了巨大的样本空间，而在训练数据中能观测到的只是空间中的一小部分样本。直接用有限的训练数据描述这两个空间中样本的对应关系会面临着严重的数据稀疏问题。对于这个问题，常用的解决办法是把复杂的问题转化为容易计算的简单问题。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 与相对排序相比，直接评估方法虽然更加直观，但是过度依赖评价者的主观性，因而直接评估适用于直观反映某机器翻译系统性能，而不适合用来比较机器翻译系统之间的性能差距。在需要对大量系统的进行快速人工评价时，找出不同译文质量之间的相关关系要比直接准确评估译文质量简单得多，基于排序的评价方法可以大大降低评价者的工作量，所以也被系统研发人员经常使用。
+
+\parinterval 在实际应用中，研究者可以根据实际情况选择不同的人工评价方案，人工评价也没有统一的标准。WMT \upcite{DBLP:conf/wmt/BojarCFHHHKLMNP15}和CCMT \upcite{huang2019machine}机器翻译评测都有配套的人工评价方案，可以作为业界的参考标准。
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\sectionnewpage
+\section{有参考答案的自动评价}\label{Automatic evaluation with reference answers}
+
+\parinterval 人工评价费事费力，同时具有一定的主观性，甚至不同人在不同时刻面对同一篇文章的理解都会不同。为了克服这些问题，另一种思路是将人类专家翻译的结果看作是参考答案，将译文与答案的近似程度作为评价结果。即译文与答案越接近，评价结果越好；反之，评价结果较差。这种评价方式叫做{\small\bfnew{自动评价}}\index{自动评价}（Automatic Evaluation）。自动评价具有速度快，成本低、一致性高的优点，因此自动评价是也是机器翻译系统研发人员所青睐的方法。
+
+\parinterval 随着评价技术的不断发展，自动评价结果已经具有了比较好的指导性，可以帮助使用者快速了解当前译文的质量。在机器翻译领域，自动评价已经成为了一个重要的研究分支。至今，已经有不下几十种自动评价方法被提出。这里无法对这些方法一一列举，为了便于后续章节中对自动评价方法的使用，这里仅对一些代表性的方法进行简要介绍。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{基于词串比对的方法}
+
+\parinterval 这种方法比较关注译文单词及$n$-gram的翻译准确性。其思想是将译文看成是符号序列，通过计算参考答案和机器译文间的序列相似性来评价机器翻译的质量。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsubsection{基于翻译推导的建模}
+\subsubsection{1.基于距离的方法}
 
-\parinterval 基于短语的翻译模型假设$\mathbf{s}$到$\mathbf{t}$的翻译可以用翻译推导进行描述，这些翻译推导都是由双语短语组成。于是，两个句子之间的映射就可以被看作是一个个短语的映射。显然短语翻译的建模要比整个句子翻译的建模简单得多。从模型上看，可以把翻译推导$d$当作是从$\mathbf{s}$到$\mathbf{t}$翻译的一种隐含结构。这种结构定义了对问题的一种描述，即翻译由一系列短语组成。根据这个假设，可以把句子的翻译概率定义为：
+\parinterval 基于距离的自动评价方法的基本思想是：将机器译文转化为参考答案所需要的最小编辑步骤数作为译文质量的度量，基于此类思想的自动评价方法主要有{\small\sffamily\bfseries{单词错误率}}\index{单词错误率}（Word Error Rate，WER）\index{Word Error Rate}\upcite{jurafsky2000speech}、{\small\sffamily\bfseries{与位置无关的单词错误率}}\index{与位置无关的单词错误率}（Position-independent word Error Rate，PER）\index{Position-independent word Error Rate}\upcite{DBLP:conf/interspeech/TillmannVNZS97}和{\small\sffamily\bfseries{翻译错误率}}\index{翻译错误率}（Translation Error Rate，TER）\index{Translation Error Rate}\upcite{snover2006study}等。下面介绍其中比较有代表性的方法\ \dash \ 翻译错误率，即TER。
+
+\parinterval TER是一种典型的基于距离的评价方法，通过评定机器译文的译后编辑工作量来衡量机器译文质量。在这里“距离”被定义为将一个序列转换成另一个序列所需要的最少编辑操作次数，操作次数越多，距离越大，序列之间的相似性越低；相反距离越小，表示一个句子越容易改写成另一个句子，序列之间的相似性越高。TER 使用的编辑操作包括：增加、删除、替换和移位。其中增加、删除、替换操作计算得到的距离被称为编辑距离。TER根据错误率的形式给出评分：
 \begin{eqnarray}
-\textrm{P}(\mathbf{t}|\mathbf{s}) = \sum_{d} \textrm{P}(d,\mathbf{t}|\mathbf{s})
+\textrm{score}= \frac{\textrm{edit}(o,g)}{l}
 \label{eq:4-3}
 \end{eqnarray}
 
+\noindent 其中，$\textrm{edit}(o,g)$表示系统生成的译文$o$和参考答案$g$之间的距离，$l$是归一化因子,通常为参考答案的长度。在距离计算中所有的操作的代价都为1。在计算距离时，优先考虑移位操作，再计算编辑距离（即增加、删除和替换操作的次数）。直到增加、移位操作无法减少编辑距离时，将编辑距离和移位操作的次数累加得到TER计算的距离。
 
-\parinterval 公式\ref{eq:4-3}中，$\textrm{P}(d,\mathbf{t}|\mathbf{s})$表示翻译推导的概率。公式\ref{eq:4-3}把翻译问题转化为翻译推导的生成问题。但是，由于翻译推导的数量十分巨大\footnote[3]{如果把推导看作是一种树结构，推导的数量与词串的长度成指数关系。}，公式\ref{eq:4-3}的右端需要对所有可能的推导进行枚举并求和，这几乎是无法计算的。
+\begin{example}
+机器译文：A cat is standing in the ground.
 
-\parinterval 对于这个问题，常用的解决办法是利用一个化简的模型来近似完整的模型。如果把翻译推导的全体看作一个空间$D$，可以从$D$中选取一部分样本参与计算，而不是对整个$D$进行计算。比如，可以用最好的$n$个翻译推导来代表整个空间$D$。令$D_{n\textrm{-best}}$表示最好的$n$个翻译推导所构成的空间，于是可以定义：
+\qquad\ 参考答案：The cat is standing on the ground.
+\label{eg:4-1}
+\end{example}
+
+\parinterval 在这个实例中，将机器译文序列转换为参考答案序列，需要进行两次替换操作，将“A” 替换为“The”，将“in” 替换为“on”。所以$\textrm{edit}(c,r)$ = 2，归一化因子$l$为参考答案的长度8（包括标点符号），所以该机器译文的TER 结果为2/8。
+
+\parinterval PER与TER的基本思想与WER相同，这三种方法的主要区别在于对“错误” 的定义和考虑的操作类型略有不同。WER使用的编辑操作包括：增加、删除、替换，由于没有移位操作，当机器译文出现词序问题时，会发生多次替代，因而一般会低估译文质量；而PER只考虑增加和删除两个动作，在不考虑词序的情况下，PER计算两个句子中出现相同单词的次数，根据翻译句子比参考答案长或短，其余操作无非是插入词或删除词，这样往往会高估译文质量。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{2.基于$\bm{n}$-gram的方法} \label{sec:ngram-eval}
+
+\parinterval BLEU是目前使用最广泛的自动评价指标。BLEU 是Bilingual Evaluation Understudy的缩写，由IBM 的研究人员在2002 年提出\upcite{DBLP:conf/acl/PapineniRWZ02}。通过采用$n$-gram匹配的方式评定机器翻译结果和参考答案之间的相似度，机器译文越接近参考答案就认定它的质量越高。$n$-gram是指$n$个连续单词组成的单元，称为$n$元语法单元（见{\chapterthree}）。$n$越大表示评价时考虑的匹配片段越大。
+
+\parinterval BLEU 的计算首先考虑待评价机器译文中$n$-gram在参考答案中的匹配率，称为{\small\sffamily\bfseries{$\bm{n}$-gram准确率}}\index{$\{n}$-gram准确率}（$n$-gram Precision）\index{$n$-gram Precision}。其计算方法如下：
 \begin{eqnarray}
-\textrm{P}(\mathbf{t}|\mathbf{s}) \approx \sum_{d \in D_{n\textrm{-best}}} \textrm{P}(d,\mathbf{t}|\mathbf{s})
+\funp{P}_{n} = \frac{{{\textrm{coun}}{{\textrm{t}}_{{\textrm{hit}}}}}}{{{\textrm{coun}}{{\textrm{t}}_{{\textrm{output}}}}}}
 \label{eq:4-4}
 \end{eqnarray}
 
-\parinterval 进一步，把公式\ref{eq:4-4}带入公式\ref{eq:4-2}，可以得到翻译的目标为：
+\noindent 其中，$\textrm{count}_{\textrm{hit}}$表示机器译文中$n$-gram在参考答案中命中的次数，$\textrm{count}_{\textrm{output}}$表示机器译文中总共有多少$n$-gram。为了避免同一个词被重复计算，BLEU的定义中使用了截断的方式定义$\textrm{count}_{\textrm{hit}}$和$\textrm{count}_{\text{output}}$。
+
+\begin{example}
+机器译文：the the the the
+
+\qquad \ 参考答案：The cat is standing on the ground.
+\label{eg:4-bleu-example}
+\end{example}
+
+\parinterval 在引入截断方式之前，该机器译文的1-gram准确率为4/4 = 1，这显然是不合理的。在引入截断的方式之后，“the” 在译文中出现4 次，在参考答案中出现2 次，截断操作则是取二者的最小值，即$\textrm{count}_{\textrm{hit}}$= 2，$\textrm{count}_{\textrm{output}}$= 4，该译文的1-gram准确率为2/4。
+
+\parinterval 令$N$表示考虑的最大$n$-gram的大小，则译文整体的准确率等于各$n$-gram的加权平均：
 \begin{eqnarray}
-\hat{\mathbf{t}} = \arg\max_{\mathbf{t}} \sum_{d \in D_{n\textrm{-best}}} \textrm{P}(d,\mathbf{t}|\mathbf{s})
+{\funp{P}_{{\textrm{avg}}}} = \exp (\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\log\funp{P}}\nolimits} }_n}} )
 \label{eq:4-5}
 \end{eqnarray}
 
-\parinterval 另一种常用的方法是直接用$\textrm{P}(d,\mathbf{t}|\mathbf{s})$的最大值代表整个翻译推导的概率和。这种方法假设翻译概率是非常尖锐的，``最好''的推导会占有概率的主要部分。它被形式化为：
+\parinterval 但是，该方法更倾向于对短句子打出更高的分数。一个极端的例子是译文只有很少的几个词，但是都命中答案，准确率很高可显然不是好的译文。因此，BLEU 引入{\small\sffamily\bfseries{短句惩罚因子}}\index{短句惩罚因子}（Brevity Penalty，BP）\index{Brevity Penalty}的概念，对短句进行惩罚:
 \begin{eqnarray}
-\textrm{P}(\mathbf{t}|\mathbf{s}) \approx \max \textrm{P}(d,\mathbf{t}|\mathbf{s})
+\textrm {BP} = \left\{ \begin{array}{l}
+1\quad \quad \;\;c > r\\
+{\textrm{exp}}(1 - \frac{r}{c})\quad c \le r
+\end{array} \right.
 \label{eq:4-6}
 \end{eqnarray}
 
-\parinterval 于是，翻译的目标可以被重新定义：
+\noindent 其中，$c$表示机器译文的句子长度，$r$表示参考答案的句子长度。最终BLEU的计算公式为：
 \begin{eqnarray}
-\hat{\mathbf{t}} = \arg\max_{\mathbf{t}} (\max \textrm{P}(d,\mathbf{t}|\mathbf{s}))
+\textrm {BLEU} = \textrm {BP} \cdot \exp(\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\textrm {log}}\nolimits} }\funp{P}_n}} )
 \label{eq:4-7}
 \end{eqnarray}
 
-\parinterval 值得注意的是，翻译推导中蕴含着译文的信息，因此每个翻译推导都与一个译文对应。因此可以把公式\ref{eq:4-7}所描述的问题重新定义为：
+\parinterval 实际上，BLEU的计算也是一种综合考虑{\small\sffamily\bfseries{准确率}}\index{准确率}（Precision）\index{Precision}和{\small\sffamily\bfseries{召回率}}\index{召回率}（Recall）\index{Recall}的方法。公式中，$\exp(\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\textrm {log}}\nolimits} }\funp{P}_n}} )$是一种准确率的表示。BP本是一种召回率的度量，它会惩罚过短的结果。这种设计同分类系统中评价指标F1值是有相通之处的\upcite{DBLP:conf/muc/Chinchor92}。
+
+\parinterval 从机器翻译的发展来看，BLEU 的意义在于它给系统研发人员提供了一种简单、高效、可重复的自动评价手段，在研发机器翻译系统时可以不需要依赖人工评价。同时，BLEU 也有很多创新之处，包括引入$n$-gram的匹配，截断计数和短句惩罚等等，NIST 等很多评价指标都是受到BLEU 的启发。此外，BLEU本身也有很多不同的实现方式，包括IBM-BLEU\upcite{DBLP:conf/acl/PapineniRWZ02}、NIST-BLEU\footnote{NIST-BLEU是指美国国家标准与技术研究院（NIST）开发的机器翻译评价工具mteval中实现的一种BLEU计算的方法。}、BLEU-SBP\upcite{DBLP:conf/emnlp/ChiangDCN08}、ScareBLEU\upcite{DBLP:conf/wmt/Post18}等，使用不同实现方式得到评价结果会有差异。因此在实际使用BLEU进行评价时需要确认其实现细节，以保证结果与相关工作评价要求相符。
+
+\parinterval 还需要注意的是，BLEU的评价结果与所使用的参考答案数量有很大相关性。如果参考答案数量多，$n$-gram匹配的几率变大，BLEU的结果也会偏高。同一个系统，在不同数量的参考答案下进行BLEU评价，结果相差10个点都十分正常。此外，考虑测试的同源性等因素，相似系统在不同测试条件下的BLEU结果差异可能会更大，这时可以采用人工评价的方式以得到更准确的评价结果。
+
+\parinterval 虽然BLEU被广泛使用，但也并不完美，甚至经常被人诟病。比如，它需要依赖参考答案，而且评价结果有时与人工评价不一致，同时BLEU 评价只是单纯地从词串匹配的角度思考翻译质量的好坏，并没有真正考虑句子的语义是否翻译正确。但是，毫无疑问，BLEU 仍然是机器翻译中最常用的评价方法。在没有找到更好的替代方案之前，BLEU 还是机器翻译研究中最重要的评价指标之一。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{基于词对齐的方法}
+
+\parinterval 基于词对齐的方法，顾名思义就是根据参考答案中的单词与译文中的单词之间的对齐关系对机器翻译译文进行评价。词对齐的概念也被用于统计机器翻译的建模（\chapterfive），这里借用了相同的思想来度量机器译文与参考答案之间的匹配程度。在基于$n$-gram匹配的评价方法中（如BLEU），BP可以起到一些度量召回率的作用，但是这类方法并没有对召回率进行准确的定义。与其不同的是，基于词对齐的方法在机器译文和参考答案的单词之间建立一对一的对应关系，这种评价方法在引入准确率的同时还能显性引入召回率作为评价所考虑的因素。
+
+\parinterval 在基于词对齐的自动评价方法中，一种典型的方法是Meteor。该方法通过计算精确的{\small\bfnew{单词到单词}}\index{单词到单词}（Word-to-Word\index{Word-to-Word}）的匹配来度量一个译文的质量\upcite{DBLP:conf/acl/BanerjeeL05}，并且在“ 绝对”匹配之外，还引入了“ 波特词干匹配”和“同义词”匹配。在下面的内容中，将利用实例对Meteor方法进行介绍。
+
+\begin{example}
+机器译文：Can I have it like he ?
+
+\qquad\  参考答案：Can I eat this can like him ?
+\label{eg:4-2}
+\end{example}
+
+\parinterval 在Meteor方法中，首先在机器译文与参考答案之间建立单词之间的对应关系，再根据其对应关系计算准确率和召回率。
+
+\parinterval （1）单词之间的对应关系在建立过程中主要涉及三个模型，在对齐过程中依次使用这三个模型进行匹配：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{“绝对”匹配模型}}\index{“绝对”匹配模型}（Exact Model）\index{Exact Model}。绝对匹配模型在建立单词对应关系时，要求机器译文端的单词与参考答案端的单词完全一致，并且在参考答案端至多有1个单词与机器译文端的单词对应，否则会将其视为多种对应情况。对于实例\ref{eg:4-2}，使用“绝对”匹配模型，共有两种匹配结果，如图\ref{fig:4-3}所示。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\subfigure[“绝对”匹配词对齐-1]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-1}}
+	\subfigure[“绝对”匹配词对齐-2]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-2}}
+   \caption{“绝对”匹配模型}
+   \label{fig:4-3}
+\end{figure}
+%----------------------------------------------
+
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{“波特词干”匹配模型}}\index{“波特词干”匹配模型}（Porter Stem Model）\index{Porter Stem Model}。该模型在“绝对”匹配结果的基础上，对尚未对齐的单词进行基于词干的匹配，只需机器译文端单词与参考答案端单词的词干相同即可，如上文中的“do”和“did”。对于图\ref{fig:4-3}的结果，再使用“波特词干” 匹配模型，得到如图\ref{fig:4-4}所示的结果。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\input{./Chapter4/Figures/figure-match-words-with-stem}
+    \caption{“波特词干”匹配词对齐}
+    \label{fig:4-4}
+\end{figure}
+%----------------------------------------------
+
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{“同义词”匹配模型}}\index{“同义词”匹配模型}（WN Synonymy Model）\index{WN Synonymy Model}。该模型在前两个模型匹配结果的基础上，对尚未对齐的单词进行同义词的匹配，即基于WordNet词典匹配机器译文与参考答案中的同义词。如上例中的“eat”和“have”。图\ref{fig:4-5}给出了一个真实的例子。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+    \input{./Chapter4/Figures/figure-synonym-matching-word-alignment}
+    \caption{“同义词”匹配词对齐}
+    \label{fig:4-5}
+\end{figure}
+%----------------------------------------------
+
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 经过上面的处理，可以得到机器译文与参考答案之间的单词对齐关系。下一步需要从中确定一个拥有最大的子集的对齐关系，即机器译文中被对齐的单词个数最多的对齐关系。但是在上例中的两种对齐关系子集基数相同，这种情况下，需要选择一个对齐关系中交叉现象出现最少的对齐关系。于是，最终的对齐关系如图\ref{fig:4-6}所示。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\input{./Chapter4/Figures/figure-determine-final-word-alignment}
+   	\caption{确定最终词对齐}
+  	 \label{fig:4-6}
+\end{figure}
+%----------------------------------------------
+
+\parinterval （2）在得到机器译文与参考答案的对齐关系后，需要基于对齐关系计算准确率和召回率。
+
+\parinterval 准确率：机器译文中命中单词数与机器译文单词总数的比值。即：
 \begin{eqnarray}
-\hat{d} = \arg\max_{d} \textrm{P}(d,\mathbf{t}|\mathbf{s})
+\funp{P} = \frac {\textrm{count}_{\textrm{hit}}}{\textrm{count}_{\textrm{candidate}}}
 \label{eq:4-8}
 \end{eqnarray}
 
-\parinterval 也就是，给定一个输入句子$\mathbf{s}$，找到从它出发的最优翻译推导$\hat{d}$，把这个翻译推导所对应的目标语词串看作最优的译文。假设函数$t(\cdot)$可以返回一个推导的目标语词串，则最优译文也可以被看作是：
+\parinterval 召回率：机器译文中命中单词数与参考答案单词总数的比值。即：
 \begin{eqnarray}
-\hat{\mathbf{t}} = t(\hat{d})
+\funp{R} = \frac {\textrm{count}_{\textrm{hit}}}{\textrm{count}_{\textrm{reference}}}
 \label{eq:4-9}
 \end{eqnarray}
 
-\parinterval 注意，公式\ref{eq:4-8}-\ref{eq:4-9}和公式\ref{eq:4-7}本质上是一样的。它们也构成了统计机器翻译中最常用的方法\ \dash \ Viterbi方法\cite{DBLP:journals/tit/Viterbi67}。在后面机器翻译的解码中还会看到它们的应用。而公式\ref{eq:4-5}也被称作$n$-best方法，常常作为Viterbi方法的一种改进。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{对数线性模型}
-
-\parinterval 对于如何定义$\textrm{P}(d,\mathbf{t}|\mathbf{s})$有很多种思路，比如，可以把$d$拆解为若干步骤，然后对这些步骤分别建模，最后形成描述$d$的{\small\bfnew{生成式模型}}\index{生成式模型}（Generative Model）\index{Generative Model}。这种方法在第三章的IBM模型中也大量使用。但是，生成式模型的每一步推导需要有严格的概率解释，这也限制了研究人员从更多的角度对$d$进行描述。这里，可以使用另外一种方法\ \dash \ {\small\bfnew{判别式模型}}\index{判别式模型}（Discriminative Model）\index{Discriminative Model}来对$\textrm{P}(d,\mathbf{t}|\mathbf{s})$进行描述\cite{DBLP:conf/acl/OchN02}。其模型形式如下：
+\parinterval 接下来，计算机器译文的得分。利用{\small\sffamily\bfseries{调和均值}}\index{调和均值}（Harmonic-mean）\index{Harmonic-mean}将准确率和召回率结合起来，并加大召回率的重要性将其权重调大，例如将召回率的权重设置为9：
 \begin{eqnarray}
-\textrm{P}(d,\mathbf{t}|\mathbf{s}) &=& \frac{\textrm{exp}(\textrm{score}(d,\mathbf{t},\mathbf{s}))}{\sum_{d',\mathbf{t}'} \textrm{exp}(\textrm{score}(d',\mathbf{t}',\mathbf{s}))} \label{eqa4.10} \\
-\textrm{score}(d,\mathbf{t},\mathbf{s}) &=& \sum_{i=1}^{M} \lambda_i \cdot h_i (d,\mathbf{t},\mathbf{s})
+{F_{\textrm mean}} = \frac {10\funp{PR}}{\funp{R+9P}}
+\label{eq:4-10}
+\end{eqnarray}
+
+\parinterval 在上文提到的评价指标中，无论是准确率、召回率还是$\textrm F_{mean}$，都是基于单个词汇信息衡量译文质量，而忽略了语序问题。为了将语序问题考虑进来，Meteor会考虑更长的匹配：将机器译文按照最长匹配长度分块，并对“块数”较多的机器译文给予惩罚。例如上例中，机器译文被分为了三个“块”——“Can I have it”、“like he”、“？”在这种情况下，看起来上例中的准确率、召回率都还不错，但最终会受到很严重的惩罚。这种罚分机制能够识别出机器译文中的词序问题，因为当待测译文词序与参考答案相差较大时，机器译文将会被分割得比较零散，这种惩罚机制的计算公式如式\eqref{eq:4-11}，其中$\textrm {count}_{\textrm{chunks}}$表示匹配的块数。
+\begin{eqnarray}
+\textrm {Penalty} = 0.5 \cdot {\left({\frac{{\textrm {count}}_{\textrm {chunks}}}{\textrm {count}_{\textrm{hit}}}} \right)^3}
 \label{eq:4-11}
 \end{eqnarray}
 
-\parinterval 公式\ref{eq:4-11}是一种典型的{\small\bfnew{对数线性模型}}\index{对数线性模型}（Log-linear Model）\index{Log-linear Model}。所谓``对数线性''体现在对多个量求和后进行指数运算（$\textrm{exp}(\cdot)$），这相当于对多个因素进行乘法。公式\ref{eqa4.10}的右端是一种归一化操作。分子部分可以被看作是一种对翻译推导$d$的对数线性建模。具体来说，对于每个$d$，用$M$个特征对其进行描述，每个特征用函数$h_i (d,\mathbf{t},\mathbf{s})$表示。每个特征都对应一个权重$\lambda_i$，表示特征$i$的重要性。$\sum_{i=1}^{M} \lambda_i \cdot h_i (d,\mathbf{t},\mathbf{s})$表示了对这些特征的线性加权和，值越大表示模型得分越高，相应的$d$和$\mathbf{t}$的质量越高。公式\ref{eqa4.10}的分母部分实际上不需要计算，因为其值与求解最佳推导的过程无关。把公式\ref{eqa4.10}带入公式\ref{eq:4-8}得到：
+\parinterval Meteor评价方法的最终评分为：
 \begin{eqnarray}
-\hat{d} &=& \arg\max_{d} \frac{\textrm{exp}(\textrm{score}(d,\mathbf{t},\mathbf{s}))}{\sum_{d',\mathbf{t}'} \textrm{exp}(\textrm{score}(d',\mathbf{t}',\mathbf{s}))} \nonumber \\
-&=& \arg\max_{d}\ \textrm{exp}(\textrm{score}(d,\mathbf{t},\mathbf{s}))
+\textrm {score} = { F_{\textrm mean}} \cdot {(1 - \textrm {Penalty})}
 \label{eq:4-12}
 \end{eqnarray}
 
-\parinterval 公式\ref{eq:4-12}中，$\ \textrm{exp}(\textrm{score}(d,\mathbf{t},\mathbf{s}))$表示指数化的模型得分，记为$\textrm{mscore}(d,\mathbf{t},\mathbf{s}) = \textrm{exp}(\textrm{score}(d,\mathbf{t},\mathbf{s}))$。于是，翻译问题就可以被描述为找到使函数$\textrm{mscore}(d,\mathbf{t},\mathbf{s})$达到最大的$d$。由于，$\textrm{exp}(\textrm{score}(d,\mathbf{t},\mathbf{s}))$和$\textrm{score}(d,\mathbf{t},\mathbf{s})$是单调一致的，因此有时也直接把$\textrm{score}(d,\mathbf{t},\mathbf{s})$当做模型得分。
+\parinterval Meteor方法是经典的自动评价方法之一。它的创新点在于引入了词干匹配和同义词匹配，扩大了词汇匹配的范围。Meteor方法被提出后，很多人尝试对其进行了改进，使其评价结果与人工评价结果更相近。例如Meteor-next在Meteor的基础上增加{\small\sffamily\bfseries{释义匹配器}}\index{释义匹配器}（Paraphrase Matcher）\index{Paraphrase Matcher}，利用该匹配器能够捕获机器译文中与参考答案意思相近的短语，从而在短语层面进行匹配。此外这种方法还引入了{\small\sffamily\bfseries{可调权值向量}}\index{可调权值向量}（Tunable Weight Vector）\index{Tunable Weight Vector}，用于调节每个匹配类型的相应贡献\upcite{DBLP:conf/wmt/DenkowskiL10}；Meteor 1.3在Meteor的基础上增加了改进的{\small\sffamily\bfseries{文本规范器}}\index{文本规范器}（Meteor Normalizer）\index{Meteor Normalizer}、更高精度的释义匹配以及区分内容词和功能词等指标，其中文本规范器能够根据一些规范化规则，将机器译文中意义等价的标点减少到通用的形式。而区分内容词和功能词则能够得到更为准确的词汇对应关系\upcite{DBLP:conf/wmt/DenkowskiL11}；Meteor Universial则通过机器学习方法学习不同语言的可调权值，在对低资源语言进行评价时可对其进行复用，从而实现对低资源语言的译文更准确的评价\upcite{DBLP:conf/wmt/DenkowskiL14}。
 
-\parinterval 判别式模型最大的好处在于它可以更灵活地引入特征。系统开发者可以设计任意的特征来描述翻译，特征的设计甚至都不需要统计上的解释，比如0-1特征、计数特征等。此外，判别式模型并不需要像生成式模型那样对问题进行具有统计学意义的``分解''，更不需要对每个步骤进行严格的数学推导。相反，它直接对问题的后验概率进行建模。由于不像生成式模型那样需要引入假设来对每个生成步骤进行化简，判别式模型对问题的刻画更加直接，因此也受到自然语言处理研究者的青睐。
+\parinterval 由于召回率反映参考答案在何种程度上覆盖目标译文的全部内容，而Meteor在评价过程中显式引入召回率，所以Meteor的评价与人工评价更为接近。但Meteor方法需要借助同义词表、功能词表等外部数据，当外部数据中的目标词对应不正确或缺失相应的目标词时，评价水准就会降低。特别是，针对汉语等与英语差异较大的语言，使用Meteor方法也会面临很多挑战。不仅如此，超参数的设置和使用，对于评分也有较大影响。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{基于检测点的方法}
+
+\parinterval 基于词串比对和基于词对齐的自动评价方法中提出的BLEU、TER 等评价指标可以对译文的整体质量进行评估，但是缺乏对具体问题的细致评价。很多情况下，研究人员需要知道系统是否能够处理特定类型的翻译问题，而不是得到一个笼统的评价结果。基于检测点的方法正是基于此想法\upcite{DBLP:journals/mt/Shiwen93}。这种评价方法的优点在于对机器翻译系统给出一个总体评价的同时针对系统在各个具体问题上的翻译能力进行评估，方便比较不同翻译模型的性能。这种方法也被多次用于机器翻译比赛的译文质量评估。
+
+\parinterval 基于检测点的评价根据事先定义好的语言学检测点对译文的相应部分进行打分。如下是几个英中翻译中的检测点实例：
+
+\begin{example}
+They got up at six this morning.
+
+\qquad\ \ 他们今天早晨六点钟起床。
+
+\qquad\ \ 检测点：时间词的顺序
+\label{eg:4-3}
+\end{example}
+
+\begin{example}
+There are nine cows on the farm.
+
+\qquad\ \ 农场里有九头牛。
+
+\qquad\ \ 检测点：量词“头”
+\label{eg:4-4}
+\end{example}
+
+\begin{example}
+His house is on the south bank of the river.
+
+\qquad\ \ 他的房子在河的南岸。
+
+\qquad\ \ We keep our money in a bank.
+
+\qquad\ \ 我们在一家银行存钱。
+
+\qquad\ \ 检测点：bank 的多义翻译
+\label{eg:4-5}
+\end{example}
+
+\parinterval 该方法的关键在于检测点的获取。有工作曾提出一种从平行双语句子中自动提取检查点的方法\upcite{DBLP:conf/coling/ZhouWLLZZ08}，借助大量的双语词对齐平行语料，利用自然语言处理工具对其进行词性标注、句法分析等处理，利用预先构建的词典和人工定义的规则，识别语料中不同类别的检查点，从而构建检查点数据库。其中，将检查点分别设计为单词级（如介词、歧义词等）、短语级（如固定搭配）、句子级（特殊句型、复合句型等）三个层面，在对机器翻译系统进行评价时，在检查点数据库中分别选取不同类别检查点对应的测试数据进行测试，从而了解机器翻译系统在各种重要语言现象方面的翻译能力。除此之外，这种方法也能应用于机器翻译系统之间的性能比较中，通过为各个检查点分配合理的权重，用翻译系统在各个检查点得分的加权平均作为系统得分，从而对机器翻译系统的整体水平作出评价。
+
+\parinterval 基于检测点的评价方法的意义在于，它并不是简单给出一个分数，反而更像是一种诊断型评估方法，能够帮助系统研发人员定位系统问题。因此这类方法更多地使用在对机器翻译系统的翻译能力进行分析上，是对BLEU 等整体评价指标的一种很好的补充。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{多策略融合的评价方法}\label{Evaluation method of Multi Strategy fusion}
+
+\parinterval 前面介绍的几种自动评价方法中，大多是从某个单一的角度比对机器译文与参考答案之间的相似度，例如BLEU更关注$n$-gram是否命中、Meteor更关注机器译文与参考答案之间的词对齐信息、WER、PER 与TER等方法只关注机器译文与参考译文之间的编辑距离，此外还有一些方法比较关注机器译文和参考译文在语法、句法方面的相似度。但无一例外的是，每种自动评价的关注点都是单一的，无法对译文质量进行全面、综合的评价。为了克服这种限制，研究人员们提出了一些基于多策略融合的译文质量评估方法，以期提高自动评价与人工评价结果的一致性。
+
+\parinterval 基于策略融合的自动评价方法往往会将多个基于词汇、句法和语义的自动评价方法融合在内，其中比较核心的问题是如何将多个评价方法进行合理地组合。目前提出的方法中颇具代表性的是使用参数化方式和非参数化方式对多种自动评价方法进行筛选和组合。
+
+\parinterval 参数化组合方法的实现主要有两种方式：一种方式是广泛使用不同的译文质量评价作为特征，借助回归算法实现多种评价策略的融合\upcite{DBLP:conf/acl/AlbrechtH07a,DBLP:conf/acl/AlbrechtH07}；另一种方式则是对各种译文质量评价方法的结果进行加权求和，并借助机器学习算法更新内部的权重参数，从而实现多种评价策略的融合\upcite{DBLP:conf/naacl/LiuG07}。
+
+\parinterval 非参数化组合方法的思想与贪心算法异曲同工：将多个自动评价方法以与人工评价的相关度为标准进行降序排列，依次尝试将其加入最优策略集合中，如果能提高最优策略集合的“性能”，则将该自动评价方法加入最优策略集合中，否则不加入。其中最优策略集合的“性能”用QUEEN定义\upcite{DBLP:conf/ijcnlp/GimenezM08}。该方法是首次尝试使用非参数的组合方式将多种自动评价方法进行融合，也不可避免地存在一些瑕疵。一方面在评价最优策略集合性能时，对于一个源文需要至少三个参考答案；另一方面，这种“贪心”的组合策略很有可能会得到局部最优的组合。
+
+\parinterval 与单一的译文评价方法相比，多策略融合的评价方法能够对机器译文从多角度进行综合评价，这显然是一个模拟人工评价的过程，因而多策略融合的评价结果也与人工评价结果更加接近。但是对于不同的语言，多策略融合的评价方法需要不断调整最优策略集合或是调整组合方法内部的参数才能达到最佳的评价效果，这个过程势必要比单一的自动评价方法更繁琐些。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{译文多样性}
+
+\parinterval 在自然语言中，由于句子的灵活排序和大量同义词的存在，导致同一个源语言句子可能对应几百个合理的目标语言译文，甚至更多。然而上文提到的几种人工评价仅仅比较机器译文与有限数量的参考答案之间的差距，得出的评价结果往往会低估了机器译文的质量。为了改变这种窘况，比较直观的想法是增大参考答案集或是直接比较机器译文与参考答案在词法、句法和语义等方面的差距。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsubsection{搭建模型的基本流程}
+\subsubsection{1.增大参考答案集}
 
-\parinterval 对于翻译的判别式建模，需要回答两个问题：
+\parinterval BLEU、Meteor、TER等自动评价方法的结果往往与人工评价结果存在差距，一个主要原因是这些自动评价方法通过直接比对机器译文与有限的参考答案之间的“外在差异”，由于参考答案集可覆盖的人类译文数量过少，当机器译文本来十分合理但却未被包含在参考答案集中时，就会将其质量过分低估。
+
+\parinterval 针对这个问题，HyTER自动评价方法致力于得到所有可能译文的紧凑编码，从而实现自动评价过程中访问所有合理的译文\upcite{DBLP:conf/naacl/DreyerM12}。这种评价方法的原理非常简单直观：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 如何设计特征函数$\{h_i(d,\mathbf{t}|\mathbf{s})\}$?
+\item 通过注释工具标记出一个短语的所有备选含义（同义词）并存储在一起作为一个同义单元。可以认为每个同义单元表达了一个语义概念。在生成参考答案时，可以通过对某参考答案中的短语用同义单元进行替换生成一个新的参考答案。例如，将中文句子“对提案的支持率接近于0”翻译为英文，同义单元有以下几种：
+
+\noindent [THE-SUPPORT-RATE]：
+
+\parinterval <the level of approval; the approval level; the approval rate ; the support rate>
+
+\noindent [CLOSE-TO]：
+
+\parinterval <close to; about equal to; practically>
 \vspace{0.5em}
-\item 如何获得最好的特征权重$\{\lambda_i\}$?
+\item 通过已有同义单元和附加单词的组合用于覆盖更大的语言片段。在生成参考答案时就是采用这种方式不断覆盖更大的语言片段，直到将所有可能的参考答案覆盖进去。例如可以将短语[THE-SUPPORT-RATE]与“the proposal”组合为“[THE-SUPPORT-RATE] for the proposal”。
+\vspace{0.5em}
+\item 利用同义单元的组合将所有所有合理的人类译文都编码出来。中文句子“对提案的支持率接近于0”翻译为英文，其可能的参考答案被编码成：
 \vspace{0.5em}
 \end{itemize}
 
-在基于短语的翻译模型中，通常包含三类特征：短语翻译特征、调序特征、语言模型相关的特征。这些特征都需要从训练数据中学习。
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\input{./Chapter4/Figures/figure-representation-of-reference-answer-set-in-hyter}
+   \caption{HyTER中参考答案集的表示方式}
+   \label{fig:4-7}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 从上面的例子中可以看出，HyTER方法通过构造同义单元的方式，可以列举出译文中每个片段的所有可能的表达方式，从而增大参考答案的数量，上例中的每一条路径都代表一个参考答案。但是这种对参考答案集的编码方式存在问题，同义单元之间的组合往往存在一定的限制关系\upcite{DBLP:conf/tsd/BojarMTZ13}，使用HyTER方法会导致参考答案集中包含有错误的参考答案。
+
+\begin{example}
+将中文“市政府批准了一项新规定”分别翻译为英语和捷克语，使用HyTER构造的参考答案集分别如图\ref{fig:4-8}(a)和(b)所示\upcite{DBLP:conf/tsd/BojarMTZ13}：
+\label{eg:4-6}
+\end{example}
 
 %----------------------------------------------
 \begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/process-of-machine-translation-base-phrase}
-\caption{基于短语的机器翻译的系统流程}
-\label{fig:4-11}
+    \centering
+\subfigure[英语参考答案集表示]{\input{./Chapter4/Figures/figure-representation-of-english-reference-answer-set}}
+\subfigure[捷克语参考答案集表示]{\input{./Chapter4/Figures/figure-representation-of-czech-reference-answer-set}}
+   \caption{使用HyTER构造的参考答案集}
+   \label{fig:4-8}
 \end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-11}展示了一个基于短语的机器翻译模型的搭建流程。其中的训练数据包括双语平行语料和目标语言单语语料。首先，需要从双语平行数据中学习短语的翻译，并形成一个短语翻译表；然后，再从双语平行数据中学习调序模型；最后，从目标语单语数据中学习语言模型。短语翻译表、调序模型、语言模型都会作为特征被送入判别式模型，由解码器完成对新句子的翻译。而这些特征的权重可以在额外的开发集上进行调优。关于短语翻译、调序模型和特征权重的学习，会在本章的\ref{subsection-4.2.3}-\ref{subsection-4.2.6}节进行介绍。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{短语抽取}\label{subsection-4.2.3}
-
-\parinterval 在基于短语的模型中，学习短语翻译是重要的步骤之一。获得短语翻译的方法有很多种，最常用的方法是从双语平行语料中进行{\small\bfnew{短语抽取}}\index{短语抽取}（Phrase Extraction）\index{Phrase Extraction}。前面已经介绍过短语的概念，句子中任意的连续子串都被称为短语。例如在图\ref{fig:4-12}中，用点阵的形式来表示双语之间的对应关系，那么图中任意一个矩形框都可以构成一个双语短语（或短语对），例如``什么\ 都\ 没''对应``learned nothing ？''。
-
 %----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/unlimited-phrase-extraction}
-\caption{无限制的短语抽取}
-\label{fig:4-12}
-\end{figure}
-%-------------------------------------------
 
-\parinterval 按照上述抽取短语的方式可以找到所有可能的双语短语，但是这种不加限制的抽取是非常十分低效的。一是可抽取的短语数量爆炸，二是抽取得到的大部分短语是没有意义的，如上面的例子中抽取到``到\ ？''对应``Have you learned nothing？''这样的短语对在翻译中并没有什么意义。对于这个问题，一种解决方法是基于词对齐进行短语抽取，或者是抽取与词对齐相一致的短语。
+\parinterval 但是在捷克语中主语“městská rada”或是“zastupitelstvo města”的性别必须由动词来反映，那么上述捷克语的参考答案集中有部分存在语法错误。为了避免此类现象的出现，研究人员在同义单元中加入了将同义单元组合在一起必须满足的限制条件\upcite{DBLP:conf/tsd/BojarMTZ13}，从而在增大参考答案集的同时确保了每个参考答案的准确性
 
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{与词对齐一致的短语}
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/phrase-extraction-consistent-with-word-alignment}
-\caption{与词对齐一致的短语抽取}
-\label{fig:4-13}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-13}中大蓝色方块代表词对齐。通过词对齐信息，可以很容易地获得双语短语``天气 $\leftrightarrow$ The weather''。这里称其为与词对齐一致（兼容）的双语短语。具体定义如下：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 与词对齐一致（兼容）的双语短语
-
-{\small
-对于源语言句子$\mathbf{s}$和目标语句子$\mathbf{t}$，存在$\mathbf{s}$和$\mathbf{t}$之间的词对齐。如果有$(\mathbf{s},\mathbf{t})$中的双语短语$(\bar{s},\bar{t})$，且$\bar{s}$中所有单词仅对齐到$\bar{t}$中的单词，同时$\bar{t}$中所有单词仅对齐到$\bar{s}$中的单词，那么称$(\bar{s},\bar{t})$与是与词对齐一致的（兼容的）双语短语。
-}
-\end{definition}
-%-------------------------------------------
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/consistence-of-word-alignment}
-\caption{词对齐一致性}
-\label{fig:4-14}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 如图\ref{fig:4-14}所示，左边的例子中的$t_1$和$t_2$严格地对应到$s_1$、$s_2$、$s_3$，所以短语是与词对齐相一致的；中间的例子中的$t_2$对应到短语$s_1$和$s_2$的外面，所以短语是与词对齐不一致的；类似的，右边的例子也是与词对齐相一致的短语。
-
-\parinterval 图\ref{fig:4-15}展示了与词对齐一致的短语抽取过程，首先判断抽取得到的双语短语是否与词对齐保持一致，若一致，则抽取出来。在实际抽取过程中，通常需要对短语的最大长度进行限制，以免抽取过多的无用短语。比如，在实际系统中，最大短语长度一般是5-7个词。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/phrase-extraction-consistent-with-word-alignment-1}
-\caption{与词对齐一致的短语抽取}
-\label{fig:4-15}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{获取词对齐}
-
-\parinterval 如何获得词对齐呢？上一章介绍的IBM模型本身就是一个词对齐模型，因此一种常用的方法是直接使用IBM模型生成词对齐。IBM模型约定每个源语言单词必须对应、也只能对应到一个目标语单词。因此，IBM 模型得到的词对齐结果是不对称的。正常情况下词对齐可以是一个源语言单词对应多个目标语言单词，或者多对一，甚至多对多的情况。为了获得对称的词对齐，一种简单的方法是，分别进行正向翻译和反向翻译的词对齐，然后利用启发性方法生成对称的词对齐，例如，双向词对齐取交集、并集等。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/get-word-alignment}
-\caption{词对齐的获取}
-\label{fig:4-16}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 如图\ref{fig:4-16}中，左边两个图就是正向和反向两种词对齐的结果。右边的图是融合双向词对齐的结果，取交集是蓝色的方框，取并集是红色的方框。当然，还可以设计更多的启发性规则生成词对齐\cite{koehn2000estimating,koehn2007factored}。
-
-\parinterval 除此之外，一些外部工具也可以用来获取词对齐，如Fastalign\cite{dyer2013a}、Berkeley Word Aligner\cite{taskar2005a}等。词对齐的质量通常使用词对齐错误率（AER）来评价\cite{DBLP:conf/coling/OchN00}。但是词对齐并不是一个独立的系统，它一般会服务于其他任务。因此，也可以使用下游任务来评价词对齐的好坏。比如，改进词对齐后观察机器翻译系统性能的变化。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{度量双语短语质量}
-
-\parinterval 抽取双语短语之后，需要对每个双语短语的质量进行评价。这样，在使用这些双语短语时，可以更有效地估计整个句子翻译的好坏。在统计机器翻译中，一般用双语短语出现的可能性大小来度量双语短语的好坏。这里，使用相对频度估计对短语的翻译条件概率进行计算，公式如下：
+\parinterval 将参考答案集扩大后，可以继续沿用BLEU或NIST等基于$n$元语法的方法进行自动评价，但是传统方法往往会忽略多重参考答案中的重复信息，于是对每个$n$元语法进行加权的自动评价方法被提出\upcite{DBLP:conf/eamt/QinS15}。该方法根据每个$n$元语法单元的长度、在参考答案集中出现的次数、被虚词（如“the”，“by”，“a”等）分开后的分散度等方面，确定其在计算最终分数时所占的权重。以BLEU方法为例（\ref{sec:ngram-eval}节），可以将式\eqref{eq:4-7}改写为：
 \begin{eqnarray}
-\textrm{P}(\bar{t}|\bar{s}) = \frac{\textrm{count}(\bar{s},\bar{t})}{\textrm{count}(\bar{s})}
-\label{eq:4-13}
-\end{eqnarray}
-
-\parinterval 给定一个双语句对$(\mathbf{s},\mathbf{t})$，$\textrm{count}(\bar{s})$表示短语$\bar{s}$在$\mathbf{s}$中出现的次数，$\textrm{count}(\bar{s},\bar{t})$表示双语短语$(\bar{s},\bar{t})$在$(\mathbf{s},\mathbf{t})$中被抽取出来的次数。对于一个包含多个句子的语料库，$\textrm{count}(\bar{s})$和$\textrm{count}(\bar{s},\bar{t})$可以按句子进行累加。类似的，也可以用同样的方法，计算$\bar{t}$到$\bar{s}$的翻译概率，即$\textrm{P}(\bar{s}|\bar{t})$。一般会同时使用$\textrm{P}(\bar{t}|\bar{s})$和$\textrm{P}(\bar{s}|\bar{t})$度量一个双语短语的好与坏。
-
-\parinterval 当遇到低频短语时，短语翻译概率的估计可能会不准确。例如，短语$\bar{s}$和$\bar{t}$在语料中只出现了一次，且在一个句子中共现，那么$\bar{s}$到$\bar{t}$的翻译概率为$\textrm{P}(\bar{t}|\bar{s})=1$，这显然是不合理的，因为$\bar{s}$和$\bar{t}$的出现完全可能是偶然事件。既然直接度量双语短语的好坏会面临数据稀疏问题，一个自然的想法就是把短语拆解成单词，利用双语短语中单词翻译的好坏间接度量双语短语的好坏。为了达到这个目的，可以使用{\small\bfnew{词汇化翻译概率}}\index{词汇化翻译概率}（Lexical Translation Probability）\index{Lexical Translation Probability}。前面借助词对齐信息完成了双语短语的抽取，因此，词对齐信息本身就包含了短语内部单词之间的对应关系。因此同样可以借助词对齐来计算词汇翻译概率，公式如下：
-\begin{eqnarray}
-\textrm{$\textrm{P}_{\textrm{lex}}$}(\bar{t}|\bar{s}) = \prod_{j=1}^{|\bar{s}|} \frac{1}{|\{j|a(j,i) = 1\}|} \sum_{\forall(j,i):a(j,i) = 1} w(t_i|s_j)
-\label{eq:4-14}
-\end{eqnarray}
-
-\parinterval 它表达的意思是短语$\bar{s}$和$\bar{t}$存在词汇级的对应关系，其中$w$表示词汇翻译概率用来度量两个单词之间翻译的可能性大小（见第三章），作为两个词之间对应的强度。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-vocabulary-translation-probability}
-\caption{词汇翻译概率实例}
-\label{fig:4-17}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 下面来看一个具体的例子，如图\ref{fig:4-17}所示。对于一个双语短语，将它们的词对齐关系代入到上面的公式就会得到短语的词汇翻译概率。对于词汇翻译概率，可以使用IBM 模型中的单词翻译表，也可以通过统计获得\cite{koehn2002learning}。如果一个单词的词对齐为空，则用$N$表示它翻译为空的概率。和短语翻译概率一样，可以使用双向的词汇化翻译概率来评价双语短语的好坏。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-phrase-table}
-\caption{短语表实例}
-\label{fig:4-18}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 经过上面的介绍，可以从双语平行语料中把双语短语抽取出来，同时得到相应的翻译概率（即特征），组成{\small\bfnew{短语表}}\index{短语表}（Phrase Table）\index{Phrase Table}。图\ref{fig:4-18}展示了一个真实短语表的片段。其中包括源语言短语和目标语言短语，用|||进行分割。每个双语对应的得分，包括正向和反向的词汇翻译概率以及短语翻译概率，还包括词对齐信息（0-0、1-1）等其他信息。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{调序}\label{subsection-4.2.4}
-
-\parinterval 尽管已经知道了如何将一个源语言短语翻译成目标语言短语，但是想要获得一个高质量的译文，仅有互译的双语短语是远远不够的。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/reorder-base-phrase-translation}
-\caption{基于短语翻译的调序}
-\label{fig:4-19}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 如图\ref{fig:4-19}所示，按照从左到右的顺序对一个句子``在\ \ 桌子\ \ 上\ \ 的\ \ 苹果''进行翻译，得到的译文``on the table the apple''的语序是不对的。虽然可以使用$n$-gram语言模型对语序进行建模，但是此处仍然需要用更加准确的方式描述目标语短语间的次序。一般，把这个问题称为短语调序，或者简称{\small\bfnew{调序}}\index{调序}（Reordering）\index{Reordering}。通常，基于短语的调序模型会作为判别式模型的特征参与到翻译过程中来。接下来，会介绍3 种不同的调序方法，分别是基于距离的调序、基于方向的调序（MSD模型）以及基于分类的调序。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于距离的调序}
-
-\parinterval 基于距离的调序是最简单的一种调序模型。很多时候，语言的翻译基本上都是顺序的，也就是，译文单词出现的顺序和源语言单词的顺序基本上是一致的。反过来说，如果译文和源语言单词（或短语）的顺序差别很大，就认为出现了调序。
-
-\parinterval 基于距离的调序方法的核心思想就是度量当前翻译结果与顺序翻译之间的差距。对于译文中的第$i$个短语，令$start_i$表示它所对应的源语言短语中第一个词所在的位置，$end_i$表示它所对应的源语言短语中最后一个词所在的位置。于是，这个短语（相对于前一个短语）的调序距离为：
-\begin{eqnarray}
-dr = start_i-end_{i-1}-1
+\textrm{BLEU} &=& \textrm {BP} \cdot {\textrm{exp}}(\sum\limits_{n = 1}^N {{w_n} \cdot \log ({I}_n \cdot \funp{P}_n} ))
+\label{eq:4-14}\\
+{I}_n &=& n\textrm{-gram}_{\textrm {diver}} \cdot \log (n + \frac{M}{\textrm{count}_{\textrm{ref}}})
 \label{eq:4-15}
 \end{eqnarray}
 
-\parinterval 在图\ref{fig:4-20}的例子中，``the apple''所对应的调序距离为4，``on the table''所对应的调序距离为-5。显然，如果两个源语短语按顺序翻译，则$start_i = end_{i-1} + 1$，这时调序距离为0。
+\noindent 其中，${I}_n$即为为某个$n$元语法单元分配的权重，$M$为参考答案集中出现该$n$-gram中的参考答案数量，$\textrm{count}_{\textrm{ref}}$ 为参考答案集大小。$n\textrm{-gram}_{\textrm{diver}}$为该$n$-gram的分散度，用$n$-gram种类数量与语法单元总数的比值计算。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/reorder-base-distance}
-\caption{基于距离的调序}
-\label{fig:4-20}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 如果把调序距离作为特征，一般会使用指数函数$f(dr) = a^{|dr|}$作为特征函数（或者调序代价的函数），其中$a$是一个参数，控制调序距离对整个特征值的影响。调序距离$dr$的绝对值越大，调序代价越高。基于距离的调序模型比较适用于像法–英翻译这样的任务，因为两种语言的语序基本上是一致的。但是，对于汉–日翻译，由于句子结构存在很大差异（日语是谓词后置，而汉语中谓词放在宾语前），使用基于距离的调序会带来一些问题。因此，具体应用时应该根据语言之间的差异性有选择的使用该模型。
+\parinterval 需要注意的是，HyTER方法对参考译文的标注有特殊要求，因此需要单独培训译员并开发相应的标注系统。这在一定程度上也增加了该方法被使用的难度。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsubsection{基于方向的调序}
+\subsubsection{2.利用分布式表示进行质量评价}
 
-\parinterval 基于方向的调序模型是另一种常用的调序模型。该模型是一种典型的词汇化调序模型，因此调序的结果会根据不同短语有所不同。简单来说，在目标语言端连续的情况下，该模型会判断两个双语短语在源语言端的调序情况，包含三种调序类型：顺序的单调翻译（M）、与前一个短语交换位置（S）、非连续翻译（D）。因此，这个模型也被称作MSD调序模型\cite{Gros2008MSD}。
+\parinterval {\small\bfnew{词嵌入}}\index{词嵌入}（Word Embedding\index{Word Embedding}）技术是近些年自然语言处理中的重要成果，其思想是把每个单词映射为多维实数空间中的一个点（具体表现为一个实数向量），这种技术也被称作单词的{\small\bfnew{分布式表示}}\index{分布式表示}（Distributed Representation\index{Distributed Representation}）。在这项技术中，单词之间的关系可以通过空间的几何性质进行刻画，意义相近的单词之间的欧式距离也十分相近（单词分布式表示的具体内容，将在书的{\chapternine} 详细介绍，在此不再赘述）。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/three-types-of-reorder-method-in-msd}
-\caption{词汇化调序模型的三种调序类型}
-\label{fig:4-21}
-\end{figure}
-%-------------------------------------------
+\parinterval 受词嵌入技术的启发，研究人员尝试借助参考答案和机器译文的分布式表示来进行译文质量评价，为译文质量评价提供了新思路。在自然语言的上下文中，表示是与每个单词、句子或文档相关联的数学对象。这个对象通常是一个向量，其中每个元素的值在某种程度上描述了相关单词、句子或文档的语义或句法属性。基于这个想法，研究人员提出了{\small\sffamily\bfseries{分布式表示评价度量}}\index{分布式表示评价度量}（Distributed Representations Evaluation Metrics，DREEM）\index{Distributed Representations Evaluation Metrics}\upcite{DBLP:conf/acl/ChenG15}。这种方法将单词或句子的分布式表示映射到连续的低维空间，发现在该空间中，具有相似句法和语义属性的单词彼此接近，类似的结论也出现在相关工作中，如参考文献\cite{bengio2003a,DBLP:conf/emnlp/SocherPHNM11,DBLP:conf/emnlp/SocherPWCMNP13}所示。而这个特点可以被应用到译文质量评估中。
 
-\parinterval 图\ref{fig:4-21}展示了这三种调序类型，当两个短语对在源语言和目标语言中都是按顺序排列时，它们就是单调的（如：从左边数前两个短语）；如果对应的短语顺序在目标语中是反过来的，属于交换调序（如：从左边数第三和第四个短语）；如果两个短语之间还有其他的短语，就是非连续翻译（如：从右边数的前两个短语）。
+\parinterval 在DREEM中，分布式表示的选取是一个十分关键的问题，理想的情况下，分布式表示应该涵盖句子在词汇、句法、语法、语义、依存关系等各个方面的信息。目前常见的分布式表示方式如表\ref{tab:4-2}所示。除此之外，还可以通过词袋模型、循环神经网络等将词向量表示转换为句子向量表示。
 
-\parinterval 对于每种调序类型，都可以定义一个调序概率，如下：
+\begin{table}[htp]{
+\begin{center}
+\caption{常见的单词及句子分布表示}
+{
+\begin{tabular}{l|l}
+单词分布表示 & 句子分布表示 \\
+\hline
+\rule{0pt}{10pt} One-hot词向量 & RAE编码\upcite{DBLP:conf/emnlp/SocherPHNM11} \\
+\rule{0pt}{10pt} Word2Vec词向量\upcite{DBLP:journals/corr/abs-1301-3781} & Doc2Vec向量\upcite{DBLP:conf/icml/LeM14}  \\
+\rule{0pt}{10pt} Prob-fasttext词向量\upcite{DBLP:conf/acl/AthiwaratkunW17} & ELMO预训练句子表示\upcite{DBLP:conf/naacl/PetersNIGCLZ18} \\
+\rule{0pt}{10pt} GloVe词向量\upcite{DBLP:conf/emnlp/PenningtonSM14} & GPT句子表示\upcite{radford2018improving} \\
+\rule{0pt}{10pt} ELMO预训练词向量\upcite{DBLP:conf/naacl/PetersNIGCLZ18} & BERT预训练句子表示\upcite{devlin2019bert} \\
+\rule{0pt}{10pt} BERT预训练词向量\upcite{devlin2019bert} & Skip-thought向量\upcite{DBLP:conf/nips/KirosZSZUTF15} \\
+\end{tabular}
+\label{tab:4-2}
+}
+\end{center}
+}\end{table}
+
+\parinterval DREEM方法中选取了能够反映句子中使用的特定词汇的One-hot向量、能够反映词汇信息的词嵌入向量\upcite{bengio2003a}、能够反映句子的合成语义信息的{\small\sffamily\bfseries{递归自动编码}}\index{递归自动编码}（Recursive Auto-encoder Embedding，RAE）\index{Recursive Auto-encoder Embedding}，这三种表示级联在一起，最终形成句子的向量表示。在得到机器译文和参考答案的上述分布式表示后，利用余弦相似度和长度惩罚对机器译文质量进行评价。机器译文$o$和参考答案$g$之间的相似度如公式\eqref{eq:4-16}所示，其中${v_i}(o)$和${v_i}(g)$分别是机器译文和参考答案的向量表示中的第$i$ 个元素，$N$是向量表示的维度大小。
 \begin{eqnarray}
-\textrm{P}(\mathbf{o}|\mathbf{s},\mathbf{t},\mathbf{a}) = \prod_{i=1}^{K} \textrm{P}(o_i| \bar{s}_{a_i}, \bar{t}_i, a_{i-1}, a_i)
+\textrm {cos}(t,r) = \frac{{\sum\limits_{i = 1}^N {{v_i}(o) \cdot {v_i}(g)} }}{{\sqrt {\sum\limits_{i = 1}^N {v_i^2(o)} } \sqrt {\sum\limits_{i = 1}^N {v_i^2(g)} } }}
 \label{eq:4-16}
 \end{eqnarray}
 
-\noindent 其中，$o_i$表示（目标语言）第$i$个短语的调序方向，$\mathbf{o}=\{o_i\}$表示短语序列的调序方向，$K$表示短语的数量。短语之间的调序概率是由双语短语以及短语对齐决定的，$o$表示调序的种类，可以取M、S、D 中的任意一种。而整个句子调序的好坏就是把相邻的短语之间的调序概率相乘（对应取log后的加法）。这样，公式\ref{eq:4-16}把调序的好坏定义为新的特征，对于M、S、D总共就有三个特征。除了当前短语和前一个短语的调序特征，还可以定义当前短语和后一个短语的调序特征，即将上述公式中的$a_{i-1}$换成$a_{i+1}$。 于是，又可以得到三个特征。因此在MSD调序中总共可以有6个特征。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/judge-type-of-reorder-method}
-\caption{调序类型的判断}
-\label{fig:4-22}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 具体实现时，通常使用词对齐对两个短语间的调序关系进行判断。图\ref{fig:4-22}展示了这个过程。先判断短语的左上角和右上角是否存在词对齐，再根据其位置对调序类型进行划分。每个短语对应的调序概率都可以用相对频率估计进行计算。而MSD调序模型也相当于在短语表中的每个双语短语后添加6个特征。不过，调序模型一般并不会和短语表一起存储，因此在系统中通常会看到两个独立的模型文件，分别保存短语表和调序模型。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于分类的调序}
-
-\parinterval 在MSD调序中，双语短语所对应的调序概率$\textrm{P}(o_i| \bar{s}_{a_i}, \bar{t}_i, a_{i-1}, a_i)$是用极大似然估计方法进行计算的。但是，这种方法也会面临数据稀疏问题，同时对调序产生影响的细致特征也没有考虑进来。另一种有效的方法是直接用统计分类模型对调序进行建模，比如，可以使用最大熵、SVM等分类器输出调序概率或者得分\cite{xiong2006maximum,DBLP:journals/coling/OchN04,DBLP:conf/naacl/KumarB05}。对于基于分类的调序模型，有两方面问题需要考虑：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 训练样本的生成。可以把M、S、D看作是类别标签，把所对应的短语及短语对齐信息看作是输入。这样就得到了大量分类器训练所需的样本；
-\vspace{0.5em}
-\item 分类特征设计。这部分是传统统计机器学习中的重要组成部分，好的特征会对分类结果产生很大影响。在调序模型中，一般直接使用单词作为特征，比如用短语的第一个单词和最后一个单词作为特征就可以达到很好的效果。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 随着神经网络方法的兴起，也可以考虑使用多层神经网络构建调序模型\cite{li-etal-2014-neural}。这时，可以把短语直接送入一个神经网络，之后由神经网络完成对特征的抽取和表示，并输出最终的调序模型得分。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{特征}
-
-\parinterval 基于短语的模型使用判别式模型对翻译推导进行建模，给定双语句对$(\mathbf{s},\mathbf{t})$，每个翻译推导$d$都有一个模型得分，由$M$个特征线性加权得到，记为$\textrm{score}(d,\mathbf{t},\mathbf{s}) = \sum_{i=1}^{M} \lambda_i \cdot h_i (d,\mathbf{t},\mathbf{s})$，其中$\lambda_i$表示特征权重，$h_i (d,\mathbf{t},\mathbf{s})$表示特征函数（简记为$h_i (d)$）。这些特征包含刚刚介绍过的短语翻译概率、调序模型得分等，除此之外，还包含语言模型等其他特征，它们共同组成了特征集合。这里列出了基于短语的模型中常用的特征：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 短语翻译概率（取对数），包含正向翻译概率$\textrm{log}(\textrm{P}(\bar{t}|\bar{s}))$和反向翻译概率$\textrm{log}(\textrm{P}(\bar{s}$\\$|\bar{t}))$，它们是基于短语的模型中最主要的特征；
-\vspace{0.5em}
-\item 词汇化翻译概率（取对数），同样包含正向词汇化翻译概率$\textrm{log(P}_{\textrm{lex}}(\bar{t}|\bar{s}\textrm{))}$和反向词汇化翻译概率$\textrm{log(P}_{\textrm{lex}}(\bar{s}|\bar{t}\textrm{))}$，它们用来描述双语短语中单词间对应的好坏；
-\vspace{0.5em}
-\item $n$-gram语言模型，用来度量译文的流畅程度，可以通过大规模目标端单语数据得到；
-\vspace{0.5em}
-\item 译文长度，避免模型倾向于短译文，同时让系统自动学习对译文长度的偏好；
-\vspace{0.5em}
-\item 翻译规则数量，为了避免模型仅使用少量特征构成翻译推导（规则数量少，短语翻译概率相乘的因子也会少，得分一般会大一些），同时让系统自动学习对规则数量的偏好；
-\vspace{0.5em}
-\item 被翻译为空的源语言单词数量。注意，空翻译规则有时也被称作evil feature，这类特征在一些数据上对BLEU有很好的提升作用，但会造成人工评价结果的下降，需要谨慎使用；
-\vspace{0.5em}
-\item 基于MSD的调序模型，包括与前一个短语的调序模型$f_{\textrm{M-pre}}(d)$\ 、$f_{\textrm{S-pre}}(d)$\ 、$f_{\textrm{D-pre}}(d)$和与后一个短语的调序模型$f_{\textrm{M-fol}}(d)$\ 、$f_{\textrm{S-fol}}(d)$\ 、$f_{\textrm{D-fol}}(d)$，共6个特征。
-\vspace{0.5em}
-\end{itemize}
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{最小错误率训练}\label{subsection-4.2.6}
-
-\parinterval 除了特征设计，统计机器翻译也需要找到每个特征所对应的最优权重$\lambda_i$。这也就是机器学习中所说的模型训练问题。不过，需要指出的是，统计机器翻译关于模型训练的定义与传统机器学习稍有不同。在统计机器翻译中，短语抽取和翻译概率的估计被看作是{\small\bfnew{模型训练}}\index{模型训练}（Model Training）\index{Model Training}，也就是说这里的模型训练是指特征函数的学习；而特征权重的训练，一般被称作{\small\bfnew{权重调优}}\index{权重调优}（Weight Tuning）\index{Weight Tuning}，而这个过程才真正对应了传统机器学习（如分类任务）中的模型训练过程。在本章中，如果没有特殊说明，权重调优就是指特征权重的学习，模型训练是指短语抽取和特征函数的学习。
-
-\parinterval 想要得到最优的特征权重，最简单的方法是枚举所有的特征权重可能的取值，然后评价每组权重所对应的翻译性能，最后选择最优的特征权重作为调优的结果。但是特征权重是一个实数值，因此可以考虑把实数权重进行量化，即把权重看作是在固定间隔上的取值，比如，每隔0.01取值。即使是这样，同时枚举多个特征的权重也是非常耗时的工作，当特征数量增多时这种方法的效率仍然很低。
-
-\parinterval 这里介绍一种更加高效的特征权重调优方法$\ \dash \ ${\small\bfnew{最小错误率训练}}\index{最小错误率训练}（Minimum Error Rate Training\index{Minimum Error Rate Training}，MERT）。最小错误率训练是统计机器翻译发展中代表性工作，也是从机器翻译中原创的重要技术方法之一\cite{och2003minimum}。最小错误率训练假设：翻译结果相对于标准答案的错误是可度量的，进而可以通过降低错误数量的方式来找到最优的特征权重。假设有样本集合$S = \{(s_1,\mathbf{r}_1),...,(s_N,\mathbf{r}_N)\}$，$s_i$为样本中第$i$个源语言句子，$\mathbf{r}_i$为相应的参考译文。注意，$\mathbf{r}_i$可以包含多个参考译文。$S$通常被称为{\small\bfnew{调优集合}}\index{调优集合}（Tuning Set）\index{Tuning Set}。对于$S$中的每个源语句子$s_i$，机器翻译模型会解码出$n$-best推导$d_{i}^{\ast} = \{\mathbf{d}_{ij}^{\ast}\}$，其中$d_{ij}^{\ast}$表示翻译源语言句子$s_i$时得到的第$j$个最好的推导。$\{d_{ij}^{\ast}\}$可以被定义如下：
+\parinterval 在此基础上，DREEM方法还引入了长度惩罚项，对与参考答案长度相差太多的机器译文进行惩罚，长度惩罚项如公式\eqref{eq:4-17}所示，其中${l_o}$和${l_g}$分别是机器译文和参考答案长度：
 \begin{eqnarray}
-\{d_{ij}^{\ast}\} = \arg\max_{\{d_{ij}\}} \sum_{i=1}^{M} \lambda_i \cdot h_i (d,\mathbf{t},\mathbf{s})
+\textrm{BP} = \left\{ \begin{array}{l}
+\exp (1 - {{{l_g}} \mathord{\left/
+ {\vphantom {{{l_g}} {{l_o}}}} \right.
+ \kern-\nulldelimiterspace} {{l_o}}})\quad {l_o} < {l_g}\\
+\exp (1 - {{{l_o}} \mathord{\left/
+ {\vphantom {{{l_o}} {{l_g}}}} \right.
+ \kern-\nulldelimiterspace} {{l_g}}})\quad {l_o} \ge {l_g}
+\end{array} \right.
 \label{eq:4-17}
 \end{eqnarray}
 
-\parinterval 对于每个样本都可以得到$n$-best推导集合，整个数据集上的推导集合被记为$\mathbf{D}^{\ast} = \{\mathbf{d}_{1}^{\ast},...,\mathbf{d}_{s}^{\ast}\}$。进一步，令所有样本的参考译文集合为$\mathbf{R} = \{\mathbf{r}_1,...,\mathbf{r}_N\}$。最小错误率训练的目标就是降低$\mathbf{D}^{\ast}$相对于$\mathbf{R}$的错误。也就是，通过调整不同特征的权重$\lambda = \{ \lambda_i \}$，让错误率最小，形式化描述为：
+\parinterval 机器译文的最终得分如下，其中$\alpha$是一个需要手动设置的参数：
 \begin{eqnarray}
-\lambda^{\ast} = \arg\min_{\lambda} \textrm{Error}(\mathbf{D}^{\ast},\mathbf{R})
+\textrm{score}(o,g) = \textrm{cos}{^\alpha }(o,g) \times \textrm{BP}
 \label{eq:4-18}
 \end{eqnarray}
-%公式--------------------------------------------------------------------
 
-\noindent 其中\textrm{Error}$(\cdot)$是错误率函数。\textrm{Error}$(\cdot)$的定义方式有很多，一般来说\textrm{Error}$(\cdot)$会与机器翻译的评价指标相关，例如，词错误率(WER)、位置错误率(PER)、BLEU 值、NIST值等都可以用于\textrm{Error}$(\cdot)$的定义。这里使用1-BLEU作为错误率函数，即$\textrm{Error}(\mathbf{D}^{\ast},\mathbf{R}) = 1 - \textrm{BLEU}(\mathbf{D}^{\ast},\mathbf{R})$。则公式\ref{eq:4-18}可改写为：
-%公式--------------------------------------------------------------------
+\parinterval 本质上，分布式表示是一种对句子语义的一种统计表示。因此，它可以帮助评价系统捕捉一些从简单的词或者句子片段中不易发现的现象，进而进行更深层的句子匹配。
+
+\parinterval 在DREEM方法取得成功后，基于词嵌入的词对齐自动评价方法被提出\upcite{DBLP:journals/corr/MatsuoKS17}，该方法中先得到机器译文与参考答案的词对齐关系后，通过对齐关系中两者的词嵌入相似度来计算机器译文与参考答案的相似度，公式如下：
 \begin{eqnarray}
-\lambda^{\ast} &=& \arg\min_{\lambda}\ 1 - \textrm{BLEU}(\mathbf{D}^{\ast},\mathbf{R})   \nonumber \\
-&=& \arg\max_{\lambda} \textrm{BLEU}(\mathbf{D}^{\ast},\mathbf{R})
+\textrm{ASS}(o,g) = \frac{1}{{m \cdot l}}\sum\limits_{i = 1}^{m} {\sum\limits_{j = 1}^{l} {\varphi (o,g,i,j)} }
 \label{eq:4-19}
 \end{eqnarray}
-%公式--------------------------------------------------------------------
 
-\parinterval 需要注意的是， BLEU本身是一个不可微分函数。因此，无法使用梯度下降等方法对式\ref{eq:4-19}进行求解。那么如何能快速得到最优解？这里会使用一种特殊的优化方法，称作{\small\bfnew{线搜索}}\index{线搜索}（Line Search）\index{Line Search}，它是Powell搜索的一种形式\cite{powell1964an}。这种方法也构成了最小错误率训练的核心。
+\noindent 其中，$o$是机器译文，$g$是参考答案，$m$表示译文$o$的长度，$l$表示参考答案$g$的长度，函数$\varphi(o,g,i,j)$用来计算$o$中第$i$个词和$g$中第$j$个词之间对齐关系的相似度。
 
-\parinterval 首先，重新看一下特征权重的搜索空间。按照前面的介绍，如果要进行暴力搜索，需要把特征权重的取值按小的间隔进行划分。这样，所有特征权重的取值可以用图\ref{fig:4-23}的网格来表示。
+\parinterval 此外，将分布式表示与相对排序融合也是一个很有趣的想法\upcite{DBLP:journals/csl/GuzmanJMN17}，在这个尝试中，研究人员利用分布式表示提取参考答案和多个机器译文中的句法信息和语义信息，利用神经网络模型对多个机器译文进行排序。
+
+\parinterval 在基于分布式表示的这类译文质量评价方法中，译文和参考答案的所有词汇信息和句法语义信息都被包含在句子的分布式表示中，克服了单一参考答案的限制。但是同时也带来了新的问题，一方面将句子转化成分布式表示使评价过程变得不那么具有可解释性，另一方面分布式表示的质量也会对评价结果有较大的影响。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{相关性与显著性}
+
+\parinterval 近年来，随着多种有参考答案的自动评价方法的提出，译文质量评价已经渐渐从大量的人力工作中解脱转而依赖于自动评价技术。然而，一些自动评价结果的可靠性、置信性以及参考价值仍有待商榷。自动评价结果与人工评价结果的相关性以及其自身的统计显著性，都是衡量其可靠性、置信性以及参考价值的重要标准。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{1. 自动评价与人工评价的相关性}
+
+\parinterval {\small\sffamily\bfseries{相关性}}\index{相关性}（Correlation）\index{Correlation}是统计学中的概念，当两个变量之间存在密切的依赖或制约关系，但却无法确切地表示时，可以认为两个变量之间存在“相关关系”，并往往用“相关性”作为衡量关系密切程度的标准\upcite{pearson1920notes}。对于相关关系，虽然无法求解两个变量之间确定的函数关系，但是通过大量的观测数据，能够发现变量之间存在的统计规律性，而“相关性”也同样可以利用统计手段获取。
+
+\parinterval 在机器译文质量评价工作中，相比人工评价，有参考答案的自动评价具有效率高、成本低的优点，因而广受机器翻译系统研发人员青睐。在这种情况下，自动评价结果的可信度一般取决于它们与可靠的人工评价之间的相关性。随着越来越多有参考答案的自动评价方法的提出，“与人工评价之间的相关性”也被视为衡量一种新的自动评价方法是否可靠的衡量标准。
+
+\parinterval 很多研究工作中都曾对BLEU、NIST等有参考答案的自动评价与人工评价的相关性进行研究和讨论，其中也有很多工作对“相关性”的统计过程作过比较详细的阐述。在“相关性”的统计过程中，一般是分别利用人工评价方法和某种有参考答案的自动评价方法对若干个机器翻译系统的输出进行等级评价\upcite{coughlin2003correlating}或是相对排序\upcite{popescu2003experiment}，从而对比两种评价手段的评价结果是否一致。该过程中的几个关键问题会可能会对最终结果产生影响。
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{源语言句子的选择}}。由于机器翻译系统一般以单句作为翻译单元，因而评价过程中涉及的源语言句子是脱离上下文语境的单句\upcite{coughlin2003correlating}。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{人工评估结果的产生}}。人工评价过程中采用只提供标准高质量参考答案的单语评价方法，由多位评委对译文质量做出评价后进行平均作为最终的人工评价结果\upcite{coughlin2003correlating}。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{自动评价中参考答案的数量}}。在有参考答案的自动评价过程中，为了使评价结果更加准确，一般会设置多个参考答案。参考答案数量的设置会对自动评价与人工评价的相关性产生影响，也有很多工作对此进行了研究。例如人们发现有参考答案的自动评价方法在区分人类翻译和机器翻译时，设置4个参考答案的区分效果远远高于2个参考答案\upcite{culy2003limits}；也有人曾专注于研究怎样设置参考答案数量能够产生最高的相关性\upcite{finch2004using}。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{自动评价中参考答案的质量}}。从直觉上，自动评价中参考答案的质量一般会影响最终的评价结果，从而对相关性的计算产生影响。然而，有实验表明，只要参考答案的质量不是过分低劣，很多情况下自动评价都能得到相同的评价结果\upcite{DBLP:conf/coling/HamonM08}。
+\vspace{0.5em}
+\end{itemize}
+\parinterval 目前在机器译文质量评价的领域中，有很多研究工作尝试比较各种有参考答案的自动评价方法（主要以BLEU、NIST等基于$n$-gram的方法为主）与人工评价方法的相关性。整体来看，这些方法与人工评价具有一定的相关性，自动评价结果能够较好地反映译文质量\upcite{coughlin2003correlating,doddington2002automatic}。
+
+\parinterval 但是也有相关研究指出，不应该对有参考答案的自动评价方法过于乐观，而应该存谨慎态度，因为目前的自动评价方法对于流利度的评价并不可靠，同时参考答案的体裁和风格往往会对自动评价结果产生很大影响\upcite{culy2003limits}。同时，有研究者提出，在机器翻译研究过程中，忽略实际的示例翻译而仅仅通过BLEU等自动评价方式得分的提高来表明机器翻译质量的提高是不可取的，因为BLEU的提高并不足以反映翻译质量的真正提高，而在另一些情况下，为了实现翻译质量的显著提高，并不需要提高BLEU\upcite{callison2006re}。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{2. 自动评价方法的统计显著性}
+
+
+\parinterval 使用自动评价的目的是比较不同系统之间性能的差别。比如，对某个机器翻译系统进行改进后，它的BLEU值从40.0$\%$提升到40.5$\%$，能否说改进后的系统真的比改进前的翻译品质更好吗？实际上，这也是统计学中经典的{\small\sffamily\bfseries{统计假设检验}}\index{统计假设检验}（Statistical Hypothesis Testing）\index{Statistical Hypothesis Testing}问题\upcite{akaike1974new}。统计假设检验的基本原理是：如果对样本总体的某种假设是真的，那么不支持该假设的小概率事件几乎是不可能发生的；一旦这种小概率事件在某次试验中发生了，那就有理由拒绝原始的假设。例如，对于上面提到了例子，可以假设：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{原始假设}}：改进后比改进前翻译品质更好；
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{小概率事件}}（备择假设）：改进后和改进前比，翻译品质相同甚至更差。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 统计假设检验的流程如图\ref{fig:4-13}所示。其中的一个关键步骤是检验一个样本集合中是否发生了小概率事件。但是，怎样才算是小概率事件呢？比如，可以定义概率不超过0.1的事件就是小概率事件，甚至可以定义这个概率为0.05、0.01。通常，这个概率被记为$\alpha$，也就是常说的{\small\sffamily\bfseries{显著性水平}}\index{显著性水平}（Significance Level）\index{Significance Level}。 而显著性水平更准确的定义是“去真错误”的概率，即：原假设为真但是拒绝了它的概率。
 
 %----------------------------------------------
 \begin{figure}[htp]
-\centering
-\begin{tabular}{l l l}
-& \subfigure{\input{./Chapter4/Figures/search-space-representation-of-feature-weight-1}} \subfigure{\input{./Chapter4/Figures/search-space-representation-of-feature-weight-2}} \subfigure{\input{./Chapter4/Figures/search-space-representation-of-feature-weight-3}} &  \\
-\end{tabular}
-\caption{特征权重的搜索空间表示}
-\label{fig:4-23}
+    \centering
+	\input{./Chapter4/Figures/figure-the-process-of-statistical-hypothesis-testing}
+   \caption{统计假设检验的流程}
+   \label{fig:4-13}
 \end{figure}
-%-------------------------------------------
-
-\parinterval 其中横坐标为所有的$M$个特征函数，纵坐标为权重可能的取值。假设每个特征都有$V$种取值，那么遍历所有特征权重取值的组合有$M^V$种。每组$\lambda = \{\lambda_i\}$的取值实际上就是一个贯穿所有特征权重的折线，如图\ref{fig:4-23}中间红线所展示的路径。当然，可以通过枚举得到很多这样的折线（图\ref{fig:4-23}右）。假设计算BLEU的时间开销为$B$，那么遍历所有的路径的时间复杂度为$\textrm{O}(M^V \cdot B)$，由于$V$可能很大，而且$B$往往也无法忽略，因此这种计算方式的时间成本是极高的。
-
-\parinterval 对全搜索的一种改进是使用局部搜索。循环处理每个特征，每一次只调整一个特征权重的值，找到使BLEU达到最大的权重。反复执行该过程，直到模型达到稳定状态（例如BLEU不再降低）。
-
 %----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l l}
-\subfigure{\input{./Chapter4/Figures/grid-search-1}} &  \subfigure{\input{./Chapter4/Figures/grid-search-2}} \\
-\end{tabular}
-\caption{格搜索（左侧：所有点都访问（蓝色）；右侧：避开无效点（绿色））}
-\label{fig:4-24}
-\end{figure}
-%-------------------------------------------
 
-\parinterval 图\ref{fig:4-24}左侧展示了这种方法。其中红色部分为固定住的权重，相应的虚线部分为当前权重所有可能的取值，这样搜索一个特征权重的时间复杂度为$\textrm{O}(V \cdot B)$。而整个算法的时间复杂度为$\textrm{O}(L \cdot V \cdot B)$，其中$L$为循环访问特征的总次数。这种方法也被称作{\small\bfnew{格搜索}}\index{格搜索}（Grid Search）\index{Grid Search}。
-
-\parinterval 格搜索的问题在于，每个特征都要访问$V$个点，且不说$V$个点无法对连续的特征权重进行表示，里面也会存在大量的无用访问。也就是说，这$V$个点中绝大多数点根本``不可能''成为最优的权重。可以把这样的点称为无效取值点。
-
-\parinterval 能否避开这些无效的权重取值点呢？再重新看一下优化的目标BLEU。实际上，当一个特征权重发生变化时，BLEU的变化只会产生在系统1-best译文发生变化的时候。那么，可以只关注使1-best译文发生变化的取值点，而其他的取值点都不会对优化的目标函数产生变化。这也就构成了线搜索的思想。
-
-\parinterval 假设对于每个输入的句子，翻译模型生成了两个推导$\mathbf{d} = \{d_1,d_2\}$，每个推导$d$的得分score($d$)可以表示成关于第$i$个特征的权重$\lambda_i$的线性函数：
+\parinterval 回到机器翻译的问题中来。一个更加基础的问题是：一个系统评价结果的变化在多大范围内是不显著的。利用假设检验的原理，这个问题可以被描述为：评价结果落在$[x-d,x+d]$区间的置信度是$1-\alpha$。换句话说，当系统性能落在$[x-d, x+d]$外，就可以说这个结果与原始的结果有显著性差异。这里$x$通常是系统译文的BLEU计算结果，$[x-d,x+d]$是其对应的置信区间。而$d$和$\alpha$有很多计算方法，比如，如果假设评价结果服从正态分布，可以简单的计算$d$。
 \begin{eqnarray}
-\textrm{score}(d) &=& \sum_{k=1} \lambda_k \cdot h_k (d) \nonumber \\
-&=& h_i (d) \cdot \lambda_i + \sum_{k \neq i} \lambda_k \cdot h_k (d) \nonumber \\
-&=& a \cdot \lambda_i + b
+d=t \frac{s}{\sqrt{n}}
+\label{eq:4-21}
+\end{eqnarray}
+\noindent 其中，$s$是标准差，$n$是样本数。$t$是一个统计量，它与假设检验的方式、显著性水平、样本数量有关。
+
+\parinterval 而机器翻译评价使用假设检验的另一个问题是如何进行抽样。需要注意的是，这里的样本是指一个机器翻译的测试集，因为BLEU等指标都是在整个测试集上计算的，而非简单的通过句子级评价结果进行累加。为了保证假设检验的充分性，需要构建多个测试集，以模拟从所有潜在的测试集空间中采样的行为。
+
+\parinterval 最常用的方法是使用Bootstrap重采样技术\upcite{DBLP:books/sp/EfronT93}从一个固定测试集中采样不同的句子组成不同的测试集，之后在这些测试集上进行假设检验\upcite{DBLP:conf/emnlp/Koehn04}。此后，有工作指出了Bootstrap重采样方法存在隐含假设的不合理之处，并提出了使用近似随机化\upcite{noreen1989computer}方法计算自动评价方法统计显著性\upcite{DBLP:conf/acl/RiezlerM05}。另有研究工作着眼于研究自动评价结果差距大小、测试集规模、系统相似性等因素对统计显著性的影响，以及在不同领域的测试语料中计算的统计显著性是否具有通用性的问题\upcite{DBLP:conf/emnlp/Berg-KirkpatrickBK12}。
+
+\parinterval 在所有自然语言处理系统的结果对比中，显著性检验是十分必要的。很多时候不同系统性能的差异性很小，因此需要确定一些微小的进步是否是“真”的，还是只是一些随机事件。但是另一方面，从实践的角度看，当某个系统性能的提升达到一个绝对值，往往是显著的。比如，在机器翻译，BLEU提升0.5$\%$一般都是比较明显的进步。也有研究对这种观点进行了论证，也发现其中具有一定的科学性\upcite{DBLP:conf/emnlp/Berg-KirkpatrickBK12}。因此，在机器翻译系统研发中类似的方式也是可以采用的。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\sectionnewpage
+\section{无参考答案的自动评价}
+
+\parinterval 无参考答案自动评价在机器翻译领域又被称作{\small\sffamily\bfseries{质量评估}}\index{质量评估}（Quality Estimation，\\QE）\index{Quality Estimation}。与传统的译文质量评价方法不同，质量评估旨在不参照标准译文的情况下，对机器翻译系统的输出在单词、短语、句子、文档等各个层次进行评价。
+
+\parinterval 人们对于无参考答案自动评价的需求大多来源于机器翻译的实际应用。例如，在机器翻译的译后编辑过程中，译员不仅仅希望了解机器翻译系统的整体翻译质量，还需要了解该系统在某个句子上的表现如何：该机器译文的质量是否很差？需要修改的内容有多少？是否值得进行后编辑？这时，译员更加关注系统在单个数据点上（比如一段话）的可信度而非系统在测试数据集上的平均质量。这时，太多的人工介入就无法保证使用机器翻译所带来的高效性，因此在机器翻译输出译文的同时，需要质量评估系统给出对译文质量的预估结果。这些需求也促使研究人员在质量评估问题上投入了更多的研究力量。包括WMT、CCMT等知名机器翻译评测中也都设置了相关任务，受到了业界的关注。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{质量评估任务}
+
+\parinterval 质量评估任务本质上是通过预测一个能够反映评价单元的质量标签，在各个层次上对译文进行质量评价。在上文中已经提到，质量评估任务通常被划分为单词级、短语级、句子级和文档级，在接下来的内容中，将对各个级别的任务进行更加详细的介绍。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{1.单词级质量评估}
+
+\parinterval 机器翻译系统在翻译某个句子时，会出现各种类型的错误，这些错误多是一些单词翻译问题，例如单词出现歧义、单词漏译、单词错译、词形转化错误等等。单词级质量评价以单词为评估单元，目的是确定译文句子中每个单词的所在位置是否存在翻译错误和单词漏译现象。
+
+\parinterval 单词级质量评估任务可以被定义为：参照源语言句子，以单词为评价单位，自动标记出机器译文中的错误。其中的“错误”包括单词错译、单词词形错误、单词漏译等。在单词级质量评估任务中，输入是机器译文和源语言句子，输出是一系列标签序列，即图\ref{fig:4-11}中的Source tags、MT tags、Gap tags，标签序列中的每个标签对应翻译中的每个单词（或其间隙），并表明该位置是否出现错误。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\input{./Chapter4/Figures/figure-schematic-diagram-of-word-level-quality-assessment-task}
+   \caption{单词级质量评估任务示意图}
+   \label{fig:4-11}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 下面以实例\ref{eg:4-7}为例介绍该任务的具体内容，在实例\ref{eg:4-7}中加入后编辑结果是方便读者理解任务内容，实际上质量评估任务在预测质量标签时并不依赖后编辑结果：
+
+\begin{example}
+单词级质量评估任务
+
+源句（Source）：Draw or select a line.（英语）
+
+机器译文（MT）：Zeichnen oder wählen Sie eine Linie aus.（德语）
+
+后编辑结果（PE）：Zeichnen oder Sie eine Linie, oder wählen Sie eine aus.（德语）
+
+\label{eg:4-7}
+\end{example}
+
+\parinterval 单词级质量评估主要通过以下三类错误评价译文好坏：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{找出译文中翻译错误的单词}}。单词级质量评估任务要求预测一个与译文等长的质量标签序列，该标签序列反映译文端的每个单词是否能够准确表达出其对应的源端单词的含义，若是可以，则标签为“OK”，反之则为“BAD”。图\ref{fig:4-11}中的连线表示单词之间的对齐关系，图\ref{fig:4-11}中的MT tags即为该过程中需要预测的质量标签序列。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{找出源文中导致翻译错误的单词}}。单词级质量评估任务还要求预测一个与源文等长的质量标签序列，该标签序列反映源文端的每个单词是否会导致本次翻译出现错误，若是不会，则标签为“OK”，反之则为“BAD”。图\ref{fig:4-11}中的Source tags即为该过程中的质量标签序列。在具体应用时，质量评估系统往往先预测译文端的质量标签序列，并根据源文与译文之间的对齐关系，推测源端的质量标签序列。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{找出在翻译句子时出现漏译现象的位置}}。单词级质量评估任务同时也要求预测一个能够捕捉到漏译现象的质量标签序列，在译文端单词的两侧位置进行预测，若某位置未出现漏译，则该位置的质量标签为“OK”，否则为“BAD”。图\ref{fig:4-11}中的Gap tags即为该过程中的质量标签序列。为了检测句子翻译中的漏译现象，需要在译文中标记缺口，即译文中的每个单词两边都各有一个“GAP”标记，如图\ref{fig:4-11}所示。
+\vspace{0.5em}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{2.短语级质量评估}
+
+\parinterval 短语级质量评估可以看做是单词级质量评估任务的扩展：机器翻译系统引发的错误往往都是相互关联的，解码过程中某个单词出错会导致更多的错误，特别是在其局部上下文当中，以单词的“局部上下文”为基本单元进行质量评估即为短语级质量评估。
+
+\parinterval 短语级质量评估与单词级质量评估类似，其目标是找出短语中翻译错误、短语内部语序问题及漏译问题。短语级质量评估任务可以被定义为：以若干个连续单词组成的短语为基本评估单位，参照源语言句子，自动标记出短语内部短语错误以及短语之间的是否存在漏译。其中的短语错误包括短语内部单词的错译和漏译、短语内部单词的语序错误，而漏译问题则特指短语之间的漏译错误。在短语级质量评估任务中，输入是机器译文和源语言句子，输出是一系列标签序列，即图\ref{fig:4-12}中的Phrase-target tags、Gap tags，标签序列中的每个标签对应翻译中的每个单词，并表明该位置是否出现错误。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\input{./Chapter4/Figures/figure-schematic-diagram-of-phrase-level-quality-assessment-task}
+   \caption{短语级质量评估任务示意图}
+   \label{fig:4-12}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 下面以实例\ref{eg:4-8}为例介绍该任务的具体内容：
+
+\begin{example}
+短语级质量评估任务（短语间用 || 分隔）
+
+源句（Source）：Nach Zubereitung || im Kühlschrank aufbewahren || und innerha-
+
+\hspace{7.3em}lb von 24 || Stunden aufbrauchen.（德语）
+
+机器译文（MT）：After reconstitution || in the refrigerator || and used within 24 ||
+
+ \hspace{8em}hours . （英语）
+\label{eg:4-8}
+\end{example}
+
+\parinterval 短语级质量评估任务主要通过以下两类类错误评价译文好坏：
+
+\begin{itemize}
+\vspace{0.5em}
+\item 找出译文中翻译错误的短语。要求预测出一个能够捕捉短语内部单词翻译错误、单词漏译以及单词顺序错误的标签序列。该序列中每个标签都对应着一个短语，若是短语不存在任何错误，则标签为“OK”；若是短语内部存在单词翻译错误和单词漏译，则标签为“BAD”；若短语内部的单词顺序存在问题，则标签为“BAD\_word\_order”。图\ref{fig:4-12}中的连线表示单词之间的对齐关系，蓝色虚线框标出了每个短语的范围，图\ref{fig:4-12}中的Phrase-target tags即为该过程中需要预测的质量标签序列。
+\vspace{0.5em}
+\item 找出译文中短语之间漏译错误。短语级质量评估任务同时也要求预测一个能够捕捉到短语间的漏译现象的质量标签序列，在译文端短语的两侧位置进行预测，若某位置未出现漏译，则该位置的质量标签为“OK”，否则为“BAD\_omission”。图\ref{fig:4-12}中的Gap tags即为该过程中的质量标签序列。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 为了检测句子翻译中的漏译现象，参与者也被要求在译文中短语之间标记缺口，即译文中的每对短语之间都有两个“GAP”标记，一个在短语前面，一个在短语后面，与单词级类似。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{3.句子级质量评估}
+
+\parinterval 迄今为止，质量评估的大部分工作都集中在句子层次的预测上，这是因为多数情况下机器翻译系统的处理都是逐句进行，系统用户也总是每次翻译一个句子或是以句子为单位组成的文本块（段落、文档等），因此以句子作为质量评估的基本单元是很自然的。
+
+\parinterval 句子级质量评估的目标是生成能够反映译文句子整体质量的标签\ \dash \ 可以是离散型的表示某种质量等级的标签，也可以是连续型的基于评分的标签。虽然以不同的标准进行评估，同一个译文句子的质量标签可能有所不同，但可以肯定的是句子的最终质量绝不是句子中单词质量的简单累加。因为与词级的质量评估相比，句子级质量评估也会关注是否保留源句的语义、译文的语义是否连贯、译文中的单词顺序是否合理等因素。
+
+\parinterval 句子级质量系统需要根据某种评价标准，通过建立预测模型来生成一个反映句子质量的标签。人们可以根据句子翻译的目的、后编辑的工作难度、是否达到发表要求或是是否能让非母语者读懂等各个角度、各个标准去设定句子级质量评估的标准。句子级质量评估任务有多种形式：
+
+\begin{itemize}
+\vspace{0.5em}
+\item 区分“人工翻译”和“机器翻译”。在早期的工作中，研究人员试图训练一个能够区分人工翻译和机器翻译的二分类器完成句子级的质量评估\upcite{gamon2005sentence}，将被分类器判断为“人工翻译”的机器译文视为优秀的译文，将被分类器判断为“机器翻译”的机器译文视为较差的译文。一方面，这种评估方式不够直观，另一方面，这种评估方式并不十分准确，因为通过人工比对发现很多被判定为“机器翻译”的译文具有与人们期望的人类翻译相同的质量水平。
+\vspace{0.5em}
+\item 预测反映译文句子质量的“质量标签”。在同一时期，研究人员们也尝试使用人工为机器译文分配能够反映译文质量的标签\upcite{DBLP:conf/lrec/Quirk04}，例如“不可接受”、“一定程度上可接受”、“ 可接受”、“ 理想”等类型的质量标签，同时将获取机器译文的质量标签作为句子级质量评估的任务目标。
+\vspace{0.5em}
+\item 预测译文句子的相对排名。当相对排序（详见\ref{sec:human-eval-scoring}节）的译文评价方法被引入后，给出机器译文的相对排名成为句子级质量评估的任务目标。
+\vspace{0.5em}
+\item 预测译文句子的后编辑工作量。在最近的研究中，句子级的质量评估一直在探索各种类型的离散或连续的后编辑标签。例如，通过测量以秒为单位的后编辑时间对译文句子进行评分；通过测量预测后编辑过程所需的击键数对译文句子进行评分；通过计算{\small\sffamily\bfseries{人工译后编辑距离}}\index{人工译后编辑距离}（Human Translation Error Rate，HTER）\index{Human Translation Error Rate}，即在后编辑过程中编辑（插入/删除/替换）数量与参考翻译长度的占比率对译文句子进行评分。HTER的计算公式为：
+\vspace{0.5em}
+\begin{eqnarray}
+\textrm{HTER}= \frac{\mbox{编辑操作数目}}{\mbox{翻译后编辑结果长度}}
 \label{eq:4-20}
 \end{eqnarray}
 
-\parinterval 这里，$a = h_i(d)$是直线的斜率，$b = \sum_{k \neq i}^{M} \lambda_k \cdot h_k (d)$是截距。有了关于权重$\lambda_i$的直线表示，可以将$d_1$和$d_2$分别画成两条直线，如图\ref{fig:4-25}所示。在两条直线交叉点的左侧，$d_2$是最优的翻译结果；在交叉点右侧，$d_1$是最优的翻译结果。也就是说，只需知道交叉点左侧和右侧谁的BLEU 值高，$\lambda_i$的最优值就应该落在相应的范围，比如，这个例子中交叉点右侧（即$d_2$）所对应的BLEU值更高，因此最优特征权重应该在交叉点右侧（$\lambda_x \sim \lambda_i$任意取值都可以）。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l l}
-\subfigure{\input{./Chapter4/Figures/function-image-about-weight-and-Bleu-1}} &  \subfigure{\input{./Chapter4/Figures/function-image-about-weight-and-Bleu-2}} \\
-\end{tabular}
-\caption{推导得分关于权重的函数以及对应的BLEU值变化}
-\label{fig:4-25}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 这样，最优权重搜索的问题就被转化为找到最优推导BLEU值发生变化的点的问题。理论上，对于$n$-best翻译，交叉点计算最多需要$\frac{n(n-1)}{2}$次。由于$n$一般不会过大，这个时间成本完全是可以接受的。此外，在实现时还有一些技巧，比如，并不需要在每个交叉点处对整个数据集进行BLEU计算，可以只对BLEU产生变化的部分（比如$n$-gram匹配的数量）进行调整，因此搜索的整体效率会进一步得到提高。相比于格搜索，线搜索可以确保在单个特征维度上的最优值，同时保证搜索的效率。
-
-\parinterval 还有一些经验性的技巧用来完善基于线搜索的MERT。例如：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 随机生成特征权重的起始点；
-\vspace{0.5em}
-\item 搜索中，给权重加入一些微小的扰动，避免陷入局部最优；
-\vspace{0.5em}
-\item 随机选择特征优化的顺序；
-\vspace{0.5em}
-\item 使用先验知识来指导MERT（对权重的取值范围进行约束）；
-\vspace{0.5em}
-\item 使用多轮迭代训练，最终对权重进行平均。
+\parinterval 这种质量评估方式往往以单词级质量评估为基础，在其结果的基础上进行计算。以实例\ref{eg:4-7}中词级质量评估结果为例，与编辑后结果相比较，机器翻译译文中有四处漏译（“Mit”、“können”、“Sie”、“einzelne”）、三处误译（“dem”、\\“Scharfzeichner”、“scharfzeichnen”分别被误译为“Der”、“Schärfen-Werkezug”、\\“Schärfer”）、一处多译（“erscheint”），因而需要进行4次插入操作、3次替换操作和1次删除操作，而最终译文长度为12，则有$\textrm HTER=(4+3+1)/12=0.667$。需要注意的是，即便这种评估方式以单词级质量评估为基础，也不意味这句子级质量评估只是在单词级质量评估的结果上通过简单的计算来获得其得分，在实际研究中，常将其视为一个回归问题，利用大量数据学习其评分规则。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval MERT最大的优点在于可以用于目标函数不可微、甚至不连续的情况。对于优化线性模型， MERT是一种很好的选择。但是，也有研究发现，简单使用MERT无法处理特征数量过多的情况。比如，用MERT优化10000个稀疏特征的权重时，优化效果可能会不理想，而且收敛速度慢。这时也可以考虑使用在线学习等技术对大量特征的权重进行调优，比较有代表性的方法包括MIRA\cite{DBLP:conf/emnlp/ChiangMR08}和PRO\cite{Hopkins2011Tuning}。由于篇幅所限，这里不对这些方法做深入讨论，感兴趣的读者可以参考\ref{section-4.5}节的内容，对相关文献进行查阅。
+%----------------------------------------------------------------------------------------
+%    NEW SUBSUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsubsection{4.文档级质量评估}
+
+\parinterval 文档级质量评估的主要目的是对机器翻译得到的整个译文文档进行打分。文档级质量评估中，“文档”很多时候并不单单指一整篇文档，而是指包含多个句子的文本，例如包含3到5个句子的段落或是像新闻文章一样的长文本。
+
+\parinterval 传统的机器翻译任务中，往往以一个句子作为输入和翻译的单元，而忽略了文档中句子之间的联系，这可能会使文档的论述要素受到影响，最终导致整个文档的语义不连贯。如实例\ref{eg:4-9}所示，在第二句中“he”原本指代第一句中的“housewife”，这里出现了错误，但这种错误在句子级的质量评估中并不能被发现。
+
+\begin{example}
+文档级质量评估任务
+
+Candidate： A {\red housewife} won the first prize in the supermarket's anniversary
+
+\hspace{5em}celebration.
+
+Reference： A few days ago, {\red he} contacted the News Channel and said that the
+
+\hspace{5em}supermarket owner refused to give {\red him} the prize.
+\label{eg:4-9}
+\end{example}
+
+\parinterval 在文档级质量评估中，有两种衡量文档译文的质量的方式：
+
+\begin{itemize}
+\vspace{0.5em}
+\item 阅读理解测试得分情况。以往衡量文档译文质量的主要方法是采用理解测试\upcite{,DBLP:conf/icassp/JonesGSGHRW05}，即利用提前设计好的与文档相关的阅读理解题目（包括多项选择题类型和问答题类型）对母语为目标语言的多个测试者进行测试，将代表测试者在给定文档上的问卷中的所有问题所得到的分数作为质量标签。
+\vspace{0.5em}
+\item 后编辑工作量。 最近的研究工作中，多是采用对文档译文进行后编辑的工作量评估文档译文的质量。为了准确获取文档后编辑的工作量，两阶段后编辑方法被提出\upcite{DBLP:conf/eamt/ScartonZVGS15}，即第一阶段对文档中的句子单独在无语境情况下进行后编辑，第二阶段将所有句子重新合并成文档后再进行后编辑。两阶段中后编辑工作量的总和越多，意味着文档译文质量越差。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 在文档级质量评估任务中，需要对译文文档做一些更细粒度的注释，注释内容包括错误位置、错误类型和错误的严重程度，最终在注释的基础上对译文文档质量进行评估。
+
+\parinterval 与更细粒度的词级和句子级的质量评价相比，文档级质量评估更加复杂。其难点之一在于文档级的质量评估过程中需要根据一些主观的质量标准去对文档进行评分，例如在注释的过程中，对于错误的严重程度并没有严格的界限和规定，只能靠评测人员主观判断，这就意味着随着出现主观偏差的注释的增多，文档级质量评估的参考价值会大打折扣。另一方面，根据所有注释（错误位置、错误类型及其严重程度）对整个文档进行评分本身就具有不合理性，因为译文中有些在抛开上下文环境的情况下可以并判定为“翻译得不错的”单词和句子，一旦被放在文档中的语境后就可能变得不合理，而某些在无语境条件下看起来翻译得“ 糟糕透了”的单词和句子，一旦被放在文档中的语境中可能会变得恰到好处。此外，构建一个质量评测模型势必需要大量的标注数据，而文档级质量评测所需要的带有注释的数据的获取代价相当高。
+
+\parinterval 实际上，文档级质量评估与其它文档级自然语言处理任务面临的问题是一样的。由于数据稀缺，无论是系统研发，还是结果评价都面临很大挑战。这些问题也会在本书的{\chaptersixteen}和{\chapterseventeen}进行讨论。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{栈解码}
+\subsection{构建质量评估模型}
 
-\parinterval 解码的目的是根据模型以及输入，找到模型得分最高的推导，即：
-\begin{eqnarray}
-\hat{d} = \arg\max_{d} \textrm{score}(d,\mathbf{t},\mathbf{s})
-\label{eq:4-21}
-\end{eqnarray}
+\parinterval 不同于有参考答案的自动评价，质量评估方法的实现较为复杂。质量评估可以被看作是一个统计推断问题，即：如何根据以往得到的经验对从未见过的机器译文的质量做出预测。从这个角度说，质量评估和机器翻译问题一样，都需要设计模型进行求解，而无法像BLEU计算一样直接使用指标性的公式计算就能得到结果。
 
-\parinterval 然而想要找到得分最高的翻译推导并不是一件简单的事情。对于每一句源语言句子，可能的翻译结果是指数级的。而机器翻译解码也已经被证明是一个NP难问题\cite{knight1999decoding}。简单的暴力搜索显然不现实。因此，在机器翻译中会使用特殊的解码策略来确保搜索的效率。本节将介绍基于栈的自左向右解码方法。它是基于短语的模型中的经典解码方法，非常适于处理语言生成的各种任务。
+\parinterval 实际上，质量评估的灵感最初来源于语音识别中的置信度评价，所以最初研究人员也尝试通过翻译模型中的后验概率来直接评价翻译质量\upcite{DBLP:conf/interspeech/FetterDR96}，然而仅仅依靠概率值作为评价标准显然是远远不够的，其效果也让人大失所望。之后，质量评估被定义为一个有监督的机器学习问题。这也形成了质量评估的新范式：使用机器学习算法利用句子的某种表示对译文质量进行评价。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/basic-process-of-translation}
-\caption{翻译的基本流程}
-\label{fig:4-26}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 首先，看一下翻译一个句子的基本流程。如图\ref{fig:4-26}所示，首先需要得到译文句子的第一个单词。在基于短语的模型中，可以从源语言端找出生成句首译文的短语，之后把译文放到目标语言端，例如，源语言的``有''对应的译文是``There is''。这个过程可以重复执行，直到生成完整句子的译文。但是，有两点需要注意：
+\parinterval 研究人员将质量评估模型的基本框架设计为两部分：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 源语言的每个单词（短语）只能被翻译一次；
+\item 表示/特征学习模块：用于在数据中提取能够反映翻译结果质量的“特征”；
 \vspace{0.5em}
-\item 译文的生成需自左向右连续进行。
-\vspace{0.5em}
+\item 质量评估模块：基于句子的表示结果，利用机器学习算法预测翻译结果的质量。
 \end{itemize}
 
-\parinterval 前者对应了一种{\small\bfnew{覆盖度模型}}\index{覆盖度模型}（Coverage Model）\index{Coverage Model}；后者定义了解码的方向，这样可以确保$n$-gram语言模型的计算是准确的。这样，就得到了一个简单的基于短语的机器翻译解码框架。每次从源语言句子中找到一个短语，作为译文最右侧的部分，重复执行直到整个译文被生成出来。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{翻译候选匹配}
-
-\parinterval 在解码时，首先要知道每个源语言短语可能的译文都是什么。对于一个源语言短语，每个可能的译文也被称作{\small\bfnew{翻译候选}}\index{翻译候选}（Translation Candidate）\index{Translation Candidate}。实现翻译候选的匹配很简单。只需要遍历输入的源语言句子中所有可能的短语，之后在短语表中找到相应的翻译即可。比如，图\ref{fig:4-27}展示了句子``桌子\ 上\ 有\ 一个\ 苹果''的翻译候选匹配结果。可以看到，不同的短语会对应若干翻译候选。这些翻译候选会保存在所对应的跨度中。比如，``upon the table''是短语``桌子 上 有''的翻译候选，即对应源语言跨度[0,3]。
-
-%----------------------------------------------
-\begin{figure}[t]
-\centering
-\input{./Chapter4/Figures/translation-option}
-\caption{一个句子匹配的短语翻译候选}
-\label{fig:4-27}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{翻译假设扩展}
-
-\parinterval 下一步，需要使用这些翻译候选生成完整的译文。在机器翻译中，一个很重要的概念是{\small\bfnew{翻译假设}}\index{翻译假设}（Translation Hypothesis）\index{Translation Hypothesis}。 它可以被当作是一个局部译文所对应的短语翻译推导。在解码开始时，只有一个空假设，也就是任何译文单词都没有被生成出来。接着，可以挑选翻译选项来扩展当前的翻译假设。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/translation-hypothesis-extension}
-\caption{翻译假设扩展}
-\label{fig:4-28}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-28}展示了翻译假设扩展的过程。在翻译假设扩展时，需要保证新加入的翻译候选放置在旧翻译假设译文的右侧，也就是要确保翻译自左向右的连续性。而且，同一个翻译假设可以使用不同的翻译候选进行扩展。例如，扩展第一个翻译假设时，可以选择``桌子''的翻译候选``table''；也可以选择``有''的翻译候选``There is''。扩展完之后需要记录输入句子中已翻译的短语，同时计算当前所有翻译假设的模型得分。这个过程相当于生成了一个图的结构，每个节点代表了一个翻译假设。当翻译假设覆盖了输入句子所有的短语，不能被继续扩展时，就生成了一个完整的翻译假设（译文）。最后需要找到得分最高的完整翻译假设，它对应了搜索图中的最优路径。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{剪枝}
-
-\parinterval 假设扩展建立了解码算法的基本框架。但是，当句子变长时，这种方法还是面临着搜索空间爆炸的问题。对于这个问题，常用的解决办法是{\small\bfnew{剪枝}}\index{剪枝}（Pruning）\index{Pruning}，也就是在搜索图中排除掉一些节点。比如，可以使用{\small\bfnew{束剪枝}}\index{束剪枝}（Beam Pruning）\index{Beam Pruning}，确保每次翻译扩展时，最多生成$k$个新的翻译假设。这里$k$可以被看做是束的宽度。通过控制$k$的大小，可以在解码精度和速度之间进行平衡。这种基于束宽度进行剪枝的方法也被称作{\small\bfnew{直方图剪枝}}\index{直方图剪枝}（Histogram Pruning）\index{Histogram Pruning}。另一种思路是，每次扩展时只保留与最优翻译假设得分相差在$\delta$之内的翻译假设。$\delta$可以被看作是一种与最优翻译假设之间距离的阈值，超过这个阈值就被剪枝。这种方法也被称作{\small\bfnew{阈值剪枝}}\index{阈值剪枝}（Threshold Pruning）\index{Threshold Pruning}。
-
-\parinterval 不过，即使引入束剪枝，解码过程中仍然会有很多冗余的翻译假设。有两种方法可以进一步加速解码：
+\parinterval 在传统机器学习的观点下，句子都是由某些特征表示的。因此需要人工设计能够对译文质量评估有指导性作用的特征\upcite{DBLP:conf/wmt/Bicici13a,DBLP:conf/wmt/SouzaBTN13,DBLP:conf/wmt/BiciciW14,DBLP:conf/wmt/SouzaGBTN14,DBLP:conf/wmt/Espla-GomisSF15}，常用的特征有：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 对相同译文的翻译假设进行重新组合；
+\item 复杂度特征：反映了翻译一个源文的难易程度，翻译难度越大，译文质量低的可能性就越大；
 \vspace{0.5em}
-\item 对低质量的翻译假设进行裁剪。
+\item 流畅度特征：反映了译文的自然度、流畅度、语法合理程度；
+\vspace{0.5em}
+\item 置信度特征：反映了机器翻译系统对输出的译文的置信程度；
+\vspace{0.5em}
+\item 充分度特征：反映了源文和机器译文在不同语言层次上的密切程度或关联程度。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 对翻译假设进行重新组合又被称作{\small\bfnew{假设重组}}\index{假设重组}（Hypothesis Recombination）\index{Hypothesis Recombination}。其核心思想是，把代表同一个译文的不同翻译假设融合为一个翻译假设。如图29所示，对于给定的输入短语``一个\ \ 苹果''，系统可能将两个单词``一个''、``苹果''分别翻译成``an''和``apple''，也可能将这两个单词作为一个短语直接翻译成``an apple''。虽然这两个翻译假设得到的译文相同，并且覆盖了相同的源语言短语，但是却是两个不同的翻译假设，模型给它们的打分也是不一样的。这时，可以舍弃两个翻译假设中分数较低的那个，因为分数较低的翻译假设永远不可能成为最优路径的一部分。这也就相当于把两个翻译假设重组为一个假设。
+\parinterval 随着深度学习技术的发展，另一种思路是使用表示学习技术生成句子的分布式表示，并在此基础上利用神经网络自动提取高度抽象的句子特征\upcite{DBLP:conf/wmt/KreutzerSR15,DBLP:conf/wmt/MartinsAHK16,DBLP:conf/wmt/ChenTZXZLW17}，这样就避免了人工设计特征所带来的时间以及人工代价，同时表示学习所得到的分布式表示可以涵盖更多人工设计难以捕获到的特征，更加全面地反映句子的特点，因此在质量评估任务上也取得了很好的效果\upcite{kreutzer2015quality,DBLP:conf/wmt/ShahLPBBBS15,DBLP:conf/wmt/ScartonBSSS16,DBLP:conf/wmt/AbdelsalamBE16,DBLP:conf/wmt/BasuPN18,DBLP:conf/wmt/Lo19,DBLP:conf/wmt/YankovskayaTF19}。比如，最近的一些工作中大量使用了神经机器翻译模型来获得双语句子的表示结果，并用于质量评估\upcite{DBLP:conf/wmt/Qi19,DBLP:conf/wmt/ZhouZH19,DBLP:conf/wmt/Hokamp17,wang2019niutrans}。这样做的好处在于，质量评估可以直接复用机器翻译的模型，从某种意义上降低了质量评估系统开发的代价。此外，随着近几年各种预训练模型的出现，使用预训练模型来获取用于质量评估的句子表示也成为一大流行趋势，这种方法大大减少了质量评估模型自身的训练时间，在该领域内的表现也十分亮眼\upcite{kepler2019unbabel,DBLP:conf/wmt/YankovskayaTF19,DBLP:conf/wmt/KimLKN19}。关于表示学习、神经机器翻译、预训练模型的内容在第九章和第十章会有进一步介绍。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-hypothesis-recombination}
-\caption{假设重组示例}
-\label{fig:4-29}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 即使翻译假设对应的译文不同也可以进行假设重组。图\ref{fig:4-29}的下半部分给出了一个这样的实例。在两个翻译假设中，第一个单词分别被翻译成了``it''和``he''，紧接着它们后面的部分都被翻译成了``is not''。这两个翻译假设是非常相似的，因为它们译文的最后两个单词是相同的，而且翻译假设都覆盖了相同的源语言部分。这时，也可以对这两个翻译假设进行假设重组：如果得分较低的翻译假设和得分较高的翻译假设都使用相同的翻译候选进行扩展，且两个翻译假设都覆盖相同的源语言单词，分数低的翻译假设可以被剪枝掉。此外，还有两点需要注意：
+\parinterval 在得到句子表示之后，可以使用质量评估模块对译文质量进行预测。质量评估模型通常由回归算法或分类算法实现：
 
 \begin{itemize}
 \vspace{0.5em}
-\item $n$-gram语言模型将前$n-1$单词作为历史信息，所以当两个假设最后$n-1$个单词不相同时，不能进行假设重组，因为后续的扩展可能会得到不同的语言模型得分，并影响最终的模型得分；
+\item 句子级和文档级质量评估目前大多通过回归算法实现。由于在句子级和文档级的质量评估中，标签是使用连续数字（得分情况）表示的，因此回归算法是最合适的选择。最初的工作中，研究人员们多采用传统的机器学习回归算法\upcite{DBLP:conf/wmt/Bicici13a,DBLP:conf/wmt/SouzaGBTN14,DBLP:conf/wmt/HildebrandV13}，而近年来，研究人员则更青睐于使用神经网络方法进行句子级和文档级质量评估；
 \vspace{0.5em}
-\item 调序模型通常是用来判断当前输入的短语与前一个输入短语之间的调序代价。因此当两个翻译假设对应短语在源语言中的顺序不同时，也不能被重新组合。
+\item 单词级和短语级质量评估多由分类算法实现。对于单词级质量评估任务中标记“OK”或“BAD”，这对应了经典的二分类问题，因此可以使用分类算法对其进行预测。自动分类算法在第三章已经涉及，质量评估中直接使用成熟的分类器即可。此外，使用神经网络方法进行分类也是不错的选择。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 然而在实际处理中，并不需要``删掉''分数低的翻译假设，而是将它们与分数高的翻译假设连在了一起。对于搜索最优翻译，这些连接可能并没有什么作用，但是如果需要分数最高的前两个或前三个翻译，就可能需要用到这些连接。
-
-\parinterval 翻译假设的重组有效地减少了解码过程中相同或者相似翻译假设带来的冗余。因此这些方法在机器翻译中被广泛使用。包括本章后面将要介绍的基于句法的翻译模型解码中，也可以使用假设重组进行系统加速。
-
+\parinterval 值得一提的是，近年来的研究工作中，模型集成已经成为了提高质量评估模型性能的重要手段之一，该方法能够有效减缓使用单一模型时可能存在的性能不稳定，提升译文质量评估模型在不同测试集下的鲁棒性，最终获得更高的预测准确度\upcite{DBLP:conf/wmt/Hokamp17,DBLP:conf/wmt/MartinsAHK16,kepler2019unbabel,martins2016unbabel,wang2019niutrans}。
 %----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
+%    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsubsection{解码中的栈结构}
+\subsection{质量评估的应用场景}
 
-\parinterval 当质量较差的翻译假设在扩展早期出现时，这些翻译假设需要被剪枝掉，这样可以忽略所有从它扩展出来的翻译假设，进而有效地减小搜索空间。但是这样做也存在着一定的问题，首先，删除的翻译假设可能会在后续的扩展过程中被重新搜索出来。其次，过早地删除某些翻译假设可能会导致无法搜索到最优的翻译假设。所以最好的情况是尽早删除质量差的翻译假设，同时又不会对整个搜索结果产生过大影响。但是这个``质量''从哪个方面来衡量，也是一个需要思考的问题。理想的情况就是从早期的翻译假设中，挑选一些可比的翻译假设进行筛选。
+\parinterval 很多情况下参考答案是很难获取的，例如，在很多人工翻译生产环节中，译员的任务就是“创造”翻译。如果已经有了答案，译员根本不需要工作，也谈不上应用机器翻译技术了。这时更多的是希望通过质量评估帮助译员有效地选择机器翻译结果。质量评估的应用场景还有很多，例如：
 
-\parinterval 目前比较通用的做法是将翻译假设进行整理，放进一种栈结构中。这里所说的``栈''是为了描述方便的一种说法。它实际上就是保存多个翻译假设的一种数据结构\footnote[4]{虽然被称作栈，实际上使用一个堆进行实现。这样可以根据模型得分对翻译假设进行排序。}。当放入栈的翻译假设超过一定阈值时（比如200），可以删除掉模型得分低的翻译假设。一般，会使用多个栈来保存翻译假设，每个栈代表覆盖源语言单词数量相同的翻译假设。
+\begin{itemize}
+\vspace{0.5em}
+\item 判断人工后编辑的工作量。人工后编辑工作中有两个不可避免的问题：1）待编辑的机器译文是否值得改？2）待编辑的机器译文需要修改哪里？对于一些质量较差的机器译文来说，人工重译远远比修改译文的效率高，后编辑人员可以借助质量评估系统提供的指标筛选出值得进行后编辑的机器译文，另一方面，质量评估模型可以为每条机器译文提供{错误内容、错误类型、错误严重程度}的注释，这些内容将帮助后编辑人员准确定位到需要修改的位置，同时在一定程度上提示后编辑人员采取何种修改策略，势必能大大减少后编辑的工作内容。
+\vspace{0.5em}
+\item 自动识别并更正翻译错误。质量评估和{\small\sffamily\bfseries{自动后编辑}}\index{自动后编辑}（Automatic Post-editing，APE）\index{Automatic Post-editing}也是很有潜力的应用方向。因为质量评估可以预测出错的位置，进而可以使用自动方法修正这些错误。但是，在这种应用模式中，质量评估的精度是非常关键的，因为如果预测错误可能会产生错误的修改，甚至带来整体译文质量的下降。
+\vspace{0.5em}
+\item 辅助外语交流和学习。例如，在很多社交网站上，用户会利用外语进行交流。质量评估模型可以提示该用户输入的内容中存在的用词、语法等问题，这样用户可以重新对内容进行修改。甚至质量评估可以帮助外语学习者发现外语使用中的问题，例如，对于一个英语初学者，如果能提示他/她写的句子中的明显错误，对他/她的外语学习是非常有帮助的。
+\vspace{0.5em}
+\end{itemize}
 
-\parinterval 比如，第一个堆栈包含了覆盖一个源语言单词的翻译假设，第二个堆栈包含了覆盖两个源语言单词的翻译假设，以此类推。利用覆盖源语言单词数进行栈的划分的原因在于：翻译相同数量的单词所对应的翻译假设一般是``可比的''，因此在同一个栈里对它们进行剪枝带来的风险较小。
-
-\parinterval 在基于栈的解码中，每次都会从所有的栈中弹出一个翻译假设，并选择一个或者若干个翻译假设进行扩展，之后把新得到的翻译假设重新压入解码栈中。这个过程不断执行，并可以配合束剪枝、假设重组等技术。最后在覆盖所有源语言单词的栈中得到整个句子的译文。图\ref{fig:4-30}展示了一个简单的栈解码过程。第一个栈（0号栈）用来存放空翻译假设。之后通过假设扩展，不断将翻译假设填入对应的栈中。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-stack-decode}
-\caption{栈解码示例}
-\label{fig:4-30}
-\end{figure}
-%-------------------------------------------
+\parinterval 需要注意的是，质量评估的应用模式还没有完全得到验证。这一方面是由于，质量评估的应用非常依赖与人的交互过程。但是，改变人的工作习惯是很困难的，因此质量评估系统在应用时往往需要很长的时间适应到场景中，或者说人也要适应质量评估系统的行为。另一方面，质量评估的很多应用场景还没有完全被发掘出来，需要更长的时间进行探索。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
 \sectionnewpage
-\section{基于层次短语的模型}\label{section-4.3}
+\section{小结及拓展阅读}
 
-\parinterval 在机器翻译中，如果翻译需要局部上下文的信息，把短语作为翻译单元是一种理想的方案。但是，单词之间的关系并不总是``局部''的，很多时候需要距离更远一些的搭配。比较典型的例子是含有从句的情况。比如：
-\begin{eqnarray}
-\qquad \textrm{{\small\bfnew{我}}\ \ 在\ \ 今天\ \ 早上\ \ 没有\ \ 吃\ \ 早\ \ 饭\ \ 的\ \ 情况\ \ 下\ \ 还是\ \ 正常\ \ {\small\bfnew{去}}\ \ {\small\bfnew{上班}}\ \ 了。} \nonumber
-\end{eqnarray}
-
-\parinterval 这句话的主语``我''和谓语``去\ 上班''构成了主谓搭配，而二者之间的部分是状语。显然，用短语去捕捉这个搭配需要覆盖很长的词串，也就是整个``我 $...$ 去 上班''的部分。如果把这样的短语考虑到建模中，会面临非常严重的数据稀疏问题，因为无法保证这么长的词串在训练数据中能够出现。
-
-%----------------------------------------------
-\begin{table}[htp]{
-\begin{center}
-\caption{不同短语在训练数据中出现的频次}
-\label{tab:4-1}
-\begin{tabular}{p{12em} | r}
-短语(中文) & 训练数据中出现的频次 \\
-\hline
-
-包含 & 3341\\
-包含\ 多个 & 213\\
-包含\ 多个\ 词 & 12\\
-包含\ 多个\ 词\ 的 & 8\\
-包含\ 多个\ 词\ 的\ 短语 & 0\\
-包含\ 多个\ 词\ 的\ 短语\ 太多 & 0\\
-\end{tabular}
-\end{center}
-}\end{table}
-%-------------------------------------------
-
-\parinterval 实际上，随着短语长度变长，短语在数据中会变得越来越低频，相关的统计特征也会越来越不可靠。表\ref{tab:4-1}就展示了不同长度的短语在训练数据中出现的频次。可以看到，长度超过3的短语已经非常低频了，更长的短语甚至在训练数据中一次也没有出现过。
-
-\parinterval 显然，利用过长的短语来处理长距离的依赖并不是一种十分有效的方法。过于低频的长短语无法提供可靠的信息，而且使用长短语会导致模型体积急剧增加。
-
-\parinterval 再来看一个翻译实例\cite{Chiang2012Hope}，图\ref{fig:4-31}是一个基于短语的机器翻译系统的翻译结果。这个例子中的调序有一些复杂，比如，``少数\ 国家\ 之一''和``与\ 北韩\ 有\ 邦交''的英文翻译都需要进行调序，分别是``one of the few countries''和``have diplomatic relations with North Korea''。基于短语的系统可以很好地处理这些调序问题，因为它们仅仅使用了局部的信息。但是，系统却无法在这两个短语（1和2）之间进行正确的调序。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/an-example-of-phrase-system}
-\caption{基于短语的机器翻译实例\cite{Chiang2012Hope}}
-\label{fig:4-31}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 这个例子也在一定程度上说明了长距离的调序需要额外的机制才能得到更好地被处理。实际上，两个短语（1和2）之间的调序现象本身对应了一种结构，或者说模板。也就是汉语中的：
-\begin{eqnarray}
-\text{与}\ \ \text{[什么东西]}\ \ \text{有}\ \ \text{[什么事]} \quad \nonumber
-\end{eqnarray}
-
-\parinterval 可以翻译成：
-\begin{eqnarray}
-\textrm{have}\ \ \text{[什么事]}\ \ \textrm{with}\ \ \text{[什么东西]} \nonumber
-\end{eqnarray}
-
-\parinterval 这里[什么东西]和[什么事]表示模板中的变量，可以被其他词序列替换。通常，可以把这个模板形式化描述为：
-\begin{eqnarray}
-\langle \ \text{与}\ \textrm{X}_1\ \text{有}\ \textrm{X}_2,\quad \textrm{have}\ \textrm{X}_2\ \textrm{with}\ \textrm{X}_1\ \rangle \nonumber
-\end{eqnarray}
-
-\noindent 其中，逗号分隔了源语言和目标语言部分，$\textrm{X}_1$和$\textrm{X}_2$表示模板中需要替换的内容，或者说变量。源语言中的变量和目标语言中的变量是一一对应的，比如，源语言中的$\textrm{X}_1$ 和目标语言中的$\textrm{X}_1$代表这两个变量可以``同时''被替换。假设给定短语对：
-\begin{eqnarray}
-\langle \ \text{北韩},\quad \textrm{North Korea} \ \rangle \qquad\ \quad\quad\ \  \nonumber \\
-\langle \ \text{邦交},\quad \textrm{diplomatic relations} \ \rangle\quad\ \ \ \nonumber
-\end{eqnarray}
-
-\parinterval 可以使用第一个短语替换模板中的变量$\textrm{X}_1$，得到：
-\begin{eqnarray}
-\langle \ \text{与}\ \text{[北韩]}\ \text{有}\ \textrm{X}_2,\quad \textrm{have}\ \textrm{X}_2\ \textrm{with}\ \textrm{[North Korea]} \ \rangle \nonumber
-\end{eqnarray}
-
-\noindent 其中，$[\cdot]$表示被替换的部分。可以看到，在源语言和目标语言中，$\textrm{X}_1$被同时替换为相应的短语。进一步，可以用第二个短语替换$\textrm{X}_2$，得到：
-\begin{eqnarray}
-\quad\langle \ \text{与}\ \text{北韩}\ \text{有}\ \text{[邦交]},\quad \textrm{have}\ \textrm{[diplomatic relations]}\ \textrm{with}\ \textrm{North Korea} \ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 至此，就得到了一个完整词串的译文。类似的，还可以写出其他的翻译模板，如下：
-\begin{eqnarray}
-\langle \ \textrm{X}_1\ \text{是}\ \textrm{X}_2,\quad \textrm{X}_1\ \textrm{is}\ \textrm{X}_2 \ \rangle \qquad\qquad\ \nonumber \\
-\langle \ \textrm{X}_1\ \text{之一},\quad \textrm{one}\ \textrm{of}\ \textrm{X}_1 \ \rangle \qquad\qquad\ \nonumber \\
-\langle \ \textrm{X}_1\ \text{的}\ \textrm{X}_2,\quad \textrm{X}_2\ \textrm{that}\ \textrm{have}\ \textrm{X}_1\ \rangle\quad\ \nonumber
-\end{eqnarray}
-
-\parinterval 使用上面这种变量替换的方式，就可以得到一个完整句子的翻译。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/translation-rule-describe-two-sentence-generation}
-\caption{使用短语和翻译模板进行双语句子的同步生成}
-\label{fig:4-32}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 这个过程如图\ref{fig:4-32}所示。其中，左右相连接的方框表示翻译模版的源语言和目标语言部分。可以看到，模版中两种语言中的变量会被同步替换，替换的内容可以是其他模版生成的结果。这也就对应了一种层次结构，或者说互译的句对可以被双语的层次结构同步生成出来。
-
-\parinterval 实际上，在翻译中使用这样的模版就构成了层次短语模型的基本思想。下面就一起看看如何对翻译模版进行建模，以及如何自动学习并使用这些模版。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{同步上下文无关文法}
-
-\parinterval {\small\bfnew{基于层次短语的模型}}\index{基于层次短语的模型}（Hierarchical Phrase-based Model）\index{Hierarchical Phrase-based Model}是David Chiang于2005提出的统计机器翻译模型\cite{chiang2005a,chiang2007hierarchical}。这个模型可以很好地解决短语系统对翻译中长距离调序建模不足的问题。基于层次短语的系统也在多项机器翻译比赛中取得了很好的成绩。这项工作也获得了自然处理领域顶级会议ACL2015的最佳论文奖。
-
-\parinterval 层次短语模型的核心是把翻译问题归结为两种语言词串的同步生成问题。实际上，词串的生成问题是自然语言处理中的经典问题，早期的研究更多的是关注单语句子的生成，比如，如何使用句法树描述一个句子的生成过程。层次短语模型的创新之处是把传统单语词串的生成推广到双语词串的同步生成上。这使得机器翻译可以使用类似句法分析的方法进行求解。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{文法定义}
-
-\parinterval 层次短语模型中一个重要的概念是{\small\bfnew{同步上下文无关文法}}\index{同步上下文无关文法}（Synchronous Context-free Grammar\index{Synchronous Context-free Grammar}，简称SCFG）。SCFG可以被看作是对源语言和目标语言上下文无关文法的融合，它要求源语言和目标语言的产生式及产生式中的变量具有对应关系。具体定义如下：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 同步上下文无关文法
-
-{\small
-一个同步上下文无关文法由五部分构成$(N, T_s, T_t, I, R)$，其中：
-\begin{enumerate}
-\item $N$是非终结符集合。
-\item $T_s$和$T_t$分别是源语言和目标语言的终结符集合。
-\item $I \subseteq N$起始非终结符集合。
-\item $R$是规则集合，每条规则$r \in R$有如下形式：
-\end{enumerate}
-\begin{displaymath}
-\textrm{LHS} \to <\alpha, \beta, \sim>
-\end{displaymath}
-其中，$\textrm{LHS} \in N$表示规则的左部，它是一个非终结符；规则的右部由三部分组成，$\alpha \in (N \bigcup T_s)^{*}$表示由源语言终结符和非终结符组成的串；$\beta \in (N \bigcup T_t)^{*}$ 表示由目标语言终结符和非终结符组成的串；$\sim$表示$\alpha$和$\beta$中非终结符的1-1对应关系。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 根据这个定义，源语言和目标语言有不同的终结符集合（单词），但是它们会共享同一个非终结符集合（变量）。每个产生式包括源语言和目标语言两个部分，分别表示由规则左部生成的源语言和目标语言符号串。由于产生式会同时生成两种语言的符号串，因此这是一种``同步''生成，可以很好地描述翻译中两个词串之间的对应。\\
-
-\parinterval 下面是一个简单的SCFG实例：
-\begin{eqnarray}
-\textrm{S}\ &\to\ &\langle \ \textrm{NP}_1\ \text{希望}\ \textrm{VP}_2,\quad \textrm{NP}_1\ \textrm{wish}\ \textrm{to}\ \textrm{VP}_2\ \rangle \nonumber \\
-\textrm{VP}\ &\to\ &\langle \ \text{对}\ \textrm{NP}_1\ \text{感到}\ \textrm{VP}_2,\quad \textrm{be}\ \textrm{VP}_2\ \textrm{wish}\ \textrm{NP}_1\ \rangle \nonumber \\
-\textrm{NN}\ &\to\ &\langle \ \text{强大},\quad \textrm{strong}\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 这里的S、NP、VP等符号可以被看作是具有句法功能的标记，因此这个文法和传统句法分析中的CFG很像，只是CFG是单语文法，而SCFG是双语同步文法。当然，复杂的句法功能标记并不是必须的。比如，也可以使用更简单的文法形式：
-\begin{eqnarray}
-\textrm{X}\ &\to\ &\langle \ \textrm{X}_1\ \text{希望}\ \textrm{X}_2,\quad \textrm{X}_1\ \textrm{wish}\ \textrm{to}\ \textrm{X}_2\ \rangle \nonumber \\
-\textrm{X}\ &\to\ &\langle \ \text{对}\ \textrm{X}_1\ \text{感到}\ \textrm{X}_2,\quad \textrm{be}\ \textrm{X}_2\ \textrm{wish}\ \textrm{X}_1\ \rangle \nonumber \\
-\textrm{X}\ &\to\ &\langle \ \text{强大},\quad \textrm{strong}\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 这个文法只有一种非终结符X，因此所有的变量都可以使用任意的产生式进行推导。这就给翻译提供了更大的自由度，也就是说，规则可以被任意使用，进行自由组合。这也符合基于短语的模型中对短语进行灵活拼接的思想。基于此，层次短语系统中也使用这种并不依赖语言学句法标记的文法。在本章的内容中，如果没有特殊说明，本章中把这种没有语言学句法标记的文法称作{\small\bfnew{基于层次短语的文法}}\index{基于层次短语的文法}（Hierarchical Phrase-based Grammar）\index{Hierarchical Phrase-based Grammar}，或简称层次短语文法。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{推导}
-
-\parinterval 下面是一个完整的层次短语文法：
-\begin{eqnarray}
-r_1:\quad \textrm{X}\ &\to\ &\langle \ \text{进口}\ \textrm{X}_1,\quad \textrm{The}\ \textrm{imports}\ \textrm{X}_1\ \rangle \nonumber \\
-r_2:\quad \textrm{X}\ &\to\ &\langle \ \textrm{X}_1\ \text{下降}\ \textrm{X}_2,\quad \textrm{X}_2\ \textrm{X}_1\ \textrm{fallen}\ \rangle \nonumber \\
-r_3:\quad \textrm{X}\ &\to\ &\langle \ \text{大幅度},\quad \textrm{drastically}\ \rangle \nonumber \\
-r_4:\quad \textrm{X}\ &\to\ &\langle \ \text{了},\quad \textrm{have}\ \rangle \nonumber
-\end{eqnarray}
-
-\noindent 其中，规则$r_1$和$r_2$是含有变量的规则，这些变量可以被其他规则的右部替换；规则$r_2$是调序规则；规则$r_3$和$r_4$是纯词汇化规则，表示单词或者短语的翻译。
-
-\parinterval 对于一个双语句对：
-\begin{eqnarray}
-&\text{{\small\bfnew{源语}}：}\ \ \ &\text{进口}\ \text{大幅度}\ \text{下降}\ \text{了} \nonumber \\
-&\text{{\small\bfnew{目标语}}：}&\textrm{The}\ \textrm{imports}\ \textrm{have}\ \textrm{drastically}\ \textrm{fallen} \nonumber
-\end{eqnarray}
-
-\parinterval 可以进行如下的推导（假设起始符号是X）：
-\begin{eqnarray}
-& & \langle\ \textrm{X}_1, \textrm{X}_1\ \rangle \nonumber \\
-& \xrightarrow[]{r_1} & \langle\ {\red{\textrm{进口}\ \textrm{X}_2}},\ {\red{\textrm{The imports}\ \textrm{X}_2}}\ \rangle \nonumber \\
-& \xrightarrow[]{r_2} & \langle\ \textrm{进口}\ {\red{\textrm{X}_3\ \textrm{下降}\ \textrm{X}_4}},\ \textrm{The imports}\ {\red{\textrm{X}_4\ \textrm{X}_3\ \textrm{fallen}}}\ \rangle \nonumber \\
-& \xrightarrow[]{r_3} & \langle\ \textrm{进口}\ {\red{\textrm{大幅度}}}\ \textrm{下降}\ \textrm{X}_4, \nonumber \\
-& & \ \textrm{The imports}\ \textrm{X}_4\ {\red{\textrm{drastically}}}\ \textrm{fallen}\ \rangle \nonumber \\
-& \xrightarrow[]{r_4} & \langle\ \textrm{进口}\ \textrm{大幅度}\ \textrm{下降}\ {\red{\textrm{了}}}, \nonumber \\
-& & \ \textrm{The imports}\ {\red{\textrm{have}}}\ \textrm{drastically}\ \textrm{fallen}\ \rangle \nonumber
-\end{eqnarray}
-
-\noindent 其中，每使用一次规则就会同步替换源语言和目标语言符号串中的一个非终结符。通常，可以把上面这个过程称作翻译{\small\bfnew{推导}}\index{推导}（Derivation）\index{Derivation}，记为：
-\begin{eqnarray}
-d = {r_1} \circ {r_2} \circ {r_3} \circ {r_4}
-\label{eq:4-22}
-\end{eqnarray}
-
-\parinterval 在层次短语模型中，每个翻译推导都唯一的对应一个目标语译文。因此，可以用推导的概率$\textrm{P}(d)$描述翻译的好坏。同基于短语的模型是一样的（见\ref{subsection-4.2.2}节），层次短语翻译的目标是：求概率最高的翻译推导$\hat{d}=\arg\max\textrm{P}(d)$。值得注意的是，基于推导的方法在句法分析中也十分常用。层次短语翻译实质上也是通过生成翻译规则的推导来对问题的表示空间进行建模。在\ref{section-4.4} 节还将看到，这种方法可以被扩展到语言学上基于句法的翻译模型中。而且这些模型都可以用一种被称作超图的结构来进行建模。从某种意义上讲，基于规则推导的方法将句法分析和机器翻译进行了形式上的统一。因此机器翻译也借用了很多句法分析的思想。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{胶水规则}
-
-\parinterval 由于翻译现象非常复杂，在实际系统中往往需要把两个局部翻译线性拼接到一起。在层次短语模型中，这个问题通过引入{\small\bfnew{胶水规则}}\index{胶水规则}（Glue Rule）\index{Glue Rule}来处理，形式如下：
-\begin{eqnarray}
-\textrm{S} & \to & \langle\ \textrm{S}_1\ \textrm{X}_2,\ \textrm{S}_1\ \textrm{X}_2\ \rangle \nonumber \\
-\textrm{S} & \to & \langle\ \textrm{X}_1,\ \textrm{X}_1\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 胶水规则引入了一个新的非终结符S，S只能和X进行顺序拼接，或者S由X生成。如果把S看作文法的起始符，使用胶水规则后，相当于把句子划分为若干个部分，每个部分都被归纳为X。之后，顺序地把这些X拼接到一起，得到最终的译文。比如，最极端的情况，整个句子会生成一个X，之后再归纳为S，这时并不需要进行胶水规则的顺序拼接；另一种极端的情况，每个单词都是独立的被翻译，被归纳为X，之后先把最左边的X归纳为S，再依次把剩下的X依次拼到一起。这样的推导形式如下：
-\begin{eqnarray}
-\textrm{S} & \to & \langle\ \textrm{S}_1\ \textrm{X}_2,\ \textrm{S}_1\ \textrm{X}_2\ \rangle \nonumber \\
-                & \to & \langle\ \textrm{S}_3\ \textrm{X}_4\ \textrm{X}_2,\ \textrm{S}_3\ \textrm{X}_4\ \textrm{X}_2\ \rangle \nonumber \\
-                & \to & ... \nonumber \\
-                & \to & \langle\ \textrm{X}_n\ ...\ \textrm{X}_4\ \textrm{X}_2,\ \textrm{X}_n\ ...\ \textrm{X}_4\ \textrm{X}_2\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 实际上，胶水规则在很大程度上模拟了基于短语的系统中对字符串顺序翻译的操作，而且在实践中发现，这个步骤是十分必要的。特别是对法-英翻译这样的任务，由于语言的结构基本上是顺序翻译的，因此引入顺序拼接的操作符合翻译的整体规律。同时，这种拼接给翻译增加了灵活性，系统会更加健壮。
-
-\parinterval 需要说明的是，使用同步文法进行翻译时由于单词的顺序是内嵌在翻译规则内的，因此这种模型并不依赖额外的调序模型。一旦文法确定下来，系统就可以进行翻译。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{处理流程}
-
-\parinterval 层次短语系统的流程如图\ref{fig:4-33}所示。其核心是从双语数据中学习同步翻译文法，并进行翻译特征的学习，形成翻译模型（即规则+特征）。同时，要从目标语言数据中学习语言模型。最终，把翻译模型和语言模型一起送入解码器，在特征权重调优后，完成对新输入句子的翻译。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/processing-of-hierarchical-phrase-system}
-\caption{层次短语系统的处理流程}
-\label{fig:4-33}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{层次短语规则抽取}
-
-\parinterval 层次短语系统所使用的文法包括两部分：1）不含变量的层次短语规则（短语翻译）；2）含有变量的层次短语规则。短语翻译的抽取直接复用基于短语的系统即可。此处重点讨论如何抽取含有变量的层次短语规则。
-
-\parinterval 在\ref{subsection-4.2.3}节已经介绍了短语与词对齐相兼容的概念。这里，所有层次短语规则也是与词对齐相兼容（一致）的。
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 与词对齐相兼容的层次短语规则
-
-{\small
-对于句对$(\mathbf{s},\mathbf{t})$和它们之间的词对齐$\mathbf{a}$，令$N$表示在句对$(\mathbf{s},\mathbf{t})$上与$\mathbf{a}$相兼容的双语短语集合。则：
-\begin{enumerate}
-\item 	如果$(x,y)\in N$，则$\textrm{X} \to \langle x,y,\phi \rangle$是与词对齐相兼容的层次短语规则。
-\item 	对于$(x,y)\in N$，存在$m$个双语短语$(x_i,y_j)\in N$，同时存在(1,$...$,$m$)上面的一个排序$\sim = {\pi_1 , ... ,\pi_m}$，且：
-\end{enumerate}
-\vspace{-1.5em}
-\begin{eqnarray}
-x&=&\alpha_0 x_1 \alpha_1 x_2 ... \alpha_{m-1} x_m \alpha_m \label{eqa4.23}\\
-y&=&\beta_0 y_{\pi_1} \beta_1 y_{\pi_2} ... \beta_{m-1} y_{\pi_m} \beta_m
-\label{eq:4-24}
-\end{eqnarray}
-其中，${\alpha_0, ... ,\alpha_m}$和${\beta_0, ... ,\beta_m}$表示源语言和目标语言的若干个词串（包含空串）。则$\textrm{X} \to \langle x,y,\sim \rangle$是与词对齐相兼容的层次短语规则。这条规则包含$m$个变量，变量的对齐信息是$\sim$。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 这个定义中，所有规则都是由双语短语生成。如果规则中含有变量，则变量部分也需要满足与词对齐相兼容的定义。按上述定义实现层次短语规则抽取也很简单。只需要对短语抽取系统进行改造：对于一个短语，可以通过挖``槽''的方式生成含有变量的规则。每个``槽''就代表一个变量。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/extract-hierarchical-phrase-rules}
-\caption{通过双语短语抽取层次短语规则}
-\label{fig:4-34}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-34}展示了一个层次短语抽取的示意图。可以看到，在获取一个`` 大''短语的基础上（红色），直接在其内部挖掉另一个``小''短语（绿色），这样就生成了一个层次短语规则。
-
-\parinterval 这种方式可以抽取出大量的层次短语规则。但是，不加限制的抽取，会带来规则集合的过度膨胀，对解码系统造成很大负担。比如，如果考虑任意长度的短语会使得层次短语规则过大，一方面这些规则很难在测试数据上被匹配，另一方面抽取这样的``长''规则会使得抽取算法变慢，而且规则数量猛增之后难以存储。还有，如果一个层次短语规则中含有过多的变量，也会导致解码算法变得更加复杂，不利于系统实现和调试。针对这些问题，在标准的层次短语系统中会考虑一些限制，包括：
+\parinterval 译文的质量评价是机器翻译研究中不可或缺的环节。与其他任务不同，由于自然语言高度的歧义性和表达方式的多样性，机器翻译的参考答案本身就不唯一。此外，对译文准确、全面的评价准则很难制定，导致译文质量的自动评价变得异常艰难，因此也成为了广受关注的研究课题。本章系统阐述了译文质量评估的研究现状和主要挑战。从人类参与程度和标注类型两个角度对译文质量评价中的经典方法进行介绍，力求让读者对领域内的经典及热点内容有更加全面的了解。不过，由于篇幅限制笔者无法对译文评价的相关工作进行面面俱到的描述，还有很多研究方向值得关注：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 抽取的规则最多可以跨越10个词；
+\item 基于句法和语义的机器译文质量自动评价方法。本章内容中介绍的自动评价多是基于表面字符串形式判定机器翻译结果和参考译文之间的相似度，而忽略了更抽象的语言层次的信息。基于句法和语义的机器译文质量自动评价方法在评价度量标准中加入能反映句法信息\upcite{DBLP:conf/acl/LiuG05}和语义信息\upcite{DBLP:conf/wmt/GimenezM07a}的相关内容，通过比较机器译文与参考答案之间的句法相似度和语义等价性\upcite{DBLP:journals/mt/PadoCGJM09}，能够大大提高自动评价与人工评价之间的相关性。其中句法信息往往能够对机器译文流利度方面的评价起到促进作用\upcite{DBLP:conf/acl/LiuG05}，常见的句法信息包括语法成分\upcite{DBLP:conf/acl/LiuG05}、依存关系\upcite{DBLP:conf/ssst/OwczarzakGW07,DBLP:conf/wmt/OwczarzakGW07,DBLP:conf/coling/YuWXJLL14}等。语义信息则对机器翻译的充分性评价更有帮助\upcite{DBLP:conf/acl/BanchsL11,reeder2006measuring}，近年来也有很多用于机器译文质量评估的语义框架被提出，如AM-FM\upcite{DBLP:conf/acl/BanchsL11}、XMEANT\upcite{DBLP:conf/acl/LoBSW14}等。
 \vspace{0.5em}
-\item 规则的（源语言端）变量个数不能超过2；
+\item 对机器译文中的错误分析和错误分类。无论是人工评价还是自动评价手段，其评价结果只能反映机器翻译系统性能，而无法确切表明机器翻译系统的优点和弱点是什么、系统最常犯什么类型的错误、一个特定的修改是否改善了系统的某一方面、排名较差的系统是否在任何方面都优于排名较好的系统等等。对机器译文进行错误分析和错误分类有助于找出机器翻译系统中存在的主要问题，以便集中精力进行研究改进\upcite{DBLP:conf/lrec/VilarXDN06}。相关的研究工作中，一些致力于错误分类方法的设计，如手动的机器译文错误分类框架\upcite{DBLP:conf/lrec/VilarXDN06}、自动的机器译文错误分类框架\upcite{popovic2011human}、基于语言学的错误分类方法\upcite{DBLP:journals/mt/CostaLLCC15}以及目前被用作篇章级质量评估注释标准的MQM错误分类框架\upcite{lommel2014using}；其他的研究工作则致力于对机器译文进行错误分析，如引入形态句法信息的自动错误分析框架\upcite{DBLP:conf/wmt/PopovicGGLNMFB06}、引入词错误率（WER）和位置无关词错误率（PER）的错误分析框架\upcite{DBLP:conf/wmt/PopovicN07}、基于检索的错误分析工具tSEARCH\upcite{DBLP:conf/acl/GonzalezMM13}等等。
 \vspace{0.5em}
-\item 规则的（源语言端）变量不能连续出现。
+\item 译文质量的多角度评价。章节内主要介绍的几种经典方法如BLEU、TER、METEOR等，大都是从某个单一的角度计算机器译文和参考答案的相似性，如何对译文从多个角度进行综合评价是需要进一步思考的问题，\ref{Evaluation method of Multi Strategy fusion}节中介绍的多策略融合评价方法就可以看作是一种多角度评价方法，其思想是将各种评价方法下的译文得分通过某种方式进行组合，从而实现对译文的综合评价。译文质量多角度评价的另一种思路则是直接将BLEU、TER、Meteor等多种指标看做是某种特征，使用分类\upcite{kulesza2004learning,corston2001machine}、回归\upcite{albrecht2008regression}、排序\upcite{duh2008ranking}等机器学习手段形成一种综合度量。此外，也有相关工作专注于多等级的译文质量评价，使用聚类算法将大致译文按其质量分为不同等级，并对不同质量等级的译文按照不同权重组合几种不同的评价方法\upcite{chen2015multi}。
 \vspace{0.5em}
-\end{itemize}
-\parinterval 在具体实现时还会考虑其他的限制，比如，限定规则的源语言端终结符数量的上限等。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{翻译模型及特征}
-
-\parinterval 在层次短语模型中，每个翻译推导都有一个模型得分$\textrm{score}(d,\mathbf{s},\mathbf{t})$。$\textrm{score}(d,\mathbf{s},\mathbf{t})$是若干特征的线性加权之和：$\textrm{score}(d,\mathbf{t},\mathbf{s})=\sum_{i=1}^M\lambda_i\cdot h_i (d,\mathbf{t},\mathbf{s})$，其中$\lambda_i$是特征权重，$h_i (d,\mathbf{t},\mathbf{s})$是特征函数。层次短语模型的特征包括与规则相关的特征和语言模型特征，如下：
-
-\parinterval 对于每一条翻译规则LHS$\to \langle \alpha, \beta ,\sim \rangle$，有：
-
-\begin{itemize}
+\item 不同评价方法的应用场景有明显不同：人工评价主要用于需要对机器翻译系统进行准确的评估的场合。例如，在系统对比中利用人工评价方法对不同系统进行人工评价、给出最终排名，或上线机器翻译服务时对翻译品质进行详细的测试；有参考答案的自动评价则可以为机器翻译系统提供快速、相对可靠的评价。在机器翻译系统的快速研发过程中，一般都使用有参考答案的自动评价方法对最终模型的性能进行评估。有相关研究工作专注在机器翻译模型的训练过程中充分利用评价信息进行参数调优（如BLEU分数），其中比较有代表性的工作包括最小错误率训练\upcite{DBLP:conf/acl/Och03}、最小风险训练\upcite{DBLP:conf/acl/ShenCHHWSL16,he2012maximum}等。这部分内容可以参考{\chapterseven}和{\chapterthirteen}进行进一步阅读；无参考答案的质量评估主要用来对译文质量做出预测，经常被应用在是在一些无法提供参考译文的实时翻译场景中，例如人机交互过程、自动纠错、后编辑等\upcite{DBLP:conf/wmt/FreitagCR19}。
 \vspace{0.5em}
-\item 	(h1-2)短语翻译概率（取对数），即$\textrm{log}(\textrm{P}(\alpha \mid \beta))$和$\textrm{log}(\textrm{P}(\beta \mid \alpha))$，特征的计算与基于短语的模型完全一样；
-\vspace{0.5em}
-\item 	(h3-4)词汇化翻译概率（取对数），即$\textrm{log}(\textrm{P}_{\textrm{lex}}(\alpha \mid \beta))$和$\textrm{log}(\textrm{P}(\beta \mid \alpha))$，特征的计算与基于短语的模型完全一样；
-\vspace{0.5em}
-\item (h5)翻译规则数量，让模型自动学习对规则数量的偏好，同时避免使用过少规则造成分数偏高的现象；
-\vspace{0.5em}
-\item (h6)胶水规则数量，让模型自动学习使用胶水规则的偏好；
-\vspace{0.5em}
-\item (h7)短语规则数量，让模型自动学习使用纯短语规则的偏好。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 这些特征可以被具体描述为：
-\begin{eqnarray}
-h_i (d,\mathbf{t},\mathbf{s})=\sum_{r \in d}h_i (r)
-\label{eq:4-25}
-\end{eqnarray}
-
-\parinterval 公式\ref{eq:4-25}中，$r$表示推导$d$中的一条规则，$h_i (r)$表示规则$r$上的第$i$个特征。可以看出，推导$d$的特征值就是所有包含在$d$中规则的特征值的和。进一步，可以定义
-\begin{eqnarray}
-\textrm{rscore}(d,\mathbf{t},\mathbf{s})=\sum_{i=1}^7 \lambda_i \cdot h_i (d,\mathbf{t},\mathbf{s})
-\label{eq:4-26}
-\end{eqnarray}
-
-\parinterval 最终，模型得分被定义为：
-\begin{eqnarray}
-\textrm{score}(d,\mathbf{t},\mathbf{s})=\textrm{rscore}(d,\mathbf{t},\mathbf{s})+ \lambda_8 \textrm{log}⁡(\textrm{P}_{\textrm{lm}}(\mathbf{t}))+\lambda_9 \mid \mathbf{t} \mid
-\label{eq:4-27}
-\end{eqnarray}
-
-\noindent 其中：
-
-\begin{itemize}
-\vspace{0.5em}
-\item $\textrm{log}⁡(\textrm{P}_{\textrm{lm}}(\textrm{t}))$表示语言模型得分；
-\vspace{0.5em}
-\item $\mid \textrm{t} \mid$表示译文的长度。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 在定义特征函数之后，特征权重$\{ \lambda_i \}$可以通过最小错误率训练在开发集上进行调优。关于最小错误率训练可以参考\ref{subsection-4.2.6}节的内容。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{CKY解码}\label{subsection-4.3.4}
-
-\parinterval 层次短语模型解码的目标是找到模型得分最高的推导，即：
-\begin{eqnarray}
-\hat{d} = \arg\max_{d} \textrm{score}(d,\mathbf{s},\mathbf{t})
-\label{eq:4-28}
-\end{eqnarray}
-
-\parinterval $\hat{d}$的目标语部分即最佳译文$\hat{\mathbf{t}}$。令函数$t(\cdot)$返回翻译推导的目标语词串，于是有：
-\begin{eqnarray}
-\hat{\mathbf{t}}=t(\hat{d})
-\label{eq:4-29}
-\end{eqnarray}
-
-\parinterval 由于层次短语规则本质上就是CFG规则，因此公式\ref{eq:4-28}代表了一个典型的句法分析过程。需要做的是，用模型源语言端的CFG对输入句子进行分析，同时用模型目标语言端的CFG生成译文。基于CFG的句法分析是自然语言处理中的经典问题。一种广泛使用的方法是：首先把CFG转化为$\varepsilon$-free的{\small\bfnew{乔姆斯基范式}}\index{乔姆斯基范式}（Chomsky Normal Form）\index{Chomsky Normal Form}\footnote[5]{能够证明任意的CFG都可以被转换为乔姆斯基范式，即文法只包含形如A$\to$BC或A$\to$a的规则。这里，假设文法中不包含空串产生式A$\to\varepsilon$，其中$\varepsilon$表示空字符串。}，之后采用CKY方法进行分析。
-
-\parinterval CKY是形式语言中一种常用的句法分析方法\cite{cocke1969programming,younger1967recognition,kasami1966efficient}。它主要用于分析符合乔姆斯基范式的句子。由于乔姆斯基范式中每个规则最多包含两叉（或者说两个变量），因此CKY方法也可以被看作是基于二叉规则的一种分析方法。对于一个待分析的字符串，CKY方法从小的``范围''开始，不断扩大分析的``范围''，最终完成对整个字符串的分析。在CKY方法中，一个重要的概念是{\small\bfnew{跨度}}\index{跨度}（Span）\index{Span}，所谓跨度表示了一个符号串的范围。这里可以把跨度简单的理解为从一个起始位置到一个结束位置中间的部分。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/word-and-index-of-pos}
-\caption{一个单词串及位置索引}
-\label{fig:4-35}
-\end{figure}
-%-------------------------------------------
-
-比如，如图\ref{fig:4-35} 所示，每个单词左右都有一个数字来表示序号。可以用序号的范围来表示跨度，例如：
-\begin{eqnarray}
-span\textrm{[0,1]}&=&\textrm{``猫''} \nonumber \\
-span\textrm{[2,4]}&=&\textrm{``吃} \quad \textrm{鱼''} \nonumber \\
-span\textrm{[0,4]}&=&\textrm{``猫} \quad \textrm{喜欢} \quad \textrm{吃} \quad \textrm{鱼''} \nonumber
-\end{eqnarray}
-
-\parinterval CKY方法是按跨度由小到大的次序执行的，这也对应了一种{\small\bfnew{自下而上的分析}}\index{自下而上的分析}（Top-down Parsing）\index{Top-down Parsing}过程。对于每个跨度，检查：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 	是否有形如A$\to$a的规则可以匹配；
-\vspace{0.5em}
-\item 	是否有形如A$\to$BC的规则可以匹配。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 对于第一种情况，简单匹配字符串即可；对于第二种情况，需要把当前的跨度进一步分割为两部分，并检查左半部分是否已经被归纳为B，右半部分是否已经被归纳为C。如果可以匹配，会在这个跨度上保存匹配结果。后面，可以访问这个结果（也就是A）来生成更大跨度上的分析结果。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/cky-algorithm}
-\caption{CKY算法}
-\label{fig:4-36}
-\end{figure}
-%-------------------------------------------
-
-\parinterval CKY算法的伪代码如图\ref{fig:4-36}所示。整个算法的执行顺序是按跨度的长度（$l$）组织的。对于每个$span[j,j + l]$，会在位置$k$进行切割。之后，判断$span[j,k]$和$span[k,j +l]$是否可以形成一个规则的右部。也就是判断$span[j,k]$是否生成了B，同时判断$span[k,j + l]$是否生成了C，如果文法中有规则A$\to$BC，则把这个规则放入$span[j,j+l]$。这个过程由Compose函数完成。如果$span[j,j + l]$可以匹配多条规则，所有生成的推导都会被记录在$span[j,j + l]$所对应的一个列表里\footnote[6]{通常，这个列表会用优先队列实现。这样可以对推导按模型得分进行排序，方便后续的剪枝操作。}。
-
-%----------------------------------------------
-\begin{figure}[t]
-\centering
-\input{./Chapter4/Figures/example-of-cky-algorithm-execution-label}
-\input{./Chapter4/Figures/example-of-cky-algorithm-execution}
-\caption{CKY算法执行实例}
-\label{fig:4-37}
-\end{figure}
-%----------------------------------------------
-
-\parinterval 图\ref{fig:4-37}展示了CKY方法的一个运行实例（输入词串是aabbc）。算法在处理完最后一个跨度后会得到覆盖整个词串的分析结果，即句法树的根结点S。
-
-\parinterval 不过，CKY方法并不能直接用于层次短语模型。有两个问题：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 层次短语模型的文法不符合乔姆斯基范式；
-\vspace{0.5em}
-\item 机器翻译中需要语言模型。由于当前词的语言模型得分需要前面的词做条件，因此机器翻译的解码过程并不是上下文无关的。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 解决第一个问题有两个思路：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 把层次短语文法转化为乔姆斯基范式，这样可以直接使用原始的CKY方法进行分析；
-\vspace{0.5em}
-\item 对CKY方法进行改造。解码的核心任务要知道每个跨度是否能匹配规则的源语言部分。实际上，层次短语模型的文法是一种特殊的文法。这种文法规则的源语言部分最多包含两个变量，而且变量不能连续。这样的规则会对应一种特定类型的模版，比如，对于包含两个变量的规则，它的源语言部分形如$\alpha_0 \textrm{X}_1 \alpha_1 \textrm{X}_2 \alpha_2$。其中，$\alpha_0$、$\alpha_1$和$\alpha_2$表示终结符串，$\textrm{X}_1$和$\textrm{X}_2$是变量。显然，如果$\alpha_0$、$\alpha_1$和$\alpha_2$确定下来那么$\textrm{X}_1$和$\textrm{X}_2$的位置也就确定了下来。因此，对于每一个词串，都可以很容易的生成这种模版，进而完成匹配。而$\textrm{X}_1$和$\textrm{X}_2$和原始CKY中匹配二叉规则本质上是一样的。由于这种方法并不需要对CKY方法进行过多调整，因此层次短语系统中广泛使用这种改造的CKY方法进行解码。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 对于语言模型在解码中的集成问题，一种简单的办法是：在CKY分析的过程中，用语言模型对每个局部的翻译结果进行评价，并计算局部翻译（推导）的模型得分。注意，局部的语言模型得分可能是不准确的，比如，局部翻译片段最左边单词的概率计算需要依赖前面的单词。但是由于每个跨度下生成的翻译是局部的，当前跨度下看不到前面的译文。这时会用1-gram语言模型的得分代替真实的高阶语言模型得分。等这个局部翻译片段和其他片段组合之后，可以知道前文的内容，这时才会得出最终的语言模型得分。
-
-\parinterval 另一种解决问题的思路是，先不加入语言模型，这样可以直接使用CKY方法进行分析。在得到最终的结果后，对最好的多个推导用含有语言模型的完整模型进行打分，选出最终的最优推导。
-
-\parinterval 不过，在实践中发现，由于语言模型在机器翻译中起到至关重要的作用，因此对最终结果进行重排序会带来一定的性能损失。不过这种方法的优势在于速度快，而且容易实现。另外，在实践时，还需要考虑两方面问题：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 剪枝：在CKY中，每个跨度都可以生成非常多的推导（局部翻译假设）。理论上，这些推导的数量会和跨度大小成指数关系。显然不可能保存如此大量的翻译推导。对于这个问题，常用的办法是只保留top-$k$个推导。也就是每个局部结果只保留最好的$k$个。这种方法也被称作{\small\bfnew{束剪枝}}\index{束剪枝}（Beam Pruning）\index{Beam Pruning}。在极端情况下，当$k$=1时，这个方法就变成了贪婪的方法；
-\vspace{0.5em}
-\item $n$-best结果的生成：$n$-best推导（译文）的生成是统计机器翻译必要的功能。比如，最小错误率训练中就需要最好的$n$个结果用于特征权重调优。在基于CKY的方法中，整个句子的翻译结果会被保存在最大跨度所对应的结构中。因此一种简单的$n$-best生成方法是从这个结构中取出排名最靠前的$n$个结果。另外，也可以考虑自上而下遍历CKY生成的推导空间，得到更好的$n$-best结果\cite{huang2005better}。
-\end{itemize}
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{立方剪枝}
-
-\parinterval 相比于基于短语的模型，基于层次短语的模型引入了``变量''的概念。这样，可以根据变量周围的上下文信息对变量进行调序。变量的内容由其所对应的跨度上的翻译假设进行填充。图\ref{fig:4-38}展示了一个层次短语规则匹配词串的实例。可以看到，规则匹配词串之后，变量X的位置对应了一个跨度。这个跨度上所有标记为X的局部推导都可以作为变量的内容。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/hierarchical-phrase-rule-match-generate}
-\caption{层次短语规则匹配及译文生成}
-\label{fig:4-38}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 真实的情况会更加复杂。对于一个规则的源语言端，可能会有多个不同的目标语言端与之对应。比如，如下规则的源语言端完全相同，但是译文不同：
-\begin{eqnarray}
-\textrm{X} & \to & \langle\ \textrm{X}_1\ \text{大幅度}\ \text{下降}\ \text{了},\ \textrm{X}_1\ \textrm{have}\ \textrm{drastically}\ \textrm{fallen}\ \rangle \nonumber \\
-\textrm{X} & \to & \langle\ \textrm{X}_1\ \text{大幅度}\ \text{下降}\ \text{了},\ \textrm{X}_1\ \textrm{have}\ \textrm{fallen}\ \textrm{drastically}\ \rangle \nonumber \\
-\textrm{X} & \to & \langle\ \textrm{X}_1\ \text{大幅度}\ \text{下降}\ \text{了},\ \textrm{X}_1\ \textrm{has}\ \textrm{drastically}\ \textrm{fallen}\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 这也就是说，当匹配规则的源语言部分``$\textrm{X}_1$ 大幅度 下降 了''时会有三个译文可以选择。而变量$\textrm{X}_1$部分又有很多不同的局部翻译结果。不同的规则译文和不同的变量译文都可以组合出一个局部翻译结果。图\ref{fig:4-39}展示了这种情况的实例。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/combination-of-translation-with-different-rules}
-\caption{不同规则目标语端及变量译文的组合}
-\label{fig:4-39}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 假设有$n$个规则源语言端相同，规则中每个变量可以被替换为$m$个结果，对于只含有一个变量的规则，一共有$nm$种不同的组合。如果规则含有两个变量，这种组合的数量是$n{m}^2$。由于翻译中会进行大量的规则匹配，如果每个匹配的源语言端都考虑所有$n{m}^2$种译文的组合，解码速度会很慢。
-
-\parinterval 在层次短语系统中，会进一步对搜索空间剪枝。简言之，此时并不需要对所有$n{m}^2$种组合进行遍历，而是只考虑其中的一部分组合。这种方法也被称作{\small\bfnew{立方剪枝}}\index{立方剪枝}（Cube Pruning）\index{Cube Pruning}。所谓`` 立方''是指组合译文时的三个维度：规则的目标语端、第一个变量所对应的翻译候选、第二个变量所对应的翻译候选。立方剪枝假设所有的译文候选都经过排序，比如，按照短语翻译概率排序。这样，每个译文都对应一个坐标，比如，$(i,j,k)$就表示第$i$个规则目标语端、第二个变量的第$j$个翻译候选、第三个变量的第$k$个翻译候选的组合。于是，可以把每种组合看作是一个三维空间中的一个点。在立方剪枝中，开始的时候会看到$(0,0,0)$这个翻译假设，并把这个翻译假设放入一个优先队列中。之后每次从这个优先队里中弹出最好的结果，之后沿着三个维度分别将坐标加1，比如，如果优先队列弹出$(i,j,k)$，则会生成$(i+1,j,k)$、$(i,j+1,k)$和$(i,j,k+1)$这三个新的翻译假设。之后，计算出它们的模型得分，并压入优先队列。这个过程不断被执行，直到达到终止条件，比如，扩展次数达到一个上限。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/execution-of-cube-pruning}
-\caption{立方剪枝执行过程（行表示规则，列表示变量可替换的内容）}
-\label{fig:4-40}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-40}展示了立方剪枝的过程（规则只含有一个变量的情况）。可以看到，每个步骤中，算法只会扩展当前最好结果周围的两个点（对应两个维度，横轴对应变量被替换的内容，纵轴对应规则的目标语端）。
-
-\parinterval 理论上，立方剪枝最多访问$n{m}^2$个点。但是在实践中发现，如果终止条件设计的合理，搜索的代价基本上与$m$或者$n$呈线性关系。因此，立方剪枝可以大大提高解码速度。立方剪枝实际上是一种启发性的搜索方法。它把搜索空间表示为一个三维空间。它假设：如果空间中某个点的模型得分较高，那么它``周围''的点的得分也很可能较高。这也是对模型得分沿着空间中不同维度具有连续性的一种假设。这种方法也大量的使用在句法分析中，并取得了很好的效果。
-
-%----------------------------------------------------------------------------------------
-%    NEW SECTION
-%----------------------------------------------------------------------------------------
-
-\sectionnewpage
-\section{基于语言学句法的模型}\label{section-4.4}
-
-\parinterval 层次短语模型是一种典型的基于翻译文法的模型。它把翻译问题转化为语言分析问题。在翻译一个句子的时候，模型会生成一个树形结构，这样也就得到了句子结构的某种表示。图\ref{fig:4-41}展示了一个使用层次短语系统进行翻译时所生成的翻译推导$d$，以及这个推导所对应的树形结构（源语言）。这棵树体现了机器翻译的视角下的句子结构，尽管这个结构并不是人类语言学中的句法树。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/derivation-of-hierarchical-phrase-and-tree-structure-model}
-\setlength{\belowcaptionskip}{-0.5em}
-\caption{层次短语模型所对应的翻译推导及树结构（源语言）}
-\label{fig:4-41}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 在翻译中使用树结构的好处在于，模型可以更加有效地对句子的层次结构进行抽象。而且树结构可以作为对序列结构的一种补充，比如，在句子中距离较远的两个单词，在树结构中可以很近。不过，层次短语模型也存在一些不足：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 层次短语规则没有语言学句法标记，很多规则并不符合语言学认知，因此译文的生成和调序也不遵循语言学规律。比如，层次短语系统经常会把完整的句法结构打散，或者``破坏''句法成分进行组合；
-\vspace{0.5em}
-\item 层次短语系统中有大量的工程化约束条件。比如，规则的源语言部分不允许两个变量连续出现，而且变量个数也不能超过两个。这些约束在一定程度上限制了模型处理翻译问题的能力。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 实际上，基于层次短语的方法可以被看作是介于基于短语的方法和基于语言学句法的方法之间的一种折中。它的优点在于，具备短语模型简单、灵活的优点，同时，由于同步翻译文法可以对句子的层次结构进行表示，因此也能够处理一些较长距离的调序问题。但是，另一方面，层次短语模型并不是一种``精细''的句法模型，当翻译需要复杂的结构信息时，这种模型可能会无能为力。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/examples-of-translation-with-complex-ordering}
-\setlength{\belowcaptionskip}{-0.5em}
-\caption{含有复杂调序的翻译实例（汉语翻译到英语）}
-\label{fig:4-42}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-42}展示了一个翻译实例，对图中句子进行翻译需要通过复杂的调序才能生成正确译文。为了完成这样的翻译，需要对多个结构（超过两个）进行调序，但是这种情况在标准的层次短语系统中是不允许的。
-
-\parinterval 从这个例子中可以发现，如果知道源语言的句法结构，翻译其实并不``难''。比如，语言学句法结构可以告诉模型句子的主要成分是什么，而调序实际上是在这些成分之间进行的。从这个角度说，语言学句法可以帮助模型进行更上层结构的表示和调序。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/phrase-structure-tree-and-dependency-tree}
-\setlength{\belowcaptionskip}{-1.0em}
-\caption{短语结构树 vs 依存树}
-\label{fig:4-43}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 显然，使用语言学句法对机器翻译进行建模也是一种不错的选择。不过，语言学句法有很多种，因此首先需要确定使用何种形式的句法。比如，在自然语言处理中经常使用的是短语结构分析和依存分析（图\ref{fig:4-43}）。二者的区别已经在第二章进行了讨论。
-
-\parinterval 在机器翻译中，上述这两种句法信息都可以被使用。不过为了后续讨论的方便，这里仅介绍基于短语结构树的机器翻译建模。使用短语结构树的原因在于，它提供了较为丰富的句法信息，而且相关句法分析工具比较成熟。如果没有特殊说明，本章中所提到的句法树都是指短语结构树（或成分句法树），有时也会把句法树简称为树。此外，这里也假设所有句法树都可以由句法分析器自动生成\footnote[7]{对于汉语、英语等大语种，句法分析器的选择有很多。不过，对于一些小语种，句法标注数据有限，句法分析可能并不成熟，这时在机器翻译中使用语言学句法信息会面临较大的挑战。}。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{基于句法的翻译模型分类}
-
-\parinterval 可以说基于句法的翻译模型贯穿了现代统计机器翻译的发展历程。从概念上讲，不管是层次短语模型，还是语言学句法模型都是基于句法的模型。基于句法的机器翻译模型种类繁多，这里先对相关概念进行简要介绍，以避免后续论述中产生歧义。表\ref{tab:4-2}给出了基于句法的机器翻译中涉及的一些概念。
-
-%----------------------------------------------
-\begin{table}[htp]{
-\begin{center}
-\caption{基于句法的机器翻译中常用概念}
-\label{tab:4-2}
-{
-\begin{tabular}{p{6.5em} | l}
-术语 & 说明 \\
-\hline
-\rule{0pt}{15pt}翻译规则 & 翻译的最小单元（或步骤） \\
-\rule{0pt}{15pt}推导 & 由一系列规则组成的分析或翻译过程，推导可以被看作是规\\
-&则的序列 \\
-\rule{0pt}{15pt}规则表 & 翻译规则的存储表示形式，可以高效进行查询 \\
-\rule{0pt}{15pt}层次短语模型 & 基于同步上下文无关文法的翻译模型，非终结符只有S和X\\
-&两种，文法并不需要符合语言学句法约束 \\
-\rule{0pt}{15pt}树到串模型 & 一类翻译模型，它使用源语语言学句法树，因此翻译可以被\\
-&看作是从一颗句法树到词串的转换 \\
-\rule{0pt}{15pt}串到树模型 & 一类翻译模型，它使用目标语语言学句法树，因此翻译可以\\
-&被看作是从词串到句法树的转换 \\
-\rule{0pt}{15pt}树到树模型 & 一类翻译模型，它同时使用源语和目标语语言学句法树，因\\
-&此翻译可以被看作从句法树到句法树的转换 \\
-\rule{0pt}{15pt}基于句法 & 使用语言学句法 \\
-\rule{0pt}{15pt}基于树 &（源语言）使用树结构（大多指句法树） \\
-\rule{0pt}{15pt}基于串 &（源语言）使用词串，比如串到树翻译系统的解码器一般\\
-&都是基于串的解码方法 \\
-\rule{0pt}{15pt}基于森林 &（源语言）使用句法森林，这里森林只是对多个句法树的一 \\
-&种压缩表示 
-\end{tabular}
-}
-\end{center}
-}\end{table}
-\begin{table}[htp]{
-\begin{center}
-{
-\begin{tabular}{p{6.5em} | l}
-术语 & 说明 \\
-\hline
-\rule{0pt}{15pt}词汇化规则 & 含有终结符的规则 \\
-\rule{0pt}{15pt}非词汇规则 & 不含有终结符的规则 \\
-\rule{0pt}{15pt}句法软约束 & 不强制规则推导匹配语言学句法树，通常把句法信息作为特\\
-&征使用 \\
-\rule{0pt}{15pt}句法硬约束 & 要求推导必须符合语言学句法树，不符合的推导会被过滤掉 \\
-\end{tabular}
-}
-\end{center}
-}\end{table}
-%----------------------------------------------
-
-\parinterval 基于句法的翻译模型可以被分为两类：基于形式化文法的模型和语言学上基于句法的模型（图\ref{fig:4-44}）。基于形式化文法的模型的典型代表包括，吴德恺提出的基于反向转录文法的模型\cite{wu1997stochastic}和David Chiang提出的基于层次短语的模型\cite{chiang2007hierarchical}。而语言学上基于句法的模型包括，句法树到串的模型\cite{liu2006tree,huang2006statistical}、串到句法树的模型\cite{galley2006scalable,galley2004s}、句法树到句法树的模型\cite{eisner2003learning,zhang2008tree,liu2009improving,chiang2010learning}等。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/classification-of-models-based-on-syntax}
-\caption{基于句法的机器翻译模型的分类}
-\label{fig:4-44}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 通常来说，基于形式化文法的模型并不需要句法分析技术的支持。这类模型只是把翻译过程描述为一系列形式化文法规则的组合过程。而语言学上基于句法的模型则需要源语言和（或者）目标语言句法分析的支持，以获取更丰富的语言学信息来提高模型的翻译能力。这也是本节所关注的重点。当然，所谓分类也没有唯一的标准，比如，还可以把句法模型分为基于软约束的模型和基于硬约束的模型，或者分为基于树的模型和基于串的模型。
-
-%----------------------------------------------
-\begin{table}[htp]{
-\begin{center}
-\caption{基于句法的机器翻译模型对比}
-\label{tab:4-3}
-{
-\begin{tabular}{l | l | l | l | l}
-模型 & 形式句法 & \multicolumn{3}{c}{语言学句法} \\
-\cline{3-5}
-\rule{0pt}{15pt} & & \multicolumn{1}{c|}{树到串} & \multicolumn{1}{c}{串到树} & \multicolumn{1}{|c}{树到树} \\
-\hline
-源语句法 & No & Yes & No & Yes \\
-目标语句法 & No & No & Yes & Yes \\
-基于串的解码 & Yes & No & Yes & Yes \\
-基于树的解码 & No & Yes & No & Yes \\
-健壮性 & High & Mid & Mid & Low \\
-\end{tabular}
-}
-\end{center}
-}\end{table}
-%-------------------------------------------
-
-\parinterval 表\ref{tab:4-3}进一步对比了不同模型的区别。其中，树到串和树到树模型都使用了源语言句法信息，串到树和树到树模型使用了目标语言句法信息。不过，这些模型都依赖句法分析器的输出，因此会对句法分析的错误比较敏感。相比之下，基于形式文法的模型并不依赖句法分析器，因此会更健壮一些。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{基于树结构的文法}
-
-\parinterval 基于句法的翻译模型的一个核心问题是要对树结构进行建模，进而完成树之间或者树和串之间的转换。在计算机领域中，所谓树就是由一些节点组成的层次关系的集合。计算机领域的树和自然世界中的树没有任何关系，只是借用了相似的概念，因为这种层次结构很像一个倒过来的树。在使用树时，经常会把树的层次结构转化为序列结构，称为树结构的{\small\bfnew{序列化}}\index{序列化}或者{\small\bfnew{线性化}}\index{线性化}（Linearization）\index{Linearization}。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/different-representations-of-syntax-tree}
-\caption{树结构的不同表示形式}
-\label{fig:4-45}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 比如，使用树的先序遍历就可以得到一个树的序列表示。图\ref{fig:4-45}就对比了同一棵树的不同表示方式。实际上，树的序列表示是非常适合计算机进行读取和处理的。因此，本章也会使用树的序列化结果来表示句法结构。
-
-\parinterval 在基于语言学句法的机器翻译中，两个句子间的转化仍然需要使用文法规则进行描述。有两种类型的规则：
-
-\begin{itemize}
-\vspace{0.5em}
-\item {\small\bfnew{树到串翻译规则}}\index{树到串翻译规则}（Tree-to-String Translation Rule）\index{Tree-to-String Translation Rule}：在树到串、串到树模型中使用；
-\vspace{0.5em}
-\item {\small\bfnew{树到树翻译规则}}\index{树到树翻译规则}（Tree-to-Tree Translation Rule）\index{Tree-to-Tree Translation Rule}：在树到树模型中使用。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 树到串规则描述了一端是树结构而另一端是串的情况，因此树到串模型和串到树模型都可以使用这种形式的规则。树到树模型需要在两种语言上同时使用句法树结构，需要树到树翻译规则。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{树到树翻译规则}
-
-\parinterval 虽然树到串翻译规则和树到树翻译规则蕴含了不同类型的翻译知识，但是它们都在描述一个结构（树/串）到另一个结构（树/串）的映射。这里采用了一种更加通用的文法\ \dash \ 基于树结构的文法\ \dash \ 将树到串翻译规则和树到树翻译规则进行统一。定义如下：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 基于树结构的文法
-
-{\small
-一个基于树结构的文法由七部分构成$(N_s, N_t, T_s, T_t, I_s, I_t, R)$，其中
-\begin{enumerate}
-\item $N_s$和$N_t$是源语言和目标语言非终结符集合；
-\item $T_s$和$T_t$是源语言和目标语言终结符集合；
-\item $I_s \subseteq N_s$和$I_t \subseteq N_t$是源语言和目标语言起始非终结符集合；
-\item $R$是规则集合，每条规则$r \in R$有如下形式：
-\vspace{-1em}
-\begin{displaymath}
-\langle\  \alpha_h, \beta_h\ \rangle \to \langle\ \alpha_r, \beta_r, \sim\ \rangle
-\end{displaymath}
-
-其中，规则左部由非终结符$\alpha_h \in N_s$和$\beta_h \in N_t$构成；规则右部由三部分组成，$\alpha_r$表示由源语言终结符和非终结符组成的树结构；$\beta_r$ 表示由目标语言终结符和非终结符组成的树结构；$\sim$表示$\alpha_r$和$\beta_r$中叶子非终结符的1-1对应关系。
-\end{enumerate}
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 基于树结构的规则非常适合于描述树结构到树结构的映射。比如，图\ref{fig:4-46}是一个汉语句法树结构到一个英语句法树结构的对应。其中的树结构可以被看作是完整句法树上的一个片段，称为{\small\bfnew{树片段}}\index{树片段}（Tree Fragment）\index{Tree Fragment}。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-tree-structure-correspondence}
-\vspace{-2em}
-\caption{汉语句法树到英语句法树的结构对应}
-\label{fig:4-46}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 树片段的叶子节点既可以是终结符（单词）也可以是非终结符。当叶子节点为非终结符时，表示这个非终结符会被进一步替换，因此它可以被看作是变量。而源语言树结构和目标语言树结构中的变量是一一对应的，对应关系用虚线表示。
-
-\parinterval 这个双语映射关系可以被表示为一个基于树结构的文法规则，套用规则的定义$\langle\  \alpha_h, \beta_h\ \rangle \to \langle\ \alpha_r, \beta_r, \sim\ \rangle$形式，可以知道：
-\begin{eqnarray}
-\langle\ \alpha_h, \beta_h\ \rangle &=& \langle\ \textrm{VP}, \textrm{VP}\ \rangle \nonumber \\
-\alpha_r &=& \textrm{VP}(\textrm{PP:}x\ \textrm{VP(VV(表示)}\ \textrm{NN:}x)) \nonumber \\
-\beta_r &=& \textrm{VP}(\textrm{VBZ(was)}\ \textrm{VP(VBN:}x\ \textrm{PP:}x)) \nonumber \\
-\sim &=& \{1-2,2-1\} \nonumber
-\end{eqnarray}
-
-\parinterval 这里，$\alpha_h$和$\beta_h$表示规则的左部，对应树片段的根节点；$\alpha_r$和$\beta_r$是两种语言的树结构（序列化表示），其中标记为$x$的非终结符是变量。$\sim = \{1-2,2-1\}$表示源语言的第一个变量对应目标语言的第二个变量，而源语言的第二个变量对应目标语言的第一个变量，这也反应出两种语言句法结构中的调序现象。有时候为了化简规则的形式，会把规则中变量的对应关系用下标进行表示。例如，上面的规则也可以被写为如下形式。
-\begin{eqnarray}
-\langle\ \textrm{VP}, \textrm{VP}\ \rangle\ \to\ \langle\ \textrm{PP}_{1} \ \textrm{VP(VV(表示)}\ \textrm{NN}_{2}))\ \textrm{VP}(\textrm{VBZ(was)}\ \textrm{VP(VBN}_{2} \ \textrm{PP}_{1})) \ \rangle \nonumber
-\end{eqnarray}
-
-\noindent 其中，两种语言中变量的对应关系为$\textrm{PP}_1 \leftrightarrow \textrm{PP}_1$，$\textrm{NN}_2 \leftrightarrow \textrm{VBN}_2$。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于树结构的翻译推导}
-
-\parinterval 规则中的变量预示着一种替换操作，即变量可以被其他树结构替换。实际上，上面的树到树翻译规则就是一种{\small\bfnew{同步树替换文法规则}}\index{同步树替换文法规则}（Synchronous Tree Substitution Grammar Rule）\index{Synchronous Tree Substitution Grammar Rule}。不论是源语言端还是目标语言端，都可以通过这种替换操作不断生成更大的树结构，也就是通过树片段的组合得到更大的树片段。图\ref{fig:4-47}就展示了树替换操作的一个实例。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/operation-of-tree-replace}
-\caption{树替换操作（将NN替换为一个树结构）}
-\label{fig:4-47}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 这种方法也可以被扩展到双语的情况。图\ref{fig:4-48}给出了一个使用基于树结构的同步文法生成双语句对的实例。其中，每条规则都同时对应源语言和目标语言的一个树片段（用矩形表示）。变量部分可以被替换，这个过程不断执行。最后，四条规则组合在一起形成了源语言和目标语言的句法树。这个过程也被称作规则的推导。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/based-on-tree-structure-generate-sentence-pairs}
-\caption{使用基于树结构的同步文法生成汉英句对}
-\label{fig:4-48}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 规则的推导对应了一种源语言和目标语言树结构的同步生成的过程。比如，使用下面的规则集：
-{
-\begin{eqnarray}
-r_3: \quad \textrm{AD(大幅度)} \rightarrow \textrm{RB(drastically)}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\ \nonumber \\
-r_4: \quad \textrm{VV(减少)} \rightarrow \textrm{VBN(fallen)}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\ \,\nonumber \\
-r_6: \quad \textrm{AS(了)} \rightarrow \textrm{VBP(have)}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\, \nonumber \\
-r_7: \quad \textrm{NN(进口)} \rightarrow \textrm{NP(DT(the)}\ \textrm{NNS(imports)} \nonumber\ \qquad\qquad\qquad\qquad\qquad\ \,\\
-r_8: \quad \textrm{VP(}\textrm{AD}_1\ \textrm{VP(} \textrm{VV}_2\ \textrm{AS}_3)) \rightarrow \textrm{VP(}\textrm{VBP}_3\ \textrm{ADVP(} \textrm{RB}_1\ \textrm{VBN}_2))\ \nonumber \qquad\ \ \,\\
-r_9: \quad \textrm{IP(}\textrm{NN}_1\ \textrm{VP}_2) \rightarrow \textrm{S(}\textrm{NP}_1\ \textrm{VP}_2) \qquad\qquad\qquad\qquad\qquad\qquad\qquad\nonumber\ \ \ \ \,
-\end{eqnarray}
-}
-
-\noindent 可以得到一个翻译推导：
-{\footnotesize
-\begin{eqnarray}
-&& \langle\ \textrm{IP}^{[1]},\ \textrm{S}^{[1]}\ \rangle \nonumber \\
-& \xrightarrow[r_9]{\textrm{IP}^{[1]} \Leftrightarrow \textrm{S}^{[1]}} & \langle\ \textrm{IP(}\textrm{NN}^{[2]}\ \textrm{VP}^{[3]}),\ \textrm{S(}\textrm{NP}^{[2]}\ \textrm{VP}^{[3]})\ \rangle \nonumber \\
-& \xrightarrow[r_7]{\textrm{NN}^{[2]} \Leftrightarrow \textrm{NP}^{[2]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP}^{[3]}),\ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP}^{[3]})\ \rangle \nonumber \\
-& \xrightarrow[r_8]{\textrm{VP}^{[3]} \Leftrightarrow \textrm{VP}^{[3]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD}^{[4]}\ \textrm{VP(VV}^{[5]}\ \textrm{AS}^{[6]}))), \nonumber \\
-&                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \textrm{ADVP(RB}^{[4]}\ \textrm{VBN}^{[5]})))\ \rangle \hspace{4.5em} \nonumber \\
-& \xrightarrow[r_3]{\textrm{AD}^{[4]} \Leftrightarrow \textrm{RB}^{[4]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD(大幅度)}\ \textrm{VP(VV}^{[5]}\ \textrm{AS}^{[6]}))), \nonumber \\
-&                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \textrm{ADVP(RB(drastically)}\  \textrm{VBN}^{[5]})))\ \rangle \nonumber \\
-& \xrightarrow[r_4]{\textrm{VV}^{[5]} \Leftrightarrow \textrm{VBN}^{[5]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD(大幅度)}\ \textrm{VP(VV(减少)}\ \textrm{AS}^{[6]}))), \hspace{10em} \nonumber \\
-&                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \nonumber \\
-&                 & \ \ \textrm{ADVP(RB(drastically)}\ \textrm{VBN(fallen)})))\ \rangle \nonumber 
-\end{eqnarray}
-\begin{eqnarray}
-& \xrightarrow[r_6]{\textrm{AS}^{[6]} \Leftrightarrow \textrm{VBP}^{[6]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD(大幅度)}\ \textrm{VP(VV(减少)}\ \textrm{AS(了)}))), \nonumber \\
-&                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP(have)}\ \nonumber \\
-&                 & \ \ \textrm{ADVP(RB(drastically)}\ \textrm{VBN(fallen)})))\ \rangle \hspace{15em} \nonumber
-\end{eqnarray}
-}
-
-\noindent 其中，箭头$\rightarrow$表示推导之意。显然，可以把翻译看作是基于树结构的推导过程（记为$d$）。因此，与层次短语模型一样，基于语言学句法的机器翻译也是要找到最佳的推导$\hat{d} = \arg\max\textrm{P}(d)$。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{树到串翻译规则}
-
-\parinterval 基于树结构的文法可以很好的表示两个树片段之间的对应关系，即树到树翻译规则。那树到串翻译规则该如何表示呢？实际上，基于树结构的文法也同样适用于树到串模型。比如，图\ref{fig:4-49}是一个树片段到串的映射，它可以被看作是树到串规则的一种表示。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/tree-fragment-to-string-mapping}
-\caption{树片段到串的映射}
-\label{fig:4-49}
-\end{figure}
-%-------------------------------------------
-
-\noindent 其中，源语言树片段中的叶子结点NN表示变量，它与右手端的变量NN对应。这里仍然可以使用基于树结构的规则对上面这个树到串的映射进行表示。参照规则形式$\langle\  \alpha_h, \beta_h\ \rangle \to \langle\ \alpha_r, \beta_r, \sim\ \rangle$，有：
-\begin{eqnarray}
-\alpha_h & = & \textrm{VP} \nonumber \\
-\beta_h & = & \textrm{VP}\ (=\alpha_h) \nonumber \\
-\alpha_r & = & \textrm{VP(VV(提高) NN:}x) \nonumber \\
-\beta_r & = & \textrm{VP(increases\ NN:}x) \nonumber \\
-\sim & = & \{1-1\} \nonumber
-\end{eqnarray}
-
-\parinterval 这里，源语言部分是一个树片段，因此$\alpha_h$和$\alpha_r$很容易确定。对于目标语部分，可以把这个符号串当作是一个单层的树片段，根结点直接共享源语言树片段的根结点，叶子结点就是符号串本身。这样，也可以得到$\beta_h$和$\beta_r$。从某种意义上说，树到串翻译仍然体现了一种双语的树结构，只是目标语部分不是语言学句法驱动的，而是一种借用了源语言句法标记所形成的层次结构。
-
-\parinterval 这里也可以把变量的对齐信息用下标表示，同时将左部两个相同的非终结符合并\footnote[8]{在树到串规则中，$\alpha_h$和$\beta_h$是一样的。}，于是规则可以被写作：
-\begin{eqnarray}
-\textrm{VP} \rightarrow \langle\ \textrm{VP(VV(提高)}\ \textrm{NN}_1),\ \textrm{increases}\ \textrm{NN}_1\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 另外，在机器翻译领域，大家习惯把规则看作源语言结构（树/串）到目标语言结构（树/串）的一种映射，因此常常会把上面的规则记为：
-\begin{eqnarray}
-\textrm{VP(VV(提高)}\ \textrm{NN}_1) \rightarrow \textrm{increases}\ \textrm{NN}_1 \nonumber
-\end{eqnarray}
-
-\parinterval 在后面的内容中也会使用这种形式来表示基于句法的翻译规则。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{树到串翻译规则抽取}
-
-\parinterval 基于句法的机器翻译包括两个步骤：文法归纳和解码。其中，文法归纳是指从双语平行数据中自动学习翻译规则及规则所对应的特征；解码是指利用得到的文法对新的句子进行分析，并获取概率最高的翻译推导。
-
-\parinterval 本节首先介绍树到串文法归纳的经典方法 —— GHKM方法\cite{galley2004s,galley2006scalable}。所谓GHKM是四位作者名字的首字母。GHKM方法的输入包括：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 源语言句子及其句法树；
-\vspace{0.5em}
-\item 目标语言句子；
-\vspace{0.5em}
-\item 源语言句子和目标语言句子之间的词对齐。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 它的输出是这个双语句对上的树到串翻译规则。GHKM不是一套单一的算法，它还包括很多技术手段用于增加规则的覆盖度和准确性。下面就具体看看GHKM是如何工作的。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{树的切割与最小规则}
-
-\parinterval 获取树到串规则就是要找到源语言树片段与目标语言词串之间的对应关系。一棵句法树会有很多个树片段，那么哪些树片段可以和目标语言词串产生对应关系呢？
-
-\parinterval 在GHKM方法中，源语言树片段和目标语言词串的对应是由词对齐决定的。GHKM假设：一个合法的树到串翻译规则，不应该违反词对齐。这个假设和双语短语抽取中的词对齐一致性约束是一样的（见\ref{subsection-4.2.3}节）。简单来说，规则中两种语言互相对应的部分不应包含对齐到外部的词对齐连接。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-tree-to-string-rule-and-word-alignment}
-\caption{树到串规则与词对齐兼容性示例}
-\label{fig:4-50}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 为了说明这个问题，来看一个例子。图\ref{fig:4-50}包含了一棵句法树、一个词串和它们之间的词对齐结果。图中包含如下规则：
-\begin{eqnarray}
-\textrm{PP(P(对)}\ \textrm{NP(NN(回答)))} \rightarrow \textrm{with}\ \textrm{the}\ \textrm{answer} \nonumber
-\end{eqnarray}
-
-\parinterval 该规则是一条满足词对齐约束的规则（对应于图\ref{fig:4-50}中红色部分），因为不存在从规则的源语言或目标语言部分对齐到规则外部的情况。但是，如下的规则却是一条不合法的规则：
-\begin{eqnarray}
-\textrm{NN(满意)} \rightarrow \textrm{satisfied} \nonumber
-\end{eqnarray}
-
-\parinterval 这是因为，``satisfied''除了对齐到``满意''，还对齐到``表示''。也就是，这条规则会产生歧义，因为``satisfied''不应该只由``满意''生成。
-
-\parinterval 为了能够获得与词对齐相兼容的规则，GHKM引入了几个概念。首先，GHKM方法中定义了Span和Complement Span：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} Span
-
-{\small
-对于一个源语言句法树节点，它的Span是这个节点所对应到的目标语言第一个单词和最后一个单词所构成的索引范围。
-}
-\end{definition}
-%-------------------------------------------
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} Complement Span
-
-{\small
-对于一个源语言句法树节点，它的Complement Span是除了它的祖先和子孙节点外的其他节点Span的并集。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval Span定义了每个节点覆盖的源语言片段所对应的目标语言片段。实际上，它表示了目标语言句子上的一个跨度，这个跨度代表了这个源语言句法树节点所能达到的最大范围。因此Span实际上是一个目标语单词索引的范围。Complement Span是与Span相对应的一个概念，它定义了句法树中一个节点之外的部分对应到目标语的范围，但是这个范围并不必须是连续的。
-
-\parinterval 有了Span和Complement Span的定义之后，可以进一步定义：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 可信节点(Admissible Node)
-
-{\small
-对于源语言树节点$node$，如果它的Span和Complement Span不相交，节点$node$就是一个可信节点，否则是一个不可信节点。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 可信节点表示这个树节点$node$和树中的其他部分（不包括$node$的祖先和孩子）没有任何词对齐上的歧义。也就是说，这个节点可以完整的对应到目标语言句子的一个连续范围，不会出现在这个范围中的词对应到其他节点的情况。如果节点不是可信节点，则表示它会引起词对齐的歧义，因此不能作为树到串规则中源语言树片段的根节点或者变量部分。图\ref{fig:4-51}给出了一个可信节点的实例。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/syntax-tree-with-admissible-node}
-\caption{标注了可信节点信息的句法树}
-\label{fig:4-51}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 进一步，可以定义树到串模型中合法的树片段：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 合法的树片段
-
-{\small
-如果一个树片段的根节点是可信节点，同时它的叶子节点中的非终结符系节点也是可信节点，那么这个树片段就是不产生词对齐歧义的树片段，也被称为合法的树片段。
-}
-\end{definition}
-%-------------------------------------------
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/translation-rule-based-on-admissible-node}
-\caption{根据可信结点得到的树到串翻译规则}
-\label{fig:4-52}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-52}是一个基于可信节点得到的树到串规则：
-\begin{eqnarray}
-\textrm{VP(PP(P(对)}\ \textrm{NP(NN(回答)))}\ \textrm{VP}_1) \rightarrow \textrm{VP}_1\ \textrm{with}\ \textrm{the}\ \textrm{answer} \nonumber
-\end{eqnarray}
-
-\noindent 其中，蓝色部分表示可以抽取到的规则，显然它的根节点和叶子非终结符节点都是可信节点。由于源语言树片段中包含一个变量（VP），因此需要对VP节点的Span所表示的目标语言范围进行泛化（红色方框部分）。
-
-\parinterval 至此，对于任何一个树片段都能够使用上述方法判断它是否合法。如果合法，就可以抽取相应的树到串规则。但是，枚举句子中的所有树片段并不是一个很高效的方法，因为对于任何一个节点，以它为根的树片段数量随着其深度和宽度的增加呈指数增长。在GHKM方法中，为了避免低效的枚举操作，可以使用另一种方法抽取规则。实际上，可信节点确定了哪些地方可以作为规则的边界（合法树片段的根节点或者叶子节点），可以把所有的可信节点看作是一个{\small\bfnew{边缘集合}}\index{边缘集合}（Frontier Set）\index{Frontier Set}。所谓边缘集合就是定义了哪些地方可以被``切割''，通过这种切割可以得到一个个合法的树片段，这些树片段无法再被切割为更小的合法树片段。图\ref{fig:4-53}给出了一个通过边缘集合定义的树切割。图右侧中的矩形框表示切割得到的树片段。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/tree-cutting-defined-by-edge-nodes}
-\caption{根据边缘节点定义的树切割}
-\label{fig:4-53}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 需要注意的是，因为``NP$\rightarrow$PN$\rightarrow$他''对应着一个单目生成的过程，所以这里``NP(PN(他))''被看作是一个最小的树片段。当然，也可以把它当作两个树片段``NP( PN)''和``PN(他)''，不过这种单目产生式往往会导致解码时推导数量的膨胀。因此，这里约定把连续的单目生成看作是一个生成过程，它对应一个树片段，而不是多个。
-
-\parinterval 将树进行切割之后，可以得到若干树片段，每个树片段都可以对应一个树到串规则。由于这些树片段不能被进一步切割，因此这样得到的规则也被称作{\small\bfnew{最小规则}}\index{最小规则}（Minimal Rules）\index{Minimal Rules}。它们就构成了树到串模型中最基本的翻译单元。图\ref{fig:4-54}展示了基于树切割得到的最小规则。其中左侧的每条规则都对应着右侧相同编号的树片段。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l l}
-\subfigure{\input{./Chapter4/Figures/minimum-rule-from-tree-cutting-1}} &  \subfigure{\input{./Chapter4/Figures/minimum-rule-from-tree-cutting-2}}
-\end{tabular}
-\caption{基于树切割得到的最小规则实例}
-\label{fig:4-54}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{空对齐处理}
-
-\parinterval 空对齐是翻译中的常见现象。比如，一些虚词经常找不到在另一种语言中的对应，因此不会被翻译，这种情况也被称作空对齐。比如，在图\ref{fig:4-54}中目标语中的``was''就是一个空对齐单词。空对齐的使用可以大大增加翻译的灵活度。具体到树到串规则抽取任务，需要把空对齐考虑进来，这样能够覆盖更多的语言现象。
-
-\parinterval 处理空对齐单词的手段非常简单。只需要把空对齐单词附着在它周围的规则上即可。也就是，检查每条最小规则，如果空对齐单词能够作为规则的一部分进行扩展，就可以生成一条新的规则。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l l}
-\subfigure{\input{./Chapter4/Figures/tree-to-string-rule-empty-alignment-1}} &  \subfigure{\input{./Chapter4/Figures/tree-to-string-rule-empty-alignment-2}}
-\end{tabular}
-\caption{树到串规则抽取中空对齐单词的处理（绿色矩形）}
-\label{fig:4-55}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-55}展示了前面例子中``was''被附着在周围的规则上的结果。其中，含有红色``was''的规则是通过附着空对齐单词得到的新规则。比如，对于规则：
-\begin{eqnarray}
-\textrm{NP(PN(他))} \rightarrow \textrm{he} \nonumber
-\end{eqnarray}
-
-\parinterval ``was''紧挨着这个规则目标端的单词``he''，因此可以把``was''包含在规则的目标端，形成新的规则：
-\begin{eqnarray}
-\textrm{NP(PN(他))} \rightarrow \textrm{he}\ \textrm{was} \nonumber
-\end{eqnarray}
-
-\parinterval 通常，在规则抽取中考虑空对齐可以大大增加规则的覆盖度。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{组合规则}
-
-\parinterval 最小规则是句法翻译模型中最小的翻译单元。但是，在翻译复杂句子的时候，往往需要更大范围的上下文信息，比如，本节开始图\ref{fig:4-42}中的例子，需要一条规则同时处理多个变量的调序，而这种规则很可能不是最小规则。为了得到``更大''的规则，一种方法是对最小规则进行组合。得到的规则称为composed-$m$规则，其中$m$表示这个规则是由$m$条最小规则组合而成。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l l l}
-& \subfigure{\input{./Chapter4/Figures/combine-minimum-rule-1}} &  \subfigure{\input{./Chapter4/Figures/combine-minimum-rule-2}}
-\end{tabular}
-\caption{对最小规则进行组合（绿色矩形）}
-\label{fig:4-56}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 规则的组合非常简单。只需要在得到最小规则之后，对相邻的规则进行拼装。也就是说，如果某个树片段的根节点出现在另一个树片段的叶子节点处，就可以把它们组合成更大的树片段。图\ref{fig:4-56}给了规则组合的实例。其中，规则1、5、6、7可以组合成一条composed-4规则，这个规则可以进行非常复杂的调序。
-
-\parinterval 在真实系统开发中，组合规则一般会带来明显的性能提升。不过随着组合规则数量的增加，规则集也会膨胀。因此往往需要在翻译性能和文法大小之间找到一种平衡。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{SPMT规则}
-
-\parinterval 组合规则固然有效，但并不是所有组合规则都非常好用。比如，在机器翻译中已经发现，如果一个规则含有连续词串（短语），这种规则往往会比较可靠。但是由于句法树结构复杂，获取这样的规则可能会需要很多次规则的组合，规则抽取的效率很低。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/tree-segment-corresponding-to-phrase}
-\caption{短语（红色）所对应的树片段（绿色）}
-\label{fig:4-57}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 针对这个问题，一种解决办法是直接从词串出发进行规则抽取。这种方法被称为SPMT方法\cite{marcu2006spmt:}。它的思想是：对于任意一个与词对齐兼容的短语，可以找到包含它的``最小''翻译规则，即SPMT规则。如图\ref{fig:4-57}所示，可以得到短语翻译：
-\begin{eqnarray}
-\textrm{对}\ \textrm{形式} \rightarrow \textrm{about}\ \textrm{the}\ \textrm{situation} \nonumber
-\end{eqnarray}
-
-\parinterval 然后，从这个短语出发向上搜索，找到覆盖这个短语的最小树片段，之后生成规则即可。在这个例子中可以得到SPMT规则：
-\begin{eqnarray}
-\textrm{VP(P(对)}\ \textrm{NP(NN(局势))}\ \textrm{VP}_1) \rightarrow \textrm{VP}_1\ \textrm{about}\ \textrm{the}\ \textrm{situation} \nonumber
-\end{eqnarray}
-
-\parinterval 而这条规则需要组合三条最小规则才能得到，但是在SPMT中可以直接得到。相比规则组合的方法，SPMT方法可以更有效的抽取包含短语的规则。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{句法树二叉化}
-
-\parinterval 句法树是使用人类语言学知识归纳出来的一种解释句子结构的工具。比如， CTB\cite{xue2005building}、PTB\cite{DBLP:journals/coling/MarcusSM94}等语料就是常用的训练句法分析器的数据。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/syntax-tree-in-ctb}
-\caption{CTB中含有多个分句的句法树结构}
-\label{fig:4-58}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 但是，这些数据的标注中会含有大量的扁平结构，如图\ref{fig:4-58}所示，多个分句可能会导致一个根节点下有很多个分支。这种扁平的结构会给规则抽取带来麻烦。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/tree-binarization}
-\caption{一个扁平的句法结构所对应的规则抽取结果}
-\label{fig:4-59}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-59}给出了一个实例，其中的名词短语（NP），包含四个词，都在同一层树结构中。由于``唐纳德$\ $特朗普''并不是一个独立的句法结构，因此无法抽取类似于下面这样的规则：
-\begin{eqnarray}
-\textrm{NP(NN(唐纳德))}\ \textrm{NN(特朗普))} \rightarrow \textrm{Trump} \nonumber
-\end{eqnarray}
-
-\parinterval 对于这个问题，一种解决办法是把句法树变得更深，使局部的翻译片段更容易被抽取出来。常用的手段是树{\small\bfnew{二叉化}}\index{二叉化}（Binarization）\index{Binarization}。比如，图\ref{fig:4-60}就是一个树二叉化的实例。二叉化生成了一些新的节点（记为X-BAR），其中``唐纳德$\ $特朗普''被作为一个独立的结构体现出来。这样，就能够抽取到规则：
-\begin{eqnarray}
-&& \textrm{NP-BAR(NN(唐纳德))}\ \textrm{NN(特朗普))} \rightarrow \textrm{Trump} \nonumber \\
-&& \textrm{NP-BAR(}\textrm{NN}_1\ \textrm{NP-}\textrm{BAR}_2) \rightarrow \textrm{NN}_1\ \textrm{NP-}\textrm{BAR}_2 \nonumber
-\end{eqnarray}
-
-\parinterval 由于树二叉化可以帮助规则抽取得到更细颗粒度的规则，提高规则抽取的召回率，因此成为了基于句法的机器翻译中的常用方法。二叉化方法也有很多不同的实现策略，比如：左二叉化\cite{DBLP:conf/naacl/ZhangHGK06}、右二叉化\cite{Tong2009Better}、基于中心词的二叉化\cite{DBLP:conf/acl/KleinM03,charniak2006multilevel}等。具体实现时可以根据实际情况进行选择。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/result-of-tree-binarization}
-\caption{句法树二叉化结果}
-\label{fig:4-60}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{树到树翻译规则抽取}
-
-\parinterval 树到串/串到树模型只在一个语言端使用句法树，而树到树模型可以同时利用源语言和目标语言句法信息，因此可以更细致地刻画两种语言结构的对应关系，进而更好地完成句法结构的调序和生成。树到树翻译中，需要两端都有树结构的规则，比如：
-\begin{eqnarray}
-\langle\ \textrm{VP},\textrm{VP}\ \rangle \rightarrow \langle\ \textrm{VP(}\textrm{PP}_1\ \textrm{VP(VV(表示)}\ \textrm{NN}_2\textrm{))}, \nonumber \\
-\textrm{VP(VBZ(was)}\ \textrm{VP(}\textrm{VBN}_2\ \textrm{PP}_1\textrm{))}\ \rangle \nonumber
-\end{eqnarray}
-
-\parinterval 也可以把它写为如下形式：
-\begin{eqnarray}
-\textrm{VP(}\textrm{PP}_1\ \textrm{VP(VV(表示)}\ \textrm{NN}_2\textrm{))} \rightarrow \textrm{VP(VBZ(was)}\ \textrm{VP(}\textrm{VBN}_2\ \textrm{PP}_1\textrm{))} \nonumber
-\end{eqnarray}
-
-\noindent 其中，规则的左部是源语言句法树结构，右部是目标语言句法树结构，变量的下标表示对应关系。为了获取这样的规则，需要进行树到树规则抽取。最直接的办法是把GHKM方法推广到树到树翻译的情况。比如，可以利用双语结构的约束和词对齐，定义树的切割点，之后找到两种语言树结构的映射关系\cite{liu2009improving}。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于节点对齐的规则抽取}
-
-\parinterval 不过，GHKM方法的问题在于过于依赖词对齐结果。在树到树翻译中，真正需要的是树结构（节点）之间的对应关系，而不是词对齐。特别是在两端都加入句法树结构约束的情况下，词对齐的错误可能会导致较为严重的规则抽取错误。图\ref{fig:4-61}就给出了一个实例，其中，中文的``了''被错误的对齐到了英文的``the''，导致很多高质量的规则无法被抽取出来。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/tree-to-tree-rule-extraction-base-word-alignment}
-\caption{基于词对齐的树到树规则抽取}
-\label{fig:4-61}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 换一个角度来看，词对齐实际上只是帮助模型找到两种语言句法树中节点的对应关系。如果能够直接得到句法树节点的对应，就可以避免掉词对齐的错误。也就是，可以直接使用节点对齐来进行树到树规则的抽取。首先，利用外部的节点对齐工具获得两棵句法树节点之间的对齐关系。之后，将每个对齐的节点看作是树片段的根节点，再进行规则抽取。图\ref{fig:4-62}展示了基于节点对齐的规则抽取结果。
-
-%----------------------------------------------
-\begin{figure}[htb]
-\centering
-\input{./Chapter4/Figures/tree-to-tree-rule-extraction-base-node-alignment}
-\caption{基于节点对齐的树到树规则抽取}
-\label{fig:4-62}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 可以看到，节点对齐可以避免词对齐错误造成的影响。不过，节点对齐需要开发额外的工具。有很多方法可以参考，比如可以基于启发性规则\cite{DBLP:conf/coling/GrovesHW04}、基于分类模型\cite{DBLP:conf/coling/SunZT10}、基于无指导的方法\cite{xiao2013unsupervised}等。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于对齐矩阵的规则抽取}
-
-\parinterval 同词对齐一样，节点对齐也会存在错误，这样就不可避免的造成规则抽取的错误。既然单一的对齐中含有错误，那能否让系统看到更多样的对齐结果，进而提高正确规则被抽取到的几率呢？答案是肯定的。实际上，在基于短语的模型中就有基于多个词对齐（如$n$-best词对齐）进行规则抽取的方法，这种方法可以在一定程度上提高短语的召回率。在树到树规则抽取中也可以使用多个节点对齐结果进行规则抽取。但是，简单使用多个对齐结果会使系统运行代价线性增长，而且即使是$n$-best对齐，也无法保证涵盖到正确的对齐结果。对于这个问题，另一种思路是使用对齐矩阵进行规则的``软''抽取。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/one-best-node-alignment-and-alignment-matrix}
-\caption{使用1-best节点对齐和概率化节点对齐矩阵的树到树规则抽取\cite{xiao2013unsupervised}}
-\label{fig:4-63}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 所谓对齐矩阵，是描述两个句法树节点之间对应强度的数据结构。矩阵的每个单元中都是一个0到1之间的数字。规则抽取时，可以认为所有节点之间都存在对齐，这样可以抽取出很多$n$-best对齐中无法覆盖的规则。图\ref{fig:4-63}展示了一个用对齐矩阵的进行规则抽取的实例。其中矩阵1（Matrix 1）表示的标准的1-best节点对齐，矩阵2（Matrix 2）表示的是一种概率化的对齐矩阵。可以看到使用矩阵2可以抽取到更多样的规则。另外，值得注意的是，基于对齐矩阵的方法也同样适用于短语和层次短语规则的抽取。关于对齐矩阵的生成可以参考相关论文的内容\cite{xiao2013unsupervised,liu2009weighted,sun2010exploring,sun2010discriminative}。
-
-\parinterval 此外，在基于句法的规则抽取中，一般会对规则进行一些限制，以避免规则数量过大，系统无法处理。比如，可以限制树片段的深度、变量个数、规则组合的次数等等。这些限制往往需要根据具体任务进行设计和调整。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{句法翻译模型的特征}
-
-\parinterval 基于语言学句法的翻译模型使用判别式模型对翻译推导进行建模（\ref{subsection-4.2.2}节）。给定双语句对($\mathbf{s}$,$\mathbf{t}$)，由$M$个特征经过线性加权，得到每个翻译推导$d$的得分，记为$\textrm{score(}d,\mathbf{t},\mathbf{s})=\sum_{i=1}^{M} \lambda_i \cdot h_{i}(d,\mathbf{t},\mathbf{s})$，其中$\lambda_i$表示特征权重，$h_{i}(d,\mathbf{t},\mathbf{s})$表示特征函数。翻译的目标就是要找到使$\textrm{score(}d,\mathbf{t},\mathbf{s})$达到最高的推导$d$。
-
-\parinterval 这里，可以使用最小错误率训练对特征权重进行调优（\ref{subsection-4.2.6}节）。而特征函数可参考如下定义：
-
-\vspace{0.5em}
-\parinterval {\small\bfnew{基于短语的特征}}\index{基于短语的特征}（对应于每条规则$r : \langle\  \alpha_h, \beta_h\ \rangle \to \langle\ \alpha_r, \beta_r, \sim\ \rangle$ ）
-
-\begin{itemize}
-\vspace{0.5em}
-\item (h1-2)短语翻译概率，即规则源语言和目标语言树覆盖的序列翻译概率。令函数$\tau(\cdot)$返回一个树片段的叶子节点序列。对于规则：
-\begin{displaymath}
-\textrm{VP(}\textrm{PP}_1\ \textrm{VP(VV(表示)}\ \textrm{NN}_2\textrm{))} \rightarrow \textrm{VP(VBZ(was)}\ \textrm{VP(}\textrm{VBN}_2\ \textrm{PP}_1\textrm{))}
-\end{displaymath}
-\noindent 可以得到：
-\begin{eqnarray}
-\tau( \alpha_r ) & = & \textrm{PP}\ \textrm{表示}\ \textrm{NN} \nonumber \\
-\tau( \beta_r ) & = & \textrm{was}\ \textrm{VBN}\ \textrm{PP} \nonumber
-\end{eqnarray}
-\noindent 于是，可以定义短语翻译概率为$\textrm{P(}\tau( \alpha_r )|\tau( \beta_r ))$和$\textrm{P(}\tau( \beta_r )|\tau( \alpha_r ))$。它们的计算方法与基于短语的系统是完全一样的\footnote[9]{对于树到串规则，$\tau( \beta_r )$就是规则目标语言端的符号串。}；
-\vspace{0.5em}
-\item (h3-4) 词汇化翻译概率，即$\textrm{P}_{\textrm{lex}}(\tau( \alpha_r )|\tau( \beta_r ))$和$\textrm{P}_{\textrm{lex}}(\tau( \beta_r )|\tau( \alpha_r ))$。这两个特征的计算方法与基于短语的系统也是一样的。
-\vspace{0.5em}
-\end{itemize}
-
-\vspace{0.5em}
-\parinterval {\small\bfnew{基于句法的特征}}\index{基于句法的特征}（对应于每条规则$r : \langle\  \alpha_h, \beta_h\ \rangle \to \langle\ \alpha_r, \beta_r, \sim\ \rangle$ ）
-
-\begin{itemize}
-\vspace{0.5em}
-\item (h5)基于根节点句法标签的规则生成概率，即$\textrm{P(}r|\textrm{root(}r\textrm{))}$。这里，$\textrm{root(}r)$是规则所对应的双语根节点$(\alpha_h,\beta_h)$；
-\vspace{0.5em}
-\item (h6)基于源语言端的规则生成概率，即$\textrm{P(}r|\alpha_r))$，给定源语言端生成整个规则的概率；
-\vspace{0.5em}
-\item (h7)基于目标语言端的规则生成概率，即$\textrm{P(}r|\beta_r))$，给定目标语言端生成整个规则的概率。
-\end{itemize}
-
-\vspace{0.5em}
-\parinterval {\small\bfnew{其他特征}}（对应于整个推导$d$）
-
-\begin{itemize}
-\vspace{0.5em}
-\item (h8)语言模型，即$\textrm{P}_{\textrm{lm}}(\mathbf{t})$，用于度量译文的流畅度；
-\vspace{0.5em}
-\item (h9)译文长度，即$|\mathbf{t}|$，用于避免模型过于倾向生成短译文（因为短译文语言模型分数高）；
-\vspace{0.5em}
-\item (h10)翻译规则数量，学习对使用规则数量的偏好。比如，如果这个特征的权重较高，则表明系统更喜欢使用数量多的规则；
-\vspace{0.5em}
-\item (h11)组合规则的数量，学习对组合规则的偏好；
-\vspace{0.5em}
-\item (h12)词汇化规则的数量，学习对含有终结符规则的偏好；
-\vspace{0.5em}
-\item (h13)低频规则的数量，学习对训练数据中出现频次低于3的规则的偏好。低频规则大多不可靠，设计这个特征的目的也是为了区分不同质量的规则。
-\end{itemize}
-
-\vspace{0.5em}
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{基于超图的推导空间表示}
-
-\parinterval 在完成建模后，剩下的问题是：如何组织这些翻译推导，完成高效的计算？本质上，基于句法的机器翻译与句法分析是一样的，因此关于翻译推导的组织可以借用句法分析中的一些概念。
-
-\parinterval 在句法分析中，上下文无关文法（CFG）的分析过程可以被组织成一个叫{\small\bfnew{有向超图}}\index{有向超图}（Directed Hyper-graph）\index{Directed Hyper-graph}的结构，或者简称为{\small\bfnew{超图}}\cite{ilprints729}：
-
-%-------------------------------------------
-\vspace{0.5em}
-\begin{definition} 有向超图
-
-{\small
-一个有向超图$G$包含一个节点集合$N$和一个有向{\small\bfnew{超边}}\index{超边}（Hyper-edge）\index{Hyper-edge}集合$E$。每个有向超边包含一个头（Head）和一个尾（Tail），头指向$N$中的一个节点，尾是若干个$N$中的节点所构成的集合。
-}
-\end{definition}
-%-------------------------------------------
-
-\parinterval 与传统的有向图不同，超图中的每一个边（超边）的尾可以包含多个节点。也就是说，每个超边从若干个节点出发最后指向同一个节点。这种定义完美契合了CFG的要求。比如，如果把节点看作是一个推导所对应树结构的根节点（含有句法标记），那么每个超边就可以表示一条CFG规则。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/example-of-hyper-graph}
-\caption{超图实例}
-\label{fig:4-64}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-64}就展示了一个简单的超图。其中每个节点都有一个句法标记，句法标记下面记录了这个节点的跨度。超边edge1和edge2分别对应了两条CFG规则：
-\begin{eqnarray}
-\textrm{VP} \rightarrow \textrm{VV}\ \textrm{NP} \nonumber \\
-\textrm{NP} \rightarrow \textrm{NN}\ \textrm{NP} \nonumber
-\end{eqnarray}
-
-\parinterval 对于规则``$\textrm{VP} \rightarrow \textrm{VV}\ \textrm{NP}$''，超边的头指向VP，超边的尾表示规则右部的两个变量VV和NP。规则``$\textrm{NP} \rightarrow \textrm{NN}\ \textrm{NP}$''也可以进行类似的解释。
-
-\parinterval 不难发现，超图提供了一种非常紧凑的数据结构来表示多个推导，因为不同推导之间可以共享节点。如果把图\ref{fig:4-64}中的蓝色和红色部分看作是两个推导，那么它们就共享了同一个节点NN[1,2]。能够想象，简单枚举一个句子所有的推导几乎是不可能的，但是用超图的方式却可以很有效地对指数级数量的推导进行表示。另一方面，超图上的运算常常被看作是一种基于半环的代数系统，而且人们发现许多句法分析和机器翻译问题本质上都是{\small\bfnew{半环分析}}\index{半环分析}（Semi-ring Parsing）\index{Semi-ring Parsing}。不过，由于篇幅有限，这里不会对半环等结构展开讨论。感兴趣的读者可以查阅相关文献\cite{goodman1999semiring,eisner2002parameter}。
-
-\parinterval 从句法分析的角度看，超图最大程度地复用了局部的分析结果，使得分析可以``结构化''。比如，有两个推导：
-\begin{eqnarray}
-d_1 = {r_1} \circ {r_2} \circ {r_3} \circ {r_4} \label{eqa4.30}\\
-d_2 = {r_1} \circ {r_2} \circ {r_3} \circ {r_5}
-\label{eq:4-31}
-\end{eqnarray}
-
-\noindent 其中，$r_1$-$r_5$分别表示不同的规则。${r_1} \circ {r_2} \circ {r_3}$是两个推导的公共部分。在超图表示中，${r_1} \circ {r_2} \circ {r_3}$可以对应一个子图，显然这个子图也是一个推导，记为${d'}= {r_1} \circ {r_2} \circ {r_3}$。这样，$d_1$和$d_2$不需要重复记录${r_1} \circ {r_2} \circ {r_3}$，重新写作：
-\begin{eqnarray}
-d_1 = {d'} \circ {r_4} \label{eqa4.32}\\
-d_1 = {d'} \circ {r_5}
-\label{eq:4-33}
-\end{eqnarray}
-
-\parinterval 引入$d'$的意义在于，整个分析过程具有了递归性。从超图上看，$d'$可以对应以一个（或几个）节点为``根''的子图，因此只需要在这个（或这些）子图上增加新的超边就可以得到更大的推导。这个过程不断执行，最终完成对整个句子的分析。
-
-\parinterval 在句法分析中，超图的结构往往被组织为一种Chart结构。所谓Chart，就是一个表格，每个格代表了一个跨度，因此可以把所有覆盖这个跨度的推导都放入相应的表格单元（Chart Cell）。对于上下文无关文法，表格里的每一项还会增加一个句法标记，用来区分不同句法功能的推导。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/structure-of-chart}
-\caption{Chart结构}
-\label{fig:4-65}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 如图\ref{fig:4-65}所示，覆盖相同跨度的节点会被放入同一个Chart Cell，但是不同句法标记的节点会被看作是不同的项（Item）。这种组织方式建立了一个索引，通过索引可以很容易的访问同一个跨度下的所有推导。比如，如果采用自下而上的分析，可以从小跨度的Chart Cell开始，构建推导，并填写Chart Cell。这个过程中，可以访问之前的Chart Cell来获得所需的局部推导（类似于前面提到的$d'$）。该过程重复执行，直到处理完最大跨度的Chart Cell。而最后一个Chart Cell就保存了完整推导的根节点。通过回溯的方式，能够把所有推导都生成出来。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/hyper-graph-representation-of-machine-translation-derivation}
-\caption{机器翻译推导的超图表示}
-\label{fig:4-66}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 基于句法的机器翻译仍然可以使用超图进行翻译推导的表示。和句法分析一样，超图的每条边可以对应一个基于树结构的文法，超边的头代表文法的左部，超边的尾代表规则中变量所对应的超图中的节点\footnote[10]{ 也可以把每个终结符看作是一个节点，这样一个超边的尾就对应规则的树片段中所有的叶子。}。图\ref{fig:4-66} 给出了一个使用超图来表示机器翻译推导的实例。可以看到，超图的结构是按源语言组织的，但是每个规则（超边）会包含目标语言的信息。由于同步翻译文法可以确保规则的源语言端和目标语言端都覆盖连续的词串，因此超图中的每个节点都对应一个源语言跨度，同时对应一个目标语的连续译文。这样，每个节点实际上代表了一个局部的翻译结果。
-
-\parinterval 不过，机器翻译与句法分析也有不同之处。最主要的区别在于机器翻译使用了语言模型作为一个特征，比如$n$-gram语言模型。因为语言模型并不是上下文无关的，因此机器翻译中计算最优推导的方法和句法分析会有不同。常用的方法是，直接在每个Chart Cell中融合语言模型的分数，保留前$k$个结果；或者，在构建超图时不计算语言模型得分，等到构建完整个超图之后对最好的若干个推导用语言模型重新排序；再或者，将译文和语言模型都转化为加权有限状态自动机，之后直接对两个自动机做{\small\bfnew{组合}}\index{组合}（Composition）\index{Composition}得到新的自动机，最后得到融合语言模型得分的译文表示。
-
-\parinterval 基于超图的推导表示方法有着很广泛的应用。比如，\ref{section-4.3}节介绍的层次短语系统也可以使用超图进行建模，因为它也使用了同步文法。从这个角度说，基于层次短语的模型和基于语言学句法的模型本质上是一样的。它们的主要区别在于规则中的句法标记和抽取规则的方法不同。
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{基于树的解码 vs 基于串的解码}
-
-\parinterval 解码的目标是找到得分score($d$)最大的推导$d$。这个过程通常被描述为：
-\begin{eqnarray}
-\hat{d} = \arg\max_d \textrm{score} (d,\mathbf{s},\mathbf{t})
-\label{eq:4-34}
-\end{eqnarray}
-
-\parinterval 这也是一种标准的{\small\bfnew{基于串的解码}}\index{基于串的解码}（String-based Decoding）\index{String-based Decoding}，即通过句法模型对输入的源语言句子进行翻译得到译文串。不过，搜索所有的推导会导致巨大的解码空间。对于树到串和树到树翻译来说，源语言句法树是可见的，因此可以使用另一种解码方法\ \dash \ {\small\bfnew{基于树的解码}}\index{基于树的解码}（Tree-based Decoding）\index{Tree-based Decoding}，即把输入的源语句法树翻译为目标语串。
-
-%----------------------------------------------
-\begin{table}[htp]{
-\begin{center}
-\caption{基于串的解码 vs 基于树的解码}
-\label{tab:4-4}
-{
-\begin{tabular}{l | p{16.5em} p{12em}}
-对比 & 基于树的解码 & 基于串的解码 \\
-\hline
-\rule{0pt}{15pt}解码方法 & $\hat{d} = \arg\max_{d \in D_{\textrm{tree}}} \textrm{score} (d)$ & $\hat{d} = \arg\max_{d \in D} \textrm{score} (d)$ \\
-\rule{0pt}{15pt}搜索空间 & 与输入的源语句法树兼容的推导$D_{\textrm{tree}}$ & 所有的推导$D$ 
-\end{tabular}
-}
-\end{center}
-}\end{table}
-\begin{table}[htp]{
-\begin{center}
-{
-\begin{tabular}{l | p{16.5em} p{12em}}
-对比 & 基于树的解码 & 基于串的解码 \\
-\hline
-\rule{0pt}{15pt}适用模型 & 树到串、树到树 & 所有的句法模型 \\
-\rule{0pt}{15pt}解码算法 & Chart解码 & CKY + 规则二叉化 \\
-\rule{0pt}{15pt}速度 & 快 & 一般较慢
-\end{tabular}
-}
-\end{center}
-}\end{table}
-%-------------------------------------------
-
-\parinterval 表\ref{tab:4-4}对比了基于串和基于树的解码方法。可以看到，基于树的解码只考虑了与源语言句法树兼容的推导，因此搜索空间更小，解码速度会更快。
-
-\parinterval 这里需要注意的是，不论是基于串的解码还是基于树的解码都是使用句法模型的方法，在翻译过程中都会生成翻译推导和树结构。二者的本质区别在于，基于树的解码把句法树作为显性的输入，而基于串的解码把句法树看作是翻译过程中的隐含变量。图\ref{fig:4-67}进一步解释了这个观点。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/role-of-syntax-tree-in-different-decoding-methods}
-\caption{句法树在不同解码方法中的角色}
-\label{fig:4-67}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于树的解码}
-
-\parinterval 基于树和基于串的解码都可以使用前面的超图结构进行推导的表示。基于树的解码方法相对简单。直接使用Chart结构组织解码空间即可。这里采用自底向上的策略，具体步骤如下：
-\begin{itemize}
-\vspace{0.5em}
-\item 从源语言句法树的叶子节点开始，自下而上访问输入句法树的节点；
-\vspace{0.5em}
-\item 对于每个树节点，匹配相应的规则；
-\vspace{0.5em}
-\item 从树的根节点可以得到翻译推导，最终生成最优推导所对应的译文。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 这个过程如图\ref{fig:4-68}所示，可以看到，不同的Chart Cell对应不同跨度，每个Chart Cell会保存相应的句法标记（还有译文的信息）。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/content-of-chart-in-tree-based-decoding}
-\caption{基于树的解码中Chart的内容}
-\label{fig:4-68}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 这里的问题在于规则匹配。对于每个树节点，需要知道以它为根可以匹配的规则有哪些。比较直接的解决方法是遍历这个节点下一定深度的句法树片段，用每个树片段在文法中找出相应的匹配规则，如图\ref{fig:4-69}所示。不过这种匹配是一种严格匹配，因为它要求句法树片段内的所有内容都要与规则的源语言部分严格对应。有时，句法结构中的细微差别都会导致规则匹配不成功。因此，也可以考虑采用模糊匹配的方式提高规则的命中率，进而增加可以生成推导的数量\cite{zhu2011improving}。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/rule-matching-base-tree}
-\caption{基于树的规则匹配}
-\label{fig:4-69}
-\end{figure}
-%-------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%    NEW SUBSUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsubsection{基于串的解码}
-
-\parinterval 基于串的解码过程和句法分析几乎一样。对于输入的源语言句子，基于串的解码需要找到这个句子上的最优推导。唯一不同的地方在于，机器翻译需要考虑译文的生成（语言模型的引入会使问题稍微复杂一些），但是源语言部分的处理和句法分析是一样的。因为不要求用户输入句法树，所以这种方法同时适用于树到串、串到树、树到树等多种模型。本质上，基于串的解码可以探索更多潜在的树结构，并增大搜索空间（相比基于树的解码），因此该方法更有可能找到高质量翻译结果。
-
-\parinterval 基于串的解码仍然可以用Chart来组织翻译推导。不过，一个比较有挑战的问题是如何找到每个规则能够匹配的源语言跨度。也就是，对于每个Chart Cell，需要知道哪些规则可以被填入其中。因为，没有用户输入的句法树做指导，理论上输入句子的所有子串要与所有规则进行匹配。匹配时，需要考虑规则中源语言端的符号串（或者树结构的叶子序列）与输入词串匹配的全部可能性。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter4/Figures/cut-different-positions-of-word-string}
-\caption{在一个词串上匹配``NP 对 NP VP''。连续变量的匹配对应了对词串不同位置的切割。}
-\label{fig:4-70}
-\end{figure}
-%-------------------------------------------
-
-\parinterval 图\ref{fig:4-70}展示了规则匹配输入句子（包含13个词）的所有可能。可以看到，规则源语言端的连续变量会使得匹配情况变得复杂。对于长度为$n$的词串，匹配含有$m$个连续变量的规则的时间复杂度是O($n^{m-1}$)。显然当变量个数增加时规则匹配是相当耗时的操作，甚至当变量个数过多时解码无法在可接受的时间内完成。
-
-\parinterval 对于这个问题，有两种常用的解决办法：
-\begin{itemize}
-\vspace{0.5em}
-\item 对文法进行限制。比如，可以限制规则中变量的数量；或者不允许连续的变量，这样的规则也被称作满足{\small\bfnew{Lexicalized Norm Form}}\index{Lexicalized Norm Form}（LNF）的规则。比如，层次短语规则就是LNF规则。由于LNF 中单词（终结符）可以作为锚点，因此规则匹配时所有变量的匹配范围是固定的；
-\vspace{0.5em}
-\item 对规则进行二叉化，使用CKY方法进行分析。这个方法也是句法分析中常用的策略。所谓规则二叉化是把规则转化为最多只含两个变量或连续词串的规则（串到树规则）。比如，对于如下的规则：
-\begin{eqnarray}
-\textrm{喜欢}\ \textrm{VP}_1\ \textrm{NP}_2 \rightarrow \textrm{VP(VBZ(likes)}\ \textrm{VP}_1\ \textrm{NP}_2 ) \nonumber
-\end{eqnarray}
-
-\noindent 二叉化的结果为：
-\begin{eqnarray}
-\textrm{喜欢}\ \textrm{V103} &\rightarrow& \textrm{VP}(\textrm{VBZ}(\textrm{likes})\ \textrm{V103} ) \nonumber \\
-\textrm{VP}_1\ \textrm{NP}_2 &\rightarrow& \textrm{V103(}\ \textrm{VP}_1\ \textrm{NP}_2 ) \nonumber
-\end{eqnarray}
-\noindent 可以看到，这两条新的规则源语言端只有两个部分，代表两个分叉。V103是一个新的标签，它没有任何句法含义。不过，为了保证二叉化后规则目标语部分的连续性，需要考虑源语言和目标语二叉化的同步性\cite{zhang2006synchronous,Tong2009Better}。这样的规则与CKY方法一起使用完成解码，具体内容可以参考\ref{subsection-4.3.4}节的内容。
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 总的来说，基于句法的解码器较为复杂。无论是算法的设计还是工程技巧的运用，对开发者的能力都有一定要求。因此开发一个优秀的基于句法的机器翻译系统是一项有挑战的工作。
-
-%----------------------------------------------------------------------------------------
-%    NEW SECTION
-%----------------------------------------------------------------------------------------
-
-\sectionnewpage
-\section{小结及深入阅读}\label{section-4.5}
-
-\parinterval 统计机器翻译模型是近三十年内自然语言处理的重要里程碑之一。其统计建模的思想长期影响着自然语言处理的研究。无论是基于短语的模型，还是基于层次短语的模型，还是基于语言学句法的模型都在尝试回答：究竟应该用什么样的知识对机器翻译进行统计建模？不过，这个问题至今还没有确定的答案。但是，显而易见，统计机器翻译为机器翻译的研究提供了一种范式，即让计算机用概率化的``知识''描述翻译问题。这些`` 知识''就是统计模型的参数，模型可以从大量的双语和单语数据中自动学习参数。这种建模思想在今天的机器翻译研究中仍然随处可见。
-
-\parinterval 本章对统计机器翻译的经典模型进行了介绍。从早期的基于短语的模型，再到层次短语模型，以及更为复杂的基于语言学句法的模型，本章尝试对不同的建模思想进行阐释。只是，统计机器翻译的内容非常丰富，很难通过一章的内容进行面面俱到的介绍。还有很多方向值得读者进一步了解：
-
-\begin{itemize}
-\vspace{0.5em}
-\item 统计机器翻译的成功很大程度上来自判别式模型引入任意特征的能力。因此，在统计机器翻译时代，很多工作都集中在新特征的设计上。比如，可以基于不同的统计特征和先验知识设计翻译特征\cite{och2004smorgasbord,Chiang200911,gildea2003loosely}，也可以模仿分类任务设计大规模的稀疏特征\cite{chiang2008online}。另一方面，模型训练和特征权重调优也是统计机器翻译中的重要问题，除了最小错误率训练，还有很多方法，比如，最大似然估计\cite{koehn2003statistical,Peter1993The}、判别式方法\cite{Blunsom2008A}、贝叶斯方法\cite{Blunsom2009A,Cohn2009A}、最小风险训练\cite{smith2006minimum,li2009first-}、基于Margin的方法\cite{watanabe2007online,Chiang200911}以及基于排序模型的方法（PRO）\cite{Hopkins2011Tuning,dreyer2015apro}。实际上，统计机器翻译的训练和解码也存在不一致的问题，比如，特征值由双语数据上的极大似然估计得到（没有剪枝），而解码时却使用束剪枝，而且模型的目标是最大化机器翻译评价指标。对于这个问题也可以通过调整训练的目标函数进行缓解\cite{XiaoA,marcu2006practical}。
-\vspace{0.5em}
-\item 统计机器翻译的另一个基础问题是如何表示并获取翻译单元（如短语）。传统方法中，研究者大多使用词对齐或者句法树等结构化信息，通过启发性方法进行短语和翻译规则的获取。不过这类方法最大的问题是上游系统（比如，词对齐、句法分析等）中的错误会影响到下游系统。因此，很多研究者尝试使用更多样的对齐或者句法分析来指导翻译单元的获取。比如，可以绕过词对齐，直接进行短语对齐\cite{denero2010phrase}；也可以使用多个句法树或者句法森林来覆盖更多的句法现象，进而增加规则抽取的召回率\cite{mi2008forest,xiao2010empirical}。另一个有趣的方向是用更紧凑的方式表示更多样的翻译假设，比如，直接将翻译结果用有限状态自动机表示，进行更大搜索空间上的解码\cite{de2010hierarchical,Casacuberta2004Machine}。
-\vspace{0.5em}
-\item 系统融合是具有统计机器翻译时代特色的研究方向。某种意义上说，系统融合的兴起源于本世纪初各种机器翻译比赛。因为当时提升翻译性能的主要方法之一就是将多个翻译引擎进行融合。系统融合的出发点是：多样的翻译候选有助于生成更好的译文。系统融合有很多思路，比较简单的方法是假设选择，即从多个翻译系统的输出中直接选择一个译文\cite{bangalore2001computing,rosti2007combining,xiao2013bagging}；另一种方法是用多个系统的输出构建解码格或者混淆网络，这样可以生成新的翻译结果\cite{Yang2009Lattice,He2008Indirect,Li2009Incremental}；此外，还可以在解码过程中动态融合不同模型\cite{Yang2009Joint,Mu2009Collaborative}。另一方面，也有研究者探讨如何在一个翻译系统中让不同的模型进行互补，而不是简单的融合。比如，可以控制句法在机器翻译中使用的程度，让句法模型和层次短语模型处理各自擅长的问题\cite{Tong2016Syntactic}。
-\vspace{0.5em}
-\item 语言模型是统计机器翻译系统所使用的重要特征。但是，即使引入$n$-gram语言模型，机器翻译系统仍然会产生语法上不正确的译文，甚至会生成结构完全错误的译文。对于这个问题，研究者尝试使用基于句法的语言模型。早期的探索有Charniak等人\cite{charniak2001immediate}和Och等人\cite{och2004smorgasbord}的工作，不过当时的结果并没有显示出基于句法的语言模型可以显著提升机器翻译的品质。后来，BBN的研究团队提出了基于依存树的语言模型\cite{shen2008a}，这个模型可以显著提升层次短语模型的性能。正是凭借着这项技术，BBN的系统也在多个机器翻译评测比赛中名列前茅，引起了广泛关注。除此之外，也有研究工作探索基于树替换文法等结构的语言模型\cite{xiao2011language}。实际上，树到树、串到树模型也可以被看作是一种对目标语言句法合理性的度量，只不过目标语言的句法信息被隐含在翻译规则中。这时，可以在翻译规则上设计相应的特征，以达到引入目标语句法语言模型的目的。
+\item 另一个比较值得关注的一个研究问题是如何使模型更加鲁棒，因为通常情况下，一个质量评估模型会受语种、评价策略等问题的约束，设计一个能应用于任何语种，同时从单词、短语、句子等各个等级对译文质量进行评估的模型是很有难度的。Biçici等人最先关注质量评估的鲁棒性问题，并设计开发了一种与语言无关的机器翻译性能预测器\upcite{DBLP:journals/mt/BiciciGG13}，此后又在该工作的基础上研究如何利用外在的、与语言无关的特征对译文进行句子级别的质量评估\upcite{DBLP:conf/wmt/BiciciW14}，该项研究的最终成果是一个与语言无关，可以从各个等级对译文质量进行评估的模型——RTMs（Referential Translation Machines）\upcite{DBLP:conf/wmt/BiciciLW15a}。
 \vspace{0.5em}
 \end{itemize}

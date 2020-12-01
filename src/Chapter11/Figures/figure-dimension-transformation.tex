@@ -1,0 +1,95 @@
+\tikzstyle{num} = [minimum width = 0.6cm,minimum height = 0.6cm,draw,fill=green!10]
+\begin{tikzpicture}[node distance = 0]
+
+\node[num] at (0,0){1};
+\node[num] at (0.6,0){1};
+\node[num] at (1.2,0){2};
+\node[num] at (1.8,0){0};
+\node[num] at (2.4,0){2};
+\node[num] at (3,0){2};
+
+\node[num] at (0,0.6){2};
+\node[num] at (0.6,0.6){0};
+\node[num] at (1.2,0.6){0};
+\node[num] at (1.8,0.6){1};
+\node[num] at (2.4,0.6){5};
+\node[num] at (3,0.6){2};
+
+\node[num] at (0,1.2){1};
+\node[num] at (0.6,1.2){2};
+\node[num] at (1.2,1.2){3};
+\node[num] at (1.8,1.2){2};
+\node[num] at (2.4,1.2){0};
+\node[num] at (3,1.2){0};
+
+\node[num] at (0,1.8){2};
+\node[num] at (0.6,1.8){0};
+\node[num] at (1.2,1.8){1};
+\node[num] at (1.8,1.8){4};
+\node[num] at (2.4,1.8){0};
+\node[num] at (3,1.8){0};
+
+\node[num] at (0,2.4){0};
+\node[num] at (0.6,2.4){1};
+\node[num] at (1.2,2.4){2};
+\node[num] at (1.8,2.4){4};
+\node[num] at (2.4,2.4){2};
+\node[num] at (3,2.4){2};
+
+\node[num] at (0,3){0};
+\node[num] at (0.6,3){0};
+\node[num] at (1.2,3){1};
+\node[num] at (1.8,3){0};
+\node[num] at (2.4,3){2};
+\node[num] at (3,3){1};
+
+\node[minimum width = 1.8cm,minimum height = 1.8cm,draw=purple!40,line width=0.08cm,fill=purple!40,fill opacity=0.4] at (0.6,2.4) {};
+
+%\fill (4,1.5) circle (2pt);
+\node [] at (4,1.5) {*};
+
+\node[num] at (5,0.9){0};
+\node[num] at (5.6,0.9){1};
+\node[num] at (6.2,0.9){0};
+
+\node[num] at (5,1.5){1};
+\node[num] at (5.6,1.5){0};
+\node[num] at (6.2,1.5){0};
+
+\node[num] at (5,2.1){0};
+\node[num] at (5.6,2.1){1};
+\node[num] at (6.2,2.1){1};
+
+\draw (7.5,1.5)node{$=$};
+
+
+\node[num] at (9,0.6){8};
+\node[num] at (9.6,0.6){7};
+\node[num] at (10.2,0.6){2};
+\node[num] at (10.8,0.6){3};
+
+\node[num] at (9,1.2){2};
+\node[num] at (9.6,1.2){7};
+\node[num] at (10.2,1.2){8};
+\node[num] at (10.8,1.2){7};
+
+\node[num] at (9,1.8){7};
+\node[num] at (9.6,1.8){9};
+\node[num] at (10.2,1.8){9};
+\node[num] at (10.8,1.8){8};
+
+\node[num] at (9,2.4){1};
+\node[num] at (9.6,2.4){3};
+\node[num] at (10.2,2.4){8};
+\node[num] at (10.8,2.4){7};
+
+\node[minimum width = 0.6cm,minimum height = 0.6cm,draw=purple!40,line width=0.08cm,fill=purple!40,fill opacity=0.4] at (9,2.4) {};
+
+\node[] (in) at (1.5,-1) {\small{输入：6$\times$6}};
+\node[] at (5.7,-1) {\small{卷积核：3$\times$3}};
+\node[] (out) at (10,-1) {\small{输出：4$\times$4}};
+
+%\node[font=\footnotesize,dashed,draw=teal,very thick,fill=green!5,align=center] at ([yshift=3cm,xshift=1.5cm]out.east) {*\ \ ：表示\\卷积计算};
+\node[] at ([yshift=-0.3cm,xshift=-2.3cm]in.east) {\ \ \ \ \ };
+
+\end{tikzpicture}

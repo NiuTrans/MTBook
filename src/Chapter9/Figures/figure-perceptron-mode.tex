@@ -1,0 +1,19 @@
+%%%------------------------------------------------------------------------------------------------------------
+ \begin{tikzpicture}
+\begin{scope}
+\node [anchor=center,circle,draw,ublue,very thick,minimum size=3.5em,fill=white,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}] (neuron) at (0,0) {};
+\node [anchor=east] (x1) at ([xshift=-6em]neuron.west) {\Large{$x_2$}};
+\node [anchor=center] (x0) at ([yshift=3em]x1.center) {\Large{$x_1$}};
+\node [anchor=center] (x2) at ([yshift=-3em]x1.center) {\Large{$x_3$}};
+\node [anchor=west] (y) at ([xshift=6em]neuron.east) {\Large{$y$}};
+\node [anchor=center] (neuronmath) at (neuron.center) {\small{$\sum \ge \sigma$}};
+
+\draw [->,thick] (x0.east) -- (neuron.150) node [pos=0.5,above] {$w_1$};
+\draw [->,thick] (x1.east) -- (neuron.180) node [pos=0.5,above] {$w_2$};
+\draw [->,thick] (x2.east) -- (neuron.210) node [pos=0.5,above] {$w_3$};
+\draw [->,thick] (neuron.east) -- (y.west);
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

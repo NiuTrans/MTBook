@@ -1,0 +1,32 @@
+\begin{minipage}[c]{0.35\linewidth}
+\begin{tikzpicture}
+
+\begin{scope}
+{\small
+\node [anchor=west] (s1) at (0,0) {我};
+\node [anchor=west] (s2) at ([xshift=1.0em]s1.east) {喜欢};
+\node [anchor=west] (s3) at ([xshift=1.0em]s2.east) {{\color{ugreen} 绿}};
+\node [anchor=west] (s4) at ([xshift=1.07em]s3.east) {茶};
+\node [anchor=east] (s) at (s1.west) {$\seq{s}=$};
+}
+\end{scope}
+
+{
+\begin{scope}[yshift=-2.0em]
+{\small
+\node [anchor=west] (t1) at (0.35em,0) {I};
+\node [anchor=west] (t2) at ([xshift=0.8em,yshift=-0.0em]t1.east) {like};
+\node [anchor=west] (t3) at ([xshift=1.0em,yshift=-0.2em]t2.east) {green};
+\node [anchor=west] (t4) at ([xshift=0.78em,yshift=0.1em]t3.east) {tea};
+\node [anchor=east] (t) at ([xshift=-0.3em]t1.west) {$\seq{t}=$};
+}
+\end{scope}
+
+\draw [-] (s1.south) -- (t1.north);
+\draw [-] (s2.south) ..controls +(south:0.5em) and +(north:0.5em).. (t2.north);
+\draw [-] (s3.south) ..controls +(south:0.5em) and +(north:0.5em).. (t3.north);
+\draw [-] (s4.south) -- (t4.north);
+}%visible<2->
+
+\end{tikzpicture}
+\end{minipage}

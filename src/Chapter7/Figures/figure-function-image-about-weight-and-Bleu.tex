@@ -1,0 +1,53 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 特征权重调优
+\begin{tikzpicture}
+\begin{scope}
+\node[anchor=west] (x0) at (0, 0) {};
+
+\draw[->,thick] (x0.center) -- ([xshift=8.2em]x0.east);
+\draw[->,thick] (x0.center) -- ([yshift=5.6em]x0.center);
+
+{
+\draw[thick] ([yshift=1em]x0.center) -- ([xshift=8em,yshift=5em]x0.center);
+\draw[thick] ([yshift=2em]x0.center) -- ([xshift=8em,yshift=4em]x0.center);
+\node[anchor=north] (e1) at ([xshift=6em,yshift=6em]x0.south) {\small{$d_1$}};
+\node[anchor=north] (e2) at ([xshift=7em,yshift=4em]x0.south) {\small{$d_2$}};
+\node[anchor=north,rotate=90] (e2) at ([xshift=-1.3em,yshift=4em]x0.south) {\small{score}};
+}
+
+{
+\node [anchor=center,draw=red,circle,inner sep=2pt,thick] (x1) at ([xshift=4em,yshift=3em]x0.center) {};
+\draw[thick,dotted] ([xshift=4em]x0.center) -- ([xshift=4em,yshift=3.6em]x0.center);
+}
+\node[anchor=north] (zero) at ([yshift=0.1em]x0.south) {\small{0}};
+\node[anchor=north] (wx) at ([xshift=4em,yshift=0.1em]x0.south) {\small{$\lambda_x$}};
+\node[anchor=north] (wi) at ([xshift=8em,yshift=0.1em]x0.south) {\small{$\lambda_i$}};
+
+
+\end{scope}
+
+\begin{scope}[xshift=1.7in]
+\node[anchor=west] (x0) at (0, 0) {};
+
+\draw[->,thick] (x0.center) -- ([xshift=8.2em]x0.east);
+\draw[->,thick] (x0.center) -- ([yshift=5.6em]x0.center);
+
+\node[anchor=north] (zero) at ([yshift=0.1em]x0.south) {\small{0}};
+\node[anchor=north] (wx) at ([xshift=4em,yshift=0.1em]x0.south) {\small{$\lambda_x$}};
+\node[anchor=north] (wi) at ([xshift=8em,yshift=0.1em]x0.south) {\small{$\lambda_i$}};
+
+{
+\draw[thick] ([yshift=2em]x0.center) -- ([xshift=4em,yshift=2em]x0.center);
+\draw[thick] ([xshift=4em,yshift=4em]x0.center) -- ([xshift=8em,yshift=4em]x0.center);
+
+\draw[thick,dotted] ([xshift=4em]x0.center) -- ([xshift=4em,yshift=5.5em]x0.center);
+
+\node[anchor=north] (e1) at ([xshift=2em,yshift=3em]x0.north) {\small{$\hat{d}=d_1$}};
+\node[anchor=north] (e2) at ([xshift=6.2em,yshift=5em]x0.north) {\small{$\hat{d}=d_2$}};
+
+\node[anchor=north,rotate=90] (e2) at ([xshift=-1.3em,yshift=4em]x0.south) {\small{BLEU}};
+\draw[decorate,decoration={brace,amplitude=0.4em},red,thick] ([xshift=4em,yshift=0.5em]x0.south) -- ([xshift=8.2em,yshift=0.5em]x0.south);
+\node[anchor=north] (wi) at ([xshift=6.1em,yshift=2.1em]x0.south) {\footnotesize{\red{挑选$\hat{\lambda}_i$}}};
+}
+\end{scope}
+\end{tikzpicture}
