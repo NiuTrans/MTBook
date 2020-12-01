@@ -30,7 +30,7 @@ jobs:
       - name: Install Font
         run: sudo cp fonts/*.ttf /Library/Fonts/
 
-      - name: Compile...
+      - name: Compile
         run: |
           eval "$(/usr/libexec/path_helper)"
           cd ./src

@@ -27,9 +27,9 @@ jobs:
         run: brew install --cask mactex
 
       - name: Install Font
-        run: sudo cp fonts/simsun.ttf /Library/Fonts/
+        run: sudo cp fonts/*.ttf /Library/Fonts/
 
-      - name: Compile...
+      - name: Compile
         run: |
           eval "$(/usr/libexec/path_helper)"
           cd ./src
