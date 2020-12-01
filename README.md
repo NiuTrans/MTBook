@@ -1,5 +1,5 @@
-# **机器翻译：统计建模与深度学习方法**
-# **Machine Translation: Statistical Modeling and Deep Learning Methods**
+# **机器翻译：统计建模与深度学习方法 (第二版)**
+# **Machine Translation: Statistical Modeling and Deep Learning Methods (2nd Version)**
 
 *作者：肖桐 (Tong Xiao)*    *朱靖波 (Jingbo Zhu)*
 
@@ -12,9 +12,11 @@
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 </div>
 
+<font color=red>谢谢大家的关注，我们对内容进行了重构和修改，现在是第二版了！</font>
+
 这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
-<font color='red'>本书共分为七个章节，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各章节的主要关系如下（如果无法显示图片可以稍后再试）：</font>
+<font color='red'>本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：</font>
 
 <div align="center">
 <!-- <img src="guideline.png" width=80% height=80% /> -->
@@ -42,8 +44,6 @@
   * <a href="https://opensource.niutrans.com/mtbook/section2-3.html" title="n-gram 语言模型">2.3 *n*-gram 语言模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section2-4.html" title="预测与搜索">2.4 预测与搜索</a>
   * <a href="https://opensource.niutrans.com/mtbook/section2-5.html" title="小结及拓展阅读">2.5 小结及拓展阅读</a>
-
-**Part II 统计机器翻译**
 
 3. 词法分析和语法分析基础
   * <a href="https://opensource.niutrans.com/mtbook/section3-1.html" title="问题概述">3.1 问题概述</a>
@@ -102,21 +102,21 @@
   * <a href="https://opensource.niutrans.com/mtbook/section9-5.html" title="神经语言模型">9.5 神经语言模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section9-6.html" title="小结及拓展阅读">9.6 小结及拓展阅读</a>
 
-10.    基于循环神经网络的模型
-  * <a href="https://opensource.niutrans.com/mtbook/section10-1.html" title="神经机器翻译的发展简史">10.1 神经机器翻译的发展简史</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section10-2.html" title="编码器-解码器框架">10.2 编码器-解码器框架</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section10-3.html" title="基于循环神经网络的翻译模型">10.3 基于循环神经网络的翻译模型</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section10-4.html" title="注意力机制">10.4 注意力机制</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section10-5.html" title="训练及推断">10.5 训练及推断</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section10-6.html" title="小结及拓展阅读">10.6 小结及拓展阅读</a>
+10.  基于循环神经网络的模型
+* <a href="https://opensource.niutrans.com/mtbook/section10-1.html" title="神经机器翻译的发展简史">10.1 神经机器翻译的发展简史</a>
+* <a href="https://opensource.niutrans.com/mtbook/section10-2.html" title="编码器-解码器框架">10.2 编码器-解码器框架</a>
+* <a href="https://opensource.niutrans.com/mtbook/section10-3.html" title="基于循环神经网络的翻译模型">10.3 基于循环神经网络的翻译模型</a>
+* <a href="https://opensource.niutrans.com/mtbook/section10-4.html" title="注意力机制">10.4 注意力机制</a>
+* <a href="https://opensource.niutrans.com/mtbook/section10-5.html" title="训练及推断">10.5 训练及推断</a>
+* <a href="https://opensource.niutrans.com/mtbook/section10-6.html" title="小结及拓展阅读">10.6 小结及拓展阅读</a>
 
-11.    基于卷积神经网络的模型
+11.  基于卷积神经网络的模型
   * <a href="https://opensource.niutrans.com/mtbook/section11-1.html" title="卷积神经网络">11.1 卷积神经网络</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-2.html" title="基于卷积神经网络的机器翻译模型">11.2 基于卷积神经网络的机器翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-3.html" title="局部模型的改进">11.3 局部模型的改进</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-4.html" title="小结及拓展阅读">11.4 小结及拓展阅读</a>
 
-12.    基于自注意力的模型
+12.  基于自注意力的模型
   * <a href="https://opensource.niutrans.com/mtbook/section12-1.html" title="自注意力机制">12.1 自注意力机制</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-2.html" title="Transformer 架构">12.2 Transformer 架构</a>
   * <a href="https://opensource.niutrans.com/mtbook/section12-3.html" title="位置编码">12.3 位置编码</a>
@@ -129,12 +129,12 @@
 
 **Part IV 机器翻译前沿**
 
-13-18 敬请期待...
+13-18 进行中...
 
 **Part V 附录**
 
 * <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 A">附录 A：开源机器翻译系统</a>
-* <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 B">附录 B：基准数据集和评价工具</a>
+* <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 B">附录 B：评测任务及基准数据集</a>
 * <a href="https://opensource.niutrans.com/mtbook/appendix-b.html" title="附录 C">附录 C：IBM模型3-5训练方法</a>
 
 **<a href="https://opensource.niutrans.com/mtbook/references.html" title="参考文献">参考文献</a>**
@@ -173,7 +173,7 @@ xelatex mt-book-xelatex
 
 ## 课件
 
-本书各章节配套的课件均已开放。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
+本教程部分章节的课件已开放。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
 ## 开源协议
 
 本书的开源内容基于The Creative Commons Attribution-NonCommercial 4.0 Unported License（[link](https://creativecommons.org/licenses/by-nc/4.0)）
@@ -182,7 +182,10 @@ xelatex mt-book-xelatex
 
 感谢为本书做出贡献的小牛团队（部分）成员
 
-*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲旸、周书含、周涛、李炎洋、林野、陈贺轩、刘晓倩、牛蕊、田丰宁、杜权、李垠桥、许晨、张裕浩、胡驰、冯凯、王泽洋、刘腾博、罗应峰、魏冰浩、刘兴宇、徐萍、赵闯、高博、张春良、王会珍、张俐、杨木润、宁义明、李洋、秦浩、胡明涵*
+*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲
+旸、周书含、周涛、李炎洋、林野、李垠桥、许晨、张裕浩、冯凯、罗应峰、魏冰浩、王屹超、
+陈贺轩、刘晓倩、牛蕊、田丰宁、杜权、胡驰、王泽洋、刘腾博、刘兴宇、徐萍、赵
+闯、高博、张春良、王会珍、张俐、杨木润、宁义明、李洋、秦浩、胡明涵、马安香*
 
 ## 联系我们
 
