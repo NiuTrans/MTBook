@@ -1,0 +1,209 @@
+\begin{tikzpicture}
+
+{\scriptsize
+
+\node [anchor=north west,inner sep=2pt,align=left] (line1) at (0,0) {\textrm{\textbf{Function} \textsc{WordDecoding}($s$)}};
+\node [anchor=north west,inner sep=2pt,align=left] (line2) at ([yshift=-1pt]line1.south west) {\textrm{1: $\pi = $\textsc{GetTransOptions}($s$)}};
+\node [anchor=north west,inner sep=2pt,align=left] (line3) at ([yshift=-1pt]line2.south west) {\textrm{2: $best = \phi$}};
+\node [anchor=north west,inner sep=2pt,align=left] (line4) at ([yshift=-1pt]line3.south west) {\textrm{3: \textbf{for} $i$ in $[1,m]$ \textbf{do}}};
+\node [anchor=north west,inner sep=2pt,align=left] (line5) at ([yshift=-1pt]line4.south west) {\textrm{4: \hspace{1em} $h = \phi$}};
+\node [anchor=north west,inner sep=2pt,align=left] (line6) at ([yshift=-1pt]line5.south west) {\textrm{5: \hspace{1em} \textbf{foreach} $j$ in $[1,m]$ \textbf{do}}};
+\node [anchor=north west,inner sep=2pt,align=left] (line7) at ([yshift=-1pt]line6.south west) {\textrm{6: \hspace{2em} \textbf{if} $used[j]=$ \textbf{false} \textbf{then}}};
+\node [anchor=north west,inner sep=2pt,align=left] (line8) at ([yshift=-1pt]line7.south west) {\textrm{7: \hspace{3em} $h = h \cup \textrm{\textsc{Join}}(best,\pi[j])$}};
+\node [anchor=north west,inner sep=2pt,align=left] (line9) at ([yshift=-1pt]line8.south west) {\textrm{8: \hspace{1em} $best = \textrm{\textsc{PruneForTop1}}(h)$}};
+\node [anchor=north west,inner sep=2pt,align=left] (line10) at ([yshift=-1pt]line9.south west) {\textrm{9: \hspace{1em} $used[best.j] = \textrm{\textbf{true}}$}};
+\node [anchor=north west,inner sep=2pt,align=left] (line11) at ([yshift=-1pt]line10.south west) {\textrm{10: \textbf{return} $best.translatoin$}};
+
+\node [anchor=south west,inner sep=2pt,align=left] (head1) at ([yshift=1pt]line1.north west) {输出: 找的最佳译文};
+\node [anchor=south west,inner sep=2pt,align=left] (head2) at ([yshift=1pt]head1.north west) {输入: 源语句子$\seq{s}=s_1...s_m$};
+
+}
+
+\begin{pgfonlayer}{background}
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow,minimum height=1.6cm] [fit = (head2) (line8) (line11)] (algorithm) {};
+
+%% highlights
+%\begin{pgfonlayer}{background}
+{
+\node[anchor=west,fill=blue!20,minimum height=0.16in,minimum width=1.65in] (line2highlight) at (line2.west) {};
+}
+{
+\node[anchor=west,fill=blue!20,minimum height=0.16in,minimum width=1.65in] (line3highlight) at (line3.west) {};
+\node[anchor=west,fill=blue!20,minimum height=0.16in,minimum width=1.65in] (line5highlight) at (line5.west) {};
+}
+{
+\node[anchor=west,fill=blue!20,minimum height=0.16in,minimum width=1.65in] (line8highlight) at (line8.west) {};
+}
+{
+\node[anchor=west,fill=blue!20,minimum height=0.16in,minimum width=1.65in] (line9highlight) at (line9.west) {};
+}
+{
+\node[anchor=west,fill=blue!20,minimum height=0.16in,minimum width=1.65in] (line10highlight) at (line10.west) {};
+}
+%\end{pgfonlayer}
+
+\end{pgfonlayer}
+
+{\footnotesize
+
+%% remark 1
+\begin{scope}
+{
+\node [anchor=north west,align=left] (remark1) at ([xshift=0.4in]algorithm.north east) {获取每个单词\\的翻译候选};
+
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=2.1pt,red] (s1) at ([yshift=-1.0em,xshift=0.5em]remark1.north east){\tiny{1}};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=2.1pt,ugreen] (s2) at ([xshift=0.4em]s1.east) {\tiny{2}};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=2.1pt,orange] (s3) at ([xshift=0.4em]s2.east) {\tiny{3}};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=3.0pt,ublue] (s4) at ([xshift=0.4em]s3.east) {.};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=1.5pt,purple] (s5) at ([xshift=0.4em]s4.east) {\tiny{$m$}};
+
+\node [anchor=center,draw,thick,circle,minimum size=0.3em,inner sep=2pt,red,fill=red] (t1) at ([yshift=-1.7em]s1.center) {{\color{white} \tiny{$n$}}};
+\node [anchor=center,draw,thick,circle,minimum size=0.3em,inner sep=2pt,ugreen,fill=ugreen] (t2) at ([yshift=-1.7em]s2.center) {{\color{white} \tiny{$n$}}};
+\node [anchor=center,draw,thick,circle,minimum size=0.3em,inner sep=2pt,orange,fill=orange] (t3) at ([yshift=-1.7em]s3.center) {{\color{white} \tiny{$n$}}};
+\node [anchor=center,draw,thick,circle,minimum size=0.3em,inner sep=2pt,ublue,fill=ublue] (t4) at ([yshift=-1.7em]s4.center) {{\color{white} \tiny{$n$}}};
+\node [anchor=center,draw,thick,circle,minimum size=0.3em,inner sep=2pt,purple,fill=purple] (t5) at ([yshift=-1.7em]s5.center) {{\color{white} \tiny{$n$}}};
+
+\draw [->,thick] ([yshift=-0.1em]s1.south) -- ([yshift=0.1em]t1.north);
+\draw [->,thick] ([yshift=-0.1em]s2.south) -- ([yshift=0.1em]t2.north);
+\draw [->,thick] ([yshift=-0.1em]s3.south) -- ([yshift=0.1em]t3.north);
+\draw [->,thick] ([yshift=-0.1em]s4.south) -- ([yshift=0.1em]t4.north);
+\draw [->,thick] ([yshift=-0.1em]s5.south) -- ([yshift=0.1em]t5.north);
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw,inner sep=0.2em,fill=blue!10,minimum width=2.25in] [fit = (remark1) (t5)] (remark1label) {};
+}
+\end{pgfonlayer}
+}
+\end{scope}
+%% end of remark 1
+
+%% remark 2
+\begin{scope}
+{
+\node [anchor=north west,draw,inner sep=2pt,fill=blue!10,minimum width=2.25in] (remark2) at ([yshift=-0.5em]remark1label.south west) {$best$用于保存当前最好的翻译结果 };
+}
+\end{scope}
+%% end of remark 2
+
+%% remark 3
+\begin{scope}
+{
+\node [anchor=north west,draw,inner sep=2pt,fill=blue!10,minimum width=2.25in] (remark3) at ([yshift=-0.5em]remark2.south west) {$h$用于保存每步生成的所有译文候选 };
+}
+\end{scope}
+%% end of remark 3
+
+%% remark 4
+\begin{scope}
+{
+\node [anchor=north west,inner sep=2pt,align=left] (remark4) at ([xshift=0.35em,yshift=-0.8em]remark3.south west) {\textsc{Join}($a,b$) 返回\\$a$ 和$b$ 的所有组合 };
+
+{\scriptsize
+\node [anchor=north west,inner sep=1pt,align=center,draw,minimum height=2.3em] (a1) at ([yshift=-0.5em]remark4.north east) {$a_1$\\$a_2$};
+\node [anchor=west] (join) at (a1.east) {$\times$};
+\node [anchor=north west,inner sep=1pt,align=center,draw,minimum height=2.3em] (b1) at ([xshift=1.5em]a1.north east) {$b_1$\\$b_2$};
+\node [anchor=west] (join) at (b1.east) {$=$};
+\node [anchor=north west,inner sep=1pt,align=center,draw] (result) at ([xshift=1.5em]b1.north east) {$a_1b_1$ $a_1b_2$\\$a_2b_1$ $a_2b_2$};
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw,inner sep=2pt,fill=blue!10,minimum width=2.25in] [fit = (remark4) (result)] (remark4label) {};
+}
+\end{pgfonlayer}
+}
+\end{scope}
+%% end of remark 4
+
+%% remark 5
+\begin{scope}
+{
+\node [anchor=north west,align=left] (remark5) at ([xshift=0.88em,yshift=-1.6em]remark4.south west) {\textsc{PruneForTop1}\\保留得分最高的结果};
+\node [anchor=west,draw,inner sep=1pt] (s1) at ([yshift=-0.5em,xshift=1.2em]remark5.north east){\tiny{0.234}};
+\node [anchor=north west,draw,inner sep=1pt] (s2) at ([yshift=-0.2em]s1.south west){\tiny{0.197}};
+\node [anchor=north west,draw,inner sep=1pt] (s3) at ([yshift=-0.2em]s2.south west){\tiny{0.083}};
+
+\draw [-] ([yshift=-0.1em,xshift=-0.2em]s1.south west) -- ([yshift=-0.1em,xshift=3em]s1.south east);
+\node [anchor=west] (top1) at ([xshift=0.1em]s1.east) {\tiny{\color{red}{$\gets$ top1}}};
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw,inner sep=0.2em,fill=blue!10,minimum width=2.25in] [fit = (remark5) (top1)] (remark5label) {};
+}
+\end{pgfonlayer}
+}
+\end{scope}
+\%% end of remark 5
+
+%% remark 6
+\begin{scope}
+{
+\node [anchor=north west,align=left] (remark6) at ([xshift=-0.34em,yshift=-1.3em]remark5.south west) {记录已经翻译过\\的源语单词};
+
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=2.1pt,red] (s1) at ([yshift=-1.0em,xshift=0.5em]remark6.north east){\tiny{1}};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=2.1pt,ugreen] (s2) at ([xshift=0.4em]s1.east) {\tiny{2}};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=2.1pt,orange] (s3) at ([xshift=0.4em]s2.east) {\tiny{3}};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=3.0pt,ublue] (s4) at ([xshift=0.4em]s3.east) {.};
+\node [anchor=west,draw,thick,circle,minimum size=0.3em,inner sep=1.5pt,purple] (s5) at ([xshift=0.4em]s4.east) {\tiny{$m$}};
+
+\draw [-,thick,red] (s1.north east) -- (s1.south west);
+\draw [-,thick,orange] (s3.north east) -- (s3.south west);
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw,inner sep=0.2em,fill=blue!10,minimum width=2.25in] [fit = (remark6) (s5)] (remark6label) {};
+}
+\end{pgfonlayer}
+}
+\end{scope}
+\%% end of remark 6
+
+{
+\draw [->,thick] (line2highlight.east) ..controls +(east:1em) and +(west:1em).. (remark1label.west);
+}
+{
+\draw [->,thick] (line3highlight.east) ..controls +(east:1em) and +(west:1em).. ([yshift=0.3em]remark2.south west);
+\draw [->,thick] (line5highlight.east) ..controls +(east:1em) and +(west:1em).. ([yshift=0.3em]remark3.south west);
+}
+{
+\draw [->,thick] (line8highlight.east) ..controls +(east:1em) and +(west:1em).. ([yshift=0.5em]remark4label.west);
+}
+{
+\draw [->,thick] (line9highlight.east) ..controls +(east:1em) and +(west:1em).. ([yshift=0.5em]remark5label.west);
+}
+{
+\draw [->,thick] (line10highlight.east) ..controls +(east:1em) and +(west:1em).. ([yshift=0.5em]remark6label.south west);
+}
+}
+
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

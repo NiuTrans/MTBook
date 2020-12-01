@@ -1,0 +1,63 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\node [anchor=north west] (line1) at (0,0) {\small\sffamily\bfseries{IBM模型1的训练（EM算法）}};
+\node [anchor=north west] (line2) at ([yshift=-0.3em]line1.south west) {输入: 平行语料${(\seq{s}^{[1]},\seq{t}^{[1]}),...,(\seq{s}^{[K]},\seq{t}^{[K]})}$};
+\node [anchor=north west] (line3) at ([yshift=-0.1em]line2.south west) {输出: 参数$f(\cdot|\cdot)$的最优值};
+\node [anchor=north west] (line4) at ([yshift=-0.1em]line3.south west) {1: \textbf{Function} \textsc{EM}($\{(\seq{s}^{[1]},\seq{t}^{[1]}),...,(\seq{s}^{[K]},\seq{t}^{[K]})\}$) };
+\node [anchor=north west] (line5) at ([yshift=-0.1em]line4.south west) {2: \quad Initialize $f(\cdot|\cdot)$ \hspace{3em} $\rhd$ 比如给$f(\cdot|\cdot)$一个均匀分布};
+\node [anchor=north west] (line6) at ([yshift=-0.1em]line5.south west) {3: \quad Loop until $f(\cdot|\cdot)$ converges};
+\node [anchor=north west] (line7) at ([yshift=-0.1em]line6.south west) {4: \quad \quad  \textbf{foreach} $k = 1$ to $K$ \textbf{do}};
+\node [anchor=north west] (line8) at ([yshift=-0.1em]line7.south west) {5: \quad \quad \quad \footnotesize{$c_{\mathbb{E}}(\seq{s}_u|\seq{t}_v;\seq{s}^{[k]},\seq{t}^{[k]}) = \sum\limits_{j=1}^{|\seq{s}^{[k]}|} \delta(s_j,s_u) \sum\limits_{i=0}^{|\seq{t}^{[k]}|} \delta(t_i,t_v) \cdot \frac{f(s_u|t_v)}{\sum_{i=0}^{l}f(s_u|t_i)}$}\normalsize{}};
+\node [anchor=north west] (line9) at ([yshift=-0.1em]line8.south west) {6: \quad \quad \textbf{foreach} $t_v$ appears at least one of $\{\seq{t}^{[1]},...,\seq{t}^{[K]}\}$ \textbf{do}};
+\node [anchor=north west] (line10) at ([yshift=-0.1em]line9.south west) {7: \quad \quad \quad $\lambda_{t_v}^{'} = \sum_{s_u} \sum_{k=1}^{K} c_{\mathbb{E}}(s_u|t_v;\seq{s}^{[k]},\seq{t}^{[k]})$};
+\node [anchor=north west] (line11) at ([yshift=-0.1em]line10.south west) {8: \quad \quad \quad \textbf{foreach} $s_u$ appears at least one of $\{\seq{s}^{[1]},...,\seq{s}^{[K]}\}$ \textbf{do}};
+\node [anchor=north west] (line12) at ([yshift=-0.1em]line11.south west) {9: \quad \quad \quad \quad $f(s_u|t_v) = \sum_{k=1}^{K} c_{\mathbb{E}}(s_u|t_v;\seq{s}^{[k]},\seq{t}^{[k]}) \cdot (\lambda_{t_v}^{'})^{-1}$};
+\node [anchor=north west] (line13) at ([yshift=-0.1em]line12.south west) {10: \textbf{return} $f(\cdot|\cdot)$};
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit =(line1)(line2)(line3)(line4)(line5)(line6)(line7)(line11)(line8)(line9)(line13)]  (remark1label) {};
+
+}
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

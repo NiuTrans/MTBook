@@ -10,10 +10,10 @@
 \begin{scope}
 {
 {\footnotesize
-\node [anchor=north west] (example1) at (0,0) {\textbf{1:} 源=``什么 时候 开始 ?''};
-\node [anchor=north west] (example1part2) at ([yshift=0.5em]example1.south west) {\hspace{1em} 译=``When will it start ?''};
-\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=``我 对 他 感到 高兴''};
-\node [anchor=north west] (example2part2) at ([yshift=0.5em]example2.south west) {\hspace{1em} 译=``I am happy with him''};
+\node [anchor=north west] (example1) at (0,0) {\textbf{1:} 源=什么\ 时候\ 开始};
+\node [anchor=north west] (example1part2) at ([yshift=0.5em]example1.south west) {\hspace{1em} 译=\ When will it start};
+\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=我\ 对\ 他\ 感到\ 高兴};
+\node [anchor=north west] (example2part2) at ([yshift=0.5em]example2.south west) {\hspace{1em} 译=\ I am happy with him};
 \node [anchor=north west] (example3) at ([yshift=0.1em]example2part2.south west) {\hspace{1em} ...};
 \node [anchor=south west] (examplebaselabel) at (example1.north west) {{\color{ublue} 资源1：翻译实例库}};
 }
@@ -35,14 +35,12 @@
 \node [anchor=north west] (entry3) at ([yshift=0.1em]entry2.south west) {\textbf{3:} 满意 \hspace{-0.4em} $\to$ \hspace{-0.4em} satisfy \hspace{-0.12em}$\mid$\hspace{-0.12em} satisfied ... };
 \node [anchor=north west] (entry4) at ([yshift=0.1em]entry3.south west) {\hspace{1em} ...};
 \node [anchor=south west] (dictionarylabel) at (entry1.north west) {{\color{ublue} 资源2：翻译词典}};
-
-\node [anchor=west,opacity=0.0] (empty) at ([yshift=-0.2em]entry3.west) {\hspace{1em} 译=``I am happy with him''};
 }
 }
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (dictionarylabel) (empty)] {};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (dictionarylabel)] {};
 }
 \end{pgfonlayer}
 
@@ -94,7 +92,7 @@
 }
 
 {
-\draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用`你'替换`他'}}};
+\draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用‘你’替换‘他’}}};
 
 \draw[->,dotted,thick,red] ([xshift=-0.1em]entry2.east)..controls +(east:4) and +(west:4)..([yshift=-0.6em,xshift=-0.5em]e3.south) ;
 }
@@ -124,7 +122,7 @@
 }
 
 {
-\draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用`满意'替换`高兴'}}};
+\draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用‘满意’替换‘高兴’}}};
 
 \draw[->,dotted,thick,red] ([xshift=-1.2em,yshift=-0.6em]entry3.north east)..controls +(east:2) and +(west:3)..([yshift=-0.6em,xshift=-0.5em]e3.south) ;
 }

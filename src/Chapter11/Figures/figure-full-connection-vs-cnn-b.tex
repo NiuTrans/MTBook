@@ -1,0 +1,17 @@
+
+\begin{tikzpicture}[node distance = 0]
+\foreach \x in {0,1,...,6}{
+\draw[color=ublue,fill=blue!15,thick]( \x,0 )circle( 0.3);
+}
+\foreach \x in {1,2,...,5}{
+\draw[color=ublue,thick]( \x,2)circle( 0.3);
+}
+\foreach \x in {1,2,...,5}{
+\draw[color=red]( \x,1.7)--( \x-1,0.3);
+\draw[color=ugreen]( \x,1.7)--( \x,0.3);
+\draw[color=blue]( \x,1.7)--( \x+1,0.3);
+}
+
+\draw[color=ublue,rounded corners = 0.15cm,dashed,thick]( -0.4,0.4 )rectangle( 6.4,-0.4);
+\draw[color=ublue,rounded corners = 0.15cm,dashed,thick]( 0.6,2.4 )rectangle( 5.4,1.6);
+\end{tikzpicture}

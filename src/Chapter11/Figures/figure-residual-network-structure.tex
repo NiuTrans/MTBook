@@ -1,0 +1,42 @@
+
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{lnode} = [minimum height=1.5em,minimum width=3em,inner sep=3pt,rounded corners=1.5pt,draw,fill=orange!20];
+\tikzstyle{standard} = [rounded corners=3pt]
+
+\node [lnode,anchor=west] (l1) at (0,0) {\scriptsize{层1}};
+\node [lnode,anchor=west] (l2) at ([xshift=3em]l1.east) {\scriptsize{层2}};
+\node [lnode,anchor=west] (l3) at ([xshift=3em]l2.east) {\scriptsize{层3}};
+\node [anchor=west,inner sep=2pt] (dot1) at ([xshift=1em]l3.east) {\scriptsize{$\textbf{...}$}};
+\node [lnode,anchor=west] (l4) at ([xshift=1em]dot1.east) {\scriptsize{层$n$}};
+
+\node [anchor=west] (plus1) at ([xshift=0.9em]l1.east) {\scriptsize{$\mathbf{\oplus}$}};
+\node [anchor=west] (plus2) at ([xshift=0.9em]l2.east) {\scriptsize{$\mathbf{\oplus}$}};
+
+\draw [->,thick] ([xshift=-1.5em]l1.west) -- ([xshift=-0.1em]l1.west);
+\draw [->,thick] ([xshift=0.1em]l1.east) -- ([xshift=0.2em]plus1.west);
+\draw [->,thick] ([xshift=-0.2em]plus1.east) -- ([xshift=-0.1em]l2.west);
+\draw [->,thick] ([xshift=0.1em]l2.east) -- ([xshift=0.2em]plus2.west);
+\draw [->,thick] ([xshift=-0.2em]plus2.east) -- ([xshift=-0.1em]l3.west);
+\draw [->,thick] ([xshift=0.1em]l3.east) -- ([xshift=-0.1em]dot1.west);
+\draw [->,thick] ([xshift=0.1em]dot1.east) -- ([xshift=-0.1em]l4.west);
+\draw [->,thick] ([xshift=0.1em]l4.east) -- ([xshift=1.5em]l4.east);
+
+\draw[->,standard,thick] ([xshift=-0.8em]l1.west) -- ([xshift=-0.8em,yshift=2em]l1.west) -- ([yshift=2em]plus1.center) -- ([yshift=-0.2em]plus1.north);
+\draw[->,standard,thick] ([xshift=-0.8em]l2.west) -- ([xshift=-0.8em,yshift=2em]l2.west) -- ([yshift=2em]plus2.center) -- ([yshift=-0.2em]plus2.north);
+
+\draw [->,very thick,red] ([xshift=1.5em,yshift=-0.3em]l4.east) -- ([xshift=0.1em,,yshift=-0.3em]l4.east);
+\draw [->,very thick,red] ([xshift=-0.1em,yshift=-0.3em]l4.west) -- ([xshift=0.1em,yshift=-0.3em]dot1.east);
+\draw [->,very thick,red] ([xshift=-0.1em,yshift=-0.3em]dot1.west) -- ([xshift=0.1em,yshift=-0.3em]l3.east);
+\draw[->,standard,very thick,red] ([xshift=-0.3em,yshift=-0.2em]plus2.north) -- ([xshift=-0.3em,yshift=1.8em]plus2.center) -- ([xshift=-0.5em,yshift=1.8em]l2.west) -- ([xshift=-0.5em,yshift=0.2em]l2.west);
+\draw[->,standard,very thick,red] ([xshift=-0.3em,yshift=-0.2em]plus1.north) -- ([xshift=-0.3em,yshift=1.8em]plus1.center) -- ([xshift=-0.5em,yshift=1.8em]l1.west) -- ([xshift=-0.5em,yshift=0.2em]l1.west);
+
+\node [anchor=west] (label1) at ([xshift=1em,yshift=1.5em]l3.north) {\tiny{前向计算}};
+\draw [->,thick] ([xshift=-1.5em]label1.west) -- ([xshift=-0.1em]label1.west);
+
+\node [anchor=west] (label2) at ([xshift=2.5em]label1.east) {\tiny{反向传播}};
+\draw [->,thick,red] ([xshift=-1.5em]label2.west) -- ([xshift=-0.1em]label2.west);
+
+\end{scope}
+\end{tikzpicture}

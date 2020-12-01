@@ -16,7 +16,7 @@
 
 这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
-<font color='red'>本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：</font>
+本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：
 
 <div align="center">
 <!-- <img src="guideline.png" width=80% height=80% /> -->
@@ -26,7 +26,7 @@
 
 ## 内容
 
-<a href="https://opensource.niutrans.com/mtbook/coverpage.html" title="封面、导读和目录">封面、导读和目录</a>
+<a href="https://opensource.niutrans.com/mtbook/coverpage.html" title="封面、前言和目录">封面、前言和目录</a>
 
 **Part I 机器翻译基础**
 
@@ -134,10 +134,12 @@
 **Part V 附录**
 
 * <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 A">附录 A：开源机器翻译系统</a>
-* <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 B">附录 B：评测任务及基准数据集</a>
-* <a href="https://opensource.niutrans.com/mtbook/appendix-b.html" title="附录 C">附录 C：IBM模型3-5训练方法</a>
+* <a href="https://opensource.niutrans.com/mtbook/appendix-b.html" title="附录 B">附录 B：评测任务及基准数据集</a>
+* <a href="https://opensource.niutrans.com/mtbook/appendix-c.html" title="附录 C">附录 C：IBM模型3-5训练方法</a>
 
 **<a href="https://opensource.niutrans.com/mtbook/references.html" title="参考文献">参考文献</a>**
+
+**<a href="https://opensource.niutrans.com/mtbook/index.html" title="索引">索引</a>**
 
 注：本书的pdf版本可以从GitHub仓库获取[https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
 

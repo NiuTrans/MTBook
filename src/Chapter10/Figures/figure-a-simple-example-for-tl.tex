@@ -1,0 +1,30 @@
+
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+%第一段----------------------------------------------
+%原文-------------
+\node [pos=0.4,left,xshift=-36em,yshift=7em,font=\small] (original0) {\quad 源语（中文）输入：};
+\node [pos=0.4,left,xshift=-22em,yshift=7em,font=\small] (original1) {
+\begin{tabular}[t]{l}
+\parbox{14em}{“我”、“很”、“好”、“<eos>” }
+\end{tabular}
+};
+%译文1--------------mt1
+\node[font=\small] (mt1) at ([xshift=0em,yshift=-1em]original0.south) {目标语（英文）输出：};
+\node[font=\small] (ts1) at ([xshift=0em,yshift=-1em]original1.south)  {
+\begin{tabular}[t]{l}
+\parbox{14em}{“I”、“am”、“fine”、“<eos>”}
+\end{tabular}
+};
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original0)(mt1)(ts1)(ts1)(original1)(original1)] {};
+}
+\end{pgfonlayer}
+
+
+\end{tikzpicture}

@@ -2,7 +2,7 @@
 % !TEX encoding = UTF-8 Unicode
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This file was modified on top of 
+% This file was modified on top of
 % The Legrand Orange Book
 % Structural Definitions File
 %
@@ -10,7 +10,7 @@
 % Mathias Legrand (legrand.mathias@gmail.com) with modifications by:
 % Vel (vel@latextemplates.com)
 %
-% Current Version is maintained by 
+% Current Version is maintained by
 % Tong Xiao (xiaotong@mail.neu.edu.cn)
 % Runzhe Cao (854581319@qq.com)
 %
@@ -38,6 +38,7 @@
 \usepackage{booktabs} % Required for nicer horizontal rules in tables
 
 \usepackage{xcolor} % Required for specifying colors by name
+
 \definecolor{ocre}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
 
 %----------------------------------------------------------------------------------------
@@ -76,7 +77,7 @@
 %	BIBLIOGRAPHY AND INDEX
 %----------------------------------------------------------------------------------------
 
-\usepackage[style=numeric,citestyle=numeric,sorting=anyt,sortcites=true,maxbibnames=40,minbibnames=30,autopunct=true,babel=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber]{biblatex}
+\usepackage[style=numeric,citestyle=numeric,sorting=none,sortcites=true,maxbibnames=40,minbibnames=30,autopunct=true,babel=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber,autocite=plain]{biblatex}
 %maxbibnames 设置参考文献最多显示作者数目
 %minbibnames 如果作者数目超过maxbibnames，则只显示minbibnames个作者
 \addbibresource{bibliography.bib} % BibTeX bibliography file
@@ -212,6 +213,12 @@
 
 \usepackage{amsmath,amsfonts,amssymb,amsthm} % For math equations, theorems, symbols, etc
 
+\DeclareSymbolFont{EulerExtension}{U}{euex}{m}{n}%将积分号修改为正体
+\DeclareMathSymbol{\euintop}{\mathop} {EulerExtension}{"52}
+%\DeclareMathSymbol{\euointop}{\mathop} {EulerExtension}{"48}
+\let\intop\euintop
+%\let\ointop\euointop
+
 \newcommand{\intoo}[2]{\mathopen{]}#1\,;#2\mathclose{[}}
 \newcommand{\ud}{\mathop{\mathrm{{}d}}\mathopen{}}
 \newcommand{\intff}[2]{\mathopen{[}#1\,;#2\mathclose{]}}
@@ -238,7 +245,7 @@
 {\small\bf\sffamily}% Theorem head font
 {\;}% Punctuation after theorem head
 {0.25em}% Space after theorem head
-{\small\sffamily{\tiny\ensuremath{\blacksquare}}\nobreakspace\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+{\small\sffamily{\tiny\ensuremath{}}\nobreakspace\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)\blacksquare去除
 \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
 
 \newtheoremstyle{blacknumbox} % Theorem style name
@@ -348,12 +355,14 @@ leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
 innerbottommargin=5pt]{cBox}
+	
 
 % Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
 \newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
 \newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{ocre}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}				
 \newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
-\newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
+%\newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}	
+\newenvironment{example}{\begin{exampleT}}{\end{exampleT}}	
 \newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
 
 %----------------------------------------------------------------------------------------
@@ -518,7 +527,7 @@ innerbottommargin=5pt]{cBox}
 %----------------------------------------------------------------------------------------
 
 \usepackage{hyperref}
-\hypersetup{hidelinks,backref=true,pagebackref=true,hyperindex=true,colorlinks=false,breaklinks=true,urlcolor=ocre,bookmarks=true,bookmarksopen=true}
+\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor=ocre,bookmarksopen=true}
 %backref反向引用
 %pagebackref反向引用页码
 %hyperindex索引链接
@@ -546,8 +555,8 @@ addtohook={%
 %----------------------------------------------------------------------------------------
 %	NEW PAGE FOR SUBSECTION
 %----------------------------------------------------------------------------------------
-%\newcommand{\sectionnewpage}{\clearpage}
-\newcommand{\sectionnewpage}{}
+\newcommand{\sectionnewpage}{\clearpage}%每小节另起一页
+%\newcommand{\sectionnewpage}{}
 
 %----------------------------------------------------------------------------------------
 %	Chapter 3
@@ -560,12 +569,13 @@ addtohook={%
 \usepackage{type1cm}%设置公式字体
 \usepackage{caption}%设置图片标题字体大小
 \captionsetup{font={footnotesize}}
+\captionsetup[figure]{labelsep=quad}%图序号后面跟空格
+\captionsetup[table]{labelsep=quad}%表序号后面跟空格
 \usepackage{pstricks}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \usepackage{setspace}%调整行间距
 
-%\usepackage{tocbibind}
 
 %----------------------------------------------------------------------------------------
 %	Chapter 1
@@ -588,6 +598,9 @@ addtohook={%
 %	Chapter 4
 %----------------------------------------------------------------------------------------
 \usepackage{pgffor}%图片中使用\foreach语句
+%\usepackage{ulem}%使用/sout
+\usepackage{xeCJK}
+\newfontfamily{\yh}{微软雅黑}
 
 %----------------------------------------------------------------------------------------
 %	Chapter 6
@@ -623,7 +636,7 @@ addtohook={%
 \definecolor{ublue}{rgb}{0.152,0.250,0.545}
 \definecolor{ugreen}{rgb}{0,0.5,0}
 \definecolor{lgreen}{rgb}{0.9,1,0.8}
-\definecolor{xtgreen1}{rgb}{0.824,0.898,0.8}
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
 \definecolor{xtgreen}{rgb}{0.914,0.945,0.902}
 \definecolor{lightgray}{gray}{0.85}
 
@@ -644,7 +657,6 @@ addtohook={%
 %上述设置的作用是URL自动换行
 
 %%%%%%%%%%%chapter 7---------------------------------------
-%\definecolor{myblack}{rgb}{0.15,0.15,0.15}
 \definecolor{myblack}{rgb}{0.2,0.2,205.2}
 \newlength{\hseg}
 \newlength{\wnode}
@@ -653,3 +665,32 @@ addtohook={%
 \usepackage{collcell}
 \usepackage[mathscr]{euscript}
 
+%%%%%%%%%%%chapter 16---------------------------------------
+\usetikzlibrary{calc,fadings,decorations.pathreplacing}
+\usepackage{verbatim}
+
+\newcommand{\mychapter}[1]{第\ref{#1}章}%chapter用
+\newcommand{\mysection}[1]{第\ref{#1}节}%section、subsection、subsubsection用
+\newcommand\chapterone{第一章}%*
+\newcommand\chaptertwo{第二章}%*
+\newcommand\chapterthree{第三章}
+\newcommand\chapterfour{第四章}
+\newcommand\chapterfive{第五章}%*
+\newcommand\chaptersix{第六章}
+\newcommand\chapterseven{第七章}%*
+\newcommand\chaptereight{第八章}
+\newcommand\chapternine{第九章}%*
+\newcommand\chapterten{第十章}%*
+\newcommand\chaptereleven{第十一章}
+\newcommand\chaptertwelve{第十二章}%*
+\newcommand\chapterthirteen{第十三章}
+\newcommand\chapterfourteen{第十四章}
+\newcommand\chapterfifteen{第十五章}
+\newcommand\chaptersixteen{第十六章}
+\newcommand\chapterseventeen{第十七章}
+\newcommand\chaptereighteen{第十八章}%*
+
+\newcommand\funp{}%函数P等使用，空是斜体，textrm是加粗
+\newcommand\vectorn{\textbf}%向量N等使用${\vectorn{\emph{s}}}$
+\def\mathbi#1{\textbf{\em #1}}%向$量N等使用\mathbi{s}$
+\newcommand\seq{}%序列N等使用

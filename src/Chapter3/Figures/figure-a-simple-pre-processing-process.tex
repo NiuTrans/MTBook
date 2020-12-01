@@ -1,0 +1,25 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+
+%%% outline
+%-------------------------------------------------------------------------
+
+ \vspace{0.5em}
+    \begin{tikzpicture}
+    {\small
+    \node [ugreen] (input) at (0,0) {猫喜欢吃鱼};
+    \node [draw,thick,anchor=west,ublue] (preprocessing) at ([xshift=1em]input.east) {分词系统};
+    \node [ugreen,anchor=west] (mtinput) at ([xshift=1em]preprocessing.east) {猫/喜欢/吃/鱼};
+    \node [draw,thick,anchor=west,ublue] (smt) at ([xshift=1em]mtinput.east) {机器翻译系统};
+    \node [anchor=west] (mtoutput) at ([xshift=1em]smt.east) {...};
+    \draw [->,thick,ublue] ([xshift=0.1em]input.east) -- ([xshift=-0.2em]preprocessing.west);
+    \draw [->,thick,ublue] ([xshift=0.2em]preprocessing.east) -- ([xshift=-0.1em]mtinput.west);
+    \draw [->,thick,ublue] ([xshift=0.1em]mtinput.east) -- ([xshift=-0.2em]smt.west);
+    \draw [->,thick,ublue] ([xshift=0.2em]smt.east) -- ([xshift=-0.1em]mtoutput.west);
+    }
+    \end{tikzpicture}
+
+%---------------------------------------------------------------------

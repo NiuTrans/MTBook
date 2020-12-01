@@ -1,0 +1,139 @@
+
+%-----------------------------------------------
+
+
+   \begin{tikzpicture}
+        \setlength{\base}{0.6cm}
+
+        \tikzstyle{wordnode} = [font=\scriptsize]
+        \tikzstyle{auxnode} = [inner sep=0pt,outer sep=0pt,opacity=0,draw=red,fill=red,circle,minimum size=3pt]
+        \tikzstyle{opnode} = [inner sep=0pt,outer sep=0pt,draw,fill=green!30!white,font=\scriptsize,minimum size=10pt]
+        \tikzstyle{standard} = [rounded corners=5pt,thick]
+        \tikzstyle{emph} = [rounded corners=5pt,thick,draw=red]
+        \tikzstyle{formulanode} = [font=\scriptsize,align=left,draw=red,rectangle,fill=red!10!white,rounded corners=2pt,drop shadow]
+
+        % Skeleton
+        \begin{scope}[every label/.append style={label distance=1pt,font=\tiny,inner sep=0pt,opacity=0}]
+            \coordinate (aux12) at (0,0);
+            %\node[auxnode,label={-45:12}] () at (aux12) {};
+
+            \coordinate (aux22) at ([yshift=\base]aux12);
+            %\node[auxnode,label={-45:22}] () at (aux22) {};
+            \coordinate (aux21) at ([xshift=-2\base]aux22);
+            %\node[auxnode,label={-45:21}] () at (aux21) {};
+            \coordinate (aux23) at ([xshift=\base]aux22);
+            %\node[auxnode,label={-45:23}] () at (aux23) {};
+            \coordinate (aux24) at ([xshift=\base]aux23);
+            %\node[auxnode,label={-45:24}] () at (aux24) {};
+            \coordinate (aux25) at ([xshift=\base]aux24);
+            %\node[auxnode,label={-45:25}] () at (aux25) {};
+            \coordinate (aux26) at ([xshift=\base]aux25);
+            %\node[auxnode,label={-45:26}] () at (aux26) {};
+            \coordinate (aux27) at ([xshift=\base]aux26);
+            %\node[auxnode,label={-45:27}] () at (aux27) {};
+            \coordinate (aux28) at ([xshift=\base]aux27);
+            %\node[auxnode,label={-45:28}] () at (aux28) {};
+            \coordinate (aux29) at ([xshift=2\base]aux28);
+            %\node[auxnode,label={-45:29}] () at (aux29) {};
+
+            \coordinate (aux33) at ([yshift=\base]aux23);
+            %\node[auxnode,label={-45:33}] () at (aux33) {};
+            \coordinate (aux34) at ([yshift=\base]aux24);
+            %\node[auxnode,label={-45:34}] () at (aux34) {};
+            \coordinate (aux35) at ([yshift=\base]aux25);
+            %\node[auxnode,label={-45:35}] () at (aux35) {};
+            \coordinate (aux37) at ([yshift=\base]aux27);
+            %\node[auxnode,label={-45:37}] () at (aux37) {};
+
+            \coordinate (aux45) at ([yshift=\base]aux35);
+            %\node[auxnode,label={-45:45}] () at (aux45) {};
+
+            \coordinate (aux55) at ([yshift=\base]aux45);
+            %\node[auxnode,label={-45:55}] () at (aux55) {};
+            \ExtractX{$(aux21)$}
+            \ExtractY{$(aux55)$}
+            \coordinate (aux51) at (\XCoord,\YCoord);
+            %\node[auxnode,label={-45:51}] () at (aux51) {};
+            \ExtractX{$(aux23)$}
+            \ExtractY{$(aux55)$}
+            \coordinate (aux53) at (\XCoord,\YCoord);
+            %\node[auxnode,label={-45:53}] () at (aux53) {};
+            \ExtractX{$(aux28)$}
+            \ExtractY{$(aux55)$}
+            \coordinate (aux58) at (\XCoord,\YCoord);
+            %\node[auxnode,label={-45:58}] () at (aux58) {};
+            \ExtractX{$(aux29)$}
+            \ExtractY{$(aux55)$}
+            \coordinate (aux59) at (\XCoord,\YCoord);
+            %\node[auxnode,label={-45:59}] () at (aux59) {};
+
+            \coordinate (aux68) at ([yshift=\base]aux58);
+            %\node[auxnode,label={-45:68}] () at (aux68) {};
+        \end{scope}
+
+        \begin{scope}
+            \node[opnode,circle,opacity=0] (f53) at (aux53) {};
+            \node[opnode,circle,opacity=0] (u55) at (aux55) {};
+            % forget gate
+            {
+                \draw[emph] (aux21) -- (aux23) -- (aux33);
+                \draw[-latex,emph] (aux12) -- (aux22) -- (aux23) -- (f53);
+                \node[opnode,circle,draw=red,thick] () at (aux33) {$\sigma$};
+            }
+            {
+                \draw[standard] (aux21) -- (aux23) -- (aux33);
+                \draw[-latex,standard] (aux12) -- (aux22) -- (aux23) -- (f53);
+                \node[opnode,circle] () at (aux33) {$\sigma$};
+            }
+            % input gate
+            {
+                \node[opnode,circle] (i45) at (aux45) {};
+                \draw[-latex,emph] (aux21) -- (aux24) |- (i45);
+                \draw[-latex,emph] (aux21) -- (aux25) -- (u55);
+                \draw[emph] (aux12) -- (aux22) -- (aux23);
+                \node[opnode,circle,draw=red,thick] () at (aux34) {$\sigma$};
+                \node[opnode,rectangle,rounded corners=2pt,inner sep=2pt,draw=red,thick] () at (aux35) {$\mathrm{Tanh}$};
+                \node[opnode,circle,draw=red,thick] (i45) at (aux45) {X};
+            }
+            {
+                \node[opnode,circle] (i45) at (aux45) {};
+                \draw[-latex,standard] (aux21) -- (aux24) |- (i45);
+                \draw[-latex,standard] (aux21) -- (aux25) -- (u55);
+                \node[opnode,circle] () at (aux34) {$\sigma$};
+                \node[opnode,rectangle,rounded corners=2pt,inner sep=2pt] () at (aux35) {$\mathrm{Tanh}$};
+                \node[opnode,circle] (i45) at (aux45) {};
+            }
+            % cell update
+            {
+                \draw[-latex,emph] (aux51) -- (aux59);
+                \node[opnode,circle,draw=red,thick] (f53) at (aux53) {};
+                \node[opnode,circle,draw=red,thick] (u55) at (aux55) {};
+            }
+           
+        \end{scope}
+
+        \begin{scope}
+            \node[wordnode,anchor=south] () at ([xshift=0.5\base]aux21) {$\mathbi{h}_{t-1}$};
+            \node[wordnode,anchor=west] () at (aux12) {$\mathbi{x}_t$};
+            \node[wordnode,anchor=south] () at ([xshift=0.5\base]aux51) {$\mathbi{c}_{t-1}$};
+            {
+                \node[wordnode,anchor=south] () at ([xshift=-0.5\base]aux59) {$\mathbi{c}_{t}$};
+            }
+           
+        \end{scope}
+        
+        \node[ ] (o27) at (aux27) { };
+
+        \begin{pgfonlayer}{background}
+            \node[draw,very thick,rectangle,fill=blue!10!white,rounded corners=5pt,inner sep=4pt,fit=(aux22) (aux58) (u55) (o27)] (LSTM) {};
+        \end{pgfonlayer}
+	
+	%%new
+        \draw[-] (i45.north west) -- (i45.south east);
+        \draw[-] (i45.north east) -- (i45.south west);
+        \draw[-] (f53.north west) -- (f53.south east);
+	 \draw[-] (f53.north east) -- (f53.south west);
+	 \draw [-,line width=0.8pt] (u55.north) -- (u55.south);
+	\draw [-,line width=0.8pt] (u55.west) -- (u55.east);
+
+    \end{tikzpicture}

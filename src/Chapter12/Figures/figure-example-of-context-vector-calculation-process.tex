@@ -1,0 +1,149 @@
+
+
+
+%-------------------------------------------
+
+
+\begin{tikzpicture}
+
+%\newlength{\mystep}
+%\newlength{\wseg}
+%\newlength{\hseg}
+%\newlength{\wnode}
+%\newlength{\hnode}
+
+\setlength{\wseg}{1.5cm}
+\setlength{\hseg}{1.0cm}
+\setlength{\wnode}{3.75cm}
+\setlength{\hnode}{1.0cm}
+
+\tikzstyle{elementnode} = [rectangle,text=white,anchor=center]
+\tikzstyle{srcnode} = [rotate=45,font=\small,anchor=south west]
+\tikzstyle{tgtnode} = [left,font=\small,anchor=north east]
+\tikzstyle{alignmentnode} = [rectangle,draw,minimum height=3.6\hnode,minimum width=0.36\hnode]
+\tikzstyle{probnode} = [fill=blue!30,minimum width=0.4\hnode]
+\tikzstyle{labelnode} = [above]
+
+% alignment matrix
+\begin{scope}[scale=0.9,yshift=0.12in]
+\foreach \i / \j / \c in
+    {0/7/0.2, 1/7/0.45, 2/7/0.15, 3/7/0.15, 4/7/0.15, 5/7/0.15,
+    0/6/0.35, 1/6/0.45, 2/6/0.15, 3/6/0.15, 4/6/0.15, 5/6/0.15,
+    0/5/0.25, 1/5/0.15, 2/5/0.15, 3/5/0.35, 4/5/0.15, 5/5/0.15,
+    0/4/0.15, 1/4/0.25, 2/4/0.2, 3/4/0.30, 4/4/0.15, 5/4/0.15,
+    0/3/0.15, 1/3/0.15, 2/3/0.8, 3/3/0.25, 4/3/0.15, 5/3/0.25,
+    0/2/0.15, 1/2/0.15, 2/2/0.15, 3/2/0.15, 4/2/0.25, 5/2/0.3,
+    0/1/0.15, 1/1/0.15, 2/1/0.15, 3/1/0.15, 4/1/0.8, 5/1/0.15,
+    0/0/0.15, 1/0/0.15, 2/0/0.15, 3/0/0.15, 4/0/0.25, 5/0/0.60}
+    \node[elementnode,minimum size=0.6*\hnode*\c,inner sep=0.1pt,fill=blue] (a\i\j) at (0.5*\hnode*\i-5.4*0.5*\hnode,0.5*\hnode*\j-1.05*\hnode) {};
+
+%attention score labels
+\node[align=center] (l17) at (a17) {\scriptsize{{\color{white} .4}}};
+\node[align=center] (l26) at (a06) {\scriptsize{{\color{white} .3}}};
+\node[align=center] (l26) at (a16) {\scriptsize{{\color{white} .4}}};
+\node[align=center] (l17) at (a35) {\scriptsize{{\color{white} .3}}};
+\node[align=center] (l17) at (a34) {\tiny{{\color{white} .3}}};
+\node[align=center] (l17) at (a23) {\small{{\color{white} .8}}};
+\node[align=center] (l17) at (a41) {\small{{\color{white} .8}}};
+\node[align=center] (l17) at (a50) {\small{{\color{white} .7}}};
+
+% source
+\node[srcnode] (src1) at (-5.4*0.5*\hnode,-1.05*\hnode+7.5*0.5*\hnode) {\scriptsize{Have}};
+\node[srcnode] (src2) at ([xshift=0.5\hnode]src1.south west) {\scriptsize{you}};
+\node[srcnode] (src3) at ([xshift=0.5\hnode]src2.south west) {\scriptsize{learned}};
+\node[srcnode] (src4) at ([xshift=0.5\hnode]src3.south west) {\scriptsize{nothing}};
+\node[srcnode] (src5) at ([xshift=0.5\hnode]src4.south west) {\scriptsize{?}};
+\node[srcnode] (src6) at ([xshift=0.5\hnode]src5.south west) {\scriptsize{$\langle$eos$\rangle$}};
+
+% target
+\node[tgtnode] (tgt1) at (-6.0*0.5*\hnode,-1.05*\hnode+7.5*0.5*\hnode) {\scriptsize{他}};
+\node[tgtnode] (tgt2) at ([yshift=-0.5\hnode]tgt1.north east) {\scriptsize{什么}};
+\node[tgtnode] (tgt3) at ([yshift=-0.5\hnode]tgt2.north east) {\scriptsize{都}};
+\node[tgtnode] (tgt4) at ([yshift=-0.5\hnode]tgt3.north east) {\scriptsize{没}};
+\node[tgtnode] (tgt5) at ([yshift=-0.5\hnode]tgt4.north east) {\scriptsize{学}};
+\node[tgtnode] (tgt6) at ([yshift=-0.5\hnode]tgt5.north east) {\scriptsize{到}};
+\node[tgtnode] (tgt7) at ([yshift=-0.5\hnode]tgt6.north east) {\scriptsize{?}};
+\node[tgtnode] (tgt8) at ([yshift=-0.5\hnode]tgt7.north east) {\scriptsize{$\langle$eos$\rangle$}};
+
+\end{scope}
+
+%\visible<2->
+{
+% alignment rectangle 2
+\node[alignmentnode, ugreen, anchor=north west] (alignment1) at ([xshift=-0.3em,yshift=0.4em]a07.north west) {};
+}
+
+%\visible<3->
+{
+% alignment rectangle 1
+\node[alignmentnode, red, anchor=north west] (alignment2) at ([xshift=-0.1em,yshift=0.2em]a17.north west) {};
+}
+
+%\visible<3->
+{
+% alignment bars 2
+\node[probnode,anchor=south west,minimum height=0.4\hnode,inner sep=0.1pt,fill=red!40,label=below:\scriptsize{$0.4$}] (attn21) at ([xshift=2.3\hnode,yshift=0.5\hnode]alignment2.east) {};
+\node[probnode,anchor=south west,minimum height=0.4\hnode,inner sep=0.1pt,fill=red!40,label=below:\scriptsize{$0.4$}] (attn22) at ([xshift=1pt]attn21.south east) {};
+\node[probnode,anchor=south west,minimum height=0.05\hnode,inner sep=0.1pt,fill=red!40,label=below:\scriptsize{$0$}] (attn23) at ([xshift=1pt]attn22.south east) {};
+\node[probnode,anchor=south west,minimum height=0.1\hnode,inner sep=0.1pt,fill=red!40,label=below:\scriptsize{$0.1$}] (attn24) at ([xshift=1pt]attn23.south east) {};
+\node[probnode,anchor=south west,minimum height=0.05\hnode,inner sep=0.1pt,fill=red!40,label=below:\scriptsize{$0$}] (attn25) at ([xshift=1pt]attn24.south east) {};
+\node[probnode,anchor=south west,minimum height=0.05\hnode,inner sep=0.1pt,fill=red!40,label=below:\scriptsize{$...$}] (attn26) at ([xshift=1pt]attn25.south east) {};
+}
+
+%\visible<2->
+{
+% alignment bars 1
+\node[probnode,anchor=south,minimum height=0.2\hnode,inner sep=0.1pt,fill=ugreen!40,label=below:\scriptsize{$0.2$}] (attn11) at ([xshift=2.5\hnode,yshift=-1em]alignment2.north east) {};
+\node[probnode,anchor=south west,minimum height=0.3\hnode,inner sep=0.1pt,fill=ugreen!40,label=below:\scriptsize{$0.3$}] (attn12) at ([xshift=1pt]attn11.south east) {};
+\node[probnode,anchor=south west,minimum height=0.2\hnode,inner sep=0.1pt,fill=ugreen!40,label=below:\scriptsize{$0.2$}] (attn13) at ([xshift=1pt]attn12.south east) {};
+\node[probnode,anchor=south west,minimum height=0.05\hnode,inner sep=0.1pt,fill=ugreen!40,label=below:\scriptsize{$0$}] (attn14) at ([xshift=1pt]attn13.south east) {};
+\node[probnode,anchor=south west,minimum height=0.05\hnode,inner sep=0.1pt,fill=ugreen!40,label=below:\scriptsize{$0$}] (attn15) at ([xshift=1pt]attn14.south east) {};
+\node[probnode,anchor=south west,minimum height=0.05\hnode,inner sep=0.1pt,fill=ugreen!40,label=below:\scriptsize{$...$}] (attn16) at ([xshift=1pt]attn15.south east) {};
+}
+
+%\visible<3->
+{
+% coverage score formula node
+\node [anchor=north west] (formula) at ([xshift=-0.3\hnode,yshift=-1.5\hnode]attn11.south) {\small{不同$\vectorn{\emph{C}}_j$所对应的源语言词的权重是不同的}};
+\node [anchor=north west] (example) at (formula.south west) {\footnotesize{$\vectorn{\emph{C}}_2=0.4 \times \vectorn{\emph{h}}(\textrm{他}) + 0.4 \times \vectorn{\emph{h}}(\textrm{什么}) +$}};
+\node [anchor=north west] (example2) at ([yshift=0.4em]example.south west) {\footnotesize{$\ \ \ \ \ \ \ \ 0 \times \vectorn{\emph{h}}(\textrm{都}) + 0.1 \times \vectorn{\emph{h}}(\textrm{ 没}) + ..$}};
+}
+
+%\visible<3->
+{
+% matrix -> attn2
+\draw[->,red] ([xshift=0.1em,yshift=2.3em]alignment2.east).. controls +(east:1.9cm) and +(west:1.0cm) ..([xshift=-0.15\hnode,yshift=-1em]attn21.north west);
+}
+
+
+%\visible<2->
+{
+\draw[->,ugreen] ([xshift=0.1em,yshift=-1.2em]alignment1.north east)--([xshift=2.2\hnode,yshift=-1.2em]alignment2.north east);
+}
+
+%\visible<3->
+{
+% attn2 -> cov2
+\draw[->] ([xshift=0.2\hnode,yshift=0.0\hnode]attn26.east)--([xshift=0.7\hnode,yshift=0]attn26.east) node[pos=0.5,above] (sum2) {\small{$\sum$}}; % 0.3 - 0.5 height of the
+}
+
+
+%\visible<2->
+{
+% attn1 -> cov1
+\draw[->] ([xshift=0.2\hnode]attn16.east)--([xshift=0.7\hnode]attn16.east) node[pos=0.5,above] (sum1) {\small{$\sum$}};
+}
+
+% coverage score for each source word
+
+%\visible<2->
+{
+\node[anchor=west] (sc1) at ([xshift=0.9\hnode]attn16.east) {$\vectorn{\emph{C}}_1 = \sum_{i=1}^{8} \alpha_{i1} \vectorn{\emph{h}}_{i}$};
+}
+
+%\visible<3->
+{
+\node[anchor=west] (sc2) at ([xshift=0.9\hnode,yshift=0.0\hnode]attn26.east) {$\vectorn{\emph{C}}_2 = \sum_{i=1}^{8} \alpha_{i2} \vectorn{\emph{h}}_{i}$};
+}
+
+\end{tikzpicture}

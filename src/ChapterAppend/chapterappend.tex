@@ -26,15 +26,119 @@
 \begin{appendices}
 \chapter{附录A}
 \label{appendix-A}
-\parinterval 在构建机器翻译系统的过程中，数据是必不可少的，尤其是现在主流的神经机器翻译系统，系统的性能往往受限于语料库规模和质量。所幸的是，随着语料库语言学的发展，一些主流语种的相关语料资源已经十分丰富。
+\parinterval  从实践的角度，机器翻译的发展离不开开源系统的推动作用。开源系统通过代码共享的方式使得最新的研究成果可以快速传播，同时实验结果可以复现。此外，开源项目也促进了不同团队之间的协作，让研究人员在同一个平台上集中力量攻关。
 
-\parinterval 为了方便读者进行相关研究，我们汇总了几个常用的基准数据集，这些数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作可以进行复现和对比。同时，我们收集了一下常用的平行语料，方便读者进行一些探索。
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{统计机器翻译开源系统}
+
+\begin{itemize}
+\vspace{0.5em}
+\item NiuTrans.SMT。NiuTrans\upcite{Tong2012NiuTrans}是由东北大学自然语言处理实验室自主研发的统计机器翻译系统，该系统可支持基于短语的模型、基于层次短语的模型以及基于句法的模型。由于使用C++ 语言开发，所以该系统运行时间快，所占存储空间少。系统中内嵌有$n$-gram语言模型，故无需使用其他的系统即可对完成语言建模。网址：\url{http://opensource.niutrans.com/smt/index.html}
+\vspace{0.5em}
+\item Moses。Moses\upcite{Koehn2007Moses}是统计机器翻译时代最著名的系统之一，（主要）由爱丁堡大学的机器翻译团队开发。最新的Moses系统支持很多的功能，例如，它既支持基于短语的模型，也支持基于句法的模型。Moses 提供因子化翻译模型（Factored Translation Model），因此该模型可以很容易地对不同层次的信息进行建模。此外，它允许将混淆网络和字格作为输入，可缓解系统的1-best输出中的错误。Moses还提供了很多有用的脚本和工具，被机器翻译研究者广泛使用。网址：\url{http://www.statmt.org/moses/}
+\vspace{0.5em}
+\item Joshua。Joshua\upcite{Li2010Joshua}是由约翰霍普金斯大学的语言和语音处理中心开发的层次短语翻译系统。由于Joshua是由Java语言开发，所以它在不同的平台上运行或开发时具有良好的可扩展性和可移植性。Joshua也是使用非常广泛的开源机器翻译系统之一。网址：\url{https://cwiki.apache.org/confluence/display/JOSHUA/}
+\vspace{0.5em}
+\item SilkRoad。SilkRoad是由五个国内机构（中科院计算所、中科院软件所、中科院自动化所、厦门大学和哈尔滨工业大学）联合开发的基于短语的统计机器翻译系统。该系统是中国乃至亚洲地区第一个开源的统计机器翻译系统。SilkRoad支持多种解码器和规则提取模块，这样可以组合成不同的系统，提供多样的选择。网址：\url{http://www.nlp.org.cn/project/project.php?projid=14}
+\vspace{0.5em}
+\item SAMT。SAMT\upcite{zollmann2007the}是由卡内基梅隆大学机器翻译团队开发的语法增强的统计机器翻译系统。SAMT在解码的时候使用目标树来生成翻译规则，而不严格遵守目标语言的语法。SAMT 的一个亮点是它提供了简单但高效的方式在机器翻译中使用句法信息。由于SAMT在hadoop中实现，它可受益于大数据集的分布式处理。网址：\url{http://www.cs.cmu.edu/zollmann/samt/}
+\vspace{0.5em}
+\item HiFST。HiFST\upcite{iglesias2009hierarchical}是剑桥大学开发的统计机器翻译系统。该系统完全基于有限状态自动机实现，因此非常适合对搜索空间进行有效的表示。网址：\url{http://ucam-smt.github.io/}
+\vspace{0.5em}
+\item cdec。cdec\upcite{dyer2010cdec}是一个强大的解码器，是由Chris Dyer 和他的合作者们一起开发。cdec的主要功能是它使用了翻译模型的一个统一的内部表示，并为结构预测问题的各种模型和算法提供了实现框架。所以，cdec也可以被用来做一个对齐系统或者一个更通用的学习框架。此外，由于使用C++语言编写，cdec的运行速度较快。网址：\url{http://cdec-decoder.org/index.php?title=MainPage}
+\vspace{0.5em}
+\item Phrasal。Phrasal\upcite{Cer2010Phrasal}是由斯坦福大学自然语言处理小组开发的系统。除了传统的基于短语的模型，Phrasal还支持基于非层次短语的模型，这种模型将基于短语的翻译延伸到非连续的短语翻译，增加了模型的泛化能力。网址：\url{http://nlp.stanford.edu/phrasal/}
+\vspace{0.5em}
+\item Jane。Jane\upcite{vilar2012jane}是一个基于短语和基于层次短语的机器翻译系统，由亚琛工业大学的人类语言技术与模式识别小组开发。Jane提供了系统融合模块，因此可以非常方便的对多个系统进行融合。网址：\url{https://www-i6.informatik.rwth-aachen.de/jane/}
+\vspace{0.5em}
+\item GIZA++。GIZA++\upcite{och2003systematic}是Franz Och研发的用于训练IBM模型1-5和HMM单词对齐模型的工具包。在早期，GIZA++是所有统计机器翻译系统中词对齐的标配工具。网址：\url{https://github.com/moses-smt/giza-pp}
+\vspace{0.5em}
+\item FastAlign。FastAlign\upcite{DBLP:conf/naacl/DyerCS13}是一个快速，无监督的词对齐工具，由卡内基梅隆大学开发。网址：\url{https://github.com/clab/fast\_align}
+\vspace{0.5em}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\section{神经机器翻译开源系统}
+
+\begin{itemize}
+\vspace{0.5em}
+\item GroundHog。GroundHog\upcite{bahdanau2014neural}基于Theano\upcite{al2016theano}框架，由蒙特利尔大学LISA 实验室使用Python语言编写的一个框架，旨在提供灵活而高效的方式来实现复杂的循环神经网络模型。它提供了包括LSTM在内的多种模型。Bahdanau等人在此框架上又编写了GroundHog神经机器翻译系统。该系统也作为了很多论文的基线系统。网址：\url{https://github.com/lisa-groundhog/GroundHog}
+\vspace{0.5em}
+\item Nematus。Nematus\upcite{DBLP:journals/corr/SennrichFCBHHJL17}是英国爱丁堡大学开发的，基于Theano框架的神经机器翻译系统。该系统使用GRU作为隐层单元，支持多层网络。Nematus 编码端有正向和反向的编码方式，可以同时提取源语句子中的上下文信息。该系统的一个优点是，它可以支持输入端有多个特征的输入（例如词的词性等）。网址：\url{https://github.com/EdinburghNLP/nematus}
+\vspace{0.5em}
+\item ZophRNN。ZophRNN\upcite{zoph2016simple}是由南加州大学的Barret Zoph 等人使用C++语言开发的系统。Zoph既可以训练序列表示模型（如语言模型），也可以训练序列到序列的模型（如神经机器翻译模型）。当训练神经机器翻译系统时，ZophRNN也支持多源输入。网址：\url{https://github.com/isi-nlp/Zoph\_RNN}
+\vspace{0.5em}
+\item Fairseq。Fairseq\upcite{Ottfairseq}是由Facebook开发的，基于PyTorch框架的用以解决序列到序列问题的工具包，其中包括基于卷积神经网络、基于循环神经网络、基于Transformer的模型等。Fairseq是当今使用最广泛的神经机器翻译开源系统之一。网址：\url{https://github.com/facebookresearch/fairseq}
+\vspace{0.5em}
+\item Tensor2Tensor。Tensor2Tensor\upcite{Vaswani2018Tensor2TensorFN}是由谷歌推出的，基于TensorFlow框架的开源系统。该系统基于Transformer模型，因此可以支持大多数序列到序列任务。得益于Transformer 的网络结构，系统的训练速度较快。现在，Tensor2Tensor也是机器翻译领域广泛使用的开源系统之一。网址：\url{https://github.com/tensorflow/tensor2tensor}
+\vspace{0.5em}
+\item OpenNMT。OpenNMT\upcite{KleinOpenNMT}系统是由哈佛大学自然语言处理研究组开源的，基于Torch框架的神经机器翻译系统。OpenNMT系统的早期版本使用Lua 语言编写，现在也扩展到了TensorFlow和PyTorch，设计简单易用，易于扩展，同时保持效率和翻译精度。网址：\url{https://github.com/OpenNMT/OpenNMT}
+\vspace{0.5em}
+\item 斯坦福神经机器翻译开源代码库。斯坦福大学自然语言处理组（Stanford NLP）发布了一篇教程，介绍了该研究组在神经机器翻译上的研究信息，同时实现了多种翻译模型\upcite{luong2016acl_hybrid}。 网址：\url{https://nlp.stanford.edu/projects/nmt/}
+\vspace{0.5em}
+\item THUMT。清华大学NLP团队实现的神经机器翻译系统，支持Transformer等模型\upcite{ZhangTHUMT}。该系统主要基于TensorFlow和Theano实现，其中Theano版本包含了RNNsearch模型，训练方式包括MLE （Maximum Likelihood Estimate）, MRT（Minimum Risk Training）, SST（Semi-Supervised Training）。TensorFlow 版本实现了Seq2Seq, RNNsearch, Transformer三种基本模型。网址：\url{https://github.com/THUNLP-MT/THUMT}
+\vspace{0.5em}
+\item NiuTrans.NMT。由小牛翻译团队基于NiuTensor实现的神经机器翻译系统。支持循环神经网络、Transformer等结构，并支持语言建模、序列标注、机器翻译等任务。支持机器翻译GPU与CPU 训练及解码。其小巧易用，为开发人员提供快速二次开发基础。此外，NiuTrans.NMT已经得到了大规模应用，形成了支持304种语言翻译的小牛翻译系统。网址：\url{https://github.com/NiuTrans/NiuTrans.NMT}
+\vspace{0.5em}
+\item MARIAN。主要由微软翻译团队搭建\upcite{JunczysMarian}，其使用C++实现的用于GPU/CPU训练和解码的引擎，支持多GPU训练和批量解码，最小限度依赖第三方库，静态编译一次之后，复制其二进制文件就能在其他平台使用。网址：\url{https://marian-nmt.github.io/}
+\vspace{0.5em}
+\item Sockeye。由Awslabs开发的神经机器翻译框架\upcite{hieber2017sockeye}。其中支持RNNsearch、Transformer、CNN等翻译模型，同时提供了从图片翻译到文字的模块以及WMT 德英新闻翻译、领域适应任务、多语言零资源翻译任务的教程。网址：\url{https://awslabs.github.io/sockeye/}
+\vspace{0.5em}
+\item CytonMT。由NICT开发的一种用C++实现的神经机器翻译开源工具包\upcite{WangCytonMT}。主要支持Transformer模型，并支持一些常用的训练方法以及解码方法。网址：\url{https://github.com/arthurxlw/cytonMt}
+\vspace{0.5em}
+\item OpenSeq2Seq。由NVIDIA团队开发的\upcite{DBLP:journals/corr/abs-1805-10387}基于TensorFlow的模块化架构，用于序列到序列的模型，允许从可用组件中组装新模型，支持混合精度训练，利用NVIDIA Volta Turing GPU中的Tensor核心，基于Horovod的快速分布式训练，支持多GPU，多节点多模式。网址：\url{https://nvidia.github.io/OpenSeq2Seq/html/index.html}
+\vspace{0.5em}
+\item NMTPyTorch。由勒芒大学语言实验室发布的基于序列到序列框架的神经网络翻译系统\upcite{nmtpy2017}，NMTPyTorch的核心部分依赖于Numpy，PyTorch和tqdm。其允许训练各种端到端神经体系结构，包括但不限于神经机器翻译、图像字幕和自动语音识别系统。网址：\url{https://github.com/lium-lst/nmtpytorch}
+\vspace{0.5em}
+\end{itemize}
+
+\end{appendices}
+%----------------------------------------------------------------------------------------
+%	CHAPTER  APPENDIX B
+%----------------------------------------------------------------------------------------
+
+\begin{appendices}
+\chapter{附录B}
+\label{appendix-B}
+\parinterval 除了开源系统，机器翻译的发展还离不开评测比赛。评测比赛使得各个研究组织的成果可以进行科学的对比，共同推动机器翻译的发展与进步。另外在构建机器翻译系统的过程中，数据是必不可少的，尤其是现在主流的神经机器翻译系统，系统的性能往往受限于语料库规模和质量。所幸的是，随着语料库语言学的发展，一些主流语种的相关语料资源已经十分丰富。
+
+\parinterval 为了方便读者进行相关研究，我们汇总了几个常见的评测比赛、一些常用的基准数据集和常用的平行语料。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\section{公开评测任务}
+\parinterval 机器翻译相关评测主要有两种组织形式，一种是由政府及国家相关机构组织，权威性强。如由美国国家标准技术研究所组织的NIST评测、日本国家科学咨询系统中心主办的NACSIS Test Collections for IR（NTCIR）PatentMT、日本科学振兴机构（Japan Science and Technology Agency，简称JST）等组织联合举办的Workshop on Asian Translation（WAT）以及国内由中文信息学会主办的全国机器翻译大会（China Conference on Machine Translation，简称CCMT）；另一种是由相关学术机构组织，具有领域针对性的特点，如倾向新闻领域的Conference on Machine Translation（WMT）以及面向口语的International Workshop on Spoken Language Translation（IWSLT）。下面将针对上述评测进行简要介绍。
+
+\begin{itemize}
+\vspace{0.5em}
+\item CCMT（全国机器翻译大会），前身为CWMT（全国机器翻译研讨会）是国内机器翻译领域的旗舰会议，自2005年起已经组织多次机器翻译评测，对国内机器翻译相关技术的发展产生了深远影响。该评测主要针对汉语、英语以及国内的少数民族语言（蒙古语、藏语、维吾尔语等）进行评测，领域包括新闻、口语、政府文件等，不同语言方向对应的领域也有所不同。评价方式不同届略有不同，主要采用自动评价的方式，自CWMT\ 2013起则针对某些领域增设人工评价。自动评价的指标一般包括BLEU-SBP、BLEU-NIST、TER、METEOR、NIST、GTM、mWER、mPER 以及ICT 等，其中以BLEU-SBP 为主，汉语为目标语的翻译采用基于字符的评价方式，面向英语的翻译采用基于词的评价方式。每年该评测吸引国内外近数十家企业及科研机构参赛，业内认可度极高。关于CCMT的更多信息可参考中文信息学会机器翻译专业委员会相关页面：\url{http://sc.cipsc.org.cn/mt/index.php/CWMT.html}。
+\vspace{0.5em}
+\item WMT由Special Interest Group for Machine Translation（SIGMT）主办，会议自2006年起每年召开一次，是一个涉及机器翻译多种任务的综合性会议，包括多领域翻译评测任务、质量评价任务以及其他与机器翻译的相关任务（如文档对齐评测等）。现在WMT已经成为机器翻译领域的旗舰评测会议，很多研究工作都以WMT评测结果作为基准。WMT评测涉及的语言范围较广，包括英语、德语、芬兰语、捷克语、罗马尼亚语等十多种语言，翻译方向一般以英语为核心，探索英语与其他语言之间的翻译性能，领域包括新闻、信息技术、生物医学。最近，也增加了无指导机器翻译等热门问题。WMT在评价方面类似于CCMT，也采用人工评价与自动评价相结合的方式，自动评价的指标一般为BLEU、TER 等。此外，WMT公开了所有评测数据，因此也经常被机器翻译相关人员所使用。更多WMT的机器翻译评测相关信息可参考SIGMT官网：\url{http://www.sigmt.org/}。
+\vspace{0.5em}
+\item NIST机器翻译评测开始于2001年，是早期机器翻译公开评测中颇具代表性的任务，现在WMT和CCMT很多任务的设置也大量参考了当年NIST评测的内容。NIST评测由美国国家标准技术研究所主办，作为美国国防高级计划署（DARPA）中TIDES计划的重要组成部分。早期，NIST评测主要评价阿拉伯语和汉语等语言到英语的翻译效果，评价方法一般采用人工评价与自动评价相结合的方式。人工评价采用5分制评价。自动评价使用多种方式，包括BLEU，METEOR，TER以及HyTER。此外NIST从2016 年起开始对稀缺语言资源技术进行评估，其中机器翻译作为其重要组成部分共同参与评测，评测指标主要为BLEU。除对机器翻译系统进行评测之外，NIST在2008 和2010年对于机器翻译的自动评价方法（MetricsMaTr）也进行了评估，以鼓励更多研究人员对现有评价方法进行改进或提出更加贴合人工评价的方法。同时NIST评测所提供的数据集由于数据质量较高受到众多科研人员喜爱，如MT04，MT06等（汉英）平行语料经常被科研人员在实验中使用。不过，近几年NIST评测已经停止。更多NIST的机器翻译评测相关信息可参考官网：\url{https://www.nist.gov/programs-projects/machine-translation}。
+\vspace{0.5em}
+\item 从2004年开始举办的IWSLT也是颇具特色的机器翻译评测，它主要关注口语相关的机器翻译任务，测试数据包括TED talks的多语言字幕以及QED 教育讲座影片字幕等，语言涉及英语、法语、德语、捷克语、汉语、阿拉伯语等众多语言。此外在IWSLT 2016 中还加入了对于日常对话的翻译评测，尝试将微软Skype中一种语言的对话翻译成其他语言。评价方式采用自动评价的模式，评价标准和WMT类似，一般为BLEU 等指标。另外，IWSLT除了对文本到文本的翻译评测外，还有自动语音识别以及语音转另一种语言的文本的评测。更多IWSLT的机器翻译评测相关信息可参考IWSLT\ 2019官网：\url{https://workshop2019.iwslt.org/}。
+\vspace{0.5em}
+\item 日本举办的机器翻译评测WAT是亚洲范围内的重要评测之一，由日本科学振兴机构（JST）、情报通信研究机构（NICT）等多家机构共同组织，旨在为亚洲各国之间交流融合提供便宜之处。语言方向主要包括亚洲主流语言（汉语、韩语、印地语等）以及英语对日语的翻译，领域丰富多样，包括学术论文、专利、新闻、食谱等。评价方式包括自动评价（BLEU、RIBES以及AMFM 等）以及人工评价，其特点在于对于测试语料以段落为单位进行评价，考察其上下文关联的翻译效果。更多WAT的机器翻译评测相关信息可参考官网：\url{http://lotus.kuee.kyoto-u.ac.jp/WAT/}。
+\vspace{0.5em}
+\item NTCIR计划是由日本国家科学咨询系统中心策划主办的，旨在建立一个用在自然语言处理以及信息检索相关任务上的日文标准测试集。在NTCIR-9和NTCIR-10中开设的Patent Machine Translation（PatentMT）任务主要针对专利领域进行翻译测试，其目的在于促进机器翻译在专利领域的发展和应用。在NTCIR-9中，评测方式采取人工评价与自动评价相结合，以人工评价为主导。人工评价主要根据准确度和流畅度进行评估，自动评价采用BLEU、NIST等方式进行。NTCIR-10评价方式在此基础上增加了专利审查评估、时间评估以及多语种评估，分别考察机器翻译系统在专利领域翻译的实用性、耗时情况以及不同语种的翻译效果等。更多NTCIR评测相关信息可参考官网：\url{http://research.nii.ac.jp/ntcir/index-en.html}。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 以上评测数据大多可以从评测网站上下载，此外部分数据也可以从LDC（Lingu-istic Data Consortium）上申请，网址为\url{https://www.ldc.upenn.edu/}。ELRA（Euro-pean Language Resources Association）上也有一些免费的语料库供研究使用，其官网为\url{http://www.elra.info/}。从机器翻译发展的角度看，这些评测任务给相关研究提供了基准数据集，使得不同的系统都可以在同一个环境下进行比较和分析，进而建立了机器翻译研究所需的实验基础。此外，公开评测也使得研究者可以第一时间了解机器翻译研究的最新成果，比如，有多篇ACL会议最佳论文的灵感就来自当年参加机器翻译评测任务的系统。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
 \section{基准数据集}
+\parinterval 这些数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作可以进行复现和对比。
 
 %----------------------------------------------
 \begin{table}[htp]{
@@ -122,51 +226,46 @@
 \item Recipe Corpus：由Cookpad公司创建的日英食谱语料库，包含10万多的句对。URL：\url{http://lotus.kuee.kyoto-u.ac.jp/WAT/recipe-corpus/}
 \end{itemize}
 
-%----------------------------------------------------------------------------------------
-%    NEW SECTION
-%----------------------------------------------------------------------------------------
-
-\section{相关工具}
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{数据预处理工具}
-\parinterval 数据处理是搭建神经机器翻译系统的重要步骤，这里我们提供了一些开源工具供读者进行使用。
-\vspace{0.5em}
-\begin{itemize}
-\item Moses：Moses 提供了很多数据预处理的脚本和工具，被机器翻译研究者广泛使用。其中包括符号标准化、分词、大小写转换和长度过滤等。URL：\url{https://github.com/moses-smt/mosesdecoder/tree/master/scripts}
-\vspace{0.5em}
-\item Jieba：常用的中文分词工具。URL：\url{https://github.com/fxsjy/jieba}
-\vspace{0.5em}
-\item Subword-nmt：基于BPE算法的子词切分工具。URL：\url{https://github.com/rsennrich/subword-nmt}
-\end{itemize}
-
-%----------------------------------------------------------------------------------------
-%    NEW SUB-SECTION
-%----------------------------------------------------------------------------------------
-
-\subsection{评价工具}
-\parinterval 机器翻译领域已经有多种自动评价指标，包括BLEU、TER和METEOR等，这里我们提供了一些自动评价指标的工具，方便读者使用。
-\vspace{0.5em}
-\begin{itemize}
-\item Moses：其中包括了通用的BLEU评测脚本。URL：\url{https://github.com/moses-smt/mosesdecoder/tree/master/scripts/generic}
-\vspace{0.5em}
-\item Tercom：自动评价指标TER的计算工具，只有java版本。URL：\url{http://www.cs.umd.edu/~snover/tercom/}
-\vspace{0.5em}
-\item Meteor：自动评价指标METEOR的实现。URL：\url{https://www.cs.cmu.edu/~alavie/METEOR/}
-\end{itemize}
 
 \end{appendices}
 
 %----------------------------------------------------------------------------------------
-%	CHAPTER  APPENDIX B
+%	CHAPTER  APPENDIX C
 %----------------------------------------------------------------------------------------
 
 \begin{appendices}
-\chapter{附录B}
-\label{appendix-B}
+\chapter{附录C}
+\label{appendix-C}
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+
+\section{IBM模型2训练方法}
+
+IBM模型2与模型1的训练过程完全一样，本质上都是EM方法，因此可以直接复用{\chapterfive}中训练模型1的流程。对于句对$(\mathbf{s},\mathbf{t})$，$m=|\mathbf{s}|$，$l=|\mathbf{t}|$，E-Step的计算公式如下，其中参数$f(s_j|t_i)$与IBM模型1 一样：
+
+\begin{eqnarray}
+c(s_u|t_v;\mathbf{s},\mathbf{t}) &=&\sum\limits_{j=1}^{m} \sum\limits_{i=0}^{l} \frac{f(s_u|t_v)a(i|j,m,l) \delta(s_j,s_u)\delta (t_i,t_v) }   {\sum_{k=0}^{l} f(s_u|t_k)a(k|j,m,l)} \\
+c(i|j,m,l;\mathbf{s},\mathbf{t}) &=&\frac{f(s_j|t_i)a(i|j,m,l)}   {\sum_{k=0}^{l} f(s_j|t_k)a(k,j,m,l)}
+\label{eq:append-1}
+\end{eqnarray}
+
+\parinterval M-Step的计算公式如下，其中参数$a(i|j,m,l)$表示调序概率：
+
+\begin{eqnarray}
+f(s_u|t_v) &=\frac{c(s_u|t_v;\mathbf{s},\mathbf{t}) }    {\sum_{s_u} c(s_u|t_v;\mathbf{s},\mathbf{t})} \\
+a(i|j,m,l) &=\frac{c(i|j;\mathbf{s},\mathbf{t})}  {\sum_{i}c(i|j;\mathbf{s},\mathbf{t})}
+\label{eq:append-2}
+\end{eqnarray}
+
+对于由$K$个样本组成的训练集$\{(\mathbf{s}^{[1]},\mathbf{t}^{[1]}),...,(\mathbf{s}^{[K]},\mathbf{t}^{[K]})\}$，可以将M-Step的计算调整为：
+
+\begin{eqnarray}
+f(s_u|t_v) &=\frac{\sum_{k=1}^{K}c_{\mathbb{E}}(s_u|t_v;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) }    {\sum_{s_u} \sum_{k=1}^{K} c_{\mathbb{E}}(s_u|t_v;\mathbf{s}^{[k]},\mathbf{t}^{[k]})} \\
+a(i|j,m,l) &=\frac{\sum_{k=1}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^{[k]})}  {\sum_{i}\sum_{k=1}^{K}c_{\mathbb{E}}(i|j;\mathbf{s}^{[k]},\mathbf{t}^{[k]})}
+\label{eq:append-3}
+\end{eqnarray}
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -175,7 +274,7 @@
 \section{IBM模型3训练方法}
 \parinterval IBM模型3的参数估计与模型1和模型2采用相同的方法。这里直接给出辅助函数。
 \begin{eqnarray}
-h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \textrm{P}_{\theta}(\mathbf{s}|\mathbf{t})-\sum_{t}\lambda_{t}\big(\sum_{s}t(s|t)-1\big)  \nonumber \\
+h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \funp{P}_{\theta}(\mathbf{s}|\mathbf{t})-\sum_{t}\lambda_{t}\big(\sum_{s}t(s|t)-1\big)  \nonumber \\
 & & -\sum_{i}\mu_{iml}\big(\sum_{j}d(j|i,m,l)-1\big) \nonumber \\
 & & -\sum_{t}\nu_{t}\big(\sum_{\varphi}n(\varphi|t)-1\big)-\zeta(p^0+p^1-1)
 \label{eq:1.1}
@@ -183,28 +282,28 @@ h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \textrm{P}_{\theta}(\mathbf{s}|\mathb
 
 \parinterval 由于篇幅所限这里略去了推导步骤直接给出具体公式。
 \begin{eqnarray}
-c(s|t,\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m} (\delta(s_j,s) \cdot \delta(t_{a_{j}},t))\big] \label{eq:1.2} \\
-c(j|i,m,l;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \delta(i,a_j)\big] \label{eq:1.3} \\
-c(\varphi|t;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{i=1}^{l}\delta(\varphi,\varphi_{i})\delta(t,t_i)\big]
+c(s|t,\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m} (\delta(s_j,s) \cdot \delta(t_{a_{j}},t))\big] \label{eq:1.2} \\
+c(j|i,m,l;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \delta(i,a_j)\big] \label{eq:1.3} \\
+c(\varphi|t;\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{i=1}^{l}\delta(\varphi,\varphi_{i})\delta(t,t_i)\big]
 \label{eq:1.4}
 \end{eqnarray}
 
 \begin{eqnarray}
-c(0|\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})  \times (m-2\varphi_0) \big] \label{eq:1.5} \\
-c(1|\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \varphi_0 \big] \label{eq:1.6}
+c(0|\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})  \times (m-2\varphi_0) \big] \label{eq:1.5} \\
+c(1|\mathbf{s},\mathbf{t}) & = & \sum_{\mathbf{a}}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \varphi_0 \big] \label{eq:1.6}
 \end{eqnarray}
 
 \parinterval 进一步，对于由$K$个样本组成的训练集，有：
 \begin{eqnarray}
 t(s|t) & = & \lambda_{t}^{-1} \times \sum_{k=1}^{K}c(s|t;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.7} \\
 d(j|i,m,l) & = & \mu_{iml}^{-1} \times \sum_{k=1}^{K}c(j|i,m,l;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.8} \\
-n(\varphi|t) & = & \nu_{t}^{-1} \times \sum_{s=1}^{K}c(\varphi |t;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.9} \\
+n(\varphi|t) & = & \nu_{t}^{-1} \times \sum_{k=1}^{K}c(\varphi |t;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.9} \\
 p_x & = & \zeta^{-1} \sum_{k=1}^{K}c(x;\mathbf{s}^{[k]},\mathbf{t}^{[k]}) \label{eq:1.10}
 \end{eqnarray}
 
-\parinterval 在模型3中，因为繁衍率的引入，并不能像模型1和模型2那样，在保证正确性的情况下加速参数估计的过程。这就使得每次迭代过程中，都不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单的方法是仅使用Viterbi对齐来进行参数估计，这里Viterbi 词对齐可以被简单的看作搜索到的最好词对齐。遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})$ 达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。式\ref{eq:1.2}可以被修改为：
+\parinterval 在模型3中，因为繁衍率的引入，并不能像模型1和模型2那样，在保证正确性的情况下加速参数估计的过程。这就使得每次迭代过程中，都不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单的方法是仅使用Viterbi对齐来进行参数估计，这里Viterbi 词对齐可以被简单的看作搜索到的最好词对齐。遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t})$ 达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。式\ref{eq:1.2}可以被修改为：
 \begin{eqnarray}
-c(s|t,\mathbf{s},\mathbf{t}) \approx \sum_{\mathbf{a} \in S}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m}(\delta(s_j,\mathbf{s}) \cdot \delta(t_{a_{j}},\mathbf{t})) \big]
+c(s|t,\mathbf{s},\mathbf{t}) \approx \sum_{\mathbf{a} \in S}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times \sum_{j=1}^{m}(\delta(s_j,\mathbf{s}) \cdot \delta(t_{a_{j}},\mathbf{t})) \big]
 \label{eq:1.11}
 \end{eqnarray}
 
@@ -217,15 +316,15 @@ S = N(b^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(
 \parinterval 为了理解这个公式，先介绍几个概念。
 \begin{itemize}
 \item $V(\mathbf{s}|\mathbf{t})$表示Viterbi词对齐，$V(\mathbf{s}|\mathbf{t},1)$、$V(\mathbf{s}|\mathbf{t},2)$和$V(\mathbf{s}|\mathbf{t},3)$就分别对应了模型1、2 和3 的Viterbi 词对齐；
-\item 把那些满足第$j$个源语言单词对应第$i$个目标语言单词（$a_j=i$）的词对齐构成的集合记为$\mathbf{A}_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$。通常称这些对齐中$j$和$i$被``钉''在了一起。在$\mathbf{A}_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$中使$\textrm{P}(\mathbf{a}|\mathbf{s},\mathbf{t})$达到最大的那个词对齐被记为$V_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$；
+\item 把那些满足第$j$个源语言单词对应第$i$个目标语言单词（$a_j=i$）的词对齐构成的集合记为$\mathbf{A}_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$。通常称这些对齐中$j$和$i$被``钉''在了一起。在$\mathbf{A}_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$中使$\funp{P}(\mathbf{a}|\mathbf{s},\mathbf{t})$达到最大的那个词对齐被记为$V_{i \leftrightarrow j}(\mathbf{s},\mathbf{t})$；
 \item 如果两个词对齐，通过交换两个词对齐连接就能互相转化，则称它们为邻居。一个词对齐$\mathbf{a}$的所有邻居记为$N(\mathbf{a})$。
 \end{itemize}
 
 \vspace{0.5em}
-\parinterval 公式\ref{eq:1.12}中，$b^{\infty}(V(\mathbf{s}|\mathbf{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))$ 分别是对 $V(\mathbf{s}|\mathbf{t};3)$ 和 $V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},3)$ 的估计。在计算$S$的过程中，需要知道一个对齐$\bf{a}$的邻居$\bf{a}^{'}$的概率，即通过$\textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t})$计算$\textrm{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t})$。在模型3中，如果$\bf{a}$和$\bf{a}'$仅区别于某个源语单词对齐到的目标位置上（$a_j \neq a_{j}'$），那么
+\parinterval 公式\ref{eq:1.12}中，$b^{\infty}(V(\mathbf{s}|\mathbf{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},2))$ 分别是对 $V(\mathbf{s}|\mathbf{t};3)$ 和 $V_{i \leftrightarrow j}(\mathbf{s}|\mathbf{t},3)$ 的估计。在计算$S$的过程中，需要知道一个对齐$\bf{a}$的邻居$\bf{a}^{'}$的概率，即通过$\funp{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t})$计算$\funp{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t})$。在模型3中，如果$\bf{a}$和$\bf{a}'$仅区别于某个源语单词对齐到的目标位置上（$a_j \neq a_{j}'$），那么
 
 \begin{eqnarray}
-\textrm{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t}) & = & \textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot  \nonumber \\
+\funp{P}_{\theta}(\mathbf{a}',\mathbf{s}|\mathbf{t}) & = & \funp{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot  \nonumber \\
                                                                                    &     & \frac{\varphi_{i'}+1}{\varphi_i} \cdot \frac{n(\varphi_{i'}+1|t_{i'})}{n(\varphi_{i'}|t_{i'})} \cdot \frac{n(\varphi_{i}-1|t_{i})}{n(\varphi_{i}|t_{i})} \cdot \nonumber \\
                                                                                    &     & \frac{t(s_j|t_{i'})}{t(s_{j}|t_{i})} \cdot \frac{d(j|i',m,l)}{d(j|i,m,l)}
 \label{eq:1.13}
@@ -233,7 +332,7 @@ S = N(b^{\infty}(V(\mathbf{s}|\mathbf{t};2))) \cup (\mathop{\cup}\limits_{ij} N(
 
 \parinterval 如果$\bf{a}$和$\bf{a}'$区别于两个位置$j_1$和$j_2$的对齐上，$a_{j_{1}}=a_{j_{2}^{'}}$且$a_{j_{2}}=a_{j_{1}^{'}}$，那么
 \begin{eqnarray}
-\textrm{P}_{\theta}(\mathbf{a'},\mathbf{s}|\mathbf{t}) = \textrm{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot \frac{t(s_{j_{2}}|t_{a_{j_{2}}})}{t(s_{j_{1}}|t_{a_{j_{1}}})} \cdot \frac{d(j_{2}|a_{j_{2}},m,l)}{d(j_{1}|a_{j_{1}},m,l)}
+\funp{P}_{\theta}(\mathbf{a'},\mathbf{s}|\mathbf{t}) = \funp{P}_{\theta}(\mathbf{a},\mathbf{s}|\mathbf{t}) \cdot \frac{t(s_{j_{2}}|t_{a_{j_{2}}})}{t(s_{j_{1}}|t_{a_{j_{1}}})} \cdot \frac{d(j_{2}|a_{j_{2}},m,l)}{d(j_{1}|a_{j_{1}},m,l)}
 \label{eq:1.14}
 \end{eqnarray}
 
@@ -254,7 +353,7 @@ d_1(\Delta_j|ca,cb) = \mu_{1cacb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|ca,cb;\
 其中，
 
 \begin{eqnarray}
-c_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t})           & = & \sum_{\mathbf{a}}\big[\textrm{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|ca,cb;\mathbf{a},\mathbf{s},\mathbf{t})\big] \label{eq:1.16} \\
+c_1(\Delta_j|ca,cb;\mathbf{s},\mathbf{t})           & = & \sum_{\mathbf{a}}\big[\funp{P}_{\theta}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|ca,cb;\mathbf{a},\mathbf{s},\mathbf{t})\big] \label{eq:1.16} \\
 s_1(\Delta_j|ca,cb;\rm{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\varepsilon(\varphi_i) \cdot \delta(\pi_{i1}-\odot _{i},\Delta_j) \cdot \nonumber \\
                                                                            &     & \delta(A(t_{i-1}),ca) \cdot \delta(B(\tau_{i1}),cb) \big] \label{eq:1.17}
 \end{eqnarray}
@@ -291,7 +390,7 @@ s_{>1}(\Delta_j|cb;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \big[\va
 \label{eq:1.22}
 \end{eqnarray}
 
-\parinterval 对于一个对齐$\mathbf{a}$，可用模型3对它的邻居进行排名，即按$\textrm{P}_{\theta}(b(\mathbf{a})|\mathbf{s},\mathbf{t};3)$排序，其中$b(\mathbf{a})$表示$\mathbf{a}$的邻居。$\tilde{b}(\mathbf{a})$ 表示这个排名表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};4) > \textrm{P}_{\theta}⁡(\mathbf{a}|\mathbf{s},\mathbf{t};4)$的最高排名的$\mathbf{a}'$。 同理可知$\tilde{b}_{i \leftrightarrow j}^{\infty}(\mathbf{a})$ 的意义。这里之所以不用模型3中采用的方法直接利用$b^{\infty}(\mathbf{a})$得到模型4中高概率的对齐，是因为模型4中要想获得某个对齐$\mathbf{a}$的邻居$\mathbf{a}'$必须做很大调整，比如：调整$\tau_{[i]1}$和$\odot_{i}$等等。这个过程要比模型3的相应过程复杂得多。因此在模型4中只能借助于模型3的中间步骤来进行参数估计。
+\parinterval 对于一个对齐$\mathbf{a}$，可用模型3对它的邻居进行排名，即按$\funp{P}_{\theta}(b(\mathbf{a})|\mathbf{s},\mathbf{t};3)$排序，其中$b(\mathbf{a})$表示$\mathbf{a}$的邻居。$\tilde{b}(\mathbf{a})$ 表示这个排名表中满足$\funp{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};4) > \funp{P}_{\theta}⁡(\mathbf{a}|\mathbf{s},\mathbf{t};4)$的最高排名的$\mathbf{a}'$。 同理可知$\tilde{b}_{i \leftrightarrow j}^{\infty}(\mathbf{a})$ 的意义。这里之所以不用模型3中采用的方法直接利用$b^{\infty}(\mathbf{a})$得到模型4中高概率的对齐，是因为模型4中要想获得某个对齐$\mathbf{a}$的邻居$\mathbf{a}'$必须做很大调整，比如：调整$\tau_{[i]1}$和$\odot_{i}$等等。这个过程要比模型3的相应过程复杂得多。因此在模型4中只能借助于模型3的中间步骤来进行参数估计。
 \setlength{\belowdisplayskip}{3pt}%调整空白大小
 
 %----------------------------------------------------------------------------------------
@@ -309,7 +408,7 @@ d_1(\Delta_j|cb) = \mu_{1cb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|cb;\mathbf{s
 其中，
 
 \begin{eqnarray}
-c_1(\Delta_j|cb,v_x,v_y;\mathbf{s},\mathbf{t})                   & = & \sum_{\mathbf{a}}\Big[ \textrm{P}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.24} \\
+c_1(\Delta_j|cb,v_x,v_y;\mathbf{s},\mathbf{t})                   & = & \sum_{\mathbf{a}}\Big[ \funp{P}(\mathbf{s},\mathbf{a}|\mathbf{t}) \times s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.24} \\
 s_1(\Delta_j|cb,v_x,v_y;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l \Big [ \varepsilon(\varphi_i) \cdot \delta(v_{\pi_{i1}},\Delta_j) \cdot \delta(v_{\odot _{i-1}},v_x) \nonumber \\
                                                                                           &    & \cdot \delta(v_m-\varphi_i+1,v_y) \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1} )\Big] \label{eq:1.25}
 \end{eqnarray}
@@ -325,7 +424,7 @@ d_{>1}(\Delta_j|cb,v) = \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb,
 其中，
 
 \begin{eqnarray}
-c_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t})                   & =  & \sum_{\mathbf{a}}\Big[\textrm{P}(\mathbf{a},\mathbf{s}|\mathbf{t}) \times s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.27} \\
+c_{>1}(\Delta_j|cb,v;\mathbf{s},\mathbf{t})                   & =  & \sum_{\mathbf{a}}\Big[\funp{P}(\mathbf{a},\mathbf{s}|\mathbf{t}) \times s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) \Big] \label{eq:1.27} \\
 s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l\Big[\varepsilon(\varphi_i-1)\sum_{k=2}^{\varphi_i} \big[\delta(v_{\pi_{ik}}-v_{\pi_{[i]k}-1},\Delta_j)  \nonumber \\
                                                                                     &     & \cdot \delta(B(\tau_{[i]k}) ,cb) \cdot \delta(v_m-v_{\pi_{i(k-1)}}-\varphi_i+k,v) \nonumber \\
                                                                                     &     & \cdot \delta(v_{\pi_{i1}},v_{\pi_{i1}-1}) \big] \Big] \label{eq:1.28}
@@ -346,7 +445,7 @@ s_{>1}(\Delta_j|cb,v;\mathbf{a},\mathbf{s},\mathbf{t}) & = & \sum_{i=1}^l\Big[\v
 \end{eqnarray}
 \vspace{0.5em}
 
-\noindent 其中，$\tilde{\tilde{b}}(\mathbf{a})$借用了模型4中$\tilde{b}(\mathbf{a})$的概念。不过$\tilde{\tilde{b}}(\mathbf{a})$表示在利用模型3进行排名的列表中满足$\textrm{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};5)$的最高排名的词对齐，这里$\mathbf{a}'$表示$\mathbf{a}$的邻居。
+\noindent 其中，$\tilde{\tilde{b}}(\mathbf{a})$借用了模型4中$\tilde{b}(\mathbf{a})$的概念。不过$\tilde{\tilde{b}}(\mathbf{a})$表示在利用模型3进行排名的列表中满足$\funp{P}_{\theta}(\mathbf{a}'|\mathbf{s},\mathbf{t};5)$的最高排名的词对齐，这里$\mathbf{a}'$表示$\mathbf{a}$的邻居。
 \end{appendices}
 
 

@@ -14,6 +14,9 @@
 \node [anchor=south] (humanscore) at (human.north) {4.7};
 \draw [->,thick] ([xshift=-0.5cm]mt.south west) -- ([xshift=0.5cm]human.south east);
 \draw [->,thick] ([xshift=-0.5cm]mt.south west) -- ([xshift=-0.5cm,yshift=3.2cm]mt.south west);
+\node [anchor=north west] (x1) at ([xshift=0.0cm]human.south east) {\footnotesize{评价对象}};
+\node [anchor=north east] (y1) at ([xshift=-0.5cm,yshift=3.2cm]mt.south west) {\footnotesize{打分}};
+\node [anchor=north] (y2) at ([yshift=-0cm]y1.south) {\footnotesize{（分）}};
 
 \node [anchor=south west, fill=blue!50, minimum width=1.1cm, minimum height=1.5cm] (mt1) at ([xshift=13.0em,yshift=-3.0em]mt.east) {{\color{white} {\small\sffamily\bfseries{机器}}}};
 \node [anchor=south west, fill=red!50, minimum width=1.1cm, minimum height=2.7cm] (human1) at ([xshift=0.5cm]mt1.south east) {{\color{white} {\small\sffamily\bfseries{人}}}};
@@ -21,6 +24,9 @@
 \node [anchor=south] (humanscore1) at (human1.north) {100};
 \draw [->,thick] ([xshift=-0.5cm]mt1.south west) -- ([xshift=0.5cm]human1.south east);
 \draw [->,thick] ([xshift=-0.5cm]mt1.south west) -- ([xshift=-0.5cm,yshift=3.2cm]mt1.south west);
+\node [anchor=north west] (x1) at ([xshift=0.0cm]human1.south east) {\footnotesize{评价对象}};
+\node [anchor=north east] (y1) at ([xshift=-0.5cm,yshift=3.2cm]mt1.south west) {\footnotesize{打分}};
+\node [anchor=north] (y2) at ([yshift=-0cm]y1.south) {\footnotesize{（分）}};
 
 \node[anchor=south](footname1) at ([xshift=2.1em,yshift=-2.0em]mt.south){\footnotesize{人工评价（五分制）}};
 \node[anchor=south](footname2) at ([xshift=2.1em,yshift=-2.0em]mt1.south){\footnotesize{自动评价（百分制）}};

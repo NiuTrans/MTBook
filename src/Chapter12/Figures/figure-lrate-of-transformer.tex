@@ -1,0 +1,23 @@
+
+
+
+  \begin{tikzpicture}
+    \footnotesize{
+      \begin{axis}[
+      width=.60\textwidth,
+      height=.40\textwidth,
+      legend style={at={(0.60,0.08)}, anchor=south west},
+      xlabel={\footnotesize{更新步数  (10k)}},
+      ylabel={\footnotesize{学习率  (\scriptsize{$10^{-3}$)}}},
+      ylabel style={yshift=-1em},xlabel style={yshift=0.0em},
+      yticklabel style={/pgf/number format/precision=2,/pgf/number format/fixed zerofill},
+      ymin=0,ymax=0.9, ytick={0.2, 0.4, 0.6, 0.8},
+      xmin=0,xmax=12,xtick={2,4,6,8,10},
+      legend style={yshift=-6pt, legend plot pos=right,font=\scriptsize,cells={anchor=west}}
+      ]
+      \addplot[orange,line width=1.25pt] coordinates {(0,0) (4,0.7) (5,0.63) (6,0.57) (7,0.525) (8,0.49) (9,0.465) (10,0.44) (11,0.42) (12,0.4)};
+      \end{axis}
+     }
+  \end{tikzpicture}
+
+

@@ -1,0 +1,106 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  基于树的解码方法 - chart-based decoding
+{
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}
+
+\tikzstyle{chartnode2}=[rectangle,minimum size=1.3em,fill=orange!20,draw]
+\node [chartnode2,anchor=north west] (cell11) at (0,0) {};
+\node [chartnode2,anchor=north west] (cell21) at ([yshift=0.04em]cell11.south west) {};
+\node [chartnode2,anchor=west] (cell22) at ([xshift=-0.04em]cell21.east) {};
+\node [chartnode2,anchor=north west] (cell31) at ([yshift=0.04em]cell21.south west) {};
+\node [chartnode2,anchor=west] (cell32) at ([xshift=-0.04em]cell31.east) {};
+\node [chartnode2,anchor=west] (cell33) at ([xshift=-0.04em]cell32.east) {};
+\node [chartnode2,anchor=north west] (cell41) at ([yshift=0.04em]cell31.south west) {};
+\node [chartnode2,anchor=west] (cell42) at ([xshift=-0.04em]cell41.east) {};
+\node [chartnode2,anchor=west] (cell43) at ([xshift=-0.04em]cell42.east) {};
+\node [chartnode2,anchor=west] (cell44) at ([xshift=-0.04em]cell43.east) {};
+
+\node [anchor=east] (s1) at (cell11.west) {\scriptsize{猫}};
+\node [anchor=east] (s2) at (cell21.west) {\scriptsize{喜欢}};
+\node [anchor=east] (s3) at (cell31.west) {\scriptsize{吃}};
+\node [anchor=east] (s4) at (cell41.west) {\scriptsize{鱼}};
+\node [anchor=north] (t5) at (cell41.south) {\tiny{$l$=1}};
+\node [anchor=north] (t5) at (cell42.south) {\tiny{$l$=2}};
+\node [anchor=north] (t5) at (cell43.south) {\tiny{$l$=3}};
+\node [anchor=north] (t5) at (cell44.south) {\tiny{$l$=4}};
+
+\node [anchor=north] (chartlabel) at ([yshift=-1em]cell42.south east) {\footnotesize{Chart}};
+
+{\footnotesize
+\node [anchor=north west] (w1) at ([yshift=-2.5em,xshift=-1.0em]cell41.south west) {猫};
+\node [anchor=west] (w2) at ([xshift=0.3em]w1.east) {喜欢};
+\node [anchor=west] (w3) at ([xshift=0.3em]w2.east) {吃};
+\node [anchor=west] (w4) at ([xshift=0.3em]w3.east) {鱼};
+\node [anchor=north east] (p0) at ([xshift=0.3em]w1.south west) {\blue{0}};
+\node [anchor=north east] (p1) at ([xshift=0.3em]w2.south west) {\blue{1}};
+\node [anchor=north east] (p2) at ([xshift=0.3em]w3.south west) {\blue{2}};
+\node [anchor=north east] (p3) at ([xshift=0.3em]w4.south west) {\blue{3}};
+\node [anchor=north west] (p4) at ([xshift=-0.4em]w4.south east) {\blue{4}};
+\node [anchor=north] (slabel) at ([yshift=-0.6em]p2.south) {\scriptsize{\textbf{源语言句子}}};
+}
+
+\end{scope}
+{\normalsize
+\node[anchor=north](t1) at (4.5,0.3){{\scriptsize{序号}}};
+\node[anchor=south](k1) at ([xshift=3em,yshift=0em]t1.south){{\scriptsize{跨度}}};
+\node[anchor=south](b1) at ([xshift=3em,yshift=0em]k1.south){{\scriptsize{标记}}};
+\node[anchor=south](y1) at ([xshift=5em,yshift=0em]b1.south){{\scriptsize{源语句子片段}}};
+}
+\draw [-] ([xshift=-0em,yshift=0em]t1.south west) -- ([xshift=13em,yshift=0em]t1.south);
+{\scriptsize
+\node[anchor=west](t2) at ([xshift=0.2em,yshift=-1.7em]t1.west){{1}};
+\node[anchor=west](t3) at ([xshift=0em,yshift=-1.5em]t2.west){{2}};
+\node[anchor=west](t4) at ([xshift=0em,yshift=-1.5em]t3.west){{3}};
+\node[anchor=west](t5) at ([xshift=0em,yshift=-1.5em]t4.west){{4}};
+\node[anchor=west](t6) at ([xshift=0em,yshift=-1.5em]t5.west){{5}};
+\node[anchor=west](t7) at ([xshift=0em,yshift=-1.5em]t6.west){{6}};
+\node[anchor=west](t8) at ([xshift=0em,yshift=-1.5em]t7.west){{7}};
+\node[anchor=west](t9) at ([xshift=0em,yshift=-1.5em]t8.west){{8}};
+\node[anchor=west](t10) at ([xshift=0em,yshift=-1.5em]t9.west){{9}};
+\node[anchor=west](t11) at ([xshift=0em,yshift=-1.5em]t10.west){{10}};
+
+\node[anchor=west](k2) at ([xshift=0.2em,yshift=-1.7em]k1.west){{[0,1]}};
+\node[anchor=west](k3) at ([xshift=0em,yshift=-1.5em]k2.west){{[1,2]}};
+\node[anchor=west](k4) at ([xshift=0em,yshift=-1.5em]k3.west){{[2,3]}};
+\node[anchor=west](k5) at ([xshift=0em,yshift=-1.5em]k4.west){{[3,4]}};
+\node[anchor=west](k6) at ([xshift=0em,yshift=-1.5em]k5.west){{[0,2]}};
+\node[anchor=west](k7) at ([xshift=0em,yshift=-1.5em]k6.west){{[1,3]}};
+\node[anchor=west](k8) at ([xshift=0em,yshift=-1.5em]k7.west){{[2,4]}};
+\node[anchor=west](k9) at ([xshift=0em,yshift=-1.5em]k8.west){{[0,3]}};
+\node[anchor=west](k10) at ([xshift=0em,yshift=-1.5em]k9.west){{[1,4]}};
+\node[anchor=west](k11) at ([xshift=0em,yshift=-1.5em]k10.west){{[0,4]}};
+
+\node[anchor=west](b2) at ([xshift=0.2em,yshift=-1.7em]b1.west){{NN \& NP}};
+\node[anchor=west](b3) at ([xshift=0em,yshift=-1.5em]b2.west){{VV}};
+\node[anchor=west](b4) at ([xshift=0em,yshift=-1.5em]b3.west){{VV}};
+\node[anchor=west](b5) at ([xshift=0em,yshift=-1.5em]b4.west){{NN \& NP}};
+\node[anchor=west](b6) at ([xshift=0em,yshift=-1.5em]b5.west){{N/A}};
+\node[anchor=west](b7) at ([xshift=0em,yshift=-1.5em]b6.west){{N/A}};
+\node[anchor=west](b8) at ([xshift=0em,yshift=-1.5em]b7.west){{VP}};
+\node[anchor=west](b9) at ([xshift=0em,yshift=-1.5em]b8.west){{N/A}};
+\node[anchor=west](b10) at ([xshift=0em,yshift=-1.5em]b9.west){{VP}};
+\node[anchor=west](b11) at ([xshift=0em,yshift=-1.5em]b10.west){{IP ({\red root})}};
+
+\node[anchor=west](y2) at ([xshift=0.2em,yshift=-1.7em]y1.west){{猫}};
+\node[anchor=west](y3) at ([xshift=0em,yshift=-1.5em]y2.west){{喜欢}};
+\node[anchor=west](y4) at ([xshift=0em,yshift=-1.5em]y3.west){{吃}};
+\node[anchor=west](y5) at ([xshift=0em,yshift=-1.5em]y4.west){{鱼}};
+\node[anchor=west](y6) at ([xshift=0em,yshift=-1.5em]y5.west){{猫喜欢}};
+\node[anchor=west](y7) at ([xshift=0em,yshift=-1.5em]y6.west){{喜欢吃}};
+\node[anchor=west](y8) at ([xshift=0em,yshift=-1.5em]y7.west){{吃鱼}};
+\node[anchor=west](y9) at ([xshift=0em,yshift=-1.5em]y8.west){{猫喜欢吃}};
+\node[anchor=west](y10) at ([xshift=0em,yshift=-1.5em]y9.west){{喜欢吃鱼}};
+\node[anchor=west](y11) at ([xshift=0em,yshift=-1.5em]y10.west){{猫喜欢吃鱼}};
+}
+
+\draw[-] ([xshift=-0.3em,yshift=-0.3em]k1.north west) -- ([xshift=-0.3em,yshift=-10.7em]k1.south west);
+%\draw[-] ([xshift=-0.3em,yshift=-0.3em]b1.north west) -- ([xshift=-0.3em,yshift=-10.7em]b1.south west);
+%\draw[-] ([xshift=-0em,yshift=-0.3em]y1.north west) -- ([xshift=-0em,yshift=-10.7em]y1.south west);
+
+\end{tikzpicture}
+\end{center}
+
+}

@@ -1,0 +1,25 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=center,circle,draw,ublue,very thick,minimum size=3.5em,fill=white,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}] (neuron) at (0,0) {};
+\node [anchor=east] (x1) at ([xshift=-6em]neuron.west) {$x_2$:便宜程度\ \ \ \ };
+\node [anchor=center] (x0) at ([yshift=3em]x1.center) {$x_1$:远近程度\ \ \ \ };
+\node [anchor=center] (x2) at ([yshift=-3em]x1.center) {$x_3$:女友喜欢？};
+\node [anchor=west] (y) at ([xshift=2em]neuron.east) {$y$:去？还是不去？};
+
+\draw [->,thick] (neuron.east) -- (y.west);
+
+\node [anchor=center] (neuronmath) at (neuron.center) {\small{$\sum \ge \sigma$}};
+
+{
+\draw [->,dotted] (x0.east) -- (neuron.150) node [pos=0.46,above,yshift=0.2em] {\small{$w_1=0$}};
+\draw [->,dotted] (x1.east) -- (neuron.180) node [pos=0.46,above,yshift=-0.1em] {\textbf{\small{$w_2=0$}}};
+\draw [->,line width=0.5mm] (x2.east) -- (neuron.210) node [pos=0.5,above,yshift=0.1em] {\small{$w_3=10$}};
+}
+
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+
+

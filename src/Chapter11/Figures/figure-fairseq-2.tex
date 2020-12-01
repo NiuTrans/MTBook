@@ -1,0 +1,174 @@
+%\documentclass[tikz]{standalone}
+%\usepackage{tikz}
+%\usepackage[UTF8]{ctex}
+%\usetikzlibrary{shapes}
+%\usetikzlibrary{backgrounds} 
+%\usetikzlibrary{shadows}
+%\usepackage{bm}
+%\usetikzlibrary{fit}
+
+\definecolor{mc_1_m}{RGB}{228,236,255}
+\definecolor{mc_1}{RGB}{187,214,255}
+\definecolor{mc_2_m}{RGB}{255,251,217}
+\definecolor{mc_2}{RGB}{232,232,198}
+\definecolor{mc_3_m}{RGB}{255,247,242}
+\definecolor{mc_3}{RGB}{247,228,214}
+\definecolor{mc_4_m}{RGB}{240,241,254}
+\definecolor{mc_4}{RGB}{208,211,244}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+\begin{tikzpicture}[scale=0.8]
+	\tikzstyle{every node}=[scale=0.8]
+	\tikzstyle{rec} = [thick,fill=red!10,draw,drop shadow,minimum height =1em,minimum width=2em]
+	\tikzstyle{cir} = [line width=0.6pt,fill=yellow!20,draw,circle,minimum size =0.5em,drop shadow={shadow xshift=0.15em, shadow yshift=-0.1em}]
+	\tikzstyle{word} = [inner sep=0pt, font=\footnotesize, minimum height=1em,align=center]
+	
+\begin{scope}
+\foreach \point in {0,1,2,3,4,5}
+\node[rec] (i_\point) at (0.9+\point, -0.1){};
+\draw[thick] (i_0.0) -- (i_1.180);
+\draw[thick] (i_1.0) -- (i_2.180);
+\draw[thick] (i_2.0) -- (i_3.180);
+\draw[thick] (i_3.0) -- (i_4.180);
+\draw[thick] (i_4.0) -- (i_5.180);
+
+\node[anchor=north,word] at ([yshift=-0.4em]i_0.south){$<$p$>$};
+\node[anchor=north,word] at ([yshift=-0.4em]i_1.south){$<$p$>$};
+\node[anchor=north,word] at ([yshift=-0.4em]i_2.south){$<$sos$>$};
+\node[anchor=north,word] at ([yshift=-0.4em]i_3.south){go};
+\node[anchor=north,word] at ([yshift=-0.4em]i_4.south){to};
+\node[anchor=north,word] at ([yshift=-0.4em]i_5.south){school};
+
+\node[anchor=east, word] (l_0) at ([xshift=-2em,yshift=-0.5em]i_0.west){\sffamily\bfnew{目标语词嵌入}};
+\node[anchor=south, word] (l_1) at ([yshift=2em]l_0.north){\sffamily\bfnew{卷积}};
+\node[anchor=south, word] (l_2) at ([yshift=2.4em]l_1.north){\sffamily\bfnew{门控}};
+\node[anchor=south, word] (l_3) at ([yshift=0.06em]l_2.north){\sffamily\bfnew{线性单元}};
+
+\foreach \point in {0,1,2}
+\draw[thick,fill=blue!20] (5.9-\point,0.4) -- (4.9-\point,1.5) -- (3.9-\point,0.4) -- (5.9-\point,0.4);
+\draw[thick,fill=blue!40] (2.9,0.4) -- (1.9,1.5) -- (0.9,0.4) -- (2.9,0.4);
+
+\foreach \point in {0,1,2,3}{
+\node[rec](h_\point) at (1.9+\point, 1.6){};
+\draw[thick](h_\point.90) -- (h_\point.-90);
+}
+
+\foreach \point in {0,1,2,3}{
+\node[cir](c_\point) at (1.7+\point, 2.4){};
+\draw[out=20,in=160,line width=0.6pt] (c_\point.-135) to (c_\point.45);
+\node[cir](x_\point) at (2.1+\point, 3){};
+\draw[line width=0.6pt] (x_\point.-135) -- (x_\point.45);
+\draw[line width=0.6pt] (x_\point.-45) -- (x_\point.135);
+\draw[-latex,thick] ([xshift=-0.5em]h_\point.90) -- (c_\point.-90);
+\draw[-latex,thick] ([xshift=0.5em]h_\point.90) -- (x_\point.-90);
+\draw[-latex,out=90,in=-145,thick] (c_\point.90) to (x_\point.-145);
+}
+
+\foreach \point in {0,1,2,3}{
+\node[rec](q_\point) at (2.5cm+\point*2em, 4){};
+\draw[-latex,thick] (x_\point.90) -- (q_\point.-90);
+}
+
+\node[cir](o_1) at (7.55cm, 4){};
+\draw[line width=0.6pt] (o_1.90) -- (o_1.-90);
+\draw[line width=0.6pt] (o_1.0) -- (o_1.180);
+\draw[-latex,thick] (q_3.0) -- (o_1.180);
+
+\foreach \point in {0,1,2}{
+\node[rec,fill=blue!40](g_\point_0) at (5cm+\point*2em, 7.5cm){};
+\node[rec,fill=blue!40](g_\point_1) at (5cm+\point*2em, 7.5cm-1em){};
+\node[rec,fill=blue!40](g_\point_2) at (5cm+\point*2em, 7.5cm-2em){};
+\node[rec,fill=blue!40](g_\point_3) at (5cm+\point*2em, 7.5cm-3em){};
+}
+
+\node[anchor=north, word] at ([yshift=-0.6em]g_1_3.south){\sffamily\bfnew{内积}};
+
+\draw [-latex, rounded corners=3pt,thick] (q_0.90) -- (2.5cm, 7.5cm) -- (g_0_0.180);
+\draw [-latex, rounded corners=3pt,thick] (q_1.90) -- (2.5cm+2em, 7.5cm-1em) -- (g_0_1.180);
+\draw [-latex, rounded corners=3pt,thick] (q_2.90) -- (2.5cm+4em, 7.5cm-2em) -- (g_0_2.180);
+\draw [-latex, rounded corners=3pt,thick] (q_3.90) -- (2.5cm+6em, 6.2cm-2em) -- (2cm+6em, 6.2cm-2em) -- (2cm+6em, 7.5cm-3em) -- (g_0_3.180);
+\node[thick,draw,fill=yellow!60,minimum height =1em,minimum width=2em](g_0_0) at (5cm, 7.5cm){};
+\node[thick,draw,fill=yellow!60,minimum height =1em,minimum width=2em](g_1_1) at (5cm+2em, 7.5cm-1em){};
+\node[thick,draw,fill=yellow!60,minimum height =1em,minimum width=2em](g_1_2) at (5cm+2em, 7.5cm-2em){};
+\node[thick,draw,fill=yellow!60,minimum height =1em,minimum width=2em](g_2_3) at (5cm+4em, 7.5cm-3em){};
+
+\foreach \point in {0,1,2,3}
+\node[rec] (i_\point) at (8+\point, -0.1){};
+
+\node[anchor=north,word] at ([yshift=-0.4em]i_0.south){go};
+\node[anchor=north,word] at ([yshift=-0.4em]i_1.south){to};
+\node[anchor=north,word] at ([yshift=-0.4em]i_2.south){school};
+\node[anchor=north,word] at ([yshift=-0.4em]i_3.south){$<$eos$>$};
+
+\foreach \point in {0,1,2,3}{
+\node[cir,font=\fontsize{6}{6}\selectfont,inner sep=0.8pt](c_\point) at (8.2cm+\point*2em,7.5cm-1em*\point){\bm{$\sum$}};
+\node[rec](q_\point) at (8.2cm+\point*2em, 5){};
+\node[rec](b_\point) at (8.2cm+\point*2em, 4){};
+\draw[-latex,thick] (g_2_\point.0) -- (c_\point.180);
+\draw[-latex,thick] (c_\point.-90) -- (q_\point.90);
+\draw[-latex,thick] (q_\point.-90) -- (b_\point.90);
+\draw[-latex,thick] (b_\point.-90) -- ([yshift=-3.5cm]b_\point.-90);
+}
+
+\foreach \point in {2,1}
+\draw[thick,fill=blue!20] (4.7cm+\point*1cm, 11cm) -- (3.9cm+\point*1cm, 12cm) -- (5.5cm+\point*1cm, 12cm) -- (4.7cm+\point*1cm, 11cm);
+\draw[thick,fill=blue!40] (4.7cm,11cm) -- (3.9cm,12cm) -- (5.5cm,12cm) -- (4.7cm,11cm);
+
+\foreach \point in {0,1,2}{
+\node[rec](h_\point) at (5cm+\point*2em, 8.8cm){};
+\node[rec](w_\point) at (8.6cm+\point*2em, 8.8cm){};
+\node[cir](x_\point) at (4.5cm+\point*1cm, 9.6cm){};
+\draw[line width=0.6pt] (x_\point.-135) -- (x_\point.45);
+\draw[line width=0.6pt] (x_\point.-45) -- (x_\point.135);
+\node[cir](c_\point) at (4.9cm+\point*1cm, 10.2cm){};
+\draw[line width=0.6pt,out=20,in=160] (c_\point.-135) to (c_\point.45);
+\node[rec](f_\point) at (4.7cm+\point*1cm, 11cm){};
+\draw[-,thick] (f_\point.90) -- (f_\point.-90);
+\draw[-latex,thick] ([xshift=-0.5em]f_\point.-90) -- (x_\point.90);
+\draw[-latex,thick] ([xshift=0.5em]f_\point.-90) -- (c_\point.90);
+\draw[-latex,out=-90,in=45,thick] (c_\point.-90) to (x_\point.45);
+\draw[-latex,thick] (x_\point.-45) -- (h_\point.90);
+\draw[-latex,thick] (h_\point.-90) -- (g_\point_0.90);
+\node[rec](r_\point) at (4.7cm+\point*1cm, 12.55cm){};
+}
+
+\node[anchor=south,word] (src_1) at ([xshift=-2em,yshift=0.4em]r_0.north){$<$p$>$};
+\node[anchor=south,word] at ([yshift=0.4em]r_0.north){去};
+\node[anchor=south,word] at ([yshift=0.4em]r_1.north){上学};
+\node[anchor=south,word] at ([yshift=0.4em]r_2.north){$<$sos$>$};
+\node[anchor=south,word] (src_2) at ([xshift=2em,yshift=0.4em]r_2.north){$<$p$>$};
+
+
+\node[anchor=east, word] (t_1) at ([xshift=-4em,yshift=0.5em]r_0.west){\sffamily\bfnew{源语词嵌入}};
+\node[anchor=north, word] (t_2) at ([yshift=-2em]t_1.south){\sffamily\bfnew{卷积}};
+\node[anchor=north, word] (t_3) at ([yshift=-2.8em]t_2.south){\sffamily\bfnew{门控}};
+\node[anchor=north, word] (t_4) at ([yshift=-0.06em]t_3.south){\sffamily\bfnew{线性单元}};
+\node[anchor=north, word] (t_5) at ([yshift=1.24em]t_4.south){\sffamily\bfnew{}};
+\node[anchor=north, word] (t_6) at ([yshift=-1.5em]t_5.south){\sffamily\bfnew{注意力模块}};
+
+\node[cir] (o_2) at (7.95, 8.8cm){};
+\draw[line width=0.6pt] (o_2.90) -- (o_2.-90);
+\draw[line width=0.6pt] (o_2.0) -- (o_2.180);
+\draw[-latex,thick] (h_2.0) -- (o_2.180);
+\node[cir] (o_3) at (8.6cm+2em, 10cm){};
+
+\draw[thick] (r_0.0) -- (r_1.180);
+\draw[thick] (r_1.0) -- (r_2.180);
+\draw[rounded corners=3pt,thick] (r_2.0) -- (8.6cm+2em, 12.55cm) -- (o_3.90);
+\draw[-latex,thick] (o_3.90) -- (o_3.-135) -- (w_0.90);
+\draw[-latex,thick] (o_3.90) -- (o_3.-90) -- (w_1.90);
+\draw[-latex,thick] (o_3.90) -- (o_3.-45) -- (w_2.90);
+
+\node [single arrow,minimum height=2.4em,fill=blue!30,minimum width=4pt,rotate=-90,draw, fill=blue!20]  at (8.6cm+2em, 8cm) {};
+
+  \begin{pgfonlayer}{background}
+	%\node [draw=ugreen!30,rectangle,inner ysep=5pt,inner xsep=1.3em,rounded corners=4pt,line width=2pt,fill=ugreen!10] [fit = (src_1) (src_2)(r_2) ] (group1) {};
+	\node [rectangle,rounded corners=4pt,fill=mc_2_m, minimum width=3.8cm, minimum height=2.8cm]  (group2) at (5.7cm, 10.7cm) {};
+	\node [rectangle,rounded corners=4pt,fill=mc_2_m, minimum width=5.2cm, minimum height=3.1cm]  (group3) at (3.4cm, 1.85cm) {};
+	%\draw [line width=2pt,draw=mc_1,fill=mc_1_m,rounded corners=4pt] ([yshift=0.4em,xshift=6em]t_6.north west) -- ([yshift=0.4em,xshift=6.3cm]t_6.north west) -- ([yshift=2.2cm,xshift=6.3cm]t_6.north west) --  ([yshift=2.2cm,xshift=9.8cm]t_6.north west) -- ([yshift=-5.4cm,xshift=9.8cm]t_6.north west) -- ([yshift=-5.4cm,xshift=-1.6em]t_6.north west)-- ([yshift=0.4em,xshift=-1.6em]t_6.north west) -- ([yshift=0.4em,xshift=6em]t_6.north west);
+  \end{pgfonlayer}
+\node [draw=mc_2!140,rectangle,rounded corners=4pt,line width=2pt,minimum width=3.8cm, minimum height=2.8cm] at (5.7cm, 10.7cm) {};
+\node [draw=mc_2!140,rectangle,rounded corners=4pt,line width=2pt,minimum width=5.2cm, minimum height=3.1cm] at (3.4cm, 1.85cm) {};
+\end{scope}
+
+\end{tikzpicture} 

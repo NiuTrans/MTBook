@@ -1,0 +1,116 @@
+
+\begin{tikzpicture}
+	\tikzstyle{every node}=[scale=1.5]
+	\tikzstyle{unit} = [inner sep=0pt, minimum size=1em,draw,very thick]
+	%, font=\scriptsize
+	\tikzstyle{vuale} = [inner sep=0pt,font=\tiny]
+
+	\begin{scope}
+	\foreach \point in {0,1,2}{
+	\node[unit] (l1_\point) at (0, 0+\point*1.5em){};
+	\node[unit] (l2_\point) at (0, 6em+\point*1.5em){};
+	\node[unit] (l3_\point) at (0, 12em+\point*1.5em){};
+	
+	\node[unit] (r1_\point) at (5em, 0+\point*1.5em){};
+	\node[unit] (r2_\point) at (5em, 6em+\point*1.5em){};
+	\node[unit] (r3_\point) at (5em, 12em+\point*1.5em){};
+	}
+	
+	\foreach \point in {0,1,2}{
+	\draw[line width=0.5pt, ugreen!80, -latex] (l1_\point.east) -- ([xshift=-0.1em,yshift=-0.1em]r2_0.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l1_\point.east) -- ([xshift=-0.1em,yshift=-0.1em]r2_1.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l1_\point.east) -- ([xshift=-0.1em,yshift=-0.1em]r2_2.west);
+	\draw[line width=0.5pt, ugreen!80, -latex] (l2_\point.east) -- ([xshift=0em,yshift=0.1em]r2_0.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l2_\point.east) -- ([xshift=0em,yshift=0.1em]r2_1.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l2_\point.east) -- ([xshift=0em,yshift=0.1em]r2_2.west);
+	
+	\draw[line width=0.5pt, ugreen!80, -latex] (l2_\point.east) -- ([xshift=-0.1em,yshift=-0.1em]r3_0.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l2_\point.east) -- ([xshift=-0.1em,yshift=-0.1em]r3_1.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l2_\point.east) -- ([xshift=-0.1em,yshift=-0.1em]r3_2.west);
+	\draw[line width=0.5pt, ugreen!80, -latex] (l3_\point.east) -- ([xshift=0em,yshift=0.1em]r3_0.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l3_\point.east) -- ([xshift=0em,yshift=0.1em]r3_1.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l3_\point.east) -- ([xshift=0em,yshift=0.1em]r3_2.west);
+	}
+	
+	\node[vuale] at ([xshift=-0.9em]l1_1.west) {$\mathbi{x}_3$};
+	\node[vuale] at ([xshift=-0.9em]l2_1.west) {$\mathbi{x}_2$};
+	\node[vuale] at ([xshift=-0.9em]l3_1.west) {$\mathbi{x}_1$};
+	\node[vuale] at ([xshift=0.9em]r1_1.east) {$\mathbi{z}_3$};
+	\node[vuale] at ([xshift=0.9em]r2_1.east) {$\mathbi{z}_2$};
+	\node[vuale] at ([xshift=0.9em]r3_1.east) {$\mathbi{z}_1$};
+	
+	\node (t1) at (2.5em, -1em) {\large{$\cdots$}};
+	\node [anchor=north,font=\tiny] at ([yshift=-0.2em]t1.south) {(a) 标准卷积};
+	\end{scope}
+	
+	\begin{scope}[xshift=4cm]
+	\foreach \point in {0,1,2}{
+	\node[unit] (l1_\point) at (0, 0+\point*1.5em){};
+	\node[unit] (l2_\point) at (0, 6em+\point*1.5em){};
+	\node[unit] (l3_\point) at (0, 12em+\point*1.5em){};
+	
+	\node[unit] (r1_\point) at (5em, 0+\point*1.5em){};
+	\node[unit] (r2_\point) at (5em, 6em+\point*1.5em){};
+	\node[unit] (r3_\point) at (5em, 12em+\point*1.5em){};
+	}
+	
+	\foreach \point in {1,2}{
+	\draw[line width=0.5pt, ugreen!80, -latex] (l\point_0.east) -- (r2_0.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l\point_1.east) -- (r2_1.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l\point_2.east) -- (r2_2.west);
+	}
+	
+	\foreach \point in {2,3}{
+	\draw[line width=0.5pt, ugreen!80, -latex] (l\point_0.east) -- (r3_0.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l\point_1.east) -- (r3_1.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l\point_2.east) -- (r3_2.west);
+	}
+	
+	\node[vuale] at ([xshift=-0.9em]l1_1.west) {$\mathbi{x}_3$};
+	\node[vuale] at ([xshift=-0.9em]l2_1.west) {$\mathbi{x}_2$};
+	\node[vuale] at ([xshift=-0.9em]l3_1.west) {$\mathbi{x}_1$};
+	\node[vuale] at ([xshift=0.9em]r1_1.east) {$\mathbi{z}_3$};
+	\node[vuale] at ([xshift=0.9em]r2_1.east) {$\mathbi{z}_2$};
+	\node[vuale] at ([xshift=0.9em]r3_1.east) {$\mathbi{z}_1$};
+	
+	\node (t2) at (2.5em, -1em) {\large{$\cdots$}};
+	\node [anchor=north,font=\tiny] at ([yshift=-0.2em]t2.south) {(b) 深度卷积};
+	\end{scope}
+	
+	\begin{scope}[xshift=8cm]
+	\foreach \point in {0,1,2}{
+	\node[unit] (l1_\point) at (0, 0+\point*1.5em){};
+	\node[unit] (l2_\point) at (0, 6em+\point*1.5em){};
+	\node[unit] (l3_\point) at (0, 12em+\point*1.5em){};
+	
+	\node[unit] (r1_\point) at (5em, 0+\point*1.5em){};
+	\node[unit] (r2_\point) at (5em, 6em+\point*1.5em){};
+	\node[unit] (r3_\point) at (5em, 12em+\point*1.5em){};
+	}
+	
+	\foreach \point in {0,1,2}{
+	\draw[line width=0.5pt, ugreen!80, -latex] (l1_\point.east) -- (r1_0.west);
+	\draw[line width=0.5pt, ugreen!80, -latex] (l2_\point.east) -- (r2_0.west);
+	\draw[line width=0.5pt, ugreen!80, -latex] (l3_\point.east) -- (r3_0.west);
+	
+	\draw[line width=0.5pt, orange!80, -latex] (l1_\point.east) -- (r1_1.west);
+	\draw[line width=0.5pt, orange!80, -latex] (l2_\point.east) -- (r2_1.west);
+	\draw[line width=0.5pt, orange!80,, -latex] (l3_\point.east) -- (r3_1.west);
+	
+	\draw[line width=0.5pt, cyan!80, -latex] (l1_\point.east) -- (r1_2.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l2_\point.east) -- (r2_2.west);
+	\draw[line width=0.5pt, cyan!80, -latex] (l3_\point.east) -- (r3_2.west);
+	}
+	
+	\node[vuale] at ([xshift=-0.9em]l1_1.west) {$\mathbi{x}_3$};
+	\node[vuale] at ([xshift=-0.9em]l2_1.west) {$\mathbi{x}_2$};
+	\node[vuale] at ([xshift=-0.9em]l3_1.west) {$\mathbi{x}_1$};
+	\node[vuale] at ([xshift=0.9em]r1_1.east) {$\mathbi{z}_3$};
+	\node[vuale] at ([xshift=0.9em]r2_1.east) {$\mathbi{z}_2$};
+	\node[vuale] at ([xshift=0.9em]r3_1.east) {$\mathbi{z}_1$};
+	
+	\node (t3) at (2.5em, -1em) {\large{$\cdots$}};
+	\node [anchor=north,font=\tiny] at ([yshift=-0.2em]t3.south) {(c) 逐点卷积};
+	\end{scope}
+	
+\end{tikzpicture}

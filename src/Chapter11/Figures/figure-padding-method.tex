@@ -1,0 +1,35 @@
+
+\begin{tikzpicture}
+	%\tikzstyle{every node}=[scale=0.8]
+	\tikzstyle{word} = [inner sep=2pt, minimum size=0.6cm]
+	
+	\node[word, text=black,rounded corners=1.5pt] (a1) at (0,0){$<$p$>$};
+	\node[word, anchor=west,  text=black,rounded corners=1.5pt] (a2) at ([xshift=0.8em]a1.east){$<$p$>$};
+	\node[word, inner sep=1pt,anchor=west,rounded corners=1.5pt] (a3) at ([xshift=0.8em]a2.east){$<$sos$>$};
+	\node[word, anchor=west,rounded corners=1.5pt] (a4) at ([xshift=0.8em]a3.east){A};
+	\node[word, anchor=west,rounded corners=1.5pt] (a5) at ([xshift=0.8em]a4.east){B};
+	\node[word, anchor=west,rounded corners=1.5pt] (a6) at ([xshift=0.8em]a5.east){C};
+	\node[word, anchor=west,rounded corners=1.5pt] (a7) at ([xshift=0.8em]a6.east){D};
+	
+	\node[word, anchor=south,rounded corners=1.5pt] (b1) at ([yshift=3em]a3.north) {A};
+	\node[word, anchor=south, rounded corners=1.5pt] (b2) at ([yshift=3em]a4.north) {B};
+	\node[word, anchor=south,rounded corners=1.5pt] (b3) at ([yshift=3em]a5.north) {C};
+	\node[word, anchor=south,rounded corners=1.5pt] (b4) at ([yshift=3em]a6.north) {D};
+	\node[word, anchor=south,rounded corners=1.5pt] (b5) at ([yshift=3em]a7.north) {$<$eos$>$};
+	
+	\draw[fill=blue!10,draw=blue!10] ([yshift=0.05em]a1.north) -- ([yshift=0.05em]a3.north) -- ([yshift=-0.05em]b1.south) -- ([yshift=0.05em]a1.north);
+	\draw[fill=blue!20,draw=blue!20] ([yshift=0.05em]a2.north) -- ([yshift=0.05em]a4.north) -- ([yshift=-0.05em]b2.south) -- ([yshift=0.05em]a2.north);
+	\draw[fill=blue!30,draw=blue!30] ([yshift=0.05em]a3.north) -- ([yshift=0.05em]a5.north) -- ([yshift=-0.05em]b3.south) -- ([yshift=0.05em]a3.north);
+	\draw[fill=blue!40,draw=blue!40] ([yshift=0.05em]a4.north) -- ([yshift=0.05em]a6.north) -- ([yshift=-0.05em]b4.south) -- ([yshift=0.05em]a4.north);
+	\draw[fill=blue!50,draw=blue!50] ([yshift=0.05em]a5.north) -- ([yshift=0.05em]a7.north) -- ([yshift=-0.05em]b5.south) -- ([yshift=0.05em]a5.north);
+
+\node[inner sep=2pt,word,fill=blue!5,draw=blue!60,dotted,very thick,align=center,font=\scriptsize] (sub) at ([xshift=2.3cm,yshift=-0.8cm]b5.east) {
+\begin{tabular}{r l}
+$<$p$>$：& 填充 \\
+$<$sos$>$：& 序列的开始 \\
+$<$eos$>$： & 序列的终止
+\end{tabular}};
+
+\node[] at ([xshift=-6em]a1.west) {};
+	
+\end{tikzpicture}

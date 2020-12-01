@@ -1,0 +1,52 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\vspace{0.3em}
+\begin{tikzpicture}
+
+\begin{scope}
+\node [] (input) at (-0.6em,0) {{\scriptsize 猫喜欢吃鱼}};
+
+\node [] (output) at ([xshift=3.35in]input.east) {{\scriptsize Cats like eating fish}};
+
+\draw[->,thick] ([xshift=-1pt]input.east) -- ([xshift=8pt]input.east);
+\draw[->,thick] ([xshift=-6pt]output.west) -- ([xshift=2pt]output.west);
+
+%{
+%\draw[->,thick] ([xshift=-12pt]mtengine.west) -- ([xshift=-2pt]mtengine.west);
+%\draw[->,thick] ([xshift=2pt]mtengine.east) -- ([xshift=12pt]mtengine.east);
+%}
+
+{
+\node[minimum height=4em,minimum width=4.5em,fill=white] (inputmarking) at (0.88in,-0.39in) {};
+\node[minimum height=4em,minimum width=5.2em,fill=white] (outputmarking) at (2.57in,-0.39in) {};
+}
+
+\node [anchor=south] (inputlabel) at ([yshift=-0.5em]input.north) {{\scriptsize \color{red}{\textbf{输入}}}};
+\node [anchor=south] (outputlabel) at ([yshift=-0.5em]output.north) {{\scriptsize \color{red}{\textbf{输出}}}};
+
+{
+\node [anchor=west] (mtinputlabel) at ([xshift=0.35in]inputlabel.east) {{\scriptsize \color{red}{\textbf{}}}};
+\node [anchor=west] (mtoutputlabel) at ([xshift=0.88in]mtinputlabel.east) {{\scriptsize \color{red}{\textbf{}}}};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (mtinputlabel) (mtoutputlabel) (inputmarking) (outputmarking)] {};
+}
+
+{
+\node[rectangle,fill=ublue,inner sep=2pt] [fit = (mtinputlabel) (mtoutputlabel) (inputmarking) (outputmarking)] {{\color{white} \textbf{\Large{机器翻译系统}}}};
+}
+
+
+%\begin{scope}[scale=0.9,xshift=1.2in,yshift=-1.2in,level distance=20pt,sibling distance=0pt]
+%
+%\end{scope}
+
+\end{scope}
+
+\end{tikzpicture}
+
+
+
+
