@@ -23,13 +23,13 @@ jobs:
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
       # Runs a single command using the runners shell
-      - name: Install mactex
+      - name: Install MacTex
         run: brew install --cask mactex
 
       - name: Install Font
         run: sudo cp fonts/*.ttf /Library/Fonts/
 
-      - name: Compile .pdf
+      - name: Compile...
         run: |
           eval "$(/usr/libexec/path_helper)"
           cd ./src
