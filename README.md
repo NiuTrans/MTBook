@@ -12,15 +12,15 @@
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 </div>
 
-:zap: **谢谢大家的关注，我们对内容进行了重构和修改，现在是第二版了！**
+:sunny: **谢谢大家的关注，我们对内容进行了重构和修改，现在是第二版了！** :grin:
 
 这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
 本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：
 
 <div align="center">
-<!-- <img src="guideline.png" width=80% height=80% /> -->
-<img src="guideline.png" width=80% height=80% />
+<!-- <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% /> -->
+<img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% />
 
 </div>
 
@@ -69,14 +69,14 @@
   * <a href="https://opensource.niutrans.com/mtbook/section5-5.html" title="IBM 模型1">5.5 IBM 模型1</a>
   * <a href="https://opensource.niutrans.com/mtbook/section5-6.html" title="小结及拓展阅读">5.6 小结及拓展阅读</a>
 
-6.  基于扭曲度和繁衍率的翻译模型
+6.  基于扭曲度和繁衍率的模型
   * <a href="https://opensource.niutrans.com/mtbook/section6-1.html" title="基于扭曲度的翻译模型">6.1 基于扭曲度的翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-2.html" title="基于繁衍率的翻译模型">6.2 基于繁衍率的翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-3.html" title="解码和训练">6.3 解码和训练</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-4.html" title="问题分析">6.4 问题分析</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-5.html" title="小结及拓展阅读">6.5 小结及拓展阅读</a>
 
-7.  基于短语的翻译模型
+7.  基于短语的模型
   * <a href="https://opensource.niutrans.com/mtbook/section7-1.html" title="翻译中的短语信息">7.1 翻译中的短语信息</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-2.html" title="数学建模">7.2 数学建模</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-3.html" title="短语抽取">7.3 短语抽取</a>
@@ -135,7 +135,7 @@
 
 * <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 A">附录 A：开源机器翻译系统</a>
 * <a href="https://opensource.niutrans.com/mtbook/appendix-b.html" title="附录 B">附录 B：评测任务及基准数据集</a>
-* <a href="https://opensource.niutrans.com/mtbook/appendix-c.html" title="附录 C">附录 C：IBM模型3-5训练方法</a>
+* <a href="https://opensource.niutrans.com/mtbook/appendix-c.html" title="附录 C">附录 C：IBM模型2-5训练方法</a>
 
 **<a href="https://opensource.niutrans.com/mtbook/references.html" title="参考文献">参考文献</a>**
 
@@ -184,10 +184,7 @@ xelatex mt-book-xelatex
 
 感谢为本书做出贡献的小牛团队（部分）成员
 
-*曹润柘、曾信、孟霞、单韦乔、姜雨帆、王子扬、刘辉、许诺、李北、刘继强、张哲
-旸、周书含、周涛、李炎洋、林野、李垠桥、许晨、张裕浩、冯凯、罗应峰、魏冰浩、王屹超、
-陈贺轩、刘晓倩、牛蕊、田丰宁、杜权、胡驰、王泽洋、刘腾博、刘兴宇、徐萍、赵
-闯、高博、张春良、王会珍、张俐、杨木润、宁义明、李洋、秦浩、胡明涵、马安香*
+*曹润柘、曾信、孟霞、单韦乔、周涛、周书含、许诺、李北、许晨、林野、李垠桥、王子扬、刘辉、张裕浩、冯凯、罗应峰、魏冰浩、王屹超、李炎洋、姜雨帆、田丰宁、刘继强、张哲旸、陈贺轩、刘晓倩、牛蕊、杜权、胡驰、王泽洋、刘腾博、刘兴宇、徐萍、赵闯、高博、张春良、王会珍、张俐、杨木润、宁义明、李洋、秦浩、胡明涵、马安香*
 
 ## 联系我们
 
