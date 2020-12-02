@@ -384,6 +384,15 @@
 \sectionnewpage
 \section{残差网络和层标准化}
 
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-position-of-difference-and-layer-regularization-in-the-model}
+\caption{残差和层标准化在模型中的位置}
+\label{fig:12-14}
+\end{figure}
+%----------------------------------------------
+
 \parinterval Transformer编码器、解码器分别由多层网络组成（通常为6层），每层网络又包含多个子层（自注意力网络、前馈神经网络）。因此Transformer实际上是一个很深的网络结构。再加上点乘注意力机制中包含很多线性和非线性变换；且注意力函数Attention($\cdot$)的计算也涉及多层网络，整个网络的信息传递非常复杂。从反向传播的角度来看，每次回传的梯度都会经过若干步骤，容易产生梯度爆炸或者消失。解决这个问题的一种办法就是使用残差连接\upcite{DBLP:journals/corr/HeZRS15}，此部分内容已经在{\chapternine}进行了介绍，这里不再赘述。
 
 %\parinterval 解决这个问题的一种办法就是使用残差连接\upcite{DBLP:journals/corr/HeZRS15}。残差连接是一种用来训练深层网络的技术，其结构如图\ref{fig:12-49}，即在子层之前通过增加直接连接的方式，将底层信息直接传递给上层。
@@ -418,14 +427,6 @@
 \label{eq:12-13}
 \end{eqnarray}
 \vspace{-2em}
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter12/Figures/figure-position-of-difference-and-layer-regularization-in-the-model}
-\caption{残差和层标准化在模型中的位置}
-\label{fig:12-14}
-\end{figure}
-%----------------------------------------------
 
 \noindent 该公式使用均值$\mu$和方差$\sigma$对样本进行平移缩放，将数据规范化为均值为0，方差为1的标准分布。$g$和$b$是可学习的参数。
 

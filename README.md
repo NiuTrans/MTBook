@@ -19,8 +19,8 @@
 本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：
 
 <div align="center">
-<!-- <img src="guideline.png" width=80% height=80% /> -->
-<img src="guideline.png" width=80% height=80% />
+<!-- <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% /> -->
+<img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% />
 
 </div>
 
@@ -135,7 +135,7 @@
 
 * <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 A">附录 A：开源机器翻译系统</a>
 * <a href="https://opensource.niutrans.com/mtbook/appendix-b.html" title="附录 B">附录 B：评测任务及基准数据集</a>
-* <a href="https://opensource.niutrans.com/mtbook/appendix-c.html" title="附录 C">附录 C：IBM模型3-5训练方法</a>
+* <a href="https://opensource.niutrans.com/mtbook/appendix-c.html" title="附录 C">附录 C：IBM模型2-5训练方法</a>
 
 **<a href="https://opensource.niutrans.com/mtbook/references.html" title="参考文献">参考文献</a>**
 
