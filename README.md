@@ -69,14 +69,14 @@
   * <a href="https://opensource.niutrans.com/mtbook/section5-5.html" title="IBM 模型1">5.5 IBM 模型1</a>
   * <a href="https://opensource.niutrans.com/mtbook/section5-6.html" title="小结及拓展阅读">5.6 小结及拓展阅读</a>
 
-6.  基于扭曲度和繁衍率的翻译模型
+6.  基于扭曲度和繁衍率的模型
   * <a href="https://opensource.niutrans.com/mtbook/section6-1.html" title="基于扭曲度的翻译模型">6.1 基于扭曲度的翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-2.html" title="基于繁衍率的翻译模型">6.2 基于繁衍率的翻译模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-3.html" title="解码和训练">6.3 解码和训练</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-4.html" title="问题分析">6.4 问题分析</a>
   * <a href="https://opensource.niutrans.com/mtbook/section6-5.html" title="小结及拓展阅读">6.5 小结及拓展阅读</a>
 
-7.  基于短语的翻译模型
+7.  基于短语的模型
   * <a href="https://opensource.niutrans.com/mtbook/section7-1.html" title="翻译中的短语信息">7.1 翻译中的短语信息</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-2.html" title="数学建模">7.2 数学建模</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-3.html" title="短语抽取">7.3 短语抽取</a>
