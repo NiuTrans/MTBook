@@ -4,23 +4,9 @@
 %%% outline
 %-------------------------------------------------------------------------
 \begin{tikzpicture}
-%机器翻译--------------
-\node [pos=0.4,left,xshift=-0.4em,yshift=2.0em] (mt4) {\scriptsize{机器翻译：At this time, Richness {\color{red}\underline{passed by}} in a big ship. Love said, ``Rich, can you take me away?'' Richness}};
-\node [anchor=north west] (mt4-1) at ([xshift=3.5em,yshift=0.4em]mt4.south west) {\scriptsize{replied, ``No, {\color{red}\underline{there are many treasures}} of gold and silver in my ship,and there is no place for you.''}};
-\node [anchor=north west] (mt4-2) at ([xshift=0em,yshift=0.3em]mt4-1.south west) {\scriptsize{ Love saw vanity in a magnificent boat and said, ``Vanity, help me!'' ``I can't help you. You are {\color{red}\underline{soak}}}};
-\node [anchor=north west] (mt4-3) at ([yshift=0.4em]mt4-2.south west) {\scriptsize{{\color{red}\underline{-ed to the skin}} and will damage my beautiful boat.'' When sorrow came, love asked him for help: ``}};
+\node [pos=0.4,left,xshift=-0.4em,yshift=2.0em,opacity=0] (mt4) {\scriptsize{机器翻译：At this time, Richness {\color{red}\underline{passed by}} in a big ship. Love said, ``Rich, can you take me away?'' Richness}};
 
-\node [anchor=north west] (mt4-4) at ([yshift=0.4em]mt4-3.south west) {\scriptsize{sorrow, let me go with you!'' ``Oh,...love, I am so sad that I want to be alone for a while!'' Sadly rep}};
-\node [anchor=north west] (mt4-5) at ([yshift=0.4em]mt4-4.south west) {\scriptsize{-lied. Happiness {\color{red}\underline{approached}} love, but she was too happy to hear love calling her!}};
-
-%人工翻译---------------
-\node [anchor=north west] (ht4) at ([xshift=-3.5em,yshift=0.3em]mt4-5.south west) {\scriptsize{人工翻译：At that moment, WEALTH {\color{red}\underline{was passing by}} in a big boat. Love said,``WEALTH, can you take me}};
-
-\node [anchor=north west] (ht4-1) at ([xshift=3.5em,yshift=0.4em]ht4.south west) {\scriptsize{with you?'' WEALTH answered, ``no, {\color{red}\underline{there is a lot}} of gold and silver in my boat. There is no place}};
-
-\node [anchor=north west] (ht4-2) at ([yshift=0.4em]ht4-1.south west) {\scriptsize{for you.'' Love saw VANITY in a beautiful boat and said, ``VANITY, help me!'' ``I can't help you.}};
-\node [anchor=north west] (ht4-3) at ([yshift=0.4em]ht4-2.south west) {\scriptsize{You are {\color{red}\underline{all wet,}} and will break my pretty boat.'' Then SADNESS came. Love asked for help,``SAD}};
-
+\node [anchor=north west] (ht4-3) at ([xshift=3.5em,yshift=1.3em]mt4.south west) {\scriptsize{You are {\color{red}\underline{all wet,}} and will break my pretty boat.'' Then SADNESS came. Love asked for help,``SAD}};
 \node [anchor=north west] (ht4-4) at ([yshift=0.4em]ht4-3.south west) {\scriptsize{-NESS, let me go with you!'' ``Oh,...LOVE, I am so sad that I want to be alone for a while!'' ``Repli}};
 \node [anchor=north west] (ht4-5) at ([yshift=0.4em]ht4-4.south west) {\scriptsize{-ed SADNESS. JOY {\color{red}\underline{came close to }} love, but she was so happy that she did not hear him call her!}};
 
@@ -50,7 +36,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (mt4)(ht4)(ht8-4)] {};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (ht4-3)(original8)(ht8-4)] {};
 }
 \end{pgfonlayer}
 

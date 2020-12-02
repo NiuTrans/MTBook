@@ -1,0 +1,16 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 展示短语表的内容
+\begin{center}
+\begin{tikzpicture}
+\node [anchor=west] (s1) at (0,0) {\small{报告 认为 $\vert\vert\vert$ report holds that $\vert\vert\vert$ -2.62 -5.81 -0.91 -2.85 1 0 $\vert\vert\vert$ 4 $\vert\vert\vert$ 0-0 1-1 1-2}};
+\node [anchor=west] (s2) at ([yshift=-1.2em]s1.west) {\small{，悲伤 $\vert\vert\vert$ , sadness $\vert\vert\vert$ -1.946 -3.659 0 -3.709 1 0 $\vert\vert\vert$ 1 $\vert\vert\vert$ 0-0 1-1}};
+\node [anchor=west] (s3) at ([yshift=-1.2em]s2.west) {\small{，北京 等 $\vert\vert\vert$ , beijing , and other $\vert\vert\vert$ 0 -7.98 0 -3.84 1 0 $\vert\vert\vert$ 2 $\vert\vert\vert$ 0-0 1-1 2-2 2-3 2-4}};
+\node [anchor=west] (s4) at ([yshift=-1.2em]s3.west) {\small{，北京 及 $\vert\vert\vert$ , beijing , and $\vert\vert\vert$ -0.69 -1.45 -0.92 -4.80 1 0  $\vert\vert\vert$ 2 $\vert\vert\vert$ 0-0 1-1 2-2}};
+\node [anchor=west] (s5) at ([yshift=-1.2em]s4.west) {\small{一个 世界 $\vert\vert\vert$ one world $\vert\vert\vert$ 0 -1.725 0 -1.636 1 0 $\vert\vert\vert$ 2 $\vert\vert\vert$ 1-1 2-2}};
+\node [anchor=west] (s7) at ([yshift=-1.1em]s5.west) {\small{...}};
+\node [anchor=west] (s6) at ([yshift=1.0em]s1.west) {\small{...}};
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.3em,fill=red!10] [fit = (s1) (s3) (s4) (s6) (s7)] (box1) {};
+\end{pgfonlayer}
+\end{tikzpicture}
+\end{center}

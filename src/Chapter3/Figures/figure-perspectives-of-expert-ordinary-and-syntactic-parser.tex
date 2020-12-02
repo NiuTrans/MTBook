@@ -1,0 +1,82 @@
+
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tabular}{l c c c}
+
+&
+
+\begin{tikzpicture}
+\begin{scope}[sibling distance=-5pt, level distance=20pt]
+{\footnotesize
+\Tree[.IP
+          [.VP
+               [.VP
+                    [.NN 猫 ]
+                    [.VV 喜欢 ]
+               ]
+               [.VV 吃 ]
+          ]
+          [.NP
+               [.NN 鱼 ]
+          ]
+     ]
+}
+\end{scope}
+\end{tikzpicture}
+
+&
+
+\begin{tikzpicture}
+\begin{scope}[sibling distance=-5pt, level distance=20pt]
+{\footnotesize
+\Tree[.IP
+          [.NP
+               [.NN 猫 ]
+          ]
+          [.VP
+               [.VV 喜欢 ]
+               [.VP
+                     [.VV 吃 ]
+                     [.NN 鱼 ]
+               ]
+          ]
+     ]
+}
+\end{scope}
+\end{tikzpicture}
+
+&
+
+\begin{tikzpicture}
+\begin{scope}[sibling distance=-5pt, level distance=20pt]
+{\footnotesize
+\Tree[.IP
+          [.NP
+               [.NN 猫 ]
+          ]
+          [.VP
+              [.VP
+                   [.VV 喜欢 ]
+                   [.VV 吃 ]
+              ]
+              [.NP
+                   [.NN 鱼 ]
+              ]
+          ]
+     ]
+}
+\end{scope}
+\end{tikzpicture}
+
+\\ 
+
+语言学家： & 不对 & 对 & 不对  \\ 
+我们： & 似乎对了 & 比较肯定 & 不太可能 \\ 
+分析器： & $\funp{P}=0.2$ & $\funp{P}=0.6$ & $\funp{P}=0.1$
+
+\end{tabular}
+%---------------------------------------------------------------------
+
+

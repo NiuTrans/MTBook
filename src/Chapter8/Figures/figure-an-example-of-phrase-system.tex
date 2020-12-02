@@ -1,0 +1,28 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  短语系统的问题 - 一个实例
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=east] (shead) at (0,0) {源语言句子:};
+\node [anchor=west] (swords) at (shead.east) {东北大学\ \ 是\ \ 与\ \ 东软\ \ 有\ \ 合作\ \ 的\ \ 众多\ \ 高校\ \ 之一};
+\node [anchor=north east] (thead) at ([yshift=-0.8em]shead.south east) {系统输出:};
+\node [anchor=west] (twords) at (thead.east) {NEU  is collaborative relations with Neusoft};
+\node [anchor=north west] (twords2) at ([yshift=-0.2em]twords.south west) {is one of the many universities};
+\node [anchor=north east] (rhead) at ([yshift=-2.2em]thead.south east) {参考译文:};
+\node [anchor=west] (rwords) at (rhead.east) {NEU  is one of the many universities that have};
+\node [anchor=north west] (rwords2) at ([yshift=-0.2em]rwords.south west) {collaborative relations with Neusoft};
+
+\begin{pgfonlayer}{background}
+{
+\draw[fill=red!20,draw=white] ([xshift=-5.8em]twords.north) rectangle ([xshift=9.6em]twords.south);
+\draw[fill=blue!20,draw=white] ([xshift=-5.4em]twords2.north) rectangle ([xshift=6.7em]twords2.south);
+\node [anchor=south east,inner sep=1pt,fill=black] (l1) at ([xshift=9.6em]twords.south) {\tiny{{\color{white} 1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (l2) at ([xshift=6.7em]twords2.south) {\tiny{{\color{white} 2}}};
+}
+\end{pgfonlayer}
+
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+

@@ -10,10 +10,10 @@
 \begin{scope}
 {
 {\footnotesize
-\node [anchor=south west,minimum width=15em] (source) at (0,0.57) {\textbf{source}: 我\ \ \ \ 对\ \ \ \ 你\ \ \ \ 感到\ \ \ \ 满意};
+\node [anchor=south west,minimum width=15em] (source) at (0,0.57) {\textbf{源语言}: 我\ \ \ \ 对\ \ \ \ 你\ \ \ \ 感到\ \ \ \ 满意};
 }
 {\footnotesize
-\node [anchor=south west,minimum width=15em] (target) at ([yshift=11em]source.north west) {\textbf{target}: I\ \ am\ \ \ satisfied\ \ \ with\ \ \ you};
+\node [anchor=south west,minimum width=15em] (target) at ([xshift=-0.4em,yshift=11em]source.north west) {\textbf{目标语言}: I\ \ am\ \ \ satisfied\ \ \ with\ \ \ you};
 }
 {
 \node [anchor=center,minimum width=9.6em,minimum height=1.8em,draw,rounded corners=0.3em] (hidden) at ([yshift=5em]source.north) {};
@@ -42,9 +42,9 @@
 }
 
 {
-\node [anchor=south] (enclabel) at ([xshift=-0.1em,yshift=1.4em]source.north) {\large{\textbf{Encoder}}};
-\node [anchor=north] (declabel) at ([xshift=-0.1em,yshift=-1em]target.south) {\large{\textbf{Decoder}}};
-\node [anchor=east,align=left] (hiddenlabel) at (hidden.west) {\scriptsize{represe-}\\\scriptsize{ntation}};
+\node [anchor=south] (enclabel) at ([xshift=-0.1em,yshift=1.4em]source.north) {编码器（Encoder）};
+\node [anchor=north] (declabel) at ([xshift=-0.1em,yshift=-1em]target.south) {解码器（Decoder）};
+\node [anchor=east,align=left] (hiddenlabel) at (hidden.west) {\scriptsize{分布式}\\\scriptsize{表示}};
 }
 
 \end{scope}
@@ -80,12 +80,12 @@
 \end{pgfonlayer}
 
 % input and output labels
-\draw[->,thick,align=center] ([yshift=-0.8em]layer1.south)--([yshift=-0.1em]layer1.south) node [pos=0,anchor=north,inner sep=3pt] (word01) {\footnotesize{input} \footnotesize{(word)}};
-\draw[->,thick,align=center] ([yshift=-0.8em]layer2.south)--([yshift=-0.1em]layer2.south) node [pos=0,anchor=north,inner sep=3pt] (word02) {\footnotesize{input} \footnotesize{(word)}};
-\draw[<-,thick,align=center] ([yshift=0.8em]layer3.north)--([yshift=0.1em]layer3.north) node [pos=0,anchor=south,inner sep=0] (outputnode) {\footnotesize{output} \footnotesize{(representation)}};
+\draw[->,thick,align=center] ([yshift=-0.8em]layer1.south)--([yshift=-0.1em]layer1.south) node [pos=0,anchor=north,inner sep=3pt] (word01) {\footnotesize{输入} \footnotesize{（Word）}};
+\draw[->,thick,align=center] ([yshift=-0.8em]layer2.south)--([yshift=-0.1em]layer2.south) node [pos=0,anchor=north,inner sep=3pt] (word02) {\footnotesize{输入} \footnotesize{（Word）}};
+\draw[<-,thick,align=center] ([yshift=0.8em]layer3.north)--([yshift=0.1em]layer3.north) node [pos=0,anchor=south,inner sep=0] (outputnode) {\footnotesize{表示结果} \footnotesize{（Representation）}};
 
 % layer and neuron labels
-\node[anchor=west] (layerlabel3) at (layer3.east) {\footnotesize{layer}};
+%\node[anchor=west] (layerlabel3) at (layer3.east) {\footnotesize{layer}};
 
 % connections
 \draw[-] (neuron01)--(neuron21); \draw[-] (neuron02)--(neuron21); \draw[-] (neuron03)--(neuron21); \draw[-] (neuron04)--(neuron21);
@@ -103,7 +103,7 @@
 
 \draw [->,very thick,dotted] (enclabel.east) ..controls + (east:2em) and +(west:2em).. ([yshift=-1em]netbox.west);
 
-\node [anchor=north] (netlabel) at (netbox.south) {\footnotesize{sample network of the encoder}};
+\node [anchor=north] (netlabel) at (netbox.south) {\footnotesize{编码器网络示例}};
 }
 
 \end{scope}

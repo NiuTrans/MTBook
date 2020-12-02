@@ -1,0 +1,59 @@
+\usetikzlibrary{decorations.pathreplacing}
+\tikzstyle{num} = [rectangle, minimum width = 0.8cm, minimum height = 0.8cm, text centered,align=center,thick,draw = black,fill=green!5]
+\tikzstyle{att} = [rectangle, minimum width = 0.8cm, minimum height = 0.8cm, text centered,align=center]
+
+
+\begin{tikzpicture}[node distance = 0cm]
+\node(num1)[num]{-1};
+\node(num2)[num,below of = num1,yshift= -0.8cm]{};
+\node(num3)[num,below of = num2,yshift= -0.8cm]{};
+\node(num4)[num,right of = num1,xshift= 0.8cm]{0};
+\node(num5)[num,below of = num4,yshift= -0.8cm]{};
+\node(num6)[num,below of = num5,yshift= -0.8cm]{};
+\node(num7)[num,right of = num4,xshift= 0.8cm]{0};
+\node(num8)[num,below of = num7,yshift= -0.8cm]{-1};
+\node(num9)[num,below of = num8,yshift= -0.8cm]{0};
+
+\node(num11)[num,below of = num1,xshift= -0.5cm,yshift= -0.5cm]{0};
+\node(num22)[num,below of = num2,xshift= -0.5cm,yshift= -0.5cm]{};
+\node(num33)[num,below of = num3,xshift= -0.5cm,yshift= -0.5cm]{};
+\node(num44)[num,right of = num4,xshift= -0.5cm,yshift= -0.5cm]{1};
+\node(num55)[num,below of = num5,xshift= -0.5cm,yshift= -0.5cm]{};
+\node(num66)[num,below of = num6,xshift= -0.5cm,yshift= -0.5cm]{};
+\node(num77)[num,right of = num7,xshift= -0.5cm,yshift= -0.5cm]{1};
+\node(num88)[num,below of = num8,xshift= -0.5cm,yshift= -0.5cm]{1};
+\node(num99)[num,below of = num9,xshift= -0.5cm,yshift= -0.5cm]{1};
+
+\node(num1_1)[num,below of = num11,xshift= -0.5cm,yshift= -0.5cm]{1};
+\node(num2_2)[num,below of = num22,xshift= -0.5cm,yshift= -0.5cm]{1};
+\node(num3_3)[num,below of = num33,xshift= -0.5cm,yshift= -0.5cm]{0};
+\node(num4_4)[num,right of = num44,xshift= -0.5cm,yshift= -0.5cm]{0};
+\node(num5_5)[num,below of = num55,xshift= -0.5cm,yshift= -0.5cm]{0};
+\node(num6_6)[num,below of = num66,xshift= -0.5cm,yshift= -0.5cm]{0};
+\node(num7_7)[num,right of = num77,xshift= -0.5cm,yshift= -0.5cm]{-1};
+\node(num8_8)[num,below of = num88,xshift= -0.5cm,yshift= -0.5cm]{-1};
+\node(num9_9)[num,below of = num99,xshift= -0.5cm,yshift= -0.5cm]{-1};
+
+%\node[] (sub) at ([xshift=3.5cm,yshift=2cm]num9_9.east) {$q$：卷积核窗口的长度};
+%\node[] (sub2) at ([xshift=0cm,yshift=-0.1cm]sub.south) {$k$：卷积核窗口的宽度};
+%\node[] (sub3) at ([xshift=-0.2cm,yshift=-0.1cm]sub2.south) {$o$：卷积核深度\qquad \qquad };
+
+%\node[inner sep=2pt,fill=green!5,draw=ugreen,dotted,very thick,align=center] (sub) at ([xshift=3.8cm,yshift=2cm]num9_9.east) {
+%\begin{tabular}{r l}
+%$q$：& 卷积核窗口的长度 \\
+%$k$：& 卷积核窗口的宽度 \\
+%$o$： & 卷积核深度 
+%\end{tabular}};
+
+\node[] (sub) at ([xshift=3.35cm,yshift=2cm]num1_1.east) {:卷积核窗口的长度};
+\node[] (sub2) at ([xshift=-3.9cm,yshift=-2.15cm]num1.north) {卷积核窗口的宽度:};
+\node[] (sub3) at ([xshift=2.85cm,yshift=0.25cm]num9_9.south) {:卷积核深度};
+
+%\node[minimum width = 1.8cm] (sub) at ([xshift=-5.5cm,yshift=2cm]num9_9.east) {};
+
+\draw[decorate,decoration={brace,mirror,raise=0pt,amplitude=0.3cm},black,thick] ([yshift=0.4cm,xshift=-0.1cm]num1_1.west) -- node[att,xshift=-0.5cm]{$Q$} ([yshift=-0.4cm,xshift=-0.1cm]num3_3.west);
+\draw[decorate,decoration={brace,raise=0pt,amplitude=0.3cm},black,thick] ([xshift=-0.4cm,yshift=0.1cm]num1.north) -- node[att,yshift=0.5cm]{$U$}([xshift=0.4cm,yshift=0.1cm]num7.north);
+\draw[decorate,decoration={brace,mirror,raise=0pt,amplitude=0.3cm},black,thick] ([xshift=0.5cm,yshift=0.00cm]num9_9.south) -- node[att,xshift=0.5cm,yshift=-0.3cm]{$O$}([xshift=0.5cm,yshift=0.00cm]num9.south);
+
+
+\end{tikzpicture}

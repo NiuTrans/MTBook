@@ -3,112 +3,77 @@
 
 \begin{tikzpicture}
 
-\tikzstyle{secnode} =[font=\scriptsize,minimum height=4.0em,minimum width=22em,draw,thick,fill=white,drop shadow]
-\tikzstyle{conceptnode} =[font=\scriptsize,minimum height=1.5em,minimum width=5em]
-\tikzstyle{conceptnodesmall} =[font=\scriptsize,minimum height=1.0em,minimum width=4.4em]
+\tikzstyle{partnode} =[font=\scriptsize,minimum height=2.0em,minimum width=15em,draw,thick,fill=white,drop shadow]
+\tikzstyle{secnode} =[font=\footnotesize,minimum height=1.6em,minimum width=14em,align=flush left]
 
-% section 1
-\node [secnode,anchor=south west,minimum width=22.5em,red,fill=white] (sec1) at (0,0) {};
-\node [anchor=north] (sec1label) at ([yshift=-0.2em]sec1.north) {\small{机器翻译简介}};
-\node [anchor=north west,draw=red,thick,fill=white,rounded corners] (sec1title) at ([xshift=-0.3em,yshift=0.3em]sec1.north west) {{\footnotesize\bfnew{\color{red} 第一章}}};
-\node [conceptnode,anchor=south west,fill=red!15,thin] (sec1box1) at ([xshift=0.5em,yshift=0.5em]sec1.south west) {\footnotesize{发展历史}};
-\node [conceptnode,anchor=west,fill=red!15,thin] (sec1box2) at ([xshift=0.5em]sec1box1.east) {\footnotesize{评价方法}};
-\node [conceptnode,anchor=west,fill=red!15,thin] (sec1box3) at ([xshift=0.5em]sec1box2.east) {\footnotesize{应用情况}};
-\node [conceptnode,anchor=west,fill=red!15,thin] (sec1box4) at ([xshift=0.5em]sec1box3.east) {\footnotesize{系统\&数据}};
+\begin{scope}
 
+% part 1
+\node [partnode,anchor=south,blue,minimum height=9.0em,minimum width=22.7em,fill=white] (part1) at ([yshift=-0.5em]0,0) {};
+\node [anchor=north] (part1label) at ([yshift=-0.3em]part1.north) {\sffamily\bfseries{机器翻译基础}};
+\node [anchor=north west,draw=blue,thick,fill=white,rounded corners] (part1title) at ([xshift=-0.3em,yshift=0.3em]part1.north west) {{\color{blue} {\sffamily\bfseries 第一部分}}};
+\node [secnode,anchor=south,fill=ugreen!20,minimum width=21.6em,align=center] (sec01) at (0,0) {第一章\hspace{1em} 机器翻译简介};
+\node [secnode,anchor=south west,fill=blue!20] (sec02) at ([yshift=0.8em]sec01.north west) {第二章\hspace{1em} 统计语言建模基础\hspace{3em}};
+\node [secnode,anchor=south west,fill=blue!20] (sec03) at ([yshift=0.8em]sec02.north west) {第三章\hspace{1em} 词法分析和语法分析基础};
+\node [secnode,anchor=north west,fill=blue!20,minimum width=7em,minimum height=4.1em,align=center] (sec04) at ([xshift=0.6em]sec03.north east) {第四章\\ 翻译质量评价};
+\draw [->,very thick] ([yshift=-0.7em]sec02.south) -- ([yshift=-0.1em]sec02.south);
+\draw [->,very thick] ([yshift=-0.7em]sec03.south) -- ([yshift=-0.1em]sec03.south);
+\draw [->,very thick] ([yshift=-0.7em]sec04.south) -- ([yshift=-0.1em]sec04.south);
 
-% section 2
-\node [secnode,anchor=south,blue,fill=white] (sec2) at ([xshift=-6.5em,yshift=3em]sec1.north) {};
-\node [anchor=north] (sec2label) at (sec2.north) {\small{词法、语法及统计建模基础}};
-\node [anchor=north west,draw=blue,thick,fill=white,rounded corners] (sec2title) at ([xshift=-0.3em,yshift=0.3em]sec2.north west) {{\footnotesize\bfnew{\color{blue} 第二章}}};
-\node [conceptnode,anchor=south west,fill=ublue!15,thin,minimum width=4em,align=left] (sec2box1) at ([xshift=0.5em,yshift=0.4em]sec2.south west) {\tiny{概率论与}\\\tiny{统计建模基础}};
-\node [anchor=west,draw,dotted,thick,minimum height=2em,minimum width=16.6em,align=left] (sec2box2) at ([xshift=0.3em]sec2box1.east) {};
-\node [conceptnodesmall,minimum width=5em,anchor=south west,fill=blue!15,thin] (sec2box3) at ([xshift=0.4em,yshift=0.3em]sec2box2.south west) {\scriptsize{中文分词}};
-\node [conceptnodesmall,minimum width=5em,anchor=west,fill=blue!15,thin] (sec2box4) at ([xshift=0.4em]sec2box3.east) {\scriptsize{$n$元语法模型}};
-\node [conceptnodesmall,minimum width=5em,anchor=west,fill=blue!15,thin] (sec2box5) at ([xshift=0.4em]sec2box4.east) {\scriptsize{句法分析}};
+% part 2
+\node [partnode,anchor=south,orange,minimum height=11.5em,minimum width=18.1em,fill=white] (part2) at ([yshift=3em]part1.north west) {};
+\node [anchor=north] (part2label) at ([yshift=-0.3em]part2.north) {\sffamily\bfseries{统计机器翻译}};
+\node [anchor=north west,draw=orange,thick,fill=white,rounded corners] (part2title) at ([xshift=-0.3em,yshift=0.3em]part2.north west) {{\color{orange} {\sffamily\bfseries 第二部分}}};
+\node [secnode,anchor=south,fill=orange!20,minimum width=17em,align=left] (sec04) at ([yshift=0.5em]part2.south) {第五章\hspace{1em} 基于词的机器翻译建模 \hspace{2.35em}};
+\node [secnode,anchor=south,fill=orange!20,minimum width=17em,align=center] (sec05) at ([yshift=0.8em]sec04.north) {\hspace{1.0em}第六章\hspace{1em} 基于扭曲度和繁衍率的模型\hspace{1.6em}};
+\node [secnode,anchor=south,fill=orange!20,minimum width=17em,align=center] (sec06) at ([yshift=0.8em]sec05.north) {第七章\hspace{1em} 基于短语的模型 \hspace{5.35em}};
+\node [secnode,anchor=south,fill=orange!20,minimum width=17em,align=center] (sec07) at ([yshift=0.8em]sec06.north) {第八章\hspace{1em} 基于句法的模型 \hspace{5.35em}};
+\draw [->,very thick] ([yshift=-0.7em]sec05.south) -- ([yshift=-0.1em]sec05.south);
+\draw [->,very thick] ([yshift=-0.7em]sec06.south) -- ([yshift=-0.1em]sec06.south);
+\draw [->,very thick] ([yshift=-0.7em]sec07.south) -- ([yshift=-0.1em]sec07.south);
 
-
-\draw [->,very thick] ([xshift=-1em,yshift=0.2em]sec1.north) .. controls +(north:2.5em) and +(south:2.5em) .. ([xshift=-3em,yshift=-0.2em]sec2.south);
-
-% section 5
-\node [secnode,anchor=south,orange,fill=white] (sec5) at ([xshift=7em,yshift=10em]sec1.north) {};
-\node [anchor=north] (sec5label) at (sec5.north) {\small{人工神经网络和神经语言建模}};
-\node [anchor=north west,draw=orange,thick,fill=white,rounded corners] (sec5title) at ([xshift=-0.3em,yshift=0.3em]sec5.north west) {{\footnotesize\bfnew{\color{orange} 第五章}}};
-\node [conceptnode,minimum width=4em,anchor=south west,fill=orange!15,thin,align=left] (sec5box1) at ([xshift=0.5em,yshift=0.4em]sec5.south west) {\tiny{线性代数基础}\\\tiny{与感知机}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=orange!15,thin,align=left] (sec5box2) at ([xshift=0.2em]sec5box1.east) {\tiny{多层神经网络}\\\tiny{与实现方法}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=orange!15,thin,align=left] (sec5box3) at ([xshift=0.2em]sec5box2.east) {\tiny{模型训练}\\\tiny{(反向传播)}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=purple!15,thin,align=left] (sec5box4) at ([xshift=0.2em]sec5box3.east) {\tiny{神经语言模型}\\\tiny{(FNN等)}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=purple!15,thin,align=left] (sec5box5) at ([xshift=0.2em]sec5box4.east) {\tiny{表示学习与}\\\tiny{预训练模型}};
-\node [draw,dotted,thick,inner sep=1pt] [fit = (sec5box4) (sec5box5)] (pretrainbox) {};
+% part 3
+\node [partnode,anchor=south,red,minimum height=9.5em,minimum width=22.7em,fill=white] (part3) at ([yshift=3em,xshift=2.5em]part2.north east) {};
+\node [anchor=north] (part3label) at ([yshift=-0.3em]part3.north) {\sffamily\bfseries{神经机器翻译}};
+\node [anchor=north west,draw=red,thick,fill=white,rounded corners] (part3title) at ([xshift=-0.3em,yshift=0.3em]part3.north west) {{\color{red} {\sffamily\bfseries 第三部分}}};
+\node [secnode,anchor=south,fill=magenta!20,minimum width=21.6em,align=center] (sec09) at ([yshift=0.5em]part3.south) {第九章\hspace{1em} 人工神经网络和神经语言建模
 
 
-\draw [->,very thick] ([yshift=-9.8em]sec5.south) -- ([yshift=-0.2em]sec5.south);
-\draw [->,thick,dotted] ([xshift=0.2em,yshift=1em]sec2.east) .. controls +(east:3em) and +(south:4em) .. ([xshift=3em,yshift=-0.0em]pretrainbox.south);
+};
+\node [secnode,anchor=south west,fill=red!20,minimum width=6.6em,minimum height=4.5em,align=center] (sec10) at ([yshift=0.8em]sec09.north west) {第十章\\ 基于循环神经 \\ 网络的模型};
+\node [secnode,anchor=south west,fill=red!20,minimum width=6.6em,minimum height=4.5em,align=center] (sec11) at ([xshift=0.8em]sec10.south east) {第十一章\\ 基于卷积神经 \\ 网络的模型};
+\node [secnode,anchor=south west,fill=red!20,minimum width=6.6em,minimum height=4.5em,align=center] (sec12) at ([xshift=0.8em]sec11.south east) {第十二章\\ 基于自注意力 \\ 的模型};
+\draw [->,very thick] ([yshift=-0.7em]sec10.south) -- ([yshift=-0.1em]sec10.south);
+\draw [->,very thick] ([yshift=-0.7em]sec11.south) -- ([yshift=-0.1em]sec11.south);
+\draw [->,very thick] ([yshift=-0.7em]sec12.south) -- ([yshift=-0.1em]sec12.south);
 
-% section 3
-\node [secnode,anchor=south,ugreen,fill=white] (sec3) at ([yshift=10em]sec2.north) {};
-\node [anchor=north] (sec3label) at (sec3.north) {\small{基于词的机器翻译模型}};
-\node [anchor=north west,draw=ugreen,thick,fill=white,rounded corners] (sec3title) at ([xshift=-0.3em,yshift=0.3em]sec3.north west) {{\footnotesize\bfnew{\color{ugreen} 第三章}}};
-\node [conceptnode,minimum width=4em,anchor=south west,fill=ublue!15,thin,align=left] (sec3box1) at ([xshift=0.5em,yshift=0.4em]sec3.south west) {\tiny{机器翻译的统计}\\\tiny{描述（实例）}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=green!20,thin,align=left] (sec3box2) at ([xshift=0.2em]sec3box1.east) {\tiny{噪声信道模型}\\\tiny{与生成式模型}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=green!20,thin,align=left] (sec3box3) at ([xshift=0.2em]sec3box2.east) {\tiny{IBM模型、隐}\\\tiny{马尔可夫模型}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=green!20,thin,align=left] (sec3box4) at ([xshift=0.2em]sec3box3.east) {\tiny{\hspace{0.9em}参数学习}\\\tiny{=优化}};
-\node [conceptnode,minimum width=3.8em,anchor=west,fill=green!20,thin,align=left,minimum height=2em,inner sep=2pt] (sec3box5) at ([xshift=0.2em]sec3box4.east) {\scriptsize{EM算法}};
+% part 4
+\node [partnode,anchor=south,ugreen,minimum height=12.0em,minimum width=29.7em,fill=white] (part4) at ([yshift=3em,xshift=6em]part3.north west) {};
+\node [anchor=north] (part4label) at ([yshift=-0.3em]part4.north) {\sffamily\bfseries{机器翻译前沿}};
+\node [anchor=north west,draw=ugreen,thick,fill=white,rounded corners] (part4title) at ([xshift=-0.3em,yshift=0.3em]part4.north west) {{\color{ugreen} {\sffamily\bfseries 第四部分}}};
+\node [secnode,anchor=south west,fill=gray!20,minimum width=14.0em,align=center] (sec13) at ([yshift=0.5em,xshift=0.5em]part4.south west) {\Large{\yh{?}}};
+\node [secnode,anchor=west,fill=gray!20,minimum width=14.0em,align=center] (sec14) at ([xshift=0.6em]sec13.east) {\Large{\yh{?}}};
+\node [secnode,anchor=south west,fill=gray!30,minimum width=9em,minimum height=4.5em,align=center] (sec15) at ([yshift=0.8em]sec13.north west) {\Huge{\yh{?}}};
+\node [secnode,anchor=south west,fill=gray!30,minimum width=9em,minimum height=4.5em,align=center] (sec16) at ([xshift=0.8em]sec15.south east) {\Huge{\yh{?}}};
+\node [secnode,anchor=south west,fill=gray!30,minimum width=9em,minimum height=4.5em,align=center] (sec17) at ([xshift=0.8em]sec16.south east) {\Huge{\yh{?}}};
+\node [secnode,anchor=south west,fill=gray!25,minimum width=28.7em,align=center] (sec18) at ([yshift=0.8em]sec15.north west) {\Large{\yh{?}}};
+\node [rectangle,draw,dotted,thick,inner sep=0.1em,fill opacity=1] [fit = (sec13) (sec14)] (nmtbasebox) {};
+\draw [->,very thick] ([yshift=-0.7em]sec15.south) -- ([yshift=-0.1em]sec15.south);
+\draw [->,very thick] ([yshift=-0.7em]sec16.south) -- ([yshift=-0.1em]sec16.south);
+\draw [->,very thick] ([yshift=-0.7em]sec17.south) -- ([yshift=-0.1em]sec17.south);
+\draw [<-,very thick] ([yshift=0.7em]sec15.north) -- ([yshift=0.1em]sec15.north);
+\draw [<-,very thick] ([yshift=0.7em]sec16.north) -- ([yshift=0.1em]sec16.north);
+\draw [<-,very thick] ([yshift=0.7em]sec17.north) -- ([yshift=0.1em]sec17.north);
+\draw [->,very thick,dotted] ([yshift=-0.7em,xshift=0.4em]sec15.south east) -- ([yshift=0.7em,xshift=0.4em]sec15.north east);
+\draw [->,very thick,dotted] ([yshift=-0.7em,xshift=0.4em]sec16.south east) -- ([yshift=0.7em,xshift=0.4em]sec16.north east);
 
-\draw [->,very thick] ([yshift=0.2em,xshift=-3em]sec2.north) -- ([yshift=-0.2em,xshift=-3em]sec3.south);
+% lines and arrows
+\draw [->,line width=0.2em] ([xshift=-0.1em]part1.west) .. controls +(west:5em) and +(south:3em) .. ([yshift=-0.1em,xshift=-5em]part2.south);
+\draw [->,line width=0.2em] ([xshift=-2em,yshift=0.1em]part1.north east) -- ([xshift=-2em,yshift=17.3em]part1.north east);
+\draw [->,line width=0.2em] ([xshift=0.3em,yshift=-2em]part2.east) .. controls +(east:6em) and +(south:4em) .. ([yshift=-0.3em,xshift=4em]part3.south);
+\draw [->,line width=0.2em] ([xshift=-5em,yshift=0.5em]part2.north) -- ([xshift=-5em,yshift=15.3em]part2.north);
+\draw [->,line width=0.2em] ([xshift=4em,yshift=0.1em]part3.north) -- ([xshift=4em,yshift=2.7em]part3.north);
 
-% section 4
-\node [secnode,anchor=south,ugreen,fill=white] (sec4) at ([yshift=3em]sec3.north) {};
-\node [anchor=north] (sec4label) at (sec4.north) {\small{基于短语和句法的机器翻译模型}};
-\node [anchor=north west,draw=ugreen,thick,fill=white,rounded corners] (sec4title) at ([xshift=-0.3em,yshift=0.3em]sec4.north west) {{\footnotesize\bfnew{\color{ugreen} 第四章}}};
-\node [conceptnode,minimum width=4em,anchor=south west,fill=ublue!15,thin,align=left] (sec4box1) at ([xshift=0.5em,yshift=0.4em]sec4.south west) {\tiny{判别式模型与}\\\tiny{最小错误率训练}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=green!20,thin,align=left] (sec4box2) at ([xshift=0.2em]sec4box1.east) {\tiny{基于翻译推导}\\\tiny{的建模}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=green!20,thin,align=left] (sec4box3) at ([xshift=0.2em]sec4box2.east) {\tiny{短语及句法}\\\tiny{翻译规则抽取}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=green!20,thin,align=left,minimum height=2em,inner sep=2pt] (sec4box4) at ([xshift=0.2em]sec4box3.east) {\scriptsize{调序模型}};
-\node [conceptnode,minimum width=3.8em,anchor=west,fill=green!20,thin,align=left,minimum height=2em,inner sep=2pt] (sec4box5) at ([xshift=0.2em]sec4box4.east) {\scriptsize{解码}};
-
-\draw [->,very thick] ([yshift=0.2em,xshift=-3em]sec3.north) -- ([yshift=-0.2em,xshift=-3em]sec4.south);
-
-% section 6
-\node [secnode,anchor=south,purple,fill=white] (sec6) at ([yshift=19em]sec5.north) {};
-\node [anchor=north] (sec6label) at (sec6.north) {\small{神经机器翻译模型}};
-\node [anchor=north west,draw=purple,thick,fill=white,rounded corners] (sec6title) at ([xshift=-0.3em,yshift=0.3em]sec6.north west) {{\footnotesize\bfnew{\color{purple} 第六章}}};
-\node [conceptnode,minimum width=4em,anchor=south west,fill=ublue!15,thin,align=left] (sec6box1) at ([xshift=0.5em,yshift=0.4em]sec6.south west) {\tiny{编码器-解码器}\\\tiny{框架}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=ublue!15,thin,align=left,minimum height=2em] (sec6box2) at ([xshift=0.2em]sec6box1.east) {\scriptsize{注意力机制}};
-\node [conceptnode,minimum width=7.5em,anchor=west,fill=purple!15,thin,align=left] (sec6box3) at ([xshift=0.2em]sec6box2.east) {\tiny{基于RNN和Transformer}\\\tiny{的神经机器翻译建模}};
-\node [conceptnode,minimum width=4em,anchor=west,fill=purple!15,thin,align=left,minimum height=2em] (sec6box4) at ([xshift=0.2em]sec6box3.east) {\scriptsize{训练与推断}};
-
-\draw [->,very thick] ([yshift=0.2em]sec5.north) -- ([yshift=-0.2em]sec6.south);
-\draw [->,very thick,dotted] ([yshift=0.2em,xshift=-2em]sec4.north) .. controls +(north:5.0em) and +(west:4em) .. ([xshift=-0.2em]sec6.west);
-\draw [->,thick,dotted] ([xshift=3em,yshift=0.2em]pretrainbox.north) .. controls +(north:15em) and +(south:15em) .. ([xshift=0em,yshift=-0.0em]sec6box3.south);
-
-% section 7
-\node [secnode,anchor=south,purple,fill=white,minimum height=6.3em] (sec7) at ([yshift=3em]sec6.north) {};
-\node [anchor=north] (sec7label) at (sec7.north) {\small{神经机器翻译实战}};
-\node [anchor=north west,draw=purple,thick,fill=white,rounded corners] (sec7title) at ([xshift=-0.3em,yshift=0.3em]sec7.north west) {{\footnotesize\bfnew{\color{purple} 第七章}}};
-\node [conceptnode,minimum width=4em,anchor=south west,fill=ublue!15,thin,align=left,minimum height=4.2em] (sec7box1) at ([xshift=0.5em,yshift=0.4em]sec7.south west) {\tiny{数据处理、}\\\tiny{子词切分}};
-
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box2) at ([xshift=0.5em,yshift=-0.2em]sec7box1.north east) {\tiny{正则化}};
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box3) at ([yshift=-0.1em]sec7box2.south west) {\tiny{增大模型容量}};
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box4) at ([yshift=-0.1em]sec7box3.south west) {\tiny{大批量训练}};
-
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box5) at ([xshift=0.6em]sec7box2.north east) {\tiny{推断优化}};
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box6) at ([yshift=-0.1em]sec7box5.south west) {\tiny{译文长度控制}};
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box7) at ([yshift=-0.1em]sec7box6.south west) {\tiny{多模型集成}};
-
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box8) at ([xshift=0.6em]sec7box5.north east) {\tiny{深层模型}};
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box9) at ([yshift=-0.1em]sec7box8.south west) {\tiny{知识精炼}};
-\node [anchor=north west,minimum width=5em,anchor=north west,fill=purple!15] (sec7box10) at ([yshift=-0.1em]sec7box9.south west) {\tiny{单语数据使用}};
-
-\node [draw,dotted,thick,inner sep=1pt] [fit = (sec7box2) (sec7box3) (sec7box4)] (trainbox) {};
-\node [draw,dotted,thick,inner sep=1pt] [fit = (sec7box5) (sec7box6) (sec7box7)] (inferencebox) {};
-\node [draw,dotted,thick,inner sep=1pt] [fit = (sec7box8) (sec7box9) (sec7box10)] (advancedbox) {};
-
-\draw [->,very thick] ([yshift=0.2em]sec6.north) -- ([yshift=-0.2em]sec7.south);
-\draw [->,very thick,dotted] ([yshift=0.2em,xshift=-3em]sec4.north) .. controls +(north:7.0em) and +(west:6em) .. ([xshift=-0.2em]sec7.west);
-
-%caption
-\node [anchor=north] (caption) at ([xshift=0.4em,yshift=-1em]sec1.south) {\footnotesize{本书各章节及核心概念关系图}};
-
+\end{scope}
 
 \end{tikzpicture}

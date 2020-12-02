@@ -1,0 +1,68 @@
+%\newlength{\bcc}
+\setlength{\bcc}{0.4cm}
+
+\begin{tikzpicture}
+\begin{scope}
+	%\tikzstyle{every node}=[scale=0.8]
+	\tikzstyle{line} = [dash pattern=on 2pt off 1pt,line width=0.5pt]
+	\tikzstyle{cir} = [thin,fill=blue!8,draw,circle,minimum size =0.5em,drop shadow={shadow xshift=0.15em, shadow yshift=-0.1em}]
+	\tikzstyle{word} = [inner sep=0pt, font=\scriptsize,minimum height=\bcc]
+	
+	\draw[fill=red!8,line width=0.2pt] (0cm,0cm+1*\bcc) rectangle (0cm+4*\bcc,0cm+7*\bcc);
+	\draw[fill=cyan!14,line width=0.2pt] (0cm,0cm) rectangle (0cm+4*\bcc,0cm+1*\bcc);
+	\draw[fill=cyan!14,line width=0.2pt] (0cm,0cm+7*\bcc) rectangle (0cm+4*\bcc,0cm+8*\bcc);
+	\draw[step=\bcc] (0cm,0cm) grid (0cm+4*\bcc,0cm+8*\bcc); 
+	%\draw[line width=0.7pt] (0cm,0cm) rectangle (0cm+4*\bcc,0cm+8*\bcc);
+	\draw[red!50,line width=1.8pt] (0cm,0cm+5*\bcc) rectangle (0cm+4*\bcc,0cm+8*\bcc);
+	\draw[ugreen!50,line width=1.8pt] (0cm,0cm+1*\bcc) rectangle (0cm+4*\bcc,0cm+4*\bcc);
+
+	
+	\draw[fill=blue!8,xshift=5.0cm,yshift=1.0cm,line width=0.2pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[step=\bcc,xshift=5.0cm,yshift=1.0cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+6*\bcc);
+	%\draw[line width=0.7pt,xshift=5.0cm,yshift=1.0cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	
+	\draw[fill=blue!8,xshift=5.2cm,yshift=0.8cm,line width=0.2pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[step=\bcc,xshift=5.2cm,yshift=0.8cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+6*\bcc); 
+	%\draw[line width=0.7pt,xshift=5.2cm,yshift=0.8cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[ugreen!50,line width=2pt,xshift=5.2cm,yshift=0.8cm] (0cm,0cm+1*\bcc) rectangle (0cm+1*\bcc,0cm+2*\bcc);
+	
+	\draw[fill=blue!8,xshift=5.4cm,yshift=0.6cm,line width=0.2pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[step=\bcc,xshift=5.4cm,yshift=0.6cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+6*\bcc);
+	%\draw[line width=0.7pt,xshift=5.4cm,yshift=0.6cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc); 
+	
+	\draw[fill=blue!8,xshift=5.6cm,yshift=0.4cm,line width=0.2pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[step=\bcc,xshift=5.6cm,yshift=0.4cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+6*\bcc); 
+	%\draw[line width=0.7pt,xshift=5.6cm,yshift=0.4cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[red!50,line width=2pt,xshift=5.6cm,yshift=0.4cm] (0cm,0cm+5*\bcc) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+
+	\draw[red!50,line width=0.5pt] (0cm+4*\bcc,0cm+8*\bcc) -- ([xshift=5.6cm,yshift=0.4cm]0cm,0cm+6*\bcc);
+	\draw[red!50,line width=0.5pt] (0cm+4*\bcc,0cm+5*\bcc) -- ([xshift=5.6cm,yshift=0.4cm]0cm,0cm+5*\bcc);
+
+	\draw[ugreen!50,line width=0.5pt] (0cm+4*\bcc,0cm+4*\bcc) -- ([xshift=5.2cm,yshift=0.8cm]0cm,0cm+2*\bcc);
+	\draw[ugreen!50,line width=0.5pt] (0cm+4*\bcc,0cm+1*\bcc) -- ([xshift=5.2cm,yshift=0.8cm]0cm,0cm+1*\bcc);
+
+	\node[word] (w1) at (-0.5cm, 3.0cm) {$<$p$>$};
+	\node[word] (w2) at ([yshift=-\bcc]w1) {今天};
+	\node[word] (w3) at ([yshift=-\bcc]w2) {是};
+	\node[word] (w4) at ([yshift=-\bcc]w3) {个};
+	\node[word] (w5) at ([yshift=-\bcc]w4) {好};
+	\node[word] (w6) at ([yshift=-\bcc]w5) {日子};
+	\node[word] (w7) at ([yshift=-\bcc]w6) {。};
+	\node[word] (w8) at ([yshift=-\bcc]w7) {$<$p$>$};
+	
+	\node[inner xsep=2pt,inner ysep=0pt,font=\footnotesize] (c1) at (0.8cm, 3.5cm) {$O$};
+	\draw[-latex] (c1.west) -- ([xshift=-0.4cm]c1.west);
+	\draw[-latex] (c1.east) -- ([xshift=0.4cm]c1.east);
+	
+	\node[inner xsep=2pt,inner ysep=0pt,font=\footnotesize, rotate=-45] (c2) at (5.06cm, 0.5cm) {$N$};
+	\draw[-latex] (c2.west) -- ([xshift=-0.2cm,yshift=0.2cm]c2.west);
+	\draw[-latex] (c2.east) -- ([xshift=0.2cm, yshift=-0.2cm]c2.east);
+
+%%%%%%%%%%%%%%%%%%%%%
+	\node[word] (sub) at ([xshift=9.5*\bcc,yshift=3.5*\bcc]w1) {$O$\ \ ：输入通道数};
+	\node[word] (sub2) at ([yshift=-0.5*\bcc]sub.south) {$N$\ \ ：卷积核数量};
+	\node[word] (sub3) at ([xshift=-1.35em,yshift=-0.5*\bcc]sub2.south) {$<$p$>$：填充};
+	
+\end{scope}
+
+\end{tikzpicture}

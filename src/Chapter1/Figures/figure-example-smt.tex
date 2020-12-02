@@ -9,12 +9,12 @@
 {
 \begin{scope}
 {\scriptsize
-\node [anchor=north west] (example1) at (0,0) {\textbf{1:} 源=``他 在 哪 ?''};
-\node [anchor=north west] (example1part2) at ([yshift=0.2em]example1.south west) {\hspace{1em} 译=``Where is he ?''};
-\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=``我 真高兴''};
-\node [anchor=north west] (example2part2) at ([yshift=0.2em]example2.south west) {\hspace{1em} 译=``I'm so happy''};
-\node [anchor=north west] (example3) at ([yshift=0.1em]example2part2.south west) {\textbf{3:} 源=``出发 ！''};
-\node [anchor=north west] (example3part2) at ([yshift=0.2em]example3.south west) {\hspace{1em} 译=``Let's go!''};
+\node [anchor=north west] (example1) at (0,0) {\textbf{1:} 源=他\ 在\ 哪};
+\node [anchor=north west] (example1part2) at ([yshift=0.2em]example1.south west) {\hspace{1em} 译=\ Where is he};
+\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=我\ 真高兴};
+\node [anchor=north west] (example2part2) at ([yshift=0.2em]example2.south west) {\hspace{1em} 译=\ I'm so happy};
+\node [anchor=north west] (example3) at ([yshift=0.1em]example2part2.south west) {\textbf{3:} 源=出发};
+\node [anchor=north west] (example3part2) at ([yshift=0.2em]example3.south west) {\hspace{1em} 译=\ Let's go};
 \node [anchor=north west] (example4) at ([yshift=0.1em]example3part2.south west) {\hspace{1em} ...};
 \node [anchor=north west] (example5) at ([yshift=0.1em]example4.south west) {\hspace{1em}\quad};
 \node [anchor=north west] (example6) at ([yshift=0.1em]example5.south west) {\hspace{1em}\quad};
@@ -33,9 +33,9 @@
 {
 \begin{scope} [yshift=-1.55in]
 {\scriptsize
-\node [anchor=north west] (entry1) at (0,0) {\textbf{1:} What is NiuTrans ?\qquad \qquad };
-\node [anchor=north west] (entry2) at ([yshift=0.0em]entry1.south west) {\textbf{2:} Are you fulfilled ?};
-\node [anchor=north west] (entry3) at ([yshift=0.0em]entry2.south west) {\textbf{3:} Yes, you are right .};
+\node [anchor=north west] (entry1) at (0,0) {\textbf{1:} What is NiuTrans\qquad \qquad };
+\node [anchor=north west] (entry2) at ([yshift=0.0em]entry1.south west) {\textbf{2:} Are you fulfilled};
+\node [anchor=north west] (entry3) at ([yshift=0.0em]entry2.south west) {\textbf{3:} You are right};
 \node [anchor=north west] (entry4) at ([yshift=0.0em]entry3.south west) {\hspace{1em} ...};
 \node [anchor=north west] (entry5) at ([yshift=0.1em]entry4.south west) {\hspace{1em}{\quad}};
 \node [anchor=north west] (entry6) at ([xshift=11.6em,yshift=0.65em]entry5.south west) {};
@@ -79,15 +79,16 @@
 \begin{scope}[xshift=1.7in,yshift=-1.55in]
 {\scriptsize
 \node [anchor=north west] (ngram1) at (0,0) {$\textrm{Pr}(\textrm{I}) = 0.0001$};
-\node [anchor=north west] (ngram2) at ([yshift=0.0em]ngram1.south west) {$\textrm{Pr}(\textrm{I} \to \textrm{am}) = 0.623$};
-\node [anchor=north west] (ngram3) at ([yshift=0.0em]ngram2.south west) {$\textrm{Pr}(\textrm{I} \to \textrm{was}) = 0.21$};
+\node [anchor=north west] (ngram2) at ([yshift=0.0em]ngram1.south west) {$\textrm{Pr}(\textrm{I}\ \textrm{am}) = 0.623$};
+\node [anchor=north west] (ngram3) at ([yshift=0.0em]ngram2.south west) {$\textrm{Pr}(\textrm{I}\ \textrm{was}) = 0.21$};
 \node [anchor=north west] (ngram4) at ([yshift=-0.2em]ngram3.south west) {...};
+\node [anchor=north east] (ngrame) at ([yshift=-1in]phrase5.south east) {};
 \node [anchor=south west] (lmlabel) at (ngram1.north west) {{\color{ublue} \small{语言模型}}};
 }
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (ngram1) (ngram2) (ngram3) (ngram4) (lmlabel)] (langaugemodel) {};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit = (ngram1) (ngram2) (ngram3) (ngram4) (lmlabel) (ngrame)] (langaugemodel) {};
 }
 \end{pgfonlayer}
 

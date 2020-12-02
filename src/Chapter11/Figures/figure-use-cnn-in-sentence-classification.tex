@@ -1,0 +1,92 @@
+
+%\newlength{\bcc}
+\setlength{\bcc}{0.4cm}
+\begin{tikzpicture}
+\begin{scope}
+	%\tikzstyle{every node}=[scale=0.8]
+	\tikzstyle{line} = [dash pattern=on 2pt off 1pt,line width=0.6pt]
+	\tikzstyle{cir} = [thin,fill=blue!8,draw,circle,minimum size =0.5em,drop shadow={shadow xshift=0.15em, shadow yshift=-0.1em}]
+	\tikzstyle{word} = [inner sep=0pt, font=\footnotesize,minimum height=\bcc]
+	
+	%\draw[fill=blue!8,xshift=0.3cm,yshift=0.5cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+9*\bcc);
+	%\draw[ugreen!60,step=\bcc,xshift=0.3cm,yshift=0.5cm,gray] (0cm,0cm) grid (0cm+6*\bcc,0cm+9*\bcc); 
+	%\draw[red!60,line width=2pt,xshift=0.3cm,yshift=0.5cm] (0cm,0cm+2*\bcc) rectangle (0cm+6*\bcc,0cm+4*\bcc);
+	
+	% 输入矩阵
+	\draw[thick,fill=blue!8,line width=0.6pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+9*\bcc);
+	\draw[step=\bcc,gray] (0cm,0cm) grid (0cm+6*\bcc,0cm+9*\bcc); 
+	\draw[red!60,line width=2pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+2*\bcc);
+	\draw[ugreen!60,line width=2pt] (0cm,0cm+3*\bcc) rectangle (0cm+6*\bcc,0cm+6*\bcc);
+	\draw[red!60,line width=2pt] (0cm,0cm+7*\bcc) rectangle (0cm+6*\bcc,0cm+9*\bcc);
+
+	% 特征图
+	\draw[fill=blue!8,xshift=5.0cm,yshift=1.3cm,line width=0.6pt] (0cm,0cm-1*\bcc) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[step=\bcc,gray,xshift=5.0cm,yshift=1.3cm] (0cm,0cm-1*\bcc) grid (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[ugreen!60,line width=2pt,xshift=5.0cm,yshift=1.3cm] (0cm,0cm+2*\bcc) rectangle (0cm+1*\bcc,0cm+3*\bcc);
+	
+	%最大池化
+	\draw [gray,fill=blue!8,line width=0.6pt](8cm,2.2cm) -- (8.4cm, 2.2cm) -- (8.7cm,1.4cm) -- (8.3cm, 1.4cm) -- (8cm,2.2cm);
+	\draw [gray](8.15cm,1.8cm) -- (8.55cm,1.8cm);
+	%\draw [gray](8.3cm,1.8cm) -- (8.7cm,1.8cm);
+	%\draw [gray](8.45cm,1.4cm) -- (8.85cm,1.4cm);
+	
+	%全连接层
+	\draw [gray,fill=blue!8,line width=0.6pt](11cm,2.2cm) -- (11.4cm, 2.2cm) -- (11.7cm,1.8cm) -- (11.3cm, 1.8cm) -- (11cm,2.2cm);
+	%\draw [gray](11.15cm,1.8cm) -- (11.55cm,1.8cm);
+	
+	%最大池化
+	\draw[ugreen!60,line] ([xshift=5.0cm,yshift=1.3cm]0cm+1*\bcc,0cm+6*\bcc) -- (8cm,2.2cm);
+	\draw[ugreen!60,line] ([xshift=5.0cm,yshift=1.3cm]0cm+1*\bcc,0cm-1*\bcc) -- (8.15cm,1.8cm);
+
+	%特征图
+	%\draw[fill=blue!8,xshift=5.2cm,yshift=1.0cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	%\draw[step=\bcc,gray,xshift=5.2cm,yshift=1.0cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+6*\bcc); 
+	
+	%\draw[fill=blue!8,xshift=5.4cm,yshift=0.3cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+7*\bcc);
+	%\draw[step=\bcc,gray,xshift=5.4cm,yshift=0.3cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+7*\bcc);
+	
+	\draw[fill=blue!8,xshift=5.6cm,yshift=0cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+8*\bcc);
+	\draw[step=\bcc,gray,xshift=5.6cm,yshift=0cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+8*\bcc); 
+	\draw[red!60,line width=2pt,xshift=5.6cm,yshift=0cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+1*\bcc);
+	\draw[red!60,line width=2pt,xshift=5.6cm,yshift=0cm] (0cm,0cm+7*\bcc) rectangle (0cm+1*\bcc,0cm+8*\bcc);
+	
+	% 全连接线
+	\draw[line] (8.4cm, 2.2cm) -- (11.2cm,2.2cm);
+	\draw[line] (8.7cm,1.4cm) -- (11.3cm, 1.8cm);
+	%全连接上面的红虚线
+	\draw[red!60,line] ([xshift=5.6cm,yshift=0cm]0cm+1*\bcc,0cm+7*\bcc) -- (8.15cm,1.8cm);
+	\draw[red!60,line] ([xshift=5.6cm,yshift=0cm]0cm+1*\bcc,0cm) -- (8.3cm, 1.4cm);
+	
+	% 特征图红色虚线
+	\draw[red!60,line] (0cm+6*\bcc,0cm+9*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+8*\bcc);
+	\draw[red!60,line] (0cm+6*\bcc,0cm+7*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+7*\bcc);
+	\draw[red!60,line] (0cm+6*\bcc,0cm+2*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+1*\bcc);
+	\draw[red!60,line] (0cm+6*\bcc,0cm) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm);
+	\draw[ugreen!60,line] (0cm+6*\bcc,0cm+6*\bcc) -- ([xshift=5.0cm,yshift=1.3cm]0cm,0cm+3*\bcc);
+	\draw[ugreen!60,line] (0cm+6*\bcc,0cm+3*\bcc) -- ([xshift=5.0cm,yshift=1.3cm]0cm,0cm+2*\bcc);
+	%\draw[red!60,line] ([xshift=0.3cm,yshift=0.5cm]0cm+6*\bcc,0cm+4*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+3*\bcc);
+	%\draw[red!60,line] ([xshift=0.3cm,yshift=0.5cm]0cm+6*\bcc,0cm+2*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+2*\bcc);
+	
+	\node[word] (w1) at (-0.5cm, 3.4cm) {wait};
+	\node[word] (w2) at ([yshift=-\bcc]w1) {for};
+	\node[word] (w3) at ([yshift=-\bcc]w2) {the};
+	\node[word] (w4) at ([yshift=-\bcc]w3) {video};
+	\node[word] (w5) at ([yshift=-\bcc]w4) {and};
+	\node[word] (w6) at ([yshift=-\bcc]w5) {do};
+	\node[word] (w7) at ([yshift=-\bcc]w6) {n't};
+	\node[word] (w8) at ([yshift=-\bcc]w7) {rent};
+	\node[word] (w9) at ([yshift=-\bcc]w8) {it};
+ 
+	\node[draw,rectangle callout,callout relative pointer={(0.28,-0.6)}] at (-0.3cm,4.6cm) {\textrm{卷积核}};
+	\node[draw,rectangle callout,callout relative pointer={(0.1,-0.5)}] at (5cm,4.6cm) {\textrm{特征图}};
+
+
+	\draw [thick] (0cm, -0.3cm) -- (0cm, -0.5cm)  -- node[font=\tiny, align=center,yshift=-0.5cm]{维度大小为 $m \times O$ \\ 的句子表示} (2.4cm,-0.5cm) -- (2.4cm, -0.3cm);	
+	\draw [thick] (3.6cm, -0.3cm) -- (3.6cm, -0.5cm)  -- node[font=\tiny, align=center,yshift=-0.5cm]{具有多个不同大小\\的卷积核和特征图\\的卷积层} (6cm,-0.5cm) -- (6cm, -0.3cm);
+	\draw [thick] (7.2cm, -0.3cm) -- (7.2cm, -0.5cm)  -- node[font=\tiny, align=center,yshift=-0.5cm]{最大池化} (9cm,-0.5cm) -- (9cm, -0.3cm);
+	\draw [thick] (10cm, -0.3cm) -- (10cm, -0.5cm)  -- node[font=\tiny, align=center,yshift=-0.5cm]{带有Dropout\\和Softmax输出\\的全连接层} (11.7cm,-0.5cm) -- (11.7cm, -0.3cm);
+	
+	
+\end{scope}
+
+\end{tikzpicture}

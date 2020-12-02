@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+%第一段----------------------------------------------
+%原文-------------
+\node [pos=0.4,left,xshift=-36em,yshift=5.5em,font=\small] (original0) {原文：};
+%During Soviet times, if a city’s population topped one million, it would become eligible for its own metro. Planners wanted to brighten the lives of everyday Soviet citizens, and saw the metros, with their tens of thousands of daily passengers, as a singular opportunity to do so. In 1977, Tashkent, the capital of Uzbekistan, became the seventh Soviet city to have a metro built. Grand themes celebrating the history of Uzbekistan and the Soviet Union were brought to life, as art was commissioned and designers set to work. The stations reflected different themes, some with domed ceilings and painted tiles reminiscent of Uzbekistan’s Silk Road mosques, while others ...
+\node [pos=0.4,left,xshift=-2em,yshift=3.3em,font=\small] (original1) {
+\begin{tabular}[t]{l}
+\parbox{36em}{This has happened for a whole range of reasons, not least because we live in a culture where people are encouraged to think of sleep as a luxury - something you can easily cut back on. After all, that's what caffeine is for - to jolt you back into life. But while the average amount of sleep we are getting has fallen, rates of obesity and diabetes have soared. Could the two be connected?}
+\end{tabular}
+};
+%译文1--------------mt1
+%在苏联时代，如果一个城市的人口突破一百万，这将成为合资格为自己的地铁。规划者想去照亮每天的苏联公民的生命，看到地铁，与他们的数十每天数千乘客，作为一个独特的机会来这样做。1977年，塔什干，乌兹别克斯坦的首都，成了苏联第七城市建有地铁。宏大主题，庆祝乌兹别克斯坦和苏联的历史被带到生活，因为艺术是委托和设计师开始工作。车站反映了不同的主题，有的圆顶天花板和绘瓷砖让人想起乌兹别克斯坦是丝绸之路的清真寺，而另一些则装饰着..
+\node[font=\small] (mt1) at ([xshift=0em,yshift=-5.8em]original0.south) {译文1：};
+\node[font=\small] (ts1) at ([xshift=0em,yshift=-2.6em]original1.south)  {
+\begin{tabular}[t]{l}
+\parbox{36em}{这已经发生了一系列的原因，不仅仅是因为我们生活在一个文化鼓励人们认为睡眠是一种奢侈的东西，你可以很容易地削减。毕竟，这就是咖啡因是--你回到生命的震动。但是，尽管我们得到的平均睡眠量下降，肥胖和糖尿病率飙升。可以两个连接？}
+\end{tabular}
+};
+
+%译文2---------------mt2
+%在苏联时期，如果一个城市的人口超过一百万，它就有资格拥有自己的地铁。 规划者想要照亮日常苏联公民的生活，并把拥有数万名每日乘客的地铁看作是这样做的一个绝佳机会。 1977年，乌兹别克斯坦首都塔什干成为苏联第七个修建地铁的城市。 随着艺术的委托和设计师们的工作，乌兹别克斯坦和苏联历史的宏伟主题被赋予了生命力。 这些电台反映了不同的主题，有的有穹顶和彩砖，让人想起乌兹别克斯坦的丝绸之路清真寺，有的则用...
+\node[font=\small] (mt2) at ([xshift=0em,yshift=-3.55em]mt1.south) {译文2：};
+\node[font=\small] (mt3) at ([xshift=0em,yshift=-3em]ts1.south)  {
+\begin{tabular}[t]{l}
+\parbox{36em}{这种情况的发生有各种各样的原因，特别是因为我们生活在一种鼓励人们把睡眠看作是一种奢侈的东西--你可以很容易地减少睡眠的文化中。毕竟，这就是咖啡因的作用--让你重新回到生活中。但是，当我们的平均睡眠时间减少时，肥胖症和糖尿病的发病率却猛增。这两者有联系吗？}
+\end{tabular}
+};
+
+
+%{
+%\draw[dotted,thick,ublue] ([xshift=10.3em,yshift=0.3em]mt8.south west)--%([xshift=-5.2em,yshift=-0.3em]ht8.north);
+%}
+
+
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original0)(mt1)(mt3)(mt1)(ts1)(mt2)(original1)] {};
+}
+\end{pgfonlayer}
+
+
+\end{tikzpicture}

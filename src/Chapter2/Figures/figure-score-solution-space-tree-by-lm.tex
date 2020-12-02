@@ -1,0 +1,71 @@
+\begin{tikzpicture}	
+	\tikzstyle{unit} = [inner sep=1pt,align=center,minimum width=3.5em,minimum height=2em,font=\large]
+		
+	\node[fill=red!40,inner sep=2pt,minimum width=5em](vocab)at(0,0){\color{white}{\small\bfnew{词表}}};
+	\node[fill=red!20,anchor=north,align=left,inner sep=3pt,minimum width=5em](words)at(vocab.south){I\\[-0.5ex]agree};
+	\node[fill=blue!40,anchor=north,align=left,inner sep=2pt,minimum width=5em](spe)at(words.south){\color{white}{\small\bfnew{特殊符号}}};
+	\node[fill=blue!10,anchor=north,align=left,inner sep=3pt,minimum width=5em](eos)at(spe.south){$<$sos$>$\\[-0.5ex]$<$eos$>$};
+		
+	\node[anchor=north,unit] (w1) at ([xshift=2.5em,yshift=-1em]eos.south){$w_1$};
+	\node[anchor=north,unit,fill=blue!10] (n11) at ([yshift=-0.5em]w1.south){$<$sos$>$};
+
+\node [anchor=north west,unit] (wtranslabel) at ([xshift=-5em,yshift=-3em]n11.south) {\small{生成顺序:}};
+\draw [->,ultra thick,red,line width=1.5pt,opacity=0.7] (wtranslabel.east) -- ([xshift=1.5em]wtranslabel.east);
+		
+	\node[anchor=west,unit,fill=red!20] (n22) at ([xshift=3em]n11.east){agree};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt22) at (n22.east) {\small{{\color{white} \textbf{-0.4}}}};
+	\node[anchor=south,unit,fill=red!20] (n21) at ([yshift=5.5em]n22.north){I};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt21) at (n21.east) {\small{{\color{white} \textbf{-0.5}}}};
+	\node[anchor=north,unit,fill=blue!10] (n23) at ([yshift=-3em]n22.south){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt23) at (n23.east) {\small{{\color{white} \textbf{-2.2}}}};
+	\node[anchor=south,unit] (w2) at ([yshift=0.5em]n21.north){$w_2$};
+		
+	\node[anchor=west,unit,fill=red!20] (n32) at ([xshift=4em]n21.east){agree};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt32) at (n32.east) {\small{{\color{white} \textbf{-0.2}}}};
+	\node[anchor=south,unit,fill=red!20] (n31) at ([yshift=0.3em]n32.north){I};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt31) at (n31.east) {\small{{\color{white} \textbf{-1.8}}}};
+	\node[anchor=north,unit,fill=blue!10] (n33) at ([yshift=-0.3em]n32.south){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt33) at (n33.east) {\small{{\color{white} \textbf{-1.3}}}};
+	\node[anchor=west,unit,fill=red!20] (n35) at ([xshift=4em]n22.east){agree};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt35) at (n35.east) {\small{{\color{white} \textbf{-1.5}}}};
+	\node[anchor=south,unit,fill=red!20] (n34) at ([yshift=0.3em]n35.north){I};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt34) at (n34.east) {\small{{\color{white} \textbf{-2.0}}}};
+	\node[anchor=north,unit,fill=blue!10] (n36) at ([yshift=-0.3em]n35.south){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt36) at (n36.east) {\small{{\color{white} \textbf{-1.3}}}};
+	\node[anchor=south,unit] (w3) at ([yshift=0.5em]n31.north){$w_3$};
+		
+	\node[anchor=west,unit,fill=blue!10] (n41) at ([xshift=4em]n31.east){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt41) at (n41.east) {\small{{\color{white} \textbf{-0.9}}}};
+	\node[anchor=west,unit,fill=blue!10] (n42) at ([xshift=4em]n32.east){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt42) at (n42.east) {\small{{\color{white} \textbf{-0.8}}}};
+	\node[anchor=west,unit,fill=blue!10] (n43) at ([xshift=4em]n34.east){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt43) at (n43.east) {\small{{\color{white} \textbf{-1.4}}}};
+	\node[anchor=west,unit,fill=blue!10] (n44) at ([xshift=4em]n35.east){$<$eos$>$};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt44) at (n44.east) {\small{{\color{white} \textbf{-0.1}}}};
+	\node[anchor=south,unit] (w4) at ([yshift=0.5em]n41.north){$w_4$};
+		
+%	\draw[->,ublue,very thick] (n11.east) -- (n21.west);
+	\draw[->,ublue,very thick,dotted] (n11.east) -- (n22.west);
+	\draw[->,ublue,very thick,dotted] (n11.east) -- (n23.west);
+		
+	\draw[->,ublue,very thick,dotted] (pt21.south) -- (n31.west);
+%	\draw[->,ublue,very thick] (pt21.south) -- (n32.west);
+	\draw[->,ublue,very thick,dotted] (pt21.south) -- (n33.west);
+	\draw[->,ublue,very thick,dotted] (pt22.south) -- (n34.west);
+	\draw[->,ublue,very thick,dotted] (pt22.south) -- (n35.west);
+	\draw[->,ublue,very thick,dotted] (pt22.south) -- (n36.west);
+		
+	\draw[->,ublue,very thick,dotted] (pt31.south) -- (n41.west);
+%	\draw[->,ublue,very thick] (pt32.south) -- (n42.west);
+	\draw[->,ublue,very thick,dotted] (pt34.south) -- (n43.west);
+	\draw[->,ublue,very thick,dotted] (pt35.south) -- (n44.west);
+
+%	\draw[->,red,ultra thick,opacity=0.7,line width=2pt]([xshift=-1em]n11.west) -- (n11.west) -- ([xshift=0.5em,yshift=-0.5em]n11.west) -- ([xshift=-0.5em,yshift=-0.5em]n11.east) -- (n11.east) -- (n21.west) -- ([xshift=0.5em,yshift=-0.5em]n21.west) -- ([xshift=-0.5em,yshift=-0.5em]n21.east) -- (n21.east) -- (n32.west) -- ([xshift=0.5em,yshift=-0.5em]n32.west) -- ([xshift=0.5em,yshift=-0.5em]n32.east) -- (n32.east) -- (n42.west) -- ([xshift=0.5em,yshift=-0.5em]n42.west) -- ([xshift=-0.5em,yshift=-0.5em]n42.east) -- (n42.east) -- ([xshift=1em]pt42.south);
+%	\draw[->,red,ultra thick,opacity=0.7,line width=2pt]([xshift=-1em,yshift=-0.5em]n11.west) -- ([yshift=-0.5em]n11.east) -- (n11.east) -- ([xshift=-0.3em,yshift=-0.5em]n21.west) -- ([xshift=0.5em,yshift=-0.5em]n21.west) -- ([xshift=-0.5em,yshift=-0.5em]n21.east) -- (n21.east) -- (n32.west) -- ([xshift=0.5em,yshift=-0.5em]n32.west) -- ([xshift=-0.5em,yshift=-0.5em]n32.east) -- (n32.east) -- (n42.west) -- ([xshift=0.5em,yshift=-0.5em]n42.west) -- ([xshift=-0.5em,yshift=-0.5em]n42.east) -- (n42.east) -- ([xshift=1em]pt42.south);
+	\draw[->,red,ultra thick,opacity=0.7,line width=2pt]([xshift=-1em]n11.west) -- (n11.west);
+	\draw[->,red,ultra thick,opacity=0.7,line width=2pt](n11.east) -- (n21.west);
+	\draw[->,red,ultra thick,opacity=0.7,line width=2pt](pt21.south) -- (n32.west);
+	\draw[->,red,ultra thick,opacity=0.7,line width=2pt](pt32.south) -- (n42.west);
+	\draw[->,red,ultra thick,opacity=0.7,line width=2pt](pt42.south) -- ([xshift=1em]pt42.south);
+
+\end{tikzpicture}

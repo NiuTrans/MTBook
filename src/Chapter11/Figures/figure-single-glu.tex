@@ -1,0 +1,71 @@
+\newlength{\bd}
+\setlength{\bd}{0.4cm}
+
+\begin{tikzpicture}
+	%\tikzstyle{every node}=[scale=0.8]
+	\tikzstyle{word} = [inner sep=0pt, font=\scriptsize,minimum height=\bd]
+	
+	%\draw[fill=blue!8,xshift=0.3cm,yshift=0.5cm,line width=0.2pt] (0cm,0cm) rectangle (0cm+6*\bd,0cm+9*\bd);
+	\draw[fill=cyan!10] (0cm,0cm) -- (4*\bd,0cm) -- (4*\bd,8*\bd) -- (0cm, 8*\bd) -- (0cm,0cm);
+	\draw[cyan,step=\bd,line width=0.8pt] (0cm,0cm) grid (0cm+4*\bd,0cm+8*\bd);
+	\draw[fill=red!5] (0cm,1*\bd) -- (4*\bd,1*\bd) -- (4*\bd,7*\bd) -- (0cm, 7*\bd) -- (0cm,1*\bd);
+	\draw[red!50,step=\bd,xshift=0cm,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=ugreen!5] (7*\bd,\bd) -- (11*\bd,\bd) -- (11*\bd,7*\bd) -- (7*\bd, 7*\bd) -- (7*\bd,\bd);
+	\draw[ugreen!60,step=\bd,xshift=7*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=ugreen!5] (11.5*\bd,\bd) -- (15.5*\bd,\bd) -- (15.5*\bd,7*\bd) -- (11.5*\bd, 7*\bd) -- (11.5*\bd,\bd);
+	\draw[ugreen!60,step=\bd,xshift=11.5*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=blue!5] (18.5*\bd,\bd) -- (22.5*\bd,\bd) -- (22.5*\bd,7*\bd) -- (18.5*\bd, 7*\bd) -- (18.5*\bd,\bd);
+	\draw[blue!50,step=\bd,xshift=18.5*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	
+	
+	\draw[-,line width=0.6pt] (4*\bd, 0.5*\bd) -- (5.5*\bd, 1.5*\bd) -- (4*\bd, 2.5*\bd);
+	\draw[-,line width=0.6pt] (4*\bd, 1.5*\bd) -- (5.5*\bd, 2.5*\bd) -- (4*\bd, 3.5*\bd);
+	\draw[-,line width=0.6pt] (4*\bd, 2.5*\bd) -- (5.5*\bd, 3.5*\bd) -- (4*\bd, 4.5*\bd);
+	\draw[-,line width=0.6pt] (4*\bd, 3.5*\bd) -- (5.5*\bd, 4.5*\bd) -- (4*\bd, 5.5*\bd);
+	\draw[-,line width=0.6pt] (4*\bd, 4.5*\bd) -- (5.5*\bd, 5.5*\bd) -- (4*\bd, 6.5*\bd);
+	\draw[-,line width=0.6pt] (4*\bd, 5.5*\bd) -- (5.5*\bd, 6.5*\bd) -- (4*\bd, 7.5*\bd);
+	
+	\node[draw,dash pattern=on 2pt off 1pt, rounded corners=2pt,minimum width=1.74cm, minimum height=2.56cm, inner sep=0pt, line width=0.6pt] (a) at (9*\bd, 4*\bd){};
+	\node[draw,dash pattern=on 2pt off 1pt, rounded corners=2pt,minimum width=1.74cm, minimum height=2.56cm, inner sep=0pt, line width=0.6pt] (b) at (13.5*\bd, 4*\bd){};
+	
+	\draw[-latex,thick] (5.5*\bd, 1.5*\bd) -- (7*\bd-0.1cm, 1.5*\bd);
+	\draw[-latex,thick] (5.5*\bd, 2.5*\bd) -- (7*\bd-0.1cm, 2.5*\bd);
+	\draw[-latex,thick] (5.5*\bd, 3.5*\bd) -- (7*\bd-0.1cm, 3.5*\bd);
+	\draw[-latex,thick] (5.5*\bd, 4.5*\bd) -- (7*\bd-0.1cm, 4.5*\bd);
+	\draw[-latex,thick] (5.5*\bd, 5.5*\bd) -- (7*\bd-0.1cm, 5.5*\bd);
+	\draw[-latex,thick] (5.5*\bd, 6.5*\bd) -- (7*\bd-0.1cm, 6.5*\bd);
+	
+	\node[word] (w1) at (-0.5cm, 7.5*\bd) {$<$p$>$};
+	\node[word] (w2) at ([yshift=-\bd]w1) {今天};
+	\node[word] (w3) at ([yshift=-\bd]w2) {是};
+	\node[word] (w4) at ([yshift=-\bd]w3) {个};
+	\node[word] (w5) at ([yshift=-\bd]w4) {好};
+	\node[word] (w6) at ([yshift=-\bd]w5) {日子};
+	\node[word] (w7) at ([yshift=-\bd]w6) {。};
+	\node[word] (w8) at ([yshift=-\bd]w7) {$<$p$>$};
+
+	\node[inner sep=2pt,word,fill=green!5,draw=ugreen,dotted,very thick,minimum width=6em,align=center,minimum height=4em] (sub) at ([xshift=11cm,yshift=-0.1cm]w1.east) {
+\begin{tabular}{r l}
+$<$p$>$：& 填充 \\
+ $\sigma$：& sigmoid函数 \\
+$\otimes$： & 按位乘运算 \\
+ *： &卷积计算
+\end{tabular}};
+% $<$p$>$：填充 \\ $\sigma$：sigmoid函数 \\ $\otimes$：按位乘运算 \\ *：卷积计算
+	
+	\node[circle, draw, minimum size=0.7em, inner sep=0.5pt,font=\footnotesize,fill=yellow!40] (c1) at ([yshift=1.2em]b.north) {$\sigma$};
+	\node[circle, draw, minimum size=0.7em, inner sep=0.5pt,font=\footnotesize,fill=yellow!40] (c2) at ([xshift=1.5em]b.east) {};
+	\draw[-] (c2.45) -- (c2.-135);
+	\draw[-] (c2.135) -- (c2.-45);
+	
+	\draw[-, rounded corners=2pt,thick] (a.north) --  ([yshift=1.2em]a.north) -- (c1.west); 
+	\draw[-latex, rounded corners=2pt,thick] (c1.east) -- ([xshift=3.4em]c1.east) -- (c2.north);
+	\draw[-latex,thick] (b.east) -- (c2.west);
+	\draw[-latex,thick] (c2.east) -- ([xshift=0.4cm]c2.east); 
+	
+	\node[inner sep=0pt, font=\tiny] at (0.75cm, -0.4cm) {$\mathbi{x}$};
+	\node[inner sep=0pt, font=\tiny] at ([yshift=-0.8cm]a.south) {$\mathbi{A}=\mathbi{x} * \mathbi{W} + \mathbi{b}_{\mathbi{W}}$};
+	\node[inner sep=0pt, font=\tiny] at ([yshift=-0.8cm]b.south) {$\mathbi{B}=\mathbi{x} * \mathbi{V} + \mathbi{b}_{\mathbi{V}}$};
+	\node[inner sep=0pt, font=\tiny] at (8.2cm, -0.4cm) {$\mathbi{y}=\mathbi{A} \otimes \sigma(\mathbi{B})$};
+	
+\end{tikzpicture}

@@ -1,0 +1,42 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  基于串的解码 - 连续变量的匹配，复杂度增加
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}
+{\small
+
+\node [anchor=west] (sw11) at (0,0) {校长$_1$};
+\node [anchor=west] (sw12) at ([xshift=0.1em]sw11.east) {对$_2$};
+\node [anchor=west,fill=red!20] (sw13) at ([xshift=0.1em]sw12.east) {自己$_3$ 四$_4$\ 个$_5$\ 多$_6$\ 月$_7$\ 以来$_8$\ 的$_9$\ 教学$_{10}$\ 改革$_{11}$ 感到$_{12}$ };
+\node [anchor=west,fill=blue!20] (sw14) at ([xshift=0.2em]sw13.east) {满意$_{13}$};
+
+\node [anchor=north west] (sw21) at ([yshift=-0.3em]sw11.south west) {校长$_1$};
+\node [anchor=west] (sw22) at ([xshift=0.1em]sw21.east) {对$_2$};
+\node [anchor=west,fill=red!20] (sw23) at ([xshift=0.1em]sw22.east) {自己$_3$ 四$_4$\ 个$_5$\ 多$_6$\ 月$_7$\ 以来$_8$\ 的$_9$\ 教学$_{10}$\ 改革$_{11}$};
+\node [anchor=west,fill=blue!20] (sw24) at ([xshift=0.2em]sw23.east) {感到$_{12}$ 满意$_{13}$};
+
+\node [anchor=north west] (sw31) at ([yshift=-0.3em]sw21.south west) {校长$_1$};
+\node [anchor=west] (sw32) at ([xshift=0.1em]sw31.east) {对$_2$};
+\node [anchor=west,fill=red!20] (sw33) at ([xshift=0.1em]sw32.east) {自己$_3$ 四$_4$\ 个$_5$\ 多$_6$\ 月$_7$\ 以来$_8$\ 的$_9$\ 教学$_{10}$};
+\node [anchor=west,fill=blue!20] (sw34) at ([xshift=0.2em]sw33.east) {改革$_{11}$ 感到$_{12}$ 满意$_{13}$};
+
+\node [anchor=north] (dots) at ([yshift=-0.5em]sw33.south) {...};
+
+\node [anchor=north west] (sw41) at ([yshift=-1.8em]sw31.south west) {校长$_1$};
+\node [anchor=west] (sw42) at ([xshift=0.1em]sw41.east) {对$_2$};
+\node [anchor=west,fill=red!20] (sw43) at ([xshift=0.1em]sw42.east) {自己$_3$ };
+\node [anchor=west,fill=blue!20] (sw44) at ([xshift=0.2em]sw43.east) {四$_4$\ 个$_5$\ 多$_6$\ 月$_7$\ 以来$_8$\ 的$_9$ 教学$_{10}$ 改革$_{11}$ 感到$_{12}$ 满意$_{13}$};
+
+\node [anchor=south] (label) at ([yshift=0.3em]sw13.north) {\footnotesize{在跨度[{\blue 0},{\blue 13}]上匹配``NP 对 NP VP''}};
+
+\node [anchor=north west,minimum size=1.2em,fill=red!20] (np) at ([yshift=-1.0em,xshift=0.3em]sw41.south west) {};
+\node [anchor=west] (nplabel) at (np.east) {NP（第二个）};
+\node [anchor=west,minimum size=1.2em,fill=blue!20] (vp) at ([xshift=1.0em]nplabel.east) {};
+\node [anchor=west] (vplabel) at (vp.east) {VP};
+
+}
+\end{scope}
+
+\end{tikzpicture}
+\end{center}

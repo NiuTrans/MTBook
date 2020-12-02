@@ -1,0 +1,601 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX encoding = UTF-8 Unicode
+
+%----------------------------------------------------------------------------------------
+% 机器翻译：统计建模与深度学习方法
+% Machine Translation: Statistical Modeling and Deep Learning Methods
+%
+% Copyright 2020
+% 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%    CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\renewcommand\figurename{图}%将figure改为图
+\renewcommand\tablename{表}%将figure改为图
+\chapterimage{fig-NEU-3.jpg} % Chapter heading image
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 12
+%----------------------------------------------------------------------------------------
+
+\chapter{基于自注意力的模型}
+
+循环神经网络和卷积神经网络是两种经典的神经网络结构，在机器翻译中进行应用也是较为自然的想法。但是，这些模型在处理文字序列时也有问题：它们对序列中不同位置之间的依赖关系的建模并不直接。以卷积神经网络为例，如果要对长距离依赖进行描述，需要多层卷积操作，而且不同层之间信息传递也可能有损失，这些都限制了模型的能力。
+
+为了更好地描述文字序列，研究人员提出了一种新的模型Transformer。Transformer并不依赖任何循环单元或者卷积单元，而是使用一种被称作自注意力网络的结构来对序列进行表示。自注意力可以非常高效的描述任意距离之间的依赖关系，因此非常适合处理语言文字序列。Transformer一经提出就受到了广泛关注，现在已经成为了机器翻译中最先进的架构之一。本章将会对Transformer的基本结构和实现技术进行介绍。这部分知识也会在本书的前沿部分（{\chapterthirteen}$\sim${\chaptereighteen}）中大量使用。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION  12.1
+%----------------------------------------------------------------------------------------
+\section{自注意力机制}
+\vspace{0.5em}
+\label{sec:12.1}
+
+\parinterval 首先回顾一下循环神经网络处理文字序列的过程。如图\ref{fig:12-1}所示，对于单词序列$\{ w_1,...,w_m \}$，处理第$m$个单词$w_m$时（绿色方框部分），需要输入前一时刻的信息（即处理单词$w_{m-1}$），而$w_{m-1}$又依赖于$w_{m-2}$，以此类推。也就是说，如果想建立$w_m$和$w_1$之间的关系，需要$m-1$次信息传递。对于长序列来说，词汇之间信息传递距离过长会导致信息在传递过程中丢失，同时这种按顺序建模的方式也使得系统对序列的处理十分缓慢。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-dependencies-between-words-in-a-recurrent-neural-network}
+\caption{循环神经网络中单词之间的依赖关系}
+\label{fig:12-1}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 那么能否摆脱这种顺序传递信息的方式，直接对不同位置单词之间的关系进行建模，即将信息传递的距离拉近为1？自注意力机制的提出便有效解决了这个问题\upcite{DBLP:journals/corr/LinFSYXZB17}。图\ref{fig:12-2}给出了自注意力机制对序列进行建模的示例。对于单词$w_m$，自注意力机制直接建立它与前$m-1$个单词之间的关系。也就是说，$w_m$与序列中所有其他单词的距离都是1。这种方式很好地解决了长距离依赖问题，同时由于单词之间的联系都是相互独立的，因此也大大提高了模型的并行度。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-dependencies-between-words-of-attention}
+\caption{自注意力机制中单词之间的依赖关系}
+\label{fig:12-2}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 自注意力机制也可以被看作是一个序列表示模型。比如，对于每个目标位置$j$，都生成一个与之对应的源语句子表示，它的形式如公式\eqref{eq:12-1}所示：
+\begin{eqnarray}
+\mathbi{C}_j & = & \sum_i \alpha_{i,j}\mathbi{h}_i
+\label{eq:12-1}
+\end{eqnarray}
+
+\noindent 其中，$\mathbi{h}_i$ 为源语句子每个位置的表示结果，$\alpha_{i,j}$是目标位置$j$对$\mathbi{h}_i$的注意力权重。以源语句子为例，自注意力机制将序列中每个位置的表示$\mathbi{h}_i$看作$\mathrm{query}$（查询），并且将所有位置的表示看作$\mathrm{key}$（键）和$\mathrm{value}$ （值）。自注意力模型通过计算当前位置与所有位置的匹配程度，也就是在注意力机制中提到的注意力权重，来对各个位置的$\mathrm{value}$进行加权求和。得到的结果可以被看作是在这个句子中当前位置的抽象表示。这个过程，可以叠加多次，形成多层注意力模型，对输入序列中各个位置进行更深层的表示。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-example-of-self-attention-mechanism-calculation}
+\caption{自注意力计算实例}
+\label{fig:12-3}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 举个例子，如图\ref{fig:12-3}所示，一个汉语句子包含5个词。这里，用$h$(他)表示“他”当前的表示结果，其中$h(\cdot)$是一个函数，用于返回输入单词所在位置对应的表示结果（向量）。如果把“他”看作目标，这时$\mathrm{query}$ 就是$h$(他)，$\mathrm{key}$和$\mathrm{value}$是图中所有位置的表示，即：{$h$(他)、$h$(什么)、$h$(也)、$h$(没)、$h$(学)}。在自注意力模型中，首先计算$\mathrm{query}$ 和$\mathrm{key}$的相关度，这里用$\alpha_i$表示$h$(他)和位置$i$的表示之间的相关性。然后，把$\alpha_i$作为权重，对不同位置上的$\mathrm{value}$进行加权求和。最终，得到新的表示结果$\tilde{h}$ (他)，其具体计算如公式\eqref{eq:12-2}所示：
+
+\begin{eqnarray}
+\tilde{h} (\textrm{他} ) & = & \alpha_1 {h} (\textrm{他} ) + \alpha_2 {h} (\textrm{什么}) + \alpha_3 {h} (\textrm{也} ) + \nonumber \\
+                         &   & \alpha_4 {h} (\textrm{没} ) +\alpha_5 {h} (\textrm{学} )
+\label{eq:12-2}
+\end{eqnarray}
+
+
+\parinterval 同理，也可以用同样的方法处理这个句子中的其他单词。可以看出，在自注意力机制中，并不是使用类似于循环神经网络的记忆能力去访问历史信息。序列中所有单词之间的信息都是通过同一种操作（$\mathrm{query}$和$\mathrm{key}$的相关度）进行处理。这样，表示结果$\tilde{h} (\textrm{他})$在包含“他”这个单词的信息的同时，也包含了序列中其他词的信息。也就是，序列中每一个位置的表示结果中，都包含了其他位置的信息。从这个角度说，$\tilde{h} (\textrm{他})$已经不再是单词“他”自身的表示结果，而是一种在单词“他”的位置上的全局信息的表示。
+
+\parinterval 通常，也把生成$\tilde{h}(w_i)$的过程看作特征提取，而实现这个过程的模型被称为特征提取器。循环神经网络、卷积神经网络和自注意力模型都是典型的特征提取器。特征提取是神经机器翻译系统的关键步骤，在随后的内容中可以看到自注意力模型是一个非常适合机器翻译任务的特征提取器。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{Transformer架构}
+
+下面对Transformer模型的由来以及总体架构进行介绍。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{Transformer的优势}
+
+\parinterval 首先再来回顾一下{\chapterten}介绍的循环神经网络，虽然它很强大，但是也存在一些弊端。其中比较突出的问题是，循环神经网络每个循环单元都有向前依赖性，也就是当前时间步的处理依赖前一时间步处理的结果。这个性质可以使序列的“历史”信息不断被传递，但是也造成模型运行效率的下降。特别是对于自然语言处理任务，序列往往较长，无论是传统的RNN结构，还是更为复杂的LSTM结构，都需要很多次循环单元的处理才能够捕捉到单词之间的长距离依赖。由于需要多个循环单元的处理，距离较远的两个单词之间的信息传递变得很复杂。
+
+\parinterval 针对这些问题，研究人员提出了一种全新的模型$\ \dash\ $Transformer\index{Transformer}\upcite{vaswani2017attention}。与循环神经网络等传统模型不同，Transformer模型仅仅使用自注意力机制和标准的前馈神经网络，完全不依赖任何循环单元或者卷积操作。自注意力机制的优点在于可以直接对序列中任意两个单元之间的关系进行建模，这使得长距离依赖等问题可以更好地被求解。此外，自注意力机制非常适合在GPU 上进行并行化，因此模型训练的速度更快。表\ref{tab:12-1}对比了RNN、CNN和Transformer层类型的复杂度\footnote{顺序操作数指模型处理一个序列所需要的操作数，由于Transformer和CNN都可以并行计算，所以是1；路径长度指序列中任意两个单词在网络中的距离。}。
+
+%----------------------------------------------
+\begin{table}[htp]
+\centering
+\caption{ RNN、CNN、Transformer的层类型复杂度对比\upcite{vaswani2017attention} （$n$表示序列长度，$d$表示隐层大小，$k$表示卷积核大小） }
+\label{tab:12-1}
+\begin{tabular}{c | c c c c}
+\rule{0pt}{20pt} 模型 & 层类型 & \begin{tabular}[l]{@{}l@{}}复杂度\end{tabular} & \begin{tabular}[l]{@{}l@{}}最小顺序 \\ 操作数\end{tabular} & \begin{tabular}[l]{@{}l@{}}最大路径\\ 长度\end{tabular} \\ \hline
+\rule{0pt}{13pt} Transformer & 自注意力 &$O(n^2\cdot d)$	&$O(1)$	&$O(1)$       \\
+\rule{0pt}{13pt} RNN &循环单元 &$O(n \cdot d^2)$		&$O(n)$	&$O(n)$ 	\\
+\rule{0pt}{13pt} CNN &空洞卷积 &$O(k\cdot n \cdot d^2)$	&$O(1)$	&$O(\mathrm{log}_k(n))$
+\end{tabular}
+\end{table}
+%----------------------------------------------
+
+\parinterval Transformer在被提出之后，很快就席卷了整个自然语言处理领域。实际上，也可以把Transformer当作一种表示模型，因此也被大量地使用在自然语言处理的其他领域，甚至图像处理\upcite{DBLP:journals/corr/abs-1802-05751}和语音处理\upcite{DBLP:conf/icassp/DongXX18,DBLP:conf/interspeech/GulatiQCPZYHWZW20}中也能看到它的影子。比如，目前非常流行的BERT等预训练模型就是基于Transformer。表\ref{tab:12-2}展示了Transformer在WMT英德和英法机器翻译任务上的性能。它能用更少的计算量（FLOPs）达到比其他模型更好的翻译品质\footnote{FLOPs = Floating Point Operations，即浮点运算数。它是度量算法/模型复杂度的常用单位} 。
+
+%----------------------------------------------
+\begin{table}[htp]
+\centering
+\caption{ 不同翻译模型性能对比\upcite{vaswani2017attention}}
+\label{tab:12-2}
+\begin{tabular}{l l l l}
+\multicolumn{1}{l|}{\multirow{2}{*}{系统}} & \multicolumn{2}{c}{BLEU[\%]} & \multirow{2}{*}{\parbox{6em}{模型训练代价 (FLOPs)}} \\
+\multicolumn{1}{l|}{}                    & EN-DE  & EN-FR  &                                       \\ \hline
+\multicolumn{1}{l|}{GNMT+RL}             & 24.6            & 39.92           & 1.4$\times 10^{20}$                   \\
+\multicolumn{1}{l|}{ConvS2S}             & 25.16           & 40.46           & 1.5$\times 10^{20}$                   \\
+\multicolumn{1}{l|}{MoE}                 & 26.03           & 40.56           & 1.2$\times 10^{20}$                   \\
+\multicolumn{1}{l|}{Transformer（Base Model）}                 & 27.3           &38.1           & 3.3$\times 10^{18}$                   \\
+\multicolumn{1}{l|}{Transformer (Big)}    & {\small\sffamily\bfseries{28.4}}   & {\small\sffamily\bfseries{41.8}}   & 2.3$\times 10^{19}$                   \\
+\end{tabular}
+\end{table}
+%----------------------------------------------
+
+\parinterval 注意，Transformer并不简单等同于自注意力机制。Transformer模型还包含了很多优秀的技术，比如：多头注意力、新的训练学习率调整策略等等。这些因素一起组成了真正的Transformer。下面就一起看一看自注意力机制和Transformer是如何工作的。
+
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{总体结构}
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-transformer}
+\caption{ Transformer结构}
+\label{fig:12-4}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 图\ref{fig:12-4}展示了Transformer的结构。编码器由若干层组成（绿色虚线框就代表一层）。每一层（Layer）的输入都是一个向量序列，输出是同样大小的向量序列，而Transformer层的作用是对输入进行进一步的抽象，得到新的表示结果。不过这里的层并不是指单一的神经网络结构，它里面由若干不同的模块组成，包括：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{自注意力子层}}\index{自注意力子层}（Self-Attention Sub-layer）\index{Self-Attention Sub-layer}：使用自注意力机制对输入的序列进行新的表示；
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{前馈神经网络子层}}\index{前馈神经网络子层}（Feed-Forward Sub-layer）\index{Feed-Forward Sub-layer}：使用全连接的前馈神经网络对输入向量序列进行进一步变换；
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{残差连接}}（标记为“Add”）：对于自注意力子层和前馈神经网络子层，都有一个从输入直接到输出的额外连接，也就是一个跨子层的直连。残差连接可以使深层网络的信息传递更为有效；
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{层标准化}}（Layer Normalization）：自注意力子层和前馈神经网络子层进行最终输出之前，会对输出的向量进行层标准化，规范结果向量取值范围，这样易于后面进一步的处理。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 以上操作就构成了Transformer的一层，各个模块执行的顺序可以简单描述为：Self-Attention $\to$ Residual Connection $\to$ Layer Normalization $\to$ Feed Forward Network $\to$ Residual Connection $\to$ Layer Normalization。编码器可以包含多个这样的层，比如，可以构建一个六层编码器，每层都执行上面的操作。最上层的结果作为整个编码的结果，会被传入解码器。
+
+\parinterval 解码器的结构与编码器十分类似。它也是由若干层组成，每一层包含编码器中的所有结构，即：自注意力子层、前馈神经网络子层、残差连接和层标准化模块。此外，为了捕捉源语言的信息，解码器又引入了一个额外的{\small\sffamily\bfseries{编码-解码注意力子层}}\index{编码-解码注意力子层}（Encoder-Decoder Attention Sub-layer）\index{Encoder-Decoder Attention Sub-layer}。这个新的子层，可以帮助模型使用源语言句子的表示信息生成目标语不同位置的表示。编码-解码注意力子层仍然基于自注意力机制，因此它和自注意力子层的结构是相同的，只是$\mathrm{query}$、$\mathrm{key}$、$\mathrm{value}$的定义不同。比如，在解码端，自注意力子层的$\mathrm{query}$、$\mathrm{key}$、$\mathrm{value}$是相同的，它们都等于解码端每个位置的表示。而在编码-解码注意力子层中，$\mathrm{query}$是解码端每个位置的表示，此时$\mathrm{key}$和$\mathrm{value}$是相同的，等于编码端每个位置的表示。图\ref{fig:12-5}给出了这两种不同注意力子层输入的区别。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+   \input{./Chapter12/Figures/figure-self-att-vs-enco-deco-att}
+    \caption{ 注意力模型的输入（自注意力子层 vs 编码-解码注意力子层）}
+    \label{fig:12-5}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 此外，编码端和解码端都有输入的词序列。编码端的词序列输入是为了对其进行表示，进而解码端能从编码端访问到源语言句子的全部信息。解码端的词序列输入是为了进行目标语的生成，本质上它和语言模型是一样的，在得到前$n-1$个单词的情况下输出第$n$个单词。除了输入词序列的词嵌入，Transformer中也引入了位置嵌入，以表示每个位置信息。原因是，自注意力机制没有显性地对位置进行表示，因此也无法考虑词序。在输入中引入位置信息可以让自注意力机制间接地感受到每个词的位置，进而保证对序列表示的合理性。最终，整个模型的输出由一个Softmax层完成，它和循环神经网络中的输出层是完全一样的。
+
+\parinterval 在进行更详细的介绍前，先利用图\ref{fig:12-4}简单了解一下Transformer模型是如何进行翻译的。首先，Transformer将源语言句子“我/很/好”的词嵌入融合位置编码后作为输入。然后，编码器对输入的源语句子进行逐层抽象，得到包含丰富的上下文信息的源语表示并传递给解码器。解码器的每一层，使用自注意力子层对输入解码端的表示进行加工，之后再使用编码-解码注意力子层融合源语句子的表示信息。就这样逐词生成目标语译文单词序列。解码器每个位置的输入是当前单词（比如，“I”），而这个位置的输出是下一个单词（比如，“am”），这个设计和标准的神经语言模型是完全一样的。
+
+\parinterval 当然，这里可能还有很多疑惑，比如，什么是位置编码？Transformer的自注意力机制具体是怎么进行计算的，其结构是怎样的？层标准化又是什么？等等。下面就一一展开介绍。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{位置编码}
+
+\parinterval 在使用循环神经网络进行序列的信息提取时，每个时刻的运算都要依赖前一个时刻的输出，具有一定的时序性，这也与语言具有顺序的特点相契合。而采用自注意力机制对源语言和目标语言序列进行处理时，直接对当前位置和序列中的任意位置进行建模，忽略了词之间的顺序关系，例如图\ref{fig:12-6}中两个语义不同的句子，通过自注意力得到的表示$\tilde{h}$(机票)却是相同的。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-calculation-of-context-vector-c}
+\caption{“机票”的更进一步抽象表示$\tilde{\mathbi{h}}$的计算}
+\label{fig:12-6}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 为了解决这个问题，Transformer在原有的词向量输入基础上引入了位置编码，来表示单词之间的顺序关系。位置编码在Transformer结构中的位置如图\ref{fig:12-7}，它是Transformer成功的一个重要因素。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-transformer-input-and-position-encoding}
+\caption{Transformer输入与位置编码}
+\label{fig:12-7}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 位置编码的计算方式有很多种，Transformer使用不同频率的正余弦函数，如公式\eqref{eq:12-3}和\eqref{eq:12-4}所示：
+\begin{eqnarray}
+\textrm{PE}(\textrm{pos},2i) & = & \textrm{sin} (\frac{\textrm{pos}}{10000^{2i/d_{\textrm{model}}}}) \label{eq:12-3} \\
+\textrm{PE}(\textrm{pos},2i+1) & = & \textrm{cos} (\frac{\textrm{pos}}{10000^{2i/d_{\textrm{model}}}}) \label{eq:12-4}
+\end{eqnarray}
+
+\noindent 式中PE($\cdot$)表示位置编码的函数，$\textrm{pos}$表示单词的位置，$i$代表位置编码向量中的第几维，$d_{\textrm{model}}$是Transformer的一个基础参数，表示每个位置的隐层大小。因为，正余弦函数的编码各占一半，因此当位置编码的维度为512 时，$i$ 的范围是0-255。 在Transformer中，位置编码的维度和词嵌入向量的维度相同（均为$d_{\textrm{model}}$），模型通过将二者相加作为模型输入，如图\ref{fig:12-8}所示。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-a-combination-of-position-encoding-and-word-encoding}
+\caption{位置编码与词编码的组合}
+\label{fig:12-8}
+\end{figure}
+%----------------------------------------------
+\vspace{-0.5em}
+\parinterval 那么为什么通过这种计算方式可以很好的表示位置信息？有几方面原因。首先，正余弦函数是具有上下界的周期函数，用正余弦函数可将长度不同的序列的位置编码的范围都固定到$[-1,1]$，这样在与词的编码进行相加时，不至于产生太大差距。另外位置编码的不同维度对应不同的正余弦曲线，这为多维的表示空间赋予一定意义。最后，根据三角函数的性质，如公式\eqref{eq:12-5}和\eqref{eq:12-6}：
+\begin{eqnarray}
+\textrm{sin}(\alpha + \beta) &=& \textrm{sin}\alpha \cdot \textrm{cos} \beta + \textrm{cos} \alpha \cdot \textrm{sin} \beta \label{eq:12-5}  \\
+\textrm{cos}(\alpha + \beta) &=&  \textrm{cos} \alpha  \cdot \textrm{cos} \beta - \textrm{sin} \alpha \cdot \textrm{sin} \beta
+\label{eq:12-6}
+\end{eqnarray}
+
+\parinterval 可以得到第$pos+k$个位置的编码，如公式\eqref{eq:12-7}和\eqref{eq:12-8}：
+\begin{eqnarray}
+\textrm{PE}(\textrm{pos}+k,2i) &=& \textrm{PE}(\textrm{pos},2i) \cdot \textrm{PE}(k,2i+1) + \nonumber \\
+                      & & \textrm{PE}(\textrm{pos},2i+1) \cdot \textrm{PE}(k,2i)  \label{eq:12-7} \\
+\textrm{PE}(\textrm{pos}+k ,2i+1) &=& \textrm{PE}(\textrm{pos},2i+1) \cdot \textrm{PE}(k,2i+1) - \nonumber \\
+                         & & \textrm{PE}(\textrm{pos},2i) \cdot \textrm{PE}(k,2i)
+\label{eq:12-8}
+\end{eqnarray}
+
+\noindent 即对于任意固定的偏移量$k$，$\textrm{PE}(\textrm{pos}+k)$能被表示成$\textrm{PE}(\textrm{pos})$的线性函数，换句话说，位置编码可以表示词之间的距离。在实践中发现，位置编码对Transformer系统的性能有很大影响。对其进行改进也会带来进一步的性能提升\upcite{Shaw2018SelfAttentionWR}。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{基于点乘的多头注意力机制}
+
+\parinterval Transformer模型摒弃了循环单元和卷积等结构，完全基于注意力机制来构造模型，其中包含着大量的注意力计算。比如，可以通过自注意力机制对源语言和目标语言序列进行信息提取，并通过编码-解码注意力对双语句对之间的关系进行建模。图\ref{fig:12-9}中红色方框部分是Transformer中使用注意力机制的模块。而这些模块都是由基于点乘的多头注意力机制实现的。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-position-of-self-attention-mechanism-in-the-model}
+\caption{自注意力机制在模型中的位置}
+\label{fig:12-9}
+\end{figure}
+%----------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{点乘注意力}
+
+\parinterval 在\ref{sec:12.1}节中已经介绍，自注意力机制中至关重要的是获取相关性系数，也就是在融合不同位置的表示向量时各位置的权重。Transformer模型采用了一种基于点乘的方法来计算相关性系数。这种方法也称为{\small\bfnew{缩放的点乘注意力}}\index{缩放的点乘注意力}（Scaled Dot-product Attention）\index{Scaled Dot-product Attention}机制。它的运算并行度高，同时并不消耗太多的存储空间。
+
+\parinterval 具体来看，在注意力机制的计算过程中，包含三个重要的参数，分别是query，\\key和value。在下面的描述中，分别用$\mathbi{Q}$，$\mathbi{K}$，$\mathbi{V}$对它们进行表示，其中$\mathbi{Q}$ 和$\mathbi{K}$的维度为$L\times d_k$，$\mathbi{V}$的维度为$L\times d_v$。这里，$L$为序列的长度，$d_k$和$d_v$分别表示每个key和value的大小，通常设置为$d_k=d_v=d_{\textrm{model}}$。
+
+\parinterval 在自注意力机制中，$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$都是相同的，对应着源语言或目标语言序列的表示。而在编码-解码注意力机制中，由于要对双语之间的信息进行建模，因此，将目标语每个位置的表示视为编码-解码注意力机制的$\mathbi{Q}$，源语言句子的表示视为$\mathbi{K}$ 和$\mathbi{V}$。
+
+\parinterval 在得到$\mathbi{Q}$，$\mathbi{K}$和$\mathbi{V}$后，便可以进行注意力机制的运算，这个过程可以被形式化为公式\eqref{eq:12-9}：
+\begin{eqnarray}
+\textrm{Attention}(\mathbi{Q},\mathbi{K},\mathbi{V}) = \textrm{Softmax}
+ ( \frac{\mathbi{Q}\mathbi{K}^{\textrm{T}}} {\sqrt{d_k}} + \mathbi{Mask} ) \mathbi{V}
+\label{eq:12-9}
+\end{eqnarray}
+
+\noindent 首先，通过对$\mathbi{Q}$和$\mathbi{K}$的转置进行矩阵乘法操作，计算得到一个维度大小为$L \times L$的相关性矩阵，即$\mathbi{Q}\mathbi{K}^{\textrm{T}}$，它表示一个序列上任意两个位置的相关性。再通过系数1/$\sqrt{d_k}$进行放缩操作，放缩可以减少相关性矩阵的方差，具体体现在运算过程中实数矩阵中的数值不会过大，有利于模型训练。
+
+\parinterval 在此基础上，通过对相关性矩阵累加一个掩码矩阵$\mathbi{Mask}$，来屏蔽掉矩阵中的无用信息。比如，在编码端，如果需要对多个句子同时处理，由于这些句子长度不统一，需要对句子补齐。再比如，在解码端，训练的时候需要屏蔽掉当前目标语位置右侧的单词，因此这些单词在推断的时候是看不到的。
+
+\parinterval 随后，使用Softmax函数对相关性矩阵在行的维度上进行归一化操作，这可以理解为对第$i$ 行进行归一化，结果对应了$\mathbi{V}$ 中不同位置上向量的注意力权重。对于$\mathrm{value}$ 的加权求和，可以直接用相关性系数和$\mathbi{V}$ 进行矩阵乘法得到，即$\textrm{Softmax}
+ ( \frac{\mathbi{Q}\mathbi{K}^{\textrm{T}}} {\sqrt{d_k}} + \mathbi{Mask} )$和$\mathbi{V}$进行矩阵乘。最终得到自注意力的输出，它和输入的$\mathbi{V}$的大小是一模一样的。图\ref{fig:12-10}展示了点乘注意力计算的全过程。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-point-product-attention-model}
+\caption{点乘注意力模型 }
+\label{fig:12-10}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 下面举个简单的例子介绍点乘注意力的具体计算过程。如图\ref{fig:12-11}所示，用黄色、蓝色和橙色的矩阵分别表示$\mathbi{Q}$、$\mathbi{K}$和$\mathbi{V}$。$\mathbi{Q}$、$\mathbi{K}$ 和$\mathbi{V}$中的每一个小格都对应一个单词在模型中的表示（即一个向量）。首先，通过点乘、放缩、掩码等操作得到相关性矩阵，即粉色部分。其次，将得到的中间结果矩阵（粉色）的每一行使用Softmax激活函数进行归一化操作，得到最终的权重矩阵，也就是图中的红色矩阵。红色矩阵中的每一行都对应一个注意力分布。最后，按行对$\mathbi{V}$进行加权求和，便得到了每个单词通过点乘注意力机制计算得到的表示。这里面，主要的计算消耗是两次矩阵乘法，即$\mathbi{Q}$与$\mathbi{K}^{\textrm{T}}$的乘法、相关性矩阵和$\mathbi{V}$的乘法。这两个操作都可以在GPU上高效地完成，因此可以一次性计算出序列中所有单词之间的注意力权重，并完成所有位置表示的加权求和过程，这样大大提高了模型计算的并行度。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-process-of-5}
+\caption{公式\eqref{eq:12-9}的执行过程示例}
+\label{fig:12-11}
+\end{figure}
+%----------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{多头注意力}
+
+\parinterval Transformer中使用的另一项重要技术是{\small\sffamily\bfseries{多头注意力}}\index{多头注意力}（Multi-head Attention）\index{Multi-head Attention}。“多头”可以理解成将原来的$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$按照隐层维度平均切分成多份。假设切分$h$份，那么最终会得到$\mathbi{Q} = \{ \mathbi{Q}_1, \mathbi{Q}_2,...,\mathbi{Q}_h \}$，$\mathbi{K}=\{ \mathbi{K}_1,\mathbi{K}_2,...,\mathbi{K}_h \}$，$\mathbi{V}=\{ \mathbi{V}_1, \mathbi{V}_2,...,\mathbi{V}_h \}$。多头注意力机制就是用每一个切分得到的$\mathbi{Q}$，$\mathbi{K}$，$\mathbi{V}$独立的进行注意力计算，即第$i$个头的注意力计算结果$\mathbi{head}_i = \textrm{Attention}(\mathbi{Q}_i,\mathbi{K}_i, \mathbi{V}_i)$。
+
+\parinterval 下面根据图\ref{fig:12-12}详细介绍多头注意力的计算过程：
+
+\begin{itemize}
+\vspace{0.5em}
+\item 首先，将$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$分别通过线性（Linear）变换的方式映射为$h$个子集。即$\mathbi{Q}_i = \mathbi{Q}\mathbi{W}_i^{\,Q} $、$\mathbi{K}_i = \mathbi{K}\mathbi{W}_i^{\,K} $、$\mathbi{V}_i = \mathbi{V}\mathbi{W}_i^{\,V} $，其中$i$表示第$i$个头， $\mathbi{W}_i^{\,Q}  \in \mathbb{R}^{d_{model} \times d_k}$,  $\mathbi{W}_i^{\,K}  \in \mathbb{R}^{d_{model} \times d_k}$,  $\mathbi{W}_i^{\,V}  \in \mathbb{R}^{d_{model} \times d_v}$是参数矩阵; $d_k=d_v=d_{model} / h$，对于不同的头采用不同的变换矩阵，这里$d_{model}$表示每个隐层向量的维度；
+\vspace{0.5em}
+\item 其次，对每个头分别执行点乘注意力操作，并得到每个头的注意力操作的输出$\mathbi{head}_i$；
+\vspace{0.5em}
+\item 最后，将$h$个头的注意力输出在最后一维$d_v$进行拼接（Concat）重新得到维度为$hd_v$的输出，并通过对其右乘一个权重矩阵$\mathbi{W}^{\,o}$进行线性变换，从而对多头计算得到的信息进行融合，且将多头注意力输出的维度映射为模型的隐层大小（即$d_{model}$），这里参数矩阵$\mathbi{W}^{\,o} \in \mathbb{R}^{h d_v \times d_{model}}$。
+\vspace{0.5em}
+\end{itemize}
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-multi-head-attention-model}
+\caption{多头注意力模型}
+\label{fig:12-12}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 多头机制可以被形式化描述为公式\eqref{eq:12-10}和\eqref{eq:12-11}：
+\begin{eqnarray}
+\textrm{MultiHead}(\mathbi{Q}, \mathbi{K} , \mathbi{V})& = & \textrm{Concat} (\mathbi{head}_1, ... , \mathbi{head}_h ) \mathbi{W}^{\,o} \label{eq:12-10} \\
+\mathbi{head}_i & = &\textrm{Attention} (\mathbi{Q}\mathbi{W}_i^{\,Q} , \mathbi{K}\mathbi{W}_i^{\,K}  , \mathbi{V}\mathbi{W}_i^{\,V} )
+\label{eq:12-11}
+\end{eqnarray}
+
+\parinterval 多头机制的好处是允许模型在不同的表示子空间里学习。在很多实验中发现，不同表示空间的头捕获的信息是不同的，比如，在使用Transformer处理自然语言时，有的头可以捕捉句法信息，有的头可以捕捉词法信息。
+
+%----------------------------------------------------------------------------------------
+%    NEW SUB-SECTION
+%----------------------------------------------------------------------------------------
+
+\subsection{掩码操作}
+
+\parinterval 在公式\eqref{eq:12-9}中提到了{\small\bfnew{掩码}}\index{掩码}（Mask\index{Mask}），它的目的是对向量中某些值进行掩盖，避免无关位置的数值对运算造成影响。Transformer中的掩码主要应用在注意力机制中的相关性系数计算，具体方式是在相关性系数矩阵上累加一个掩码矩阵。该矩阵在需要掩码的位置的值为负无穷$-$inf（具体实现时是一个非常小的数，比如$-$1e9），其余位置为0，这样在进行了Softmax 归一化操作之后，被掩码掉的位置计算得到的权重便近似为0，也就是说对无用信息分配的权重为0，从而避免了其对结果产生影响。Transformer包含两种掩码：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\bfnew{句长补全掩码}}\index{句长补全掩码}（Padding Mask\index{Padding Mask}）。在批量处理多个样本时（训练或解码），由于要对源语言和目标语言的输入进行批次化处理，而每个批次内序列的长度不一样，为了方便对批次内序列进行矩阵表示，需要进行对齐操作，即在较短的序列后面填充0来占位（padding操作）。而这些填充的位置没有意义，不参与注意力机制的计算，因此，需要进行掩码 操作，屏蔽其影响。
+\vspace{0.5em}
+\item {\small\bfnew{未来信息掩码}}\index{未来信息掩码}（Future Mask\index{Future Mask}）。对于解码器来说，由于在预测的时候是自左向右进行的，即第$t$时刻解码器的输出只能依赖于$t$时刻之前的输出。且为了保证训练解码一致，避免在训练过程中观测到目标语端每个位置未来的信息，因此需要对未来信息进行屏蔽。具体的做法是：构造一个上三角值全为-inf的Mask矩阵，也就是说，在解码端计算中，在当前位置，通过未来信息掩码把序列之后的信息屏蔽掉了，避免了$t$ 时刻之后的位置对当前的计算产生影响。图\ref{fig:12-13}给出了一个具体的实例。
+
+%----------------------------------------------
+% 图3.10
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-mask-instance-for-future-positions-in-transformer}
+\caption{Transformer中对于未来位置进行的屏蔽的掩码实例}
+\label{fig:12-13}
+\end{figure}
+%----------------------------------------------
+
+\vspace{0.5em}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{残差网络和层标准化}
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-position-of-difference-and-layer-regularization-in-the-model}
+\caption{残差和层标准化在模型中的位置}
+\label{fig:12-14}
+\end{figure}
+%----------------------------------------------
+
+\parinterval Transformer编码器、解码器分别由多层网络组成（通常为6层），每层网络又包含多个子层（自注意力网络、前馈神经网络）。因此Transformer实际上是一个很深的网络结构。再加上点乘注意力机制中包含很多线性和非线性变换；且注意力函数Attention($\cdot$)的计算也涉及多层网络，整个网络的信息传递非常复杂。从反向传播的角度来看，每次回传的梯度都会经过若干步骤，容易产生梯度爆炸或者消失。解决这个问题的一种办法就是使用残差连接\upcite{DBLP:journals/corr/HeZRS15}，此部分内容已经在{\chapternine}进行了介绍，这里不再赘述。
+
+%\parinterval 解决这个问题的一种办法就是使用残差连接\upcite{DBLP:journals/corr/HeZRS15}。残差连接是一种用来训练深层网络的技术，其结构如图\ref{fig:12-49}，即在子层之前通过增加直接连接的方式，将底层信息直接传递给上层。
+
+%----------------------------------------------
+%\begin{figure}[htp]
+%\centering
+%\input{./Chapter12/Figures/figure-residual-network-structure}
+%\caption{残差网络结构}
+%\label{fig:12-49}
+%\end{figure}
+%----------------------------------------------
+
+%\parinterval 残差连接从广义上讲也叫短连接，指的是这种短距离的连接。它的思想很简单，就是把层和层之间的距离拉近。如图\ref{fig:12-49}所示，子层1通过残差连接跳过了子层2，直接和子层3进行信息传递。使信息传递变得更高效，有效解决了深层网络训练过程中容易出现的梯度消失/爆炸问题，使得深层网络的训练更加容易。其计算公式为：
+%\begin{eqnarray}
+%x_{l+1} = x_l + {F} (x_l)
+%\label{eq:12-50}
+%\end{eqnarray}
+
+%\noindent 其中，$x_l$表示$l$层网络的输入向量，${F} (x_l)$是子层运算。如果$l=2$，那么公式\eqref{eq:12-50}可以解释为，第3层的输入（$x_3$）等于第2层的输出（${F}(x_2)$）加上第二层的输入（$x_2$）。图\ref{fig:12-50} 中的红色方框展示了Transformer 中残差连接的位置。
+
+\parinterval 在Transformer的训练过程中，由于引入了残差操作，将前面所有层的输出加到一起，如公式\eqref{eq:12-12}所示：
+\begin{eqnarray}
+%x_{l+1} = x_l + F (x_l)
+\mathbi{x}^{l+1} = F (\mathbi{x}^l) + \mathbi{x}^l
+\label{eq:12-12}
+\end{eqnarray}
+
+\noindent 其中$\mathbi{x}^l$表示第$l$层网络的输入向量，$F (\mathbi{x}^l)$是子层运算，这样会导致不同层（或子层）的结果之间的差异性很大，造成训练过程不稳定、训练时间较长。为了避免这种情况，在每层中加入了层标准化操作\upcite{Ba2016LayerN}。图\ref{fig:12-14} 中的红色方框展示了Transformer中残差和层标准化的位置。层标准化的计算如公式\eqref{eq:12-13}所示：
+\begin{eqnarray}
+\textrm{LN}(\mathbi{x}) = g \cdot \frac{\mathbi{x}- \mu} {\sigma} + b
+\label{eq:12-13}
+\end{eqnarray}
+\vspace{-2em}
+
+\noindent 该公式使用均值$\mu$和方差$\sigma$对样本进行平移缩放，将数据规范化为均值为0，方差为1的标准分布。$g$和$b$是可学习的参数。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-different-regularization-methods}
+\caption{不同标准化方式 }
+\label{fig:12-15}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 在Transformer中经常使用的层标准化操作有两种结构，分别是{\small\bfnew{后标准化}}\index{后标准化}（Post-norm）\index{Post-norm}和{\small\bfnew{前标准化}}\index{前标准化}（Pre-norm）\index{Pre-norm}，结构如图\ref{fig:12-15}所示。后标准化中先进行残差连接再进行层标准化，而前标准化则是在子层输入之前进行层标准化操作。在很多实践中已经发现，前标准化的方式更有利于信息传递，因此适合训练深层的Transformer模型\upcite{WangLearning}。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{前馈全连接网络子层}
+
+\parinterval 在Transformer的结构中，每一个编码层或者解码层中都包含一个前馈神经网络，它在模型中的位置如图\ref{fig:12-16}中红色方框所示。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-position-of-feedforward-neural-network-in-the-model}
+\caption{前馈神经网络在模型中的位置}
+\label{fig:12-16}
+\end{figure}
+%----------------------------------------------
+
+\parinterval Transformer使用了全连接网络。全连接网络的作用主要体现在将经过注意力操作之后的表示映射到新的空间中，新的空间会有利于接下来的非线性变换等操作。实验证明，去掉全连接网络会对模型的性能造成很大影响。Transformer的全连接前馈神经网络包含两次线性变换和一次非线性变换（ReLU激活函数:ReLU$(\mathbi{x})=\textrm{max}⁡(0,\mathbi{x})$），每层的前馈神经网络参数不共享，具体计算如公式\eqref{eq:12-14}：
+\begin{eqnarray}
+\textrm{FFN}(\mathbi{x}) = \textrm{max} (0,\mathbi{x}\mathbi{W}_1 + \mathbi{b}_1)\mathbi{W}_2 + \mathbi{b}_2
+\label{eq:12-14}
+\end{eqnarray}
+
+\noindent 其中，$\mathbi{W}_1$、$\mathbi{W}_2$、$\mathbi{b}_1$和$\mathbi{b}_2$为模型的参数。通常情况下，前馈神经网络的隐层维度要比注意力部分的隐层维度大，而且研究人员发现这种设置对Transformer是至关重要的。 比如，注意力部分的隐层维度为512，前馈神经网络部分的隐层维度为2048。当然，继续增大前馈神经网络的隐层大小，比如设为4096，甚至8192，还可以带来性能的增益，但是前馈部分的存储消耗较大，需要更大规模GPU 设备的支持。因此在具体实现时，往往需要在翻译准确性和存储/速度之间找到一个平衡。
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{训练}
+
+\parinterval 与前面介绍的神经机器翻译模型的训练一样，Transformer的训练流程为：首先对模型进行初始化，然后在编码器输入包含结束符的源语言单词序列。前面已经介绍过，解码端每个位置单词的预测都要依赖已经生成的序列。在解码端输入包含起始符号的目标语序列，通过起始符号预测目标语的第一个单词，用真实的目标语的第一个单词去预测第二个单词，以此类推，然后用真实的目标语序列和预测的结果比较，计算它的损失。Transformer使用了交叉熵损失函数，损失越小说明模型的预测越接近真实输出。然后利用反向传播来调整模型中的参数。由于Transformer 将任意时刻输入信息之间的距离拉近为1，摒弃了RNN中每一个时刻的计算都要基于前一时刻的计算这种具有时序性的训练方式，因此Transformer中训练的不同位置可以并行化训练，大大提高了训练效率。
+
+%----------------------------------------------
+%\begin{figure}[htp]
+%\centering
+%\input{./Chapter12/Figures/figure-structure-of-the-network-during-transformer-training}
+%\caption{Transformer训练时网络的结构}
+%\label{fig:12-53}
+%\end{figure}
+%----------------------------------------------
+
+\parinterval 需要注意的是，Transformer也包含很多工程方面的技巧。首先，在训练优化器方面，需要注意以下几点：
+
+\begin{itemize}
+\vspace{0.5em}
+\item	Transformer使用Adam优化器优化参数，并设置$\beta_1=0.9$，$\beta_2=0.98$，$\epsilon=10^{-9}$。
+\item Transformer在学习率中同样应用了学习率{\small\bfnew{预热}}\index{预热}（Warmup）\index{Warmup}策略，其计算如公式\eqref{eq:12-15}所示：
+\begin{eqnarray}
+lrate = d_{\textrm{model}}^{-0.5} \cdot \textrm{min} (\textrm{step}^{-0.5} , \textrm{step} \cdot \textrm{warmup\_steps}^{-1.5})
+\label{eq:12-15}
+\end{eqnarray}
+
+\vspace{0.5em}
+其中，$\textrm{step}$表示更新的次数（或步数）。通常设置网络更新的前4000步为预热阶段即$\textrm{warmup\_steps}=4000$。Transformer的学习率曲线如图\ref{fig:12-17}所示。在训练初期，学习率从一个较小的初始值逐渐增大（线性增长），当到达一定的步数，学习率再逐渐减小。这样做可以减缓在训练初期的不稳定现象，同时在模型达到相对稳定之后，通过逐渐减小的学习率让模型进行更细致的调整。这种学习率的调整方法是Transformer系统一个很大的工程贡献。
+\vspace{0.5em}
+\end{itemize}
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-lrate-of-transformer}
+\caption{Transformer模型的学习率曲线}
+\label{fig:12-17}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 另外，Transformer为了提高模型训练的效率和性能，还进行了以下几方面的操作：
+
+\begin{itemize}
+\vspace{0.5em}
+\item {\small\bfnew{小批量训练}}\index{小批量训练}（Mini-batch Training）\index{Mini-batch Training}：每次使用一定数量的样本进行训练，即每次从样本中选择一小部分数据进行训练。这种方法的收敛较快，同时易于提高设备的利用率。批次大小通常设置为2048或4096（token数即每个批次中的单词个数）。每一个批次中的句子并不是随机选择的，模型通常会根据句子长度进行排序，选取长度相近的句子组成一个批次。这样做可以减少padding数量，提高训练效率，如图\ref{fig:12-18}。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-comparison-of-the-number-of-padding-in-batch}
+\caption{不同批次生成方法对比（白色部分为padding）}
+\label{fig:12-18}
+\end{figure}
+%----------------------------------------------
+\vspace{0.5em}
+\item {\small\bfnew{Dropout}}\index{Dropout}\upcite{JMLR:v15:srivastava14a}：由于Transformer模型网络结构较为复杂，会导致过度拟合训练数据，从而对未见数据的预测结果变差。这种现象也被称作过拟合。为了避免这种现象，Transformer加入了Dropout操作。Transformer中这四个地方用到了Dropout：词嵌入和位置编码、残差连接、注意力操作和前馈神经网络。Dropout比例通常设置为$0.1$。
+\vspace{0.5em}
+\item {\small\bfnew{标签平滑}}\index{标签平滑}（Label Smoothing）\index{Label Smoothing}\upcite{Szegedy_2016_CVPR}：在计算损失的过程中，需要用预测概率去拟合真实概率。在分类任务中，往往使用One-hot向量代表真实概率，即真实答案位置那一维对应的概率为1，其余维为0，而拟合这种概率分布会造成两个问题：1)无法保证模型的泛化能力，容易造成过拟合；2) 1和0概率鼓励所属类别和其他类别之间的差距尽可能加大，会造成模型过于相信预测的类别。因此Transformer里引入标签平滑来缓解这种现象，简单的说就是给正确答案以外的类别分配一定的概率，而不是采用非0即1的概率。这样，可以学习一个比较平滑的概率分布，从而提升泛化能力。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 不同的Transformer可以适应不同的任务，常见的Transformer模型有Transformer Base、Transformer Big和Transformer Deep\upcite{vaswani2017attention,WangLearning}，具体设置如下：
+
+\begin{itemize}
+\vspace{0.5em}
+\item  Transformer Base：标准的Transformer结构，解码器编码器均包含6层，隐层维度为512，前馈神经网络维度为2048，多头注意力机制为8头，Dropout设为0.1。
+\vspace{0.5em}
+\item  Transformer Big：为了提升网络的容量，使用更宽的网络。在Base的基础上增大隐层维度至1024，前馈神经网络的维度变为4096，多头注意力机制为16头，Dropout设为0.3。
+\vspace{0.5em}
+\item Transformer Deep：加深编码器网络层数可以进一步提升网络的性能，它的参数设置与Transformer Base基本一致，但是层数增加到48层，同时使用Pre-Norm作为层标准化的结构。
+\vspace{0.5em}
+\end{itemize}
+
+\parinterval 在WMT'16数据 上的实验对比如表\ref{tab:12-3}所示。可以看出，Transformer Base的BLE\\U得分虽不如另外两种模型，但其参数量是最少的。而Transformer Deep的性能整体好于Transformer Big。
+
+%----------------------------------------------
+\begin{table}[htp]
+\centering
+\caption{三种Transformer模型的对比}
+\label{tab:12-3}
+\begin{tabular}{l | l l l}
+\multirow{2}{*}{系统}   & \multicolumn{2}{c}{BLEU[\%]} & 模型参数量 \\
+                      & EN-DE  & EN-FR  &                                  \\ \hline
+Transformer Base（6层）     & 27.3            & 38.1            & 65$\times 10^{6}$                \\
+Transformer Big（6层）      & 28.4            & 41.8            & 213$\times 10^{6}$               \\
+Transformer Deep（48层） & 30.2            & 43.1            & 194$\times 10^{6}$              \\
+\end{tabular}
+\end{table}
+%----------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{推断}
+
+\parinterval Transformer解码器生成译文词序列的过程和其它神经机器翻译系统类似，都是从左往右生成，且下一个单词的预测依赖已经生成的单词。其具体推断过程如图\ref{fig:12-19}所示，其中$\mathbi{C}_i$是编码-解码注意力的结果，解码器首先根据“<sos>”和$\mathbi{C}_1$生成第一个单词“how”，然后根据“how”和$\mathbi{C}_2$生成第二个单词“are”，以此类推，当解码器生成“<eos>”时结束推断。
+
+\parinterval 但是，Transformer在推断阶段无法对所有位置进行并行化操作，因为对于每一个目标语单词都需要对前面所有单词进行注意力操作，因此它推断速度非常慢。可以采用的加速手段有：Cache（缓存需要重复计算的变量）\upcite{Vaswani2018Tensor2TensorFN}、低精度计算\upcite{DBLP:journals/corr/CourbariauxB16,Lin2020TowardsF8}、共享注意力网络等\upcite{Xiao2019SharingAW}。关于Transformer模型的推断加速方法将会在{\chapterfourteen}进一步深入讨论。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter12/Figures/figure-decode-of-transformer}
+\caption{Transformer模型的推断过程示例}
+\label{fig:12-19}
+\end{figure}
+%----------------------------------------------
+
+
+
+%----------------------------------------------------------------------------------------
+%    NEW SECTION  12.3
+%----------------------------------------------------------------------------------------
+\sectionnewpage
+\section{小结及拓展阅读}
+
+\parinterval 编码器­-解码器框架提供了一个非常灵活的机制，因为开发者只需要设计编码器和解码器的结构就能完成机器翻译。但是，架构的设计是深度学习中最具挑战的工
+作，优秀的架构往往需要长时间的探索和大量的实验验证，而且还需要一点点 “灵感”。前面介绍的基于循环神经网络的翻译模型和注意力机制就是研究人员通过长期
+的实践发现的神经网络架构。本章介绍了一个全新的模型\ \dash \ Transformer，同时对很多优秀的技术进行了介绍。除了基础知识，关于自注意力机制和模型结构还有很多值得讨论的地方：
+
+\begin{itemize}
+\vspace{0.5em}
+\item 近两年，有研究已经发现注意力机制可以捕捉一些语言现象\upcite{DBLP:journals/corr/abs-1905-09418}，比如，在Transformer 的多头注意力中，不同头往往会捕捉到不同的信息，比如，有些头对低频词更加敏感，有些头更适合词意消歧，甚至有些头可以捕捉句法信息。此外，由于注意力机制增加了模型的复杂性，而且随着网络层数的增多，神经机器翻译中也存在大量的冗余，因此研发轻量的注意力模型也是具有实践意义的方向\upcite{Xiao2019SharingAW,DBLP:journals/corr/abs-1805-00631,Lin2020WeightDT,DBLP:conf/iclr/WuLLLH20,Kitaev2020ReformerTE,DBLP:journals/corr/abs-2005-00743,dai-etal-2019-transformer,DBLP:journals/corr/abs-2004-05150,DBLP:conf/iclr/RaePJHL20}。
+\vspace{0.5em}
+\item 神经机器翻译依赖成本较高的GPU设备，因此对模型的裁剪和加速也是很多系统研发人员所感兴趣的方向。比如，从工程上，可以考虑减少运算强度，比如使用低精度浮点数\upcite{Ott2018ScalingNM} 或者整数\upcite{DBLP:journals/corr/abs-1906-00532,Lin2020TowardsF8}进行计算，或者引入缓存机制来加速模型的推断\upcite{Vaswani2018Tensor2TensorFN}；也可以通过对模型参数矩阵的剪枝来减小整个模型的体积\upcite{DBLP:journals/corr/SeeLM16}；另一种方法是知识蒸馏\upcite{Hinton2015Distilling,kim-rush-2016-sequence}。 利用大模型训练小模型，这样往往可以得到比单独训练小模型更好的效果\upcite{DBLP:journals/corr/ChenLCL17}。
+\vspace{0.5em}
+\item 自注意力网络作为Transformer模型中重要组成部分，近年来受到研究人员的广泛关注，尝试设计更高效地操作来替代它。比如，利用动态卷积网络来替换编码端与解码端的自注意力网络，在保证推断效率的同时取得了和Transformer相当甚至略好的翻译性能\upcite{Wu2019PayLA}；为了加速Transformer处理较长输入文本的效率，利用局部敏感哈希替换自注意力机制的Reformer模型也吸引了广泛的关注\upcite{Kitaev2020ReformerTE}。此外，在自注意力网络引入额外的编码信息能够进一步提高模型的表示能力。比如，引入固定窗口大小的相对位置编码信息\upcite{Shaw2018SelfAttentionWR,dai-etal-2019-transformer},或利用动态系统的思想从数据中学习特定的位置编码表示，具有更好的泛化能力\upcite{Liu2020LearningTE}。通过对Transformer模型中各层输出进行可视化分析，研究人员发现Transformer自底向上各层网络依次聚焦于词级-语法级-语义级的表示\upcite{Jawahar2019WhatDB,li2020shallow}，因此在底层的自注意力网络中引入局部编码信息有助于模型对局部特征的抽象\upcite{Yang2018ModelingLF,DBLP:journals/corr/abs-1904-03107}。
+\vspace{0.5em}
+\item 除了针对Transformer中子层的优化，网络各层之间的连接方式在一定程度上也能影响模型的表示能力。近年来针对网络连接优化的工作如下：在编码端顶部利用平均池化或权重累加等融合手段得到编码端各层的全局表示\upcite{Wang2018MultilayerRF,Bapna2018TrainingDN,Dou2018ExploitingDR,Wang2019ExploitingSC}，利用之前各层表示来生成当前层的输入表示\upcite{WangLearning,Dou2019DynamicLA,Wei2020MultiscaleCD}。
+\end{itemize}

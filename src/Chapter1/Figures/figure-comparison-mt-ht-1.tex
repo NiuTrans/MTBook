@@ -6,7 +6,7 @@
 \begin{tikzpicture}
 %第一段----------------------------------------------
 %原文-------------
-\node [pos=0.4,left,xshift=-0.4em,yshift=2.0em] (original1) {\scriptsize{源 \qquad 文：从前有一个小岛，上面住着快乐、悲哀、知识和爱，还有其他各种情感。一天，情感们得知}};
+\node [pos=0.4,left,xshift=-0.4em,yshift=2.0em] (original1) {\scriptsize{源\ \ 语\ \ 言：从前有一个小岛，上面住着快乐、悲哀、知识和爱，还有其他各种情感。一天，情感们得知}};
 \node [anchor=north west] (original1-1) at ([xshift=3.5em,yshift=0.3em]original1.south west)  {\scriptsize{小岛快要下沉了。于是，大家都准备船只，离开小岛，只有爱决定留下来，她想坚持到最后}};
 \node [anchor=north west] (original1-2) at ([yshift=0.3em]original1-1.south west)  {\scriptsize{一刻。过了几天，小岛真的要下沉了，爱想请人帮忙。}};
 %机器翻译--------------
@@ -27,17 +27,10 @@
 \node [anchor=north west] (ht1-3) at ([yshift=0.4em]ht1-2.south west) {\scriptsize{{\color{red}\underline{-mined to}} persist till the last moment.A few days later, almost the whole island sunk into the sea,}};
 
 \node [anchor=north west] (ht1-4) at ([yshift=0.4em]ht1-3.south west) {\scriptsize{and LOVE had to {\color{red}\underline{seek for help.}}}};
-%第二段--------------------------------
-%原文-------------
-\node[anchor=north west] (original4) at ([xshift=-3.5em,yshift=-0.3em]ht1-4.south west)  {\scriptsize{源 \qquad 文：这时，富裕乘着一艘大船经过。爱说：``富裕，你能带我走吗？''富裕 答道：``不，我的船中}};
-\node[anchor=north west] (original4-1) at ([xshift=3.5em,yshift=0.3em]original4.south west)  {\scriptsize{有许多金银财宝，没有你的位置。''爱看见虚荣在一艘华丽的小船上，说：``虚荣，帮帮我吧}};
-\node[anchor=north west] (original4-2) at ([yshift=0.3em]original4-1.south west)  {\scriptsize{！''``我帮不了你。你全身都湿透了，会弄坏我这漂亮的小船的。''悲哀来了，爱向他求助：``}};
-\node[anchor=north west] (original4-3) at ([yshift=0.3em]original4-2.south west)  {\scriptsize{悲哀，让我跟你去吧！''``哦，……爱，我实在太悲哀了，想自己一个人呆一会儿！''悲哀答}};
-\node[anchor=north west] (original4-4) at ([yshift=0.3em]original4-3.south west)  {\scriptsize{道。快乐走近爱的身边，但是她太快乐了，竟然没有听见爱在叫她！}};
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original1)(ht1)(mt1)(original4-4)] {};
+\node[rectangle,draw=ublue, inner sep=0mm] [fit =(original1)(ht1)(mt1)(ht1-4)] {};
 }
 \end{pgfonlayer}
 
