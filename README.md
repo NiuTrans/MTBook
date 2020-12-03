@@ -1,4 +1,4 @@
-# **机器翻译：统计建模与深度学习方法 (第二版)**
+# **机器翻译：统计建模与深度学习方法 (第二版) - 基础篇**
 # **Machine Translation: Statistical Modeling and Deep Learning Methods (2nd Version)**
 
 *作者：肖桐 (Tong Xiao)*    *朱靖波 (Jingbo Zhu)*
