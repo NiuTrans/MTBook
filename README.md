@@ -105,14 +105,14 @@
 10.  基于循环神经网络的模型
 * <a href="https://opensource.niutrans.com/mtbook/section10-1.html" title="神经机器翻译的发展简史">10.1 神经机器翻译的发展简史</a>
 * <a href="https://opensource.niutrans.com/mtbook/section10-2.html" title="编码器-解码器框架">10.2 编码器-解码器框架</a>
-* <a href="https://opensource.niutrans.com/mtbook/section10-3.html" title="基于循环神经网络的模型">10.3 基于循环神经网络的模型</a>
+* <a href="https://opensource.niutrans.com/mtbook/section10-3.html" title="基于循环神经网络的翻译建模">10.3 基于循环神经网络的翻译建模</a>
 * <a href="https://opensource.niutrans.com/mtbook/section10-4.html" title="注意力机制">10.4 注意力机制</a>
 * <a href="https://opensource.niutrans.com/mtbook/section10-5.html" title="训练及推断">10.5 训练及推断</a>
 * <a href="https://opensource.niutrans.com/mtbook/section10-6.html" title="小结及拓展阅读">10.6 小结及拓展阅读</a>
 
 11.  基于卷积神经网络的模型
   * <a href="https://opensource.niutrans.com/mtbook/section11-1.html" title="卷积神经网络">11.1 卷积神经网络</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section11-2.html" title="基于卷积神经网络的模型">11.2 基于卷积神经网络的模型</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section11-2.html" title="基于卷积神经网络的翻译建模">11.2 基于卷积神经网络的翻译建模</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-3.html" title="局部模型的改进">11.3 局部模型的改进</a>
   * <a href="https://opensource.niutrans.com/mtbook/section11-4.html" title="小结及拓展阅读">11.4 小结及拓展阅读</a>
 
