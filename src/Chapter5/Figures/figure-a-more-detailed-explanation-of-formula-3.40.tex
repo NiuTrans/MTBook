@@ -9,8 +9,8 @@
 \begin{tikzpicture}
 
 \node [anchor=west,inner sep=2pt,minimum height=2em] (eq1) at (0,0) {$f(s_u|t_v)$};
-\node [anchor=west,inner sep=2pt] (eq2) at ([xshift=-2pt]eq1.east) {$=$};
-\node [anchor=west,inner sep=2pt,minimum height=2em] (eq3) at ([xshift=-2pt]eq2.east) {$\lambda_{t_v}^{-1}$};
+\node [anchor=west,inner sep=2pt] (eq2) at ([xshift=-1pt]eq1.east) {$=$};
+\node [anchor=west,inner sep=2pt,minimum height=2em] (eq3) at ([xshift=-1pt]eq2.east) {$\lambda_{t_v}^{-1}$};
 \node [anchor=west,inner sep=2pt,minimum height=3.0em] (eq4) at ([xshift=-3pt]eq3.east) {\footnotesize{$\frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)$}};
 \node [anchor=west,inner sep=2pt,minimum height=3.0em] (eq5) at ([xshift=1pt]eq4.east) {\footnotesize{$\sum\limits_{j=1}^{m} \delta(s_j,s_u) \sum\limits_{i=0}^{l} \delta(t_i,t_v)$}};
 \node [anchor=west,inner sep=2pt,minimum height=3.0em] (eq6) at ([xshift=1pt]eq5.east) {$\frac{f(s_u|t_v)}{\sum_{i=0}^{l}f(s_u|t_i)}$};
@@ -27,7 +27,7 @@
 }
 
 {
-\node [anchor=south west,inner sep=2pt] (label1) at (eq4.north west) {{\scriptsize{翻译概率$\textrm{P}(\mathbf{s}|\mathbf{t})$}}};
+\node [anchor=south west,inner sep=2pt] (label1) at (eq4.north west) {{\scriptsize{翻译概率$\funp{P}(\seq{s}|\seq{t})$}}};
 }
 {
 \node [anchor=south west,inner sep=2pt] (label2) at (eq5.north west) {{\scriptsize{配对的总次数}}};

@@ -71,15 +71,6 @@
 \vspace{0.5em}
 \end{itemize}
 
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-	\input{./Chapter4/Figures/figure-logic-diagram-of-translation-quality-evaluation-method}
-   \caption{译文质量评价方法逻辑图}
-   \label{fig:4-2}
-\end{figure}
-%----------------------------------------------
-
 \parinterval 针对以上问题，研究人员设计出多种不同的译文质量评价方法。根据人工参与方式的不同，可以分为人工评价、有参考答案的自动评价、无参考答案的自动评价。这些方法也对应了不同的使用场景。
 
 \begin{itemize}
@@ -93,6 +84,15 @@
 \end{itemize}
 
 \parinterval 图\ref{fig:4-2}给出了机器翻译译文评价方法的逻辑关系图。需要注意的是，很多时候，译文质量评价结果是用于机器翻译系统优化的。在随后的章节中也会看到，译文评价的结果会被用于不同的机器翻译模型优化中。甚至很多统计指标（如极大似然估计）也可以被看作是一种对译文的“评价”，这样就可以把机器翻译的建模和译文评价联系在了一起。本章的后半部分将重点介绍传统的译文质量评价方法。与译文质量评价相关的模型优化方法将会在后续章节详细论述。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+	\input{./Chapter4/Figures/figure-logic-diagram-of-translation-quality-evaluation-method}
+   \caption{译文质量评价方法逻辑图}
+   \label{fig:4-2}
+\end{figure}
+%----------------------------------------------
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -109,7 +109,7 @@
 
 \subsection{评价策略}
 
-\parinterval 合理的评价指标是人工评价得以顺利进行的基础。机器译文质量的人工评价可以追溯到1966年，自然语言处理咨询委员会提出{\small\sffamily\bfseries{可理解度}}\index{可理解度}（Intelligibility）\index{Intelligibility}和忠诚度作为机器译文质量人工评价指标\upcite{DBLP:journals/mtcl/Carroll66}。1994 年，{\small\sffamily\bfseries{充分性}}\index{充分性}（Adequacy）\index{Adequacy}、流畅度和{\small\sffamily\bfseries{信息性}}\index{信息性}（Informativeness）\index{Informativeness}成为为ARPA MT\footnote{ARPA MT计划是美国高级研究计划局软件和智能系统技术处人类语言技术计划的一部分。}的人工评价标准\upcite{DBLP:conf/amta/WhiteOO94}。此后，有不少研究者提出了更多的机器译文质量人工评估指标，例如将{\small\sffamily\bfseries{清晰度}}\index{清晰度}（Clarity）\index{Clarity}和{\small\sffamily\bfseries{连贯性}}\index{连贯性}（Coherence）\index{Coherence}加入人工评价指标中\upcite{Miller:2005:MTS}。甚至有人将各种人工评价指标集中在一起，组成了尽可能全面的机器翻译评估框架\upcite{king2003femti}。
+\parinterval 合理的评价指标是人工评价得以顺利进行的基础。机器译文质量的人工评价可以追溯到1966年，自然语言处理咨询委员会提出{\small\sffamily\bfseries{可理解度}}\index{可理解度}（Intelligibility）\index{Intelligibility}和忠诚度作为机器译文质量人工评价指标\upcite{DBLP:journals/mtcl/Carroll66}。1994 年，{\small\sffamily\bfseries{充分性}}\index{充分性}（Adequacy）\index{Adequacy}、流畅度和{\small\sffamily\bfseries{信息性}}\index{信息性}（Informativeness）\index{Informativeness}成为ARPA MT\footnote{ARPA MT计划是美国高级研究计划局软件和智能系统技术处人类语言技术计划的一部分。}的人工评价标准\upcite{DBLP:conf/amta/WhiteOO94}。此后，有不少研究者提出了更多的机器译文质量人工评估指标，例如将{\small\sffamily\bfseries{清晰度}}\index{清晰度}（Clarity）\index{Clarity}和{\small\sffamily\bfseries{连贯性}}\index{连贯性}（Coherence）\index{Coherence}加入人工评价指标中\upcite{Miller:2005:MTS}。甚至有人将各种人工评价指标集中在一起，组成了尽可能全面的机器翻译评估框架\upcite{king2003femti}。
 
 \parinterval 人工评价的策略非常多。考虑不同的因素，往往会使用不同的评价方案，比如：
 
@@ -119,7 +119,7 @@
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{评价者选择}}。理想情况下，评价者应同时具有源语言和目标语言的语言能力。但是，很多时候具备双语能力的评价者很难招募，因此这时会考虑使用目标语为母语的评价者。配合参考答案，单语评价者也可以准确地评价译文质量。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{多个系统同时评价}}。如果有多个不同系统的译文需要评价，可以直接使用每个系统单独打分的方法。但是，如果仅仅是想了解不同译文之间的相对好坏，也可以采用竞评的方式，即对于每个句子，对不同系统根据译文质量进行排序，这样做的效率会高于直接打分，而且评价准确性也能够得到保证。
+\item {\small\sffamily\bfseries{多个系统同时评价}}。如果有多个不同系统的译文需要评价，可以直接使用每个系统单独打分的方法。但是，如果仅仅是想了解不同译文之间的相对好坏，也可以采用竞评的方式：对每个待翻译的源语言句子，根据各个机器翻译系统输出的译文质量对所有待评价的机器翻译系统进行排序，这样做的效率会高于直接打分，而且评价准确性也能够得到保证。
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{数据选择}}。评价数据一般需要根据目标任务进行采集，为了避免和系统训练数据重复，往往会搜集最新的数据。而且，评价数据的规模越大，评价结果越科学。常用的做法是搜集一定量的评价数据，之后从中采样出所需的数据。由于不同的采样会得到不同的评价集合，这样的方法可以复用多次，得到不同的测试集。
 \vspace{0.5em}
@@ -137,33 +137,32 @@
 
 \parinterval 除了对译文进行简单的打分，另一种经典的人工评价方法是{\small\sffamily\bfseries{相对排序}}\index{相对排序}（Relative Ranking，RR）\index{Relative Ranking}\upcite{DBLP:conf/wmt/Callison-BurchF07}。这种方法通过对不同机器翻译的译文质量进行相对排序得到最终的评价结果。举例来说：
 
-\parinterval （1）在每次评价过程中，若干个等待评价的机器翻译系统被分为5个一组，评价者被提供3个连续的源文片段和1组机器翻译系统的相应译文；
-
-\parinterval （2）评价者需要对本组的机器译文根据其质量进行排序，不过评价者并不需要一次性将5个译文排序，而是将其两两进行比较，判出胜负或是平局。在评价过程中，由于排序是两两一组进行的，为了评价的公平性，将采用排列组合的方式进行分组和比较，若共有$n$个机器翻译系统，则会为被分为 $\textrm{C}_n^5$组，组内每个系统都将与其他4个系统进行比较，由于需要针对3个源文片段进行评价对比，则意味着每个系统都需要被比较$\textrm{C}_n^5 \times 4 \times 3$次；
-
-\parinterval （3）最终根据多次比较的结果，对所有参与评价的系统进行总体排名。对于如何获取合理的总体排序，有三种常见的策略：
-
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{根据系统胜出的次数进行排序}}\upcite{DBLP:conf/wmt/Callison-BurchK12}。以系统${S}_j$和系统${S}_k$为例，两个系统都被比较了$\textrm{C}_n^5 \times 4 \times 3$ 次，其中系统${S}_j$获胜20次，系统${S}_k$获胜30次，总体排名中系统${S}_k$优于系统${S}_j$。
+\item 在每次评价过程中，若干个等待评价的机器翻译系统被分为5个一组，评价者被提供3个连续的源文片段和1组机器翻译系统的相应译文；
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{根据冲突次数进行排序}}\upcite{DBLP:conf/wmt/Lopez12}。第一种排序策略中存在冲突现象：例如在每次两两比较中，系统${S}_j$胜过系统${S}_k$ 的次数比系统${S}_j$不敌系统${S}_k$的次数多，若待评价系统仅有系统${S}_j$、${S}_k$，显然系统${S}_j$的排名高于系统${S}_k$。但当待评价系统很多时，可能系统${S}_j$在所有比较中获胜的次数低于系统${S}_k$，此时就出现了总体排序与局部排序不一致的冲突。因此，有研究者提出，能够与局部排序冲突最少的总体排序才是最合理的。令$O$表示一个对若干个系统的排序，该排序所对应的冲突定义为：
+\item 评价者需要对本组的机器译文根据其质量进行排序，不过评价者并不需要一次性将5个译文排序，而是将其两两进行比较，判出胜负或是平局。在评价过程中，由于排序是两两一组进行的，为了评价的公平性，将采用排列组合的方式进行分组和比较，若共有$n$个机器翻译系统，则会为被分为 $\textrm{C}_n^5$组，组内每个系统都将与其他4个系统进行比较，由于需要针对3个源文片段进行评价对比，则意味着每个系统都需要被比较$\textrm{C}_n^5 \times 4 \times 3$次；
+\vspace{0.5em}
+\item 最终根据多次比较的结果，对所有参与评价的系统进行总体排名。对于如何获取合理的总体排序，有三种常见的策略：
+    \begin{itemize}
+    \item {\small\sffamily\bfseries{根据系统胜出的次数进行排序}}\upcite{DBLP:conf/wmt/Callison-BurchK12}。以系统${S}_j$和系统${S}_k$为例，两个系统都被比较了$\textrm{C}_n^5 \times 4 \times 3$ 次，其中系统${S}_j$获胜20次，系统${S}_k$获胜30次，总体排名中系统${S}_k$优于系统${S}_j$。
+    \item  {\small\sffamily\bfseries{根据冲突次数进行排序}}\upcite{DBLP:conf/wmt/Lopez12}。第一种排序策略中存在冲突现象：例如在每次两两比较中，系统${S}_j$胜过系统${S}_k$ 的次数比系统${S}_j$不敌系统${S}_k$的次数多，若待评价系统仅有系统${S}_j$、${S}_k$，显然系统${S}_j$的排名高于系统${S}_k$。但当待评价系统很多时，可能系统${S}_j$在所有比较中获胜的次数低于系统${S}_k$，此时就出现了总体排序与局部排序不一致的冲突。因此，有研究者提出，能够与局部排序冲突最少的总体排序才是最合理的。令$O$表示一个对若干个系统的排序，该排序所对应的冲突定义为：
+
 \begin{eqnarray}
-\textrm{conflict}(O) = \sum\limits_{{{S}_j} \in O,{{S}_k} \in O,j \ne k} {{\textrm{max}}(0,\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) - \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k}))}
+\textrm{conflict}(O) =\sum\limits_{{{S}_j},{{S}_k} \in O,j \ne k} {{\textrm{max}}(0,\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) - \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k}))}
 \label{eq:4-1}
 \end{eqnarray}
 
-    其中，${S}_j$和${S}_k$是成对比较的两个系统，$\textrm{count}_{\textrm{win}}({S}_j,{S}_k)$和$\textrm{count}_{\textrm{loss}}({S}_j,{S}_k)$分别是${S}_j$、${S}_k$进行成对比较时系统${S}_j$ 胜利和失败的次数。而使得$\textrm{conflict}(O)$最低的$O$就是最终的系统排序结果。
+其中，${S}_j$和${S}_k$是成对比较的两个系统，$\textrm{count}_{\textrm{win}}({S}_j,{S}_k)$和$\textrm{count}_{\textrm{loss}}({S}_j,{S}_k)$分别是${S}_j$、${S}_k$进行成对比较时系统${S}_j$ 胜利和失败的次数。而使得$\textrm{conflict}(O)$最低的$O$就是最终的系统排序结果。
+    \item {\small\sffamily\bfseries{根据某系统最终获胜的期望进行排序}}\upcite{DBLP:conf/iwslt/Koehn12}。以系统${S}_j$为例，若共有$n$个待评价的系统，则进行总体排序时系统 ${S}_j$ 的得分为其最终获胜的期望，即：
 
-\vspace{0.5em}
-\item {\small\sffamily\bfseries{根据某系统最终获胜的期望进行排序}}\upcite{DBLP:conf/iwslt/Koehn12}。以系统${S}_j$为例，若共有$n$个待评价的系统，则进行总体排序时系统 ${S}_j$ 的得分为其最终获胜的期望，即：
 \begin{eqnarray}
-\textrm{score}({{S}_j}) = \frac{1}{n}\sum\limits_{k,k \ne j} {\frac{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k})}{{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) + \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k})}}}
+\textrm{score}({{S}_j}) &=& \frac{1}{n}\sum\limits_{k,k \ne j} {\frac{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k})}{{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) + \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k})}}}
 \label{eq:4-2}
 \end{eqnarray}
 
 根据公式\eqref{eq:4-2}可以看出，该策略去除了平局的影响。
-
+    \end{itemize}
 \vspace{0.5em}
 \end{itemize}
 
@@ -199,7 +198,7 @@
 
 \parinterval TER是一种典型的基于距离的评价方法，通过评定机器译文的译后编辑工作量来衡量机器译文质量。在这里“距离”被定义为将一个序列转换成另一个序列所需要的最少编辑操作次数，操作次数越多，距离越大，序列之间的相似性越低；相反距离越小，表示一个句子越容易改写成另一个句子，序列之间的相似性越高。TER 使用的编辑操作包括：增加、删除、替换和移位。其中增加、删除、替换操作计算得到的距离被称为编辑距离。TER根据错误率的形式给出评分：
 \begin{eqnarray}
-\textrm{score}= \frac{\textrm{edit}(o,g)}{l}
+\textrm{score}&=& \frac{\textrm{edit}(o,g)}{l}
 \label{eq:4-3}
 \end{eqnarray}
 
@@ -214,7 +213,7 @@
 
 \parinterval 在这个实例中，将机器译文序列转换为参考答案序列，需要进行两次替换操作，将“A” 替换为“The”，将“in” 替换为“on”。所以$\textrm{edit}(c,r)$ = 2，归一化因子$l$为参考答案的长度8（包括标点符号），所以该机器译文的TER 结果为2/8。
 
-\parinterval PER与TER的基本思想与WER相同，这三种方法的主要区别在于对“错误” 的定义和考虑的操作类型略有不同。WER使用的编辑操作包括：增加、删除、替换，由于没有移位操作，当机器译文出现词序问题时，会发生多次替代，因而一般会低估译文质量；而PER只考虑增加和删除两个动作，在不考虑词序的情况下，PER计算两个句子中出现相同单词的次数，根据翻译句子比参考答案长或短，其余操作无非是插入词或删除词，这样往往会高估译文质量。
+\parinterval PER与TER的基本思想与WER相同，这三种方法的主要区别在于对“错误” 的定义和考虑的操作类型略有不同。WER使用的编辑操作包括：增加、删除、替换，由于没有移位操作，当机器译文出现词序问题时，会发生多次替代，因而一般会低估译文质量；而PER只考虑增加和删除两个动作，在不考虑词序的情况下，PER计算两个句子中出现相同单词的次数，根据机器译文与参考答案的长度差距，其余操作无非是插入词或删除词，这样往往会高估译文质量。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -226,7 +225,7 @@
 
 \parinterval BLEU 的计算首先考虑待评价机器译文中$n$-gram在参考答案中的匹配率，称为{\small\sffamily\bfseries{$\bm{n}$-gram准确率}}\index{$\{n}$-gram准确率}（$n$-gram Precision）\index{$n$-gram Precision}。其计算方法如下：
 \begin{eqnarray}
-\funp{P}_{n} = \frac{{{\textrm{coun}}{{\textrm{t}}_{{\textrm{hit}}}}}}{{{\textrm{coun}}{{\textrm{t}}_{{\textrm{output}}}}}}
+\funp{P}_{n} &=& \frac{{{\textrm{coun}}{{\textrm{t}}_{{\textrm{hit}}}}}}{{{\textrm{coun}}{{\textrm{t}}_{{\textrm{output}}}}}}
 \label{eq:4-4}
 \end{eqnarray}
 
@@ -243,13 +242,13 @@
 
 \parinterval 令$N$表示考虑的最大$n$-gram的大小，则译文整体的准确率等于各$n$-gram的加权平均：
 \begin{eqnarray}
-{\funp{P}_{{\textrm{avg}}}} = \exp (\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\log\funp{P}}\nolimits} }_n}} )
+{\funp{P}_{{\textrm{avg}}}} &=& \exp (\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\log\funp{P}}\nolimits} }_n}} )
 \label{eq:4-5}
 \end{eqnarray}
 
 \parinterval 但是，该方法更倾向于对短句子打出更高的分数。一个极端的例子是译文只有很少的几个词，但是都命中答案，准确率很高可显然不是好的译文。因此，BLEU 引入{\small\sffamily\bfseries{短句惩罚因子}}\index{短句惩罚因子}（Brevity Penalty，BP）\index{Brevity Penalty}的概念，对短句进行惩罚:
 \begin{eqnarray}
-\textrm {BP} = \left\{ \begin{array}{l}
+\textrm {BP} &=& \left\{ \begin{array}{l}
 1\quad \quad \;\;c > r\\
 {\textrm{exp}}(1 - \frac{r}{c})\quad c \le r
 \end{array} \right.
@@ -258,7 +257,7 @@
 
 \noindent 其中，$c$表示机器译文的句子长度，$r$表示参考答案的句子长度。最终BLEU的计算公式为：
 \begin{eqnarray}
-\textrm {BLEU} = \textrm {BP} \cdot \exp(\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\textrm {log}}\nolimits} }\funp{P}_n}} )
+\textrm {BLEU} &=& \textrm {BP} \cdot \exp(\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\textrm {log}}\nolimits} }\funp{P}_n}} )
 \label{eq:4-7}
 \end{eqnarray}
 
@@ -289,24 +288,22 @@
 
 \parinterval 在Meteor方法中，首先在机器译文与参考答案之间建立单词之间的对应关系，再根据其对应关系计算准确率和召回率。
 
-\parinterval （1）单词之间的对应关系在建立过程中主要涉及三个模型，在对齐过程中依次使用这三个模型进行匹配：
-
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{“绝对”匹配模型}}\index{“绝对”匹配模型}（Exact Model）\index{Exact Model}。绝对匹配模型在建立单词对应关系时，要求机器译文端的单词与参考答案端的单词完全一致，并且在参考答案端至多有1个单词与机器译文端的单词对应，否则会将其视为多种对应情况。对于实例\ref{eg:4-2}，使用“绝对”匹配模型，共有两种匹配结果，如图\ref{fig:4-3}所示。
+\item 在机器译文与参考答案之间建立单词之间的对应关系。单词之间的对应关系在建立过程中主要涉及三个模型，在对齐过程中依次使用这三个模型进行匹配：
+    \begin{itemize}
+    \item {\small\sffamily\bfseries{“绝对”匹配模型}}\index{“绝对”匹配模型}（Exact Model）\index{Exact Model}。绝对匹配模型在建立单词对应关系时，要求机器译文端的单词与参考答案端的单词完全一致，并且在参考答案端至多有1个单词与机器译文端的单词对应，否则会将其视为多种对应情况。对于实例\ref{eg:4-2}，使用“绝对”匹配模型，共有两种匹配结果，如图\ref{fig:4-3}所示。
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-	\subfigure[“绝对”匹配词对齐-1]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-1}}
-	\subfigure[“绝对”匹配词对齐-2]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-2}}
+	\subfigure[\small{“绝对”匹配词对齐-1}]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-1}}
+	\subfigure[\small{“绝对”匹配词对齐-2}]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-2}}
    \caption{“绝对”匹配模型}
    \label{fig:4-3}
 \end{figure}
 %----------------------------------------------
-
-\vspace{0.5em}
-\item {\small\sffamily\bfseries{“波特词干”匹配模型}}\index{“波特词干”匹配模型}（Porter Stem Model）\index{Porter Stem Model}。该模型在“绝对”匹配结果的基础上，对尚未对齐的单词进行基于词干的匹配，只需机器译文端单词与参考答案端单词的词干相同即可，如上文中的“do”和“did”。对于图\ref{fig:4-3}的结果，再使用“波特词干” 匹配模型，得到如图\ref{fig:4-4}所示的结果。
+    \item  {\small\sffamily\bfseries{“波特词干”匹配模型}}\index{“波特词干”匹配模型}（Porter Stem Model）\index{Porter Stem Model}。该模型在“绝对”匹配结果的基础上，对尚未对齐的单词进行基于词干的匹配，只需机器译文端单词与参考答案端单词的词干相同即可，如上文中的“do”和“did”。对于图\ref{fig:4-3}中显示的词对齐结果，再使用“波特词干” 匹配模型，得到如图\ref{fig:4-4}所示的结果。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -316,9 +313,7 @@
     \label{fig:4-4}
 \end{figure}
 %----------------------------------------------
-
-\vspace{0.5em}
-\item {\small\sffamily\bfseries{“同义词”匹配模型}}\index{“同义词”匹配模型}（WN Synonymy Model）\index{WN Synonymy Model}。该模型在前两个模型匹配结果的基础上，对尚未对齐的单词进行同义词的匹配，即基于WordNet词典匹配机器译文与参考答案中的同义词。如上例中的“eat”和“have”。图\ref{fig:4-5}给出了一个真实的例子。
+    \item {\small\sffamily\bfseries{“同义词”匹配模型}}\index{“同义词”匹配模型}（WN Synonymy Model）\index{WN Synonymy Model}。该模型在前两个模型匹配结果的基础上，对尚未对齐的单词进行同义词的匹配，即基于WordNet词典匹配机器译文与参考答案中的同义词。如实例\ref{eg:4-2}中的“eat”和“have”。图\ref{fig:4-5}给出了一个真实的例子。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -328,11 +323,8 @@
     \label{fig:4-5}
 \end{figure}
 %----------------------------------------------
-
-\vspace{0.5em}
-\end{itemize}
-
-\parinterval 经过上面的处理，可以得到机器译文与参考答案之间的单词对齐关系。下一步需要从中确定一个拥有最大的子集的对齐关系，即机器译文中被对齐的单词个数最多的对齐关系。但是在上例中的两种对齐关系子集基数相同，这种情况下，需要选择一个对齐关系中交叉现象出现最少的对齐关系。于是，最终的对齐关系如图\ref{fig:4-6}所示。
+    \end{itemize}
+经过上面的处理，可以得到机器译文与参考答案之间的单词对齐关系。下一步需要从中确定一个拥有最大的子集的对齐关系，即机器译文中被对齐的单词个数最多的对齐关系。但是在上例中的两种对齐关系子集基数相同，这种情况下，需要选择一个对齐关系中交叉现象出现最少的对齐关系。于是，最终的对齐关系如图\ref{fig:4-6}所示。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -342,36 +334,39 @@
   	 \label{fig:4-6}
 \end{figure}
 %----------------------------------------------
+\vspace{0.5em}
+\item 在得到机器译文与参考答案的对齐关系后，需要基于对齐关系计算准确率和召回率。
 
-\parinterval （2）在得到机器译文与参考答案的对齐关系后，需要基于对齐关系计算准确率和召回率。
-
-\parinterval 准确率：机器译文中命中单词数与机器译文单词总数的比值。即：
+准确率：机器译文中命中单词数与机器译文单词总数的比值。即：
 \begin{eqnarray}
-\funp{P} = \frac {\textrm{count}_{\textrm{hit}}}{\textrm{count}_{\textrm{candidate}}}
+\funp{P} &=& \frac {\textrm{count}_{\textrm{hit}}}{\textrm{count}_{\textrm{candidate}}}
 \label{eq:4-8}
 \end{eqnarray}
 
-\parinterval 召回率：机器译文中命中单词数与参考答案单词总数的比值。即：
+召回率：机器译文中命中单词数与参考答案单词总数的比值。即：
 \begin{eqnarray}
-\funp{R} = \frac {\textrm{count}_{\textrm{hit}}}{\textrm{count}_{\textrm{reference}}}
+\funp{R} &=& \frac {\textrm{count}_{\textrm{hit}}}{\textrm{count}_{\textrm{reference}}}
 \label{eq:4-9}
 \end{eqnarray}
 
-\parinterval 接下来，计算机器译文的得分。利用{\small\sffamily\bfseries{调和均值}}\index{调和均值}（Harmonic-mean）\index{Harmonic-mean}将准确率和召回率结合起来，并加大召回率的重要性将其权重调大，例如将召回率的权重设置为9：
+\vspace{0.5em}
+\item 最后，计算机器译文的得分。利用{\small\sffamily\bfseries{调和均值}}\index{调和均值}（Harmonic-mean）\index{Harmonic-mean}将准确率和召回率结合起来，并加大召回率的重要性将其权重调大，例如将召回率的权重设置为9：
 \begin{eqnarray}
-{F_{\textrm mean}} = \frac {10\funp{PR}}{\funp{R+9P}}
+{F_{\textrm mean}} &=& \frac {10\funp{PR}}{\funp{R+9P}}
 \label{eq:4-10}
 \end{eqnarray}
+\vspace{0.5em}
+\end{itemize}
 
-\parinterval 在上文提到的评价指标中，无论是准确率、召回率还是$\textrm F_{mean}$，都是基于单个词汇信息衡量译文质量，而忽略了语序问题。为了将语序问题考虑进来，Meteor会考虑更长的匹配：将机器译文按照最长匹配长度分块，并对“块数”较多的机器译文给予惩罚。例如上例中，机器译文被分为了三个“块”——“Can I have it”、“like he”、“？”在这种情况下，看起来上例中的准确率、召回率都还不错，但最终会受到很严重的惩罚。这种罚分机制能够识别出机器译文中的词序问题，因为当待测译文词序与参考答案相差较大时，机器译文将会被分割得比较零散，这种惩罚机制的计算公式如式\eqref{eq:4-11}，其中$\textrm {count}_{\textrm{chunks}}$表示匹配的块数。
+\parinterval 在上文提到的评价指标中，无论是准确率、召回率还是$\textrm F_{mean}$，都是基于单个词汇信息衡量译文质量，而忽略了语序问题。为了将语序问题考虑进来，Meteor会考虑更长的匹配：将机器译文按照最长匹配长度分块，并对“块数”较多的机器译文给予惩罚。例如图\ref{fig:4-6}显示的最终词对齐结果中，机器译文被分为了三个“块”——“Can I have it”、“like he”、“？”在这种情况下，看起来上例中的准确率、召回率都还不错，但最终会受到很严重的惩罚。这种罚分机制能够识别出机器译文中的词序问题，因为当待测译文词序与参考答案相差较大时，机器译文将会被分割得比较零散，这种惩罚机制的计算公式如式\eqref{eq:4-11}，其中$\textrm {count}_{\textrm{chunks}}$表示匹配的块数。
 \begin{eqnarray}
-\textrm {Penalty} = 0.5 \cdot {\left({\frac{{\textrm {count}}_{\textrm {chunks}}}{\textrm {count}_{\textrm{hit}}}} \right)^3}
+\textrm {Penalty} &=& 0.5 \cdot {\left({\frac{{\textrm {count}}_{\textrm {chunks}}}{\textrm {count}_{\textrm{hit}}}} \right)^3}
 \label{eq:4-11}
 \end{eqnarray}
 
 \parinterval Meteor评价方法的最终评分为：
 \begin{eqnarray}
-\textrm {score} = { F_{\textrm mean}} \cdot {(1 - \textrm {Penalty})}
+\textrm {score} &=& { F_{\textrm mean}} \cdot {(1 - \textrm {Penalty})}
 \label{eq:4-12}
 \end{eqnarray}
 
@@ -454,7 +449,7 @@ His house is on the south bank of the river.
 
 \subsubsection{1.增大参考答案集}
 
-\parinterval BLEU、Meteor、TER等自动评价方法的结果往往与人工评价结果存在差距，一个主要原因是这些自动评价方法通过直接比对机器译文与有限的参考答案之间的“外在差异”，由于参考答案集可覆盖的人类译文数量过少，当机器译文本来十分合理但却未被包含在参考答案集中时，就会将其质量过分低估。
+\parinterval BLEU、Meteor、TER等自动评价方法的结果往往与人工评价结果存在差距。这些自动评价方法直接比对机器译文与有限数量的参考答案之间的“外在差异”，由于参考答案集可覆盖的人类译文数量过少，当机器译文本来十分合理但却未被包含在参考答案集中时，其质量就会被过分低估。
 
 \parinterval 针对这个问题，HyTER自动评价方法致力于得到所有可能译文的紧凑编码，从而实现自动评价过程中访问所有合理的译文\upcite{DBLP:conf/naacl/DreyerM12}。这种评价方法的原理非常简单直观：
 
@@ -472,7 +467,7 @@ His house is on the south bank of the river.
 \vspace{0.5em}
 \item 通过已有同义单元和附加单词的组合用于覆盖更大的语言片段。在生成参考答案时就是采用这种方式不断覆盖更大的语言片段，直到将所有可能的参考答案覆盖进去。例如可以将短语[THE-SUPPORT-RATE]与“the proposal”组合为“[THE-SUPPORT-RATE] for the proposal”。
 \vspace{0.5em}
-\item 利用同义单元的组合将所有所有合理的人类译文都编码出来。中文句子“对提案的支持率接近于0”翻译为英文，其可能的参考答案被编码成：
+\item 利用同义单元的组合将所有所有合理的人类译文都编码出来。将中文句子“对提案的支持率接近于 0”翻译为英文，图\ref{fig:4-7}展示了其参考答案的编码结果。
 \vspace{0.5em}
 \end{itemize}
 
@@ -485,7 +480,7 @@ His house is on the south bank of the river.
 \end{figure}
 %----------------------------------------------
 
-\parinterval 从上面的例子中可以看出，HyTER方法通过构造同义单元的方式，可以列举出译文中每个片段的所有可能的表达方式，从而增大参考答案的数量，上例中的每一条路径都代表一个参考答案。但是这种对参考答案集的编码方式存在问题，同义单元之间的组合往往存在一定的限制关系\upcite{DBLP:conf/tsd/BojarMTZ13}，使用HyTER方法会导致参考答案集中包含有错误的参考答案。
+\parinterval 从图\ref{fig:4-7}中可以看出，HyTER方法通过构造同义单元的方式，可以列举出译文中每个片段的所有可能的表达方式，从而增大参考答案的数量，图\ref{fig:4-7}中的每一条路径都代表一个参考答案。但是这种对参考答案集的编码方式存在问题，同义单元之间的组合往往存在一定的限制关系\upcite{DBLP:conf/tsd/BojarMTZ13}，使用HyTER方法会导致参考答案集中包含有错误的参考答案。
 
 \begin{example}
 将中文“市政府批准了一项新规定”分别翻译为英语和捷克语，使用HyTER构造的参考答案集分别如图\ref{fig:4-8}(a)和(b)所示\upcite{DBLP:conf/tsd/BojarMTZ13}：
@@ -495,8 +490,8 @@ His house is on the south bank of the river.
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\subfigure[英语参考答案集表示]{\input{./Chapter4/Figures/figure-representation-of-english-reference-answer-set}}
-\subfigure[捷克语参考答案集表示]{\input{./Chapter4/Figures/figure-representation-of-czech-reference-answer-set}}
+\subfigure[\small{英语参考答案集表示}]{\input{./Chapter4/Figures/figure-representation-of-english-reference-answer-set}}
+\subfigure[\small{捷克语参考答案集表示}]{\input{./Chapter4/Figures/figure-representation-of-czech-reference-answer-set}}
    \caption{使用HyTER构造的参考答案集}
    \label{fig:4-8}
 \end{figure}
@@ -524,7 +519,7 @@ His house is on the south bank of the river.
 
 \parinterval {\small\bfnew{词嵌入}}\index{词嵌入}（Word Embedding\index{Word Embedding}）技术是近些年自然语言处理中的重要成果，其思想是把每个单词映射为多维实数空间中的一个点（具体表现为一个实数向量），这种技术也被称作单词的{\small\bfnew{分布式表示}}\index{分布式表示}（Distributed Representation\index{Distributed Representation}）。在这项技术中，单词之间的关系可以通过空间的几何性质进行刻画，意义相近的单词之间的欧式距离也十分相近（单词分布式表示的具体内容，将在书的{\chapternine} 详细介绍，在此不再赘述）。
 
-\parinterval 受词嵌入技术的启发，研究人员尝试借助参考答案和机器译文的分布式表示来进行译文质量评价，为译文质量评价提供了新思路。在自然语言的上下文中，表示是与每个单词、句子或文档相关联的数学对象。这个对象通常是一个向量，其中每个元素的值在某种程度上描述了相关单词、句子或文档的语义或句法属性。基于这个想法，研究人员提出了{\small\sffamily\bfseries{分布式表示评价度量}}\index{分布式表示评价度量}（Distributed Representations Evaluation Metrics，DREEM）\index{Distributed Representations Evaluation Metrics}\upcite{DBLP:conf/acl/ChenG15}。这种方法将单词或句子的分布式表示映射到连续的低维空间，发现在该空间中，具有相似句法和语义属性的单词彼此接近，类似的结论也出现在相关工作中，如参考文献\cite{bengio2003a,DBLP:conf/emnlp/SocherPHNM11,DBLP:conf/emnlp/SocherPWCMNP13}所示。而这个特点可以被应用到译文质量评估中。
+\parinterval 受词嵌入技术的启发，研究人员尝试借助参考答案和机器译文的分布式表示来进行译文质量评价，为译文质量评价提供了新思路。在自然语言的上下文中，表示是与每个单词、句子或文档相关联的数学对象。这个对象通常是一个向量，其中每个元素的值在某种程度上描述了相关单词、句子或文档的语义或句法属性。基于这个想法，研究人员提出了{\small\sffamily\bfseries{分布式表示评价度量}}\index{分布式表示评价度量}（Distributed Representations Evaluation Metrics，DREEM）\index{DREEM}\upcite{DBLP:conf/acl/ChenG15}。这种方法将单词或句子的分布式表示映射到连续的低维空间，发现在该空间中，具有相似句法和语义属性的单词彼此接近，类似的结论也出现在相关工作中，如参考文献\cite{bengio2003a,DBLP:conf/emnlp/SocherPHNM11,DBLP:conf/emnlp/SocherPWCMNP13}所示。而这个特点可以被应用到译文质量评估中。
 
 \parinterval 在DREEM中，分布式表示的选取是一个十分关键的问题，理想的情况下，分布式表示应该涵盖句子在词汇、句法、语法、语义、依存关系等各个方面的信息。目前常见的分布式表示方式如表\ref{tab:4-2}所示。除此之外，还可以通过词袋模型、循环神经网络等将词向量表示转换为句子向量表示。
 
@@ -537,9 +532,9 @@ His house is on the south bank of the river.
 \hline
 \rule{0pt}{10pt} One-hot词向量 & RAE编码\upcite{DBLP:conf/emnlp/SocherPHNM11} \\
 \rule{0pt}{10pt} Word2Vec词向量\upcite{DBLP:journals/corr/abs-1301-3781} & Doc2Vec向量\upcite{DBLP:conf/icml/LeM14}  \\
-\rule{0pt}{10pt} Prob-fasttext词向量\upcite{DBLP:conf/acl/AthiwaratkunW17} & ELMO预训练句子表示\upcite{DBLP:conf/naacl/PetersNIGCLZ18} \\
+\rule{0pt}{10pt} Prob-fasttext词向量\upcite{DBLP:conf/acl/AthiwaratkunW17} & ELMO预训练句子表示\upcite{Peters2018DeepCW} \\
 \rule{0pt}{10pt} GloVe词向量\upcite{DBLP:conf/emnlp/PenningtonSM14} & GPT句子表示\upcite{radford2018improving} \\
-\rule{0pt}{10pt} ELMO预训练词向量\upcite{DBLP:conf/naacl/PetersNIGCLZ18} & BERT预训练句子表示\upcite{devlin2019bert} \\
+\rule{0pt}{10pt} ELMO预训练词向量\upcite{Peters2018DeepCW} & BERT预训练句子表示\upcite{devlin2019bert} \\
 \rule{0pt}{10pt} BERT预训练词向量\upcite{devlin2019bert} & Skip-thought向量\upcite{DBLP:conf/nips/KirosZSZUTF15} \\
 \end{tabular}
 \label{tab:4-2}
@@ -549,13 +544,13 @@ His house is on the south bank of the river.
 
 \parinterval DREEM方法中选取了能够反映句子中使用的特定词汇的One-hot向量、能够反映词汇信息的词嵌入向量\upcite{bengio2003a}、能够反映句子的合成语义信息的{\small\sffamily\bfseries{递归自动编码}}\index{递归自动编码}（Recursive Auto-encoder Embedding，RAE）\index{Recursive Auto-encoder Embedding}，这三种表示级联在一起，最终形成句子的向量表示。在得到机器译文和参考答案的上述分布式表示后，利用余弦相似度和长度惩罚对机器译文质量进行评价。机器译文$o$和参考答案$g$之间的相似度如公式\eqref{eq:4-16}所示，其中${v_i}(o)$和${v_i}(g)$分别是机器译文和参考答案的向量表示中的第$i$ 个元素，$N$是向量表示的维度大小。
 \begin{eqnarray}
-\textrm {cos}(t,r) = \frac{{\sum\limits_{i = 1}^N {{v_i}(o) \cdot {v_i}(g)} }}{{\sqrt {\sum\limits_{i = 1}^N {v_i^2(o)} } \sqrt {\sum\limits_{i = 1}^N {v_i^2(g)} } }}
+\textrm {cos}(t,r) &=& \frac{{\sum\limits_{i = 1}^N {{v_i}(o) \cdot {v_i}(g)} }}{{\sqrt {\sum\limits_{i = 1}^N {v_i^2(o)} } \sqrt {\sum\limits_{i = 1}^N {v_i^2(g)} } }}
 \label{eq:4-16}
 \end{eqnarray}
 
 \parinterval 在此基础上，DREEM方法还引入了长度惩罚项，对与参考答案长度相差太多的机器译文进行惩罚，长度惩罚项如公式\eqref{eq:4-17}所示，其中${l_o}$和${l_g}$分别是机器译文和参考答案长度：
 \begin{eqnarray}
-\textrm{BP} = \left\{ \begin{array}{l}
+\textrm{BP} &=& \left\{ \begin{array}{l}
 \exp (1 - {{{l_g}} \mathord{\left/
  {\vphantom {{{l_g}} {{l_o}}}} \right.
  \kern-\nulldelimiterspace} {{l_o}}})\quad {l_o} < {l_g}\\
@@ -568,15 +563,16 @@ His house is on the south bank of the river.
 
 \parinterval 机器译文的最终得分如下，其中$\alpha$是一个需要手动设置的参数：
 \begin{eqnarray}
-\textrm{score}(o,g) = \textrm{cos}{^\alpha }(o,g) \times \textrm{BP}
+\textrm{score}(o,g) &=& \textrm{cos}{^\alpha }(o,g) \times \textrm{BP}
 \label{eq:4-18}
 \end{eqnarray}
 
 \parinterval 本质上，分布式表示是一种对句子语义的一种统计表示。因此，它可以帮助评价系统捕捉一些从简单的词或者句子片段中不易发现的现象，进而进行更深层的句子匹配。
 
 \parinterval 在DREEM方法取得成功后，基于词嵌入的词对齐自动评价方法被提出\upcite{DBLP:journals/corr/MatsuoKS17}，该方法中先得到机器译文与参考答案的词对齐关系后，通过对齐关系中两者的词嵌入相似度来计算机器译文与参考答案的相似度，公式如下：
+
 \begin{eqnarray}
-\textrm{ASS}(o,g) = \frac{1}{{m \cdot l}}\sum\limits_{i = 1}^{m} {\sum\limits_{j = 1}^{l} {\varphi (o,g,i,j)} }
+\textrm{ASS}(o,g) &=& \frac{1}{{m \cdot l}}\sum\limits_{i = 1}^{m} {\sum\limits_{j = 1}^{l} {\varphi (o,g,i,j)} }
 \label{eq:4-19}
 \end{eqnarray}
 
@@ -614,12 +610,13 @@ His house is on the south bank of the river.
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{自动评价中参考答案的数量}}。在有参考答案的自动评价过程中，为了使评价结果更加准确，一般会设置多个参考答案。参考答案数量的设置会对自动评价与人工评价的相关性产生影响，也有很多工作对此进行了研究。例如人们发现有参考答案的自动评价方法在区分人类翻译和机器翻译时，设置4个参考答案的区分效果远远高于2个参考答案\upcite{culy2003limits}；也有人曾专注于研究怎样设置参考答案数量能够产生最高的相关性\upcite{finch2004using}。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{自动评价中参考答案的质量}}。从直觉上，自动评价中参考答案的质量一般会影响最终的评价结果，从而对相关性的计算产生影响。然而，有实验表明，只要参考答案的质量不是过分低劣，很多情况下自动评价都能得到相同的评价结果\upcite{DBLP:conf/coling/HamonM08}。
+\item {\small\sffamily\bfseries{自动评价中参考答案的质量}}。从直觉上，自动评价中参考答案的质量一般会影响最终的评价结果，从而对相关性的计算产生影响。然而，有相关实验表明，只要参考答案的质量不是过分低劣，很多情况下自动评价都能得到相同的评价结果\upcite{DBLP:conf/coling/HamonM08}。
 \vspace{0.5em}
 \end{itemize}
+
 \parinterval 目前在机器译文质量评价的领域中，有很多研究工作尝试比较各种有参考答案的自动评价方法（主要以BLEU、NIST等基于$n$-gram的方法为主）与人工评价方法的相关性。整体来看，这些方法与人工评价具有一定的相关性，自动评价结果能够较好地反映译文质量\upcite{coughlin2003correlating,doddington2002automatic}。
 
-\parinterval 但是也有相关研究指出，不应该对有参考答案的自动评价方法过于乐观，而应该存谨慎态度，因为目前的自动评价方法对于流利度的评价并不可靠，同时参考答案的体裁和风格往往会对自动评价结果产生很大影响\upcite{culy2003limits}。同时，有研究者提出，在机器翻译研究过程中，忽略实际的示例翻译而仅仅通过BLEU等自动评价方式得分的提高来表明机器翻译质量的提高是不可取的，因为BLEU的提高并不足以反映翻译质量的真正提高，而在另一些情况下，为了实现翻译质量的显著提高，并不需要提高BLEU\upcite{callison2006re}。
+\parinterval 但是也有相关研究指出，不应该对有参考答案的自动评价方法过于乐观，而应该存谨慎态度，因为目前的自动评价方法对于流利度的评价并不可靠，同时参考答案的体裁和风格往往会对自动评价结果产生很大影响\upcite{culy2003limits}。同时，有研究人员提出，机器翻译研究过程中，在忽略实际示例翻译的前提下，BLEU分数的提高并不意味着翻译质量的真正提高，而在一些情况下，为了实现翻译质量的显著提高，并不需要提高BLEU分数\upcite{callison2006re}。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -650,17 +647,19 @@ His house is on the south bank of the river.
 %----------------------------------------------
 
 \parinterval 回到机器翻译的问题中来。一个更加基础的问题是：一个系统评价结果的变化在多大范围内是不显著的。利用假设检验的原理，这个问题可以被描述为：评价结果落在$[x-d,x+d]$区间的置信度是$1-\alpha$。换句话说，当系统性能落在$[x-d, x+d]$外，就可以说这个结果与原始的结果有显著性差异。这里$x$通常是系统译文的BLEU计算结果，$[x-d,x+d]$是其对应的置信区间。而$d$和$\alpha$有很多计算方法，比如，如果假设评价结果服从正态分布，可以简单的计算$d$。
+
 \begin{eqnarray}
-d=t \frac{s}{\sqrt{n}}
+d&=&t \frac{s}{\sqrt{n}}
 \label{eq:4-21}
 \end{eqnarray}
+
 \noindent 其中，$s$是标准差，$n$是样本数。$t$是一个统计量，它与假设检验的方式、显著性水平、样本数量有关。
 
 \parinterval 而机器翻译评价使用假设检验的另一个问题是如何进行抽样。需要注意的是，这里的样本是指一个机器翻译的测试集，因为BLEU等指标都是在整个测试集上计算的，而非简单的通过句子级评价结果进行累加。为了保证假设检验的充分性，需要构建多个测试集，以模拟从所有潜在的测试集空间中采样的行为。
 
 \parinterval 最常用的方法是使用Bootstrap重采样技术\upcite{DBLP:books/sp/EfronT93}从一个固定测试集中采样不同的句子组成不同的测试集，之后在这些测试集上进行假设检验\upcite{DBLP:conf/emnlp/Koehn04}。此后，有工作指出了Bootstrap重采样方法存在隐含假设的不合理之处，并提出了使用近似随机化\upcite{noreen1989computer}方法计算自动评价方法统计显著性\upcite{DBLP:conf/acl/RiezlerM05}。另有研究工作着眼于研究自动评价结果差距大小、测试集规模、系统相似性等因素对统计显著性的影响，以及在不同领域的测试语料中计算的统计显著性是否具有通用性的问题\upcite{DBLP:conf/emnlp/Berg-KirkpatrickBK12}。
 
-\parinterval 在所有自然语言处理系统的结果对比中，显著性检验是十分必要的。很多时候不同系统性能的差异性很小，因此需要确定一些微小的进步是否是“真”的，还是只是一些随机事件。但是另一方面，从实践的角度看，当某个系统性能的提升达到一个绝对值，往往是显著的。比如，在机器翻译，BLEU提升0.5$\%$一般都是比较明显的进步。也有研究对这种观点进行了论证，也发现其中具有一定的科学性\upcite{DBLP:conf/emnlp/Berg-KirkpatrickBK12}。因此，在机器翻译系统研发中类似的方式也是可以采用的。
+\parinterval 在所有自然语言处理系统的结果对比中，显著性检验是十分必要的。很多时候不同系统性能的差异性很小，因此需要确定一些微小的进步是否是“真”的，还是只是一些随机事件。但是从实践的角度看，当某个系统性能的提升达到一个绝对值，这种性能提升效果往往是显著的。比如，在机器翻译，BLEU提升0.5$\%$一般都是比较明显的进步。也有研究对这种观点进行了论证，也发现其中具有一定的科学性\upcite{DBLP:conf/emnlp/Berg-KirkpatrickBK12}。因此，在机器翻译系统研发中类似的方式也是可以采用的。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -764,9 +763,9 @@ d=t \frac{s}{\sqrt{n}}
 
 \begin{itemize}
 \vspace{0.5em}
-\item 找出译文中翻译错误的短语。要求预测出一个能够捕捉短语内部单词翻译错误、单词漏译以及单词顺序错误的标签序列。该序列中每个标签都对应着一个短语，若是短语不存在任何错误，则标签为“OK”；若是短语内部存在单词翻译错误和单词漏译，则标签为“BAD”；若短语内部的单词顺序存在问题，则标签为“BAD\_word\_order”。图\ref{fig:4-12}中的连线表示单词之间的对齐关系，蓝色虚线框标出了每个短语的范围，图\ref{fig:4-12}中的Phrase-target tags即为该过程中需要预测的质量标签序列。
+\item {\small\sffamily\bfseries{找出译文中翻译错误的短语}}。要求预测出一个能够捕捉短语内部单词翻译错误、单词漏译以及单词顺序错误的标签序列。该序列中每个标签都对应着一个短语，若是短语不存在任何错误，则标签为“OK”；若是短语内部存在单词翻译错误和单词漏译，则标签为“BAD”；若短语内部的单词顺序存在问题，则标签为“BAD\_word\_order”。图\ref{fig:4-12}中的连线表示单词之间的对齐关系，蓝色虚线框标出了每个短语的范围，图\ref{fig:4-12}中的Phrase-target tags即为该过程中需要预测的质量标签序列。
 \vspace{0.5em}
-\item 找出译文中短语之间漏译错误。短语级质量评估任务同时也要求预测一个能够捕捉到短语间的漏译现象的质量标签序列，在译文端短语的两侧位置进行预测，若某位置未出现漏译，则该位置的质量标签为“OK”，否则为“BAD\_omission”。图\ref{fig:4-12}中的Gap tags即为该过程中的质量标签序列。
+\item {\small\sffamily\bfseries{找出译文中短语之间漏译错误}}。短语级质量评估任务同时也要求预测一个能够捕捉到短语间的漏译现象的质量标签序列，在译文端短语的两侧位置进行预测，若某位置未出现漏译，则该位置的质量标签为“OK”，否则为“BAD\_omission”。图\ref{fig:4-12}中的Gap tags即为该过程中的质量标签序列。
 \vspace{0.5em}
 \end{itemize}
 
@@ -786,20 +785,20 @@ d=t \frac{s}{\sqrt{n}}
 
 \begin{itemize}
 \vspace{0.5em}
-\item 区分“人工翻译”和“机器翻译”。在早期的工作中，研究人员试图训练一个能够区分人工翻译和机器翻译的二分类器完成句子级的质量评估\upcite{gamon2005sentence}，将被分类器判断为“人工翻译”的机器译文视为优秀的译文，将被分类器判断为“机器翻译”的机器译文视为较差的译文。一方面，这种评估方式不够直观，另一方面，这种评估方式并不十分准确，因为通过人工比对发现很多被判定为“机器翻译”的译文具有与人们期望的人类翻译相同的质量水平。
+\item {\small\sffamily\bfseries{区分“人工翻译”和“机器翻译”}}。在早期的工作中，研究人员试图训练一个能够区分人工翻译和机器翻译的二分类器完成句子级的质量评估\upcite{gamon2005sentence}，将被分类器判断为“人工翻译”的机器译文视为优秀的译文，将被分类器判断为“机器翻译”的机器译文视为较差的译文。一方面，这种评估方式不够直观，另一方面，这种评估方式并不十分准确，因为通过人工比对发现很多被判定为“机器翻译”的译文具有与人们期望的人类翻译相同的质量水平。
 \vspace{0.5em}
-\item 预测反映译文句子质量的“质量标签”。在同一时期，研究人员们也尝试使用人工为机器译文分配能够反映译文质量的标签\upcite{DBLP:conf/lrec/Quirk04}，例如“不可接受”、“一定程度上可接受”、“ 可接受”、“ 理想”等类型的质量标签，同时将获取机器译文的质量标签作为句子级质量评估的任务目标。
+\item {\small\sffamily\bfseries{预测反映译文句子质量的“质量标签”}}。在同一时期，研究人员们也尝试使用人工为机器译文分配能够反映译文质量的标签\upcite{DBLP:conf/lrec/Quirk04}，例如“不可接受”、“一定程度上可接受”、“ 可接受”、“ 理想”等类型的质量标签，同时将获取机器译文的质量标签作为句子级质量评估的任务目标。
 \vspace{0.5em}
-\item 预测译文句子的相对排名。当相对排序（详见\ref{sec:human-eval-scoring}节）的译文评价方法被引入后，给出机器译文的相对排名成为句子级质量评估的任务目标。
+\item {\small\sffamily\bfseries{预测译文句子的相对排名}}。当相对排序（详见\ref{sec:human-eval-scoring}节）的译文评价方法被引入后，给出机器译文的相对排名成为句子级质量评估的任务目标。
 \vspace{0.5em}
-\item 预测译文句子的后编辑工作量。在最近的研究中，句子级的质量评估一直在探索各种类型的离散或连续的后编辑标签。例如，通过测量以秒为单位的后编辑时间对译文句子进行评分；通过测量预测后编辑过程所需的击键数对译文句子进行评分；通过计算{\small\sffamily\bfseries{人工译后编辑距离}}\index{人工译后编辑距离}（Human Translation Error Rate，HTER）\index{Human Translation Error Rate}，即在后编辑过程中编辑（插入/删除/替换）数量与参考翻译长度的占比率对译文句子进行评分。HTER的计算公式为：
+\item {\small\sffamily\bfseries{预测译文句子的后编辑工作量}}。在最近的研究中，句子级的质量评估一直在探索各种类型的离散或连续的后编辑标签。例如，通过测量以秒为单位的后编辑时间对译文句子进行评分；通过测量预测后编辑过程所需的击键数对译文句子进行评分；通过计算{\small\sffamily\bfseries{人工译后编辑距离}}\index{人工译后编辑距离}（Human Translation Error Rate，HTER）\index{Human Translation Error Rate}，即在后编辑过程中编辑（插入/删除/替换）数量与参考翻译长度的占比率对译文句子进行评分。HTER的计算公式为：
 \vspace{0.5em}
 \begin{eqnarray}
-\textrm{HTER}= \frac{\mbox{编辑操作数目}}{\mbox{翻译后编辑结果长度}}
+\textrm{HTER}&=& \frac{\mbox{编辑操作数目}}{\mbox{翻译后编辑结果长度}}
 \label{eq:4-20}
 \end{eqnarray}
 
-\parinterval 这种质量评估方式往往以单词级质量评估为基础，在其结果的基础上进行计算。以实例\ref{eg:4-7}中词级质量评估结果为例，与编辑后结果相比较，机器翻译译文中有四处漏译（“Mit”、“können”、“Sie”、“einzelne”）、三处误译（“dem”、\\“Scharfzeichner”、“scharfzeichnen”分别被误译为“Der”、“Schärfen-Werkezug”、\\“Schärfer”）、一处多译（“erscheint”），因而需要进行4次插入操作、3次替换操作和1次删除操作，而最终译文长度为12，则有$\textrm HTER=(4+3+1)/12=0.667$。需要注意的是，即便这种评估方式以单词级质量评估为基础，也不意味这句子级质量评估只是在单词级质量评估的结果上通过简单的计算来获得其得分，在实际研究中，常将其视为一个回归问题，利用大量数据学习其评分规则。
+\parinterval 这种质量评估方式往往以单词级质量评估为基础，在其结果的基础上进行计算。以实例\ref{eg:4-7}中词级质量评估结果为例，与编辑后结果相比较，机器翻译译文中有四处漏译（“Mit”、“können”、“Sie”、“einzelne”）、三处误译（“dem”、\\“Scharfzeichner”、“scharfzeichnen”分别被误译为“Der”、“Schärfen-Werkezug”、“Schärfer”）、一处多译（“erscheint”），因而需要进行4次插入操作、3次替换操作和1次删除操作，而最终译文长度为12，则有$\textrm HTER=(4+3+1)/12=0.667$。需要注意的是，即便这种评估方式以单词级质量评估为基础，也不意味这句子级质量评估只是在单词级质量评估的结果上通过简单的计算来获得其得分，在实际研究中，常将其视为一个回归问题，利用大量数据学习其评分规则。
 \vspace{0.5em}
 \end{itemize}
 
@@ -816,11 +815,11 @@ d=t \frac{s}{\sqrt{n}}
 \begin{example}
 文档级质量评估任务
 
-Candidate： A {\red housewife} won the first prize in the supermarket's anniversary
+上文信息：A {\red housewife} won the first prize in the supermarket's anniversary
 
 \hspace{5em}celebration.
 
-Reference： A few days ago, {\red he} contacted the News Channel and said that the
+机器译文：A few days ago, {\red he} contacted the News Channel and said that the
 
 \hspace{5em}supermarket owner refused to give {\red him} the prize.
 \label{eg:4-9}
@@ -830,15 +829,15 @@ Reference： A few days ago, {\red he} contacted the News Channel and said that 
 
 \begin{itemize}
 \vspace{0.5em}
-\item 阅读理解测试得分情况。以往衡量文档译文质量的主要方法是采用理解测试\upcite{,DBLP:conf/icassp/JonesGSGHRW05}，即利用提前设计好的与文档相关的阅读理解题目（包括多项选择题类型和问答题类型）对母语为目标语言的多个测试者进行测试，将代表测试者在给定文档上的问卷中的所有问题所得到的分数作为质量标签。
+\item {\small\sffamily\bfseries{阅读理解测试得分情况}}。以往衡量文档译文质量的主要方法是采用理解测试\upcite{,DBLP:conf/icassp/JonesGSGHRW05}，即利用提前设计好的与文档相关的阅读理解题目（包括多项选择题类型和问答题类型）对母语为目标语言的多个测试者进行测试，将代表测试者在给定文档上的问卷中的所有问题所得到的分数作为质量标签。
 \vspace{0.5em}
-\item 后编辑工作量。 最近的研究工作中，多是采用对文档译文进行后编辑的工作量评估文档译文的质量。为了准确获取文档后编辑的工作量，两阶段后编辑方法被提出\upcite{DBLP:conf/eamt/ScartonZVGS15}，即第一阶段对文档中的句子单独在无语境情况下进行后编辑，第二阶段将所有句子重新合并成文档后再进行后编辑。两阶段中后编辑工作量的总和越多，意味着文档译文质量越差。
+\item {\small\sffamily\bfseries{后编辑工作量}}。 最近的研究工作中，多是采用对文档译文进行后编辑的工作量评估文档译文的质量。为了准确获取文档后编辑的工作量，两阶段后编辑方法被提出\upcite{DBLP:conf/eamt/ScartonZVGS15}，即第一阶段对文档中的句子单独在无语境情况下进行后编辑，第二阶段将所有句子重新合并成文档后再进行后编辑。两阶段中后编辑工作量的总和越多，意味着文档译文质量越差。
 \vspace{0.5em}
 \end{itemize}
 
 \parinterval 在文档级质量评估任务中，需要对译文文档做一些更细粒度的注释，注释内容包括错误位置、错误类型和错误的严重程度，最终在注释的基础上对译文文档质量进行评估。
 
-\parinterval 与更细粒度的词级和句子级的质量评价相比，文档级质量评估更加复杂。其难点之一在于文档级的质量评估过程中需要根据一些主观的质量标准去对文档进行评分，例如在注释的过程中，对于错误的严重程度并没有严格的界限和规定，只能靠评测人员主观判断，这就意味着随着出现主观偏差的注释的增多，文档级质量评估的参考价值会大打折扣。另一方面，根据所有注释（错误位置、错误类型及其严重程度）对整个文档进行评分本身就具有不合理性，因为译文中有些在抛开上下文环境的情况下可以并判定为“翻译得不错的”单词和句子，一旦被放在文档中的语境后就可能变得不合理，而某些在无语境条件下看起来翻译得“ 糟糕透了”的单词和句子，一旦被放在文档中的语境中可能会变得恰到好处。此外，构建一个质量评测模型势必需要大量的标注数据，而文档级质量评测所需要的带有注释的数据的获取代价相当高。
+\parinterval 与更细粒度的词级和句子级的质量评价相比，文档级质量评估更加复杂。其难点之一在于文档级的质量评估过程中需要根据一些主观的质量标准去对文档进行评分，例如在注释的过程中，对于错误的严重程度并没有严格的界限和规定，只能靠评测人员主观判断，这就意味着随着出现主观偏差的注释的增多，文档级质量评估的参考价值会大打折扣。另一方面，根据所有注释（错误位置、错误类型及其严重程度）对整个文档进行评分本身就具有不合理性，因为译文中有些在抛开上下文语境时可以并判定为“翻译得不错的”单词和句子，一旦被放在上下文语境中就可能变得不合理，而某些在无语境条件下看起来翻译得“ 糟糕透了”的单词和句子，一旦被放在文档中的语境中可能会变得恰到好处。此外，构建一个质量评测模型势必需要大量的标注数据，而文档级质量评测所需要的带有注释的数据的获取代价相当高。
 
 \parinterval 实际上，文档级质量评估与其它文档级自然语言处理任务面临的问题是一样的。由于数据稀缺，无论是系统研发，还是结果评价都面临很大挑战。这些问题也会在本书的{\chaptersixteen}和{\chapterseventeen}进行讨论。
 
@@ -856,26 +855,26 @@ Reference： A few days ago, {\red he} contacted the News Channel and said that 
 
 \begin{itemize}
 \vspace{0.5em}
-\item 表示/特征学习模块：用于在数据中提取能够反映翻译结果质量的“特征”；
+\item {\small\sffamily\bfseries{表示/特征学习模块}}：用于在数据中提取能够反映翻译结果质量的“特征”；
 \vspace{0.5em}
-\item 质量评估模块：基于句子的表示结果，利用机器学习算法预测翻译结果的质量。
+\item {\small\sffamily\bfseries{质量评估模块}}：基于句子的表示结果，利用机器学习算法预测翻译结果的质量。
 \end{itemize}
 
 \parinterval 在传统机器学习的观点下，句子都是由某些特征表示的。因此需要人工设计能够对译文质量评估有指导性作用的特征\upcite{DBLP:conf/wmt/Bicici13a,DBLP:conf/wmt/SouzaBTN13,DBLP:conf/wmt/BiciciW14,DBLP:conf/wmt/SouzaGBTN14,DBLP:conf/wmt/Espla-GomisSF15}，常用的特征有：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 复杂度特征：反映了翻译一个源文的难易程度，翻译难度越大，译文质量低的可能性就越大；
+\item {\small\sffamily\bfseries{复杂度特征}}：反映了翻译一个源文的难易程度，翻译难度越大，译文质量低的可能性就越大；
 \vspace{0.5em}
-\item 流畅度特征：反映了译文的自然度、流畅度、语法合理程度；
+\item {\small\sffamily\bfseries{流畅度特征}}：反映了译文的自然度、流畅度、语法合理程度；
 \vspace{0.5em}
-\item 置信度特征：反映了机器翻译系统对输出的译文的置信程度；
+\item {\small\sffamily\bfseries{置信度特征}}：反映了机器翻译系统对输出的译文的置信程度；
 \vspace{0.5em}
-\item 充分度特征：反映了源文和机器译文在不同语言层次上的密切程度或关联程度。
+\item {\small\sffamily\bfseries{充分度特征}}：反映了源文和机器译文在不同语言层次上的密切程度或关联程度。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 随着深度学习技术的发展，另一种思路是使用表示学习技术生成句子的分布式表示，并在此基础上利用神经网络自动提取高度抽象的句子特征\upcite{DBLP:conf/wmt/KreutzerSR15,DBLP:conf/wmt/MartinsAHK16,DBLP:conf/wmt/ChenTZXZLW17}，这样就避免了人工设计特征所带来的时间以及人工代价，同时表示学习所得到的分布式表示可以涵盖更多人工设计难以捕获到的特征，更加全面地反映句子的特点，因此在质量评估任务上也取得了很好的效果\upcite{kreutzer2015quality,DBLP:conf/wmt/ShahLPBBBS15,DBLP:conf/wmt/ScartonBSSS16,DBLP:conf/wmt/AbdelsalamBE16,DBLP:conf/wmt/BasuPN18,DBLP:conf/wmt/Lo19,DBLP:conf/wmt/YankovskayaTF19}。比如，最近的一些工作中大量使用了神经机器翻译模型来获得双语句子的表示结果，并用于质量评估\upcite{DBLP:conf/wmt/Qi19,DBLP:conf/wmt/ZhouZH19,DBLP:conf/wmt/Hokamp17,wang2019niutrans}。这样做的好处在于，质量评估可以直接复用机器翻译的模型，从某种意义上降低了质量评估系统开发的代价。此外，随着近几年各种预训练模型的出现，使用预训练模型来获取用于质量评估的句子表示也成为一大流行趋势，这种方法大大减少了质量评估模型自身的训练时间，在该领域内的表现也十分亮眼\upcite{kepler2019unbabel,DBLP:conf/wmt/YankovskayaTF19,DBLP:conf/wmt/KimLKN19}。关于表示学习、神经机器翻译、预训练模型的内容在第九章和第十章会有进一步介绍。
+\parinterval 随着深度学习技术的发展，另一种思路是使用表示学习技术生成句子的分布式表示，并在此基础上利用神经网络自动提取高度抽象的句子特征\upcite{DBLP:conf/wmt/KreutzerSR15,DBLP:conf/wmt/MartinsAHK16,DBLP:conf/wmt/ChenTZXZLW17}，这样就避免了人工设计特征所带来的时间以及人工代价，同时表示学习所得到的分布式表示可以涵盖更多人工设计难以捕获到的特征，更加全面地反映句子的特点，因此在质量评估任务上也取得了很好的效果\upcite{kreutzer2015quality,DBLP:conf/wmt/ShahLPBBBS15,DBLP:conf/wmt/ScartonBSSS16,DBLP:conf/wmt/AbdelsalamBE16,DBLP:conf/wmt/BasuPN18}。比如，最近的一些工作中大量使用了神经机器翻译模型来获得双语句子的表示结果，并用于质量评估\upcite{DBLP:conf/wmt/Qi19,DBLP:conf/wmt/ZhouZH19,DBLP:conf/wmt/Hokamp17,wang2019niutrans}。这样做的好处在于，质量评估可以直接复用机器翻译的模型，从某种意义上降低了质量评估系统开发的代价。此外，随着近几年各种预训练模型的出现，使用预训练模型来获取用于质量评估的句子表示也成为一大流行趋势，这种方法大大减少了质量评估模型自身的训练时间，在该领域内的表现也十分亮眼\upcite{kepler2019unbabel,DBLP:conf/wmt/YankovskayaTF19,DBLP:conf/wmt/KimLKN19}。关于表示学习、神经机器翻译、预训练模型的内容在第九章和第十章会有进一步介绍。
 
 \parinterval 在得到句子表示之后，可以使用质量评估模块对译文质量进行预测。质量评估模型通常由回归算法或分类算法实现：
 
@@ -883,7 +882,7 @@ Reference： A few days ago, {\red he} contacted the News Channel and said that 
 \vspace{0.5em}
 \item 句子级和文档级质量评估目前大多通过回归算法实现。由于在句子级和文档级的质量评估中，标签是使用连续数字（得分情况）表示的，因此回归算法是最合适的选择。最初的工作中，研究人员们多采用传统的机器学习回归算法\upcite{DBLP:conf/wmt/Bicici13a,DBLP:conf/wmt/SouzaGBTN14,DBLP:conf/wmt/HildebrandV13}，而近年来，研究人员则更青睐于使用神经网络方法进行句子级和文档级质量评估；
 \vspace{0.5em}
-\item 单词级和短语级质量评估多由分类算法实现。对于单词级质量评估任务中标记“OK”或“BAD”，这对应了经典的二分类问题，因此可以使用分类算法对其进行预测。自动分类算法在第三章已经涉及，质量评估中直接使用成熟的分类器即可。此外，使用神经网络方法进行分类也是不错的选择。
+\item 单词级和短语级质量评估多由分类算法实现。在单词级质量评估任务中，需要对每个位置的单词标记“OK”或“BAD”，这对应了经典的二分类问题，因此可以使用分类算法对其进行预测。自动分类算法在第三章已经涉及，质量评估中直接使用成熟的分类器即可。此外，使用神经网络方法进行分类也是不错的选择。
 \vspace{0.5em}
 \end{itemize}
 
@@ -898,15 +897,15 @@ Reference： A few days ago, {\red he} contacted the News Channel and said that 
 
 \begin{itemize}
 \vspace{0.5em}
-\item 判断人工后编辑的工作量。人工后编辑工作中有两个不可避免的问题：1）待编辑的机器译文是否值得改？2）待编辑的机器译文需要修改哪里？对于一些质量较差的机器译文来说，人工重译远远比修改译文的效率高，后编辑人员可以借助质量评估系统提供的指标筛选出值得进行后编辑的机器译文，另一方面，质量评估模型可以为每条机器译文提供{错误内容、错误类型、错误严重程度}的注释，这些内容将帮助后编辑人员准确定位到需要修改的位置，同时在一定程度上提示后编辑人员采取何种修改策略，势必能大大减少后编辑的工作内容。
+\item {\small\sffamily\bfseries{判断人工后编辑的工作量}}。人工后编辑工作中有两个不可避免的问题：1）待编辑的机器译文是否值得改？2）待编辑的机器译文需要修改哪里？对于一些质量较差的机器译文来说，人工重译远远比修改译文的效率高，后编辑人员可以借助质量评估系统提供的指标筛选出值得进行后编辑的机器译文，另一方面，质量评估模型可以为每条机器译文提供{错误内容、错误类型、错误严重程度}的注释，这些内容将帮助后编辑人员准确定位到需要修改的位置，同时在一定程度上提示后编辑人员采取何种修改策略，势必能大大减少后编辑的工作内容。
 \vspace{0.5em}
-\item 自动识别并更正翻译错误。质量评估和{\small\sffamily\bfseries{自动后编辑}}\index{自动后编辑}（Automatic Post-editing，APE）\index{Automatic Post-editing}也是很有潜力的应用方向。因为质量评估可以预测出错的位置，进而可以使用自动方法修正这些错误。但是，在这种应用模式中，质量评估的精度是非常关键的，因为如果预测错误可能会产生错误的修改，甚至带来整体译文质量的下降。
+\item {\small\sffamily\bfseries{自动识别并更正翻译错误}}。质量评估和{\small\sffamily\bfseries{自动后编辑}}\index{自动后编辑}（Automatic Post-editing，APE）\index{Automatic Post-editing}也是很有潜力的应用方向。因为质量评估可以预测出错的位置，进而可以使用自动方法修正这些错误。但是，在这种应用模式中，质量评估的精度是非常关键的，因为如果预测错误可能会产生错误的修改，甚至带来整体译文质量的下降。
 \vspace{0.5em}
-\item 辅助外语交流和学习。例如，在很多社交网站上，用户会利用外语进行交流。质量评估模型可以提示该用户输入的内容中存在的用词、语法等问题，这样用户可以重新对内容进行修改。甚至质量评估可以帮助外语学习者发现外语使用中的问题，例如，对于一个英语初学者，如果能提示他/她写的句子中的明显错误，对他/她的外语学习是非常有帮助的。
+\item {\small\sffamily\bfseries{辅助外语交流和学习}}。例如，在很多社交网站上，用户会利用外语进行交流。质量评估模型可以提示该用户输入的内容中存在的用词、语法等问题，这样用户可以重新对内容进行修改。甚至质量评估可以帮助外语学习者发现外语使用中的问题，例如，对于一个英语初学者，如果能提示他/她写的句子中的明显错误，对他/她的外语学习是非常有帮助的。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 需要注意的是，质量评估的应用模式还没有完全得到验证。这一方面是由于，质量评估的应用非常依赖与人的交互过程。但是，改变人的工作习惯是很困难的，因此质量评估系统在应用时往往需要很长的时间适应到场景中，或者说人也要适应质量评估系统的行为。另一方面，质量评估的很多应用场景还没有完全被发掘出来，需要更长的时间进行探索。
+\parinterval 需要注意的是，质量评估的应用模式还没有完全得到验证。这一方面是由于，质量评估的应用非常依赖与人的交互过程。但是，改变人的工作习惯是很困难的，因此质量评估系统在实际场景中的应用往往需要很长时间，或者说人也要适应质量评估系统的行为。另一方面，质量评估的很多应用场景还没有完全被发掘出来，需要更长的时间进行探索。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -925,7 +924,7 @@ Reference： A few days ago, {\red he} contacted the News Channel and said that 
 \vspace{0.5em}
 \item 译文质量的多角度评价。章节内主要介绍的几种经典方法如BLEU、TER、METEOR等，大都是从某个单一的角度计算机器译文和参考答案的相似性，如何对译文从多个角度进行综合评价是需要进一步思考的问题，\ref{Evaluation method of Multi Strategy fusion}节中介绍的多策略融合评价方法就可以看作是一种多角度评价方法，其思想是将各种评价方法下的译文得分通过某种方式进行组合，从而实现对译文的综合评价。译文质量多角度评价的另一种思路则是直接将BLEU、TER、Meteor等多种指标看做是某种特征，使用分类\upcite{kulesza2004learning,corston2001machine}、回归\upcite{albrecht2008regression}、排序\upcite{duh2008ranking}等机器学习手段形成一种综合度量。此外，也有相关工作专注于多等级的译文质量评价，使用聚类算法将大致译文按其质量分为不同等级，并对不同质量等级的译文按照不同权重组合几种不同的评价方法\upcite{chen2015multi}。
 \vspace{0.5em}
-\item 不同评价方法的应用场景有明显不同：人工评价主要用于需要对机器翻译系统进行准确的评估的场合。例如，在系统对比中利用人工评价方法对不同系统进行人工评价、给出最终排名，或上线机器翻译服务时对翻译品质进行详细的测试；有参考答案的自动评价则可以为机器翻译系统提供快速、相对可靠的评价。在机器翻译系统的快速研发过程中，一般都使用有参考答案的自动评价方法对最终模型的性能进行评估。有相关研究工作专注在机器翻译模型的训练过程中充分利用评价信息进行参数调优（如BLEU分数），其中比较有代表性的工作包括最小错误率训练\upcite{DBLP:conf/acl/Och03}、最小风险训练\upcite{DBLP:conf/acl/ShenCHHWSL16,he2012maximum}等。这部分内容可以参考{\chapterseven}和{\chapterthirteen}进行进一步阅读；无参考答案的质量评估主要用来对译文质量做出预测，经常被应用在是在一些无法提供参考译文的实时翻译场景中，例如人机交互过程、自动纠错、后编辑等\upcite{DBLP:conf/wmt/FreitagCR19}。
+\item 不同评价方法的应用场景有明显不同：人工评价主要用于需要对机器翻译系统进行准确的评估的场合。例如，在系统对比中利用人工评价方法对不同系统进行人工评价、给出最终排名，或上线机器翻译服务时对翻译品质进行详细的测试；有参考答案的自动评价则可以为机器翻译系统提供快速、相对可靠的评价。在机器翻译系统的快速研发过程中，一般都使用有参考答案的自动评价方法对最终模型的性能进行评估。有相关研究工作专注于在机器翻译模型的训练过程中利用评价信息（如BLEU分数）进行参数调优，其中比较有代表性的工作包括最小错误率训练\upcite{DBLP:conf/acl/Och03}、最小风险训练\upcite{DBLP:conf/acl/ShenCHHWSL16,he2012maximum}等。这部分内容可以参考{\chapterseven}和{\chapterthirteen}进行进一步阅读；无参考答案的质量评估主要用来对译文质量做出预测，经常被应用在一些无法提供参考译文的实时翻译场景中，例如人机交互过程、自动纠错、后编辑等\upcite{DBLP:conf/wmt/FreitagCR19}。
 \vspace{0.5em}
 \item 另一个比较值得关注的一个研究问题是如何使模型更加鲁棒，因为通常情况下，一个质量评估模型会受语种、评价策略等问题的约束，设计一个能应用于任何语种，同时从单词、短语、句子等各个等级对译文质量进行评估的模型是很有难度的。Biçici等人最先关注质量评估的鲁棒性问题，并设计开发了一种与语言无关的机器翻译性能预测器\upcite{DBLP:journals/mt/BiciciGG13}，此后又在该工作的基础上研究如何利用外在的、与语言无关的特征对译文进行句子级别的质量评估\upcite{DBLP:conf/wmt/BiciciW14}，该项研究的最终成果是一个与语言无关，可以从各个等级对译文质量进行评估的模型——RTMs（Referential Translation Machines）\upcite{DBLP:conf/wmt/BiciciLW15a}。
 \vspace{0.5em}

@@ -7,7 +7,7 @@
 \draw[step=0.5cm,color=orange!70,thick] (-1,-1) grid (1,1);
 \foreach \y in {+0.75,+0.25,-0.25,-0.75}
   \foreach \x in {-0.75,-0.25,0.25,0.75}{
-    \node [fill=orange!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {};
+    \node [fill=orange!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
     \addtocounter{mycount1}{1};
   }
 }
@@ -20,7 +20,7 @@
 \draw[step=0.5cm,color=blue!70,thick] (-1,-1) grid (1,1);
 \foreach \y in {+0.75,+0.25,-0.25,-0.75}
   \foreach \x in {-0.75,-0.25,0.25,0.75}{
-    \node [fill=blue!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {};
+    \node [fill=blue!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount2}$};
     \addtocounter{mycount2}{1};
   }
 }
@@ -33,7 +33,7 @@
 \draw[step=0.5cm,color=ugreen!70,thick] (-1,-1) grid (1,1);
 \foreach \y in {+0.75,+0.25,-0.25,-0.75}
   \foreach \x in {-0.75,-0.25,0.25,0.75}{
-    \node [fill=green!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {};
+    \node [fill=green!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount3}$};
     \addtocounter{mycount3}{1};
   }
 }
@@ -80,7 +80,7 @@
 \foreach \y in {+0.75,+0.25,-0.25,-0.75}{
   \setcounter{mycount1}{2}
   \foreach \x in {-0.25,0.25}{
-    \node [fill=orange!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {};
+    \node [fill=orange!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
     \addtocounter{mycount1}{-1};
   }
 }
@@ -94,7 +94,7 @@
 \foreach \y in {+0.75,+0.25,-0.25,-0.75}{
   \setcounter{mycount1}{2}
   \foreach \x in {-0.25,0.25}{
-    \node [fill=blue!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {};
+    \node [fill=blue!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
     \addtocounter{mycount1}{-1};
   }
 }
@@ -108,7 +108,7 @@
 \foreach \y in {+0.75,+0.25,-0.25,-0.75}{
   \setcounter{mycount1}{2}
   \foreach \x in {-0.25,0.25}{
-    \node [fill=green!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {};
+    \node [fill=green!15,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
     \addtocounter{mycount1}{-1};
   }
 }

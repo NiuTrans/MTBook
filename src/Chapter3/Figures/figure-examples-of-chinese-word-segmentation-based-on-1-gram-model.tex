@@ -39,24 +39,7 @@
 \node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (sentlabel) (sent)] (segsystem) {};
 \end{pgfonlayer}
 
-{\footnotesize
-{
-\node [anchor=west] (label1) at (0,6em) {实际上，通过学习我们得到了一个分词模型$\funp{P}(\cdot)$，给定任意的分词结果};
-\node [anchor=north west] (label1part2) at ([yshift=0.5em]label1.south west) {$W=w_1 w_2...w_n$，都能通过$\funp{P}(W)=\funp{P}(w_1) \cdot \funp{P}(w_2) \cdot ... \cdot \funp{P}(w_n)$ 计算这种分\hspace{0.13em} };
-\node [anchor=north west] (label1part3) at ([yshift=0.5em]label1part2.south west) {词的概率值};
-}
 
-\begin{pgfonlayer}{background}
-{
-\node[rectangle,fill=blue!10,thick,dotted,inner sep=0.2em] [fit = (label1) (label1part2) (label1part3)] (label1content) {};
-}
-\end{pgfonlayer}
-
-{
-\draw [-,thick,dotted] ([yshift=0.3em]modellabel.north) ..controls +(north:0.5) and +(south:0.5).. ([xshift=-3em]label1content.south);
-}
-
-}
 
 {\footnotesize
 {
