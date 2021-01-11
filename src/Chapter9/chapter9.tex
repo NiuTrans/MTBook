@@ -69,13 +69,13 @@
 \parinterval 虽然第一代神经网络受到了打击，但是在20世纪80年代，第二代人工神经网络开始萌发新的生机。在这个发展阶段，生物属性已经不再是神经网络的唯一灵感来源，在{\small\bfnew{连接主义}}\index{连接主义}（Connectionism）\index{Connectionism}和分布式表示两种思潮的影响下，神经网络方法再次走入了人们的视线。
 
 \vspace{0.3em}
-\parinterval （1）符号主义与连接主义
+\parinterval 1）符号主义与连接主义
 \vspace{0.3em}
 
 \parinterval 人工智能领域始终存在着符号主义和连接主义之争。早期的人工智能研究在认知学中被称为{\small\bfnew{符号主义}}\index{符号主义}（Symbolicism）\index{Symbolicism}，符号主义认为人工智能源于数理逻辑，希望将世界万物的所有运转方式归纳成像文法一样符合逻辑规律的推导过程。符号主义的支持者们坚信基于物理符号系统（即符号操作系统）假设和有限合理性原理，就能通过逻辑推理来模拟智能。但被他们忽略的一点是，模拟智能的推理过程需要大量的先验知识支持，哪怕是在现代，生物学界也很难准确解释大脑中神经元的工作原理，因此也很难用符号系统刻画人脑逻辑。另一方面，连接主义则侧重于利用人工神经网络中神经元的连接去探索并模拟输入与输出之间存在的某种关系，这个过程不需要任何先验知识，其核心思想是“大量简单的计算单元连接到一起可以实现智能行为”，这种思想也推动了反向传播等多种神经网络方法的应用，并发展了包括长短时记忆模型在内的经典建模方法。2019年3月27日，ACM 正式宣布将图灵奖授予 Yoshua Bengio, Geoffrey Hinton 和 Yann LeCun，以表彰他们提出的概念和工作使得深度学习神经网络有了重大突破，这三位获奖人均是人工智能连接主义学派的主要代表，从这件事中也可以看出连接主义对当代人工智能和深度学习的巨大影响。
 
 \vspace{0.3em}
-\parinterval （2）分布式表示
+\parinterval 2）分布式表示
 \vspace{0.3em}
 
 \parinterval 分布式表示的主要思想是“一个复杂系统的任何部分的输入都应该是多个特征共同表示的结果”，这种思想在自然语言处理领域的影响尤其深刻，它改变了刻画语言世界的角度，将语言文字从离散空间映射到多维连续空间。例如，在现实世界中，“张三”这个代号就代表着一个人。如果想要知道这个人亲属都有谁，因为有“如果A和B姓氏相同且在同一个家谱中，那么A和B是本家”这个先验知识在，在知道代号“张三”的情况下，可以得知“张三”的亲属是谁。但是如果不依靠这个先验知识，就无法得知“张三”的亲属是谁。但在分布式表示中，可以用一个实数向量，如$ (0.1,0.3,0.4) $来表示“张三”这个人，这个人的所有特征信息都包含在这个实数向量中，通过在向量空间中的一些操作（如计算距离等），哪怕没有任何先验知识的存在，也完全可以找到这个人的所有亲属。在自然语言处理中，一个单词也用一个实数向量（词向量或词嵌入）表示，通过这种方式将语义空间重新刻画，将这个离散空间转化成了一个连续空间，这时单词就不再是一个简单的词条，而是由成百上千个特征共同描述出来的，其中每个特征分别代表这个词的某个“ 方面”。
@@ -142,11 +142,11 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item 特征的构造需要耗费大量的时间和精力。在传统机器学习的特征工程方法中，特征提取都是基于人力完成的，该过程往往依赖于大量的先验假设，会导致相关系统的研发周期也大大增加；
+\item {\small\sffamily\bfseries{特征的构造需要耗费大量的时间和精力}}。在传统机器学习的特征工程方法中，特征提取都是基于人力完成的，该过程往往依赖于大量的先验假设，会导致相关系统的研发周期也大大增加；
 \vspace{0.5em}
-\item 最终的系统性能强弱非常依赖特征的选择。有一句话在业界广泛流传：“数据和特征决定了机器学习的上限”，但是人的智力和认知是有限的，因此人工设计的特征的准确性和覆盖度会存在瓶颈；
+\item {\small\sffamily\bfseries{最终的系统性能强弱非常依赖特征的选择}}。有一句话在业界广泛流传：“数据和特征决定了机器学习的上限”，但是人的智力和认知是有限的，因此人工设计的特征的准确性和覆盖度会存在瓶颈；
 \vspace{0.5em}
-\item 通用性差。针对不同的任务，传统机器学习的特征工程方法需要选择出不同的特征，在某个任务上表现很好的特征在其他任务上可能没有效果。
+\item {\small\sffamily\bfseries{通用性差}}。针对不同的任务，传统机器学习的特征工程方法需要选择出不同的特征，在某个任务上表现很好的特征在其他任务上可能没有效果。
 \vspace{0.5em}
 \end{itemize}
 
@@ -184,6 +184,8 @@
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
+
+\sectionnewpage
 \section{神经网络基础}
 
 \parinterval 神经网络是一种由大量的节点（或称神经元）之间相互连接构成的计算模型。那么什么是神经元？神经元之间又是如何连接的？神经网络的数学描述又是什么样的？这一节将围绕这些问题系统地对神经网络的基础知识进行介绍。
@@ -220,7 +222,7 @@
 
 \parinterval 本章默认使用行向量，如$ \mathbi{a}=(a_1, a_2, a_3) $，$ \mathbi{a} $对应的列向量记为$ \mathbi{a}^{\textrm T} $。
 
-\parinterval {\small\sffamily\bfseries{矩阵}}\index{矩阵}（Matrix）\index{Matrix}：矩阵是一个按照长方阵列排列的实数集合，最早来自于方程组的系数及常数所构成的方阵。在计算机领域，通常将矩阵看作二维数组。这里用符号$ \mathbi{A}$表示一个矩阵，如果该矩阵有$ m $行$ n $列，那么有$\mathbi{A}\in {\mathbb R}^{m\times n} $。矩阵中的每个元素都被一个行索引和一个列索引所确定，例如，$ a_{ij} $表示第$ i $行、第$ j $列的矩阵元素。如下，公式\eqref{eq:9-3}中$ \mathbi{A} $定义了一个2行2列的矩阵。
+\parinterval {\small\sffamily\bfseries{矩阵}}\index{矩阵}（Matrix）\index{Matrix}：矩阵是一个按照长方阵列排列的实数集合，最早来自于方程组的系数及常数所构成的方阵。在计算机领域，通常将矩阵看作二维数组。这里用符号$ \mathbi{A}$表示一个矩阵，如果该矩阵有$ m $行$ n $列，那么有$\mathbi{A}\in {\mathbb R}^{m\times n} $。矩阵中的每个元素都被一个行索引和一个列索引所确定，例如，$ a_{ij} $表示第$ i $行、第$ j $列的矩阵元素。如下，下式中的$ \mathbi{A} $定义了一个2行2列的矩阵。
 \begin{eqnarray}
 \mathbi{A}& = & \begin{pmatrix}
    a_{11} & a_{12}\\
@@ -239,14 +241,14 @@
 
 \subsubsection{2. 矩阵的转置}
 
-\parinterval {\small\sffamily\bfseries{转置}}\index{转置}（Transpose）\index{Transpose}是矩阵的重要操作之一。矩阵的转置可以看作是将矩阵以对角线为镜像进行翻转：假设$\mathbi{A}$为$ m $行$ n $列的矩阵，第$ i $行、第$ j $ 列的元素是$ a_{ij} $，即：$\mathbi{A}={(a_{ij})}_{m\times n} $，把$ m\times n $矩阵$\mathbi{A}$的行换成同序数的列得到一个$ n\times m $矩阵，则得到$ \mathbi{A}$的转置矩阵，记为${\mathbi{A}}^{\textrm T} $，且${\mathbi{A}}^{\textrm T}={(a_{ji})}_{n\times m} $。例如，对于公式\eqref{eq:9-100}中的矩阵，
+\parinterval {\small\sffamily\bfseries{转置}}\index{转置}（Transpose）\index{Transpose}是矩阵的重要操作之一。矩阵的转置可以看作是将矩阵以对角线为镜像进行翻转：假设$\mathbi{A}$为$ m $行$ n $列的矩阵，第$ i $行、第$ j $ 列的元素是$ a_{ij} $，即：$\mathbi{A}={(a_{ij})}_{m\times n} $，把$ m\times n $矩阵$\mathbi{A}$的行换成同序数的列得到一个$ n\times m $矩阵，则得到$ \mathbi{A}$的转置矩阵，记为${\mathbi{A}}^{\textrm T} $，且${\mathbi{A}}^{\textrm T}={(a_{ji})}_{n\times m} $。例如，对于下式中的矩阵，
 
 \begin{eqnarray}
 \mathbi{A} & = & \begin{pmatrix} 1 & 3 & 2 & 6\\5 & 4 & 8 & 2\end{pmatrix}
 \label{eq:9-100}
 \end{eqnarray}
 
-\noindent 它转置的结果如公式\eqref{eq:9-101}所示
+\noindent 它转置的结果如下：
 
 \begin{eqnarray}
 {\mathbi{A}}^{\textrm T} & = &\begin{pmatrix} 1 & 5\\3 & 4\\2 & 8\\6 & 2\end{pmatrix}
@@ -261,7 +263,7 @@
 
 \subsubsection{3. 矩阵加法和数乘}
 
-\parinterval 矩阵加法又被称作{\small\sffamily\bfseries{按元素加法}}\index{按元素加法}（Element-wise Addition）\index{Element-wise Addition}。它是指两个矩阵把其相对应元素加在一起的运算，通常的矩阵加法被定义在两个形状相同的矩阵上。两个$ m\times n $矩阵$ \mathbi{A}$和$ \mathbi{B} $的和，标记为$ \mathbi{A} + \mathbi{B}$，它也是个$ m\times n $矩阵，其内的各元素为其相对应元素相加后的值，即如果矩阵$ {\mathbi{C}}= {\mathbi{A}} + {\mathbi{B}} $，则$ c_{ij} = a_{ij} + b_{ij} $。公式\eqref{eq:9-4}展示了矩阵之间进行加法的计算过程。
+\parinterval 矩阵加法又被称作{\small\sffamily\bfseries{按元素加法}}\index{按元素加法}（Element-wise Addition）\index{Element-wise Addition}。它是指两个矩阵把其相对应元素加在一起的运算，通常的矩阵加法被定义在两个形状相同的矩阵上。两个$ m\times n $矩阵$ \mathbi{A}$和$ \mathbi{B} $的和，标记为$ \mathbi{A} + \mathbi{B}$，它也是个$ m\times n $矩阵，其内的各元素为其相对应元素相加后的值，即如果矩阵$ {\mathbi{C}}= {\mathbi{A}} + {\mathbi{B}} $，则$ c_{ij} = a_{ij} + b_{ij} $。下式展示了矩阵之间进行加法的计算过程。
 \begin{eqnarray}
 \begin{pmatrix}
    1 & 3\\
@@ -332,7 +334,7 @@
 
 \subsubsection{4. 矩阵乘法和矩阵点乘}
 
-\parinterval 矩阵乘法是矩阵运算中最重要的操作之一，为了与矩阵点乘区分，通常也把矩阵乘法叫做矩阵叉乘。假设$ {\mathbi{A}} $为$ m\times p $的矩阵，$ {\mathbi{B}} $为$ p\times n $的矩阵，对$ {\mathbi{A}}$和$ {\mathbi{B}} $作矩阵乘法的结果是一个$ m\times n $的矩阵$ {\mathbi{C}} $，其中矩阵$ {\mathbi{C}} $中第$ i $行、第$ j $列的元素可以如公式\eqref{eq:9-6}表示为：
+\parinterval 矩阵乘法是矩阵运算中最重要的操作之一，为了与矩阵点乘区分，通常也把矩阵乘法叫做矩阵叉乘。假设$ {\mathbi{A}} $为$ m\times p $的矩阵，$ {\mathbi{B}} $为$ p\times n $的矩阵，对$ {\mathbi{A}}$和$ {\mathbi{B}} $作矩阵乘法的结果是一个$ m\times n $的矩阵$ {\mathbi{C}} $，其中矩阵$ {\mathbi{C}} $中第$ i $行、第$ j $列的元素可以表示为：
 \begin{eqnarray}
 {({\mathbi{A}}{\mathbi{B}})}_{ij} &=& \sum_{k=1}^p a_{ik}b_{kj}
 \label{eq:9-6}
@@ -382,7 +384,7 @@
 \label{eq:9-104}
 \end{eqnarray}
 
-\parinterval 矩阵点乘的计算如公式\eqref{eq:9-8}所示：
+\parinterval 矩阵点乘的计算方式如下：
 \begin{eqnarray}
 {\mathbi{C}} & = & {\mathbi{A}}\odot {\mathbi{B}} \nonumber \\
           & = & \begin{pmatrix}
@@ -442,20 +444,20 @@ f(c{\mathbi{v}})&=&cf({\mathbi{v}})
 
 \subsubsection{6. 范数}
 
-\parinterval 工程领域，经常会使用被称为{\small\bfnew{范数}}\index{范数}（Norm）\index{Norm}的函数衡量向量大小，范数为向量空间内的所有向量赋予非零的正长度或大小。对于一个$n$维向量$ {\mathbi{x}} $，一个常见的范数函数为$ l_p $ 范数，通常表示为$ {\Vert{\mathbi{x}}\Vert}_p $ ，其中$p\ge 0$，是一个标量形式的参数。常用的$ p $的取值有$ 1 $、$ 2 $、$ \infty $等。范数的计算方式如公式\eqref{eq:9-14}所示：
+\parinterval 工程领域，经常会使用被称为{\small\bfnew{范数}}\index{范数}（Norm）\index{Norm}的函数衡量向量大小，范数为向量空间内的所有向量赋予非零的正长度或大小。对于一个$n$维向量$ {\mathbi{x}} $，一个常见的范数函数为$ l_p $ 范数，通常表示为$ {\Vert{\mathbi{x}}\Vert}_p $ ，其中$p\ge 0$，是一个标量形式的参数。常用的$ p $的取值有$ 1 $、$ 2 $、$ \infty $等。范数的计算方式如下：
 \begin{eqnarray}
 l_p({\mathbi{x}}) & = & {\Vert{\mathbi{x}}\Vert}_p \nonumber \\
                & = & {\left (\sum_{i=1}^{n}{{\vert x_{i}\vert}^p}\right )}^{\frac{1}{p}}
 \label{eq:9-14}
 \end{eqnarray}
 
-\parinterval $ l_1 $范数为向量的各个元素的绝对值之和，如公式\eqref{eq:9-15}所示：
+\parinterval $ l_1 $范数为向量的各个元素的绝对值之和：
 \begin{eqnarray}
 {\Vert{\mathbi{x}}\Vert}_1&=&\sum_{i=1}^{n}{\vert x_{i}\vert}
 \label{eq:9-15}
 \end{eqnarray}
 
-\parinterval $ l_2 $范数为向量的各个元素平方和的二分之一次方，如公式\eqref{eq:9-16}所示：
+\parinterval $ l_2 $范数为向量的各个元素平方和的二分之一次方：
 \begin{eqnarray}
 {\Vert{\mathbi{x}}\Vert}_2&=&\sqrt{\sum_{i=1}^{n}{{x_{i}}^2}} \nonumber \\
                                       &=&\sqrt{{\mathbi{x}}^{\textrm T}{\mathbi{x}}}
@@ -464,7 +466,7 @@ l_p({\mathbi{x}}) & = & {\Vert{\mathbi{x}}\Vert}_p \nonumber \\
 
 \parinterval $ l_2 $范数被称为{\small\bfnew{欧几里得范数}}\index{欧几里得范数}（Euclidean Norm）\index{Euclidean Norm}。从几何角度，向量也可以表示为从原点出发的一个带箭头的有向线段，其$ l_2 $范数为线段的长度，也常被称为向量的模。$ l_2 $ 范数在机器学习中非常常用。向量$ {\mathbi{x}} $的$ l_2 $范数经常简化表示为$ \Vert{\mathbi{x}}\Vert $，可以通过点积$ {\mathbi{x}}^{\textrm T}{\mathbi{x}} $进行计算。
 
-\parinterval $ l_{\infty} $范数为向量的各个元素的最大绝对值，如公式\eqref{eq:9-17}所示：
+\parinterval $ l_{\infty} $范数为向量的各个元素的最大绝对值：
 \begin{eqnarray}
 {\Vert{\mathbi{x}}\Vert}_{\infty}&=&{\textrm{max}}\{x_1,x_2,\dots,x_n\}
 \label{eq:9-17}
@@ -482,7 +484,7 @@ l_p({\mathbi{x}}) & = & {\Vert{\mathbi{x}}\Vert}_p \nonumber \\
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 在深度学习中，有时候希望衡量矩阵的大小，这时可以考虑使用 {\small\bfnew{Frobenius 范数}}\index{Frobenius 范数}（Frobenius Norm）\index{Frobenius Norm}。公式\eqref{eq:9-18}展示了其计算方式：
+\parinterval 在深度学习中，有时候希望衡量矩阵的大小，这时可以考虑使用 {\small\bfnew{Frobenius 范数}}\index{Frobenius 范数}（Frobenius Norm）\index{Frobenius Norm}，其计算方式如下：
 \begin{eqnarray}
 {\Vert{\mathbi{A}}\Vert}_F&=&\sqrt{\sum_{i,j} a_{i,j}^2}
 \label{eq:9-18}
@@ -512,9 +514,9 @@ l_p({\mathbi{x}}) & = & {\Vert{\mathbi{x}}\Vert}_p \nonumber \\
 \subsubsection{1. 感知机\ \dash \ 最简单的人工神经元模型}
 
 \vspace{0.5em}
-\parinterval 感知机是人工神经元的一种实例，在上世纪50-60年代被提出后，对神经网络研究产生了深远的影响。感知机模型如图\ref {fig:9-5}所示，其输入是一个$n$维二值向量$ {\mathbi{x}}=(x_1,x_2,\dots,x_n) $，其中$ x_i=0 $或$ 1 $。权重${\mathbi{w}}=(w_1,w_2,\dots,w_n) $，每个输入变量对应一个权重$ w_i $。偏置$ b $是一个实数变量（$ -\sigma $）。输出也是一个二值结果，即$ y=0 $或$ 1 $。$ y $值的判定由输入的加权和是否大于（或小于）一个阈值$ \sigma $决定（公式\eqref{eq:9-19}）：
+\parinterval 感知机是人工神经元的一种实例，在上世纪50-60年代被提出后，对神经网络研究产生了深远的影响。感知机模型如图\ref {fig:9-5}所示，其输入是一个$n$维二值向量$ {\mathbi{x}}=(x_1,x_2,\dots,x_n) $，其中$ x_i=0 $或$ 1 $。权重${\mathbi{w}}=(w_1,w_2,\dots,w_n) $，每个输入变量对应一个权重$ w_i $。偏置$ b $是一个实数变量（$ -\sigma $）。输出也是一个二值结果，即$ y=0 $或$ 1 $。$ y $值的判定由输入的加权和是否大于（或小于）一个阈值$ \sigma $决定：
 \begin{eqnarray}
-y=\begin{cases} 0 & \sum_{i}{x_i\cdot w_i}-\sigma <0\\1 & \sum_{i}{x_i\cdot w_i}-\sigma \geqslant 0\end{cases}
+y&=&\begin{cases} 0 & \sum_{i}{x_i\cdot w_i}-\sigma <0\\1 & \sum_{i}{x_i\cdot w_i}-\sigma \geqslant 0\end{cases}
 \label{eq:9-19}
 \end{eqnarray}
 
@@ -539,7 +541,7 @@ y=\begin{cases} 0 & \sum_{i}{x_i\cdot w_i}-\sigma <0\\1 & \sum_{i}{x_i\cdot w_i}
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 在这种情况下应该如何做出决定呢？比如，女朋友很希望和你一起去看音乐会，但是剧场很远而且票价500元，如果这些因素对你都是同等重要的（即$ w_1=w_2=w_3 $,假设这三个权重都设置为1）那么会得到一个综合得分，如公式\eqref{eq:9-20}所示：
+\parinterval 在这种情况下应该如何做出决定呢？比如，女朋友很希望和你一起去看音乐会，但是剧场很远而且票价500元，如果这些因素对你都是同等重要的（即$ w_1=w_2=w_3 $,假设这三个权重都设置为1）那么会得到一个综合得分：
 \begin{eqnarray}
 x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumber \\
                                                                      & = & 1
@@ -564,7 +566,7 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \vspace{-1em}
 \subsubsection{2. 神经元内部权重}
 
-\parinterval 在上面的例子中，连接权重代表着每个输入因素对最终输出结果的重要程度，为了得到令人满意的决策，需要不断调整权重。如果你是守财奴，则会对票价看得更重一些，这样你会用不均匀的权重计算每个因素的影响，比如：$ w_1=0.5 $，$ w_2=2 $，$ w_3=0.5 $，此时感知机模型如图\ref{fig:9-7}所示。在这种情况下，女友很希望和你一起去看音乐会，但是剧场很远而且票价500元，会导致你不去看音乐会，公式\eqref{eq:9-21}展示了该决策过程：
+\parinterval 在上面的例子中，连接权重代表着每个输入因素对最终输出结果的重要程度，为了得到令人满意的决策，需要不断调整权重。如果你是守财奴，则会对票价看得更重一些，这样你会用不均匀的权重计算每个因素的影响，比如：$ w_1=0.5 $，$ w_2=2 $，$ w_3=0.5 $，此时感知机模型如图\ref{fig:9-7}所示。在这种情况下，女友很希望和你一起去看音乐会，但是剧场很远而且票价500元，会导致你不去看音乐会，该决策过程如下：
 \begin{eqnarray}
 \sum_{i}{x_i\cdot w_i} & = & 0\cdot 0.5+0\cdot 2+1\cdot 0.5 \nonumber \\
                                    & = & 0.5 \nonumber \\
@@ -608,7 +610,7 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \end{figure}
 %-------------------------------------------
 
-\parinterval 使用修改后的模型做决策：女朋友很希望和你一起，但是剧场有20km远而且票价有500元。于是有$ x_1=10/20 $，$ x_2=150/500 $，$ x_3=1 $。此时决策过程如公式\eqref{eq:9-22}所示：
+\parinterval 使用修改后的模型做决策：女朋友很希望和你一起，但是剧场有20km远而且票价有500元。于是有$ x_1=10/20 $，$ x_2=150/500 $，$ x_3=1 $。此时决策过程如下：
 \begin{eqnarray}
 \sum_{i}{x_i\cdot w_i} & = & 0.5\cdot 0.5+0.3\cdot 2+1\cdot 0.5 \nonumber \\
                                    & = & 1.35 \nonumber \\
@@ -643,11 +645,11 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 \begin{itemize}
 \vspace{0.5em}
-\item 对问题建模，即定义输入$ \{x_i\} $的形式；
+\item {\small\sffamily\bfseries{对问题建模}}，即定义输入$ \{x_i\} $的形式；
 \vspace{0.5em}
-\item 设计有效的决策模型，即定义$ y $；
+\item {\small\sffamily\bfseries{设计有效的决策模型}}，即定义$ y $；
 \vspace{0.5em}
-\item 得到模型参数（如权重$ \{w_i\} $）的最优值。
+\item {\small\sffamily\bfseries{得到模型参数}}（如权重$ \{w_i\} $）的最优值。
 \vspace{0.5em}
 \end{itemize}
 
@@ -670,10 +672,10 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \parinterval 为了建立多层神经网络，首先需要把前面提到的简单的神经元进行扩展，把多个神经元组成一“层”神经元。比如，很多实际问题需要同时有多个输出，这时可以把多个相同的神经元并列起来，每个神经元都会有一个单独的输出，这就构成一“层”，形成了单层神经网络。单层神经网络中的每一个神经元都对应着一组权重和一个输出，可以把单层神经网络中的不同输出看作一个事物不同角度的描述。
 
 
-\parinterval 举个简单的例子，预报天气时，往往需要预测温度、湿度和风力，这就意味着如果使用单层神经网络进行预测，需要设置3个神经元。如图\ref{fig:9-10}所示，此时权重矩阵如公式\eqref{eq:9-105}所示：
+\parinterval 举个简单的例子，预报天气时，往往需要预测温度、湿度和风力，这就意味着如果使用单层神经网络进行预测，需要设置3个神经元。如图\ref{fig:9-10}所示，此时权重矩阵如下：
 
 \begin{eqnarray}
-{\mathbi{W}}=\begin{pmatrix} w_{11} & w_{12} & w_{13}\\ w_{21} & w_{22} & w_{23}\end{pmatrix}
+{\mathbi{W}}&=&\begin{pmatrix} w_{11} & w_{12} & w_{13}\\ w_{21} & w_{22} & w_{23}\end{pmatrix}
 \label{eq:9-105}
 \end{eqnarray}
 
@@ -697,7 +699,7 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \end{figure}
 %-------------------------------------------
 
-\parinterval 在神经网络中，对于输入向量$ {\mathbi{x}}\in {\mathbb R}^m $，一层神经网络首先将其经过线性变换映射到$ {\mathbb R}^n $，再经过激活函数变成${\mathbi{y}}\in {\mathbb R}^n $。还是上面天气预测的例子，每个神经元获得相同的输入，权重矩阵$ {\mathbi{W}} $是一个$ 2\times 3 $矩阵，矩阵中每个元素$ w_{ij} $代表第$ j $个神经元中$ x_{i} $对应的权重值，假设编号为1的神经元负责预测温度，则$ w_{i1} $含义为预测温度时，输入$ x_{i} $对其影响程度。此外所有神经元的偏置$ b_{1} $，$ b_{2} $，$ b_{3} $组成了最终的偏置向量$ {\mathbi{b}}$。在该例中则有，权重矩阵$ {\mathbi{W}}=\begin{pmatrix} w_{11} & w_{12} & w_{13}\\ w_{21} & w_{22} & w_{23}\end{pmatrix} $，偏置向量$ {\mathbi{b}}=(b_1,b_2,b_3) $。
+\parinterval 在神经网络中，对于输入向量$ {\mathbi{x}}\in {\mathbb R}^m $，一层神经网络首先将其经过线性变换映射到$ {\mathbb R}^n $，再经过激活函数变成${\mathbi{y}}\in {\mathbb R}^n $。还是上面天气预测的例子，每个神经元获得相同的输入，权重矩阵$ {\mathbi{W}} $是一个$ 2\times 3 $矩阵，矩阵中每个元素$ w_{ij} $代表第$ j $个神经元中$ x_{i} $对应的权重值，假设编号为1的神经元负责预测温度，则$ w_{i1} $的含义为预测温度时输入$ x_{i} $对其影响程度。此外所有神经元的偏置$ b_{1} $，$ b_{2} $，$ b_{3} $组成了最终的偏置向量$ {\mathbi{b}}$。在该例中则有，权重矩阵$ {\mathbi{W}}=\begin{pmatrix} w_{11} & w_{12} & w_{13}\\ w_{21} & w_{22} & w_{23}\end{pmatrix} $，偏置向量$ {\mathbi{b}}=(b_1,b_2,b_3) $。
 
 \parinterval 那么，线性变换的本质是什么？
 
@@ -705,10 +707,10 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \vspace{0.5em}
 \item 从代数角度看，对于线性空间$ \textrm V $，任意$ {\mathbi{a}}$，${\mathbi{a}}\in {\textrm V} $和数域中的任意$ \alpha $，线性变换$ T(\cdot) $需满足：$ T({\mathbi{a}}+{\mathbi{b}})=T({\mathbi{a}})+T({\mathbi{b}}) $，且$ T(\alpha {\mathbi{a}})=\alpha T({\mathbi{a}}) $；
 \vspace{0.5em}
-\item 从几何角度看，公式中的${\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}$将${\mathbi{x}}$右乘${\mathbi{W}}$相当于对$ {\mathbi{x}} $进行旋转变换。例如，对三个点$ (0,0) $，$ (0,1) $，$ (1,0) $及其围成的矩形区域右乘公式\eqref{eq:9-106}所示矩阵：
+\item 从几何角度看，公式中的${\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}$将${\mathbi{x}}$右乘${\mathbi{W}}$相当于对$ {\mathbi{x}} $进行旋转变换。例如，对三个点$ (0,0) $，$ (0,1) $，$ (1,0) $及其围成的矩形区域右乘如下矩阵：
 
     \begin{eqnarray}
-    {\mathbi{W}}=\begin{pmatrix} 1 & 0 & 0\\ 0 & -1 & 0\\ 0 & 0 & 1\end{pmatrix}
+    {\mathbi{W}}&=&\begin{pmatrix} 1 & 0 & 0\\ 0 & -1 & 0\\ 0 & 0 & 1\end{pmatrix}
     \label{eq:9-106}
     \end{eqnarray}
 
@@ -876,6 +878,8 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
+
+\sectionnewpage
 \section{神经网络的张量实现}
 
 \parinterval 在神经网络内部，输入经过若干次变换，最终得到输出的结果。这个过程类似于一种逐层的数据“流动”。不禁会产生这样的疑问：在神经网络中，数据是以哪种形式“流动”的？如何去编程实现这种数据“流动”呢？
@@ -905,6 +909,8 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 \parinterval 简单来说，张量是一种通用的工具，用于描述由多个数据构成的量。比如，输入的量有三个维度在变化，用矩阵不容易描述，但是用张量却很容易。
 
+\parinterval 从计算机实现的角度来看，现在所有深度学习框架都把张量定义为“多维数组”。张量有一个非常重要的属性\ \dash \ {\small\bfnew{阶}}\index{阶}（Rank）\index{Rank}。可以将多维数组中“维”的属性与张量的“阶”的属性作类比，这两个属性都表示多维数组（张量）有多少个独立的方向。例如，3是一个标量，相当于一个0维数组或0阶张量；$ {(\begin{array}{cccc} 2 & -3 & 0.8 & 0.2\end{array})}^{\textrm T} $ 是一个向量，相当于一个1维数组或1阶张量；$ \begin{pmatrix} -1 & 3 & 7\\ 0.2 & 2 & 9\end{pmatrix} $是一个矩阵，相当于一个2维数组或2阶张量；如图\ref{fig:9-25}所示，这是一个3 维数组或3阶张量，其中，每个$4 \times 4$的方形代表一个2阶张量，这样的方形有4个，最终形成3阶张量。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -914,9 +920,7 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \end{figure}
 %-------------------------------------------
 
-\parinterval 从计算机实现的角度来看，现在所有深度学习框架都把张量定义为“多维数组”。张量有一个非常重要的属性\ \dash \ {\small\bfnew{阶}}\index{阶}（Rank）\index{Rank}。可以将多维数组中“维”的属性与张量的“阶”的属性作类比，这两个属性都表示多维数组（张量）有多少个独立的方向。例如，3是一个标量，相当于一个0维数组或0阶张量；$ {(\begin{array}{cccc} 2 & -3 & 0.8 & 0.2\end{array})}^{\textrm T} $ 是一个向量，相当于一个1维数组或1阶张量；$ \begin{pmatrix} -1 & 3 & 7\\ 0.2 & 2 & 9\end{pmatrix} $是一个矩阵，相当于一个2维数组或2阶张量；如图\ref{fig:9-25}所示，这是一个3 维数组或3阶张量，其中，每个$4 \times 4$的方形代表一个2阶张量，这样的方形有4个，最终形成3阶张量。
-
-\parinterval 虽然这里所使用的张量是出于编程实现的视角，但是数学中张量有严格的定义。从数学上看“张量并不是向量和矩阵的简单扩展，多维数组也并不是张量所必须的表达形式”。从某种意义上说，矩阵才是张量的扩展。当然，这个逻辑可能和人们在深度学习中的认知是不一致的。在这里，本书仍然遵循深度学习中常用的概念，把张量理解为多维数组。在保证数学表达的简洁性的同时，使程序实现接口更加统一。
+\parinterval 虽然这里所使用的张量是出于编程实现的视角，但是数学中张量有严格的定义。从数学上看“张量并不是向量和矩阵的简单扩展，多维数组也并不是张量所必须的表达形式”。从某种意义上说，矩阵才是张量的扩展。当然，这个逻辑可能和人们在深度学习中的认知是不一致的。但是，本书仍然遵循深度学习中常用的概念，把张量理解为多维数组。在保证数学表达的简洁性的同时，使程序实现接口更加统一。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -924,30 +928,29 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 \subsubsection{2. 张量的矩阵乘法}
 
-\vspace{0.3em}
 \parinterval 对于一个单层神经网络，$ {\mathbi{y}}=f({\mathbi{x}}\cdot{\mathbi{W}}+{\mathbi{b}}) $中的${\mathbi{x}}\cdot {\mathbi{W}} $表示对输入${\mathbi{x}} $进行线性变换，其中${\mathbi{x}}$是输入张量，$ {\mathbi{W}}$是权重矩阵。$ {\mathbi{x}}\cdot {\mathbi{W}} $表示的是矩阵乘法，需要注意的是这里是矩阵乘法而不是张量乘法。
 
-\parinterval 张量乘以矩阵是怎样计算呢？可以先回忆一下\ref{sec:9.2.1}节的线性代数的知识。假设$ {\mathbi{A}} $为$ m\times p $的矩阵，$ {\mathbi{B}} $为$ p\times n $的矩阵，对${\mathbi{A}} $ 和${\mathbi{B}}$ 作矩阵乘积的结果是一个$ m\times n $的矩阵${\mathbi{C}}$，其中矩阵${\mathbi{C}}$中第$ i $行、第$ j $列的元素可以表示为公式\eqref{eq:9-24}：
-
+\parinterval 张量乘以矩阵是怎样计算呢？可以先回忆一下\ref{sec:9.2.1}节的线性代数的知识。假设$ {\mathbi{A}} $为$ m\times p $的矩阵，$ {\mathbi{B}} $为$ p\times n $的矩阵，对${\mathbi{A}} $ 和${\mathbi{B}}$ 作矩阵乘积的结果是一个$ m\times n $的矩阵${\mathbi{C}}$，其中矩阵${\mathbi{C}}$中第$ i $行、第$ j $列的元素可以表示为：
 \begin{eqnarray}
 {({\mathbi{A}}{\mathbi{B}})}_{ij}&=&\sum_{k=1}^{p}{a_{ik}b_{kj}}
 \label{eq:9-24}
 \end{eqnarray}
 
-\noindent 例如$ {\mathbi{A}}= \begin{pmatrix} a_{11} & a_{12} & a_{13}\\a_{21} & a_{22} & a_{23}\end{pmatrix} $，$ {\mathbi{B}}= \begin{pmatrix} b_{11} & b_{12}\\b_{21} & b_{22}\\b_{31} & b_{32}\end{pmatrix} $，公式\eqref{eq:9-108}展示了两矩阵做乘法运算的过程：
+\noindent 例如$ {\mathbi{A}}= \begin{pmatrix} a_{11} & a_{12} & a_{13}\\a_{21} & a_{22} & a_{23}\end{pmatrix} $，$ {\mathbi{B}}= \begin{pmatrix} b_{11} & b_{12}\\b_{21} & b_{22}\\b_{31} & b_{32}\end{pmatrix} $，两矩阵做乘法运算的过程如下：
 \begin{eqnarray}
 {\mathbi{C}} & = & {\mathbi{A}}{\mathbi{B}} \nonumber \\
                 & = & \begin{pmatrix} a_{11}b_{11}+a_{12}b_{21}+a_{13}b_{31} & a_{11}b_{12}+a_{12}b_{22}+a_{13}b_{32}\\a_{21}b_{11}+a_{22}b_{21}+a_{23}b_{31} & a_{21}b_{12}+a_{22}b_{22}+a_{23}b_{32}\end{pmatrix}
 \label{eq:9-108}
 \end{eqnarray}
 
-\parinterval 将矩阵乘法扩展到高阶张量中：一个张量${\mathbi{x}}$若要与矩阵$ {\mathbi{W}}$做矩阵乘法，则$ {\mathbi{x}} $的最后一维度需要与${\mathbi{W}}$的行数大小相等，即：若张量${\mathbi{x}} $的形状为$ \cdot \times n $，${\mathbi{W}} $须为$ n\times \cdot $的矩阵。公式\eqref{eq:9-25}是一个例子:
+\parinterval 将矩阵乘法扩展到高阶张量中：一个张量${\mathbi{x}}$若要与矩阵$ {\mathbi{W}}$做矩阵乘法，则$ {\mathbi{x}} $的最后一维度需要与${\mathbi{W}}$的行数大小相等，即：若张量${\mathbi{x}} $的形状为$ \cdot \times n $，${\mathbi{W}} $须为$ n\times \cdot $的矩阵。下式是一个例子:
 \begin{eqnarray}
-{\mathbi{x}}(1:4,1:4,{\red{1:4}})\times {{\mathbi{W}}({\red{1:4}},1:2)}={\mathbi{s}}(1:4,1:4,1:2)
+{\mathbi{x}}(1:4,1:4,{\red{1:4}})\;\;\times\;\; {{\mathbi{W}}({\red{1:4}},1:2)}&=&{\mathbi{s}}(1:4,1:4,1:2)
 \label{eq:9-25}
 \end{eqnarray}
 
 \noindent 其中，张量${\mathbi{x}} $沿第1阶所在的方向与矩阵$ {\mathbi{W}}$进行矩阵运算（张量${\mathbi{x}}$第1阶的每个维度都可以看做一个$ 4\times 4 $的矩阵）。图\ref{fig:9-27}演示了这个计算过程。张量${\mathbi{x}}$中编号为\ding{172}的子张量（可看作矩阵）与矩阵${\mathbi{W}}$进行矩阵乘法，其结果对应张量$ {\mathbi{s}}$中编号为\ding{172}的子张量。这个过程会循环四次，因为有四个这样的矩阵（子张量）。最终，图\ref{fig:9-27}给出了结果张量的形式（$ 4 \times 4 \times 2 $）。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -967,8 +970,9 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \parinterval 对于神经网络中的某层神经元$ {\mathbi{y}}=f({\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}) $，也包含有其他张量单元操作：1）加法：$ {\mathbi{s}}+{\mathbi{b}}$，其中张量$ {\mathbi{s}}={\mathbi{x}}\cdot {\mathbi{W}} $；2）激活函数：$ f(\cdot) $。具体来说：
 
 \begin{itemize}
-\vspace{0.6em}
-\item $ {\mathbi{s}}+{\mathbi{b}} $中的单元加就是对张量中的每个位置都进行加法。在上例中$ {\mathbi{s}} $是形状为$ (1:4,1:4,1:2) $的3阶张量，而$ {\mathbi{b}}$是含有4个元素的向量，在形状不同的情况下是怎样进行单元加的呢？在这里需要引入{\small\sffamily\bfseries{广播机制}}\index{广播机制}：如果两个数组的后缘维度（即从末尾开始算起的维度）的轴长度相符或其中一方的长度为1，则认为它们是广播兼容的。广播会在缺失或长度为1的维度上进行，它是深度学习框架中常用的计算方式。来看一个具体的例子，如图\ref{fig:9-28}所示，$ {\mathbi{s}} $是一个$ 2\times 4 $的矩阵而$ {\mathbi{b}} $是一个长度为4的向量，这两者进行单元加运算时，广播机制会将$ {\mathbi{b}} $沿第一个维度复制后，再与$ {\mathbi{s}} $做加法运算。
+\vspace{0.5em}
+\item $ {\mathbi{s}}+{\mathbi{b}} $中的单元加就是对张量中的每个位置都进行加法。在上例中$ {\mathbi{s}} $是形状为$ (1:4,1:4,1:2) $的3阶张量，而$ {\mathbi{b}}$是含有4个元素的向量，在形状不同的情况下是怎样进行单元加的呢？在这里需要引入{\small\sffamily\bfseries{广播机制}}\index{广播机制}（Broadcast Mechanism\index{Broadcast Mechanism}）：如果两个数组的后缘维度（即从末尾开始算起的维度）的轴长度相符或其中一方的长度为1，则认为它们是广播兼容的。广播会在缺失或长度为1的维度上进行，它是深度学习框架中常用的计算方式。来看一个具体的例子，如图\ref{fig:9-28}所示，$ {\mathbi{s}} $是一个$ 2\times 4 $的矩阵而$ {\mathbi{b}} $是一个长度为4的向量，这两者进行单元加运算时，广播机制会将$ {\mathbi{b}} $沿第一个维度复制后，再与$ {\mathbi{s}} $做加法运算。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -977,16 +981,15 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \label{fig:9-28}
 \end {figure}
 %-------------------------------------------
-
-\vspace{0.6em}
-\item 除了单位加之外，张量之间也可以使用减法操作、乘法操作。此外也可以对张量作激活操作，这里将其称作为函数的{\small\bfnew{向量化}}\index{向量化}（Vectorization）\index{Vectorization}。例如，对向量（1阶张量）作ReLU激活，公式\eqref{eq:9-26}为ReLU激活函数：
+\vspace{0.5em}
+\item 除了单位加之外，张量之间也可以使用减法操作、乘法操作。此外也可以对张量作激活操作，这里将其称作为函数的{\small\bfnew{向量化}}\index{向量化}（Vectorization）\index{Vectorization}。例如，对向量（1阶张量）作ReLU激活，ReLU激活函数表达式如下：
 \begin{eqnarray}
-f(x)=\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
+f(x)&=&\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
 \label{eq:9-26}
 \end{eqnarray}
-
+\vspace{-0.5em}
 例如$ {\textrm{ReLU}}\left( \begin{pmatrix} 2\\-.3\end{pmatrix}\right)=\begin{pmatrix} 2\\0\end{pmatrix} $。
-\vspace{0.6em}
+\vspace{0.5em}
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
@@ -994,26 +997,27 @@ f(x)=\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
 %----------------------------------------------------------------------------------------
 
 \subsection{张量的物理存储形式}
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter9/Figures/figure-save}
-\caption{1阶(a)、2阶(b)、3阶张量(c)的物理存储}
-\label{fig:9-29}
-\end{figure}
-%-------------------------------------------
 
 \parinterval 在深度学习世界中，张量就是多维数组。因此，张量的物理存储方式也与多维数组相同。如下就是一些实例：
 
 \begin{itemize}
-\vspace{0.6em}
+\vspace{0.5em}
 \item 张量$ {\mathbi{t}}(1:3) $表示一个含有三个元素的向量（1阶张量），其物理存储如图\ref{fig:9-29}(a)所示。
-\vspace{0.6em}
+\vspace{0.5em}
 \item 张量$ {\mathbi{t}}(1:2,1:3) $表示一个$ 2\times 3 $的矩阵（2阶张量），其物理存储如图\ref{fig:9-29}(b)所示。
-\vspace{0.6em}
+\vspace{0.5em}
 \item 张量${\mathbi{t}}(1:2,1:2,1:3) $表示一个大小$ 2\times 2\times 3 $的3阶张量，其物理存储如图\ref{fig:9-29}(c)所示。
-\vspace{0.6em}
+\vspace{0.5em}
 \end{itemize}
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter9/Figures/figure-save}
+\caption{不同阶的张量的物理存储方式}
+\label{fig:9-29}
+\end{figure}
+%-------------------------------------------
 
 \parinterval 高阶张量的物理存储方式与多维数组在C++、Python中的物理存储方式相同。
 
@@ -1024,6 +1028,8 @@ f(x)=\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
 \subsection{张量的实现手段}
 
 \parinterval 实现神经网络的开源系统有很多，比如，使用经典的Python工具包Numpy。也可以使用成熟的深度学习框架，比如，Tensorflow和Pytorch就是非常受欢迎的深度学习工具包，除此之外还有很多其他优秀的框架：CNTK、MXNet、PaddlePaddle、\\Keras、Chainer、dl4j、NiuTensor等。开发者可以根据自身的喜好和开发项目的要求选择所采用的框架。
+
+\parinterval 这里以NiuTensor为例对张量计算库进行简单介绍。这类库需要提供张量计算接口，如张量的声明、定义和张量的各种代数运算，各种单元算子，如$ + $、$ - $、$ \ast $、$ / $、Log （取对数）、Exp （指数运算）、Power（幂方运算）、Absolute（绝对值）等，还有Sigmoid、Softmax等激活函数。除了上述单元算子外，张量计算库还支持张量之间的高阶运算，其中最常用的是矩阵乘法。表\ref{tab:9-2} 展示了一些常用的函数。
 
 %--------------------------------------------------------------------
 \begin{table}[htp]
@@ -1054,7 +1060,6 @@ f(x)=\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
 \end{tabular}
 \end{table}
 %--------------------------------------------------------------------
-\parinterval 这里以NiuTensor为例对张量计算库进行简单介绍。这类库需要提供张量计算接口，如张量的声明、定义和张量的各种代数运算，各种单元算子，如$ + $、$ - $、$ \ast $、$ / $、Log （取对数）、Exp （指数运算）、Power（幂方运算）、Absolute（绝对值）等，还有Sigmoid、Softmax等激活函数。除了上述单元算子外，张量计算库还支持张量之间的高阶运算，其中最常用的是矩阵乘法。在表\ref{tab:9-2} 中展示了NiuTensor支持的一些常用函数。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -1065,6 +1070,7 @@ f(x)=\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
 \parinterval 有了张量这个工具，可以很容易地实现任意的神经网络。反过来，神经网络都可以被看作是张量的函数。一种经典的神经网络计算模型是：给定输入张量，通过各个神经网络层所对应的张量计算之后，最后得到输出张量。这个过程也被称作{\small\sffamily\bfseries{前向传播}}\index{前向传播}（Forward Propagation\index{Forward Propagation}），它常常被应用在使用神经网络对新的样本进行推断中。
 
 \parinterval 来看一个具体的例子，图\ref{fig:9-37}展示了一个根据天气情况判断穿衣指数（穿衣指数是人们穿衣薄厚的依据）的过程，将当天的天空状况、低空气温、水平气压作为输入，通过一层神经元在输入数据中提取温度、风速两方面的特征，并根据这两方面的特征判断穿衣指数。需要注意的是，在实际的神经网络中，并不能准确地知道神经元究竟可以提取到哪方面的特征，以上表述是为了让读者更好地理解神经网络的建模过程和前向传播过程。这里将上述过程建模为如图\ref{fig:9-37}所示的两层神经网络。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -1081,8 +1087,6 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 \end{eqnarray}
 
 \parinterval 前向计算实现如图\ref{fig:9-38}所示，图中对各张量和其他参数的形状做了详细说明。输入$ {\mathbi{x}}=(x_1,x_2,x_3) $是一个$1\times 3$的张量，其三个维度分别对应天空状况、低空气温、水平气压三个方面的数据。输入数据经过隐藏层的线性变换$ {\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\mathbi{b}}^{[1]}$和Tanh函数的激活，得到新的张量$ {\mathbi{a}}=(a_1,a_2) $，其中$a_1$，$a_2$分别对应着从输入数据中提取出的温度和风速两方面特征；神经网络在获取到天气情况的特征$ {\mathbi{a}}$后，继续对其进行线性变换${\mathbi{a}}\cdot {\mathbi{W}}^{[2]}+ b^{[2]} $和Sigmoid函数的激活操作，得到神经网络的最终输出$ y $，即神经网络此时预测的穿衣指数。
-
-\parinterval 图\ref{fig:9-38}实际上是神经网络的一种{\small\bfnew{计算图}}\index{计算图}（Computation Graph）\index{Computation Graph}表示。现在很多深度学习框架都是把神经网络转化为计算图，这样可以把复杂的运算分解为简单的运算，称为{\small\bfnew{算子}}\index{算子}（Calculus\index{Calculus}）。通过对计算图中节点的遍历，可以方便地完成神经网络的计算。比如，可以对图中节点进行拓扑排序（由输入到输出），之后依次访问每个节点，同时完成相应的计算，这也就实现了一个前向计算的过程。
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -1092,11 +1096,15 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 \end{figure}
 %-------------------------------------------
 
-\parinterval 使用计算图的另一个优点在于，这种方式易于参数梯度的计算。在本章后面的内容中也会看到，计算神经网络中参数的梯度是模型训练的重要步骤。在计算图中，可以使用{\small\bfnew{反向传播}}\index{反向传播} （Backward Propagation\index{Backward Propagation}）的方式逐层计算不同节点上的梯度信息。在\ref{sec9:para-training} 节会看到使用计算图这种结构可以非常方便、高效地计算反向传播中所需的梯度信息。
+\parinterval 图\ref{fig:9-38}实际上是神经网络的一种{\small\bfnew{计算图}}\index{计算图}（Computation Graph）\index{Computation Graph}表示。现在很多深度学习框架都是把神经网络转化为计算图，这样可以把复杂的运算分解为简单的运算，称为{\small\bfnew{算子}}\index{算子}（Calculus\index{Calculus}）。通过对计算图中节点的遍历，可以方便地完成神经网络的计算。比如，可以对图中节点进行拓扑排序（由输入到输出），之后依次访问每个节点，同时完成相应的计算，这也就实现了一个前向计算的过程。
+
+\parinterval 使用计算图的另一个优点在于，这种方式易于参数梯度的计算。在后面的内容中会看到，计算神经网络中参数的梯度是模型训练的重要步骤。在计算图中，可以使用{\small\bfnew{反向传播}}\index{反向传播} （Backward Propagation\index{Backward Propagation}）的方式逐层计算不同节点上的梯度信息。在\ref{sec9:para-training} 节会看到使用计算图这种结构可以非常方便、高效地计算反向传播中所需的梯度信息。
+
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
+\sectionnewpage
 \section{神经网络的参数训练}
 
 \parinterval 简单来说，神经网络可以被看作是由变量和函数组成的表达式，例如：$ {\mathbi{y}}={\mathbi{x}}+{\mathbi{b}} $、$ {\mathbi{y}}={\textrm{ReLU}}({\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}) $、$ {\mathbi{y}}={\textrm{Sigmoid}}({\textrm{ReLU}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\mathbi{b}}^{[1]})\cdot {\mathbi{W}}^{[2]}+{\mathbi{b}}^{[2]}) $等等，其中的$ {\mathbi{x}} $和$ {\mathbi{y}} $作为输入和输出向量， ${\mathbi{W}}$、${\mathbi{b}}$等其他变量作为{\small\sffamily\bfseries{模型参数}}\index{模型参数}（Model Parameters）\index{Model Parameters}。确定了函数表达式和模型参数，也就确定了神经网络模型。通常，表达式的形式需要系统开发者设计，而模型参数的数量有时会非常巨大，因此需要自动学习，这个过程也被称为模型学习或训练。为了实现这个目标，通常会准备一定量的带有标准答案的数据，称之为有标注数据。这些数据会用于对模型参数的学习，这也对应了统计模型中的参数估计过程。在机器学习中，一般把这种使用有标注数据进行统计模型参数训练的过程称为{\small\sffamily\bfseries{有指导的训练}}\index{有指导的训练}或{\small\sffamily\bfseries{有监督的训练}}\index{有监督的训练}（Supervised Training）\index{Supervised Training}。在本章中，如果没有特殊说明，模型训练都是指有监督的训练。那么神经网络内部是怎样利用有标注数据对参数进行训练的呢？\\ \\
@@ -1120,7 +1128,7 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 
 \subsection{损失函数}
 
-\parinterval 在神经网络的有监督学习中，训练模型的数据是由输入和正确答案所组成的样本构成的。假设有多个输入样本$ \{{\mathbi{x}}_1,{\mathbi{x}}_2,\dots,{\mathbi{x}}_n\} $，每一个$ {\mathbi{x}}_i $都对应一个正确答案$ \widetilde{\mathbi{y}}_i $，$ \{{\mathbi{x}}_i,\widetilde{\mathbi{y}}_i\} $就构成一个优化神经网络的{\small\sffamily\bfseries{训练数据集合}}\index{训练数据集合}（Training Data Set）\index{Training Data Set}。对于一个神经网络模型${\mathbi{y}}=f({\mathbi{x}}) $,每个$ {\mathbi{x}}_i $也会有一个输出$ {\mathbi{y}}_i $。如果可以度量正确答案$ \widetilde{\mathbi{y}}_i $和神经网络输出$ {\mathbi{y}}_i $之间的偏差，进而通过调整网络参数减小这种偏差，就可以得到更好的模型。
+\parinterval 在神经网络的有监督学习中，训练模型的数据是由输入和正确答案所组成的样本构成的。假设有多个输入样本$ \{{\mathbi{x}}^{[1]}\dots,{\mathbi{x}}^{[n]}\} $，每一个$ {\mathbi{x}}^{[i]}$都对应一个正确答案$ {\mathbi{y}}^{[i]} $，$ \{{\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]}\} $就构成一个优化神经网络的{\small\sffamily\bfseries{训练数据集合}}\index{训练数据集合}（Training Data Set）\index{Training Data Set}。对于一个神经网络模型${\mathbi{y}}=f({\mathbi{x}}) $,每个$ {\mathbi{x}}^{[i]} $也会有一个输出$ {\hat{\mathbi{y}}}^{[i]} $。如果可以度量正确答案$ {\mathbi{y}}^{[i]} $和神经网络输出$ {\hat{\mathbi{y}}}^{[i]} $之间的偏差，进而通过调整网络参数减小这种偏差，就可以得到更好的模型。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1131,9 +1139,9 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 \end{figure}
 %-------------------------------------------
 
-\parinterval 通常，可以通过设计{\small\sffamily\bfseries{损失函数}}\index{损失函数}（Loss Function）\index{Loss Function}来度量正确答案$ \widetilde{\mathbi{y}}_i $和神经网络输出$ {\mathbi{y}}_i $之间的偏差。而这个损失函数往往充当训练的{\small\sffamily\bfseries{目标函数}}\index{目标函数}（Objective Function）\index{Objective Function}，神经网络训练就是通过不断调整神经网络内部的参数而使损失函数最小化。图\ref{fig:9-42}展示了一个绝对值损失函数的实例。
+\parinterval 通常，可以通过设计{\small\sffamily\bfseries{损失函数}}\index{损失函数}（Loss Function）\index{Loss Function}来度量正确答案$ {\mathbi{y}}^{[i]} $和神经网络输出$ {\hat{\mathbi{y}}}^{[i]} $之间的偏差。而这个损失函数往往充当训练的{\small\sffamily\bfseries{目标函数}}\index{目标函数}（Objective Function）\index{Objective Function}，神经网络训练就是通过不断调整神经网络内部的参数而使损失函数最小化。图\ref{fig:9-42}展示了一个绝对值损失函数的实例。
 
-\parinterval 这里用$ Loss(\widetilde{\mathbi{y}}_i,{\mathbi{y}}_i) $表示网络输出$ {\mathbi{y}}_i $相对于答案$ \widetilde{\mathbi{y}}_i $的损失，简记为$ L $。表\ref{tab:9-3}是几种常见损失函数的定义。需要注意的是，没有一种损失函数可以适用于所有的问题。损失函数的选择取决于许多因素，包括：数据中是否有离群点、模型结构的选择、是否易于找到函数的导数以及预测结果的置信度等。对于相同的神经网络，不同的损失函数会对训练得到的模型产生不同的影响。对于新的问题，如果无法找到已有的、适合于该问题的损失函数，研究人员也可以自定义损失函数。因此设计新的损失函数也是神经网络中有趣的研究方向。
+\parinterval 这里用$ Loss({\mathbi{y}}^{[i]},{\hat{\mathbi{y}}}^{[i]}) $表示网络输出$ {\hat{\mathbi{y}}}^{[i]} $相对于答案$ {\mathbi{y}}^{[i]} $的损失，简记为$ L $。表\ref{tab:9-3}是几种常见损失函数的定义。需要注意的是，没有一种损失函数可以适用于所有的问题。损失函数的选择取决于许多因素，包括：数据中是否有离群点、模型结构的选择、是否易于找到函数的导数以及预测结果的置信度等。对于相同的神经网络，不同的损失函数会对训练得到的模型产生不同的影响。对于新的问题，如果无法找到已有的、适合于该问题的损失函数，研究人员也可以自定义损失函数。因此设计新的损失函数也是神经网络中有趣的研究方向。
 
 %--------------------------------------------------------------------
 \begin{table}[htp]
@@ -1144,19 +1152,19 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 \begin{tabular}{l | l l}
 \rule{0pt}{15pt}     名称 & 定义 & 应用  \\
 \hline
-\rule{0pt}{15pt}     0-1损失 & $ L=\begin{cases} 0 & \widetilde{\mathbi{y}}_i={\mathbi{y}}_i \\1 & \widetilde{\mathbi{y}}_i\not ={\mathbi{y}}_i\end{cases} $ & 感知机  \\
-\rule{0pt}{15pt}     Hinge损失 & $ L={\textrm {max}}(0,1-\widetilde{\mathbi{y}}_i\cdot {\mathbi{y}}_i) $ & SVM  \\
-\rule{0pt}{15pt}     绝对值损失 & $ L=\vert \widetilde{\mathbi{y}}_i-{\mathbi{y}}_i\vert $ & 回归  \\
-\rule{0pt}{15pt}     Logistic损失 & $ L={\textrm{log}}(1+\widetilde{\mathbi{y}}_i\cdot {\mathbi{y}}_i) $ & 回归  \\
-\rule{0pt}{15pt}     平方损失 & $ L={(\widetilde{\mathbi{y}}_i-{\mathbi{y}}_i)}^2 $ & 回归  \\
-\rule{0pt}{15pt}     指数损失 & $ L={\textrm{exp}}(-\widetilde{\mathbi{y}}_i\cdot {\mathbi{y}}_i) $ & AdaBoost  \\
-\rule{0pt}{15pt}     交叉熵损失 & $ L=-\sum_{k}{{\mathbi{y}}_{i}[k]}{\textrm {log}} {\widetilde{\mathbi{y}}_{i}[k]} $ & 多分类  \\
-\rule{0pt}{15pt}     & 其中，${\mathbi{y}}_{i}[k]$ 表示 ${\mathbi{y}}_i$的第$k$维
+\rule{0pt}{15pt}     0-1损失 & $ L=\begin{cases} 0 & {\mathbi{y}}^{[i]}={\hat{\mathbi{y}}}^{[i]} \\1 & {\mathbi{y}}^{[i]}\not ={\hat{\mathbi{y}}}^{[i]}\end{cases} $ & 感知机  \\
+\rule{0pt}{15pt}     Hinge损失 & $ L={\textrm {max}}(0,1-{\mathbi{y}}^{[i]}\cdot {\hat{\mathbi{y}}}^{[i]}) $ & SVM  \\
+\rule{0pt}{15pt}     绝对值损失 & $ L=\vert {\mathbi{y}}^{[i]}-{\hat{\mathbi{y}}}^{[i]}\vert $ & 回归  \\
+\rule{0pt}{15pt}     Logistic损失 & $ L={\textrm{log}}(1+{\mathbi{y}}^{[i]}\cdot {\hat{\mathbi{y}}}^{[i]}) $ & 回归  \\
+\rule{0pt}{15pt}     平方损失 & $ L={({\mathbi{y}}^{[i]}-{\hat{\mathbi{y}}}^{[i]})}^2 $ & 回归  \\
+\rule{0pt}{15pt}     指数损失 & $ L={\textrm{exp}}(-{\mathbi{y}}^{[i]}\cdot{\hat{\mathbi{y}}}^{[i]}) $ & AdaBoost  \\
+\rule{0pt}{15pt}     交叉熵损失 & $ L=-\sum_{k}{\hat{\mathbi{y}}}^{[i]}_{k}{\textrm {log}} {\mathbi{y}}^{[i]}_{k} $ & 多分类  \\
+\rule{0pt}{15pt}     & 其中，${\mathbi{y}}^{[i]}_{k}$ 表示 ${\mathbi{y}}^{[i]}$的第$k$维
 \end{tabular}
 \end{table}
 %--------------------------------------------------------------------
 
-\parinterval 在实际系统开发中，损失函数中除了损失项（即用来度量正确答案$ \widetilde{\mathbi{y}}_i $和神经网络输出$ {\mathbi{y}}_i $之间的偏差的部分）之外，还可以包括正则项，比如L1正则和L2正则。设置正则项本质上是要加入一些偏置，使模型在优化的过程中偏向某个方向多一些。关于正则项的内容将在\ref{sec:9.4.5}节介绍。
+\parinterval 在实际系统开发中，损失函数中除了损失项（即用来度量正确答案$ {\mathbi{y}}^{[i]} $和神经网络输出$ {\hat{\mathbi{y}}}^{[i]} $之间的偏差的部分）之外，还可以包括正则项，比如L1正则和L2正则。设置正则项本质上是要加入一些偏置，使模型在优化的过程中偏向某个方向多一些。关于正则项的内容将在\ref{sec:9.4.5}节介绍。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -1164,14 +1172,14 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 
 \subsection{基于梯度的参数优化}\label{sec9:para-training}
 
-\parinterval 对于第$ i $个样本$ ({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i) $，把损失函数$ L(\widetilde{\mathbi{y}}_i,{\mathbi{y}}_i) $看作是参数$ \bm \theta $的函数\footnote{为了简化描述，可以用$
-\bm{\theta} $表示神经网络中的所有参数，包括各层的权重矩阵${\mathbi{W}}^{[1]}\dots{\mathbi{W}}^{[n]}$和偏置向量${\mathbi{b}}^{[1]}\dots{\mathbi{b}}^{[n]}$等。}，因为输出$ {\mathbi{y}}_i $是由输入$ {\mathbi{x}}_i $和模型参数$ \bm \theta $决定，因此也把损失函数写为$ L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta}) $。参数学习过程可以被描述为公式\eqref{eq:9-28}：
+\parinterval 对于第$ i $个样本$ ({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]}) $，把损失函数$ L({\mathbi{y}}^{[i]},{\hat{\mathbi{y}}}^{[i]}) $看作是参数$ \bm \theta $的函数\footnote{为了简化描述，可以用$
+\bm{\theta} $表示神经网络中的所有参数，包括各层的权重矩阵${\mathbi{W}}^{[1]}\dots{\mathbi{W}}^{[n]}$和偏置向量${\mathbi{b}}^{[1]}\dots{\mathbi{b}}^{[n]}$等。}，因为模型输出$ {\hat{\mathbi{y}}}^{[i]}$是由输入$ {\mathbi{x}}^{[i]}$和模型参数$ \bm \theta $决定，因此也把损失函数写为$ L({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]};{\bm \theta}) $。下式描述了参数学习的过程：
 \begin{eqnarray}
-\widehat{\bm\theta}&=&\mathop{\arg\min}_{\bm \theta}\frac{1}{n}\sum_{i=1}^{n}{L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta})}
+\widehat{\bm\theta}&=&\mathop{\arg\min}_{\bm \theta}\frac{1}{n}\sum_{i=1}^{n}{L({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]};{\bm \theta})}
 \label{eq:9-28}
 \end{eqnarray}
 
-\noindent 其中，$ \widehat{\bm \theta} $表示在训练数据上使损失的平均值达到最小的参数，$n$为训练数据总量。$ \frac{1}{n}\sum \limits_{i=1}^{n}{L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta})} $也被称作{\small\sffamily\bfseries{代价函数}}\index{代价函数}（Cost Function）\index{Cost Function}，它是损失函数均值期望的估计，记为$ J({\bm \theta}) $。
+\noindent 其中，$ \widehat{\bm \theta} $表示在训练数据上使损失的平均值达到最小的参数，$n$为训练数据总量。$ \frac{1}{n}\sum \limits_{i=1}^{n}{L({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]};{\bm \theta})} $也被称作{\small\sffamily\bfseries{代价函数}}\index{代价函数}（Cost Function）\index{Cost Function}，它是损失函数均值期望的估计，记为$ J({\bm \theta}) $。
 
 \parinterval 参数优化的核心问题是：找到使代价函数$ J({\bm\theta}) $达到最小的$ \bm \theta $。然而$ J({\bm\theta}) $可能会包含大量的参数，比如，基于神经网络的机器翻译模型的参数量可能会超过一亿个。这时不可能用手动方法进行调参。为了实现高效的参数优化，比较常用的手段是使用{\small\bfnew{梯度下降方法}}\index{梯度下降方法}（The Gradient Descent Method）\index{The Gradient Descent Method}。
 
@@ -1192,7 +1200,7 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 \end{figure}
 %-------------------------------------------
 
-\parinterval 应用梯度下降算法时，首先需要初始化参数${\bm \theta}$。一般情况下深度学习中的参数应该初始化为一个不太大的随机数。一旦初始化${\bm \theta}$后，就开始对模型进行不断的更新，{\small\sffamily\bfseries{参数更新的规则}}\index{参数更新的规则}（Update Rule）\index{Update Rule}如公式\eqref{eq:9-29}所示：
+\parinterval 应用梯度下降算法时，首先需要初始化参数${\bm \theta}$。一般情况下深度学习中的参数应该初始化为一个不太大的随机数。一旦初始化${\bm \theta}$后，就开始对模型进行不断的更新，{\small\sffamily\bfseries{参数更新的规则}}\index{参数更新的规则}（Update Rule）\index{Update Rule}如下：
 \begin{eqnarray}
 {\bm \theta}_{t+1}&=&{\bm \theta}_{t}-\alpha \cdot \frac{\partial J({\bm \theta})}{\partial {\bm \theta}}
 \label{eq:9-29}
@@ -1207,12 +1215,12 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（1）批量梯度下降\index{批量梯度下降}（Batch Gradient Descent）\index{Batch Gradient Descent}}}
+\noindent {\small\sffamily\bfseries{1）批量梯度下降\index{批量梯度下降}（Batch Gradient Descent）\index{Batch Gradient Descent}}}
 \vspace{0.5em}
 
-\parinterval 批量梯度下降是梯度下降方法中最原始的形式，这种梯度下降方法在每一次迭代时使用所有的样本进行参数更新。参数优化的目标函数如公式\eqref{eq:9-30}所示：
+\parinterval 批量梯度下降是梯度下降方法中最原始的形式，这种梯度下降方法在每一次迭代时使用所有的样本进行参数更新。参数优化的目标函数如下：
 \begin{eqnarray}
-J({\bm \theta})&=&\frac{1}{n}\sum_{i=1}^{n}{L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta})}
+J({\bm \theta})&=&\frac{1}{n}\sum_{i=1}^{n}{L({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]};{\bm \theta})}
 \label{eq:9-30}
 \end{eqnarray}
 
@@ -1225,16 +1233,16 @@ J({\bm \theta})&=&\frac{1}{n}\sum_{i=1}^{n}{L({\mathbi{x}}_i,\widetilde{\mathbi{
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（2）随机梯度下降\index{随机梯度下降}（Stochastic Gradient Descent）\index{Stochastic Gradient Descent}}}
+\noindent {\small\sffamily\bfseries{2）随机梯度下降\index{随机梯度下降}（Stochastic Gradient Descent）\index{Stochastic Gradient Descent}}}
 \vspace{0.5em}
 
-\parinterval 随机梯度下降（简称SGD）不同于批量梯度下降，每次迭代只使用一个样本对参数进行更新。SGD的目标函数如公式\eqref{eq:9-31}所示
+\parinterval 随机梯度下降（简称SGD）不同于批量梯度下降，每次迭代只使用一个样本对参数进行更新。SGD的目标函数如下：
 \begin{eqnarray}
-J({\bm \theta})&=&L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta})
+J({\bm \theta})&=&L({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]};{\bm \theta})
 \label{eq:9-31}
 \end{eqnarray}
 
-\noindent 由于每次只随机选取一个样本$({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i)$进行优化，这样更新的计算代价低，参数更新的速度大大加快，而且也适用于利用少量样本进行在线学习的情况\footnote{比如，训练数据不是一次给定的，而是随着模型的使用不断追加的。这时，需要不断地用新的训练样本更新模型，这种模式也被称作{\scriptsize\bfnew{在线学习}}（Online Learning）。}。
+\noindent 由于每次只随机选取一个样本$({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]})$进行优化，这样更新的计算代价低，参数更新的速度大大加快，而且也适用于利用少量样本进行在线学习的情况\footnote{比如，训练数据不是一次给定的，而是随着模型的使用不断追加的。这时，需要不断地用新的训练样本更新模型，这种模式也被称作{\scriptsize\bfnew{在线学习}}（Online Learning）。}。
 
 \parinterval 因为随机梯度下降算法每次优化的只是某一个样本上的损失，所以它的问题也非常明显：单个样本上的损失无法代表在全部样本上的损失，因此参数更新的效率低，方法收敛速度极慢。即使在目标函数为强凸函数的情况下，SGD仍旧无法做到线性收敛。
 
@@ -1243,12 +1251,12 @@ J({\bm \theta})&=&L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta})
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（3）小批量梯度下降\index{小批量梯度下降}（Mini-batch Gradient Descent）\index{Mini-batch Gradient Descent}}}
+\noindent {\small\sffamily\bfseries{3）小批量梯度下降\index{小批量梯度下降}（Mini-batch Gradient Descent）\index{Mini-batch Gradient Descent}}}
 \vspace{0.5em}
 
-\parinterval 为了综合批量梯度下降和随机梯度下降的优缺点，在实际应用中一般采用这两个算法的折中\ \dash \ 小批量梯度下降。其思想是：每次迭代计算一小部分训练数据的损失函数，并对参数进行更新。这一小部分数据被称为一个批次（mini-batch或者batch）。小批量梯度下降的参数优化的目标函数如公式\eqref{eq:9-32}所示：
+\parinterval 为了综合批量梯度下降和随机梯度下降的优缺点，在实际应用中一般采用这两个算法的折中\ \dash \ 小批量梯度下降。其思想是：每次迭代计算一小部分训练数据的损失函数，并对参数进行更新。这一小部分数据被称为一个批次（mini-batch或者batch）。小批量梯度下降的参数优化的目标函数如下：
 \begin{eqnarray}
-J({\bm \theta})&=&\frac{1}{m}\sum_{i=j}^{j+m-1}{L({\mathbi{x}}_i,\widetilde{\mathbi{y}}_i;{\bm \theta})}
+J({\bm \theta})&=&\frac{1}{m}\sum_{i=j}^{j+m-1}{L({\mathbi{x}}^{[i]},{\mathbi{y}}^{[i]};{\bm \theta})}
 \label{eq:9-32}
 \end{eqnarray}
 
@@ -1267,7 +1275,7 @@ J({\bm \theta})&=&\frac{1}{m}\sum_{i=j}^{j+m-1}{L({\mathbi{x}}_i,\widetilde{\mat
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（1）数值微分\index{数值微分}（Numerical Differentiation）\index{Numerical Differentiation}}}
+\noindent {\small\sffamily\bfseries{1）数值微分\index{数值微分}（Numerical Differentiation）\index{Numerical Differentiation}}}
 \vspace{0.5em}
 
 \parinterval 数学上，梯度的求解其实就是求函数偏导的问题。导数是用极限来定义的，如公式\eqref{eq:9-33}所示：
@@ -1284,13 +1292,13 @@ J({\bm \theta})&=&\frac{1}{m}\sum_{i=j}^{j+m-1}{L({\mathbi{x}}_i,\widetilde{\mat
 
 \parinterval 截断误差和舍入误差是如何造成的呢？数值微分方法求梯度时，需用极限或无穷过程来求得。然而计算机需要将求解过程化为一系列有限的算术运算和逻辑运算。这样就要对某种无穷过程进行“截断”，即仅保留无穷过程的前段有限序列而舍弃它的后段。这就带来截断误差；舍入误差，是指运算得到的近似值和精确值之间的差异。由于数值微分方法计算复杂函数的梯度问题时，经过无数次的近似，每一次近似都产生了舍入误差，在这样的情况下，误差会随着运算次数增加而积累得很大，最终得出没有意义的运算结果。实际上，截断误差和舍入误差在训练复杂神经网络中，特别是使用低精度计算时，也会出现，因此是实际系统研发中需要注意的问题。
 
-\parinterval 尽管数值微分不适用于大模型中的梯度求解，但是由于其非常简单，因此经常被用于检验其他梯度计算方法的正确性。比如在实现反向传播的时候（详见\ref{sec:9.4.6}节），可以检验求导是否正确（Gradient Check），这个过程就是利用数值微分实现的。
+\parinterval 尽管数值微分不适用于大模型中的梯度求解，但是由于其非常简单，因此经常被用于检验其他梯度计算方法的正确性。比如在实现反向传播的时候（详见\ref{sec:9.4.6}节），可以检验求导是否正确（Gradient Check），这个过程就是利用数值微分实现的。\\ \\
 
 %----------------------------------------------------------------------------------------
 %
 %----------------------------------------------------------------------------------------
 
-\noindent {\small\sffamily\bfseries{（2）符号微分\index{符号微分}（Symbolic Differentiation）\index{Symbolic Differentiation}}}
+\noindent {\small\sffamily\bfseries{2）符号微分\index{符号微分}（Symbolic Differentiation）\index{Symbolic Differentiation}}}
 \vspace{0.5em}
 
 \parinterval 顾名思义，符号微分就是通过建立符号表达式求解微分的方法：借助符号表达式和求导公式，推导出目标函数关于自变量的微分表达式，最后再带入具体数值得到微分结果。例如，对于表达式$ L({\bm \theta})={\mathbi{x}}\cdot {\bm \theta}+2{\bm \theta}^2 $，可以手动推导出微分表达式$ \frac{\partial L({\bm \theta})}{\partial {\bm \theta}}=\mathbi{x}+4{\bm \theta}  $，最后将具体数值$ \mathbi{x} = {(\begin{array}{cc} 2 & -3\end{array})} $和$ {\bm \theta} = {(\begin{array}{cc} -1 & 1\end{array})} $带入后，得到微分结果$\frac{\partial L({\bm \theta})}{\partial {\bm \theta}}= {(\begin{array}{cc} 2 & -3\end{array})}+4{(\begin{array}{cc} -1 & 1\end{array})}= {(\begin{array}{cc} -2 & 1\end{array})}$。
@@ -1326,7 +1334,7 @@ $+2x^2+x+1)$ & \ \ $(x^4+2x^3+2x^2+x+1)$ & $+6x+1$ \\
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（3）自动微分\index{自动微分}（Automatic Differentiation）\index{Automatic Differentiation}}}
+\noindent {\small\sffamily\bfseries{3）自动微分\index{自动微分}（Automatic Differentiation）\index{Automatic Differentiation}}}
 \vspace{0.5em}
 
 \parinterval  自动微分是一种介于数值微分和符号微分的方法：将符号微分应用于最基本的算子，如常数、幂函数、指数函数、对数函数、三角函数等，然后代入数值，保留中间结果，最后再应用于整个函数。通过这种方式，将复杂的微分变成了简单的步骤，这些步骤完全自动化，而且容易进行存储和计算。
@@ -1334,8 +1342,9 @@ $+2x^2+x+1)$ & \ \ $(x^4+2x^3+2x^2+x+1)$ & $+6x+1$ \\
 \parinterval  由于它只对基本函数或常数运用符号微分法则，所以它非常适合嵌入编程语言的循环条件等结构中，形成一种程序化的微分过程。在具体实现时，自动微分往往被当做是一种基于图的计算，相关的理论和技术方法相对成熟，因此是深度学习中使用最广泛的一种方法。不同于一般的编程模式，图计算先生成计算图，然后按照计算图执行计算过程。
 
 \parinterval  自动微分可以用一种{\small\sffamily\bfseries{反向模式}}\index{反向模式}（Reverse Mode\index{Reverse Mode}/Backward Mode\index{Backward Mode}）即反向传播思想进行描述\upcite{baydin2017automatic}。令${\mathbi{h}}_i$是神经网络的计算图中第$i$个节点的输出。反向模式的自动微分是要计算：
+
 \begin{eqnarray}
-\bar{{\mathbi{h}}_i} = \frac{\partial L}{\partial {\mathbi{h}}_i} \label{eq:reverse-mode-v}
+\bar{{\mathbi{h}}_i} &=& \frac{\partial L}{\partial {\mathbi{h}}_i} \label{eq:reverse-mode-v}
 \end{eqnarray}
 
 \noindent 这里，$\bar{{\mathbi{h}}_i}$表示损失函数$L$相对于${\mathbi{h}}_i$的梯度信息，它会被保存在节点$i$处。为了计算$\bar{{\mathbi{h}}_i}$，需要从网络的输出反向计算每一个节点处的梯度。具体实现时，这个过程由一个包括前向计算和反向计算的两阶段方法实现。
@@ -1380,7 +1389,7 @@ $+2x^2+x+1)$ & \ \ $(x^4+2x^3+2x^2+x+1)$ & $+6x+1$ \\
 
 \subsubsection{3. 基于梯度的方法的变种和改进}\label{sec:9.4.2.3}
 
-\parinterval  参数优化通常基于梯度下降算法，即在每个更新步骤$ t $，沿梯度反方向更新参数，如公式\eqref{eq:9-200}所示：
+\parinterval  参数优化通常基于梯度下降算法，即在每个更新步骤$ t $，沿梯度反方向更新参数，该过程如下：
 \begin{eqnarray}
 {\bm \theta}_{t+1}&=&{\bm \theta}_{t}-\alpha \cdot \frac{\partial J({\bm \theta}_t)}{\partial {\bm \theta}_t}
 \label{eq:9-200}
@@ -1395,7 +1404,7 @@ $+2x^2+x+1)$ & \ \ $(x^4+2x^3+2x^2+x+1)$ & $+6x+1$ \\
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（1）Momentum \index{Momentum}}}
+\noindent {\small\sffamily\bfseries{1）Momentum \index{Momentum}}}
 \vspace{0.5em}
 
 \parinterval  Momentum梯度下降算法的参数更新方式如公式\eqref{eq:9-34}和\eqref{eq:9-35}所示\footnote{在梯度下降算法的几种改进方法的公式中，其更新对象是某个具体参数而非参数矩阵，因此不再使用加粗样式。}：
@@ -1425,7 +1434,7 @@ v_t&=&\beta v_{t-1}+(1-\beta)\frac{\partial J}{\partial \theta_t}
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（2）AdaGrad \index{AdaGrad}}}
+\noindent {\small\sffamily\bfseries{2）AdaGrad \index{AdaGrad}}}
 \vspace{0.5em}
 
 \parinterval  在神经网络的学习中，学习率的设置很重要。学习率过小， 会导致学习花费过多时间；反过来，学习率过大，则会导致学习发散，甚至造成模型的“跑偏”。在深度学习实现过程中，有一种被称为学习率{\small\bfnew{衰减}}\index{衰减}（Decay）\index{Decay}的方法，即最初设置较大的学习率，随着学习的进行，使学习率逐渐减小，这种方法相当于将“全体”参数的学习率值一起降低。AdaGrad梯度下降算法进一步发展了这个思想\upcite{duchi2011adaptive}。
@@ -1445,7 +1454,7 @@ z_t&=&z_{t-1}+\frac{\partial J}{\partial {\theta}_t} \cdot \frac{\partial J}{\pa
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（3）RMSProp \index{RMSProp}}}
+\noindent {\small\sffamily\bfseries{3）RMSProp \index{RMSProp}}}
 \vspace{0.5em}
 
 \parinterval  RMSProp算法是一种自适应学习率的方法\upcite{tieleman2012rmsprop}，它是对AdaGrad算法的一种改进，可以避免AdaGrad算法中学习率不断单调下降以至于过早衰减的缺点。
@@ -1467,7 +1476,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 %----------------------------------------------------------------------------------------
 
 \vspace{0.5em}
-\noindent {\small\sffamily\bfseries{（4）Adam \index{Adam} }}
+\noindent {\small\sffamily\bfseries{4）Adam \index{Adam} }}
 \vspace{0.5em}
 
 \parinterval  Adam梯度下降算法是在RMSProp算法的基础上进行改进的，可以将其看成是带有动量项的RMSProp算法\upcite{kingma2014adam}。该算法在自然语言处理领域非常流行。Adam 算法的参数更新方式如公式\eqref{eq:9-40}\eqref{eq:9-41}\eqref{eq:9-42}所示：
@@ -1491,14 +1500,6 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \subsection{参数更新的并行化策略}
 
 \parinterval  当神经网络较为复杂时，模型训练还是需要几天甚至几周的时间。如果希望尽可能缩短一次学习所需的时间，最直接的想法就是把不同的训练样本分配给多个GPU 或CPU，然后在这些设备上同时进行训练，即实现并行化训练。这种方法也被称作{\small\sffamily\bfseries{数据并行}}\index{数据并行}。具体实现时，有两种常用的并行化策略：（参数）同步更新和（参数）异步更新。
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter9/Figures/figure-parallel}
-\caption{同步更新与异步更新对比}
-\label{fig:9-47}
-\end {figure}
-%-------------------------------------------
 
 \begin{itemize}
 \vspace{0.5em}
@@ -1511,6 +1512,16 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \parinterval  图\ref{fig:9-47}对比了同步更新和异步更新的区别，在这个例子中，使用4台设备对一个两层神经网络中的参数进行更新，其中使用了一个{\small\bfnew{参数服务器}}\index{参数服务器}（Parameter Server\index{Parameter Server}）来保存最新的参数，不同设备（图中的G1、G2、G3）可以通过同步或者异步的方式访问参数服务器。图中的$ {\bm \theta}_o $和$ {\bm \theta}_h $分别代表输出层和隐藏层的全部参数，操作Push($\cdot$) 表示设备向参数服务器传送梯度，操作Fetch($\cdot$)表示参数服务器向设备传送更新后的参数。
 
 \parinterval  此外，在使用多个设备进行并行训练的时候，由于设备间带宽的限制，大量的数据传输会有较高的延时。对于复杂神经网络来说，设备间参数和梯度传递的时间消耗也会成为一个不得不考虑的因素。有时候，设备间数据传输的时间甚至比模型计算的时间都长，大大降低了并行度\upcite{xiao2017fast}。对于这种问题，可以考虑对数据进行压缩或者减少传输的次数来缓解问题。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter9/Figures/figure-parallel}
+\caption{同步更新与异步更新对比}
+\label{fig:9-47}
+\end {figure}
+%-------------------------------------------
+
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -1536,7 +1547,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \parinterval  网络训练过程中，如果参数的初始值过大，而且每层网络的梯度都大于1，反向传播过程中，各层梯度的偏导数都会比较大，会导致梯度指数级地增长直至超出浮点数表示的范围，这就产生了梯度爆炸现象。如果发生这种情况，模型中离输入近的部分比离输入远的部分参数更新得更快，使网络变得非常不稳定。在极端情况下，模型的参数值变得非常大，甚至于溢出。针对梯度爆炸的问题，常用的解决办法为{\small\sffamily\bfseries{梯度裁剪}}\index{梯度裁剪}（Gradient Clipping）\index{Gradient Clipping}。
 
-\parinterval    梯度裁剪的思想是设置一个梯度剪切阈值。在更新梯度的时候，如果梯度超过这个阈值，就将其强制限制在这个范围之内。假设梯度为${\mathbi{g}}$，梯度剪切阈值为$\sigma $，梯度裁剪过程如公式\eqref{eq:9-43}所示：
+\parinterval    梯度裁剪的思想是设置一个梯度剪切阈值。在更新梯度的时候，如果梯度超过这个阈值，就将其强制限制在这个范围之内。假设梯度为${\mathbi{g}}$，梯度剪切阈值为$\sigma $，梯度裁剪过程可描述为下式：
 \begin{eqnarray}
 {\mathbi{g}}&=&{\textrm{min}}(\frac{\sigma}{\Vert {\mathbi{g}}\Vert},1){\mathbi{g}}
 \label{eq:9-43}
@@ -1574,7 +1585,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \end{figure}
 %-------------------------------------------
 
-相比较于简单的多层堆叠的结构，残差网络提供了跨层连接结构。这种结构在反向传播中有很大的好处，比如，对于一个训练样本，损失函数为$L$，$ \mathbi x_l $处的梯度可以进行如公式\eqref{eq:9-45}的计算：
+相比较于简单的多层堆叠的结构，残差网络提供了跨层连接结构。这种结构在反向传播中有很大的好处，比如，对于一个训练样本，损失函数为$L$，$ \mathbi x_l $处的梯度可以进行如下计算：
 \begin{eqnarray}
 \frac{\partial L}{\partial {\mathbi{x}}_l}&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot  \frac{\partial {\mathbi{x}}_{l+1}}{\partial {\mathbi{x}}_l}\nonumber\\
 &=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot \left(1+\frac{\partial F({\mathbi{x}}_l)}{\partial {\mathbi{x}}_l}\right)\nonumber\\
@@ -1626,20 +1637,20 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \item  $ h_i^k $：第$ k $层第$ i $个神经元的输出；
 \vspace{0.5em}
 \item  $ {\mathbi{h}}^k $：第$ k $层的输出。若第$ k $层有$ n $个神经元，则：
-       \begin{equation}
-       {\mathbi{h}}^k=(h_1^k,h_2^k,\dots,h_n^k)
-       \end{equation}
+       \begin{eqnarray}
+       {\mathbi{h}}^k&=&(h_1^k,h_2^k,\dots,h_n^k)
+       \end{eqnarray}
 \vspace{0.5em}
 \item  $ w_{j,i}^k $：第$ k-1 $层神经元$ j $与第$ k $层神经元$ i $的连接权重；
 \vspace{0.5em}
 \item  $ {\mathbi{W}}^k $：第$ k-1 $层与第$ k $层的连接权重。若第$ k-1 $层有$ m $个神经元，第$ k $层有$ n $个神经元，则：
-       \begin{equation}
-       {\mathbi{W}}^k = \begin{pmatrix} w_{1,1}^k & w_{1,2}^k & \dots & w_{1,n}^k\\w_{2,1}^k & \dots & \dots & \dots\\ \dots & \dots & \dots & \dots\\w_{m,1}^k & \dots & \dots & w_{m,n}^k\end{pmatrix}
-       \end{equation}
+       \begin{eqnarray}
+       {\mathbi{W}}^k &=& \begin{pmatrix} w_{1,1}^k & w_{1,2}^k & \dots & w_{1,n}^k\\w_{2,1}^k & \dots & \dots & \dots\\ \dots & \dots & \dots & \dots\\w_{m,1}^k & \dots & \dots & w_{m,n}^k\end{pmatrix}
+       \end{eqnarray}
 \vspace{0.5em}
 \item  $ {\mathbi{h}}^K $：整个网络的输出；
 \vspace{0.5em}
-\item  $ {\mathbi{s}}^k $：第$ k $层的线性变换结果，其计算方式如公式\eqref{eq:9-109}所示：
+\item  $ {\mathbi{s}}^k $：第$ k $层的线性变换结果，其计算方式如下：
        \begin{eqnarray}
        {\mathbi{s}}^k & = & {\mathbi{h}}^{k-1}{\mathbi{W}}^k \nonumber \\
                    & = & \sum{h_j^{k-1}w_{j,i}^k}
@@ -1650,7 +1661,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval  于是，在神经网络的第$ k $层，前向计算过程如公式\eqref{eq:9-46}所示：
+\parinterval  于是，在神经网络的第$ k $层，前向计算过程可以描述为：
 \begin{eqnarray}
 {\mathbi{h}}^k & = & f^k({\mathbi{s}}^k) \nonumber \nonumber \\
             & = & f^k({\mathbi{h}}^{k-1}{\mathbi{W}}^k)
@@ -1705,7 +1716,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \end{figure}
 %-------------------------------------------
 
-\parinterval  在第一阶段，计算的目标是得到损失函数$ L $关于第$ K $层中间状态$ {\mathbi{s}}^K $的梯度，这里令$ {\bm \pi}^K= \frac{\partial L}{\partial{\mathbi{s}}^K} $，利用链式法则有公式\eqref{eq:9-49}：
+\parinterval  在第一阶段，计算的目标是得到损失函数$ L $关于第$ K $层中间状态$ {\mathbi{s}}^K $的梯度，这里令$ {\bm \pi}^K= \frac{\partial L}{\partial{\mathbi{s}}^K} $，利用链式法则有：
 \begin{eqnarray}
 {\bm \pi}^K&=& \frac{\partial L}{\partial {\mathbi{s}}^K}\nonumber\\
 &=&\frac{\partial L}{\partial {\mathbi{h}}^K}\cdot \frac{\partial {\mathbi{h}}^K}{\partial {\mathbi{s}}^K}\nonumber\\
@@ -1718,7 +1729,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \begin{spacing}{1.6}
 \begin{itemize}
 \vspace{0.5em}
-\item $ \frac{\partial L}{\partial {\mathbi{h}}^K} $表示损失函数$ L $相对网络输出$ {\mathbi{h}}^K $的梯度。比如，对于平方损失$ L=\frac{1}{2}{\Vert \widetilde {\mathbi{y}}-{\mathbi{h}}^K\Vert}^2 $，有$ \frac{\partial L}{\partial {\mathbi{h}}^K}= \widetilde{\mathbi{y}} -{\mathbi{h}}^K $。计算结束后，将$ \frac{\partial L}{\partial {\mathbi{h}}^K} $向前传递。
+\item $ \frac{\partial L}{\partial {\mathbi{h}}^K} $表示损失函数$ L $相对网络输出$ {\mathbi{h}}^K $的梯度。比如，对于平方损失$ L=\frac{1}{2}{\Vert {\mathbi{y}}-{\mathbi{h}}^K\Vert}^2 $，有$ \frac{\partial L}{\partial {\mathbi{h}}^K}= {\mathbi{y}} -{\mathbi{h}}^K $。计算结束后，将$ \frac{\partial L}{\partial {\mathbi{h}}^K} $向前传递。
 \vspace{0.5em}
 \item $ \frac{\partial f^T({\mathbi{s}}^K)}{\partial {\mathbi{s}}^K} $表示激活函数相对于其输入$ {\mathbi{s}}^K $的梯度。比如，对于Sigmoid函数$ f({\mathbi{s}})=\frac{1}{1+{\textrm e}^{- {\mathbi{s}}}}$，有$ \frac{\partial f({\mathbi{s}})}{\partial {\mathbi{s}}}=f({\mathbi{s}}) (1-f({\mathbi{s}}))$
 \vspace{0.5em}
@@ -1794,7 +1805,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval  这两步和输出层的反向传播十分类似。可以利用链式法则得到公式\eqref{eq:9-54}：
+\parinterval  这两步和输出层的反向传播十分类似。可以利用链式法则得到：
 \begin{eqnarray}
 \frac{\partial L}{\partial {\mathbi{s}}^k}&=&\frac{\partial L}{\partial {\mathbi{h}}^k}\cdot \frac{\partial {\mathbi{h}}^k}{\partial {\mathbi{s}}^k}\nonumber\\
 &=&\frac{\partial L}{\partial {\mathbi{h}}^k}\cdot \frac{\partial f^k({\mathbi{s}}^k)}{\partial {\mathbi{s}}^k}
@@ -1825,6 +1836,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
+\sectionnewpage
 \section{神经语言模型}\label{sec9:nlm}
 
 \parinterval  神经网络提供了一种工具，只要将问题的输入和输出定义好，就可以学习输入和输出之间的对应关系。显然，很多自然语言处理任务都可以用神经网络进行实现。比如，在机器翻译中，可以把输入的源语言句子和输出的目标语言句子用神经网络建模；在文本分类中，可以把输入的文本内容和输出的类别标签进行神经网络建模，等等。
@@ -1837,13 +1849,13 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \subsection{基于前馈神经网络的语言模型}
 
-\parinterval  回顾一下{\chaptertwo}的内容，语言建模的问题被定义为：对于一个词序列$ w_1w_2\dots w_m$，如何计算该词序列的可能性？词序列出现的概率可以通过链式法则得到，如公式\eqref{eq:9-57}所示：
+\parinterval  回顾一下{\chaptertwo}的内容，语言建模的问题被定义为：对于一个词序列$ w_1w_2\dots w_m$，如何计算该词序列的可能性？词序列出现的概率可以通过链式法则得到：
 \begin{eqnarray}
 \funp{P}(w_1w_2\dots w_m)&=&\funp{P}(w_1)\funp{P}(w_2|w_1)\funp{P}(w_3|w_1w_2)\dots \funp{P}(w_m|w_1\dots w_{m-1})
 \label{eq:9-57}
 \end{eqnarray}
 
-\parinterval  由于$ \funp{P}(w_m|w_1\dots w_{m-1}) $需要建模$ m-1 $个词构成的历史信息，这个模型仍然很复杂。于是就有了基于局部历史的$n$-gram语言模型，如公式\eqref{eq:9-58}所示：
+\parinterval  由于$ \funp{P}(w_m|w_1\dots w_{m-1}) $需要建模$ m-1 $个词构成的历史信息，这个模型仍然很复杂。于是就有了基于局部历史的$n$-gram语言模型：
 \begin{eqnarray}
 \funp{P}(w_m|w_1\dots w_{m-1})&=&\funp{P}(w_m|w_{m-n+1}\dots w_{m-1})
 \label{eq:9-58}
@@ -1857,7 +1869,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \noindent 这里，$ w_{m-n+1}\dots w_m $也被称作$n$-gram，即$ n $元语法单元。$n$-gram语言模型是一种典型的基于离散表示的模型。在这个模型中，所有的词都被看作是离散的符号。因此，不同单词之间是“完全”不同的。另一方面，语言现象是十分多样的，即使在很大的语料库上也无法得到所有$n$-gram的准确统计。甚至很多$n$-gram在训练数据中从未出现过。由于不同$n$-gram 间没有建立直接的联系， $n$-gram 语言模型往往面临数据稀疏的问题。比如，虽然在训练数据中见过“景色”这个词，但是测试数据中却出现了“风景”这个词，恰巧“风景”在训练数据中没有出现过。即使“风景”和“景色”表达的是相同的意思，$n$-gram语言模型仍然会把“风景”看作未登录词，赋予一个很低的概率值。
 
-\parinterval  上面这个问题的本质是$n$-gram语言模型对词使用了离散化表示，即每个单词都孤立的对应词表中的一个索引，词与词之间在语义上没有任何“重叠”。神经语言模型重新定义了这个问题。这里并不需要显性地通过统计离散的$n$-gram的频度，而是直接设计一个神经网络模型$ g(\cdot)$来估计单词生成的概率，正如公式\eqref{eq:9-59}所示：
+\parinterval  上面这个问题的本质是$n$-gram语言模型对词使用了离散化表示，即每个单词都孤立的对应词表中的一个索引，词与词之间在语义上没有任何“重叠”。神经语言模型重新定义了这个问题。这里并不需要显性地通过统计离散的$n$-gram的频度，而是直接设计一个神经网络模型$ g(\cdot)$来估计单词生成的概率，如下所示：
 \begin{eqnarray}
 \funp{P}(w_m|w_1\dots w_{m-1})&=&g(w_1\dots w_m)
 \label{eq:9-59}
@@ -1872,7 +1884,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \subsubsection{1. 模型结构}
 
-\parinterval  最具代表性的神经语言模型是{\small\sffamily\bfseries{前馈神经网络语言模型}}\index{前馈神经网络语言模型}（Feed-forward Neural Network Language Model\index{Feed-forward Neural Network Language Model}，简称FNNLM）。这种语言模型的目标是用神经网络计算$ \funp{P}(w_m|w_{m-n+1}\dots w_{m-1}) $，之后将多个$n$-gram的概率相乘得到整个序列的概率\upcite{bengio2003a}。
+\parinterval  最具代表性的神经语言模型是{\small\sffamily\bfseries{前馈神经网络语言模型}}\index{前馈神经网络语言模型}（Feed-forward Neural Network Language Model，FNNLM\index{FNNLM}）。这种语言模型的目标是用神经网络计算$ \funp{P}(w_m|w_{m-n+1}\dots w_{m-1}) $，之后将多个$n$-gram的概率相乘得到整个序列的概率\upcite{bengio2003a}。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1887,11 +1899,11 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \begin{itemize}
 \vspace{0.3em}
-\item 输入层（词的分布式表示层），即把输入的离散的单词变为分布式表示对应的实数向量；
+\item {\small\sffamily\bfseries{输入层}}（词的分布式表示层），即把输入的离散的单词变为分布式表示对应的实数向量；
 \vspace{0.3em}
-\item 隐藏层，即将得到的词的分布式表示进行线性和非线性变换；
+\item {\small\sffamily\bfseries{隐藏层}}，即将得到的词的分布式表示进行线性和非线性变换；
 \vspace{0.3em}
-\item 输出层（Softmax层），根据隐藏层的输出预测单词的概率分布。
+\item {\small\sffamily\bfseries{输出层}}（Softmax层），根据隐藏层的输出预测单词的概率分布。
 \vspace{0.3em}
 \end{itemize}
 
@@ -1903,7 +1915,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \subsubsection{2. 输入层}
 
-\parinterval  $ {\mathbi{o}}_{i-3} $、 $ {\mathbi{o}}_{i-2} $ 、$ {\mathbi{o}}_{i-1} $为该语言模型的输入（绿色方框），输入为每个词（如上文的$ w_{i-1}$、$ w_{i-2}$等）的One-hot向量表示（维度大小与词表大小一致），每个One-hot向量仅一维为1，其余为0，比如：$ (0,0,1,\dots,0) $ 表示词表中第三个单词。之后把One-hot向量乘以一个矩阵$ \mathbi{C} $得到单词的分布式表示（紫色方框）。令$ {\mathbi{o}}_i $为第$ i $个词的One-hot表示，$ {\mathbi{e}}_i $为第$ i $个词的分布式表示，则分布式表示$ {\mathbi{e}}_i $的计算方式如公式\eqref{eq:9-60}所示：
+\parinterval  $ {\mathbi{o}}_{i-3} $、 $ {\mathbi{o}}_{i-2} $ 、$ {\mathbi{o}}_{i-1} $为该语言模型的输入（绿色方框），输入为每个词（如上文的$ w_{i-1}$、$ w_{i-2}$等）的One-hot向量表示（维度大小与词表大小一致），每个One-hot向量仅一维为1，其余为0，比如：$ (0,0,1,\dots,0) $ 表示词表中第三个单词。之后把One-hot向量乘以一个矩阵$ \mathbi{C} $得到单词的分布式表示（紫色方框）。令$ {\mathbi{o}}_i $为第$ i $个词的One-hot表示，$ {\mathbi{e}}_i $为第$ i $个词的分布式表示，则分布式表示$ {\mathbi{e}}_i $的计算方式如下：
 \begin{eqnarray}
 {\mathbi{e}}_i&=&{\mathbi{o}}_i\cdot{\mathbi{C}}
 \label{eq:9-60}
@@ -1917,7 +1929,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \subsubsection{3. 隐藏层和输出层}
 
-\parinterval  把得到的$ {\mathbi{e}}_0 $、$ {\mathbi{e}}_1 $、$ {\mathbi{e}}_2 $三个向量级联在一起，经过两层网络，最后通过Softmax函数（橙色方框）得到输出，具体过程如公式\eqref{eq:9-61}和\eqref{eq:9-62}所示：
+\parinterval  把得到的$ {\mathbi{e}}_0 $、$ {\mathbi{e}}_1 $、$ {\mathbi{e}}_2 $三个向量级联在一起，经过两层网络，最后通过Softmax函数（橙色方框）得到输出，具体过程为：
 
 \begin{eqnarray}
 {\mathbi{y}}&=&{\textrm{Softmax}}({\mathbi{h}}_0{\mathbi{U}})\label{eq:9-61}\\
@@ -1927,10 +1939,10 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \noindent  这里，输出$ {\mathbi{y}}$是词表$V$上的一个分布，来表示$\funp{P}(w_i|w_{i-1},w_{i-2},w_{i-3}) $。$ {\mathbi{U}}$、${\mathbi{H}}$和${\mathbi{d}}$是模型的参数。这样，对于给定的单词$w_i$可以用$y_i$得到其概率，其中$y_i$表示向量${\mathbi{y}}$的第$i$维。
 
-\parinterval Softmax($\cdot$)的作用是根据输入的$|V|$维向量（即${\mathbi{h}}_0{\mathbi{U}}$），得到一个$|V|$维的分布。令${\bm \tau}$表示Softmax($\cdot$)的输入向量，Softmax函数可以被定义为公式\eqref{eq:9-120}：
+\parinterval Softmax($\cdot$)的作用是根据输入的$|V|$维向量（即${\mathbi{h}}_0{\mathbi{U}}$），得到一个$|V|$维的分布。令${\bm \tau}$表示Softmax($\cdot$)的输入向量，Softmax函数可以被定义为：
 
 \begin{eqnarray}
-\textrm{Softmax}(\tau_i)=\frac{\textrm{exp}(\tau_i)}  {\sum_{i'=1}^{|V|} \textrm{exp}(\tau_{i'})}
+\textrm{Softmax}(\tau_i)&=&\frac{\textrm{exp}(\tau_i)}  {\sum_{i'=1}^{|V|} \textrm{exp}(\tau_{i'})}
 \label{eq:9-120}
 \end{eqnarray}
 
@@ -1975,7 +1987,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \parinterval  对于长距离依赖问题，可以通过{\small\sffamily\bfseries{循环神经网络}}\index{循环神经网络}（Recurrent Neural Network\index{Recurrent Neural Network}，或RNN）进行求解。通过引入循环单元这种特殊的结构，循环神经网络可以对任意长度的历史进行建模，因此在一定程度上解决了传统$n$-gram语言模型有限历史的问题。正是基于这个优点，{\small\sffamily\bfseries{循环神经网络语言模型}}\index{循环神经网络语言模型}（RNNLM）\index{RNNLM}应运而生\upcite{mikolov2010recurrent}。
 
-\parinterval  在循环神经网络中，输入和输出都是一个序列，分别记为$ ({\mathbi{x}}_1,\dots,{\mathbi{x}}_m) $和$ ({\mathbi{y}}_1,\dots,\\ {\mathbi{y}}_m) $。它们都可以被看作是时序序列，其中每个时刻$ t $都对应一个输入$ {\mathbi{x}}_t $和输出$ {\mathbi{y}}_t $。循环神经网络的核心是{\small\sffamily\bfseries{循环单元}}\index{循环单元}（RNN Cell）\index{RNN Cell}，它读入前一个时刻循环单元的输出和当前时刻的输入，生成当前时刻循环单元的输出。图\ref{fig:9-62}展示了一个简单的循环单元结构，对于时刻$ t $，循环单元的输出被定义为公式\eqref{eq:9-63}：
+\parinterval  在循环神经网络中，输入和输出都是一个序列，分别记为$ ({\mathbi{x}}_1,\dots,{\mathbi{x}}_m) $和$ ({\mathbi{y}}_1,\dots,\\ {\mathbi{y}}_m) $。它们都可以被看作是时序序列，其中每个时刻$ t $都对应一个输入$ {\mathbi{x}}_t $和输出$ {\mathbi{y}}_t $。循环神经网络的核心是{\small\sffamily\bfseries{循环单元}}\index{循环单元}（RNN Cell）\index{RNN Cell}，它读入前一个时刻循环单元的输出和当前时刻的输入，生成当前时刻循环单元的输出。图\ref{fig:9-62}展示了一个简单的循环单元结构，对于时刻$ t $，循环单元的输出被定义为：
 \begin{eqnarray}
 {\mathbi{h}}_t&=&{\textrm{Tanh}}({\mathbi{x}}_t{\mathbi{U}}+{\mathbi{h}}_{t-1}{\mathbi{W}})
 \label{eq:9-63}
@@ -2064,11 +2076,11 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \parinterval  为了方便理解，看一个简单的例子。假如现在有个“预测下一个单词”的任务：有这样一个句子“屋里 要 摆放 一个 \rule[-3pt]{1cm}{0.05em}”，其中下划线的部分表示需要预测的下一个单词。如果模型在训练数据中看到过类似于“摆放 一个 桌子”这样的片段，那么就可以很自信的预测出“桌子”。另一方面，很容易知道，实际上与“桌子”相近的单词，如“椅子”，也是可以预测的单词的。但是，“椅子”恰巧没有出现在训练数据中，这时如果用One-hot编码来表示单词，显然无法把“椅子”填到下划线处；而如果使用单词的分布式表示，很容易就知道 “桌子”与“椅子”是相似的，因此预测“ 椅子”在一定程度上也是合理的。
 \begin{example}
-屋里 要 摆放 一个 \_\_\_\_\_ \hspace{0.5em} \quad \quad 预测下个词
+屋里\ 要\ 摆放\ 一个 \_\_\_\_\_ \hspace{0.5em} \quad \quad 预测下个词
 
-\hspace{2em} 屋里 要 摆放 一个{ \red{桌子}} \hspace{3.2em}见过
+\hspace{2em} 屋里\ 要\ 摆放\ 一个\ { \red{桌子}} \hspace{3.2em}见过
 
-\hspace{2em} 屋里 要 摆放 一个{ \blue{椅子}} \hspace{3.2em}没见过，但是仍然是合理预测
+\hspace{2em} 屋里\ 要\ 摆放\ 一个\ { \blue{椅子}} \hspace{3.2em}没见过，但是仍然是合理预测
 \end{example}
 
 \parinterval  关于单词的分布式表示还有一个经典的例子：通过词嵌入可以得到如下关系：$\textrm{“国王”}=\textrm{“女王”}-\textrm{“女人”} +\textrm{“男人”}$。从这个例子可以看出，词嵌入也具有一些代数性质，比如，词的分布式表示可以通过加、减等代数运算相互转换。图\ref{fig:9-66}展示了词嵌入在一个二维平面上的投影，不难发现，含义相近的单词分布比较临近。
@@ -2104,9 +2116,9 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \parinterval  目前，词嵌入已经成为诸多自然语言处理系统的标配，也衍生出很多有趣的研究法方向。但是，冷静地看，词嵌入依旧存在一些问题：每个词都对应唯一的向量表示，那么对于一词多义现象，词义需要通过上下文进行区分，这时使用简单的词嵌入式是无法处理的。有一个著名的例子：
 
 \begin{example}
-Aaron is an employee of {\red{\underline{apple}}}.
+Aaron is an employee of {\red{\underline{apple}}}\ .
 
-\hspace{2em} He finally ate the {\red{\underline{apple}}}.
+\hspace{2em} He finally ate the {\red{\underline{apple}}}\ .
 \end{example}
 
 \parinterval  这两句中“apple”的语义显然是不同的，第一句中的上下文“Jobs”和“CEO”可以帮助我们判断“apple”是一个公司名字，而不是水果。但是词嵌入只有一个结果，因此无法区分这两种情况。这个例子给我们一个启发：在一个句子中，不能孤立的看待单词，应同时考虑其上下文的信息。也就是需要一个能包含句子中上下文信息的表示模型。
@@ -2142,6 +2154,8 @@ Aaron is an employee of {\red{\underline{apple}}}.
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
+
+\sectionnewpage
 \section{小结及拓展阅读}
 
 \parinterval  神经网络为解决自然语言处理问题提供了全新的思路。而所谓深度学习也是建立在多层神经网络结构之上的一系列模型和方法。本章从神经网络的基本概念到其在语言建模中的应用进行了概述。由于篇幅所限，这里无法覆盖所有神经网络和深度学习的相关内容，感兴趣的读者可以进一步阅读\textit{Neural Network Methods in Natural Language Processing}\upcite{goldberg2017neural}和\textit{Deep Learning}\upcite{Goodfellow-et-al-2016}。此外，也有一些研究方向值得关注：

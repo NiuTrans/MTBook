@@ -34,8 +34,8 @@
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
- 	\subfigure[机器翻译系统被看作一个黑盒] {\input{./Chapter3/Figures/figure-mt-system-as-a-black-box}  }
- 	\subfigure[机器翻译系统 = 前/后处理 + 核心引擎] {\input{./Chapter3/Figures/figure-mt=language-analysis+translation-engine}}
+ 	\subfigure[\small{机器翻译系统被看作一个黑盒}] {\input{./Chapter3/Figures/figure-mt-system-as-a-black-box}  }
+ 	\subfigure[\small{机器翻译系统 = 前/后处理 + 核心引擎}] {\input{./Chapter3/Figures/figure-mt=language-analysis+translation-engine}}
 	\caption{机器翻译系统的结构}
     \label{fig:3.1-1}
 \end{figure}
@@ -73,6 +73,7 @@
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
+
 \section{中文分词}
 
 \parinterval 对于机器翻译系统而言，输入的是已经切分好的单词序列，而不是原始的字符串（图\ref{fig:3.2-1}）。比如，对于一个中文句子，单词之间是没有间隔的，因此需要把一个个的单词切分出来，这样机器翻译系统可以区分不同的翻译单元。甚至，可以对语言学上的单词进行进一步切分，得到词片段序列（比如：中国人$\to$中国/人）。广义上，可以把上述过程看作是一种分词过程，即：将一个输入的自然语言字符串切割成单元序列，每个{\small\sffamily\bfseries{单元}}\index{单元}（Token）\index{Token}都对应可以处理的最小单位。
@@ -172,9 +173,9 @@ Interests $\to$ \; Interest/s & selected $\to$ \; se/lect/ed & processed $\to$ \
 
 \begin{itemize}
 \vspace{0.5em}
-\item 训练。利用标注数据，对统计模型的参数进行学习。
+\item {\small\sffamily\bfseries{训练}}。利用标注数据，对统计模型的参数进行学习。
 \vspace{0.5em}
-\item 预测。利用学习到的模型和参数，对新的句子进行切分。这个过程也可以被看作是利用学习到的模型在新的数据上进行推断。
+\item {\small\sffamily\bfseries{预测}}。利用学习到的模型和参数，对新的句子进行切分。这个过程也可以被看作是利用学习到的模型在新的数据上进行推断。
 \vspace{0.5em}
 \end{itemize}
 
@@ -224,6 +225,7 @@ $计算这种切分的概率值。
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
+
 \section{命名实体识别}
 
 \parinterval 在人类使用语言的过程中，单词往往不是独立出现的。很多时候，多个单词会组合成一个更大的单元来表达特定的意思。其中，最典型的代表是{\small\sffamily\bfseries{命名实体}}\index{命名实体}（Named Entity）\index{Named Entity}。通常，命名实体是指名词性的专用短语，例如公司名称、品牌名称、产品名称等专有名词和行业术语。准确地识别出这些命名实体，是提高机器翻译质量的关键。比如，在翻译技术文献时，往往需要对术语进行识别并进行准确翻译，因此引入{\small\sffamily\bfseries{命名实体识别}}\index{命名实体识别}（Named Entity Recognition）\index{Named Entity Recognition} 可以帮助系统对特定术语进行更加细致的处理。
@@ -242,17 +244,17 @@ $计算这种切分的概率值。
 
 \begin{itemize}
 \vspace{0.5em}
-\item BIO（Beginning-inside-outside）格式。以命名实体识别为例，B代表一个命名实体的开始，I表示一个命名实体的其它部分，O表示一个非命名实体单元。
+\item {\small\sffamily\bfseries{BIO格式}}（Beginning-inside-outside）。以命名实体识别为例，B代表一个命名实体的开始，I表示一个命名实体的其它部分，O表示一个非命名实体单元。
 \vspace{0.5em}
-\item BIOES格式。与BIO格式相比，多出了标签E（End）和S（Single）。仍然以命名实体识别为例，E和S分别用于标注一个命名实体的结束位置和仅含一个单词的命名实体。
+\item {\small\sffamily\bfseries{BIOES格式}}。与BIO格式相比，多出了标签E（End）和S（Single）。仍然以命名实体识别为例，E和S分别用于标注一个命名实体的结束位置和仅含一个单词的命名实体。
 \vspace{0.5em}
 \end{itemize}
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
- 	\subfigure[BIO格式标注命名实体] {\input{./Chapter3/Figures/figure-labeling-named-entities-in-bio-format} }
- 	\subfigure[BIOES格式标注命名实体] {\input{./Chapter3/Figures/figure-labeling-named-entities-in-bioes-format}}
+ 	\subfigure[\small{BIO格式标注命名实体}] {\input{./Chapter3/Figures/figure-labeling-named-entities-in-bio-format} }
+ 	\subfigure[\small{BIOES格式标注命名实体}] {\input{./Chapter3/Figures/figure-labeling-named-entities-in-bioes-format}}
 	\caption{BIO和BIOES格式对比}
     \label{fig:3.3-1}
 \end{figure}
@@ -282,9 +284,9 @@ $计算这种切分的概率值。
 
 \begin{itemize}
 \vspace{0.5em}
-\item 样本在这些特征上的差异度，即特征对于样本的区分能力。比如，可以考虑优先选择样本特征值方差较大即区分能力强的特征\footnote{方差如果很小，意味着样本在这个特征上基本上没有差异，那么这个特征对于样本的区分并没有什么用。}；
+\item {\small\sffamily\bfseries{样本在这些特征上的差异度}}，即特征对于样本的区分能力。比如，可以考虑优先选择样本特征值方差较大即区分能力强的特征\footnote{方差如果很小，意味着样本在这个特征上基本上没有差异，那么这个特征对于样本的区分并没有什么用。}；
 \vspace{0.5em}
-\item 特征与任务目标的相关性。优先选择相关性高的特征。
+\item {\small\sffamily\bfseries{特征与任务目标的相关性}}。优先选择相关性高的特征。
 \vspace{0.5em}
 \end{itemize}
 
@@ -329,6 +331,9 @@ $计算这种切分的概率值。
 \parinterval 这里用一个简单的“抛硬币”游戏来对这些概念进行说明：假设有三枚质地不同的硬币$A$、$B$、$C$，已知这三个硬币抛出正面的概率分别为0.3、0.5、0.7，在游戏中，游戏发起者在上述三枚硬币中选择一枚硬币上抛，每枚硬币被挑选到的概率可能会受上次被挑选的硬币的影响，且每枚硬币正面向上的概率都各不相同。不停的重复挑选硬币、上抛硬币的过程，会得到一串硬币的正反序列，例如：抛硬币6次，得到：正正反反正反。游戏挑战者通过观察6次后获得的硬币正反序列，猜测每次选择的究竟是哪一枚硬币。
 
 \parinterval 在上面的例子中，每次挑选并上抛硬币后得到的“正面”或“反面”即为“可见状态”，再次挑选并上抛硬币会获得新的“可见状态”，这个过程即为“状态的转移”，经过6次反复挑选上抛后得到的硬币正反序列叫做可见状态序列，由每个回合的可见状态构成。此外，在这个游戏中还暗含着一个会对最终“可见状态序列”产生影响的“隐含状态序列”\ \dash \ 每次挑选的硬币形成的序列，例如$CBABCA$。
+
+\parinterval 实际上，隐马尔科夫模型在处理序列问题时的关键依据是两个至关重要的概率关系，并且这两个概率关系也始终贯穿于“抛硬币”的游戏中。一方面，隐马尔可夫模型中用{\small\sffamily\bfseries{发射概率}}\index{发射概率}（Emission Probability）\index{Emission Probability}来描述隐含状态和可见状态之间存在的输出概率（即$A$、$B$、$C$抛出正面的输出概率为0.3、0.5、0.7），同样的，隐马尔可夫模型还会描述系统隐含状态的{\small\sffamily\bfseries{转移概率}}\index{转移概率}（Transition Probability）\index{Transition Probability}，在这个例子中，$A$的下一个状态是$A$、$B$、$C$的概率都是1/3，$B$、$C$的下一个状态是$A$、$B$、$C$的转移概率也同样是1/3。图\ref{fig:3.3-2}展示了在“抛硬币”游戏中的转移概率和发射概率，它们都可以被看做是条件概率矩阵。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -338,18 +343,8 @@ $计算这种切分的概率值。
 \end{figure}
 %-------------------------------------------
 
-\parinterval 实际上，隐马尔科夫模型在处理序列问题时的关键依据是两个至关重要的概率关系，并且这两个概率关系也始终贯穿于“抛硬币”的游戏中。一方面，隐马尔可夫模型中用{\small\sffamily\bfseries{发射概率}}\index{发射概率}（Emission Probability）\index{Emission Probability}来描述隐含状态和可见状态之间存在的输出概率（即$A$、$B$、$C$抛出正面的输出概率为0.3、0.5、0.7），同样的，隐马尔可夫模型还会描述系统隐含状态的{\small\sffamily\bfseries{转移概率}}\index{转移概率}（Transition Probability）\index{Transition Probability}，在这个例子中，$A$的下一个状态是$A$、$B$、$C$的概率都是1/3，$B$、$C$的下一个状态是$A$、$B$、$C$的转移概率也同样是1/3。图\ref{fig:3.3-2}展示了在“抛硬币”游戏中的转移概率和发射概率，它们都可以被看做是条件概率矩阵。
-
 \parinterval 由于隐含状态序列之间存在转移概率，并且隐马尔可夫模型中隐含状态和可见状态之间存在着发射概率，因此根据可见状态的转移猜测隐含状态序列并非无迹可循。图\ref{fig:3.3-3}描述了如何使用隐马尔可夫模型来根据“抛硬币”结果推测挑选的硬币序列。可见，通过隐含状态之间的联系（绿色方框及它们之间的连线）可以对有序的状态进行描述，进而得到隐含状态序列所对应的可见状态序列（红色圆圈）。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter3/Figures/figure-example-of-hmm-in-coin-toss}
-\caption{抛硬币的隐马尔可夫模型实例}
-\label{fig:3.3-3}
-\end{figure}
-%-------------------------------------------
 \parinterval 从统计建模的角度看，上述过程本质上是在描述隐含状态和可见状态出现的联合概率。这里，用$\seq{x}=(x_1,...,x_m)$表示可见状态序列，用$\seq{y}=(y_1,...,y_m)$表示隐含状态序列。（一阶）隐马尔可夫模型假设：
 
 \begin{itemize}
@@ -371,17 +366,26 @@ $计算这种切分的概率值。
 
 \noindent 这里，$y_{0}$表示一个虚拟的隐含状态。这样，可以定义$\funp{P}(y_1|y_{0}) \equiv \funp{P}(y_1)$，它表示起始隐含状态出现的概率。隐马尔可夫模型的假设也大大化简了问题，因此可以通过式\eqref{eq:joint-prob-xy}很容易地计算隐含状态序列和可见状态序列出现的概率。值得注意的是，发射概率和转移概率都可以被看作是描述序列生成过程的“特征”。但是，这些“特征”并不是随意定义的，而是符合问题的概率解释。而这种基于事件发生的逻辑所定义的概率生成模型，通常可以被看作是一种{\small\sffamily\bfseries{生成式模型}}\index{生成式模型}（Generative Model）\index{Generative Model}。
 
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter3/Figures/figure-example-of-hmm-in-coin-toss}
+\caption{抛硬币的隐马尔可夫模型实例}
+\label{fig:3.3-3}
+\end{figure}
+%-------------------------------------------
 \parinterval 一般来说，隐马尔可夫模型中包含下面三个问题：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 隐含状态序列的概率计算：即给定模型（转移概率和发射概率），根据可见状态序列（抛硬币的结果）计算在该模型下得到这个结果的概率，这个问题的解决需要用到前后向算法\upcite{baum1970maximization}。
+\item {\small\sffamily\bfseries{隐含状态序列的概率计算}}，即给定模型（转移概率和发射概率），根据可见状态序列（抛硬币的结果）计算在该模型下得到这个结果的概率，这个问题的求解需要用到前后向算法\upcite{baum1970maximization}。
 \vspace{0.5em}
-\item 参数学习：即给定硬币种类（隐含状态数量），根据多个可见状态序列（抛硬币的结果）估计模型的参数（转移概率），这个问题的求解需要用到EM算法\upcite{1977Maximum}。
-%\vspace{0.5em}
-\item 解码：即给定模型（转移概率和发射概率）和可见状态序列（抛硬币的结果），计算在可见状态序列的情况下，最可能出现的对应的状态序列，这个问题的求解需要用到基于动态规划的方法，这种方法通常也被称作{\small\sffamily\bfseries{维特比算法}}\index{维特比算法}（Viterbi Algorithm）\index{Viterbi Algorithm}\upcite{1967Error}。
+\item {\small\sffamily\bfseries{参数学习}}，即给定硬币种类（隐含状态数量），根据多个可见状态序列（抛硬币的结果）估计模型的参数（转移概率），这个问题的求解需要用到EM算法\upcite{1977Maximum}。
+\vspace{0.5em}
+\item {\small\sffamily\bfseries{解码}}，即给定模型（转移概率和发射概率）和可见状态序列（抛硬币的结果），计算在可见状态序列的情况下，最可能出现的对应的状态序列，这个问题的求解需要用到基于动态规划的方法，通常也被称作{\small\sffamily\bfseries{维特比算法}}\index{维特比算法}（Viterbi Algorithm）\index{Viterbi Algorithm}\upcite{1967Error}。
 \vspace{0.5em}
 \end{itemize}
+
 \parinterval 隐马尔可夫模型处理序列标注问题的基本思路是：
 
 \begin{itemize}
@@ -394,9 +398,12 @@ $计算这种切分的概率值。
 
 \parinterval 一种简单的办法是使用相对频次估计得到转移概率和发射概率估计值。令$x_i$表示第$i$个位置的可见状态，$y_i$表示第$i$个位置的隐含状态，$\funp{P}(y_i|y_{i-1})$表示第$i-1$个位置到第$i$个位置的状态转移概率，$\funp{P}(x_i|y_{i}) $表示第$i$个位置的发射概率，于是有：
 \begin{eqnarray}
-\funp{P}(y_i|y_{i-1}) = \frac{{c}(y_{i-1},y_i)}{{c}(y_{i-1})}
-\label{eq:3.3-1}\\
-\funp{P}(x_i|y_{i}) = \frac{{c}(x_i,y_i)}{{c}(y_i)}
+\funp{P}(y_i|y_{i-1}) &=& \frac{{c}(y_{i-1},y_i)}{{c}(y_{i-1})}
+\label{eq:3.3-1}
+\end{eqnarray}
+
+\begin{eqnarray}
+\funp{P}(x_i|y_{i}) &=& \frac{{c}(x_i,y_i)}{{c}(y_i)}
 \label{eq:3.3-2}
 \end{eqnarray}
 
@@ -404,19 +411,20 @@ $计算这种切分的概率值。
 
 \parinterval 在获得转移概率和发射概率的基础上，对于一个句子进行命名实体识别可以被描述为：在观测序列$\seq{x}$（可见状态，即输入的词序列）的条件下，最大化标签序列$\seq{y}$（隐含状态，即标记序列）的概率，即：
 \begin{eqnarray}
-\hat{\seq{y}} = \arg\max_{\seq{y}}\funp{P}(\seq{y}|\seq{x})
+\hat{\seq{y}} &=& \arg\max_{\seq{y}}\funp{P}(\seq{y}|\seq{x})
 \label{eq:3.3-3}
 \end{eqnarray}
 
 \parinterval 根据贝叶斯定理，该概率被分解为$\funp{P}(\seq{y}|\seq{x})=\frac{\funp{P}(\seq{x},\seq{y})}{\funp{P}(\seq{x})}$，其中$\funp{P}(\seq{x})$是固定概率，因为$\seq{x}$在这个过程中是确定的不变量。因此只需考虑如何求解分子，即将求条件概率$\funp{P}(\seq{y}|\seq{x})$的问题转化为求联合概率$\funp{P}(\seq{y},\seq{x})$的问题：
 \begin{eqnarray}
-\hat{\seq{y}} = \arg\max_{\seq{y}}\funp{P}(\seq{x},\seq{y}) \label{eq:markov-sequence-argmax}
+\hat{\seq{y}} &=& \arg\max_{\seq{y}}\funp{P}(\seq{x},\seq{y}) \label{eq:markov-sequence-argmax}
 \label{eq:3.3-4}
 \end{eqnarray}
 
 \parinterval 将式\eqref{eq:joint-prob-xy}带入式\eqref{eq:markov-sequence-argmax}可以得到最终计算公式，如下：
+
 \begin{eqnarray}
-\hat{\seq{y}} = \arg\max_{\seq{y}}\prod_{i=1}^{m}\funp{P}(x_i|y_i)\funp{P}(y_i|y_{i-1})
+\hat{\seq{y}} &=& \arg\max_{\seq{y}}\prod_{i=1}^{m}\funp{P}(x_i|y_i)\funp{P}(y_i|y_{i-1})
 \label{eq:3.3-5}
 \end{eqnarray}
 
@@ -438,6 +446,7 @@ $计算这种切分的概率值。
 \subsubsection{2. 条件随机场}
 
 \parinterval 隐马尔可夫模型有一个很强的假设：一个隐含状态出现的概率仅由上一个隐含状态决定。这个假设也会带来一些问题，举个例子：在某个隐马尔可夫模型中，隐含状态集合为\{$A, B, C, D$\}，可见状态集合为\{$T, F$\}，其中隐含状态$A$可能的后继隐含状态集合为\{$A, B$\}，隐含状态$B$可能的后继隐含状态集合为\{$A, B, C, D$\}，于是有：
+
 \begin{eqnarray}
 \funp{P}(A|A)+\funp{P}(A|B) & = & 1 \label{eq:3.3-6} \\
 \funp{P}(A|B)+\funp{P}(B|B)+\funp{P}(C|B)+\funp{P}(D|B) & = & 1 \label{eq:3.3-7}
@@ -465,14 +474,16 @@ F(y_{i-1},y_i,\seq{x},i) & = & t(y_{i-1},y_i,\seq{x},i)+s(y_i,\seq{x},i)
 \end{eqnarray}
 	
 \parinterval 实际上，基于特征函数的方法更像是对隐含状态序列的一种打分：根据人为设计的模板（特征函数），测试隐含状态之间的转换以及隐含状态与可见状态之间的对应关系是否符合这种模板。在处理序列问题时，假设可见状态序列$\seq{x}$的长度和待预测隐含状态序列$\seq{y}$的长度均为$m$，且共设计了$k$个特征函数，则有：
+
 \begin{eqnarray}
 \funp{P}(\seq{y}|\seq{x}) & = & \frac{1}{Z(\seq{x})}\exp(\sum_{i=1}^m\sum_{j=1}^{k}\lambda_{j}F_{j}(y_{i-1},y_i,\seq{x},i))
 \label{eq:3.3-9}
 \end{eqnarray}
 
 \parinterval 公式\eqref{eq:3.3-9}中的$Z(x)$即为上面提到的实现全局统计归一化的归一化因子，其计算方式为：
+
 \begin{eqnarray}
-Z(\seq{x})=\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y_i,\seq{x},i))
+Z(\seq{x})&=&\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y_i,\seq{x},i))
 \label{eq:3.3-10}
 \end{eqnarray}
 
@@ -503,7 +514,7 @@ Z(\seq{x})=\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y
 \begin{figure}[htp]
 \centering
 \begin{tabular}{l l l}
-\subfigure[HMM处理序列标注]{\input{./Chapter3/Figures/figure-process-sequence-labeling-by-hmm}} & \subfigure[CRF处理序列标注]{\input{./Chapter3/Figures/figure-process-sequence-labeling-by-crf}} & \subfigure[分类模型处理序列标注]{\input{./Chapter3/Figures/figure-process-sequence-labeling-by-classfication}}
+\subfigure[\small{HMM处理序列标注}]{\input{./Chapter3/Figures/figure-process-sequence-labeling-by-hmm}} & \subfigure[\small{CRF处理序列标注}]{\input{./Chapter3/Figures/figure-process-sequence-labeling-by-crf}} & \subfigure[\small{分类模型处理序列标注}]{\input{./Chapter3/Figures/figure-process-sequence-labeling-by-classfication}}
 \end{tabular}
 \caption{HMM、CRF、分类算法三种方法对比}
 \label{fig:3.3-7}
@@ -520,11 +531,11 @@ Z(\seq{x})=\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y
 
 \parinterval 无论在日常生活中还是在研究工作中，都会遇到各种各样的分类问题，例如挑选西瓜时需要区分“好瓜”和“坏瓜”、编辑看到一篇新闻稿件时要对稿件进行分门别类。事实上，在机器学习中，对“分类任务”的定义会更宽泛而并不拘泥于“类别”的概念，在对样本进行预测时，只要预测标签集合是有限的且预测标签是离散的，就可认定其为分类任务。
 
-\parinterval 具体来说，分类任务目标是训练一个可以根据输入数据预测离散标签的{\small\sffamily\bfseries{分类器}}\index{分类器}（Classifier\index{Classifier}），也可称为分类模型。在有监督的分类任务中\footnote{与之相对应的，还有无监督、半监督分类任务，不过这些内容不是本书讨论的重点。读者可以参看参考文献\upcite{周志华2016机器学习,李航2019统计学习方法}对相关概念进行了解。}，训练数据集合通常由形似$(\boldsymbol{x}_i,y_i)$的带标注数据构成，$\boldsymbol{x}_i=(x_{i1},x_{i2},\ldots,x_{ik})$作为分类器的输入数据（通常被称作一个训练样本），其中$x_{ij}$表示样本$\boldsymbol{x}_i$的第$j$个特征；$y_i$作为输入数据对应的{\small\sffamily\bfseries{标签}}\index{标签}（Label）\index{Label}，反映了输入数据对应的“类别”。若标签集合大小为$n$，则分类任务的本质是通过对训练数据集合的学习，建立一个从$k$ 维样本空间到$n$维标签空间的映射关系。更确切地说，分类任务的最终目标是学习一个条件概率分布$\funp{P}(y|\boldsymbol{x})$，这样对于输入$\boldsymbol{x}$可以找到概率最大的$y$作为分类结果输出。
+\parinterval 具体来说，分类任务目标是训练一个可以根据输入数据预测离散标签的{\small\sffamily\bfseries{分类器}}\index{分类器}（Classifier\index{Classifier}），也可称为分类模型。在有监督的分类任务中\footnote{与之相对应的，还有无监督、半监督分类任务，不过这些内容不是本书讨论的重点。读者可以参看参考文献\upcite{周志华2016机器学习,李航2019统计学习方法}对相关概念进行了解。}，训练数据集合通常由形似$({\mathbi{x}}^{[i]},y^{[i]})$的带标注数据构成，${\mathbi{x}}^{[i]}=(x^{[i]}_1,\ldots,x^{[i]}_k)$作为分类器的输入数据（通常被称作一个训练样本），其中$x^{[i]}_j$表示样本$\mathbi{x}^{[i]}$的第$j$个特征；$y^{[i]}$作为输入数据对应的{\small\sffamily\bfseries{标签}}\index{标签}（Label）\index{Label}，反映了输入数据对应的“类别”。若标签集合大小为$n$，则分类任务的本质是通过对训练数据集合的学习，建立一个从$k$ 维样本空间到$n$维标签空间的映射关系。更确切地说，分类任务的最终目标是学习一个条件概率分布$\funp{P}(y|{\mathbi{x}})$，这样对于输入${\mathbi{x}}$可以找到概率最大的$y$作为分类结果输出。
 
-\parinterval 与概率图模型一样，分类模型中也依赖特征定义。其定义形式与\ref{sec3:feature}节的描述一致，这里不再赘述。分类任务一般根据类别数量分为二分类任务和多分类任务，二分类任务是最经典的分类任务，只需要对输出进行非零即一的预测。多分类任务则可以有多种处理手段，比如，可以将其“拆解”为多个二分类任务求解，或者直接让模型输出多个类别中的一个。在命名实体识别中，往往会使用多类别分类模型。比如，在BIO标注下，有三个类别（B、I和O）。一般来说，类别数量越大分类的难度也越大。比如，BIOES标注包含5个类别，因此使用同样的分类器，它要比BIO标注下的分类问题难度大。另一方面，更多的类别有助于准确的刻画目标问题。因此在实践中需要在类别数量和分类难度之间找到一种平衡。
+\parinterval 与概率图模型一样，分类模型中也依赖特征定义。其定义形式与\ref{sec3:feature}节的描述一致，这里不再赘述。分类任务一般根据类别数量分为二分类任务和多分类任务，二分类任务是最经典的分类任务，只需要对输出进行非零即一的预测。多分类任务则可以有多种处理手段，比如，可以将其“拆解”为多个二分类任务求解，或者直接让模型输出多个类别中的一个。在命名实体识别中，往往会使用多类别分类模型。比如，在BIO标注下，有三个类别（B、I和O）。一般来说，类别数量越大分类的难度也越大。比如，BIOES标注包含5个类别，因此使用同样的分类器，它要比BIO标注下的分类问题难度大。此外，更多的类别有助于准确的刻画目标问题。因此在实践中需要在类别数量和分类难度之间找到一种平衡。
 
-\parinterval 在机器翻译和语言建模中也会遇到类似的问题，比如，生成单词的过程可以被看做是一个分类问题，类别数量就是词表的大小。显然，词表越大可以覆盖更多样的单词及形态学变化，但是过大的词表里会包含很多低频词，其计算复杂度会显著增加。然而，过小的词表又无法包含足够多的单词。因此，在设计这类系统的时候对词表大小的选择（类别数量的选择）是十分重要的，往往要通过大量的实验得到最优的设置。
+\parinterval 在机器翻译和语言建模中也会遇到类似的问题，比如，生成单词的过程可以被看做是一个分类问题，类别数量就是词表的大小。显然，词表越大可以覆盖更多的单词和更多种类的单词形态学变化，但是过大的词表里会包含很多低频词，其计算复杂度会显著增加。然而，过小的词表又无法包含足够多的单词。因此，在设计这类系统的时候对词表大小的选择（类别数量的选择）是十分重要的，往往要通过大量的实验得到最优的设置。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -536,22 +547,23 @@ Z(\seq{x})=\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y
 
 \begin{itemize}
 \vspace{0.5em}
-\item $K$-近邻分类算法。$K$-近邻分类算法通过计算不同特征值之间的距离进行分类，这种方法适用于可以提取到数值型特征\footnote{即可以用数值大小对某方面特征进行衡量。}的分类问题。该方法的基本思想为：将提取到的特征分别作为坐标轴，建立一个$k$维坐标系（对应特征数量为$k$的情况），此时每个样本都将成为该$k$维空间的一个点，将未知样本与已知类别样本的空间距离作为分类依据进行分类，比如，考虑与输入样本最近的$K$个样本的类别进行分类。
+\item{\small\sffamily\bfseries{$K$-近邻分类算法}} 。$K$-近邻分类算法通过计算不同特征值之间的距离进行分类，这种方法适用于可以提取到数值型特征\footnote{即可以用数值大小对某方面特征进行衡量。}的分类问题。该方法的基本思想为：将提取到的特征分别作为坐标轴，建立一个$k$维坐标系（对应特征数量为$k$的情况），此时每个样本都将成为该$k$维空间的一个点，将未知样本与已知类别样本的空间距离作为分类依据进行分类，比如，考虑与输入样本最近的$K$个样本的类别进行分类。
 \vspace{0.5em}
-\item 支持向量机。支持向量机是一种二分类模型，其思想是通过线性超平面将不同输入划分为正例和负例，并使线性超平面与不同输入的距离都达到最大。与$K$-近邻分类算法类似，支持向量机也适用于可以提取到数值型特征的分类问题。
+\item {\small\sffamily\bfseries{支持向量机}}。支持向量机是一种二分类模型，其思想是通过线性超平面将不同输入划分为正例和负例，并使线性超平面与不同输入的距离都达到最大。与$K$-近邻分类算法类似，支持向量机也适用于可以提取到数值型特征的分类问题。
 \vspace{0.5em}
-\item 最大熵模型。最大熵模型是根据最大熵原理提出的一种分类模型，其基本思想是：以在训练数据集中学习到的经验知识作为一种“约束”，并在符合约束的前提下，在若干合理的条件概率分布中选择“使条件熵最大”的模型。
+\item {\small\sffamily\bfseries{最大熵模型}}。最大熵模型是根据最大熵原理提出的一种分类模型，其基本思想是：以在训练数据集中学习到的经验知识作为一种“约束”，并在符合约束的前提下，在若干合理的条件概率分布中选择“使条件熵最大”的模型。
 \vspace{0.5em}
-\item 决策树分类算法。决策树分类算法是一种基于实例的归纳学习方法：将样本中某些决定性特征作为决策树的节点，根据特征表现进行对样本划分，最终根节点到每个叶子节点均形成一条分类的路径规则。这种分类方法适用于可以提取到离散型特征\footnote{即特征值是离散的。}的分类问题。
+\item {\small\sffamily\bfseries{决策树分类算法}}。决策树分类算法是一种基于实例的归纳学习方法：将样本中某些决定性特征作为决策树的节点，根据特征表现进行对样本划分，最终根节点到每个叶子节点均形成一条分类的路径规则。这种分类方法适用于可以提取到离散型特征\footnote{即特征值是离散的。}的分类问题。
 \vspace{0.5em}
-\item 朴素贝叶斯分类算法。朴素贝叶斯算法是以贝叶斯定理为基础并且假设特征之间相互独立的方法，以特征之间相互独立作为前提假设，学习从输入到输出的联合概率分布，并以后验概率最大的输出作为最终类别。
+\item {\small\sffamily\bfseries{朴素贝叶斯分类算法}}。朴素贝叶斯算法是以贝叶斯定理为基础并且假设特征之间相互独立的方法，以特征之间相互独立作为前提假设，学习从输入到输出的联合概率分布，并以后验概率最大的输出作为最终类别。
 \vspace{0.5em}
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-\section{句法分析（短语结构分析）}
+
+\section{句法分析}
 
 \parinterval 前面已经介绍了什么叫做“词”以及如何对分词问题进行统计建模。同时，也介绍了如何对多个单词构成的命名实体进行识别。无论是分词还是命名实体识别都是句子浅层信息的一种表示。对于一个自然语言句子来说，它更深层次的结构信息可以通过更完整的句法结构来描述，而句法信息也是机器翻译和自然语言处理其他任务中常用的知识之一。
 
@@ -637,19 +649,19 @@ Z(\seq{x})=\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y
 
 \parinterval 举例说明，假设有上下文无关文法$G=<N,\varSigma,R,S>$，可以用它描述一个简单汉语句法结构。其中非终结符集合为不同的汉语句法标记
 \begin{eqnarray}
-N=\{\textrm{NN},\textrm{VV},\textrm{NP},\textrm{VP},\textrm{IP}\} \nonumber
+N&=&\{\textrm{NN},\textrm{VV},\textrm{NP},\textrm{VP},\textrm{IP}\} \nonumber
 \label{eq:3.4-1}
 \end{eqnarray}
 
 \noindent 这里，\textrm{NN}代表名词，\textrm{VV}代表动词，\textrm{NP}代表名词短语，\textrm{VP}代表动词短语，\textrm{IP}代表单句。进一步，把终结符集合定义为
 \begin{eqnarray}
-\varSigma = \{\text{猫,喜欢,吃,鱼}\} \nonumber
+\varSigma &=& \{\text{猫,喜欢,吃,鱼}\} \nonumber
 \label{eq:3.4-2}
 \end{eqnarray}
 
 再定义起始符集合为
 \begin{eqnarray}
-S=\{\textrm{IP}\} \nonumber
+S&=&\{\textrm{IP}\} \nonumber
 \label{eq:3.4-3}
 \end{eqnarray}
 
@@ -710,8 +722,6 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
 
 \parinterval 比如，使用前面的示例文法，可以对“猫/喜欢/吃/鱼”进行分析，并形成句法分析树（图\ref{fig:3.4-3}）。从起始非终结符IP开始，使用唯一拥有IP作为左部的规则$r_8$推导出NP和VP，之后依次使用规则$r_5$、$r_1$、$r_7$、$r_2$、$r_6$、$r_3$、$r_4$，得到了完整的句法树。
 
-\parinterval 通常，可以把推导简记为$d=r_1 \circ r_2 \circ ... \circ r_n$，其中$ \circ $表示规则的组合。显然，$d$也对应了树形结构，也就是句法分析结果。从这个角度看，推导就是描述句法分析树的一种方式。此外，规则的推导也把规则的使用过程与生成的字符串对应起来。一个推导所生成的字符串，也被称作文法所产生的一个{\small\sffamily\bfseries{句子}}\index{句子}（Sentence）\index{Sentence}。而一个文法所能生成的所有句子的集合是这个文法所对应的{\small\sffamily\bfseries{语言}}\index{语言}（Language）\index{Language}。
-
 %-------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -720,6 +730,8 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
     \label{fig:3.4-3}
 \end{figure}
 %-------------------------------------------
+
+\parinterval 通常，可以把推导简记为$d=r_1 \circ r_2 \circ ... \circ r_n$，其中$ \circ $表示规则的组合。显然，$d$也对应了树形结构，也就是句法分析结果。从这个角度看，推导就是描述句法分析树的一种方式。此外，规则的推导也把规则的使用过程与生成的字符串对应起来。一个推导所生成的字符串，也被称作文法所产生的一个{\small\sffamily\bfseries{句子}}\index{句子}（Sentence）\index{Sentence}。而一个文法所能生成的所有句子的集合是这个文法所对应的{\small\sffamily\bfseries{语言}}\index{语言}（Language）\index{Language}。
 
 \parinterval 但是，句子和规则的推导并不是一一对应的。同一个句子，往往有很多推导的方式，这种现象被称为{\small\sffamily\bfseries{歧义}}\index{歧义}（Ambiguity）\index{Ambiguity}。甚至同一棵句法树，也可以对应不同的推导，图\ref{fig:3.4-4} 给出同一棵句法树所对应的两种不同的规则推导。
 
@@ -732,6 +744,7 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
     \label{fig:3.4-4}
 \end{figure}
 %-------------------------------------------
+
 \parinterval 显然，规则顺序的不同会导致句法树的推导这一确定的过程变得不确定，因此，需要进行{\small\sffamily\bfseries{消歧}}\index{消歧}（Disambiguation）\index{Disambiguation}。这里，可以使用启发式方法：要求规则使用都服从最左优先原则，这样得到的推导被称为{\small\sffamily\bfseries{最左优先推导}}\index{最左优先推导}（Left-most Derivation）\index{Left-most Derivation}。图\ref{fig:3.4-4}中的推导1 就是符合最左优先原则的推导。
 
 %-------------------------------------------
@@ -787,7 +800,7 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
 
 \parinterval 概率上下文无关文法与传统上下文无关文法的区别在于，每条规则都会有一个概率，描述规则生成的可能性。具体来说，规则$\funp{P}(\alpha \to \beta)$的概率可以被定义为：
 \begin{eqnarray}
-\funp{P}(\alpha \to \beta)=\funp{P}(\beta | \alpha)
+\funp{P}(\alpha \to \beta)&=&\funp{P}(\beta | \alpha)
 \label{eq:3.4-4}
 \end{eqnarray}
 
@@ -818,9 +831,11 @@ r_6: & & \textrm{VP} \to \textrm{VV}\ \textrm{NN} \nonumber
 \parinterval 新的问题又来了，如何得到规则的概率呢？这里仍然可以从数据中学习文法规则的概率。假设有人工标注的数据，它包括很多人工标注句法树的句法，称之为{\small\sffamily\bfseries{树库}}\index{树库}（Treebank）\index{Treebank}。然后，对于规则$\textrm{r}:\alpha \to \beta$可以使用基于频次的方法：
 
 \begin{eqnarray}
-\funp{P}(r)  = \frac{\text{规则$r$在树库中出现的次数}}{\alpha \text{在树库中出现的次数}}
+\funp{P}(r)  &=& \frac{\text{规则$r$在树库中出现的次数}}{\alpha \text{在树库中出现的次数}}
 \label{eq:3.4-8}
 \end{eqnarray}
+
+\parinterval 图\ref{fig:3.4-7}展示了通过这种方法计算规则概率的过程。与词法分析类似，可以统计树库中规则左部和右部同时出现的次数，除以规则左部出现的全部次数，所得的结果就是所求规则的概率。这种方法也是典型的相对频次估计。但是如果规则左部和右部同时出现的次数为0时是否代表这个规则概率是0呢？遇到这种情况，可以使用平滑方法对概率进行平滑处理，具体思路可参考{\chaptertwo}的相关内容。
 
 %-------------------------------------------
 \begin{figure}[htp]
@@ -830,7 +845,14 @@ r_6: & & \textrm{VP} \to \textrm{VV}\ \textrm{NN} \nonumber
     \label{fig:3.4-7}
 \end{figure}
 %-------------------------------------------
-\parinterval 图\ref{fig:3.4-7}展示了通过这种方法计算规则概率的过程。与词法分析类似，可以统计树库中规则左部和右部同时出现的次数，除以规则左部出现的全部次数，所得的结果就是所求规则的概率。这种方法也是典型的相对频次估计。但是如果规则左部和右部同时出现的次数为0时是否代表这个规则概率是0呢？遇到这种情况，可以使用平滑方法对概率进行平滑处理，具体思路可参考{\chaptertwo}的相关内容。
+
+\parinterval 图\ref{fig:3.4-8}展示了基于统计的句法分析的流程。首先，通过树库上的统计，获得各个规则的概率，这样就得到了一个上下文无关句法分析模型$\funp{P}( \cdot )$。对于任意句法分析结果$d=r_1 \circ r_2 \circ ... \circ r_n$，都能通过如下公式计算其概率值：
+
+\begin{equation}
+\funp{P}(d)= \prod_{i=1}^{n}\funp{P}(r_i)
+\end{equation}
+
+\parinterval 在获取统计分析模型后，就可以使用模型对任意句子进行分析，计算每个句法分析树的概率，并输出概率最高的树作为句法分析的结果。
 
 %-------------------------------------------
 \begin{figure}[htp]
@@ -840,17 +862,13 @@ r_6: & & \textrm{VP} \to \textrm{VV}\ \textrm{NN} \nonumber
     \label{fig:3.4-8}
 \end{figure}
 %-------------------------------------------
-\parinterval 图\ref{fig:3.4-8}展示了基于统计的句法分析的流程。首先，通过树库上的统计，获得各个规则的概率，这样就得到了一个上下文无关句法分析模型$\funp{P}( \cdot )$。对于任意句法分析结果$d=r_1 \circ r_2 \circ ... \circ r_n$，都能通过如下公式计算其概率值：
 
-\begin{equation}
-\funp{P}(d)= \prod_{i=1}^{n}\funp{P}(r_i)
-\end{equation}
-
-\parinterval 在获取统计分析模型后，就可以使用模型对任意句子进行分析，计算每个句法分析树的概率，并输出概率最高的树作为句法分析的结果。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
+
+\sectionnewpage
 \section{小结及拓展阅读} \label{sec3:summary}
 
 \parinterval 本章将统计建模的思想应用到三个自然语言处理任务中，包括：中文分词、命名实体识别、短语结构句法分析。它们和机器翻译有着紧密的联系，往往作为机器翻译系统输入和输出的数据加工方法。可以发现：经过适当的假设和化简，统计模型可以很好的描述复杂的自然语言处理问题。这种建模手段也会在后续章节的内容中被广泛使用。
@@ -861,7 +879,7 @@ r_6: & & \textrm{VP} \to \textrm{VV}\ \textrm{NN} \nonumber
 \vspace{0.5em}
 \item 在建模方面，本章描述了基于1-gram语言模型的分词、基于上下文无关文法的句法分析等，它们都是基于人工先验知识进行模型设计的思路。也就是，问题所表达的现象被“一步一步”生成出来。这是一种典型的生成式建模思想，它把要解决的问题看作一些观测结果的隐含变量（比如，句子是观测结果，分词结果是隐含在背后的变量），之后通过对隐含变量生成观测结果的过程进行建模，以达到对问题进行数学描述的目的。这类模型一般需要依赖一些独立性假设，假设的合理性对最终的性能有较大影响。相对于生成式模型，另一类方法是{\small\sffamily\bfseries{判别式模型}}\index{判别式模型}（Discriminative Model）\index{Discriminative Model}。本章序列标注内容中提到一些模型就是判别式模型，如条件随机场\upcite{lafferty2001conditional}。它直接描述了从隐含变量生成观测结果的过程，这样对问题的建模更加直接，同时这类模型可以更加灵活的引入不同的特征。判别模型在自然语言处理中也有广泛应用\upcite{ng2002discriminative,manning2008introduction,berger1996maximum,mitchell1996m,DBLP:conf/acl/OchN02}。 在本书的第七章也会使用到判别式模型。
 \vspace{0.5em}
-\item 此外，本章并没有对分词、句法分析中的预测问题进行深入介绍。比如，如何找到概率最大的分词结果？这部分可以直接借鉴第二章中介绍的搜索方法。比如，对于基于$n$-gram语言模型的分词方法，可以 使用动态规划\upcite{huang2008coling}。对于动态规划的使用条件不满足的情况，可以考虑使用更加复杂的搜索策略，并配合一定的剪枝方法。实际上，无论是基于$n$-gram 语言模型的分词还是简单的上下文无关文法都有高效的推断方法。比如，$n$-gram语言模型可以被视为概率有限状态自动机，因此可以直接使用成熟的自动机工具\upcite{mohri2008speech}。对于更复杂的句法分析问题，可以考虑使用移进- 规约方法来解决预测问题\upcite{aho1972theory}。
+\item 事实上，本章并没有对分词、句法分析中的预测问题进行深入介绍。比如，如何找到概率最大的分词结果？这个问题的解决可以直接借鉴{\chaptertwo}中介绍的搜索方法：对于基于$n$-­gram 语言模型的分词方法，可以使用动态规划方法\upcite{huang2008coling}进行搜索；在不满足动态规划的使用条件时，可以考虑使用更加复杂的搜索策略，并配合一定的剪枝方法找到最终的分词结果。实际上，无论是基于$n$-gram 语言模型的分词还是简单的上下文无关文法都有高效的推断方法。比如，$n$-gram语言模型可以被视为概率有限状态自动机，因此可以直接使用成熟的自动机工具\upcite{mohri2008speech}。对于更复杂的句法分析问题，可以考虑使用移进- 规约方法来解决预测问题\upcite{aho1972theory}。
 \vspace{0.5em}
 \item 从自然语言处理的角度来看，词法分析和语法分析中的很多问题都是序列标注问题，例如本章介绍的分词和命名实体识别。此外序列标注还可以被扩展到词性标注\upcite{brants-2000-tnt}、组块识别\upcite{tsuruoka-tsujii-2005-chunk}、关键词抽取\upcite{li-etal-2003-news-oriented}、词义角色标注\upcite{chomsky1993lectures}等任务，本章着重介绍了传统的方法，前沿方法大多与深度学习相结合，感兴趣的读者可以自行了解，其中比较有代表性的使用双向长短时记忆网络对序列进行建模，之后于不同模型进行融合得到最终的结果，例如，与条件随机场相结合的模型（BiLSTM-CRF）\upcite{2015Bidirectional}、与卷积神经网络相结合的模型（BiLSTM-CNNs）\upcite{chiu2016named}、与简单的Softmax结构相结合的模型\upcite{vzukov2018named}等。此外，对于序列标注任务，模型性能很大程度上依赖对输入序列的表示能力，因此基于预训练语言模型的方法也非常流行\upcite{Li2020A}，如：BERT\upcite{devlin2019bert}、GPT\upcite{radford2018improving}、XLM\upcite{conneau2019unsupervised}等。
 \vspace{0.5em}

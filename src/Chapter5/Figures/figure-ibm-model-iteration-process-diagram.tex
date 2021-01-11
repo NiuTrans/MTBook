@@ -5,8 +5,8 @@
 \begin{tikzpicture}
 
 \node [anchor=west,inner sep=2pt,fill=red!20,minimum height=3em] (eq1) at (0,0) {$f(s_u|t_v)$};
-\node [anchor=west,inner sep=2pt] (eq2) at ([xshift=-2pt]eq1.east) {$=$};
-\node [anchor=west,inner sep=2pt] (eq3) at ([xshift=-2pt]eq2.east) {$\lambda_{t_v}^{-1}$};
+\node [anchor=west,inner sep=2pt] (eq2) at ([xshift=-1pt]eq1.east) {$=$};
+\node [anchor=west,inner sep=2pt] (eq3) at ([xshift=-1pt]eq2.east) {$\lambda_{t_v}^{-1}$};
 \node [anchor=west,inner sep=2pt] (eq4) at ([xshift=-2pt]eq3.east) {$\frac{\varepsilon}{(l+1)^{m}}$};
 \node [anchor=west,inner sep=2pt,fill=red!20,minimum height=3em] (eq5) at ([xshift=-2pt]eq4.east) {\footnotesize{$\prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)$}};
 \node [anchor=west,inner sep=2pt] (eq6) at ([xshift=-2pt]eq5.east) {\footnotesize{$\sum\limits_{j=1}^{m} \delta(s_j,s_u) \sum\limits_{i=0}^{l} \delta(t_i,t_v)$}};

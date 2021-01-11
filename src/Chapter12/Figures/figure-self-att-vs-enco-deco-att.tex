@@ -11,7 +11,7 @@
 \draw[->,thick]([xshift=-3.6em]word1.north)--([xshift=-3.6em]p1.south);
 \draw[->,thick]([xshift=3.6em]word1.north)--([xshift=3.6em]p1.south);
 
-\node[anchor=north,rounded corners=1pt,minimum width=11.0em,minimum height=3.5em,draw=ugreen!70,very thick,dotted](p1-1) at ([yshift=-5.2em]p1.south) {\small{解码端每个位置的表示}};
+\node[anchor=north,rounded corners=1pt,minimum width=11.0em,minimum height=3.5em,draw=ugreen!70,very thick,dotted](p1-1) at ([yshift=-5.2em]p1.south) {\small{解码器每个位置的表示}};
 
 \draw [->,thick,dashed] (word3.south) .. controls +(south:1.5em) and +(north:1.5em) .. ([xshift=-0.4em]p1-1.north);
 \draw [->,thick,dashed](word1.south) --(p1-1.north);
@@ -29,7 +29,7 @@
 \draw[->,thick]([xshift=-3.6em]word1-2.north)--([xshift=-3.6em]p2.south);
 \draw[->,thick]([xshift=3.6em]word1-2.north)--([xshift=3.6em]p2.south);
 
-\node[anchor=north,rounded corners=1pt](p2-1) at ([xshift=-3.55em,yshift=-5.5em]p2.south) {\small{解码端每个}};
+\node[anchor=north,rounded corners=1pt](p2-1) at ([xshift=-3.55em,yshift=-5.5em]p2.south) {\small{解码器每个}};
 \node[anchor=north,rounded corners=1pt](p2-2) at ([xshift=-3.55em,yshift=-6.8em]p2.south) {\small{位置的表示}};
 \begin{pgfonlayer}{background}
 {
@@ -38,7 +38,7 @@
 \end{pgfonlayer}
 
 
-\node[anchor=north,rounded corners=1pt](p2-3) at ([xshift=3.55em,yshift=-5.5em]p2.south) {\small{编码端每个}};
+\node[anchor=north,rounded corners=1pt](p2-3) at ([xshift=3.55em,yshift=-5.5em]p2.south) {\small{编码器每个}};
 \node[anchor=north,rounded corners=1pt](p2-4) at ([xshift=3.55em,yshift=-6.8em]p2.south) {\small{位置的表示}};
 \begin{pgfonlayer}{background}
 {

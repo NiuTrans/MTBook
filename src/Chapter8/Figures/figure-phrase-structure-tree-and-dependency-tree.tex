@@ -23,8 +23,8 @@
 \node [anchor=west] (t4) at ([xshift=0.5em,]t3.east) {ball};
 
 \draw [->] ([xshift=0em]t3.north) .. controls +(north:1em) and +(north:1em) .. ([xshift=-0.2em]t4.north);
-\draw [->] ([xshift=0.2em]t4.north) .. controls +(north:2.5em) and +(north:2.5em) .. ([xshift=0.2em]t2.north);
-\draw [->] ([xshift=0.0em]t1.north) .. controls +(north:2.5em) and +(north:2.5em) .. ([xshift=-0.2em]t2.north);
+\draw [<-] ([xshift=0.2em]t4.north) .. controls +(north:2.5em) and +(north:2.5em) .. ([xshift=0.2em]t2.north);
+\draw [<-] ([xshift=0.0em]t1.north) .. controls +(north:2.5em) and +(north:2.5em) .. ([xshift=-0.2em]t2.north);
 
 \node [anchor=north west] (cap2) at ([yshift=-0.2em,xshift=-0.5em]t2.south west) {\small{(b) 依存树}};
 \end{scope}

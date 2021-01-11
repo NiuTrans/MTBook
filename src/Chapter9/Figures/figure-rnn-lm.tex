@@ -1,16 +1,16 @@
 \begin{tikzpicture}
 \begin{scope}
-\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=4em,minimum height=1.5em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
+\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=4em,minimum height=1.5em,fill=green!20!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
 {
 \node [anchor=west,rnnnode] (node11) at (0,0) {\scriptsize{RNN Cell}};
 \node [anchor=west,rnnnode] (node12) at ([xshift=2em]node11.east) {\scriptsize{RNN Cell}};
 \node [anchor=west,rnnnode] (node13) at ([xshift=2em]node12.east) {\scriptsize{RNN Cell}};
 \node [anchor=west,rnnnode] (node14) at ([xshift=2em]node13.east) {\scriptsize{RNN Cell}};
 }
-\node [anchor=north,rnnnode,fill=red!30!white] (e1) at ([yshift=-1.2em]node11.south) {\tiny{${\mathbi{e}}_1={\mathbi{o}}_1{\mathbi{C}}$}};
-\node [anchor=north,rnnnode,fill=red!30!white] (e2) at ([yshift=-1.2em]node12.south) {\tiny{${\mathbi{e}}_2={\mathbi{o}}_2{\mathbi{C}}$}};
-\node [anchor=north,rnnnode,fill=red!30!white] (e3) at ([yshift=-1.2em]node13.south) {\tiny{${\mathbi{e}}_3={\mathbi{o}}_3{\mathbi{C}}$}};
-\node [anchor=north,rnnnode,fill=red!30!white] (e4) at ([yshift=-1.2em]node14.south) {\tiny{${\mathbi{e}}_4={\mathbi{o}}_4{\mathbi{C}}$}};
+\node [anchor=north,rnnnode,fill=red!20!white] (e1) at ([yshift=-1.2em]node11.south) {\tiny{${\mathbi{e}}_1={\mathbi{o}}_1{\mathbi{C}}$}};
+\node [anchor=north,rnnnode,fill=red!20!white] (e2) at ([yshift=-1.2em]node12.south) {\tiny{${\mathbi{e}}_2={\mathbi{o}}_2{\mathbi{C}}$}};
+\node [anchor=north,rnnnode,fill=red!20!white] (e3) at ([yshift=-1.2em]node13.south) {\tiny{${\mathbi{e}}_3={\mathbi{o}}_3{\mathbi{C}}$}};
+\node [anchor=north,rnnnode,fill=red!20!white] (e4) at ([yshift=-1.2em]node14.south) {\tiny{${\mathbi{e}}_4={\mathbi{o}}_4{\mathbi{C}}$}};
 \node [anchor=north] (w1) at ([yshift=-1em]e1.south) {\footnotesize{${\mathbi{o}}_1$}};
 \node [anchor=north] (w2) at ([yshift=-1em]e2.south) {\footnotesize{${\mathbi{o}}_2$}};
 \node [anchor=north] (w3) at ([yshift=-1em]e3.south) {\footnotesize{${\mathbi{o}}_3$}};
@@ -32,10 +32,10 @@
 \node [anchor=south,rnnnode] (node23) at ([yshift=1.5em]node13.north) {\scriptsize{RNN Cell}};
 \node [anchor=south,rnnnode] (node24) at ([yshift=1.5em]node14.north) {\scriptsize{RNN Cell}};
 
-\node [anchor=south,rnnnode,fill=blue!30!white] (node31) at ([yshift=1.5em]node21.north) {\scriptsize{Softmax($\cdot$)}};
-\node [anchor=south,rnnnode,fill=blue!30!white] (node32) at ([yshift=1.5em]node22.north) {\scriptsize{Softmax($\cdot$)}};
-\node [anchor=south,rnnnode,fill=blue!30!white] (node33) at ([yshift=1.5em]node23.north) {\scriptsize{Softmax($\cdot$)}};
-\node [anchor=south,rnnnode,fill=blue!30!white] (node34) at ([yshift=1.5em]node24.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!20!white] (node31) at ([yshift=1.5em]node21.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!20!white] (node32) at ([yshift=1.5em]node22.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!20!white] (node33) at ([yshift=1.5em]node23.north) {\scriptsize{Softmax($\cdot$)}};
+\node [anchor=south,rnnnode,fill=blue!20!white] (node34) at ([yshift=1.5em]node24.north) {\scriptsize{Softmax($\cdot$)}};
 }
 
 {
