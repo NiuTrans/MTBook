@@ -19,19 +19,19 @@
 \end{pgfonlayer}
 }
 
-\node [anchor=west,ugreen] (P) at ([xshift=5.2em,yshift=-0.8em]corpus.east){\large{$\funp{P}(\cdot)$}};
+\node [anchor=west,ugreen] (P) at ([xshift=6.5em,yshift=-0.8em]corpus.east){\large{$\funp{P}(\cdot)$}};
 \node [anchor=south] (modellabel) at (P.north) {{\color{ublue} {\scriptsize \textbf{统计模型}}}};
 
 \begin{pgfonlayer}{background}
 \node[rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (P) (modellabel)] (model) {};
 \end{pgfonlayer}
 
-\draw [->,very thick,ublue] ([xshift=0.2em]corpus.east) -- ([xshift=4.2em]corpus.east)  node [pos=0.5, above] {\color{black}{\scriptsize{统计学习}}};
+\draw [->,very thick,ublue] ([xshift=0.2em]corpus.east) -- ([xshift=5.6em]corpus.east)  node [pos=0.5, above] {\color{black}{\scriptsize{统计学习}}};
 
-\draw [->,very thick,ublue] ([xshift=0.2em]model.east) -- ([xshift=4.2em]model.east)  node [pos=0.5, above] {\color{black}{\scriptsize{预测}}};
+\draw [->,very thick,ublue] ([xshift=0.2em]model.east) -- ([xshift=5.4em]model.east)  node [pos=0.5, above] {\color{black}{\scriptsize{预测}}};
 
 {\scriptsize
-\node [anchor=north west] (sentlabel) at ([xshift=6.2em,yshift=-1em]model.north east) {\color{black}{自动分词系统}};
+\node [anchor=north west] (sentlabel) at ([xshift=7.8em,yshift=-1em]model.north east) {\color{black}{自动分词系统}};
 \node [anchor=north west] (sent) at (sentlabel.south west) {\textbf{对任意句子进行分词}};
 }
 
@@ -43,19 +43,19 @@
 
 {\footnotesize
 {
-\node [anchor=west] (label1) at (0,-6.8em) {\textbf{自动分词系统}：对任意的数据句子$S$，找到最佳的分词结果$W^{*}$输出};
+\node [anchor=west] (label1) at (0.7em,-7em) {\textbf{自动分词系统}：对任意的数据句子$S$，找到最佳的分词结果$W^{*}$输出};
 }
 {
 \node [anchor=north west] (label2) at (label1.south west) {假设输入$S$=“确实现在数据很多”};
 }
 {
-\node [anchor=north west,draw,thick,inner sep=2pt] (data11) at (label2.south west) {枚举所有可能的切分};
+\node [anchor=north west,draw,thick,inner sep=4pt] (data11) at (label2.south west) {枚举所有可能的切分};
 }
 {
-\node [anchor=west,draw,thick,inner sep=2pt] (data12) at ([xshift=4em]data11.east) {计算每种切分的概率};
+\node [anchor=west,draw,thick,inner sep=4pt] (data12) at ([xshift=4em]data11.east) {计算每种切分的概率};
 }
 {
-\node [anchor=west,draw,thick,inner sep=2pt] (data13) at ([xshift=4.0em]data12.east) {选择最佳结果};
+\node [anchor=west,draw,thick,inner sep=4pt] (data13) at ([xshift=4.0em]data12.east) {选择最佳结果};
 }
 {
 \draw [->,thick] ([xshift=0.1em]data11.east) -- ([xshift=-0.1em]data12.west);
@@ -100,7 +100,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,fill=blue!10,thick,dotted,inner sep=0.1em] [fit = (label1) (data11) (data13) (data51) (data52) (data53)] (segcontent) {};
+\node[rectangle,fill=blue!10,thick,dotted,inner sep=0.3em] [fit = (label1) (data11) (data13) (data51) (data52) (data53)] (segcontent) {};
 }
 \end{pgfonlayer}
 

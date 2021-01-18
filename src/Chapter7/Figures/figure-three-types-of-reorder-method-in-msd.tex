@@ -55,13 +55,10 @@
 \node [anchor=west] (p1line1) at ([xshift=3.5em,yshift=0.5em]a75.east) {\footnotesize{M(monotone)：单调调序}};
 \node [anchor=north west] (p1line2) at ([xshift=0,yshift=-1em]p1line1.south west) {\footnotesize{S(swap)： 与前面一个短语}};
 \node [anchor=north west] (p1line3) at ([xshift=3.8em]p1line2.south west) {\footnotesize{位置进行交换}};
-\node [anchor=north west] (p1line4) at ([xshift=-3.5em,yshift=-1em]p1line3.south west) {\footnotesize{D(discontinuous)：非连续调序}};
+\node [anchor=north west] (p1line4) at ([xshift=-3.8em,yshift=-1em]p1line3.south west) {\footnotesize{D(discontinuous)：非连续调序}};
 
 \node [anchor=east] (p1line5) at ([xshift=0em,yshift=3em]p1line4.east) {};
 \node [anchor=east] (p1line6) at ([xshift=0em,yshift=7em]p1line4.east) {};
-
-%\node [anchor=west] (p2line1) at ([xshift=4em]a73.east) {\footnotesize{$\bar{s}_j$: 真\ \ \ 好 \ \ }};
-%\node [anchor=north west] (p2line2) at ([xshift=0]p2line1.south west) {\footnotesize{$\bar{t}_j$: very\ \ \ good\ \ \ \ \ \ \ \ }};
 
 \begin{pgfonlayer}{background}
 {
@@ -70,9 +67,9 @@
 \node [rectangle,thick,inner sep=0.3em,fill=blue!40,drop shadow,fill opacity=0.85] [fit = (a31) (a32)] (phrase3) {};
 \node [rectangle,thick,inner sep=0.3em,fill=blue!40,drop shadow,fill opacity=0.85] [fit = (a43) (a63)] (phrase4) {};
 \node [rectangle,thick,inner sep=0.3em,fill=blue!40,drop shadow,fill opacity=0.85] [fit = (a70)] (phrase5) {};
-\node [rectangle,inner sep=0.2em,fill=red!10] [fit = (p1line1) (p1line6)] (box1) {};
-\node [rectangle,inner sep=0.2em,fill=ugreen!10] [fit = (p1line2) (p1line3) (p1line5)] (box2) {};
-\node [rectangle,inner sep=0.2em,fill=orange!10] [fit = (p1line4)] (box3) {};
+\node [rectangle,inner sep=0.2em,fill=red!10,draw,thick,rounded corners=0.3em] [fit = (p1line1) (p1line6)] (box1) {};
+\node [rectangle,inner sep=0.2em,fill=green!10,draw,thick,rounded corners=0.3em] [fit = (p1line2) (p1line3) (p1line5)] (box2) {};
+\node [rectangle,inner sep=0.2em,fill=orange!10,draw,thick,rounded corners=0.3em] [fit = (p1line4)] (box3) {};
 }
 \end{pgfonlayer}
 

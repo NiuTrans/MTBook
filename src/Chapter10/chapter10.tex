@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -23,7 +23,7 @@
 
 \chapter{基于循环神经网络的模型}
 
-\parinterval {\small\sffamily\bfseries{神经机器翻译}} \index{神经机器翻译}（Neural Machine Translation）\index{Neural Machine Translation}是机器翻译的前沿方法。近几年，随着深度学习技术的发展和在各领域中的深入应用，基于端到端表示学习的方法正在改变着我们处理自然语言的方式，神经机器翻译在这种趋势下应运而生。一方面，神经机器翻译仍然延续着统计建模和基于数据驱动的思想，因此在基本问题的定义上与前人的研究是一致的；另一方面，神经机器翻译脱离了统计机器翻译中对隐含翻译结构的假设，同时使用分布式表示来对文字序列进行建模，这使得它可以从一个全新的视角看待翻译问题。现在，神经机器翻译已经成为了机器翻译研究及应用的热点，译文质量得到了巨大的提升。
+\parinterval {\small\bfnew{神经机器翻译}} \index{神经机器翻译}（Neural Machine Translation）\index{Neural Machine Translation}是机器翻译的前沿方法。近几年，随着深度学习技术的发展和在各领域中的深入应用，基于端到端表示学习的方法正在改变着我们处理自然语言的方式，神经机器翻译在这种趋势下应运而生。一方面，神经机器翻译仍然延续着统计建模和基于数据驱动的思想，因此在基本问题的定义上与前人的研究是一致的；另一方面，神经机器翻译脱离了统计机器翻译中对隐含翻译结构的假设，同时使用分布式表示来对文字序列进行建模，这使得它可以从一个全新的视角看待翻译问题。现在，神经机器翻译已经成为了机器翻译研究及应用的热点，译文质量得到了巨大的提升。
 
 \parinterval 本章将介绍神经机器翻译中的一种基础模型\ \dash \ 基于循环神经网络的模型。该模型是神经机器翻译中最早被成功应用的模型之一。基于这个模型框架，研究人员进行了大量的探索和改进工作，包括使用LSTM等循环单元结构、引入注意力机制等。这些内容都会在本章进行讨论。
 
@@ -121,23 +121,14 @@
 
 \parinterval  在很多量化的评价中也可以看到神经机器翻译的优势。回忆一下{\chapterfour}提到的机器翻译质量的自动评估指标中，使用最广泛的一种指标是BLEU。2010年前，在由美国国家标准和科技机构（NIST）举办的汉英机器翻译评测中（比如汉英MT08数据集），30\%以上的BLEU值对于基于统计方法的翻译系统来说就已经是当时最顶尖的结果了。而现在的神经机器翻译系统，则可以轻松地将BLEU提高至45\%以上。
 
+\parinterval  同样，在机器翻译领域中著名评测比赛WMT（Workshop of Machine Translation）中，使用统计机器翻译方法的参赛系统也在逐年减少。而现在获得比赛冠军的系统中几乎没有只使用纯统计机器翻译模型的系统\footnote{但是，仍然有大量的统计机器翻译和神经机器翻译融合的方法。比如，在无指导机器翻译中，统计机器翻译仍然被作为初始模型。} 。图\ref{fig:10-3}展示了近年来WMT比赛冠军系统中神经机器翻译系统的占比，可见神经机器翻译系统的占比在逐年提高。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter10/Figures/figure-numbers-of-wmt-systems}
 \caption{WMT冠军系统的数量}
 \label{fig:10-3}
-\end{figure}
-%----------------------------------------------
-
-\parinterval  同样，在机器翻译领域中著名评测比赛WMT（Workshop of Machine Translation）中，使用统计机器翻译方法的参赛系统也在逐年减少。而现在获得比赛冠军的系统中几乎没有只使用纯统计机器翻译模型的系统\footnote{但是，仍然有大量的统计机器翻译和神经机器翻译融合的方法。比如，在无指导机器翻译中，统计机器翻译仍然被作为初始模型。} 。图\ref{fig:10-3}展示了近年来WMT比赛冠军系统中神经机器翻译系统的占比，可见神经机器翻译系统的占比在逐年提高。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter10/Figures/figure-score-of-mter}
-\caption{不同系统在不同长度句子上的mTER[\%]分值（得分越低越好）\upcite{Bentivogli2016NeuralVP}}
-\label{fig:10-4}
 \end{figure}
 %----------------------------------------------
 
@@ -155,6 +146,15 @@
 \end{itemize}
 
 \parinterval  与这些系统相比，神经机器翻译系统的mTER得分在不同长度句子上都有明显的下降，如图\ref{fig:10-4}\footnote{mTER、HTER等都是是错误率度量，值越低表明译文越好。}。其次，神经机器翻译的单词形态错误率和单词词义错误率（用HTER度量）都远低于统计机器翻译系统（表\ref{tab:10-1} ）。
+
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter10/Figures/figure-score-of-mter}
+\caption{不同系统在不同长度句子上的mTER[\%]分值（得分越低越好）\upcite{Bentivogli2016NeuralVP}}
+\label{fig:10-4}
+\end{figure}
+%----------------------------------------------
 
 \vspace{0.5em}%全局布局使用
 %----------------------------------------------
@@ -325,9 +325,6 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 
 \noindent 这里令<eos>（End of Sequence）表示序列的终止，<sos>（Start of Sequence）表示序列的开始。
 
-
-\parinterval 翻译过程的神经网络结构如图\ref{fig:10-7}所示，其中左边是编码器，右边是解码器。编码器会顺序处理源语言单词，将每个单词都表示成一个实数向量，也就是每个单词的词嵌入结果（绿色方框）。在词嵌入的基础上运行循环神经网络（蓝色方框）。在编码下一个时间步状态的时候，上一个时间步的隐藏状态会作为历史信息传入循环神经网络。这样，句子中每个位置的信息都被向后传递，最后一个时间步的隐藏状态（红色方框）就包含了整个源语言句子的信息，也就得到了编码器的编码结果$\ \dash\ $源语言句子的分布式表示。
-
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -336,6 +333,8 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 \label{fig:10-7}
 \end{figure}
 %----------------------------------------------
+
+\parinterval 翻译过程的神经网络结构如图\ref{fig:10-7}所示，其中左边是编码器，右边是解码器。编码器会顺序处理源语言单词，将每个单词都表示成一个实数向量，也就是每个单词的词嵌入结果（绿色方框）。在词嵌入的基础上运行循环神经网络（蓝色方框）。在编码下一个时间步状态的时候，上一个时间步的隐藏状态会作为历史信息传入循环神经网络。这样，句子中每个位置的信息都被向后传递，最后一个时间步的隐藏状态（红色方框）就包含了整个源语言句子的信息，也就得到了编码器的编码结果$\ \dash\ $源语言句子的分布式表示。
 
 \parinterval 解码器直接把源语言句子的分布式表示作为输入的隐层状态，之后像编码器一样依次读入目标语言单词，这是一个标准的循环神经网络的执行过程。与编码器不同的是，解码器会有一个输出层，用于根据当前时间步的隐层状态生成目标语言单词及其概率分布。可以看到，解码器当前时刻的输出单词与下一个时刻的输入单词是一样的。从这个角度说，解码器也是一种神经语言模型，只不过它会从另外一种语言（源语言）获得一些信息，而不是仅仅做单语句子的生成。具体来说，当生成第一个单词“I”时，解码器利用了源语言句子表示（红色方框）和目标语言的起始词“<sos>”。在生成第二个单词“am”时，解码器利用了上一个时间步的隐藏状态和已经生成的“I”的信息。这个过程会循环执行，直到生成完整的目标语言句子。
 
@@ -376,6 +375,7 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 %    NEW SECTION   10.3
 %----------------------------------------------------------------------------------------
 \sectionnewpage
+\vspace{-2em}
 \section{基于循环神经网络的翻译建模}
 
 \parinterval 早期神经机器翻译的进展主要来自两个方面：1）使用循环神经网络对单词序列进行建模；2）注意力机制的使用。表\ref{tab:10-6}列出了2013-2015年间有代表性的部分研究工作。从这些工作的内容上看，当时的研究重点还是如何有效地使用循环神经网络进行翻译建模以及使用注意力机制捕捉双语单词序列间的对应关系。
@@ -440,6 +440,7 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 %----------------------------------------------
 
 \parinterval 从数学模型上看，神经机器翻译模型与统计机器翻译的目标是一样的：在给定源语言句子$\seq{x}$的情况下，找出翻译概率最大的目标语言译文$\hat{\seq{y}}$，其计算如下式:
+\vspace{-1em}
 \begin{eqnarray}
 \hat{\seq{{y}}} &=& \argmax_{\seq{{y}}} \funp{P} (\seq{{y}} | \seq{{x}})
 \label{eq:10-1}
@@ -463,7 +464,7 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 \vspace{0.5em}
 \item	如何在词嵌入的基础上获取整个序列的表示，即句子的表示学习。可以把词嵌入的序列作为循环神经网络的输入，循环神经网络最后一个时刻的输出向量便是整个句子的表示结果。如图\ref{fig:10-10}中，编码器最后一个循环单元的输出$\mathbi{h}_m$被看作是一种包含了源语言句子信息的表示结果，记为$\mathbi{C}$。
 \vspace{0.5em}
-\item	如何得到每个目标语言单词的概率，即译文单词的{\small\sffamily\bfseries{生成}}\index{生成}（Generation）\index{Generation}。与神经语言模型一样，可以用一个Softmax输出层来获取当前时刻所有单词的分布，即利用Softmax 函数计算目标语言词表中每个单词的概率。令目标语言序列$j$时刻的循环神经网络的输出向量（或状态）为$\mathbi{s}_j$。根据循环神经网络的性质，$ y_j$ 的生成只依赖前一个状态$\mathbi{s}_{j-1}$和当前时刻的输入（即词嵌入$\textrm{e}_y (y_{j-1})$）。同时考虑源语言信息$\mathbi{C}$，$\funp{P}(y_j  | \seq{{y}}_{<j},\seq{{x}})$可以被重新定义为：
+\item	如何得到每个目标语言单词的概率，即译文单词的{\small\bfnew{生成}}\index{生成}（Generation）\index{Generation}。与神经语言模型一样，可以用一个Softmax输出层来获取当前时刻所有单词的分布，即利用Softmax 函数计算目标语言词表中每个单词的概率。令目标语言序列$j$时刻的循环神经网络的输出向量（或状态）为$\mathbi{s}_j$。根据循环神经网络的性质，$ y_j$ 的生成只依赖前一个状态$\mathbi{s}_{j-1}$和当前时刻的输入（即词嵌入$\textrm{e}_y (y_{j-1})$）。同时考虑源语言信息$\mathbi{C}$，$\funp{P}(y_j  | \seq{{y}}_{<j},\seq{{x}})$可以被重新定义为：
 \begin{eqnarray}
 \funp{P} (y_j | \seq{{y}}_{<j},\seq{{x}}) &=& \funp{P} ( {y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}} )
 \label{eq:10-3}
@@ -479,7 +480,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 \end{eqnarray}
 \vspace{0.5em}
 \end{itemize}
-
+\vspace{-2em}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -503,7 +504,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
-
+\vspace{-1em}
 \subsection{长短时记忆网络}
 \label{sec:lstm-cell}
 
@@ -527,7 +528,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{遗忘}}\index{遗忘}。顾名思义，遗忘的目的是忘记一些历史，在LSTM中通过遗忘门实现，其结构如图\ref{fig:10-11}(a)所示。$\mathbi{x}_{t}$表示时刻$t$的输入向量，$\mathbi{h}_{t-1}$是时刻$t-1$的循环单元的输出，$\mathbi{x}_{t}$和$\mathbi{h}_{t-1}$都作为$t$时刻循环单元的输入。$\sigma$将对$\mathbi{x}_{t}$和$\mathbi{h}_{t-1}$进行筛选，以决定遗忘的信息，其计算如下：
+\item {\small\bfnew{遗忘}}\index{遗忘}。顾名思义，遗忘的目的是忘记一些历史，在LSTM中通过遗忘门实现，其结构如图\ref{fig:10-11}(a)所示。$\mathbi{x}_{t}$表示时刻$t$的输入向量，$\mathbi{h}_{t-1}$是时刻$t-1$的循环单元的输出，$\mathbi{x}_{t}$和$\mathbi{h}_{t-1}$都作为$t$时刻循环单元的输入。$\sigma$将对$\mathbi{x}_{t}$和$\mathbi{h}_{t-1}$进行筛选，以决定遗忘的信息，其计算如下：
 \begin{eqnarray}
 \mathbi{f}_t &=& \sigma(\mathbi{W}_f [\mathbi{h}_{t-1},\mathbi{x}_{t}] + \mathbi{b}_f )
 \label{eq:10-6}
@@ -535,7 +536,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 
 这里，$\mathbi{W}_f$是权值，$\mathbi{b}_f$是偏置，$[\mathbi{h}_{t-1},\mathbi{x}_{t}]$表示两个向量的拼接。该公式可以解释为，对$[\mathbi{h}_{t-1},\mathbi{x}_{t}]$进行变换，并得到一个实数向量$\mathbi{f}_t$。$\mathbi{f}_t$的每一维都可以被理解为一个“门”，它决定可以有多少信息被留下（或遗忘）。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{记忆更新}}\index{记忆更新}。首先，要生成当前时刻需要新增加的信息，该部分由输入门完成，其结构如图\ref{fig:10-11}(b)红色线部分，图中“$\bigotimes$”表示进行点乘操作。输入门的计算分为两部分，首先利用$\sigma$决定门控参数$\mathbi{i}_t$，如公式\eqref{eq:10-7}，然后通过Tanh函数得到新的信息$\hat{\mathbi{c}}_t$，如公式\eqref{eq:10-8}：
+\item {\small\bfnew{记忆更新}}\index{记忆更新}。首先，要生成当前时刻需要新增加的信息，该部分由输入门完成，其结构如图\ref{fig:10-11}(b)红色线部分，图中“$\bigotimes$”表示进行点乘操作。输入门的计算分为两部分，首先利用$\sigma$决定门控参数$\mathbi{i}_t$，如公式\eqref{eq:10-7}，然后通过Tanh函数得到新的信息$\hat{\mathbi{c}}_t$，如公式\eqref{eq:10-8}：
 \begin{eqnarray}
 \mathbi{i}_t & = & \sigma (\mathbi{W}_i [\mathbi{h}_{t-1},\mathbi{x}_{t}] + \mathbi{b}_i ) \label{eq:10-7} \\
 \hat{\mathbi{c}}_t & = & \textrm{Tanh} (\mathbi{W}_c [\mathbi{h}_{t-1},\mathbi{x}_{t}] + \mathbi{b}_c ) \label{eq:10-8}
@@ -547,7 +548,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 \label{eq:10-9}
 \end{eqnarray}
 \vspace{-1.0em}
-\item {\small\sffamily\bfseries{输出}}\index{输出}。该部分使用输出门计算最终的输出信息$\mathbi{h}_t$，其结构如图\ref{fig:10-11}(d)红色线部分所示。在输出门中，首先将$\mathbi{x}_t$和$\mathbi{h}_{t-1}$通过$\sigma$函数变换得到$\mathbi{o}_t$，如公式\eqref{eq:10-10}。其次，将上一步得到的新记忆信息$\mathbi{c}_t$通过Tanh函数进行变换，得到值在[-1，1]范围的向量。最后将这两部分进行点乘，具体如公式\eqref{eq:10-11}：
+\item {\small\bfnew{输出}}\index{输出}。该部分使用输出门计算最终的输出信息$\mathbi{h}_t$，其结构如图\ref{fig:10-11}(d)红色线部分所示。在输出门中，首先将$\mathbi{x}_t$和$\mathbi{h}_{t-1}$通过$\sigma$函数变换得到$\mathbi{o}_t$，如公式\eqref{eq:10-10}。其次，将上一步得到的新记忆信息$\mathbi{c}_t$通过Tanh函数进行变换，得到值在[-1，1]范围的向量。最后将这两部分进行点乘，具体如公式\eqref{eq:10-11}：
 \begin{eqnarray}
 \mathbi{o}_t & = & \sigma (\mathbi{W}_o [\mathbi{h}_{t-1},\mathbi{x}_{t}] + \mathbi{b}_o ) \label{eq:10-10} \\
 \mathbi{h}_t & = & \mathbi{o}_t \cdot \textrm{Tanh} (\mathbi{c}_t) \label{eq:10-11}
@@ -725,7 +726,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 \label{eq:10-16}
 \end{eqnarray}
 
-\noindent 其中，$\alpha_{i,j}$是{\small\sffamily\bfseries{注意力权重}}\index{注意力权重}（Attention Weight）\index{Attention Weight}，它表示目标语言第$j$个位置与源语言第$i$个位置之间的相关性大小。这里，将每个时间步编码器的输出$\mathbi{h}_i$ 看作源语言位置$i$的表示结果。进行翻译时，解码器可以根据当前的位置$j$，通过控制不同$\mathbi{h}_i$的权重得到$\mathbi{C}_j$，使得对目标语言位置$j$贡献大的$\mathbi{h}_i$对$\mathbi{C}_j$的影响增大。也就是说，$\mathbi{C}_j$实际上就是\{${\mathbi{h}_1,...,\mathbi{h}_m}$\}的一种组合，只不过不同的$\mathbi{h}_i$会根据对目标端的贡献给予不同的权重。图\ref{fig:10-19}展示了上下文向量$\mathbi{C}_j$的计算过程。
+\noindent 其中，$\alpha_{i,j}$是{\small\bfnew{注意力权重}}\index{注意力权重}（Attention Weight）\index{Attention Weight}，它表示目标语言第$j$个位置与源语言第$i$个位置之间的相关性大小。这里，将每个时间步编码器的输出$\mathbi{h}_i$ 看作源语言位置$i$的表示结果。进行翻译时，解码器可以根据当前的位置$j$，通过控制不同$\mathbi{h}_i$的权重得到$\mathbi{C}_j$，使得对目标语言位置$j$贡献大的$\mathbi{h}_i$对$\mathbi{C}_j$的影响增大。也就是说，$\mathbi{C}_j$实际上就是\{${\mathbi{h}_1,...,\mathbi{h}_m}$\}的一种组合，只不过不同的$\mathbi{h}_i$会根据对目标端的贡献给予不同的权重。图\ref{fig:10-19}展示了上下文向量$\mathbi{C}_j$的计算过程。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1093,18 +1094,17 @@ L(\widehat{\mathbi{Y}},\mathbi{Y}) &=& \sum_{j=1}^n L_{\textrm{ce}}(\hat{\mathbi
 \item {\small\bfnew{模型并行}}\index{模型并行}。另一种思路是，把较大的模型分成若干小模型，之后在不同设备上训练小模型。对于循环神经网络，不同层的网络天然就是一个相对独立的模型，因此非常适合使用这种方法。比如，对于$l$层的循环神经网络，把每层都看做一个小模型，然后分发到$l$个设备上并行计算。在序列较长的时候，该方法使其运算时间变为原来的${1}/{l}$。图\ref{fig:10-28}以三层循环网络为例展示了对句子“你\ 很\ 不错\ 。”进行模型并行的过程。其中，每一层网络都被放到了一个设备上。当模型根据已经生成的第一个词“你”，并预测下一个词时（图\ref{fig:10-28}(a)），同层的下一个时刻的计算和对“你”的第二层的计算就可以同时开展（图\ref{fig:10-28}(b)）。以此类推，就完成了模型的并行计算。
 \vspace{0.5em}
 \end{itemize}
-
 %-------------------------------------------
-\begin{figure}[htp]
-\centering
-\begin{tabular}{l l}
+%\begin{figure}[htp]
+%\centering
+%\begin{tabular}{l l}
 %\subfigure[]{\input{./Chapter10/Figures/figure-process01}} &\subfigure[]{\input{./Chapter10/Figures/figure-process02}} \\
 %\subfigure[]{\input{./Chapter10/Figures/figure-process03}}  &\subfigure[]{\input{./Chapter10/Figures/figure-process04}} \\
 %\subfigure[]{\input{./Chapter10/Figures/figure-process05}}  &\subfigure[]{\input{./Chapter10/Figures/figure-process06}}\\
-\end{tabular}
+%\end{tabular}
 %\caption{一个三层循环神经网络的模型并行过程}
 %\label{fig:10-28}
-\end{figure}
+%\end{figure}
 %----------------------------------------------
 %-------------------------------------------
 \begin{figure}[htp]
@@ -1169,8 +1169,6 @@ L(\widehat{\mathbi{Y}},\mathbi{Y}) &=& \sum_{j=1}^n L_{\textrm{ce}}(\hat{\mathbi
 \vspace{0.2em}
 \parinterval 解码器的每一步Softmax层会输出所有单词的概率，由于是基于贪心的方法，这里会选择概率最大（top-1）的单词作为输出。这个过程可以参考图\ref{fig:10-30}的内容。选择分布中概率最大的单词“Have”作为得到的第一个单词，并再次送入解码器，作为第二步的输入同时预测下一个单词。以此类推，直到生成句子的终止符为止，就得到了完整的译文。
 
-\parinterval 贪婪搜索的优点在于速度快。在对翻译速度有较高要求的场景中，贪婪搜索是一种十分有效的系统加速方法。而且贪婪搜索的原理非常简单，易于快速实现。不过，由于每一步只保留一个最好的局部结果，贪婪搜索往往会带来翻译品质上的损失。
-
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -1179,6 +1177,8 @@ L(\widehat{\mathbi{Y}},\mathbi{Y}) &=& \sum_{j=1}^n L_{\textrm{ce}}(\hat{\mathbi
 \label{fig:10-30}
 \end{figure}
 %----------------------------------------------
+
+\parinterval 贪婪搜索的优点在于速度快。在对翻译速度有较高要求的场景中，贪婪搜索是一种十分有效的系统加速方法。而且贪婪搜索的原理非常简单，易于快速实现。不过，由于每一步只保留一个最好的局部结果，贪婪搜索往往会带来翻译品质上的损失。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION

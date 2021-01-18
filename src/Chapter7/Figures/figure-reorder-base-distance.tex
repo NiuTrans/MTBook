@@ -6,17 +6,17 @@
 \begin{scope}[minimum height = 20pt]
 
 \node[anchor=east] (s0) at (-0.5em, 0) {$\seq{s}$：};
-\node[anchor=west,fill=green!20] (s1) at (0, 0) {\small{在\ \ 桌子\ \ 上\ \ \;的}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s1) at (0, 0) {\small{在\ \ 桌子\ \ 上\ \ \;的}};
 \node[anchor=south] (n1) at ([xshift=-2.5em,yshift=-0.5em]s1.north) {\small{1}};
 \node[anchor=south] (n2) at ([xshift=-0.7em,yshift=-0.5em]s1.north) {\small{2}};
 \node[anchor=south] (n3) at ([xshift=1.2em,yshift=-0.5em]s1.north) {\small{3}};
 \node[anchor=south] (n4) at ([xshift=2.7em,yshift=-0.5em]s1.north) {\small{4}};
-\node[anchor=west,fill=red!20] (s2) at ([xshift=1em]s1.east) {\small{苹果}};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em]s1.east) {\small{苹果}};
 \node[anchor=south] (n5) at ([yshift=-0.5em]s2.north) {\small{5}};
 
 \node[anchor=east] (t0) at (-0.5em, -1.5) {$\seq{t}$：};
-\node[anchor=west,fill=red!20] (t1) at (0, -1.5) {\small{the apple}};
-\node[anchor=west,fill=green!20] (t2) at ([xshift=1.3em]t1.east) {\small{on the table}};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (t1) at (0, -1.5) {\small{the apple}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (t2) at ([xshift=1.3em]t1.east) {\small{on the table}};
 
 \path[<->, thick] (s1.south) edge (t2.north);
 \path[<->, thick] (s2.south) edge (t1.north);
@@ -34,8 +34,8 @@
 \node[anchor=north] (d1) at ([xshift=-0.1em,yshift=-0.1em]distance.south) {+4};
 \node[anchor=north] (d2) at ([yshift=-1.8em]d1.south) {-5};
 
-\node[anchor=north west,fill=blue!20] (m1) at ([xshift=-1em,yshift=-0.0em]t1.south west) {\small{$\rm{start}_1\ \ -\ \ \rm{end}_{0}\ \ -\ \ 1$\quad =\quad 5\ -\ 0\ -\ 1}};
-\node[anchor=north west,fill=blue!20] (m2) at ([xshift=-1em,yshift=-0.0em]t2.south west) {\small{$\rm{start}_2\ \ -\ \  \rm{end}_{1}\ \ -\ \ 1$\quad =\quad 1\ -\ 5\ -\ 1}};
+\node[anchor=north west,fill=blue!20,draw,thick,rounded corners=0.3em] (m1) at ([xshift=-1em,yshift=-0.0em]t1.south west) {\small{$\rm{start}_1\ \ -\ \ \rm{end}_{0}\ \ -\ \ 1$\quad =\quad 5\ -\ 0\ -\ 1}};
+\node[anchor=north west,fill=blue!20,draw,thick,rounded corners=0.3em] (m2) at ([xshift=-1em,yshift=-0.0em]t2.south west) {\small{$\rm{start}_2\ \ -\ \  \rm{end}_{1}\ \ -\ \ 1$\quad =\quad 1\ -\ 5\ -\ 1}};
 
 \draw[-] ([xshift=0.08in]target.south west)--([xshift=2.4in]target.south west);
 

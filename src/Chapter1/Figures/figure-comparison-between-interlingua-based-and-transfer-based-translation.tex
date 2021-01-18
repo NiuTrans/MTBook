@@ -4,15 +4,15 @@
 \begin{tikzpicture}
 \begin{scope}
 
-\tikzstyle{datanode} = [minimum width=5em,minimum height=1.7em,fill=red!20,rounded corners=0.3em];
-\tikzstyle{modelnode} = [minimum width=5em,minimum height=1.7em,fill=blue!20,rounded corners=0.3em];
-\tikzstyle{decodingnode} = [minimum width=5em,minimum height=1.7em,fill=green!20,rounded corners=0.3em];
+\tikzstyle{datanode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=red!20,rounded corners=0.3em];
+\tikzstyle{modelnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{decodingnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=green!20,rounded corners=0.3em];
 
 \node [datanode,anchor=north west] (s1) at (0,0) {{ \small{语言1}}};
 \node [datanode,anchor=north] (s2) at ([yshift=-4.5em]s1.south) {{ \small{语言3}}};
 \node [datanode,anchor=west] (s3) at ([xshift=4.5em]s1.east) {{ \small{语言2}}};
 \node [datanode,anchor=north] (s4) at ([yshift=-4.5em]s3.south) {{ \small{语言4}}};
-\node [circle,anchor=north west,inner sep=2pt,fill=blue!20] (m1) at ([xshift=0.8em,yshift=-0.5em]s1.south east) {{ \small{中间语言}}};
+\node [circle,draw,thick,anchor=north west,inner sep=2pt,fill=blue!30] (m1) at ([xshift=0.8em,yshift=-0.5em]s1.south east) {{ \small{中间语言}}};
 
 \draw [<->,very thick] (s1.south) -- (m1.170);
 \draw [<->,very thick] (s2.north) -- (m1.190);
@@ -24,11 +24,11 @@
 
 \end{scope}
 
-\begin{scope}[xshift=16em]
+\begin{scope}[xshift=21em]
 
-\tikzstyle{datanode} = [minimum width=5em,minimum height=1.7em,fill=red!20,rounded corners=0.3em];
-\tikzstyle{modelnode} = [minimum width=5em,minimum height=1.7em,fill=blue!20,rounded corners=0.3em];
-\tikzstyle{decodingnode} = [minimum width=5em,minimum height=1.7em,fill=green!20,rounded corners=0.3em];
+\tikzstyle{datanode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=red!20,rounded corners=0.3em];
+\tikzstyle{modelnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{decodingnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=green!20,rounded corners=0.3em];
 
 \node [datanode,anchor=north west] (s1) at (0,0) {{ \small{语言1}}};
 \node [datanode,anchor=north] (s2) at ([yshift=-4.5em]s1.south) {{ \small{语言3}}};

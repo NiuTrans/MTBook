@@ -1,15 +1,15 @@
 \begin{tikzpicture}
 \begin{scope}
-\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=4em,minimum height=1.5em,fill=green!20!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
+\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=4em,minimum height=1.5em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
 \node [anchor=west,rnnnode] (node11) at (0,0) {\scriptsize{RNN Cell}};
-\node [anchor=west,rnnnode] (node12) at ([xshift=2em]node11.east) {\scriptsize{RNN Cell}};
-\node [anchor=west,rnnnode] (node13) at ([xshift=2em]node12.east) {\scriptsize{RNN Cell}};
-\node [anchor=west,rnnnode] (node14) at ([xshift=2em]node13.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node12) at ([xshift=3.5em]node11.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node13) at ([xshift=3.5em]node12.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node14) at ([xshift=3.5em]node13.east) {\scriptsize{RNN Cell}};
 
-\node [anchor=north,rnnnode,fill=red!20!white] (e1) at ([yshift=-1.2em]node11.south) {\scriptsize{embedding}};
-\node [anchor=north,rnnnode,fill=red!20!white] (e2) at ([yshift=-1.2em]node12.south) {\scriptsize{embedding}};
-\node [anchor=north,rnnnode,fill=red!20!white] (e3) at ([yshift=-1.2em]node13.south) {\scriptsize{embedding}};
-\node [anchor=north,rnnnode,fill=red!20!white] (e4) at ([yshift=-1.2em]node14.south) {\scriptsize{embedding}};
+\node [anchor=north,rnnnode,fill=red!30!white] (e1) at ([yshift=-1.2em]node11.south) {\scriptsize{embedding}};
+\node [anchor=north,rnnnode,fill=red!30!white] (e2) at ([yshift=-1.2em]node12.south) {\scriptsize{embedding}};
+\node [anchor=north,rnnnode,fill=red!30!white] (e3) at ([yshift=-1.2em]node13.south) {\scriptsize{embedding}};
+\node [anchor=north,rnnnode,fill=red!30!white] (e4) at ([yshift=-1.2em]node14.south) {\scriptsize{embedding}};
 \node [anchor=north] (w1) at ([yshift=-1em]e1.south) {\footnotesize{亚伦}};
 \node [anchor=north] (w2) at ([yshift=-1em]e2.south) {\footnotesize{任职}};
 \node [anchor=north] (w3) at ([yshift=-1em]e3.south) {\footnotesize{于}};
@@ -62,11 +62,11 @@
 \draw [->,thick] ([xshift=0.1em]node14.east)--([xshift=1em]node14.east);
 
 {
-\node [anchor=south] (toplabel1) at ([yshift=2em,xshift=-1.3em]node32new.north) {\footnotesize{“苹果”的表示：}};
-\node [anchor=west,fill=blue!20!white,minimum width=3em] (toplabel2) at (toplabel1.east) {\footnotesize{上下文}};
+\node [anchor=south] (toplabel1) at ([yshift=2em,xshift=-0.2em]node32new.north) {\footnotesize{“苹果”的表示：}};
+\node [anchor=west,fill=blue!30!white,minimum width=3em] (toplabel2) at (toplabel1.east) {\footnotesize{上下文}};
 }
 {
-\node [anchor=west,fill=red!20!white,minimum width=3em] (toplabel3) at (toplabel2.east) {\footnotesize{词}};
+\node [anchor=west,fill=red!30!white,minimum width=3em] (toplabel3) at (toplabel2.east) {\footnotesize{词}};
 }
 
 \begin{pgfonlayer}{background}

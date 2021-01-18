@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -301,9 +301,6 @@ d & = & {r_1} \circ {r_2} \circ {r_3} \circ {r_4}
 %----------------------------------------------------------------------------------------
 
 \subsubsection{4. 处理流程}
-
-\parinterval 层次短语系统的流程如图\ref{fig:8-6}所示。其核心是从双语数据中学习同步翻译文法，并进行翻译特征的学习，形成翻译模型（即规则+特征）。同时，要从目标语言数据中学习语言模型。最终，把翻译模型和语言模型一起送入解码器，在特征权重调优后，完成对新输入句子的翻译。
-
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -312,6 +309,8 @@ d & = & {r_1} \circ {r_2} \circ {r_3} \circ {r_4}
 \label{fig:8-6}
 \end{figure}
 %-------------------------------------------
+
+\parinterval 层次短语系统的流程如图\ref{fig:8-6}所示。其核心是从双语数据中学习同步翻译文法，并进行翻译特征的学习，形成翻译模型（即规则+特征）。同时，要从目标语言数据中学习语言模型。最终，把翻译模型和语言模型一起送入解码器，在特征权重调优后，完成对新输入句子的翻译。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -543,33 +542,37 @@ span\textrm{[0,4]}&=&\textrm{“猫} \quad \textrm{喜欢} \quad \textrm{吃} \q
 \subsection{立方剪枝}
 
 \parinterval 相比于基于短语的模型，基于层次短语的模型引入了“变量”的概念。这样，可以根据变量周围的上下文信息对变量进行调序。变量的内容由其所对应的跨度上的翻译假设进行填充。图\ref{fig:8-11}展示了一个层次短语规则匹配词串的实例。可以看到，规则匹配词串之后，变量$\seq{X}$的位置对应了一个跨度。这个跨度上所有标记为X的局部推导都可以作为变量的内容。
-
+\vspace{-0.5em}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-hierarchical-phrase-rule-match-generate}
+\setlength{\abovecaptionskip}{-0.5em}
+\setlength{\belowcaptionskip}{-0.5em}
 \caption{层次短语规则匹配及译文生成}
 \label{fig:8-11}
 \end{figure}
 %-------------------------------------------
 
 \parinterval 真实的情况会更加复杂。对于一个规则的源语言端，可能会有多个不同的目标语言端与之对应。比如，如下规则的源语言端完全相同，但是译文不同：
+\vspace{-0.5em}
 \begin{eqnarray}
 \funp{X} & \to & \langle\ \funp{X}_1\ \text{大幅度}\ \text{下降}\ \text{了},\ \funp{X}_1\ \textrm{have}\ \textrm{drastically}\ \textrm{fallen}\ \rangle \nonumber \\
 \funp{X} & \to & \langle\ \funp{X}_1\ \text{大幅度}\ \text{下降}\ \text{了},\ \funp{X}_1\ \textrm{have}\ \textrm{fallen}\ \textrm{drastically}\ \rangle \nonumber \\
 \funp{X} & \to & \langle\ \funp{X}_1\ \text{大幅度}\ \text{下降}\ \text{了},\ \funp{X}_1\ \textrm{has}\ \textrm{drastically}\ \textrm{fallen}\ \rangle \nonumber
 \end{eqnarray}
-
-\parinterval 这也就是说，当匹配规则的源语言部分“$\funp{X}_1$\ \ 大幅度\ \ 下降\ \ 了”时会有三个译文可以选择。而变量$\funp{X}_1$部分又有很多不同的局部翻译结果。不同的规则译文和不同的变量译文都可以组合出一个局部翻译结果。图\ref{fig:8-12}展示了这种情况的实例。
-
+\vspace{-2em}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-combination-of-translation-with-different-rules}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{不同规则目标语端及变量译文的组合}
 \label{fig:8-12}
 \end{figure}
 %-------------------------------------------
+
+\parinterval 这也就是说，当匹配规则的源语言部分“$\funp{X}_1$\ \ 大幅度\ \ 下降\ \ 了”时会有三个译文可以选择。而变量$\funp{X}_1$部分又有很多不同的局部翻译结果。不同的规则译文和不同的变量译文都可以组合出一个局部翻译结果。图\ref{fig:8-12}展示了这种情况的实例。
 
 \parinterval 假设有$n$个规则的源语言端相同，规则中每个变量可以被替换为$m$个结果，对于只含有一个变量的规则，一共有$nm$种不同的组合。如果规则含有两个变量，这种组合的数量是$n{m}^2$。由于翻译中会进行大量的规则匹配，如果每个匹配的源语言端都考虑所有$n{m}^2$种译文的组合，解码速度会很慢。
 
@@ -579,6 +582,7 @@ span\textrm{[0,4]}&=&\textrm{“猫} \quad \textrm{喜欢} \quad \textrm{吃} \q
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-execution-of-cube-pruning}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{立方剪枝执行过程（行表示规则，列表示变量可替换的内容）}
 \label{fig:8-13}
 \end{figure}
@@ -678,6 +682,16 @@ span\textrm{[0,4]}&=&\textrm{“猫} \quad \textrm{喜欢} \quad \textrm{吃} \q
 &此翻译可以被看作从句法树到句法树的转换 \\
 \rule{0pt}{15pt}基于句法 & 使用语言学句法 \\
 \rule{0pt}{15pt}基于树 &（源语言）使用树结构（大多指句法树） \\
+\end{tabular}
+}
+\end{center}
+}\end{table}
+\begin{table}[htp]{
+\begin{center}
+{
+\begin{tabular}{p{6.5em} | l}
+术语 & 说明 \\
+\hline
 \rule{0pt}{15pt}基于串 &（源语言）使用词串，比如串到树翻译系统的解码器一般\\
 &都是基于串的解码方法 \\
 \rule{0pt}{15pt}基于森林 &（源语言）使用句法森林，这里森林只是对多个句法树的一 \\
@@ -686,26 +700,11 @@ span\textrm{[0,4]}&=&\textrm{“猫} \quad \textrm{喜欢} \quad \textrm{吃} \q
 \rule{0pt}{15pt}非词汇规则 & 不含有终结符的规则 \\
 \rule{0pt}{15pt}句法软约束 & 不强制规则推导匹配语言学句法树，通常把句法信息作为特\\
 &征使用 \\
-\rule{0pt}{15pt}句法硬约束 & 要求推导必须符合语言学句法树，不符合的推导会被过滤掉
+\rule{0pt}{15pt}句法硬约束 & 要求推导必须符合语言学句法树，不符合的推导会被过滤掉 \\
 \end{tabular}
 }
 \end{center}
 }\end{table}
-%\begin{table}[htp]{
-%\begin{center}
-%{
-%\begin{tabular}{p{6.5em} | l}
-%术语 & 说明 \\
-%\hline
-%\rule{0pt}{15pt}词汇化规则 & 含有终结符的规则 \\
-%\rule{0pt}{15pt}非词汇规则 & 不含有终结符的规则 \\
-%\rule{0pt}{15pt}句法软约束 & 不强制规则推导匹配语言学句法树，通常把句法信息作为特\\
-%&征使用 \\
-%\rule{0pt}{15pt}句法硬约束 & 要求推导必须符合语言学句法树，不符合的推导会被过滤掉 \\
-%\end{tabular}
-%}
-%\end{center}
-%}\end{table}
 %----------------------------------------------
 
 \parinterval 基于句法的翻译模型可以被分为两类：基于形式化文法的模型和语言学上基于句法的模型（图\ref{fig:8-17}）。基于形式化文法的模型的典型代表包括，基于反向转录文法的模型\upcite{wu1997stochastic}和基于层次短语的模型\upcite{chiang2007hierarchical}。而语言学上基于句法的模型包括，句法树到串的模型\upcite{liu2006tree,huang2006statistical}、串到句法树的模型\upcite{galley2006scalable,galley2004s}、句法树到句法树的模型\upcite{eisner2003learning,zhang2008tree}等。
@@ -884,7 +883,9 @@ r_9: \quad \textrm{IP(}\textrm{NN}_1\ \textrm{VP}_2) \rightarrow \textrm{S(}\tex
 & \xrightarrow[r_8]{\textrm{VP}^{[3]} \Leftrightarrow \textrm{VP}^{[3]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD}^{[4]}\ \textrm{VP(VV}^{[5]}\ \textrm{AS}^{[6]}))), \nonumber \\
 &                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \textrm{ADVP(RB}^{[4]}\ \textrm{VBN}^{[5]})))\ \rangle \hspace{4.5em} \nonumber \\
 & \xrightarrow[r_3]{\textrm{AD}^{[4]} \Leftrightarrow \textrm{RB}^{[4]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD(大幅度)}\ \textrm{VP(VV}^{[5]}\ \textrm{AS}^{[6]}))), \nonumber \\
-&                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \textrm{ADVP(RB(drastically)}\  \textrm{VBN}^{[5]})))\ \rangle \nonumber \\
+&                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \textrm{ADVP(RB(drastically)}\  \textrm{VBN}^{[5]})))\ \rangle \nonumber 
+\end{eqnarray}
+\begin{eqnarray}
 & \xrightarrow[r_4]{\textrm{VV}^{[5]} \Leftrightarrow \textrm{VBN}^{[5]}} & \langle\ \textrm{IP(NN(进口)}\ \textrm{VP(AD(大幅度)}\ \textrm{VP(VV(减少)}\ \textrm{AS}^{[6]}))), \hspace{10em} \nonumber \\
 &                 & \ \ \textrm{S(NP(DT(the) NNS(imports))}\ \textrm{VP(VBP}^{[6]}\ \nonumber \\
 &                 & \ \ \textrm{ADVP(RB(drastically)}\ \textrm{VBN(fallen)})))\ \rangle \nonumber \\
@@ -1097,7 +1098,6 @@ r_9: \quad \textrm{IP(}\textrm{NN}_1\ \textrm{VP}_2) \rightarrow \textrm{S(}\tex
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
-
 \subsubsection{2. 空对齐处理}
 
 \parinterval 空对齐是翻译中的常见现象。比如，一些虚词经常找不到在另一种语言中的对应，因此不会被翻译，这种情况也被称作空对齐。在图\ref{fig:8-27}中目标语中的“was”就是一个空对齐单词。空对齐的使用可以大大增加翻译的灵活度。具体到树到串规则抽取任务，需要把空对齐考虑进来，这样能够覆盖更多的语言现象。
@@ -1258,26 +1258,29 @@ r_9: \quad \textrm{IP(}\textrm{NN}_1\ \textrm{VP}_2) \rightarrow \textrm{S(}\tex
 \subsubsection{1. 基于节点对齐的规则抽取}
 
 \parinterval 不过，GHKM方法的问题在于过于依赖词对齐结果。在树到树翻译中，真正需要的是树结构（节点）之间的对应关系，而不是词对齐。特别是在两端都加入句法树结构约束的情况下，词对齐的错误可能会导致较为严重的规则抽取错误。图\ref{fig:8-34}就给出了一个实例，其中，中文的“了”被错误的对齐到了英文的“the”，导致很多高质量的规则无法被抽取出来。
-
+\vspace{-0.5em}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-tree-to-tree-rule-extraction-base-word-alignment}
+%\setlength{\abovecaptionskip}{-0.1em}
 \caption{基于词对齐的树到树规则抽取}
 \label{fig:8-34}
 \end{figure}
 %-------------------------------------------
-
-\parinterval 换一个角度来看，词对齐实际上只是帮助模型找到两种语言句法树中节点的对应关系。如果能够直接得到句法树节点的对应，就可以避免掉词对齐的错误。也就是，可以直接使用节点对齐来进行树到树规则的抽取。首先，利用外部的节点对齐工具获得两棵句法树节点之间的对齐关系。之后，将每个对齐的节点看作是树片段的根节点，再进行规则抽取。图\ref{fig:8-35}展示了基于节点对齐的规则抽取结果。
-
+\vspace{-2em}
 %----------------------------------------------
 \begin{figure}[htb]
 \centering
 \input{./Chapter8/Figures/figure-tree-to-tree-rule-extraction-base-node-alignment}
+%\setlength{\abovecaptionskip}{-0.1em}
 \caption{基于节点对齐的树到树规则抽取}
 \label{fig:8-35}
 \end{figure}
 %-------------------------------------------
+
+\vspace{-1.0em}
+\parinterval 换一个角度来看，词对齐实际上只是帮助模型找到两种语言句法树中节点的对应关系。如果能够直接得到句法树节点的对应，就可以避免掉词对齐的错误。也就是，可以直接使用节点对齐来进行树到树规则的抽取。首先，利用外部的节点对齐工具获得两棵句法树节点之间的对齐关系。之后，将每个对齐的节点看作是树片段的根节点，再进行规则抽取。图\ref{fig:8-35}展示了基于节点对齐的规则抽取结果。
 
 \parinterval 可以看到，节点对齐可以避免词对齐错误造成的影响。不过，节点对齐需要开发额外的工具，有很多方法可以参考，比如可以基于启发性规则\upcite{DBLP:conf/coling/GrovesHW04}、基于分类模型\upcite{DBLP:conf/coling/SunZT10}、基于无指导的方法\upcite{xiao2013unsupervised}等。
 
@@ -1288,16 +1291,18 @@ r_9: \quad \textrm{IP(}\textrm{NN}_1\ \textrm{VP}_2) \rightarrow \textrm{S(}\tex
 \subsubsection{2. 基于对齐矩阵的规则抽取}
 
 \parinterval 同词对齐一样，节点对齐也会存在错误，这样就不可避免地造成规则抽取的错误。既然单一的对齐中含有错误，那能否让系统看到更多样的对齐结果，进而提高正确规则被抽取到的几率呢？答案是肯定的。实际上，在基于短语的模型中就有基于多个词对齐（如$n$-best词对齐）进行规则抽取的方法\upcite{liu2009weighted}，这种方法可以在一定程度上提高短语的召回率。在树到树规则抽取中也可以使用多个节点对齐结果进行规则抽取。但是，简单使用多个对齐结果会使系统运行代价线性增长，而且即使是$n$-best对齐，也无法保证涵盖到正确的对齐结果。对于这个问题，另一种思路是使用对齐矩阵进行规则的“软”抽取。
-
+\vspace{-1em}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-one-best-node-alignment-and-alignment-matrix}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{使用1-best节点对齐和概率化节点对齐矩阵的树到树规则抽取\upcite{xiao2013unsupervised}}
 \label{fig:8-36}
 \end{figure}
 %-------------------------------------------
 
+\vspace{-0.5em}
 \parinterval 所谓对齐矩阵，是描述两个句法树节点之间对应强度的数据结构。矩阵的每个单元中都是一个0到1之间的数字。规则抽取时，可以认为所有节点之间都存在对齐，这样可以抽取出很多$n$-best对齐中无法覆盖的规则。图\ref{fig:8-36}展示了一个用对齐矩阵的进行规则抽取的实例。其中矩阵1（Matrix 1）表示的是标准的1-best节点对齐，矩阵2（Matrix 2）表示的是一种概率化的对齐矩阵。可以看到使用矩阵2可以抽取到更多样的规则。另外，值得注意的是，基于对齐矩阵的方法也同样适用于短语和层次短语规则的抽取。关于对齐矩阵的生成可以参考相关论文的内容\upcite{xiao2013unsupervised,liu2009weighted,sun2010exploring,DBLP:conf/coling/SunZT10}。
 
 \parinterval 此外，在基于句法的规则抽取中，一般会对规则进行一些限制，以避免规则数量过大，系统无法处理。比如，可以限制树片段的深度、变量个数、规则组合的次数等等。这些限制往往需要根据具体任务进行设计和调整。
@@ -1392,16 +1397,18 @@ r_9: \quad \textrm{IP(}\textrm{NN}_1\ \textrm{VP}_2) \rightarrow \textrm{S(}\tex
 \textrm{VP} \rightarrow \textrm{VV}\ \textrm{NP} \nonumber \\
 \textrm{NP} \rightarrow \textrm{NN}\ \textrm{NP} \nonumber
 \end{eqnarray}
-
+\vspace{-3.0em}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-example-of-hyper-graph}
+\setlength{\abovecaptionskip}{-0.1em}
 \caption{超图实例}
 \label{fig:8-37}
 \end{figure}
 %-------------------------------------------
 
+\vspace{-1.0em}
 \parinterval 对于规则“$\textrm{VP} \rightarrow \textrm{VV}\ \textrm{NP}$”，超边的头指向VP，超边的尾表示规则右部的两个变量VV和NP。规则“$\textrm{NP} \rightarrow \textrm{NN}\ \textrm{NP}$”也可以进行类似的解释。
 
 \parinterval 不难发现，超图提供了一种非常紧凑的数据结构来表示多个推导，因为不同推导之间可以共享节点。如果把图\ref{fig:8-37}中的蓝色和红色部分看作是两个推导，那么它们就共享了同一个节点NN[1,2]，其中NN是句法标记，[1,2]是跨度。能够想象，简单枚举一个句子所有的推导几乎是不可能的，但是用超图的方式却可以很有效地对指数级数量的推导进行表示。另一方面，超图上的运算常常被看作是一种基于半环的代数系统，而且人们发现许多句法分析和机器翻译问题本质上都是{\small\bfnew{半环分析}}\index{半环分析}（Semi-ring Parsing）\index{Semi-ring Parsing}。不过，由于篇幅有限，这里不会对半环等结构展开讨论。感兴趣的读者可以查阅相关文献\upcite{goodman1999semiring,eisner2002parameter}。
@@ -1439,6 +1446,7 @@ d_1 & = & {d'} \circ {r_5}
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-hyper-graph-representation-of-machine-translation-derivation}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{机器翻译推导的超图表示}
 \label{fig:8-39}
 \end{figure}
@@ -1492,6 +1500,7 @@ d_1 & = & {d'} \circ {r_5}
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-role-of-syntax-tree-in-different-decoding-methods}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{句法树在不同解码方法中的角色}
 \label{fig:8-40}
 \end{figure}
@@ -1520,6 +1529,7 @@ d_1 & = & {d'} \circ {r_5}
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-content-of-chart-in-tree-based-decoding}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{基于树的解码中Chart的内容}
 \label{fig:8-41}
 \end{figure}
@@ -1531,6 +1541,7 @@ d_1 & = & {d'} \circ {r_5}
 \begin{figure}[htp]
 \centering
 \input{./Chapter8/Figures/figure-rule-matching-base-tree}
+\setlength{\abovecaptionskip}{-0.5em}
 \caption{基于树的规则匹配}
 \label{fig:8-42}
 \end{figure}

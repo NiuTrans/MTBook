@@ -8,25 +8,25 @@
 
 \begin{scope}
 
-\node [anchor=west,draw,fill=red!20!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (h1) at (0,0) {\scriptsize{$\mathbi{h}_1$}};
-\node [anchor=west,draw,fill=red!20!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (h2) at ([xshift=1em]h1.east) {\scriptsize{$\mathbi{h}_2$}};
-\node [anchor=west,inner sep=0pt,minimum width=3em] (h3) at ([xshift=0.5em]h2.east) {\scriptsize{...}};
-\node [anchor=west,draw,fill=red!20!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (h4) at ([xshift=0.5em]h3.east) {\scriptsize{$\mathbi{h}_m$}};
+\node [anchor=west,draw,fill=red!30!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (h1) at (0,0) {\scriptsize{$\mathbi{h}_1$}};
+\node [anchor=west,draw,fill=red!30!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (h2) at ([xshift=2em]h1.east) {\scriptsize{$\mathbi{h}_2$}};
+\node [anchor=west,inner sep=0pt,minimum width=3em] (h3) at ([xshift=1em]h2.east) {\scriptsize{...}};
+\node [anchor=west,draw,fill=red!30!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (h4) at ([xshift=1em]h3.east) {\scriptsize{$\mathbi{h}_m$}};
 
 \node [anchor=south,circle,minimum size=1.0em,draw,ublue,thick] (sum) at ([yshift=2em]h2.north east) {};
 \draw [thick,-,ublue] (sum.north) -- (sum.south);
 \draw [thick,-,ublue] (sum.west) -- (sum.east);
 
-\node [anchor=south,draw,fill=green!20!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (th1) at ([yshift=2em,xshift=-1em]sum.north west) {\scriptsize{$\mathbi{s}_{j-1}$}};
-\node [anchor=west,draw,fill=green!20!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (th2) at ([xshift=2em]th1.east) {\scriptsize{$\mathbi{s}_{j}$}};
+\node [anchor=south,draw,fill=green!30!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (th1) at ([yshift=2em,xshift=-1em]sum.north west) {\scriptsize{$\mathbi{s}_{j-1}$}};
+\node [anchor=west,draw,fill=green!30!white,inner sep=3pt,minimum width=2em,minimum height=1.2em] (th2) at ([xshift=2.5em]th1.east) {\scriptsize{$\mathbi{s}_{j}$}};
 
 \draw [->] (h1.north) .. controls +(north:0.8) and +(west:1) ..  (sum.190) node [pos=0.2,left] {\scriptsize{$\alpha_{1,j}$}};
 \draw [->] (h2.north) .. controls +(north:0.6) and +(220:0.2) ..  (sum.220) node [pos=0.2,right] {\scriptsize{$\alpha_{2,j}$}};
 \draw [->] (h4.north) .. controls +(north:0.8) and +(east:1) ..  (sum.-10) node [pos=0.1,left] (alphan) {\scriptsize{$\alpha_{m,j}$}};
 
-\draw [->] ([xshift=-1.5em]th1.west) -- ([xshift=-0.1em]th1.west);
+\draw [->] ([xshift=-2em]th1.west) -- ([xshift=-0.1em]th1.west);
 \draw [->] ([xshift=0.1em]th1.east) -- ([xshift=-0.1em]th2.west);
-\draw [->] ([xshift=0.1em]th2.east) -- ([xshift=1.5em]th2.east);
+\draw [->] ([xshift=0.1em]th2.east) -- ([xshift=2em]th2.east);
 \draw [->] (sum.north) .. controls +(north:0.8) and +(west:0.2) ..  ([yshift=-0.4em,xshift=-0.1em]th2.west) node [pos=0.2,right] (ci) {\scriptsize{$\mathbi{C}_{j}$}};
 
 \node [anchor=south,inner sep=1pt] (output) at ([yshift=0.8em]th2.north) {\scriptsize{输出层}};
@@ -39,7 +39,7 @@
 \node [anchor=north] (enc42) at ([yshift=0.5em]enc4.south) {\scriptsize{(位置$m$)}};
 
 {
-\node [anchor=west] (math1) at ([xshift=5em,yshift=1em]th2.east) {$\mathbi{C}_j = \sum_{i} \alpha_{i,j} \mathbi{h}_i $ \ \ \ \ };
+\node [anchor=west] (math1) at ([xshift=7em,yshift=1em]th2.east) {$\mathbi{C}_j = \sum_{i} \alpha_{i,j} \mathbi{h}_i $ \ \ \ \ };
 }
 {
 \node [anchor=north west] (math2) at ([yshift=-2em,xshift=-0.2em]math1.south west) {$\alpha_{i,j} = \frac{\exp(\beta_{i,j})}{\sum_{i'} \exp(\beta_{i',j})}$};
@@ -48,10 +48,10 @@
 
 \begin{pgfonlayer}{background}
 {
-\node [rectangle,inner sep=0.4em,rounded corners=1pt,fill=blue!10,drop shadow,minimum width=9.5em] [fit = (math1)] (box1) {};
+\node [rectangle,inner sep=0.4em,rounded corners=1pt,fill=blue!20,drop shadow,minimum width=9.5em] [fit = (math1)] (box1) {};
 }
 {
-\node [rectangle,inner sep=0.4em,rounded corners=1pt,fill=orange!10,drop shadow,minimum width=9.5em] [fit = (math2) (math3)] (box2) {};
+\node [rectangle,inner sep=0.4em,rounded corners=1pt,fill=orange!20,drop shadow,minimum width=9.5em] [fit = (math2) (math3)] (box2) {};
 }
 \end{pgfonlayer}
 

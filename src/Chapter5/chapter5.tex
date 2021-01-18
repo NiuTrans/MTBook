@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -200,11 +200,12 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 
 \parinterval 以汉译英为例，当翻译“我”这个单词时，可能直接会想到用“I”、“me”或“I'm”作为它的译文，而几乎不会选择“you”、“satisfied”等含义相差太远的译文。这是为什么呢？如果从统计学的角度来看，无论是何种语料，包括教材、新闻、小说等，绝大部分情况下“我”都翻译成了“I”、“me”等，几乎不会看到我被翻译成“you”或“satisfied”的情况。可以说“我”翻译成“I”、“me”等属于高频事件，而翻译成“you”、“satisfied”等属于低频或小概率事件。因此人在翻译时也是选择在统计意义上概率更大的译文，这也间接反映出统计模型可以在一定程度上描述人的翻译习惯和模式。
 
-\parinterval 表\ref{tab:5-1}展示了汉语到英语的单词翻译实例及相应的翻译概率。可以看到，“我”翻译成“I”的概率最高，为0.5。这是符合人类对翻译的认知的。此外，这种概率化的模型避免了非0即1的判断，所有的译文都是可能的，只是概率不同。这也使得统计模型可以覆盖更多的翻译现象，甚至捕捉到一些人所忽略的情况。\\ \\ \\
+\parinterval 表\ref{tab:5-1}展示了汉语到英语的单词翻译实例及相应的翻译概率。可以看到，“我”翻译成“I”的概率最高，为0.5。这是符合人类对翻译的认知的。此外，这种概率化的模型避免了非0即1的判断，所有的译文都是可能的，只是概率不同。这也使得统计模型可以覆盖更多的翻译现象，甚至捕捉到一些人所忽略的情况。
 
 %----------------------------------------------
 \begin{table}[htp]
     \centering
+    \caption{汉译英单词翻译概率}
     \begin{tabular}{c | c  c}
     源语言 & 目标语言 & 翻译概率 \\ \hline
                 & I              & 0.50 \\
@@ -214,7 +215,6 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
                 & am         & 0.10 \\
     ...         & ...           & ... \\
     \end{tabular}
-    \caption{汉译英单词翻译概率}
     \label{tab:5-1}
 \end{table}
 %----------------------------------------------
@@ -469,17 +469,6 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 %----------------------------------------------
 
 \parinterval 已经有工作证明机器翻译问题是NP难的\upcite{knight1999decoding}。对于如此巨大的搜索空间，需要一种十分高效的搜索算法才能实现机器翻译的解码。在{\chaptertwo}已经介绍一些常用的搜索方法。这里使用一种贪婪的搜索方法实现机器翻译的解码。它把解码分成若干步骤，每步只翻译一个单词，并保留当前“ 最好”的结果，直至所有源语言单词都被翻译完毕。
-\vspace{0.3em}
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-\input{./Chapter5/Figures/figure-greedy-mt-decoding-pseudo-code}
-    \caption{贪婪的机器翻译解码算法的伪代码}
-    \label{fig:5-10}
-\end{figure}
-%----------------------------------------------
-
-\parinterval 图\ref{fig:5-10}给出了贪婪解码算法的伪代码。其中$\pi$保存所有源语单词的候选译文，$\pi[j]$表示第$j$个源语单词的翻译候选的集合，$best$保存当前最好的翻译结果，$h$保存当前步生成的所有译文候选。算法的主体有两层循环，在内层循环中如果第$j$个源语单词没有被翻译过，则用$best$和它的候选译文$\pi[j]$生成新的翻译，再存于$h$中，即操作$h=h\cup{\textrm{Join}(best,\pi[j])}$。外层循环再从$h$中选择得分最高的结果存于$best$中，即操作$best=\textrm{PruneForTop1}(h)$；同时标记相应的源语言单词状态为已翻译，即$used[best.j]=true$。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -491,7 +480,18 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 \end{figure}
 %----------------------------------------------
 
-该算法的核心在于，系统一直维护一个当前最好的结果，之后每一步考虑扩展这个结果的所有可能，并计算模型得分，然后再保留扩展后的最好结果。注意，在每一步中，只有排名第一的结果才会被保留，其他结果都会被丢弃。这也体现了贪婪的思想。显然这个方法不能保证搜索到全局最优的结果，但是由于每次扩展只考虑一个最好的结果，因此该方法速度很快。图\ref{fig:5-11}给出了算法执行过程的简单示例。当然，机器翻译的解码方法有很多，这里仅仅使用简单的贪婪搜索方法来解决机器翻译的解码问题，在后续章节会对更加优秀的解码方法进行介绍。
+\parinterval 图\ref{fig:5-10}给出了贪婪解码算法的伪代码。其中$\pi$保存所有源语单词的候选译文，$\pi[j]$表示第$j$个源语单词的翻译候选的集合，$best$保存当前最好的翻译结果，$h$保存当前步生成的所有译文候选。算法的主体有两层循环，在内层循环中如果第$j$个源语单词没有被翻译过，则用$best$和它的候选译文$\pi[j]$生成新的翻译，再存于$h$中，即操作$h=h\cup{\textrm{Join}(best,\pi[j])}$。外层循环再从$h$中选择得分最高的结果存于$best$中，即操作$best=\textrm{PruneForTop1}(h)$；同时标记相应的源语言单词状态为已翻译，即$used[best.j]=true$。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter5/Figures/figure-greedy-mt-decoding-pseudo-code}
+    \caption{贪婪的机器翻译解码算法的伪代码}
+    \label{fig:5-10}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 该算法的核心在于，系统一直维护一个当前最好的结果，之后每一步考虑扩展这个结果的所有可能，并计算模型得分，然后再保留扩展后的最好结果。注意，在每一步中，只有排名第一的结果才会被保留，其他结果都会被丢弃。这也体现了贪婪的思想。显然这个方法不能保证搜索到全局最优的结果，但是由于每次扩展只考虑一个最好的结果，因此该方法速度很快。图\ref{fig:5-11}给出了算法执行过程的简单示例。当然，机器翻译的解码方法有很多，这里仅仅使用简单的贪婪搜索方法来解决机器翻译的解码问题，在后续章节会对更加优秀的解码方法进行介绍。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -875,7 +875,7 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 \begin{eqnarray}
 &                    & \textrm{max}\Big(\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f({s_j|t_i})}\Big) \nonumber \\
 & \textrm{s.t.} & \textrm{任意单词} t_{y}:\;\sum_{s_x}{f(s_x|t_y)} = 1 \nonumber
-\label{eq:5-31}
+\label{eq:5-29-30}
 \end{eqnarray}
 \noindent 其中，$\textrm{max}(\cdot)$表示最大化，$\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f({s_j|t_i})}$是目标函数，$f({s_j|t_i})$是模型的参数，$\sum_{s_x}{f(s_x|t_y)}=1$是优化的约束条件，以保证翻译概率满足归一化的要求。需要注意的是$\{f(s_x |t_y)\}$对应了很多参数，每个源语言单词和每个目标语单词的组合都对应一个参数$f(s_x |t_y)$。
 
@@ -916,42 +916,42 @@ L(f,\lambda)&=&\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f(s_j|t_
 
 \noindent 这里$s_u$和$t_v$分别表示源语言和目标语言词表中的某一个单词。为了求$\frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}$，这里引入一个辅助函数。令$g(z)=\alpha z^{\beta}$ 为变量$z$ 的函数，显然，
 $\frac{\partial g(z)}{\partial z} = \alpha \beta z^{\beta-1} = \frac{\beta}{z}\alpha z^{\beta} = \frac{\beta}{z} g(z)$。这里可以把$\prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i)$看做$g(z)=\alpha z^{\beta}$的实例。首先，令$z=\sum_{i=0}^{l}f(s_u|t_i)$，注意$s_u$为给定的源语单词。然后，把$\beta$定义为$\sum_{i=0}^{l}f(s_u|t_i)$在$\prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i)$ 中出现的次数，即源语句子中与$s_u$相同的单词的个数。
+\vspace{-1em}
 \begin{eqnarray}
 \beta &=& \sum_{j=1}^{m} \delta(s_j,s_u)
 \label{eq:5-32}
 \end{eqnarray}
-
 \noindent 其中，当$x=y$时，$\delta(x,y)=1$，否则为0。
 
 \parinterval 根据$\frac{\partial g(z)}{\partial z} = \frac{\beta}{z} g(z)$，可以得到
+\vspace{-0.5em}
 \begin{eqnarray}
-\frac{\partial g(z)}{\partial z}& =& \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]} \nonumber \\
-& = &\frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
+\frac{\partial g(z)}{\partial z}& =& \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]}\nonumber \\
+ &=& \frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
 \label{eq:5-33}
 \end{eqnarray}
-
 \parinterval 根据$\frac{\partial g(z)}{\partial z}$和$\frac{\partial z}{\partial f}$计算的结果，可以得到
+\vspace{-0.5em}
 \begin{eqnarray}
 {\frac{\partial \big[ \prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}}& =& {{\frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]}} \cdot{\frac{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]}{\partial f(s_u|t_v)}}} \nonumber \\
 & = &{\frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v)}
 \label{eq:5-34}
 \end{eqnarray}
-
 \parinterval 将$\frac{\partial \big[ \prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}$进一步代入$\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}$，得到$L(f,\lambda)$的导数
+\vspace{-0.5em}
 \begin{eqnarray}
-& &{\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}}\nonumber \\
-&=&{\frac{\varepsilon}{(l+1)^{m}} \cdot \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_{a_j}) \big]}{\partial f(s_u|t_v)} - \lambda_{t_v}}\nonumber \\
+{\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}} &=&{\frac{\varepsilon}{(l+1)^{m}} \cdot \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_{a_j}) \big]}{\partial f(s_u|t_v)} - \lambda_{t_v}}\nonumber \\
 &=&{\frac{\varepsilon}{(l+1)^{m}} \frac{\sum_{j=1}^{m} \delta(s_j,s_u) \cdot \sum_{i=0}^{l} \delta(t_i,t_v)}{\sum_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) - \lambda_{t_v}}
 \label{eq:5-35}
 \end{eqnarray}
-
 \parinterval 令$\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}=0$，有
+\vspace{-1em}
 \begin{eqnarray}
 f(s_u|t_v) &=& \frac{\lambda_{t_v}^{-1} \varepsilon}{(l+1)^{m}} \cdot \frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \cdot f(s_u|t_v)
 \label{eq:5-36}
 \end{eqnarray}
-
 \parinterval 将上式稍作调整得到下式：
+\vspace{-1em}
 \begin{eqnarray}
 f(s_u|t_v) &=& \lambda_{t_v}^{-1} \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \sum\limits_{j=1}^{m} \delta(s_j,s_u) \sum\limits_{i=0}^{l} \delta(t_i,t_v) \frac{f(s_u|t_v) }{\sum\limits_{i=0}^{l}f(s_u|t_i)}
 \label{eq:5-37}
@@ -980,11 +980,13 @@ f(s_u|t_v) &=& \lambda_{t_v}^{-1} \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=
 %----------------------------------------------
 
 \parinterval 期望频次是事件在其分布下出现次数的期望。另$c_{\mathbb{E}}(X)$为事件$X$的期望频次，其计算公式为：
+\vspace{-0.5em}
 \begin{eqnarray}
 c_{\mathbb{E}}(X)&=&\sum_i c(x_i) \cdot \funp{P}(x_i)
 \label{eq:5-38}
 \end{eqnarray}
 
+\vspace{-0.5em}
 \noindent 其中$c(x_i)$表示$X$取$x_i$时出现的次数，$\funp{P}(x_i)$表示$X=x_i$出现的概率。图\ref{fig:5-26}展示了事件$X$的期望频次的详细计算过程。其中$x_1$、$x_2$和$x_3$分别表示事件$X$出现2次、1次和5次的情况。
 
 %----------------------------------------------
@@ -997,46 +999,66 @@ c_{\mathbb{E}}(X)&=&\sum_i c(x_i) \cdot \funp{P}(x_i)
 \end{figure}
 %----------------------------------------------
 
+\vspace{-0.5em}
 \parinterval 因为在$\funp{P}(\seq{s}|\seq{t})$中，$t_v$翻译（连接）到$s_u$的期望频次为：
+\vspace{-0.5em}
 \begin{eqnarray}
 c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t}) & \equiv & \sum\limits_{j=1}^{m} \delta(s_j,s_u) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v) \cdot \frac {f(s_u|t_v)}{\sum\limits_{i=0}^{l}f(s_u|t_i)}
 \label{eq:5-39}
 \end{eqnarray}
 
+\vspace{-0.5em}
 \parinterval 所以公式\ref {eq:5-37}可重写为：
+\vspace{-0.5em}
 \begin{eqnarray}
 f(s_u|t_v)&=&\lambda_{t_v}^{-1} \cdot \funp{P}(\seq{s}| \seq{t}) \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})
 \label{eq:5-40}
 \end{eqnarray}
 
+\vspace{-0.5em}
 \parinterval 在此如果令$\lambda_{t_v}^{'}=\frac{\lambda_{t_v}}{\funp{P}(\seq{s}| \seq{t})}$，可得：
+\vspace{-0.5em}
 \begin{eqnarray}
 f(s_u|t_v) &= &\lambda_{t_v}^{-1} \cdot \funp{P}(\seq{s}| \seq{t}) \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t}) \nonumber \\
  &=&{(\lambda_{t_v}^{'})}^{-1} \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})
 \label{eq:5-41}
 \end{eqnarray}
 
+\vspace{-0.5em}
 \parinterval 又因为IBM模型对$f(\cdot|\cdot)$的约束如下：
+\vspace{-0.5em}
 \begin{eqnarray}
 \forall t_y : \sum\limits_{s_x} f(s_x|t_y) &=& 1
 \label{eq:5-42}
 \end{eqnarray}
 
+\vspace{-0.5em}
 \parinterval 为了满足$f(\cdot|\cdot)$的概率归一化约束，易得$\lambda_{t_v}^{'}$为：
+\vspace{-0.5em}
 \begin{eqnarray}
 \lambda_{t_v}^{'}&=&\sum\limits_{s'_u} c_{\mathbb{E}}(s'_u|t_v;\seq{s},\seq{t})
 \label{eq:5-43}
 \end{eqnarray}
 
+\vspace{-0.5em}
 \parinterval 因此，$f(s_u|t_v)$的计算式可再一步变换成下式：
+\vspace{-0.5em}
 \begin{eqnarray}
 f(s_u|t_v)&=&\frac{c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})}  { \sum\limits_{s'_u} c_{\mathbb{E}}(s'_u|t_v;\seq{s},\seq{t}) }
 \label{eq:5-44}
 \end{eqnarray}
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter5/Figures/figure-calculation-formula&iterative-process-of-function}
+   \caption{$f(s_u|t_v)$的计算公式和迭代过程}
+   \label{fig:5-27}
+\end{figure}
+%----------------------------------------------
 
-
-
+\vspace{-0.5em}
 \parinterval 进一步，假设有$K$个互译的句对（称作平行语料）：
+\vspace{-0.5em}
 $\{(\seq{s}^{[1]},\seq{t}^{[1]}),...,(\seq{s}^{[K]},\seq{t}^{[K]})\}$，$f(s_u|t_v)$的期望频次为：
 \begin{eqnarray}
 c_{\mathbb{E}}(s_u|t_v)&=&\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},t^{[k]})
@@ -1048,15 +1070,6 @@ c_{\mathbb{E}}(s_u|t_v)&=&\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-\input{./Chapter5/Figures/figure-calculation-formula&iterative-process-of-function}
-   \caption{$f(s_u|t_v)$的计算公式和迭代过程}
-   \label{fig:5-27}
-\end{figure}
-%----------------------------------------------
-
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
     \input{./Chapter5/Figures/figure-em-algorithm-flow-chart}
    \caption{EM算法流程图（IBM模型1）}
    \label{fig:5-28}
@@ -1064,10 +1077,6 @@ c_{\mathbb{E}}(s_u|t_v)&=&\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},
 %----------------------------------------------
 
 \parinterval 至此，本章完成了对IBM模型1训练方法的介绍。其可以通过图\ref{fig:5-27}所示的算法进行实现。算法最终的形式并不复杂，因为只需要遍历每个句对，之后计算$f(\cdot|\cdot)$的期望频次，最后估计新的$f(\cdot|\cdot)$，这个过程迭代直至$f(\cdot|\cdot)$收敛至稳定状态。
-
-\vspace{-1.5em}
-
-
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION

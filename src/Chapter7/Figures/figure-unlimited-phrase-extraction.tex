@@ -41,18 +41,18 @@
 \node[tgtnode] (tgt7) at ([yshift=-0.5*1.0cm]tgt6.north east) {\scriptsize{?}};
 \node[tgtnode] (tgt8) at ([yshift=-0.5*1.0cm]tgt7.north east) {\scriptsize{EOS}};
 
-\node [anchor=west] (p1line1) at ([xshift=4em,yshift=1em]a57.east) {\footnotesize{$\bar{s}_i$： 什么\ \ \ 都\ \ \ 没}};
+\node [anchor=west] (p1line1) at ([xshift=5em,yshift=1em]a57.east) {\footnotesize{$\bar{s}_i$： 什么\ \ \ 都\ \ \ 没}};
 \node [anchor=north west] (p1line2) at ([xshift=0]p1line1.south west) {\footnotesize{$\bar{t}_i$： learned\ \ \ nothing\ \ \ ? \ \ \ \ \ \ \ \ \ \ \ \ }};
 
-\node [anchor=west] (p2line1) at ([xshift=4em]a53.east) {\footnotesize{$\bar{s}_j$： 到\ \ \ ?}};
+\node [anchor=west] (p2line1) at ([xshift=5em]a53.east) {\footnotesize{$\bar{s}_j$： 到\ \ \ ?}};
 \node [anchor=north west] (p2line2) at ([xshift=0]p2line1.south west) {\footnotesize{$\bar{t}_j$： Have\ \ \ you\ \ \ learned\ \ \ nothing}};
 
 \node [anchor=east] (p1line3) at ([xshift=0em,yshift=2.9cm]p2line2.east) {};
 \begin{pgfonlayer}{background}
 \node [rectangle,draw=red,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (a26) (a44)] (phrase1) {};
-\node [rectangle,draw=ugreen,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (a01) (a32)] (phrase2) {};
-\node [rectangle,inner sep=0.2em,fill=red!10] [fit = (p1line1) (p1line2) (p1line3)] (box1) {};
-\node [rectangle,inner sep=0.2em,fill=green!10] [fit = (p2line1) (p2line2)] (box2) {};
+\node [rectangle,draw=green,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (a01) (a32)] (phrase2) {};
+\node [rectangle,inner sep=0.2em,fill=red!15,draw=red,thick] [fit = (p1line1) (p1line2) (p1line3)] (box1) {};
+\node [rectangle,inner sep=0.2em,fill=green!15,draw=green,thick] [fit = (p2line1) (p2line2)] (box2) {};
 \end{pgfonlayer}
 
 \draw [->,thick,dotted] ([yshift=-0.8em]phrase1.east) .. controls +(east:1.5) and +(west:1) ..  (box1.west);

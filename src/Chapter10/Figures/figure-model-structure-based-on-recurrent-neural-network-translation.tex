@@ -11,7 +11,7 @@
             % RNN Encoder
             \coordinate (eemb0) at (0,0);
             \foreach \x [count=\y from 0] in {1,2,...,10}
-                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.4\base]eemb\y.east) {};
+                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.7\base]eemb\y.east) {};
             \foreach \x in {1,2,...,10}
                 \node[rnnnode,fill=blue!30!white,anchor=south] (enc\x) at ([yshift=0.5\base]eemb\x.north) {};
             \node[wordnode,left=0.4\base of enc1] (init) {$0$};
@@ -114,7 +114,7 @@
 
         % legend
         \begin{scope}[shift={(10\base,2.5\base)}]
-            \node[rnnnode,minimum height=0.5\base,fill=green!30!white,label={[label distance=3pt,font=\scriptsize]0:词嵌入层}] (emb) at (0,0) {};
+            \node[rnnnode,minimum height=0.5\base,fill=green!30!white,label={[label distance=3pt,font=\scriptsize]0:词嵌入层}] (emb) at (3,0) {};
             \node[rnnnode,fill=blue!30!white,anchor=north west,label={[label distance=3pt,font=\scriptsize]0:循环单元}] (rnn) at ([yshift=2\base]emb.south west) {};
             \node[rnnnode,minimum height=0.5\base,fill=red!30!white,anchor=north west,label={[label distance=3pt,font=\scriptsize]0:输出层}] (softmax) at ([yshift=2\base]rnn.south west) {};
             \node [anchor=north west] (softmax2) at ([xshift=0.6\base]softmax.south west) {\scriptsize{Softmax}};

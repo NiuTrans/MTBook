@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -40,13 +40,13 @@
 \caption{汉译英译文质量评价实例}
 {
 \begin{tabular}{c|l|c}
-源文 & 那只敏捷的棕色狐狸跳过了那只懒惰的狗。 & 评价得分 \\
+源文 & 那/只/敏捷/的/棕色/狐狸/跳过/了/那/只/懒惰/的/狗/。 & 评价得分 \\
 \hline
-\rule{0pt}{10pt} 机器译文1 & The quick brown fox jumped over the lazy dog. & 5 \\
-\rule{0pt}{10pt} 机器译文2 & The fast brown fox jumped over a sleepy dog. & 4 \\
-\rule{0pt}{10pt} 机器译文3 & The fast brown fox jumps over the dog. & 3 \\
-\rule{0pt}{10pt} 机器译文4 & The quick brown fox jumps over dog. & 2 \\
-\rule{0pt}{10pt} 机器译文5 & A fast fox jump dog. & 1 \\
+\rule{0pt}{10pt} 机器译文1 & The quick brown fox jumped over the lazy dog . & 5 \\
+\rule{0pt}{10pt} 机器译文2 & The fast brown fox jumped over a sleepy dog . & 4 \\
+\rule{0pt}{10pt} 机器译文3 & The fast brown fox jumps over the dog . & 3 \\
+\rule{0pt}{10pt} 机器译文4 & The quick brown fox jumps over dog . & 2 \\
+\rule{0pt}{10pt} 机器译文5 & A fast fox jump dog . & 1 \\
 \end{tabular}
 \label{tab:4-1}
 }
@@ -147,7 +147,6 @@
     \begin{itemize}
     \item {\small\sffamily\bfseries{根据系统胜出的次数进行排序}}\upcite{DBLP:conf/wmt/Callison-BurchK12}。以系统${S}_j$和系统${S}_k$为例，两个系统都被比较了$\textrm{C}_n^5 \times 4 \times 3$ 次，其中系统${S}_j$获胜20次，系统${S}_k$获胜30次，总体排名中系统${S}_k$优于系统${S}_j$。
     \item  {\small\sffamily\bfseries{根据冲突次数进行排序}}\upcite{DBLP:conf/wmt/Lopez12}。第一种排序策略中存在冲突现象：例如在每次两两比较中，系统${S}_j$胜过系统${S}_k$ 的次数比系统${S}_j$不敌系统${S}_k$的次数多，若待评价系统仅有系统${S}_j$、${S}_k$，显然系统${S}_j$的排名高于系统${S}_k$。但当待评价系统很多时，可能系统${S}_j$在所有比较中获胜的次数低于系统${S}_k$，此时就出现了总体排序与局部排序不一致的冲突。因此，有研究者提出，能够与局部排序冲突最少的总体排序才是最合理的。令$O$表示一个对若干个系统的排序，该排序所对应的冲突定义为：
-
 \begin{eqnarray}
 \textrm{conflict}(O) =\sum\limits_{{{S}_j},{{S}_k} \in O,j \ne k} {{\textrm{max}}(0,\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) - \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k}))}
 \label{eq:4-1}
@@ -155,7 +154,6 @@
 
 其中，${S}_j$和${S}_k$是成对比较的两个系统，$\textrm{count}_{\textrm{win}}({S}_j,{S}_k)$和$\textrm{count}_{\textrm{loss}}({S}_j,{S}_k)$分别是${S}_j$、${S}_k$进行成对比较时系统${S}_j$ 胜利和失败的次数。而使得$\textrm{conflict}(O)$最低的$O$就是最终的系统排序结果。
     \item {\small\sffamily\bfseries{根据某系统最终获胜的期望进行排序}}\upcite{DBLP:conf/iwslt/Koehn12}。以系统${S}_j$为例，若共有$n$个待评价的系统，则进行总体排序时系统 ${S}_j$ 的得分为其最终获胜的期望，即：
-
 \begin{eqnarray}
 \textrm{score}({{S}_j}) &=& \frac{1}{n}\sum\limits_{k,k \ne j} {\frac{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k})}{{\textrm{count}_{\textrm{win}}({{S}_j},{{S}_k}) + \textrm{count}_{\textrm{loss}}({{S}_j},{{S}_k})}}}
 \label{eq:4-2}
@@ -205,9 +203,9 @@
 \noindent 其中，$\textrm{edit}(o,g)$表示系统生成的译文$o$和参考答案$g$之间的距离，$l$是归一化因子,通常为参考答案的长度。在距离计算中所有的操作的代价都为1。在计算距离时，优先考虑移位操作，再计算编辑距离（即增加、删除和替换操作的次数）。直到增加、移位操作无法减少编辑距离时，将编辑距离和移位操作的次数累加得到TER计算的距离。
 
 \begin{example}
-机器译文：A cat is standing in the ground.
+机器译文：A cat is standing in the ground .
 
-\qquad\ 参考答案：The cat is standing on the ground.
+\qquad\ 参考答案：The cat is standing on the ground .
 \label{eg:4-1}
 \end{example}
 
@@ -234,7 +232,7 @@
 \begin{example}
 机器译文：the the the the
 
-\qquad \ 参考答案：The cat is standing on the ground.
+\qquad \ 参考答案：The cat is standing on the ground .
 \label{eg:4-bleu-example}
 \end{example}
 
@@ -334,7 +332,6 @@
   	 \label{fig:4-6}
 \end{figure}
 %----------------------------------------------
-\vspace{0.5em}
 \item 在得到机器译文与参考答案的对齐关系后，需要基于对齐关系计算准确率和召回率。
 
 准确率：机器译文中命中单词数与机器译文单词总数的比值。即：
@@ -358,7 +355,7 @@
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 在上文提到的评价指标中，无论是准确率、召回率还是$\textrm F_{mean}$，都是基于单个词汇信息衡量译文质量，而忽略了语序问题。为了将语序问题考虑进来，Meteor会考虑更长的匹配：将机器译文按照最长匹配长度分块，并对“块数”较多的机器译文给予惩罚。例如图\ref{fig:4-6}显示的最终词对齐结果中，机器译文被分为了三个“块”——“Can I have it”、“like he”、“？”在这种情况下，看起来上例中的准确率、召回率都还不错，但最终会受到很严重的惩罚。这种罚分机制能够识别出机器译文中的词序问题，因为当待测译文词序与参考答案相差较大时，机器译文将会被分割得比较零散，这种惩罚机制的计算公式如式\eqref{eq:4-11}，其中$\textrm {count}_{\textrm{chunks}}$表示匹配的块数。
+\parinterval 在上文提到的评价指标中，无论是准确率、召回率还是$\textrm F_{mean}$，都是基于单个词汇信息衡量译文质量，而忽略了语序问题。为了将语序问题考虑进来，Meteor会考虑更长的匹配：将机器译文按照最长匹配长度分块，由于“块数”较多的机器译文与参考答案的对齐更加散乱，意味着其语序问题更多，因此Meteor会对这样的译文给予惩罚。例如图\ref{fig:4-6}显示的最终词对齐结果中，机器译文被分为了三个“块”——“Can I have it”、“like he”、“？”在这种情况下，看起来上例中的准确率、召回率都还不错，但最终会受到很严重的惩罚。这种罚分机制能够识别出机器译文中的词序问题，因为当待测译文词序与参考答案相差较大时，机器译文将会被分割得比较零散，这种惩罚机制的计算公式如式\eqref{eq:4-11}，其中$\textrm {count}_{\textrm{chunks}}$表示匹配的块数。
 \begin{eqnarray}
 \textrm {Penalty} &=& 0.5 \cdot {\left({\frac{{\textrm {count}}_{\textrm {chunks}}}{\textrm {count}_{\textrm{hit}}}} \right)^3}
 \label{eq:4-11}
@@ -385,31 +382,31 @@
 \parinterval 基于检测点的评价根据事先定义好的语言学检测点对译文的相应部分进行打分。如下是几个英中翻译中的检测点实例：
 
 \begin{example}
-They got up at six this morning.
+They got up at six this morning .
 
-\qquad\ \ 他们今天早晨六点钟起床。
+\qquad\ \ 他们/今天/早晨/六点钟/起床/。
 
 \qquad\ \ 检测点：时间词的顺序
 \label{eg:4-3}
 \end{example}
 
 \begin{example}
-There are nine cows on the farm.
+There are nine cows on the farm .
 
-\qquad\ \ 农场里有九头牛。
+\qquad\ \ 农场/里/有/九/头/牛/。
 
 \qquad\ \ 检测点：量词“头”
 \label{eg:4-4}
 \end{example}
 
 \begin{example}
-His house is on the south bank of the river.
+His house is on the south bank of the river .
 
-\qquad\ \ 他的房子在河的南岸。
+\qquad\ \ 他/的/房子/在/河/的/南岸/。
 
-\qquad\ \ We keep our money in a bank.
+\qquad\ \ We keep our money in a bank .
 
-\qquad\ \ 我们在一家银行存钱。
+\qquad\ \ 我们/在/一家/银行/存钱/。
 
 \qquad\ \ 检测点：bank 的多义翻译
 \label{eg:4-5}
@@ -523,6 +520,11 @@ His house is on the south bank of the river.
 
 \parinterval 在DREEM中，分布式表示的选取是一个十分关键的问题，理想的情况下，分布式表示应该涵盖句子在词汇、句法、语法、语义、依存关系等各个方面的信息。目前常见的分布式表示方式如表\ref{tab:4-2}所示。除此之外，还可以通过词袋模型、循环神经网络等将词向量表示转换为句子向量表示。
 
+\parinterval DREEM方法中选取了能够反映句子中使用的特定词汇的One-hot向量、能够反映词汇信息的词嵌入向量\upcite{bengio2003a}、能够反映句子的合成语义信息的{\small\sffamily\bfseries{递归自动编码}}\index{递归自动编码}（Recursive Auto-encoder Embedding，RAE）\index{Recursive Auto-encoder Embedding}，这三种表示级联在一起，最终形成句子的向量表示。在得到机器译文和参考答案的上述分布式表示后，利用余弦相似度和长度惩罚对机器译文质量进行评价。机器译文$o$和参考答案$g$之间的相似度如公式\eqref{eq:4-16}所示，其中${v_i}(o)$和${v_i}(g)$分别是机器译文和参考答案的向量表示中的第$i$ 个元素，$N$是向量表示的维度大小。
+\begin{eqnarray}
+\textrm {cos}(t,r) &=& \frac{{\sum\limits_{i = 1}^N {{v_i}(o) \cdot {v_i}(g)} }}{{\sqrt {\sum\limits_{i = 1}^N {v_i^2(o)} } \sqrt {\sum\limits_{i = 1}^N {v_i^2(g)} } }}
+\label{eq:4-16}
+\end{eqnarray}
 \begin{table}[htp]{
 \begin{center}
 \caption{常见的单词及句子分布表示}
@@ -541,12 +543,6 @@ His house is on the south bank of the river.
 }
 \end{center}
 }\end{table}
-
-\parinterval DREEM方法中选取了能够反映句子中使用的特定词汇的One-hot向量、能够反映词汇信息的词嵌入向量\upcite{bengio2003a}、能够反映句子的合成语义信息的{\small\sffamily\bfseries{递归自动编码}}\index{递归自动编码}（Recursive Auto-encoder Embedding，RAE）\index{Recursive Auto-encoder Embedding}，这三种表示级联在一起，最终形成句子的向量表示。在得到机器译文和参考答案的上述分布式表示后，利用余弦相似度和长度惩罚对机器译文质量进行评价。机器译文$o$和参考答案$g$之间的相似度如公式\eqref{eq:4-16}所示，其中${v_i}(o)$和${v_i}(g)$分别是机器译文和参考答案的向量表示中的第$i$ 个元素，$N$是向量表示的维度大小。
-\begin{eqnarray}
-\textrm {cos}(t,r) &=& \frac{{\sum\limits_{i = 1}^N {{v_i}(o) \cdot {v_i}(g)} }}{{\sqrt {\sum\limits_{i = 1}^N {v_i^2(o)} } \sqrt {\sum\limits_{i = 1}^N {v_i^2(g)} } }}
-\label{eq:4-16}
-\end{eqnarray}
 
 \parinterval 在此基础上，DREEM方法还引入了长度惩罚项，对与参考答案长度相差太多的机器译文进行惩罚，长度惩罚项如公式\eqref{eq:4-17}所示，其中${l_o}$和${l_g}$分别是机器译文和参考答案长度：
 \begin{eqnarray}
@@ -569,14 +565,11 @@ His house is on the south bank of the river.
 
 \parinterval 本质上，分布式表示是一种对句子语义的一种统计表示。因此，它可以帮助评价系统捕捉一些从简单的词或者句子片段中不易发现的现象，进而进行更深层的句子匹配。
 
-\parinterval 在DREEM方法取得成功后，基于词嵌入的词对齐自动评价方法被提出\upcite{DBLP:journals/corr/MatsuoKS17}，该方法中先得到机器译文与参考答案的词对齐关系后，通过对齐关系中两者的词嵌入相似度来计算机器译文与参考答案的相似度，公式如下：
-
+\parinterval 在DREEM方法取得成功后，基于词嵌入的词对齐自动评价方法被提出\upcite{DBLP:journals/corr/MatsuoKS17}，该方法中先得到机器译文与参考答案的词对齐关系后，通过对齐关系中两者的词嵌入相似度来计算机器译文与参考答案的相似度，公式如\eqref{eq:4-19}。其中，$o$是机器译文，$g$是参考答案，$m$表示译文$o$的长度，$l$表示参考答案$g$的长度，函数$\varphi(o,g,i,j)$用来计算$o$中第$i$个词和$g$中第$j$个词之间对齐关系的相似度。：
 \begin{eqnarray}
 \textrm{ASS}(o,g) &=& \frac{1}{{m \cdot l}}\sum\limits_{i = 1}^{m} {\sum\limits_{j = 1}^{l} {\varphi (o,g,i,j)} }
 \label{eq:4-19}
 \end{eqnarray}
-
-\noindent 其中，$o$是机器译文，$g$是参考答案，$m$表示译文$o$的长度，$l$表示参考答案$g$的长度，函数$\varphi(o,g,i,j)$用来计算$o$中第$i$个词和$g$中第$j$个词之间对齐关系的相似度。
 
 \parinterval 此外，将分布式表示与相对排序融合也是一个很有趣的想法\upcite{DBLP:journals/csl/GuzmanJMN17}，在这个尝试中，研究人员利用分布式表示提取参考答案和多个机器译文中的句法信息和语义信息，利用神经网络模型对多个机器译文进行排序。
 
@@ -647,7 +640,6 @@ His house is on the south bank of the river.
 %----------------------------------------------
 
 \parinterval 回到机器翻译的问题中来。一个更加基础的问题是：一个系统评价结果的变化在多大范围内是不显著的。利用假设检验的原理，这个问题可以被描述为：评价结果落在$[x-d,x+d]$区间的置信度是$1-\alpha$。换句话说，当系统性能落在$[x-d, x+d]$外，就可以说这个结果与原始的结果有显著性差异。这里$x$通常是系统译文的BLEU计算结果，$[x-d,x+d]$是其对应的置信区间。而$d$和$\alpha$有很多计算方法，比如，如果假设评价结果服从正态分布，可以简单的计算$d$。
-
 \begin{eqnarray}
 d&=&t \frac{s}{\sqrt{n}}
 \label{eq:4-21}
@@ -704,11 +696,11 @@ d&=&t \frac{s}{\sqrt{n}}
 \begin{example}
 单词级质量评估任务
 
-源句（Source）：Draw or select a line.（英语）
+源句（Source）：Draw or select a line .（英语）
 
-机器译文（MT）：Zeichnen oder wählen Sie eine Linie aus.（德语）
+机器译文（MT）：Zeichnen oder wählen Sie eine Linie aus .（德语）
 
-后编辑结果（PE）：Zeichnen oder Sie eine Linie, oder wählen Sie eine aus.（德语）
+后编辑结果（PE）：Zeichnen oder Sie eine Linie, oder wählen Sie eine aus .（德语）
 
 \label{eg:4-7}
 \end{example}
@@ -751,7 +743,7 @@ d&=&t \frac{s}{\sqrt{n}}
 
 源句（Source）：Nach Zubereitung || im Kühlschrank aufbewahren || und innerha-
 
-\hspace{7.3em}lb von 24 || Stunden aufbrauchen.（德语）
+\hspace{7.3em}lb von 24 || Stunden aufbrauchen .（德语）
 
 机器译文（MT）：After reconstitution || in the refrigerator || and used within 24 ||
 
@@ -798,7 +790,7 @@ d&=&t \frac{s}{\sqrt{n}}
 \label{eq:4-20}
 \end{eqnarray}
 
-\parinterval 这种质量评估方式往往以单词级质量评估为基础，在其结果的基础上进行计算。以实例\ref{eg:4-7}中词级质量评估结果为例，与编辑后结果相比较，机器翻译译文中有四处漏译（“Mit”、“können”、“Sie”、“einzelne”）、三处误译（“dem”、\\“Scharfzeichner”、“scharfzeichnen”分别被误译为“Der”、“Schärfen-Werkezug”、“Schärfer”）、一处多译（“erscheint”），因而需要进行4次插入操作、3次替换操作和1次删除操作，而最终译文长度为12，则有$\textrm HTER=(4+3+1)/12=0.667$。需要注意的是，即便这种评估方式以单词级质量评估为基础，也不意味这句子级质量评估只是在单词级质量评估的结果上通过简单的计算来获得其得分，在实际研究中，常将其视为一个回归问题，利用大量数据学习其评分规则。
+\parinterval 这种质量评估方式往往以单词级质量评估为基础，在其结果的基础上进行计算。以实例\ref{eg:4-7}中词级质量评估结果为例，与编辑后结果相比较，机器翻译译文中有四处漏译（“Mit”、“können”、“Sie”、“einzelne”）、三处误译（“dem”、\\“Scharfzeichner”、“scharfzeichnen”分别被误译为“Der”、“Schärfen-Werkezug”、\\“Schärfer”）、一处多译（“erscheint”），因而需要进行4次插入操作、3次替换操作和1次删除操作，而最终译文长度为12，则有${\textrm {HTER}}=(4+3+1)/12=0.667$。需要注意的是，即便这种评估方式以单词级质量评估为基础，也不意味这句子级质量评估只是在单词级质量评估的结果上通过简单的计算来获得其得分，在实际研究中，常将其视为一个回归问题，利用大量数据学习其评分规则。
 \vspace{0.5em}
 \end{itemize}
 
@@ -817,11 +809,11 @@ d&=&t \frac{s}{\sqrt{n}}
 
 上文信息：A {\red housewife} won the first prize in the supermarket's anniversary
 
-\hspace{5em}celebration.
+\hspace{5em}celebration .
 
 机器译文：A few days ago, {\red he} contacted the News Channel and said that the
 
-\hspace{5em}supermarket owner refused to give {\red him} the prize.
+\hspace{5em}supermarket owner refused to give {\red him} the prize .
 \label{eg:4-9}
 \end{example}
 
@@ -873,7 +865,6 @@ d&=&t \frac{s}{\sqrt{n}}
 \item {\small\sffamily\bfseries{充分度特征}}：反映了源文和机器译文在不同语言层次上的密切程度或关联程度。
 \vspace{0.5em}
 \end{itemize}
-
 \parinterval 随着深度学习技术的发展，另一种思路是使用表示学习技术生成句子的分布式表示，并在此基础上利用神经网络自动提取高度抽象的句子特征\upcite{DBLP:conf/wmt/KreutzerSR15,DBLP:conf/wmt/MartinsAHK16,DBLP:conf/wmt/ChenTZXZLW17}，这样就避免了人工设计特征所带来的时间以及人工代价，同时表示学习所得到的分布式表示可以涵盖更多人工设计难以捕获到的特征，更加全面地反映句子的特点，因此在质量评估任务上也取得了很好的效果\upcite{kreutzer2015quality,DBLP:conf/wmt/ShahLPBBBS15,DBLP:conf/wmt/ScartonBSSS16,DBLP:conf/wmt/AbdelsalamBE16,DBLP:conf/wmt/BasuPN18}。比如，最近的一些工作中大量使用了神经机器翻译模型来获得双语句子的表示结果，并用于质量评估\upcite{DBLP:conf/wmt/Qi19,DBLP:conf/wmt/ZhouZH19,DBLP:conf/wmt/Hokamp17,wang2019niutrans}。这样做的好处在于，质量评估可以直接复用机器翻译的模型，从某种意义上降低了质量评估系统开发的代价。此外，随着近几年各种预训练模型的出现，使用预训练模型来获取用于质量评估的句子表示也成为一大流行趋势，这种方法大大减少了质量评估模型自身的训练时间，在该领域内的表现也十分亮眼\upcite{kepler2019unbabel,DBLP:conf/wmt/YankovskayaTF19,DBLP:conf/wmt/KimLKN19}。关于表示学习、神经机器翻译、预训练模型的内容在第九章和第十章会有进一步介绍。
 
 \parinterval 在得到句子表示之后，可以使用质量评估模块对译文质量进行预测。质量评估模型通常由回归算法或分类算法实现：

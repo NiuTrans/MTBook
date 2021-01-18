@@ -3,12 +3,12 @@
 
 \begin{tikzpicture}
 \begin{scope}
-\tikzstyle{lnode} = [minimum height=1.5em,minimum width=3em,inner sep=3pt,rounded corners=1.5pt,draw,fill=orange!20];
+\tikzstyle{lnode} = [minimum height=1.5em,minimum width=3em,inner sep=3pt,rounded corners=1.5pt,draw,fill=orange!30];
 \tikzstyle{standard} = [rounded corners=3pt]
 
 \node [lnode,anchor=west] (l1) at (0,0) {\scriptsize{子层}};
 \node [lnode,anchor=west] (l2) at ([xshift=3em]l1.east) {\scriptsize{层标准化}};
-\node [lnode,anchor=west] (l3) at ([xshift=4em]l2.east) {\scriptsize{层标准化}};
+\node [lnode,anchor=west] (l3) at ([xshift=6em]l2.east) {\scriptsize{层标准化}};
 \node [lnode,anchor=west] (l4) at ([xshift=1.5em]l3.east) {\scriptsize{子层}};
 
 \node [anchor=west] (plus1) at ([xshift=0.9em]l1.east) {\scriptsize{$\mathbf{\oplus}$}};

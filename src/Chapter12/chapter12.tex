@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -132,7 +132,7 @@
 \multicolumn{1}{l|}{ConvS2S}             & 25.16           & 40.46           & 1.5$\times 10^{20}$                   \\
 \multicolumn{1}{l|}{MoE}                 & 26.03           & 40.56           & 1.2$\times 10^{20}$                   \\
 \multicolumn{1}{l|}{Transformer (Base Model) }                 & 27.3           &38.1           & 3.3$\times 10^{18}$                   \\
-\multicolumn{1}{l|}{Transformer (Big Model)}    & {\small\sffamily\bfseries{28.4}}   & {\small\sffamily\bfseries{41.8}}   & 2.3$\times 10^{19}$                   \\
+\multicolumn{1}{l|}{Transformer (Big Model)}    & {\small\bfnew{28.4}}   & {\small\bfnew{41.8}}   & 2.3$\times 10^{19}$                   \\
 \end{tabular}
 \end{table}
 %----------------------------------------------
@@ -158,19 +158,19 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{自注意力子层}}\index{自注意力子层}（Self-Attention Sub-layer）\index{Self-Attention Sub-layer}：使用自注意力机制对输入的序列进行新的表示；
+\item {\small\bfnew{自注意力子层}}\index{自注意力子层}（Self-Attention Sub-layer）\index{Self-Attention Sub-layer}：使用自注意力机制对输入的序列进行新的表示；
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{前馈神经网络子层}}\index{前馈神经网络子层}（Feed-Forward Sub-layer）\index{Feed-Forward Sub-layer}：使用全连接的前馈神经网络对输入向量序列进行进一步变换；
+\item {\small\bfnew{前馈神经网络子层}}\index{前馈神经网络子层}（Feed-Forward Sub-layer）\index{Feed-Forward Sub-layer}：使用全连接的前馈神经网络对输入向量序列进行进一步变换；
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{残差连接}}（标记为“Add”）：对于自注意力子层和前馈神经网络子层，都有一个从输入直接到输出的额外连接，也就是一个跨子层的直连。残差连接可以使深层网络的信息传递更为有效；
+\item {\small\bfnew{残差连接}}（标记为“Add”）：对于自注意力子层和前馈神经网络子层，都有一个从输入直接到输出的额外连接，也就是一个跨子层的直连。残差连接可以使深层网络的信息传递更为有效；
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{层标准化}}（Layer Normalization）：自注意力子层和前馈神经网络子层进行最终输出之前，会对输出的向量进行层标准化，规范结果向量取值范围，这样易于后面进一步的处理。
+\item {\small\bfnew{层标准化}}（Layer Normalization）：自注意力子层和前馈神经网络子层进行最终输出之前，会对输出的向量进行层标准化，规范结果向量取值范围，这样易于后面进一步的处理。
 \vspace{0.5em}
 \end{itemize}
 
 \parinterval 以上操作就构成了Transformer的一层，各个模块执行的顺序可以简单描述为：Self-Attention $\to$ Residual Connection $\to$ Layer Normalization $\to$ Feed Forward Network $\to$ Residual Connection $\to$ Layer Normalization。编码器可以包含多个这样的层，比如，可以构建一个六层编码器，每层都执行上面的操作。最上层的结果作为整个编码的结果，会被传入解码器。
 
-\parinterval 解码器的结构与编码器十分类似。它也是由若干层组成，每一层包含编码器中的所有结构，即：自注意力子层、前馈神经网络子层、残差连接和层标准化模块。此外，为了捕捉源语言的信息，解码器又引入了一个额外的{\small\sffamily\bfseries{编码-解码注意力子层}}\index{编码-解码注意力子层}（Encoder-Decoder Attention Sub-layer）\index{Encoder-Decoder Attention Sub-layer}。这个新的子层，可以帮助模型使用源语言句子的表示信息生成目标语言不同位置的表示。编码-解码注意力子层仍然基于自注意力机制，因此它和自注意力子层的结构是相同的，只是$\mathrm{query}$、$\mathrm{key}$、$\mathrm{value}$的定义不同。比如，在解码器端，自注意力子层的$\mathrm{query}$、$\mathrm{key}$、$\mathrm{value}$是相同的，它们都等于解码器每个位置的表示。而在编码-解码注意力子层中，$\mathrm{query}$是解码器每个位置的表示，此时$\mathrm{key}$和$\mathrm{value}$是相同的，等于编码器每个位置的表示。图\ref{fig:12-5}给出了这两种不同注意力子层输入的区别。
+\parinterval 解码器的结构与编码器十分类似。它也是由若干层组成，每一层包含编码器中的所有结构，即：自注意力子层、前馈神经网络子层、残差连接和层标准化模块。此外，为了捕捉源语言的信息，解码器又引入了一个额外的{\small\bfnew{编码-解码注意力子层}}\index{编码-解码注意力子层}（Encoder-Decoder Attention Sub-layer）\index{Encoder-Decoder Attention Sub-layer}。这个新的子层，可以帮助模型使用源语言句子的表示信息生成目标语言不同位置的表示。编码-解码注意力子层仍然基于自注意力机制，因此它和自注意力子层的结构是相同的，只是$\mathrm{query}$、$\mathrm{key}$、$\mathrm{value}$的定义不同。比如，在解码器端，自注意力子层的$\mathrm{query}$、$\mathrm{key}$、$\mathrm{value}$是相同的，它们都等于解码器每个位置的表示。而在编码-解码注意力子层中，$\mathrm{query}$是解码器每个位置的表示，此时$\mathrm{key}$和$\mathrm{value}$是相同的，等于编码器每个位置的表示。图\ref{fig:12-5}给出了这两种不同注意力子层输入的区别。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -319,17 +319,17 @@
 
 \subsection{多头注意力机制}
 
-\parinterval Transformer中使用的另一项重要技术是{\small\sffamily\bfseries{多头注意力机制}}\index{多头注意力机制}（Multi-head Attention）\index{Multi-head Attention}。“多头”可以理解成将原来的$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$按照隐层维度平均切分成多份。假设切分$h$份，那么最终会得到$\mathbi{Q} = \{ \mathbi{Q}_1,...,\mathbi{Q}_h \}$，$\mathbi{K}=\{ \mathbi{K}_1,...,\mathbi{K}_h \}$，$\mathbi{V}=\{ \mathbi{V}_1,...,\mathbi{V}_h \}$。多头注意力就是用每一个切分得到的$\mathbi{Q}$，$\mathbi{K}$，$\mathbi{V}$独立的进行注意力计算，即第$i$个头的注意力计算结果$\mathbi{head}_i = \textrm{Attention}(\mathbi{Q}_i,\mathbi{K}_i, \mathbi{V}_i)$。
+\parinterval Transformer中使用的另一项重要技术是{\small\bfnew{多头注意力机制}}\index{多头注意力机制}（Multi-head Attention）\index{Multi-head Attention}。“多头”可以理解成将原来的$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$按照隐层维度平均切分成多份。假设切分$h$份，那么最终会得到$\mathbi{Q} = \{ \mathbi{Q}_1,...,\mathbi{Q}_h \}$，$\mathbi{K}=\{ \mathbi{K}_1,...,\mathbi{K}_h \}$，$\mathbi{V}=\{ \mathbi{V}_1,...,\mathbi{V}_h \}$。多头注意力就是用每一个切分得到的$\mathbi{Q}$，$\mathbi{K}$，$\mathbi{V}$独立的进行注意力计算，即第$i$个头的注意力计算结果$\mathbi{head}_i = \textrm{Attention}(\mathbi{Q}_i,\mathbi{K}_i, \mathbi{V}_i)$。
 
 \parinterval 下面根据图\ref{fig:12-12}详细介绍多头注意力的计算过程：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 首先，将$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$分别通过线性（Linear）变换的方式映射为$h$个子集。即$\mathbi{Q}_i = \mathbi{Q}\mathbi{W}_i^{\,Q} $、$\mathbi{K}_i = \mathbi{K}\mathbi{W}_i^{\,K} $、$\mathbi{V}_i = \mathbi{V}\mathbi{W}_i^{\,V} $，其中$i$表示第$i$个头， $\mathbi{W}_i^{\,Q}  \in \mathbb{R}^{d_{model} \times d_k}$,  $\mathbi{W}_i^{\,K}  \in \mathbb{R}^{d_{model} \times d_k}$,  $\mathbi{W}_i^{\,V}  \in \mathbb{R}^{d_{model} \times d_v}$是参数矩阵; $d_k=d_v=d_{model} / h$，对于不同的头采用不同的变换矩阵，这里$d_{model}$表示每个隐层向量的维度；
+\item 首先，将$\mathbi{Q}$、$\mathbi{K}$、$\mathbi{V}$分别通过线性（Linear）变换的方式映射为$h$个子集。即$\mathbi{Q}_i = \mathbi{Q}\mathbi{W}_i^{\,Q} $、$\mathbi{K}_i = \mathbi{K}\mathbi{W}_i^{\,K} $、$\mathbi{V}_i = \mathbi{V}\mathbi{W}_i^{\,V} $，其中$i$表示第$i$个头， $\mathbi{W}_i^{\,Q}  \in \mathbb{R}^{d_{\textrm{model}} \times d_k}$,  $\mathbi{W}_i^{\,K}  \in \mathbb{R}^{d_{\textrm{model}} \times d_k}$,  $\mathbi{W}_i^{\,V}  \in \mathbb{R}^{d_{\textrm{model}} \times d_v}$是参数矩阵; $d_k=d_v=d_{\textrm{model}} / h$，对于不同的头采用不同的变换矩阵，这里$d_{\textrm{model}}$表示每个隐层向量的维度；
 \vspace{0.5em}
 \item 其次，对每个头分别执行点乘注意力操作，并得到每个头的注意力操作的输出$\mathbi{head}_i$；
 \vspace{0.5em}
-\item 最后，将$h$个头的注意力输出在最后一维$d_v$进行拼接（Concat）重新得到维度为$hd_v$的输出，并通过对其右乘一个权重矩阵$\mathbi{W}^{\,o}$进行线性变换，从而对多头计算得到的信息进行融合，且将多头注意力输出的维度映射为模型的隐层大小（即$d_{model}$），这里参数矩阵$\mathbi{W}^{\,o} \in \mathbb{R}^{h d_v \times d_{model}}$。
+\item 最后，将$h$个头的注意力输出在最后一维$d_v$进行拼接（Concat）重新得到维度为$hd_v$的输出，并通过对其右乘一个权重矩阵$\mathbi{W}^{\,o}$进行线性变换，从而对多头计算得到的信息进行融合，且将多头注意力输出的维度映射为模型的隐层大小（即$d_{\textrm{model}}$），这里参数矩阵$\mathbi{W}^{\,o} \in \mathbb{R}^{h d_v \times d_{\textrm{model}}}$。
 \vspace{0.5em}
 \end{itemize}
 

@@ -49,7 +49,7 @@
 
 \end{scope}
 
-\begin{scope}[xshift=16.8em,yshift=6em]
+\begin{scope}[xshift=18.8em,yshift=6em]
 
 {
 \tikzstyle{numbernode} = [fill=blue!30,minimum height=0.8em,minimum width=0.8em,circle,draw,inner sep=1pt]
@@ -94,14 +94,14 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[draw,thin,minimum width=11em,align=left,rounded corners=1pt,fill=red!5,drop shadow] [fit = (outputnode) (word01) (word02) ] (netbox) {};
+\node[draw,minimum width=11em,align=left,rounded corners=1pt,fill=red!5,drop shadow] [fit = (outputnode) (word01) (word02) ] (netbox) {};
 \node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron01) (neuron02) (neuron03) (neuron04)] (layer1) {};
 \node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron11) (neuron12) (neuron13) (neuron14)] (layer2) {};
 \node[rectangle,draw,thin,inner sep=3pt,rounded corners=1pt] [fit = (neuron21) (neuron22) (neuron23) (neuron24) (neuron25)] (layer3) {};
 }
 \end{pgfonlayer}
 
-\draw [->,very thick,dotted] (enclabel.east) ..controls + (east:2em) and +(west:2em).. ([yshift=-1em]netbox.west);
+\draw [->,very thick,dotted] (enclabel.east) ..controls + (east:4em) and +(west:4em).. ([yshift=1em]netbox.west);
 
 \node [anchor=north] (netlabel) at (netbox.south) {\footnotesize{编码器网络示例}};
 }

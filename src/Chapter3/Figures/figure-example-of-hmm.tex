@@ -1,5 +1,5 @@
 \begin{tikzpicture}
-	\tikzstyle{unit} = [draw,circle,line width=0.8pt,align=center,fill=green!30,minimum size=1em]
+	\tikzstyle{unit} = [draw,circle,thick,align=center,fill=green!30,minimum size=1em]
 		
 		\node[minimum width=3em,minimum height=1.8em] (o) at (0,0){};
 		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_A) at ([xshift=-0em,yshift=-1em]o.south){隐含状态$A$};
@@ -7,10 +7,10 @@
 		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_C) at ([yshift=-1.6em]state_B.south){隐含状态$C$};
 		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_D) at ([yshift=-1.6em]state_C.south){隐含状态$D$};
 		
-		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c1) at ([yshift=0.2em,xshift=2em]o.east){$T$};
-		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c2) at ([xshift=5em]c1.east){$F$};
-		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c3) at ([xshift=5em]c2.east){$F$};
-		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c4) at ([xshift=5em]c3.east){$T$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c1) at ([yshift=0.2em,xshift=3em]o.east){$T$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c2) at ([xshift=6em]c1.east){$F$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c3) at ([xshift=6em]c2.east){$F$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c4) at ([xshift=6em]c3.east){$T$};
 		\node[anchor=south,font=\scriptsize] (cl1) at (c1.north) {时刻1};
 		\node[anchor=south,font=\scriptsize] (cl2) at (c2.north) {时刻2};
 		\node[anchor=south,font=\scriptsize] (cl3) at (c3.north) {时刻3};
