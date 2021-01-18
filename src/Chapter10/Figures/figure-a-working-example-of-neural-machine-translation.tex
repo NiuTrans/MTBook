@@ -10,11 +10,11 @@
             % RNN Encoder
             \coordinate (eemb0) at (0,0);
             \foreach \x [count=\y from 0] in {1,2,...,4}
-                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.4\base]eemb\y.east) {};
+                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.7\base]eemb\y.east) {};
             \foreach \x in {1,2,...,4}
                 \node[rnnnode,fill=blue!30!white,anchor=south] (enc\x) at ([yshift=0.5\base]eemb\x.north) {};
             \node[wordnode,left=0.4\base of enc1,font=\footnotesize] (init) {0};
- 			\node[wordnode,anchor=east] (init2) at ([xshift=-3.0em]init.west){};
+ 			\node[wordnode,anchor=east] (init2) at ([xshift=-3em]init.west){};
                {
                 \node[rnnnode,fill=purple] (repr) at (enc4) {};
                 \node[wordnode] (label) at ([yshift=2.5em]enc4.north) {
@@ -35,7 +35,7 @@
 
             % RNN Decoder
             \foreach \x in {1,2,...,4}
-                 \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=south] (demb\x) at ([xshift=9.5em,yshift=-3.9em]enc\x.north) {};
+                 \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=south] (demb\x) at ([xshift=12.5em,yshift=-3.9em]enc\x.north) {};
             \foreach \x in {1,2,...,4}
                 \node[rnnnode,fill=blue!30!white,anchor=south] (dec\x) at ([yshift=0.5\base]demb\x.north) {};
             \foreach \x in {1,2,...,4}

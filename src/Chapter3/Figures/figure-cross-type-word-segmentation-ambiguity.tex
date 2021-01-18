@@ -9,7 +9,7 @@
 
 \begin{tikzpicture}
 
-\begin{scope}
+\begin{scope}[xshift=-0.3in]
 {
 {\small
 \node [anchor=north west] (entry1) at (0,0) {{1:} 很};
@@ -24,14 +24,14 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0.2em] [fit = (entry1) (entry2) (entry3) (entry4) (entry5) (entry6) (dictionarylabel)] {};
+\node[rectangle,draw=ublue, inner sep=0.2em,thick] [fit = (entry1) (entry2) (entry3) (entry4) (entry5) (entry6) (dictionarylabel)] {};
 }
 \end{pgfonlayer}
 
 \end{scope}
 
 {
-\begin{scope}[xshift=1.2in,yshift=1em]
+\begin{scope}[xshift=1.5in,yshift=1em]
 \node [anchor=west] (c1) at (0,0) {确};
 \node [anchor=west] (c2) at ([xshift=0em]c1.east) {实};
 \node [anchor=west] (c3) at ([xshift=0em]c2.east) {现};

@@ -5,7 +5,7 @@
 \begin{scope}
 	%\tikzstyle{every node}=[scale=0.8]
 	\tikzstyle{line} = [dash pattern=on 2pt off 1pt,line width=0.6pt]
-	\tikzstyle{cir} = [thin,fill=blue!8,draw,circle,minimum size =0.5em,drop shadow={shadow xshift=0.15em, shadow yshift=-0.1em}]
+	\tikzstyle{cir} = [thin,fill=blue!15,draw,circle,minimum size =0.5em,drop shadow={shadow xshift=0.15em, shadow yshift=-0.1em}]
 	\tikzstyle{word} = [inner sep=0pt, font=\footnotesize,minimum height=\bcc]
 	
 	%\draw[fill=blue!8,xshift=0.3cm,yshift=0.5cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+9*\bcc);
@@ -13,30 +13,30 @@
 	%\draw[red!60,line width=2pt,xshift=0.3cm,yshift=0.5cm] (0cm,0cm+2*\bcc) rectangle (0cm+6*\bcc,0cm+4*\bcc);
 	
 	% 输入矩阵
-	\draw[thick,fill=blue!8,line width=0.6pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+9*\bcc);
+	\draw[thick,fill=blue!15,line width=0.6pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+9*\bcc);
 	\draw[step=\bcc,gray] (0cm,0cm) grid (0cm+6*\bcc,0cm+9*\bcc); 
-	\draw[red!60,line width=2pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+2*\bcc);
-	\draw[ugreen!60,line width=2pt] (0cm,0cm+3*\bcc) rectangle (0cm+6*\bcc,0cm+6*\bcc);
-	\draw[red!60,line width=2pt] (0cm,0cm+7*\bcc) rectangle (0cm+6*\bcc,0cm+9*\bcc);
+	\draw[red!80,line width=2pt] (0cm,0cm) rectangle (0cm+6*\bcc,0cm+2*\bcc);
+	\draw[ugreen!80,line width=2pt] (0cm,0cm+3*\bcc) rectangle (0cm+6*\bcc,0cm+6*\bcc);
+	\draw[red!80,line width=2pt] (0cm,0cm+7*\bcc) rectangle (0cm+6*\bcc,0cm+9*\bcc);
 
 	% 特征图
-	\draw[fill=blue!8,xshift=5.0cm,yshift=1.3cm,line width=0.6pt] (0cm,0cm-1*\bcc) rectangle (0cm+1*\bcc,0cm+6*\bcc);
+	\draw[fill=blue!15,xshift=5.0cm,yshift=1.3cm,line width=0.6pt] (0cm,0cm-1*\bcc) rectangle (0cm+1*\bcc,0cm+6*\bcc);
 	\draw[step=\bcc,gray,xshift=5.0cm,yshift=1.3cm] (0cm,0cm-1*\bcc) grid (0cm+1*\bcc,0cm+6*\bcc);
-	\draw[ugreen!60,line width=2pt,xshift=5.0cm,yshift=1.3cm] (0cm,0cm+2*\bcc) rectangle (0cm+1*\bcc,0cm+3*\bcc);
+	\draw[ugreen!80,line width=2pt,xshift=5.0cm,yshift=1.3cm] (0cm,0cm+2*\bcc) rectangle (0cm+1*\bcc,0cm+3*\bcc);
 	
 	%最大池化
-	\draw [gray,fill=blue!8,line width=0.6pt](8cm,2.2cm) -- (8.4cm, 2.2cm) -- (8.7cm,1.4cm) -- (8.3cm, 1.4cm) -- (8cm,2.2cm);
+	\draw [gray,fill=blue!15,line width=0.6pt](8cm,2.2cm) -- (8.4cm, 2.2cm) -- (8.7cm,1.4cm) -- (8.3cm, 1.4cm) -- (8cm,2.2cm);
 	\draw [gray](8.15cm,1.8cm) -- (8.55cm,1.8cm);
 	%\draw [gray](8.3cm,1.8cm) -- (8.7cm,1.8cm);
 	%\draw [gray](8.45cm,1.4cm) -- (8.85cm,1.4cm);
 	
 	%全连接层
-	\draw [gray,fill=blue!8,line width=0.6pt](11cm,2.2cm) -- (11.4cm, 2.2cm) -- (11.7cm,1.8cm) -- (11.3cm, 1.8cm) -- (11cm,2.2cm);
+	\draw [gray,fill=blue!15,line width=0.6pt](11cm,2.2cm) -- (11.4cm, 2.2cm) -- (11.7cm,1.8cm) -- (11.3cm, 1.8cm) -- (11cm,2.2cm);
 	%\draw [gray](11.15cm,1.8cm) -- (11.55cm,1.8cm);
 	
 	%最大池化
-	\draw[ugreen!60,line] ([xshift=5.0cm,yshift=1.3cm]0cm+1*\bcc,0cm+6*\bcc) -- (8cm,2.2cm);
-	\draw[ugreen!60,line] ([xshift=5.0cm,yshift=1.3cm]0cm+1*\bcc,0cm-1*\bcc) -- (8.15cm,1.8cm);
+	\draw[ugreen!80,line] ([xshift=5.0cm,yshift=1.3cm]0cm+1*\bcc,0cm+6*\bcc) -- (8cm,2.2cm);
+	\draw[ugreen!80,line] ([xshift=5.0cm,yshift=1.3cm]0cm+1*\bcc,0cm-1*\bcc) -- (8.15cm,1.8cm);
 
 	%特征图
 	%\draw[fill=blue!8,xshift=5.2cm,yshift=1.0cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+6*\bcc);
@@ -45,25 +45,25 @@
 	%\draw[fill=blue!8,xshift=5.4cm,yshift=0.3cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+7*\bcc);
 	%\draw[step=\bcc,gray,xshift=5.4cm,yshift=0.3cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+7*\bcc);
 	
-	\draw[fill=blue!8,xshift=5.6cm,yshift=0cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+8*\bcc);
+	\draw[fill=blue!15,xshift=5.6cm,yshift=0cm,line width=0.6pt] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+8*\bcc);
 	\draw[step=\bcc,gray,xshift=5.6cm,yshift=0cm] (0cm,0cm) grid (0cm+1*\bcc,0cm+8*\bcc); 
-	\draw[red!60,line width=2pt,xshift=5.6cm,yshift=0cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+1*\bcc);
-	\draw[red!60,line width=2pt,xshift=5.6cm,yshift=0cm] (0cm,0cm+7*\bcc) rectangle (0cm+1*\bcc,0cm+8*\bcc);
+	\draw[red!80,line width=2pt,xshift=5.6cm,yshift=0cm] (0cm,0cm) rectangle (0cm+1*\bcc,0cm+1*\bcc);
+	\draw[red!80,line width=2pt,xshift=5.6cm,yshift=0cm] (0cm,0cm+7*\bcc) rectangle (0cm+1*\bcc,0cm+8*\bcc);
 	
 	% 全连接线
 	\draw[line] (8.4cm, 2.2cm) -- (11.2cm,2.2cm);
 	\draw[line] (8.7cm,1.4cm) -- (11.3cm, 1.8cm);
 	%全连接上面的红虚线
-	\draw[red!60,line] ([xshift=5.6cm,yshift=0cm]0cm+1*\bcc,0cm+7*\bcc) -- (8.15cm,1.8cm);
-	\draw[red!60,line] ([xshift=5.6cm,yshift=0cm]0cm+1*\bcc,0cm) -- (8.3cm, 1.4cm);
+	\draw[red!80,line] ([xshift=5.6cm,yshift=0cm]0cm+1*\bcc,0cm+7*\bcc) -- (8.15cm,1.8cm);
+	\draw[red!80,line] ([xshift=5.6cm,yshift=0cm]0cm+1*\bcc,0cm) -- (8.3cm, 1.4cm);
 	
 	% 特征图红色虚线
-	\draw[red!60,line] (0cm+6*\bcc,0cm+9*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+8*\bcc);
-	\draw[red!60,line] (0cm+6*\bcc,0cm+7*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+7*\bcc);
-	\draw[red!60,line] (0cm+6*\bcc,0cm+2*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+1*\bcc);
-	\draw[red!60,line] (0cm+6*\bcc,0cm) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm);
-	\draw[ugreen!60,line] (0cm+6*\bcc,0cm+6*\bcc) -- ([xshift=5.0cm,yshift=1.3cm]0cm,0cm+3*\bcc);
-	\draw[ugreen!60,line] (0cm+6*\bcc,0cm+3*\bcc) -- ([xshift=5.0cm,yshift=1.3cm]0cm,0cm+2*\bcc);
+	\draw[red!80,line] (0cm+6*\bcc,0cm+9*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+8*\bcc);
+	\draw[red!80,line] (0cm+6*\bcc,0cm+7*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+7*\bcc);
+	\draw[red!80,line] (0cm+6*\bcc,0cm+2*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+1*\bcc);
+	\draw[red!80,line] (0cm+6*\bcc,0cm) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm);
+	\draw[ugreen!80,line] (0cm+6*\bcc,0cm+6*\bcc) -- ([xshift=5.0cm,yshift=1.3cm]0cm,0cm+3*\bcc);
+	\draw[ugreen!80,line] (0cm+6*\bcc,0cm+3*\bcc) -- ([xshift=5.0cm,yshift=1.3cm]0cm,0cm+2*\bcc);
 	%\draw[red!60,line] ([xshift=0.3cm,yshift=0.5cm]0cm+6*\bcc,0cm+4*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+3*\bcc);
 	%\draw[red!60,line] ([xshift=0.3cm,yshift=0.5cm]0cm+6*\bcc,0cm+2*\bcc) -- ([xshift=5.6cm,yshift=0cm]0cm,0cm+2*\bcc);
 	

@@ -11,7 +11,7 @@
 \node [] (sent) at (0,0) {\textbf{猫 喜欢 吃 鱼}};
 \end{scope}
 
-\begin{scope}[xshift=-8em,yshift=-9em,sibling distance=-5pt,level distance=17pt,grow'=up]
+\begin{scope}[xshift=-10em,yshift=-9em,sibling distance=-5pt,level distance=17pt,grow'=up]
 {\footnotesize
 \Tree[.IP
           [.VP
@@ -64,17 +64,17 @@
 }
 \end{scope}
 
-\draw [->,thick,ublue] ([xshift=-2em]sent.south) ..controls + (south:2em) and +(north:2em).. ([xshift=-8em,yshift=-2em]sent.south);
-\draw [->,thick,ublue] ([xshift=-1em]sent.south) ..controls + (south:2em) and +(north:2em).. ([xshift=-2em,yshift=-2em]sent.south);
-\draw [->,thick,ublue] ([xshift=0em]sent.south) ..controls + (south:2em) and +(north:2em).. ([xshift=6.5em,yshift=-2em]sent.south);
-\draw [->,thick,ublue,dotted] ([xshift=1em]sent.south) ..controls + (south:1.5em) and +(north:2.5em).. ([xshift=12.5em,yshift=-2em]sent.south);
+\draw [->,thick,ublue] ([xshift=-2em]sent.south) ..controls + (south:2em) and +(north:2em).. ([xshift=-10em,yshift=-2em]sent.south);
+\draw [->,thick,ublue] ([xshift=-1em]sent.south) ..controls + (south:2em) and +(north:2em).. ([xshift=-2.3em,yshift=-2em]sent.south);
+\draw [->,thick,ublue] ([xshift=0em]sent.south) ..controls + (south:2em) and +(north:2em).. ([xshift=6.3em,yshift=-2em]sent.south);
+\draw [->,thick,ublue,dotted] ([xshift=1em]sent.south) ..controls + (south:1.5em) and +(north:2.5em).. ([xshift=13.5em,yshift=-2em]sent.south);
 
-\node [anchor=north west] (others) at (11.8em,-3em) {...};
+\node [anchor=north west] (others) at (12.8em,-3em) {...};
 
 
-\node [] (d1) at (-9em,-10em) {$d_1$};
-\node [] (d2) at (0em,-10em) {$d_2$};
-\node [] (d3) at (8.5em,-10em) {$d_2$};
+\node [] (d1) at (-11.9em,-10em) {$d_1$};
+\node [] (d2) at (-2.9em,-10em) {$d_2$};
+\node [] (d3) at (6.2em,-10em) {$d_2$};
 
 \node [anchor=east] (d1p) at ([xshift=0.4em]d1.west) {$\funp{P}($};
 \node [anchor=west] (d1p2) at ([xshift=-0.4em]d1.east) {$)=0.0123$};

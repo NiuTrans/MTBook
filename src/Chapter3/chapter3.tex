@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -211,7 +211,6 @@ $计算这种切分的概率值。
 %-------------------------------------------
 
 \parinterval 以“确实现在数据很多”这个实例来说，如果把这句话按照“确实/现在/数据/很/多”这样的方式进行切分，这个句子切分的概率$\funp{P}$(确实/现在/数据/很/多) 可以通过每个词出现概率相乘的方式进行计算。
-
 \begin{eqnarray}
 &\funp&{P}\textrm{(确实/现在/数据/很/多)} \nonumber \\
 & = &\funp{P}\textrm{(确实)} \cdot \funp{P}\textrm{(现在)} \cdot \funp{P}\textrm{(数据)} \cdot \funp{P}\textrm{(很)} \cdot \funp{P}\textrm{(多)}
@@ -250,6 +249,8 @@ $计算这种切分的概率值。
 \vspace{0.5em}
 \end{itemize}
 
+\parinterval 图\ref{fig:3.3-1}给出了不同标注格式所对应的标注结果。可以看出文本序列中的非命名实体直接被标注为“O”，而命名实体的标注则被分为了两部分：位置和命名实体类别，图中的“B”、“I”、“E”等标注出了位置信息，而“CIT”和“CNT”则标注出了命名实体类别（“CIT”表示城市，“CNT”表示国家）。可以看到，命名实体的识别结果可以通过BIO、BIOES这类序列标注结果归纳出来：例如在BIOES格式中，标签“B-CNT”后面的标签只会是“I-CNT”或“E-CNT”，而不会是其他的标签。同时，在命名实体识别任务中涉及到实体边界的确定，而“BIO”或“BIOES”的标注格式本身就暗含着边界问题：在“BIO”格式下，实体左边界只能在“B”的左侧，右边界只能在“B”或“I”的右侧；在“BIOES”格式下，实体左边界只能在“B”或“S”的左侧，右边界只能在“E”和“S”的右侧。
+
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -259,8 +260,6 @@ $计算这种切分的概率值。
     \label{fig:3.3-1}
 \end{figure}
 %-------------------------------------------
-%
-\parinterval 图\ref{fig:3.3-1}给出了不同标注格式所对应的标注结果。可以看出文本序列中的非命名实体直接被标注为“O”，而命名实体的标注则被分为了两部分：位置和命名实体类别，图中的“B”、“I”、“E”等标注出了位置信息，而“CIT”和“CNT”则标注出了命名实体类别（“CIT”表示城市，“CNT”表示国家）。可以看到，命名实体的识别结果可以通过BIO、BIOES这类序列标注结果归纳出来：例如在BIOES格式中，标签“B-CNT”后面的标签只会是“I-CNT”或“E-CNT”，而不会是其他的标签。同时，在命名实体识别任务中涉及到实体边界的确定，而“BIO”或“BIOES”的标注格式本身就暗含着边界问题：在“BIO”格式下，实体左边界只能在“B”的左侧，右边界只能在“B”或“I”的右侧；在“BIOES”格式下，实体左边界只能在“B”或“S”的左侧，右边界只能在“E”和“S”的右侧。
 
 \parinterval 需要注意的是，虽然图\ref{fig:3.3-1}中的命名实体识别以单词为基本单位进行标注，但真实系统中也可以在字序列上进行命名实体识别，其方法与基于词序列的命名实体识别是一样的。因此，这里仍然以基于词序列的方法为例进行介绍。
 
@@ -345,6 +344,15 @@ $计算这种切分的概率值。
 
 \parinterval 由于隐含状态序列之间存在转移概率，并且隐马尔可夫模型中隐含状态和可见状态之间存在着发射概率，因此根据可见状态的转移猜测隐含状态序列并非无迹可循。图\ref{fig:3.3-3}描述了如何使用隐马尔可夫模型来根据“抛硬币”结果推测挑选的硬币序列。可见，通过隐含状态之间的联系（绿色方框及它们之间的连线）可以对有序的状态进行描述，进而得到隐含状态序列所对应的可见状态序列（红色圆圈）。
 
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter3/Figures/figure-example-of-hmm-in-coin-toss}
+\caption{抛硬币的隐马尔可夫模型实例}
+\label{fig:3.3-3}
+\end{figure}
+%-------------------------------------------
+
 \parinterval 从统计建模的角度看，上述过程本质上是在描述隐含状态和可见状态出现的联合概率。这里，用$\seq{x}=(x_1,...,x_m)$表示可见状态序列，用$\seq{y}=(y_1,...,y_m)$表示隐含状态序列。（一阶）隐马尔可夫模型假设：
 
 \begin{itemize}
@@ -366,14 +374,6 @@ $计算这种切分的概率值。
 
 \noindent 这里，$y_{0}$表示一个虚拟的隐含状态。这样，可以定义$\funp{P}(y_1|y_{0}) \equiv \funp{P}(y_1)$，它表示起始隐含状态出现的概率。隐马尔可夫模型的假设也大大化简了问题，因此可以通过式\eqref{eq:joint-prob-xy}很容易地计算隐含状态序列和可见状态序列出现的概率。值得注意的是，发射概率和转移概率都可以被看作是描述序列生成过程的“特征”。但是，这些“特征”并不是随意定义的，而是符合问题的概率解释。而这种基于事件发生的逻辑所定义的概率生成模型，通常可以被看作是一种{\small\sffamily\bfseries{生成式模型}}\index{生成式模型}（Generative Model）\index{Generative Model}。
 
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter3/Figures/figure-example-of-hmm-in-coin-toss}
-\caption{抛硬币的隐马尔可夫模型实例}
-\label{fig:3.3-3}
-\end{figure}
-%-------------------------------------------
 \parinterval 一般来说，隐马尔可夫模型中包含下面三个问题：
 
 \begin{itemize}
@@ -399,10 +399,7 @@ $计算这种切分的概率值。
 \parinterval 一种简单的办法是使用相对频次估计得到转移概率和发射概率估计值。令$x_i$表示第$i$个位置的可见状态，$y_i$表示第$i$个位置的隐含状态，$\funp{P}(y_i|y_{i-1})$表示第$i-1$个位置到第$i$个位置的状态转移概率，$\funp{P}(x_i|y_{i}) $表示第$i$个位置的发射概率，于是有：
 \begin{eqnarray}
 \funp{P}(y_i|y_{i-1}) &=& \frac{{c}(y_{i-1},y_i)}{{c}(y_{i-1})}
-\label{eq:3.3-1}
-\end{eqnarray}
-
-\begin{eqnarray}
+\label{eq:3.3-1}\\
 \funp{P}(x_i|y_{i}) &=& \frac{{c}(x_i,y_i)}{{c}(y_i)}
 \label{eq:3.3-2}
 \end{eqnarray}
@@ -422,7 +419,6 @@ $计算这种切分的概率值。
 \end{eqnarray}
 
 \parinterval 将式\eqref{eq:joint-prob-xy}带入式\eqref{eq:markov-sequence-argmax}可以得到最终计算公式，如下：
-
 \begin{eqnarray}
 \hat{\seq{y}} &=& \arg\max_{\seq{y}}\prod_{i=1}^{m}\funp{P}(x_i|y_i)\funp{P}(y_i|y_{i-1})
 \label{eq:3.3-5}
@@ -446,7 +442,6 @@ $计算这种切分的概率值。
 \subsubsection{2. 条件随机场}
 
 \parinterval 隐马尔可夫模型有一个很强的假设：一个隐含状态出现的概率仅由上一个隐含状态决定。这个假设也会带来一些问题，举个例子：在某个隐马尔可夫模型中，隐含状态集合为\{$A, B, C, D$\}，可见状态集合为\{$T, F$\}，其中隐含状态$A$可能的后继隐含状态集合为\{$A, B$\}，隐含状态$B$可能的后继隐含状态集合为\{$A, B, C, D$\}，于是有：
-
 \begin{eqnarray}
 \funp{P}(A|A)+\funp{P}(A|B) & = & 1 \label{eq:3.3-6} \\
 \funp{P}(A|B)+\funp{P}(B|B)+\funp{P}(C|B)+\funp{P}(D|B) & = & 1 \label{eq:3.3-7}
@@ -474,14 +469,12 @@ F(y_{i-1},y_i,\seq{x},i) & = & t(y_{i-1},y_i,\seq{x},i)+s(y_i,\seq{x},i)
 \end{eqnarray}
 	
 \parinterval 实际上，基于特征函数的方法更像是对隐含状态序列的一种打分：根据人为设计的模板（特征函数），测试隐含状态之间的转换以及隐含状态与可见状态之间的对应关系是否符合这种模板。在处理序列问题时，假设可见状态序列$\seq{x}$的长度和待预测隐含状态序列$\seq{y}$的长度均为$m$，且共设计了$k$个特征函数，则有：
-
 \begin{eqnarray}
 \funp{P}(\seq{y}|\seq{x}) & = & \frac{1}{Z(\seq{x})}\exp(\sum_{i=1}^m\sum_{j=1}^{k}\lambda_{j}F_{j}(y_{i-1},y_i,\seq{x},i))
 \label{eq:3.3-9}
 \end{eqnarray}
 
 \parinterval 公式\eqref{eq:3.3-9}中的$Z(x)$即为上面提到的实现全局统计归一化的归一化因子，其计算方式为：
-
 \begin{eqnarray}
 Z(\seq{x})&=&\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1},y_i,\seq{x},i))
 \label{eq:3.3-10}
@@ -510,6 +503,8 @@ Z(\seq{x})&=&\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1}
 
 \parinterval 基于概率图的模型将序列表示为有向图或无向图，如图\ref{fig:3.3-7}(a)、(b)所示。这种方法增加了建模的复杂度。既然要得到每个位置的类别输出，另一种更加直接的方法是使用分类器对每个位置进行独立预测。分类器是机器学习中广泛使用的方法，它可以根据输入自动地对类别进行预测。如图\ref{fig:3.3-7}(c)所示，对于序列标注任务，分类器把每一个位置所对应的所有特征看作是输入，而把这个位置对应的标签看作输出。从这个角度说，隐马尔可夫模型等方法实际上也是在进行一种“分类”操作，只不过这些方法考虑了不同位置输出（或隐含状态）之间的依赖。
 
+\parinterval 值得注意的是分类模型可以被应用于序列标注之外的很多任务，在后面的章节中还会看到，机器翻译中的很多模块也借鉴了统计分类的思想。其中使用到的基础数学模型和特征定义形式，与这里提到的分类器本质上是一样的。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -520,8 +515,6 @@ Z(\seq{x})&=&\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1}
 \label{fig:3.3-7}
 \end{figure}
 %-------------------------------------------
-
-\parinterval 值得注意的是分类模型可以被应用于序列标注之外的很多任务，在后面的章节中还会看到，机器翻译中的很多模块也借鉴了统计分类的思想。其中使用到的基础数学模型和特征定义形式，与这里提到的分类器本质上是一样的。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -575,6 +568,8 @@ Z(\seq{x})&=&\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1}
 
 \parinterval {\small\sffamily\bfseries{句法}}\index{句法}（Syntax）\index{Syntax}是研究句子的每个组成部分和它们之间的组合方式。一般来说，句法和语言是相关的，比如，英文是主谓宾结构，而日语是主宾谓结构，因此不同的语言也会有不同的句法描述方式。自然语言处理领域最常用的两种句法分析形式是{\small\sffamily\bfseries{短语结构分析}}\index{短语结构分析}（Phrase Structure Parsing）\index{Phrase Structure Parsing}和{\small\sffamily\bfseries{依存分析}}\index{依存分析}（Dependency Parsing）\index{Dependency Parsing}。图\ref{fig:3.4-1}展示了这两种的句法表示形式的实例。其中，左侧是短语结构树，它描述的是短语的结构功能，比如“吃”是动词（记为VV），“鱼”是名词（记为NN），“吃/鱼”组成动词短语，这个短语再与“喜欢”这一动词组成新的动词短语。短语结构树的每个子树都是一个句法功能单元，比如，子树VP(VV(吃) NN(鱼))就表示了“吃/鱼”这个动词短语的结构，其中子树根节点VP是句法功能标记。短语结构树利用嵌套的方式描述了语言学的功能，短语结构树中，每个词都有词性(或词类)，不同的词或者短语可以组成名动结构、动宾结构等语言学短语结构，短语结构分析一般也被称为{\small\sffamily\bfseries{成分分析}}\index{成分分析}（Constituency Parsing）或{\small\sffamily\bfseries{完全分析}}\index{完全分析}（Full Parsing）\index{Full Parsing}。
 
+\parinterval 图\ref{fig:3.4-1}右侧展示的是另一种句法结构，被称作依存句法树。依存句法树表示了句子中单词和单词之间的依存关系。比如，从这个例子可以了解，“猫”依赖“喜欢”，“吃”依赖“喜欢”，“鱼”依赖“吃”。
+
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -583,8 +578,6 @@ Z(\seq{x})&=&\sum_{\seq{y}}\exp(\sum_{i=1}^m\sum_{j=1}^k\lambda_{j}F_{j}(y_{i-1}
     \label{fig:3.4-1}
 \end{figure}
 %---------------------------
-
-\parinterval 图\ref{fig:3.4-1}右侧展示的是另一种句法结构，被称作依存句法树。依存句法树表示了句子中单词和单词之间的依存关系。比如，从这个例子可以了解，“猫”依赖“喜欢”，“吃”依赖“喜欢”，“鱼”依赖“吃”。
 
 \parinterval 短语结构树和依存句法树的结构和功能有很大不同。短语结构树的叶子节点是单词，中间节点是词性或者短语句法标记。在短语结构分析中，通常把单词称作{\small\sffamily\bfseries{终结符}}\index{终结符}（Terminal）\index{Terminal}，把词性称为{\small\sffamily\bfseries{预终结符}}\index{预终结符}（Pre-terminal）\index{Pre-terminal}，而把其他句法标记称为{\small\sffamily\bfseries{非终结符}}\index{非终结符}（Non-terminal）\index{Non-terminal}。依存句法树没有预终结符和非终结符，所有的节点都是句子里的单词，通过不同节点间的连线表示句子中各个单词之间的依存关系。每个依存关系实际上都是有方向的，头和尾分别指向“接受”和“发出”依存关系的词。依存关系也可以进行分类，例如，图\ref{fig:3.4-1}中的对每个依存关系的类型都有一个标记，这也被称作是有标记的依存分析。如果不生成这些标记，这样的句法分析被称作无标记的依存分析。
 
@@ -722,6 +715,8 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
 
 \parinterval 比如，使用前面的示例文法，可以对“猫/喜欢/吃/鱼”进行分析，并形成句法分析树（图\ref{fig:3.4-3}）。从起始非终结符IP开始，使用唯一拥有IP作为左部的规则$r_8$推导出NP和VP，之后依次使用规则$r_5$、$r_1$、$r_7$、$r_2$、$r_6$、$r_3$、$r_4$，得到了完整的句法树。
 
+\parinterval 通常，可以把推导简记为$d=r_1 \circ r_2 \circ ... \circ r_n$，其中$ \circ $表示规则的组合。显然，$d$也对应了树形结构，也就是句法分析结果。从这个角度看，推导就是描述句法分析树的一种方式。此外，规则的推导也把规则的使用过程与生成的字符串对应起来。一个推导所生成的字符串，也被称作文法所产生的一个{\small\sffamily\bfseries{句子}}\index{句子}（Sentence）\index{Sentence}。而一个文法所能生成的所有句子的集合是这个文法所对应的{\small\sffamily\bfseries{语言}}\index{语言}（Language）\index{Language}。
+
 %-------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -730,8 +725,6 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
     \label{fig:3.4-3}
 \end{figure}
 %-------------------------------------------
-
-\parinterval 通常，可以把推导简记为$d=r_1 \circ r_2 \circ ... \circ r_n$，其中$ \circ $表示规则的组合。显然，$d$也对应了树形结构，也就是句法分析结果。从这个角度看，推导就是描述句法分析树的一种方式。此外，规则的推导也把规则的使用过程与生成的字符串对应起来。一个推导所生成的字符串，也被称作文法所产生的一个{\small\sffamily\bfseries{句子}}\index{句子}（Sentence）\index{Sentence}。而一个文法所能生成的所有句子的集合是这个文法所对应的{\small\sffamily\bfseries{语言}}\index{语言}（Language）\index{Language}。
 
 \parinterval 但是，句子和规则的推导并不是一一对应的。同一个句子，往往有很多推导的方式，这种现象被称为{\small\sffamily\bfseries{歧义}}\index{歧义}（Ambiguity）\index{Ambiguity}。甚至同一棵句法树，也可以对应不同的推导，图\ref{fig:3.4-4} 给出同一棵句法树所对应的两种不同的规则推导。
 
@@ -747,6 +740,10 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
 
 \parinterval 显然，规则顺序的不同会导致句法树的推导这一确定的过程变得不确定，因此，需要进行{\small\sffamily\bfseries{消歧}}\index{消歧}（Disambiguation）\index{Disambiguation}。这里，可以使用启发式方法：要求规则使用都服从最左优先原则，这样得到的推导被称为{\small\sffamily\bfseries{最左优先推导}}\index{最左优先推导}（Left-most Derivation）\index{Left-most Derivation}。图\ref{fig:3.4-4}中的推导1 就是符合最左优先原则的推导。
 
+\parinterval 这样，对于一个上下文无关文法，每一棵句法树都有唯一的最左推导与之对应。于是，句法分析可以被描述为：对于一个句子找到能够生成它的最佳推导，这个推导所对应的句法树就是这个句子的句法分析结果。
+
+\parinterval 不过问题又回来了，怎样才能知道什么样的推导或者句法树是“最佳”的呢？如图\ref{fig:3.4-5}所示，对于语言学专家，他们可以很确定地分辨出哪些句法树是正确的，哪些句法树是错误。甚至普通人也可以通过一些课本中学到的知识产生一些模糊的判断。而计算机如何进行判别呢？沿着前面介绍的统计建模的思想，计算机可以得出不同句法树出现的概率，进而选择概率最高的句法树作为输出，而这正是统计句法分析所做的事情。
+
 %-------------------------------------------
 \begin{figure}[htp]
     \centering
@@ -755,10 +752,6 @@ s_0 \overset{r_1}{\Rightarrow} s_1 \overset{r_2}{\Rightarrow} s_2 \overset{r_3}{
     \label{fig:3.4-5}
 \end{figure}
 %-------------------------------------------
-
-\parinterval 这样，对于一个上下文无关文法，每一棵句法树都有唯一的最左推导与之对应。于是，句法分析可以被描述为：对于一个句子找到能够生成它的最佳推导，这个推导所对应的句法树就是这个句子的句法分析结果。
-
-\parinterval 不过问题又回来了，怎样才能知道什么样的推导或者句法树是“最佳”的呢？如图\ref{fig:3.4-5}所示，对于语言学专家，他们可以很确定地分辨出哪些句法树是正确的，哪些句法树是错误。甚至普通人也可以通过一些课本中学到的知识产生一些模糊的判断。而计算机如何进行判别呢？沿着前面介绍的统计建模的思想，计算机可以得出不同句法树出现的概率，进而选择概率最高的句法树作为输出，而这正是统计句法分析所做的事情。
 
 \parinterval 在统计句法分析中，需要对每个推导进行统计建模，于是定义一个模型$\funp{P}( \cdot )$，对于任意的推导$d$，都可以用$\funp{P}(d)$计算出推导$d$的概率。这样，给定一个输入句子，我们可以对所有可能的推导用$\funp{P}(d)$计算其概率值，并选择概率最大的结果作为句法分析的结果输出（图\ref{fig:3.4-6}）。
 
@@ -829,7 +822,6 @@ r_6: & & \textrm{VP} \to \textrm{VV}\ \textrm{NN} \nonumber
 \parinterval 这也对应了词串“吃/鱼”的生成过程。首先，从起始非终结符VP开始，使用规则$r_6$生成两个非终结符VV和NN；进一步，分别使用规则$r_3$和$r_4$从VV和NN进一步生成单词“吃”和“鱼”。整个过程的概率等于三条规则概率的乘积。
 
 \parinterval 新的问题又来了，如何得到规则的概率呢？这里仍然可以从数据中学习文法规则的概率。假设有人工标注的数据，它包括很多人工标注句法树的句法，称之为{\small\sffamily\bfseries{树库}}\index{树库}（Treebank）\index{Treebank}。然后，对于规则$\textrm{r}:\alpha \to \beta$可以使用基于频次的方法：
-
 \begin{eqnarray}
 \funp{P}(r)  &=& \frac{\text{规则$r$在树库中出现的次数}}{\alpha \text{在树库中出现的次数}}
 \label{eq:3.4-8}

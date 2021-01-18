@@ -6,11 +6,11 @@
 
 \begin{scope}[scale=0.9]
 {\Large
-\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=3em,minimum height=0.8em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
+\tikzstyle{rnnnode} = [draw,inner sep=5pt,minimum width=3.6em,minimum height=0.8em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}]
 \node [anchor=west,rnnnode] (node11) at (0,0) {\scriptsize{RNN Cell}};
-\node [anchor=west,rnnnode] (node12) at ([xshift=1em]node11.east) {\scriptsize{RNN Cell}};
-\node [anchor=west,rnnnode] (node13) at ([xshift=1em]node12.east) {\scriptsize{RNN Cell}};
-\node [anchor=west,rnnnode] (node14) at ([xshift=1em]node13.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node12) at ([xshift=2em]node11.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node13) at ([xshift=2em]node12.east) {\scriptsize{RNN Cell}};
+\node [anchor=west,rnnnode] (node14) at ([xshift=2em]node13.east) {\scriptsize{RNN Cell}};
 
 \node [anchor=north,rnnnode,fill=blue!30!white] (e1) at ([yshift=-1em]node11.south) {\scriptsize{}};
 \node [anchor=north,rnnnode,fill=blue!30!white] (e2) at ([yshift=-1em]node12.south) {\scriptsize{}};

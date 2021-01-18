@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -410,10 +410,7 @@ f(c{\mathbi{v}})&=&cf({\mathbi{v}})
 \parinterval 利用矩阵$ {\mathbi{A}}\in {\mathbb R}^{m\times n} $，可以实现两个有限维欧氏空间的映射函数$f:{\mathbb R}^n\rightarrow {\mathbb R}^m$。例如$ n $维列向量$ {\mathbi{x}} ^{\textrm T}$与$ m\times n $的矩阵$ {\mathbi{A}} $，向量$ {\mathbi{x}} ^{\textrm T}$左乘矩阵$ {\mathbi{A}} $，可将向量$ {\mathbi{x}} ^{\textrm T}$映射为$ m $列向量。公式\eqref{eq:9-11}\eqref{eq:9-12}\eqref{eq:9-13}展示了一个具体的例子，
 \begin{eqnarray}
 {\mathbi{x}}^{\textrm{T}} & = & {\begin{pmatrix} x_1\\ x_2 \\  \dots  \\ x_n \end{pmatrix}}
-\label{eq:9-11}
-\end{eqnarray}
-
-\begin{eqnarray}
+\label{eq:9-11}\\ \\
 {\mathbi{A}}&=&
 \begin{pmatrix}
    a_{11} & a_{12} & \dots & a_{1n}\\
@@ -673,7 +670,6 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 
 \parinterval 举个简单的例子，预报天气时，往往需要预测温度、湿度和风力，这就意味着如果使用单层神经网络进行预测，需要设置3个神经元。如图\ref{fig:9-10}所示，此时权重矩阵如下：
-
 \begin{eqnarray}
 {\mathbi{W}}&=&\begin{pmatrix} w_{11} & w_{12} & w_{13}\\ w_{21} & w_{22} & w_{23}\end{pmatrix}
 \label{eq:9-105}
@@ -701,22 +697,20 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 \parinterval 在神经网络中，对于输入向量$ {\mathbi{x}}\in {\mathbb R}^m $，一层神经网络首先将其经过线性变换映射到$ {\mathbb R}^n $，再经过激活函数变成${\mathbi{y}}\in {\mathbb R}^n $。还是上面天气预测的例子，每个神经元获得相同的输入，权重矩阵$ {\mathbi{W}} $是一个$ 2\times 3 $矩阵，矩阵中每个元素$ w_{ij} $代表第$ j $个神经元中$ x_{i} $对应的权重值，假设编号为1的神经元负责预测温度，则$ w_{i1} $的含义为预测温度时输入$ x_{i} $对其影响程度。此外所有神经元的偏置$ b_{1} $，$ b_{2} $，$ b_{3} $组成了最终的偏置向量$ {\mathbi{b}}$。在该例中则有，权重矩阵$ {\mathbi{W}}=\begin{pmatrix} w_{11} & w_{12} & w_{13}\\ w_{21} & w_{22} & w_{23}\end{pmatrix} $，偏置向量$ {\mathbi{b}}=(b_1,b_2,b_3) $。
 
-\parinterval 那么，线性变换的本质是什么？
+
+\parinterval 那么，线性变换的本质是什么？图\ref{fig:9-13}正是线性变换的简单示意。
 
 \begin{itemize}
 \vspace{0.5em}
 \item 从代数角度看，对于线性空间$ \textrm V $，任意$ {\mathbi{a}}$，${\mathbi{a}}\in {\textrm V} $和数域中的任意$ \alpha $，线性变换$ T(\cdot) $需满足：$ T({\mathbi{a}}+{\mathbi{b}})=T({\mathbi{a}})+T({\mathbi{b}}) $，且$ T(\alpha {\mathbi{a}})=\alpha T({\mathbi{a}}) $；
 \vspace{0.5em}
 \item 从几何角度看，公式中的${\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}$将${\mathbi{x}}$右乘${\mathbi{W}}$相当于对$ {\mathbi{x}} $进行旋转变换。例如，对三个点$ (0,0) $，$ (0,1) $，$ (1,0) $及其围成的矩形区域右乘如下矩阵：
-
     \begin{eqnarray}
     {\mathbi{W}}&=&\begin{pmatrix} 1 & 0 & 0\\ 0 & -1 & 0\\ 0 & 0 & 1\end{pmatrix}
     \label{eq:9-106}
     \end{eqnarray}
 
     这样，矩形区域由第一象限旋转90度到了第四象限，如图\ref{fig:9-13}第一步所示。公式$ {\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}$中的公式中的${\mathbi{b}}$相当于对其进行平移变换。其过程如图\ref{fig:9-13} 第二步所示，偏置矩阵$ {\mathbi{b}}=\begin{pmatrix} 0.5 & 0 & 0\\ 0 & 0 & 0\\ 0 & 0 & 0\end{pmatrix} $将矩形区域沿$x$轴向右平移了一段距离。
-\vspace{0.5em}
-\end{itemize}
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -726,10 +720,12 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \label{fig:9-13}
 \end{figure}
 %-------------------------------------------
+\vspace{0.5em}
+\end{itemize}
 
-\parinterval 也就是说，线性变换提供了对输入数据进行空间中旋转、平移的能力。当然，线性变换也适用于更加复杂的情况，这也为神经网络提供了拟合不同函数的能力。比如，可以利用线性变换将三维图形投影到二维平面上，或者将二维平面上的图形映射到三维空间。如图\ref{fig:9-14}所示，通过一个简单的线性变换，可以将三维图形投影到二维平面上。
 
-\vspace{-0.5em}
+\parinterval 线性变换提供了对输入数据进行空间中旋转、平移的能力。线性变换也适用于更加复杂的情况，这也为神经网络提供了拟合不同函数的能力。比如可以利用线性变换将三维图形投影到二维平面上，或者将二维平面上的图形映射到三维空间。如图\ref{fig:9-14}所示，通过一个简单的线性变换，可以将三维图形投影到二维平面上。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -739,8 +735,7 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \end{figure}
 %-------------------------------------------
 
-\vspace{-0.5em}
-\parinterval 那激活函数又是什么？一个神经元在接收到经过线性变换的结果后，通过激活函数的处理，得到最终的输出$ y $。激活函数的目的是解决实际问题中的非线性变换，线性变换只能拟合直线，而激活函数的加入，使神经网络具有了拟合曲线的能力。 特别是在实际问题中，很多现象都无法用简单的线性关系描述，这时可以使用非线性激活函数来描述更加复杂的问题。常见的非线性激活函数有Sigmoid、ReLU、Tanh等。图\ref{fig:9-15}中列举了几种激活函数的形式。
+\parinterval 那激活函数又是什么？一个神经元在接收到经过线性变换的结果后，通过激活函数的处理，得到最终的输出$ y $。激活函数的目的是解决实际问题中的非线性变换，线性变换只能拟合直线，而激活函数的加入，使神经网络具有了拟合曲线的能力。 特别是在实际问题中，很多现象都无法用简单的线性关系描述，这时可以使用非线性激活函数来描述更加复杂的问题。常见的非线性激活函数有Sigmoid、ReLU、Tanh等。图\ref{fig:9-15}和\ref{fig:9-15-2}中列举了几种激活函数的形式。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -748,6 +743,14 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \input{./Chapter9/Figures/figure-activate}
 \caption{几种常见的激活函数}
 \label{fig:9-15}
+\end{figure}
+%-------------------------------------------
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter9/Figures/figure-activate-2}
+\caption{几种常见的激活函数（补）}
+\label{fig:9-15-2}
 \end{figure}
 %-------------------------------------------
 
@@ -760,6 +763,8 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 \parinterval 单层神经网络由线性变换和激活函数两部分构成，但在实际问题中，单层网络并不能很好地拟合复杂函数。因此很自然地想到将单层网络扩展到多层神经网络，即深层神经网络。将一层神经网络的最终输出向量作为另一层神经网络的输入向量，通过这种方式可以将多个单层神经网络连接在一起。
 
+\parinterval 在多层神经网络中，通常包括输入层、输出层和至少一个隐藏层。图\ref{fig:9-17}展示了一个三层神经网络，包括输入层\footnote{由于输入层不存在神经元，因此在计算神经网络层数时不将其包括在内。}、输出层和两个隐藏层。
+
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -768,8 +773,6 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \label{fig:9-17}
 \end{figure}
 %-------------------------------------------
-
-\parinterval 在多层神经网络中，通常包括输入层、输出层和至少一个隐藏层。图\ref{fig:9-17}展示了一个三层神经网络，包括输入层\footnote{由于输入层不存在神经元，因此在计算神经网络层数时不将其包括在内。}、输出层和两个隐藏层。\\
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -959,7 +962,6 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 \label{fig:9-27}
 \end {figure}
 %-------------------------------------------
-
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
@@ -1019,7 +1021,7 @@ f(x)&=&\begin{cases} 0 & x\le 0 \\x & x>0\end{cases}
 \end{figure}
 %-------------------------------------------
 
-\parinterval 高阶张量的物理存储方式与多维数组在C++、Python中的物理存储方式相同。
+\parinterval 实际上，高阶张量的物理存储方式也与多维数组在C++、Python中的物理存储方式相同。\\
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -1107,9 +1109,8 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 \sectionnewpage
 \section{神经网络的参数训练}
 
-\parinterval 简单来说，神经网络可以被看作是由变量和函数组成的表达式，例如：$ {\mathbi{y}}={\mathbi{x}}+{\mathbi{b}} $、$ {\mathbi{y}}={\textrm{ReLU}}({\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}) $、$ {\mathbi{y}}={\textrm{Sigmoid}}({\textrm{ReLU}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\mathbi{b}}^{[1]})\cdot {\mathbi{W}}^{[2]}+{\mathbi{b}}^{[2]}) $等等，其中的$ {\mathbi{x}} $和$ {\mathbi{y}} $作为输入和输出向量， ${\mathbi{W}}$、${\mathbi{b}}$等其他变量作为{\small\sffamily\bfseries{模型参数}}\index{模型参数}（Model Parameters）\index{Model Parameters}。确定了函数表达式和模型参数，也就确定了神经网络模型。通常，表达式的形式需要系统开发者设计，而模型参数的数量有时会非常巨大，因此需要自动学习，这个过程也被称为模型学习或训练。为了实现这个目标，通常会准备一定量的带有标准答案的数据，称之为有标注数据。这些数据会用于对模型参数的学习，这也对应了统计模型中的参数估计过程。在机器学习中，一般把这种使用有标注数据进行统计模型参数训练的过程称为{\small\sffamily\bfseries{有指导的训练}}\index{有指导的训练}或{\small\sffamily\bfseries{有监督的训练}}\index{有监督的训练}（Supervised Training）\index{Supervised Training}。在本章中，如果没有特殊说明，模型训练都是指有监督的训练。那么神经网络内部是怎样利用有标注数据对参数进行训练的呢？\\ \\
+\parinterval 简单来说，神经网络可以被看作是由变量和函数组成的表达式，例如：$ {\mathbi{y}}={\mathbi{x}}+{\mathbi{b}} $、$ {\mathbi{y}}={\textrm{ReLU}}({\mathbi{x}}\cdot {\mathbi{W}}+{\mathbi{b}}) $、$ {\mathbi{y}}={\textrm{Sigmoid}}({\textrm{ReLU}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\mathbi{b}}^{[1]})\cdot {\mathbi{W}}^{[2]}+{\mathbi{b}}^{[2]}) $等等，其中的$ {\mathbi{x}} $和$ {\mathbi{y}} $作为输入和输出向量， ${\mathbi{W}}$、${\mathbi{b}}$等其他变量作为{\small\sffamily\bfseries{模型参数}}\index{模型参数}（Model Parameters）\index{Model Parameters}。确定了函数表达式和模型参数，也就确定了神经网络模型。通常，表达式的形式需要系统开发者设计，而模型参数的数量有时会非常巨大，因此需要自动学习，这个过程也被称为模型学习或训练。为了实现这个目标，通常会准备一定量的带有标准答案的数据，称之为有标注数据。这些数据会用于对模型参数的学习，这也对应了统计模型中的参数估计过程。在机器学习中，一般把这种使用有标注数据进行统计模型参数训练的过程称为{\small\sffamily\bfseries{有指导的训练}}\index{有指导的训练}或{\small\sffamily\bfseries{有监督的训练}}\index{有监督的训练}（Supervised Training）\index{Supervised Training}。在本章中，如果没有特殊说明，模型训练都是指有监督的训练。那么神经网络内部是怎样利用有标注数据对参数进行训练的呢？
 
-\vspace{-2.5em}
 \parinterval 为了回答这个问题，可以把模型参数的学习过程看作是一个优化问题，即找到一组参数，使得模型达到某种最优的状态。这个问题又可以被转化为两个新的问题：
 
 \begin{itemize}
@@ -1214,7 +1215,6 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}\cdot {\mathbi{W}}^{[1]}+{\ma
 %
 %----------------------------------------------------------------------------------------
 
-\vspace{0.5em}
 \noindent {\small\sffamily\bfseries{1）批量梯度下降\index{批量梯度下降}（Batch Gradient Descent）\index{Batch Gradient Descent}}}
 \vspace{0.5em}
 
@@ -1292,7 +1292,7 @@ J({\bm \theta})&=&\frac{1}{m}\sum_{i=j}^{j+m-1}{L({\mathbi{x}}^{[i]},{\mathbi{y}
 
 \parinterval 截断误差和舍入误差是如何造成的呢？数值微分方法求梯度时，需用极限或无穷过程来求得。然而计算机需要将求解过程化为一系列有限的算术运算和逻辑运算。这样就要对某种无穷过程进行“截断”，即仅保留无穷过程的前段有限序列而舍弃它的后段。这就带来截断误差；舍入误差，是指运算得到的近似值和精确值之间的差异。由于数值微分方法计算复杂函数的梯度问题时，经过无数次的近似，每一次近似都产生了舍入误差，在这样的情况下，误差会随着运算次数增加而积累得很大，最终得出没有意义的运算结果。实际上，截断误差和舍入误差在训练复杂神经网络中，特别是使用低精度计算时，也会出现，因此是实际系统研发中需要注意的问题。
 
-\parinterval 尽管数值微分不适用于大模型中的梯度求解，但是由于其非常简单，因此经常被用于检验其他梯度计算方法的正确性。比如在实现反向传播的时候（详见\ref{sec:9.4.6}节），可以检验求导是否正确（Gradient Check），这个过程就是利用数值微分实现的。\\ \\
+\parinterval 尽管数值微分不适用于大模型中的梯度求解，但是由于其非常简单，因此经常被用于检验其他梯度计算方法的正确性。比如在实现反向传播的时候（详见\ref{sec:9.4.6}节），可以检验求导是否正确（Gradient Check），这个过程就是利用数值微分实现的。
 
 %----------------------------------------------------------------------------------------
 %
@@ -1342,7 +1342,6 @@ $+2x^2+x+1)$ & \ \ $(x^4+2x^3+2x^2+x+1)$ & $+6x+1$ \\
 \parinterval  由于它只对基本函数或常数运用符号微分法则，所以它非常适合嵌入编程语言的循环条件等结构中，形成一种程序化的微分过程。在具体实现时，自动微分往往被当做是一种基于图的计算，相关的理论和技术方法相对成熟，因此是深度学习中使用最广泛的一种方法。不同于一般的编程模式，图计算先生成计算图，然后按照计算图执行计算过程。
 
 \parinterval  自动微分可以用一种{\small\sffamily\bfseries{反向模式}}\index{反向模式}（Reverse Mode\index{Reverse Mode}/Backward Mode\index{Backward Mode}）即反向传播思想进行描述\upcite{baydin2017automatic}。令${\mathbi{h}}_i$是神经网络的计算图中第$i$个节点的输出。反向模式的自动微分是要计算：
-
 \begin{eqnarray}
 \bar{{\mathbi{h}}_i} &=& \frac{\partial L}{\partial {\mathbi{h}}_i} \label{eq:reverse-mode-v}
 \end{eqnarray}
@@ -1501,6 +1500,15 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \parinterval  当神经网络较为复杂时，模型训练还是需要几天甚至几周的时间。如果希望尽可能缩短一次学习所需的时间，最直接的想法就是把不同的训练样本分配给多个GPU 或CPU，然后在这些设备上同时进行训练，即实现并行化训练。这种方法也被称作{\small\sffamily\bfseries{数据并行}}\index{数据并行}。具体实现时，有两种常用的并行化策略：（参数）同步更新和（参数）异步更新。
 
+%----------------------------------------------
+\begin{figure}[htp]
+\centering
+\input{./Chapter9/Figures/figure-parallel}
+\caption{同步更新与异步更新对比}
+\label{fig:9-47}
+\end {figure}
+%-------------------------------------------
+
 \begin{itemize}
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{同步更新}}\index{同步更新}（Synchronous Update）\index{Synchronous Update}是指所有计算设备完成计算后，统一汇总并更新参数。当所有设备的反向传播算法完成之后同步更新参数，不会出现单个设备单独对参数进行更新的情况。这种方法效果稳定，但是效率比较低，在同步更新时，每一次参数更新都需要所有设备统一开始、统一结束，如果设备的运行速度不一致，那么每一次参数更新都需要等待最慢的设备结束才能开始。
@@ -1512,16 +1520,6 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \parinterval  图\ref{fig:9-47}对比了同步更新和异步更新的区别，在这个例子中，使用4台设备对一个两层神经网络中的参数进行更新，其中使用了一个{\small\bfnew{参数服务器}}\index{参数服务器}（Parameter Server\index{Parameter Server}）来保存最新的参数，不同设备（图中的G1、G2、G3）可以通过同步或者异步的方式访问参数服务器。图中的$ {\bm \theta}_o $和$ {\bm \theta}_h $分别代表输出层和隐藏层的全部参数，操作Push($\cdot$) 表示设备向参数服务器传送梯度，操作Fetch($\cdot$)表示参数服务器向设备传送更新后的参数。
 
 \parinterval  此外，在使用多个设备进行并行训练的时候，由于设备间带宽的限制，大量的数据传输会有较高的延时。对于复杂神经网络来说，设备间参数和梯度传递的时间消耗也会成为一个不得不考虑的因素。有时候，设备间数据传输的时间甚至比模型计算的时间都长，大大降低了并行度\upcite{xiao2017fast}。对于这种问题，可以考虑对数据进行压缩或者减少传输的次数来缓解问题。
-
-%----------------------------------------------
-\begin{figure}[htp]
-\centering
-\input{./Chapter9/Figures/figure-parallel}
-\caption{同步更新与异步更新对比}
-\label{fig:9-47}
-\end {figure}
-%-------------------------------------------
-
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -1569,10 +1567,17 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \item {\small\bfnew{层标准化}}\index{层标准化}（Layer Normalization）\index{Layer Normalization}。类似的，层标准化更多是针对自然语言处理这种序列处理任务\upcite{Ba2016LayerN}，它和批量标准化的原理是一样的，只是标准化操作是在序列上同一层网络的输出结果上进行的，也就是标准化操作沿着序列方向进行。这种方法可以很好的避免序列上不同位置神经网络输出结果的不可比性。同时由于标准化后所有的结果都转化到一个可比的范围，使得隐层状态可以在不同层之间进行自由组合。
 
 \item {\small\bfnew{残差网络}}\index{残差网络}（Residual Networks）\index{Residual Networks}。最初，残差网络是为了解决神经网络持续加深时的模型退化问题\upcite{DBLP:journals/corr/HeZRS15}，但是残差结构对解决梯度消失和梯度爆炸问题也有所帮助。有了残差结构，可以很轻松的构建几十甚至上百层的神经网络，而不用担心层数过深造成的梯度消失问题。残差网络的结构如图\ref{fig:9-51}所示。图\ref{fig:9-51}中右侧的曲线叫做{\small\bfnew{跳接}}\index{跳接}（Skip Connection）\index{Skip Connection}，通过跳接在激活函数前，将上一层（或几层）之前的输出与本层计算的输出相加，将求和的结果输入到激活函数中作为本层的输出。假设残差结构的输入为$ {\mathbi{x}}_l $，输出为$ {\mathbi{x}}_{l+1} $，则有
-
 \begin{eqnarray}
 {\mathbi{x}}_{l+1}&=&F({\mathbi{x}}_l)+{\mathbi{x}}_l
 \label{eq:9-44}
+\end{eqnarray}
+
+相比较于简单的多层堆叠的结构，残差网络提供了跨层连接结构。这种结构在反向传播中有很大的好处，比如，对于一个训练样本，损失函数为$L$，$ \mathbi x_l $处的梯度的计算方式如公式\eqref{eq:9-45}所示。残差网络可以将后一层的梯度$ \frac{\partial L}{\partial {\mathbi{x}}_{l+1}} $不经过任何乘法项直接传递到$ \frac{\partial L}{\partial {\mathbi{x}}_l} $，从而缓解了梯度经过每一层后多次累乘造成的梯度消失问题。在{\chaptertwelve}中还会看到，在机器翻译中残差结构可以和层标准化一起使用，而且这种组合可以取得很好的效果。
+\begin{eqnarray}
+\frac{\partial L}{\partial {\mathbi{x}}_l}&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot  \frac{\partial {\mathbi{x}}_{l+1}}{\partial {\mathbi{x}}_l}\nonumber\\
+&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot \left(1+\frac{\partial F({\mathbi{x}}_l)}{\partial {\mathbi{x}}_l}\right)\nonumber\\
+&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}}+\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot  \frac{\partial F({\mathbi{x}}_l)}{\partial {\mathbi{x}}_l}
+\label{eq:9-45}
 \end{eqnarray}
 
 
@@ -1584,17 +1589,6 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \label{fig:9-51}
 \end{figure}
 %-------------------------------------------
-
-相比较于简单的多层堆叠的结构，残差网络提供了跨层连接结构。这种结构在反向传播中有很大的好处，比如，对于一个训练样本，损失函数为$L$，$ \mathbi x_l $处的梯度可以进行如下计算：
-\begin{eqnarray}
-\frac{\partial L}{\partial {\mathbi{x}}_l}&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot  \frac{\partial {\mathbi{x}}_{l+1}}{\partial {\mathbi{x}}_l}\nonumber\\
-&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot \left(1+\frac{\partial F({\mathbi{x}}_l)}{\partial {\mathbi{x}}_l}\right)\nonumber\\
-&=&\frac{\partial L}{\partial {\mathbi{x}}_{l+1}}+\frac{\partial L}{\partial {\mathbi{x}}_{l+1}} \cdot  \frac{\partial F({\mathbi{x}}_l)}{\partial {\mathbi{x}}_l}
-\label{eq:9-45}
-\end{eqnarray}
-
-由上式可知，残差网络可以将后一层的梯度$ \frac{\partial L}{\partial {\mathbi{x}}_{l+1}} $不经过任何乘法项直接传递到$ \frac{\partial L}{\partial {\mathbi{x}}_l} $，从而缓解了梯度经过每一层后多次累乘造成的梯度消失问题。在{\chaptertwelve}中还会看到，在机器翻译中残差结构可以和层标准化一起使用，而且这种组合可以取得很好的效果。
-
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
@@ -1884,7 +1878,8 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \subsubsection{1. 模型结构}
 
-\parinterval  最具代表性的神经语言模型是{\small\sffamily\bfseries{前馈神经网络语言模型}}\index{前馈神经网络语言模型}（Feed-forward Neural Network Language Model，FNNLM\index{FNNLM}）。这种语言模型的目标是用神经网络计算$ \funp{P}(w_m|w_{m-n+1}\dots w_{m-1}) $，之后将多个$n$-gram的概率相乘得到整个序列的概率\upcite{bengio2003a}。
+\parinterval  最具代表性的神经语言模型是{\small\sffamily\bfseries{前馈神经网络语言模型}}\index{前馈神经网络语言模型}（Feed-forward Neural Network Language Model，FNNLM\index{FNNLM}）。这种语言模型的目标是用神经网络计算$ \funp{P}(w_m|w_{m-n+1}
+\\\dots w_{m-1}) $，之后将多个$n$-gram的概率相乘得到整个序列的概率\upcite{bengio2003a}。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1930,7 +1925,6 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \subsubsection{3. 隐藏层和输出层}
 
 \parinterval  把得到的$ {\mathbi{e}}_0 $、$ {\mathbi{e}}_1 $、$ {\mathbi{e}}_2 $三个向量级联在一起，经过两层网络，最后通过Softmax函数（橙色方框）得到输出，具体过程为：
-
 \begin{eqnarray}
 {\mathbi{y}}&=&{\textrm{Softmax}}({\mathbi{h}}_0{\mathbi{U}})\label{eq:9-61}\\
 {\mathbi{h}}_0&=&{\textrm{Tanh}}([{\mathbi{e}}_{i-3},{\mathbi{e}}_{i-2},{\mathbi{e}}_{i-1}]{\mathbi{H}}+{\mathbi{d}})
@@ -1940,7 +1934,6 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \noindent  这里，输出$ {\mathbi{y}}$是词表$V$上的一个分布，来表示$\funp{P}(w_i|w_{i-1},w_{i-2},w_{i-3}) $。$ {\mathbi{U}}$、${\mathbi{H}}$和${\mathbi{d}}$是模型的参数。这样，对于给定的单词$w_i$可以用$y_i$得到其概率，其中$y_i$表示向量${\mathbi{y}}$的第$i$维。
 
 \parinterval Softmax($\cdot$)的作用是根据输入的$|V|$维向量（即${\mathbi{h}}_0{\mathbi{U}}$），得到一个$|V|$维的分布。令${\bm \tau}$表示Softmax($\cdot$)的输入向量，Softmax函数可以被定义为：
-
 \begin{eqnarray}
 \textrm{Softmax}(\tau_i)&=&\frac{\textrm{exp}(\tau_i)}  {\sum_{i'=1}^{|V|} \textrm{exp}(\tau_{i'})}
 \label{eq:9-120}
@@ -2074,13 +2067,13 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \parinterval  那么，分布式表示中每个维度的含义是什么？可以把每一维度都理解为一种属性，比如一个人的身高、体重等。但是，神经网络模型更多的是把每个维度看作是单词的一种抽象“刻画”，是一种统计意义上的“语义”，而非简单的人工归纳的事物的一个个属性。使用这种连续空间的表示的好处在于，表示的内容（实数向量）可以进行计算和学习，因此可以通过模型训练得到更适用于自然语言处理的单词表示结果。
 
-\parinterval  为了方便理解，看一个简单的例子。假如现在有个“预测下一个单词”的任务：有这样一个句子“屋里 要 摆放 一个 \rule[-3pt]{1cm}{0.05em}”，其中下划线的部分表示需要预测的下一个单词。如果模型在训练数据中看到过类似于“摆放 一个 桌子”这样的片段，那么就可以很自信的预测出“桌子”。另一方面，很容易知道，实际上与“桌子”相近的单词，如“椅子”，也是可以预测的单词的。但是，“椅子”恰巧没有出现在训练数据中，这时如果用One-hot编码来表示单词，显然无法把“椅子”填到下划线处；而如果使用单词的分布式表示，很容易就知道 “桌子”与“椅子”是相似的，因此预测“ 椅子”在一定程度上也是合理的。
+\parinterval  为了方便理解，看一个简单的例子。假如现在有个“预测下一个单词”的任务：有这样一个句子“屋里/要/摆放/一个/\rule[-3pt]{1cm}{0.05em}”，其中下划线的部分表示需要预测的下一个单词。如果模型在训练数据中看到过类似于“摆放 一个 桌子”这样的片段，那么就可以很自信的预测出“桌子”。另一方面，很容易知道，实际上与“桌子”相近的单词，如“椅子”，也是可以预测的单词的。但是，“椅子”恰巧没有出现在训练数据中，这时如果用One-hot编码来表示单词，显然无法把“椅子”填到下划线处；而如果使用单词的分布式表示，很容易就知道 “桌子”与“椅子”是相似的，因此预测“ 椅子”在一定程度上也是合理的。
 \begin{example}
-屋里\ 要\ 摆放\ 一个 \_\_\_\_\_ \hspace{0.5em} \quad \quad 预测下个词
+屋里/要/摆放/一个/\_\_\_\_ \hspace{0.5em} \quad \quad 预测下个词
 
-\hspace{2em} 屋里\ 要\ 摆放\ 一个\ { \red{桌子}} \hspace{3.2em}见过
+\hspace{2em} 屋里/要/摆放/一个/{\red{桌子}} \hspace{3.2em}见过
 
-\hspace{2em} 屋里\ 要\ 摆放\ 一个\ { \blue{椅子}} \hspace{3.2em}没见过，但是仍然是合理预测
+\hspace{2em} 屋里/要/摆放/一个/{\blue{椅子}} \hspace{3.2em}没见过，但是仍然是合理预测
 \end{example}
 
 \parinterval  关于单词的分布式表示还有一个经典的例子：通过词嵌入可以得到如下关系：$\textrm{“国王”}=\textrm{“女王”}-\textrm{“女人”} +\textrm{“男人”}$。从这个例子可以看出，词嵌入也具有一些代数性质，比如，词的分布式表示可以通过加、减等代数运算相互转换。图\ref{fig:9-66}展示了词嵌入在一个二维平面上的投影，不难发现，含义相近的单词分布比较临近。

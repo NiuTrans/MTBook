@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -154,8 +154,6 @@
 
 \parinterval 需要注意的是，公式\eqref{eq:6-7}之所以被看作是一种隐马尔可夫模型，是由于其形式与标准的一阶隐马尔可夫模型无异。$\funp{P}(a_{j}|a_{j-1},l)$可以被看作是一种状态转移概率，$f(s_{j}|t_{a_j})$可以被看作是一种发射概率。关于隐马尔可夫模型具体的数学描述也可参考{\chapterthree}中的相关内容。
 
-
-
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
@@ -175,6 +173,15 @@
 
 \parinterval 这里将会给出另一个翻译模型，能在一定程度上解决上面提到的问题\upcite{DBLP:journals/coling/BrownPPM94,och2003systematic}。该模型把目标语言生成源语言的过程分解为如下几个步骤：首先，确定每个目标语言单词生成源语言单词的个数，这里把它称为{\small\sffamily\bfseries{繁衍率}}\index{繁衍率}或{\small\sffamily\bfseries{产出率}}\index{产出率}（Fertility）\index{Fertility}；其次，决定目标语言句子中每个单词生成的源语言单词都是什么，即决定生成的第一个源语言单词是什么，生成的第二个源语言单词是什么，以此类推。这样每个目标语言单词就对应了一个源语言单词列表；最后把各组源语言单词列表中的每个单词都放置到合适的位置上，完成目标语言译文到源语言句子的生成。
 
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter6/Figures/figure-probability-translation-process}
+   \caption{基于产出率的翻译模型执行过程}
+   \label{fig:6-5}
+\end{figure}
+%----------------------------------------------
+
 \parinterval 对于句对$(\seq{s},\seq{t})$，令$\varphi$表示产出率，同时令${\tau}$表示每个目标语言单词对应的源语言单词列表。图{\ref{fig:6-5}}描述了一个英语句子生成汉语句子的过程。
 
 \begin{itemize}
@@ -184,17 +191,7 @@
 \item 其次，确定英语句子中每个单词生成的汉语单词列表。比如“Scientists”生成“科学家”和“们”两个汉语单词，可表示为${\tau}_1=\{{\tau}_{11}=\textrm{“科学家”},{\tau}_{12}=\textrm{“们”}\}$。 这里用特殊的空标记NULL表示翻译对空的情况；
 \vspace{0.3em}
 \item 最后，把生成的所有汉语单词放在合适的位置。比如“科学家”和“们”分别放在$\seq{s}$的位置1和位置2。可以用符号$\pi$记录生成的单词在源语言句子$\seq{s}$中的位置。比如“Scientists” 生成的汉语单词在$\seq{s}$ 中的位置表示为${\pi}_{1}=\{{\pi}_{11}=1,{\pi}_{12}=2\}$。
-\vspace{0.3em}
 \end{itemize}
-
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-\input{./Chapter6/Figures/figure-probability-translation-process}
-   \caption{基于产出率的翻译模型执行过程}
-   \label{fig:6-5}
-\end{figure}
-%----------------------------------------------
 
 \parinterval 为了表述清晰，这里重新说明每个符号的含义。$\seq{s}$、$\seq{t}$、$m$和$l$分别表示源语言句子、目标语言译文、源语言单词数量以及译文单词数量。$\mathbf{\varphi}$、$\mathbf{\tau}$ 和$\mathbf{\pi}$分别表示产出率、生成的源语言单词以及它们在源语言句子中的位置。${\varphi}_{i}$表示第$i$个目标语言单词$t_i$的产出率。${\tau}_{i}$和${\pi}_i$ 分别表示$t_i$生成的源语言单词列表及其在源语言句子$\seq{s}$中的位置列表。
 
@@ -232,7 +229,6 @@
 %----------------------------------------------
 
 \begin{itemize}
-\vspace{0.5em}
 \item 第一部分：对每个$i\in[1,l]$的目标语单词的产出率建模（{\color{red!70} 红色}），即$\varphi_i$的生成概率。它依赖于$\seq{t}$和区间$[1,i-1]$的目标语单词的产出率$\varphi_1^{i-1}$。\footnote{这里约定，当$i=1$ 时，$\varphi_1^0$ 表示空。}
 \vspace{0.5em}
 \item 第二部分：对$i=0$时的产出率建模（{\color{blue!70} 蓝色}），即空标记$t_0$的产出率生成概率。它依赖于$\seq{t}$和区间$[1,i-1]$的目标语单词的产出率$\varphi_1^l$。
@@ -251,7 +247,7 @@
 \subsection{IBM 模型3}
 
 \parinterval IBM模型3通过一些假设对图\ref{fig:6-7}所表示的基本模型进行了化简。具体来说，对于每个$i\in[1,l]$，假设$\funp{P}(\varphi_i |\varphi_1^{i-1},\seq{t})$仅依赖于$\varphi_i$和$t_i$，$\funp{P}(\pi_{ik}|\pi_{i1}^{k-1},\pi_1^{i-1},\tau_0^l,\varphi_0^l,\seq{t})$仅依赖于$\pi_{ik}$、$i$、$m$和$l$。而对于所有的$i\in[0,l]$，假设$\funp{P}(\tau_{ik}|\tau_{i1}^{k-1},\tau_1^{i-1},\varphi_0^l,\seq{t})$仅依赖于$\tau_{ik}$和$t_i$。这些假设的形式化描述为：
-
+\vspace{-0.5em}
 \begin{eqnarray}
 \funp{P}(\varphi_i|\varphi_1^{i-1},\seq{t})                                                              & = &{\funp{P}(\varphi_i|t_i)} \label{eq:6-10} \\
 \funp{P}(\tau_{ik} = s_j |\tau_{i1}^{k-1},\tau_{1}^{i-1},\varphi_0^t,\seq{t})             & = & t(s_j|t_i) \label{eq:6-11} \\
@@ -268,7 +264,6 @@
 \end{eqnarray}
 
 否则
-
 \begin{eqnarray}
 \funp{P}(\pi_{0k}=j|\pi_{01}^{k-1},\pi_1^l,\tau_0^l,\varphi_0^l,\seq{t}) & = & 0
 \label{eq:6-14}
@@ -311,7 +306,6 @@ m-\varphi_0\\
 p_0+p_1                            & = & 1 \label{eq:6-21}
 \end{eqnarray}
 }
-
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------

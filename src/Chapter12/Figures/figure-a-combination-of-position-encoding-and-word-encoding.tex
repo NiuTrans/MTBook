@@ -1,29 +1,29 @@
 
 \begin{tikzpicture}
 \begin{scope}
-\tikzstyle{rnode} = [draw,minimum width=3.5em,minimum height=1.2em]
+\tikzstyle{rnode} = [draw,minimum width=4em,minimum height=1.2em]
 
-\node [rnode,anchor=south west,fill=red!20!white] (e1) at (0,0) {\scriptsize{$e(\textrm{沈阳})$}};
-\node [rnode,anchor=south west,fill=red!20!white] (e2) at ([xshift=1em]e1.south east) {\scriptsize{$e(\textrm{到})$}};
-\node [rnode,anchor=south west,fill=red!20!white] (e3) at ([xshift=1em]e2.south east) {\scriptsize{$e(\textrm{广州})$}};
-\node [rnode,anchor=south west,fill=red!20!white] (e4) at ([xshift=1em]e3.south east) {\scriptsize{$e(\textrm{的})$}};
-\node [rnode,anchor=south west,fill=red!20!white] (e5) at ([xshift=1em]e4.south east) {\scriptsize{$e(\textrm{机票})$}};
+\node [rnode,anchor=south west,fill=red!30!white] (e1) at (0,0) {\scriptsize{$e(\textrm{沈阳})$}};
+\node [rnode,anchor=south west,fill=red!30!white] (e2) at ([xshift=1.5em]e1.south east) {\scriptsize{$e(\textrm{到})$}};
+\node [rnode,anchor=south west,fill=red!30!white] (e3) at ([xshift=1.5em]e2.south east) {\scriptsize{$e(\textrm{广州})$}};
+\node [rnode,anchor=south west,fill=red!30!white] (e4) at ([xshift=1.5em]e3.south east) {\scriptsize{$e(\textrm{的})$}};
+\node [rnode,anchor=south west,fill=red!30!white] (e5) at ([xshift=1.5em]e4.south east) {\scriptsize{$e(\textrm{机票})$}};
 
-\node [rnode,anchor=south west,fill=green!20!white] (h1) at ([yshift=1.5em]e1.north west) {\scriptsize{$h(\textrm{沈阳})$}};
-\node [rnode,anchor=south west,fill=green!20!white] (h2) at ([yshift=1.5em]e2.north west) {\scriptsize{$h(\textrm{到})$}};
-\node [rnode,anchor=south west,fill=green!20!white] (h3) at ([yshift=1.5em]e3.north west) {\scriptsize{$h(\textrm{广州})$}};
-\node [rnode,anchor=south west,fill=green!20!white] (h4) at ([yshift=1.5em]e4.north west) {\scriptsize{$h(\textrm{的})$}};
-\node [rnode,anchor=south west,fill=green!20!white] (h5) at ([yshift=1.5em]e5.north west) {\scriptsize{$h(\textrm{机票})$}};
+\node [rnode,anchor=south west,fill=green!30!white] (h1) at ([yshift=1.5em]e1.north west) {\scriptsize{$h(\textrm{沈阳})$}};
+\node [rnode,anchor=south west,fill=green!30!white] (h2) at ([yshift=1.5em]e2.north west) {\scriptsize{$h(\textrm{到})$}};
+\node [rnode,anchor=south west,fill=green!30!white] (h3) at ([yshift=1.5em]e3.north west) {\scriptsize{$h(\textrm{广州})$}};
+\node [rnode,anchor=south west,fill=green!30!white] (h4) at ([yshift=1.5em]e4.north west) {\scriptsize{$h(\textrm{的})$}};
+\node [rnode,anchor=south west,fill=green!30!white] (h5) at ([yshift=1.5em]e5.north west) {\scriptsize{$h(\textrm{机票})$}};
 
 \foreach \x in {1,2,3,4,5}{
 	\node [anchor=north] (plus\x) at ([yshift=-0em]e\x.south) {\scriptsize{$\mathbf{\oplus}$}};
 }
 
-\node [rnode,anchor=north,fill=yellow!20!white] (pos1) at ([yshift=-1.1em]e1.south) {\scriptsize{$\textrm{PE}(1)$}};
-\node [rnode,anchor=north,fill=yellow!20!white] (pos2) at ([yshift=-1.1em]e2.south) {\scriptsize{$\textrm{PE}(2)$}};
-\node [rnode,anchor=north,fill=yellow!20!white] (pos3) at ([yshift=-1.1em]e3.south) {\scriptsize{$\textrm{PE}(3)$}};
-\node [rnode,anchor=north,fill=yellow!20!white] (pos4) at ([yshift=-1.1em]e4.south) {\scriptsize{$\textrm{PE}(4)$}};
-\node [rnode,anchor=north,fill=yellow!20!white] (pos5) at ([yshift=-1.1em]e5.south) {\scriptsize{$\textrm{PE}(5)$}};
+\node [rnode,anchor=north,fill=yellow!30!white] (pos1) at ([yshift=-1.1em]e1.south) {\scriptsize{$\textrm{PE}(1)$}};
+\node [rnode,anchor=north,fill=yellow!30!white] (pos2) at ([yshift=-1.1em]e2.south) {\scriptsize{$\textrm{PE}(2)$}};
+\node [rnode,anchor=north,fill=yellow!30!white] (pos3) at ([yshift=-1.1em]e3.south) {\scriptsize{$\textrm{PE}(3)$}};
+\node [rnode,anchor=north,fill=yellow!30!white] (pos4) at ([yshift=-1.1em]e4.south) {\scriptsize{$\textrm{PE}(4)$}};
+\node [rnode,anchor=north,fill=yellow!30!white] (pos5) at ([yshift=-1.1em]e5.south) {\scriptsize{$\textrm{PE}(5)$}};
 
 
 \foreach \x in {1,2,3,4,5}{

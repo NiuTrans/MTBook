@@ -1,7 +1,7 @@
 \begin{tikzpicture}
    
 
-\node[rounded corners=1pt,minimum width=11.0em,minimum height=2.0em,fill=pink!30,draw=black](p1) at (0,0) {\small{Self-Attention}};
+\node[rounded corners=1pt,minimum width=11.0em,minimum height=2.0em,fill=pink!60,draw=black](p1) at (0,0) {\small{Self-Attention}};
 
 \node[anchor=north](word1) at ([xshift=0.0em,yshift=-2.0em]p1.south) {\small \mathbi{K}};
 \node[anchor=west](word2) at ([xshift=2.2em]word1.east) {\small \mathbi{V}};
@@ -19,7 +19,7 @@
 
 \node[anchor=north](caption1) at ([xshift=0.0em,yshift=-9.5em]p1.south){\small{(a) Self-Attention的输入}};
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\node[anchor=west,rounded corners=1pt,minimum width=14.0em,minimum height=2.0em,fill=pink!30,draw=black](p2) at ([xshift=5.0em]p1.east){\small{Encoder-Decoder Attention}};
+\node[anchor=west,rounded corners=1pt,minimum width=14.0em,minimum height=2.0em,fill=pink!50,draw=black](p2) at ([xshift=5.0em]p1.east){\small{Encoder-Decoder Attention}};
 
 \node[anchor=north](word1-2) at ([xshift=0.0em,yshift=-2.0em]p2.south) {\small \mathbi{K}};
 \node[anchor=west](word2-2) at ([xshift=2.2em]word1-2.east) {\small \mathbi{V}};

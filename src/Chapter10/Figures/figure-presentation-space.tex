@@ -19,13 +19,13 @@
 
 \end{scope}
 
-\begin{scope}[xshift=1.3in]
+\begin{scope}[xshift=1.8in]
 \node [anchor=south west,draw,thick,red,minimum width=0.9in,minimum height=0.7in] (space1) at (0,0) {};
 \node [anchor=south west,fill=blue,minimum width=0.1in,minimum height=0.1in] (unit1) at (0.2,0.8) {};
 \node [anchor=south west,fill=ugreen,minimum width=0.1in,minimum height=0.1in] (unit2) at (0.7,0.3) {};
 
-\node [anchor=south west,draw,thick,red,minimum width=0.9in,minimum height=0.7in] (space2) at (1.1in,0) {};
-\node [anchor=south west,circle,fill=orange,minimum width=0.1in,minimum height=0.1in] (unit3) at (1.5in,1.3) {};
+\node [anchor=south west,draw,thick,red,minimum width=0.9in,minimum height=0.7in] (space2) at (1.3in,0) {};
+\node [anchor=south west,circle,fill=orange,minimum width=0.1in,minimum height=0.1in] (unit3) at (1.7in,1.3) {};
 
 \draw [->] ([yshift=1pt]unit1.north) .. controls +(north:0.4) and +(west:2) .. ([yshift=0.0em,xshift=-1pt]unit3.west);
 \draw [->] ([xshift=1pt]unit2.east) .. controls +(east:1.5) and +(south:1) .. ([xshift=0.0em,yshift=-1pt]unit3.south);

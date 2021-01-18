@@ -4,9 +4,9 @@
 \begin{tikzpicture}
 \begin{scope}
 
-\tikzstyle{datanode} = [minimum width=7em,minimum height=1.7em,fill=blue!20,rounded corners=0.3em];
-\tikzstyle{modelnode} = [minimum width=7em,minimum height=1.7em,fill=red!20,rounded corners=0.3em];
-\tikzstyle{decodingnode} = [minimum width=7em,minimum height=1.7em,fill=green!20,rounded corners=0.3em];
+\tikzstyle{datanode} = [minimum width=7em,minimum height=1.7em,fill=blue!20,rounded corners=0.3em,draw,thick];
+\tikzstyle{modelnode} = [minimum width=7em,minimum height=1.7em,fill=red!20,rounded corners=0.3em,draw,thick];
+\tikzstyle{decodingnode} = [minimum width=7em,minimum height=1.7em,fill=green!20,rounded corners=0.3em,draw,thick];
 
 \node [datanode,anchor=north west,minimum height=1.7em,minimum width=8em] (bitext) at (0,0) {{ \small{训练用双语数据}}};
 \node [modelnode, anchor=north west,minimum height=1.7em,minimum width=8em] (gi) at ([xshift=2em,yshift=-0.2em]bitext.south east) {{ \small{文法（规则）抽取}}};
@@ -21,18 +21,18 @@
 \node [modelnode,anchor=south west,minimum height=1.7em,minimum width=8em] (lm) at ([xshift=2em,yshift=0.2em]tuning.north east) {{ \small{$n$-gram语言建模}}};
 \node [datanode,anchor=south west,minimum height=1.7em,minimum width=8em] (lmmodel) at ([xshift=2em,yshift=0.2em]decoding.north east) {{ \small{语言模型}}};
 
-\draw [->,very thick] ([yshift=-0.3em,xshift=0.1em]bitext.east) -- ([yshift=0.1em]gi.north west);
-\draw [->,very thick] ([yshift=-0.1em]gi.south west) -- ([yshift=0.3em,xshift=0.1em]birules.east);
-\draw [->,very thick] ([yshift=-0.3em,xshift=0.1em]birules.east) -- ([yshift=0.1em]training.north west);
-\draw [->,very thick] ([yshift=-0.1em]training.south west) -- ([yshift=0.3em,xshift=0.1em]model.east);
-\draw [->,very thick] ([yshift=-0.3em,xshift=0.1em]model.east) -- ([yshift=0.1em]tuning.north west);
-\draw [->,very thick] ([yshift=-0.1em]tuning.south) -- ([yshift=0.1em]decoding.north);
-\draw [->,very thick] ([yshift=0.3em,xshift=0.1em]tuningdata.east) -- ([yshift=-0.1em]tuning.south west);
+\draw [->,thick] ([yshift=-0.3em,xshift=0.1em]bitext.east) -- ([yshift=0.1em]gi.north west);
+\draw [->,thick] ([yshift=-0.1em]gi.south west) -- ([yshift=0.3em,xshift=0.1em]birules.east);
+\draw [->,thick] ([yshift=-0.3em,xshift=0.1em]birules.east) -- ([yshift=0.1em]training.north west);
+\draw [->,thick] ([yshift=-0.1em]training.south west) -- ([yshift=0.3em,xshift=0.1em]model.east);
+\draw [->,thick] ([yshift=-0.3em,xshift=0.1em]model.east) -- ([yshift=0.1em]tuning.north west);
+\draw [->,thick] ([yshift=-0.1em]tuning.south) -- ([yshift=0.1em]decoding.north);
+\draw [->,thick] ([yshift=0.3em,xshift=0.1em]tuningdata.east) -- ([yshift=-0.1em]tuning.south west);
 
-\draw [->,very thick] ([yshift=-0.1em]monotext.south) -- ([yshift=0.1em]lm.north);
-\draw [->,very thick] ([yshift=-0.1em]lm.south) -- ([yshift=0.1em]lmmodel.north);
-\draw [->,very thick] ([yshift=0.3em,xshift=-0.1em]lmmodel.west) -- ([yshift=-0.1em]tuning.south east);
-\draw [->,very thick] ([yshift=-0.3em,xshift=-0.1em]lmmodel.west) -- ([yshift=0.1em]decoding.north east);
+\draw [->,thick] ([yshift=-0.1em]monotext.south) -- ([yshift=0.1em]lm.north);
+\draw [->,thick] ([yshift=-0.1em]lm.south) -- ([yshift=0.1em]lmmodel.north);
+\draw [->,thick] ([yshift=0.3em,xshift=-0.1em]lmmodel.west) -- ([yshift=-0.1em]tuning.south east);
+\draw [->,thick] ([yshift=-0.3em,xshift=-0.1em]lmmodel.west) -- ([yshift=0.1em]decoding.north east);
 \end{scope}
 \end{tikzpicture}
 \end{center}

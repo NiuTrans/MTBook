@@ -10,7 +10,7 @@
             % RNN Encoder
             \coordinate (eemb0) at (0,0);
             \foreach \x [count=\y from 0] in {1,2,...,10}
-                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.4\base]eemb\y.east) {};
+                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.7\base]eemb\y.east) {};
             \foreach \x in {1,2,...,10}
                 \node[rnnnode,fill=blue!30!white,anchor=south] (enc1\x) at ([yshift=0.3\base]eemb\x.north) {};
             \foreach \x in {1,2,...,10}
@@ -121,10 +121,10 @@
             }
 
             \coordinate (bridge) at ([yshift=1.4\base]enc16.north west);
-            \draw[-latex'] (enc210.north) .. controls +(north:0.4\base) and +(east:1.5\base) .. (bridge) .. controls +(west:8.0\base) and +(south west:0.8\base)  .. (dec21.west);
+            \draw[-latex'] (enc210.north) .. controls +(north:0.6\base) and +(east:2\base) .. (bridge) .. controls +(west:8.0\base) and +(south west:2.8\base)  .. (dec21.west);
 
             \coordinate (bridge) at ([yshift=1.6\base]enc16.north west);
-            \draw[-latex'] (enc110.east) .. controls +(east:0.5\base) and +(east:8\base) .. (bridge) .. controls +(west:7.5\base) and +(south west:0.1\base) .. (dec11.west);
+            \draw[-latex'] ([yshift=-0.5em]enc110.east) .. controls +(north:1.5\base) and +(east:8\base) .. (bridge) .. controls +(west:7.5\base) and +(south west:1.2\base) .. (dec11.west);
 
             % stack RNN
             \begin{pgfonlayer}{background}

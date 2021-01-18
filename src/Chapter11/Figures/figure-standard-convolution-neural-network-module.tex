@@ -1,16 +1,16 @@
-\tikzstyle{input} = [rectangle, minimum width = 1cm, minimum height = 3cm, text centered]
-\tikzstyle{output} = [rectangle, minimum width = 1cm, minimum height = 3cm, text centered]
-\tikzstyle{convolution} = [rectangle, minimum width = 0.7cm, minimum height = 2cm, text centered, fill = red!10, draw = black, thick]
-\tikzstyle{activation} = [rectangle, minimum width = 0.7cm, minimum height = 2cm, text centered, fill = blue!10, draw = black, thick]
-\tikzstyle{pooling} = [rectangle, thick, minimum width = 0.7cm, minimum height = 2cm, text centered, draw = black, fill = ugreen!10]
+\tikzstyle{input} = [rectangle, minimum width = 1.5cm, minimum height = 3cm, text centered]
+\tikzstyle{output} = [rectangle, minimum width = 1.5cm, minimum height = 3cm, text centered]
+\tikzstyle{convolution} = [rectangle, minimum width = 1cm, minimum height = 2cm, text centered, fill = red!20, draw = black, thick]
+\tikzstyle{activation} = [rectangle, minimum width = 1cm, minimum height = 2cm, text centered, fill = blue!20, draw = black, thick]
+\tikzstyle{pooling} = [rectangle, thick, minimum width = 1cm, minimum height = 2cm, text centered, draw = black, fill = ugreen!20]
 \tikzstyle{arrow} = [thick, ->, >=stealth]
 
 \begin{tikzpicture}[node distance = 0cm]
 \node(input)[input, align=center]{输\\入};
-\node(convolution)[convolution,right of = input,xshift = 2cm, align=center]{卷\\积\\层};
-\node(activation)[activation,right of = convolution,xshift = 2cm, align=center]{激\\活\\函\\数};
-\node(pooling)[pooling,right of = activation,xshift = 2cm, align=center]{池\\化\\层};
-\node(output)[output,right of = pooling,xshift= 2cm, align=center]{输\\出};
+\node(convolution)[convolution,right of = input,xshift = 2.5cm, align=center]{卷\\积\\层};
+\node(activation)[activation,right of = convolution,xshift = 2.5cm, align=center]{激\\活\\函\\数};
+\node(pooling)[pooling,right of = activation,xshift = 2.5cm, align=center]{池\\化\\层};
+\node(output)[output,right of = pooling,xshift= 2.5cm, align=center]{输\\出};
 
 \draw [arrow] (input) -- ([xshift=-0.15cm]convolution.180);
 \draw [arrow] ([xshift=0.15cm]convolution.0) -- ([xshift=-0.15cm]activation.180);

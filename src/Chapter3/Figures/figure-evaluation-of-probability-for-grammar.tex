@@ -53,10 +53,10 @@
 \node [anchor=south] (treebanklabel) at (t1n1.north) {{\color{ublue} 数据：树库}};
 
 \begin{pgfonlayer}{background}
-\node[rectangle,draw=ublue, inner sep=0.2em] [fit = (treebanklabel) (t1n1) (t2w1) (t2wn)] (treebank) {};
+\node[rectangle,draw=ublue, inner sep=0.2em,thick] [fit = (treebanklabel) (t1n1) (t2w1) (t2wn)] (treebank) {};
 \end{pgfonlayer}
 
-\node [anchor=north west] (math1) at ([xshift=2em]treebank.north east) {$\funp{P}$(VP $\to$ VV NN)};
+\node [anchor=north west] (math1) at ([xshift=5em]treebank.north east) {$\funp{P}$(VP $\to$ VV NN)};
 \node [anchor=north west] (math1part2) at ([xshift=-1em,yshift=0.2em]math1.south west) {$=\frac{\textrm{VP和VV NN同时出现的次数=1}}{\textrm{VP出现的次数}=4}$};
 
 \node [anchor=north west] (math1part3) at ([yshift=0.2em]math1part2.south west){$=\frac{1}{4}$};

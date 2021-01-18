@@ -4,11 +4,11 @@
 \begin{tikzpicture}
 \begin{scope}
 
-\tikzstyle{node1} = [minimum width=7em,minimum height=1.7em,fill=red!20,rounded corners=0.3em];
-\tikzstyle{node2} = [minimum width=7em,minimum height=2.5em,fill=blue!20,rounded corners=0.3em];
-\tikzstyle{node3} = [minimum width=7em,minimum height=2.5em,fill=green!20,rounded corners=0.3em];
-\tikzstyle{node4} = [minimum width=7em,minimum height=1.7em,fill=orange!20,rounded corners=0.3em];
-\tikzstyle{node5} = [minimum width=4.5em,minimum height=1.7em,dashed];
+\tikzstyle{node1} = [minimum width=7em,minimum height=1.7em,draw,thick,fill=red!20,rounded corners=0.3em];
+\tikzstyle{node2} = [minimum width=7em,minimum height=2.5em,draw,thick,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{node3} = [minimum width=7em,minimum height=2.5em,draw,thick,fill=green!20,rounded corners=0.3em];
+\tikzstyle{node4} = [minimum width=7em,minimum height=1.7em,draw,thick,fill=orange!20,rounded corners=0.3em];
+\tikzstyle{node5} = [minimum width=4.5em,minimum height=1.7em,thick,dashed];
 
 \node [node1,anchor=south west] (s1) at (0,0) {{ \small{源语言词串}}};
 \node [node2,anchor=south] (s2) at ([xshift=2.5em,yshift=2em]s1.north) {};

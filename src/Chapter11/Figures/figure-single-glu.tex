@@ -6,16 +6,16 @@
 	\tikzstyle{word} = [inner sep=0pt, font=\scriptsize,minimum height=\bd]
 	
 	%\draw[fill=blue!8,xshift=0.3cm,yshift=0.5cm,line width=0.2pt] (0cm,0cm) rectangle (0cm+6*\bd,0cm+9*\bd);
-	\draw[fill=cyan!10] (0cm,0cm) -- (4*\bd,0cm) -- (4*\bd,8*\bd) -- (0cm, 8*\bd) -- (0cm,0cm);
+	\draw[fill=cyan!20] (0cm,0cm) -- (4*\bd,0cm) -- (4*\bd,8*\bd) -- (0cm, 8*\bd) -- (0cm,0cm);
 	\draw[cyan,step=\bd,line width=0.8pt] (0cm,0cm) grid (0cm+4*\bd,0cm+8*\bd);
-	\draw[fill=red!5] (0cm,1*\bd) -- (4*\bd,1*\bd) -- (4*\bd,7*\bd) -- (0cm, 7*\bd) -- (0cm,1*\bd);
-	\draw[red!50,step=\bd,xshift=0cm,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
-	\draw[fill=ugreen!5] (7*\bd,\bd) -- (11*\bd,\bd) -- (11*\bd,7*\bd) -- (7*\bd, 7*\bd) -- (7*\bd,\bd);
-	\draw[ugreen!60,step=\bd,xshift=7*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
-	\draw[fill=ugreen!5] (11.5*\bd,\bd) -- (15.5*\bd,\bd) -- (15.5*\bd,7*\bd) -- (11.5*\bd, 7*\bd) -- (11.5*\bd,\bd);
-	\draw[ugreen!60,step=\bd,xshift=11.5*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
-	\draw[fill=blue!5] (18.5*\bd,\bd) -- (22.5*\bd,\bd) -- (22.5*\bd,7*\bd) -- (18.5*\bd, 7*\bd) -- (18.5*\bd,\bd);
-	\draw[blue!50,step=\bd,xshift=18.5*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=red!10] (0cm,1*\bd) -- (4*\bd,1*\bd) -- (4*\bd,7*\bd) -- (0cm, 7*\bd) -- (0cm,1*\bd);
+	\draw[red!60,step=\bd,xshift=0cm,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=ugreen!10] (7*\bd,\bd) -- (11*\bd,\bd) -- (11*\bd,7*\bd) -- (7*\bd, 7*\bd) -- (7*\bd,\bd);
+	\draw[ugreen!70,step=\bd,xshift=7*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=ugreen!10] (11.5*\bd,\bd) -- (15.5*\bd,\bd) -- (15.5*\bd,7*\bd) -- (11.5*\bd, 7*\bd) -- (11.5*\bd,\bd);
+	\draw[ugreen!70,step=\bd,xshift=11.5*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
+	\draw[fill=blue!10] (18.5*\bd,\bd) -- (22.5*\bd,\bd) -- (22.5*\bd,7*\bd) -- (18.5*\bd, 7*\bd) -- (18.5*\bd,\bd);
+	\draw[blue!60,step=\bd,xshift=18.5*\bd,yshift=\bd, line width=0.8pt] (0cm, 0cm) grid (0cm+4*\bd,0cm+6*\bd);
 	
 	
 	\draw[-,line width=0.6pt] (4*\bd, 0.5*\bd) -- (5.5*\bd, 1.5*\bd) -- (4*\bd, 2.5*\bd);
@@ -44,7 +44,7 @@
 	\node[word] (w7) at ([yshift=-\bd]w6) {。};
 	\node[word] (w8) at ([yshift=-\bd]w7) {$<$p$>$};
 
-	\node[inner sep=2pt,word,fill=green!5,draw=ugreen,dotted,very thick,minimum width=6em,align=center,minimum height=4em] (sub) at ([xshift=11cm,yshift=-0.1cm]w1.east) {
+	\node[inner sep=2pt,word,fill=green!10,draw=ugreen,dotted,very thick,minimum width=6em,align=center,minimum height=4em] (sub) at ([xshift=11cm,yshift=-0.1cm]w1.east) {
 \begin{tabular}{r l}
 $<$p$>$：& 填充 \\
  $\sigma$：& sigmoid函数 \\

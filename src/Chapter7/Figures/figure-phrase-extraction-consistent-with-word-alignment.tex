@@ -50,19 +50,19 @@
 
 
 {
-\node [anchor=west] (p1line1) at ([xshift=4em,yshift=1em]a75.east) {\footnotesize{$\bar{s}_i$： 天气\ \ \ \ \ \ }};
+\node [anchor=west] (p1line1) at ([xshift=5em,yshift=1em]a75.east) {\footnotesize{$\bar{s}_i$： 天气\ \ \ \ \ \ }};
 \node [anchor=north west] (p1line2) at ([xshift=0]p1line1.south west) {\footnotesize{$\bar{t}_i$： The\ \ \ weather\ \ \ \ \ }};
 
-\node [anchor=west] (p2line1) at ([xshift=4em]a72.east) {\footnotesize{$\bar{s}_j$： 真\ \ \ 好 \ \ }};
+\node [anchor=west] (p2line1) at ([xshift=5em]a72.east) {\footnotesize{$\bar{s}_j$： 真\ \ \ 好 \ \ }};
 \node [anchor=north west] (p2line2) at ([xshift=0]p2line1.south west) {\footnotesize{$\bar{t}_j$： very\ \ \ good\ \ \ \ \ \ \ \ }};
 
 \node [anchor=east] (p2line3) at ([xshift=0em,yshift=-4em]p1line2.east) {};
 \begin{pgfonlayer}{background}
 {
 \node [rectangle,draw=red,thick,inner sep=0.4em,fill=white,drop shadow] [fit = (a04) (a14)] (phrase1) {};
-\node [rectangle,draw=ugreen,thick,inner sep=0.4em,fill=white,drop shadow] [fit = (a33) (a42)] (phrase2) {};
-\node [rectangle,inner sep=0.2em,fill=red!10] [fit = (p1line1) (p1line2)] (box1) {};
-\node [rectangle,inner sep=0.2em,fill=green!10] [fit = (p2line1) (p2line2) (p2line3)] (box2) {};
+\node [rectangle,draw=green,thick,inner sep=0.4em,fill=white,drop shadow] [fit = (a33) (a42)] (phrase2) {};
+\node [rectangle,inner sep=0.2em,fill=red!15,draw=red,thick] [fit = (p1line1) (p1line2)] (box1) {};
+\node [rectangle,inner sep=0.2em,fill=green!15,draw=green,thick] [fit = (p2line1) (p2line2) (p2line3)] (box2) {};
 }
 \end{pgfonlayer}
 

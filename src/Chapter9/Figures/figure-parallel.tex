@@ -10,9 +10,9 @@
 \tikzstyle{parametershard} = [draw,thick,minimum width=4em,align=left,rounded corners=2pt]
 
 {
-\node[parametershard,anchor=west,fill=yellow!10] (param1) at (0,0) {${\bm \theta}_o$};
+\node[parametershard,anchor=west,fill=yellow!20] (param1) at (0,0) {${\bm \theta}_o$};
 \node (param2) at ([xshift=1em]param1.east) {};
-\node[parametershard,anchor=west,fill=red!10] (param3) at ([xshift=1em]param2.east) {${\bm \theta}_h$};
+\node[parametershard,anchor=west,fill=red!20] (param3) at ([xshift=1em]param2.east) {${\bm \theta}_h$};
 \node[anchor=south,inner sep=1pt] (serverlabel) at ([yshift=0.8em]param2.north) {\small{\textbf{参数服务器}: ${\bm \theta}_{\textrm {new}} = {\bm \theta} - \alpha\cdot \frac{\partial J}{\partial {\bm \theta}}$}};
 }
 
@@ -22,11 +22,11 @@
 }
 \end{pgfonlayer}
 
-\tikzstyle{processor} = [draw,thick,fill=orange!15,minimum width=4em,align=left,rounded corners=2pt]
+\tikzstyle{processor} = [draw,thick,fill=orange!25,minimum width=4em,align=left,rounded corners=2pt]
 
 {
 \node [processor,anchor=north,align=center] (processor2) at ([yshift=-1.2in]serverlabel.south) {\footnotesize{处理器 2}\\\footnotesize{(G2)}};
-\node [anchor=north] (labela) at ([xshift=6.5em,yshift=-2em]processor2.south) {\small {(a)同步更新}};
+\node [anchor=north] (labela) at ([xshift=9.5em,yshift=-2em]processor2.south) {\small {(a)同步更新}};
 \node [processor,anchor=east,align=center] (processor1) at ([xshift=-1em]processor2.west) {\footnotesize{处理器 1}\\\footnotesize{(G1)}};
 \node [processor,anchor=west,align=center] (processor3) at ([xshift=1em]processor2.east) {\footnotesize{处理器 3}\\\footnotesize{(G3)}};
 }
@@ -47,15 +47,15 @@
 
 \footnotesize{
 {
-\node[job,anchor=south west,fill=blue!30] (fetch11) at ([xshift=6em,yshift=-0.2em]processor3.east) {\textbf{F}};
-\node[job,anchor=west,fill=orange!25] (minibatch11) at ([yshift=1pt]fetch11.east) {\scriptsize{minibatch3}};
-\node[job,anchor=west,fill=red!30] (push11) at ([yshift=1pt]minibatch11.east) {\textbf{P}};
-\node[job,anchor=north west,fill=blue!30] (fetch12) at ([xshift=0.8em]fetch11.south west) {\textbf{F}};
-\node[job,anchor=west,fill=orange!25] (minibatch12) at ([yshift=1pt]fetch12.east) {\scriptsize{minibatch2}};
-\node[job,anchor=west,fill=red!30] (push12) at ([yshift=1pt]minibatch12.east) {\textbf{P}};
-\node[job,anchor=north west,fill=blue!30] (fetch13) at ([xshift=0.8em]fetch12.south west) {\textbf{F}};
-\node[job,anchor=west,fill=orange!25,minimum width=8.2em] (minibatch13) at ([yshift=1pt]fetch13.east) {\footnotesize{minibatch1}};
-\node[job,anchor=west,fill=red!30] (push13) at ([yshift=1pt]minibatch13.east) {\textbf{P}};
+\node[job,anchor=south west,fill=blue!25] (fetch11) at ([xshift=10em,yshift=-0.2em]processor3.east) {\textbf{F}};
+\node[job,anchor=west,fill=orange!35] (minibatch11) at ([yshift=1pt]fetch11.east) {\scriptsize{minibatch3}};
+\node[job,anchor=west,fill=red!35] (push11) at ([yshift=1pt]minibatch11.east) {\textbf{P}};
+\node[job,anchor=north west,fill=blue!35] (fetch12) at ([xshift=0.8em]fetch11.south west) {\textbf{F}};
+\node[job,anchor=west,fill=orange!35] (minibatch12) at ([yshift=1pt]fetch12.east) {\scriptsize{minibatch2}};
+\node[job,anchor=west,fill=red!35] (push12) at ([yshift=1pt]minibatch12.east) {\textbf{P}};
+\node[job,anchor=north west,fill=blue!35] (fetch13) at ([xshift=0.8em]fetch12.south west) {\textbf{F}};
+\node[job,anchor=west,fill=orange!35,minimum width=8.2em] (minibatch13) at ([yshift=1pt]fetch13.east) {\footnotesize{minibatch1}};
+\node[job,anchor=west,fill=red!35] (push13) at ([yshift=1pt]minibatch13.east) {\textbf{P}};
 \node[anchor=south west,draw,fill=gray!20,minimum width=7.7em] (update11) at ([yshift=3.82em]push11.north east) {更新};
 
 \node[anchor=north] (G11) at (fetch11.west) {\small{G3}};
@@ -67,13 +67,13 @@
 }
 
 {
-\draw [<->,thin,dotted] ([xshift=-1pt]minibatch11.north) .. controls +(west:3em) and +(east:3em) .. ([xshift=1pt]processor3.east);
-\draw [<->,thin,dotted] ([xshift=-1pt]fetch11.north) .. controls +(west:4em) and +(east:4em) .. ([xshift=0em,yshift=0.3in]processor3.north);
-\draw [<->,thin,dotted] ([xshift=-1pt]push11.north) -- ([xshift=-2.2em,yshift=0.8in]processor3.north);
+\draw [<->,thick,dotted] ([xshift=-1pt]minibatch11.north) .. controls +(west:3em) and +(east:3em) .. ([xshift=1pt]processor3.east);
+\draw [<->,thick,dotted] ([xshift=-1pt]fetch11.north) .. controls +(west:4em) and +(east:4em) .. ([xshift=0em,yshift=0.3in]processor3.north);
+\draw [<->,thick,dotted] ([xshift=-1pt]push11.north) -- ([xshift=-2.2em,yshift=0.8in]processor3.north);
 }
 
 {
-\draw [<->,thin,dotted] ([xshift=-1pt]update11.west) -- ([xshift=1pt,yshift=-1.28em]serverbox.north east);
+\draw [<->,thick,dotted] ([xshift=-1pt]update11.west) -- ([xshift=1pt,yshift=-1.28em]serverbox.north east);
 }
 
 
@@ -88,9 +88,9 @@
 \tikzstyle{parametershard} = [draw,thick,minimum width=4em,align=left,rounded corners=2pt]
 
 {
-\node[parametershard,anchor=west,fill=yellow!10] (param1) at (0,0) {${\bm \theta}_o$};
+\node[parametershard,anchor=west,fill=yellow!20] (param1) at (0,0) {${\bm \theta}_o$};
 \node (param2) at ([xshift=1em]param1.east) {};
-\node[parametershard,anchor=west,fill=red!10] (param3) at ([xshift=1em]param2.east) {${\bm \theta}_h$};
+\node[parametershard,anchor=west,fill=red!20] (param3) at ([xshift=1em]param2.east) {${\bm \theta}_h$};
 \node[anchor=south,inner sep=1pt] (serverlabel) at ([yshift=0.8em]param2.north) {\small{\textbf{参数服务器}: ${\bm \theta}_{\textrm {new}} = {\bm \theta} - \alpha\cdot \frac{\partial J}{\partial {\bm \theta}}$}};
 }
 
@@ -100,11 +100,11 @@
 }
 \end{pgfonlayer}
 
-\tikzstyle{processor} = [draw,thick,fill=orange!15,minimum width=4em,align=left,rounded corners=2pt]
+\tikzstyle{processor} = [draw,thick,fill=orange!25,minimum width=4em,align=left,rounded corners=2pt]
 
 {
 \node [processor,anchor=north,align=center] (processor2) at ([yshift=-1.2in]serverlabel.south) {\footnotesize{处理器 2}\\\footnotesize{(G2)}};
-\node [anchor=north] (label) at ([xshift=6.5em,yshift=-2em]processor2.south) {\small {(b)异步更新}};
+\node [anchor=north] (label) at ([xshift=9.5em,yshift=-2em]processor2.south) {\small {(b)异步更新}};
 \node [processor,anchor=east,align=center] (processor1) at ([xshift=-1em]processor2.west) {\footnotesize{处理器 1}\\\footnotesize{(G1)}};
 \node [processor,anchor=west,align=center] (processor3) at ([xshift=1em]processor2.east) {\footnotesize{处理器 3}\\\footnotesize{(G3)}};
 }
@@ -125,15 +125,15 @@
 
 \footnotesize{
 {
-\node[job,anchor=south west,fill=blue!30] (fetch21) at ([xshift=6em,yshift=-0.3em]processor3.east) {\textbf{F}};
-\node[job,anchor=west,fill=orange!25] (minibatch21) at ([yshift=1pt]fetch21.east) {\scriptsize{minibatch3}};
-\node[job,anchor=west,fill=red!30] (push21) at ([yshift=1pt]minibatch21.east) {\textbf{P}};
-\node[job,anchor=north west,fill=blue!30] (fetch22) at ([xshift=0.8em]fetch21.south west) {\textbf{F}};
-\node[job,anchor=west,fill=orange!25] (minibatch22) at ([yshift=1pt]fetch22.east) {\scriptsize{minibatch2}};
-\node[job,anchor=west,fill=red!30] (push22) at ([yshift=1pt]minibatch22.east) {\textbf{P}};
-\node[job,anchor=north west,fill=blue!30] (fetch23) at ([xshift=0.8em]fetch22.south west) {\textbf{F}};
-\node[job,anchor=west,fill=orange!25,minimum width=8.25em] (minibatch23) at ([yshift=1pt]fetch23.east) {\footnotesize{minibatch1}};
-\node[job,anchor=west,fill=red!30] (push23) at ([yshift=1pt]minibatch23.east) {\textbf{P}};
+\node[job,anchor=south west,fill=blue!35] (fetch21) at ([xshift=10em,yshift=-0.3em]processor3.east) {\textbf{F}};
+\node[job,anchor=west,fill=orange!35] (minibatch21) at ([yshift=1pt]fetch21.east) {\scriptsize{minibatch3}};
+\node[job,anchor=west,fill=red!35] (push21) at ([yshift=1pt]minibatch21.east) {\textbf{P}};
+\node[job,anchor=north west,fill=blue!35] (fetch22) at ([xshift=0.8em]fetch21.south west) {\textbf{F}};
+\node[job,anchor=west,fill=orange!35] (minibatch22) at ([yshift=1pt]fetch22.east) {\scriptsize{minibatch2}};
+\node[job,anchor=west,fill=red!35] (push22) at ([yshift=1pt]minibatch22.east) {\textbf{P}};
+\node[job,anchor=north west,fill=blue!35] (fetch23) at ([xshift=0.8em]fetch22.south west) {\textbf{F}};
+\node[job,anchor=west,fill=orange!35,minimum width=8.25em] (minibatch23) at ([yshift=1pt]fetch23.east) {\footnotesize{minibatch1}};
+\node[job,anchor=west,fill=red!35] (push23) at ([yshift=1pt]minibatch23.east) {\textbf{P}};
 \node[anchor=south west,draw,fill=gray!20,minimum width=0.6in] (update21) at ([yshift=2pt]push21.north east) {更新};
 \node[anchor=south west,draw,fill=gray!20,minimum width=0.25in] (update22) at ([yshift=2.8pt]push23.north east) {\tiny{更新}};
 
@@ -143,8 +143,8 @@
 \node[anchor=north,align=center] (synlabel) at (G22.south) {\small{\textbf{异步更新}}};
 \draw[->,thick] ([xshift=1em]G23.east) -- ([xshift=1em,yshift=1.4in]G23.east) node [pos=0.5,rotate=90,yshift=-1em] {\small{时间轴}};
 
-\draw [<->,thin,dotted] ([xshift=-1pt]update21.west) -- ([xshift=1pt,yshift=-1.55em]serverbox.north east);
-\draw [<->,thin,dotted] ([xshift=-1pt]update22.west) -- ([xshift=1pt,yshift=-1.5em]serverbox.north east);
+\draw [<->,thick,dotted] ([xshift=-1pt,yshift=-4pt]update21.west) -- ([xshift=1pt,yshift=-1.55em]serverbox.north east);
+\draw [<->,thick,dotted] ([xshift=-1pt]update22.west) -- ([xshift=1pt,yshift=-1.5em]serverbox.north east);
 }
 }
 
