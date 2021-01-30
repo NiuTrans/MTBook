@@ -27,21 +27,21 @@
 \begin{pgfonlayer}{background}
 
 {
-\node [rectangle,fill=blue!20,inner sep=0] [fit = (n11)] (n11box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n4)] (n4box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n1)] (n1box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n2)] (n2box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n3)] (n3box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n5)] (n5box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n6)] (n6box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n7)] (n7box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n8)] (n8box) {};
-\node [rectangle,fill=red!20,inner sep=0] [fit = (n9)] (n9box) {};
-\node [rectangle,fill=blue!20,inner sep=0] [fit = (n10)] (n10box) {};
+\node [rectangle,fill=red!20,inner sep=0] [fit = (n11)] (n11box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n4)] (n4box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n1)] (n1box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n2)] (n2box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n3)] (n3box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n5)] (n5box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n6)] (n6box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n7)] (n7box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n8)] (n8box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n9)] (n9box) {};
+\node [rectangle,fill=red!20,inner sep=0] [fit = (n10)] (n10box) {};
 
-\node [anchor=north west, minimum size=1.2em, fill=red!20] (land1) at ([xshift=7.0em,yshift=0em]n1.north east) {};
+\node [anchor=north west, minimum size=1.2em, fill=blue!20] (land1) at ([xshift=7.0em,yshift=0em]n1.north east) {};
 \node [anchor=west] (land1label) at (land1.east) {\scriptsize{可信}};
-\node [anchor=north west, minimum size=1.2em, fill=blue!20] (land2) at ([yshift=-0.3em]land1.south west) {};
+\node [anchor=north west, minimum size=1.2em, fill=red!20] (land2) at ([yshift=-0.3em]land1.south west) {};
 \node [anchor=west] (land2label) at (land2.east) {\scriptsize{不可信}};
 }
 
@@ -54,6 +54,8 @@
 \node[anchor=west,minimum size=18pt] (tw5) at ([xshift=0.3em]tw4.east){the};
 \node[anchor=west,minimum size=18pt] (tw6) at ([yshift=-0.1em,xshift=0.3em]tw5.east){answer};
 
+\node[anchor=north](pos1) at ([xshift=-1.0em,yshift=-1.0em]tw4.south){\small{（a）标有可信节点信息的句法树}};
+
 \draw[dashed] (cw1.south) -- ([yshift=-0.4em]tw1.north);
 \draw[dashed] (cw2.south) .. controls +(south:2.0) and +(north:0.6) .. ([yshift=-0.4em]tw4.north);
 \draw[dashed] (cw3.south) -- ([yshift=-0.4em]tw5.north);
@@ -63,7 +65,7 @@
 
 \end{scope}
 
-\begin{scope} [yshift = -1.87in, xshift = 1.9in]
+\begin{scope} [yshift = -1.87in, xshift = 2.2in]
 {
 \begin{scope}[level distance=20pt]
 \node[scale=0.8, inner sep=0.1cm,align=center,draw] (cfrag1) at
@@ -106,6 +108,8 @@
 \node[scale=0.9,anchor=west,minimum size=18pt] (tw14) at ([xshift=0.5em]tw13.east){with};
 \node[scale=0.9,anchor=west,minimum size=18pt] (tw15) at ([xshift=0.5em]tw14.east){the};
 \node[scale=0.9,anchor=west,minimum size=18pt] (tw16) at ([yshift=-0.1em,xshift=0.5em]tw15.east){answer};
+
+\node[anchor=north](pos1) at ([xshift=-1.0em,yshift=-0.6em]tw14.south){\small{（b）通过边缘集合定义切割得到的句法树}};
 
 \draw[dashed] ([xshift=-0.3em]cfrag1.south) -- ([yshift=-0.3em]tw11.north);
 \draw[dashed] (cfrag2.south) -- ([yshift=-0.4em]tw14.north);

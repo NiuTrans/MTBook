@@ -3,11 +3,11 @@
 
 \begin{scope}
 
-\node [anchor=west,draw,thick,minimum width=4em,minimum height=1.7em,fill=blue!20] (encoder) at (0,0) {模块};
+\node [anchor=west,draw,thick,minimum width=4em,minimum height=1.7em,fill=blue!30] (encoder) at (0,0) {模块};
 \node [anchor=south,minimum width=4em,minimum height=1.7em] (space) at ([yshift=0.3em]encoder.north) {\footnotesize{目标系统}};
 
 \begin{pgfonlayer}{background}
-\node [rectangle,draw,thick,fill=red!20] [fit = (encoder) (space)] (system) {};
+\node [rectangle,draw,thick,fill=red!30] [fit = (encoder) (space)] (system) {};
 \end{pgfonlayer}
 
 \node [anchor=north] (data) at ([yshift=-1em]system.south) {\scriptsize{\textbf{目标任务有标注数据}}};
@@ -18,13 +18,13 @@
 
 \begin{scope}[xshift=2.8in]
 
-\node [anchor=west,draw,dashed,thick,minimum width=4em,minimum height=1.7em,fill=blue!20] (encoder) at (0,0) {模块};
+\node [anchor=west,draw,dashed,thick,minimum width=4em,minimum height=1.7em,fill=blue!30] (encoder) at (0,0) {模块};
 \node [anchor=south,minimum width=4em,minimum height=1.7em] (space) at ([yshift=0.3em]encoder.north) {\footnotesize{目标系统}};
-\node [anchor=center,draw,thick,minimum width=4em,minimum height=1.7em,fill=green!20] (encoderpre) at ([xshift=-7em]encoder.center) {\footnotesize{语言模型}};
+\node [anchor=center,draw,thick,minimum width=4em,minimum height=1.7em,fill=green!30] (encoderpre) at ([xshift=-7em]encoder.center) {\footnotesize{语言模型}};
 \draw [->,thick] (encoderpre.east) -- (encoder.west);
 
 \begin{pgfonlayer}{background}
-\node [rectangle,draw,thick,fill=red!20] [fit = (encoder) (space)] (system) {};
+\node [rectangle,draw,thick,fill=red!30] [fit = (encoder) (space)] (system) {};
 \end{pgfonlayer}
 
 \node [anchor=north] (data) at ([yshift=-1em]system.south) {\scriptsize{\textbf{目标任务有标注数据}}};

@@ -23,7 +23,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (example1) (example1part2) (example2) (example2part2) (example3) (example3part2) (example4) (bidatalabel)(example6)] (bidata) {};
+\node[rectangle,draw=ublue, thick, inner sep=0mm] [fit = (example1) (example1part2) (example2) (example2part2) (example3) (example3part2) (example4) (bidatalabel)(example6)] (bidata) {};
 }
 \end{pgfonlayer}
 
@@ -44,7 +44,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (entry5)(entry6)(monodatalabel)] (monodata) {};
+\node[rectangle,draw=ublue, thick, inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (entry5)(entry6)(monodatalabel)] (monodata) {};
 }
 \end{pgfonlayer}
 
@@ -52,7 +52,7 @@
 }
 
 {
-\begin{scope}[xshift=1.7in]
+\begin{scope}[xshift=2in]
 {\scriptsize
 \node [anchor=north west] (phrase1) at (0,0) {$\textrm{Pr}(\textrm{我} \to \textrm{I}) = 0.7$};
 \node [anchor=north west] (phrase2) at ([yshift=0.1em]phrase1.south west) {$\textrm{Pr}(\textrm{我} \to \textrm{me}) = 0.3$};
@@ -68,7 +68,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (phrase1) (phrase2) (phrase3) (phrase4) (phrase4part2) (phrase5) (phrase5part2) (phrase6)(phrase7) (phrasetablelabel)] (phrasetable) {};
+\node[rectangle,draw=ublue, thick, inner sep=0mm] [fit = (phrase1) (phrase2) (phrase3) (phrase4) (phrase4part2) (phrase5) (phrase5part2) (phrase6)(phrase7) (phrasetablelabel)] (phrasetable) {};
 }
 \end{pgfonlayer}
 
@@ -76,7 +76,7 @@
 }
 
 {
-\begin{scope}[xshift=1.7in,yshift=-1.55in]
+\begin{scope}[xshift=2in,yshift=-1.55in]
 {\scriptsize
 \node [anchor=north west] (ngram1) at (0,0) {$\textrm{Pr}(\textrm{I}) = 0.0001$};
 \node [anchor=north west] (ngram2) at ([yshift=0.0em]ngram1.south west) {$\textrm{Pr}(\textrm{I}\ \textrm{am}) = 0.623$};
@@ -88,7 +88,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, inner sep=0mm] [fit = (ngram1) (ngram2) (ngram3) (ngram4) (lmlabel) (ngrame)] (langaugemodel) {};
+\node[rectangle,draw=ublue, thick, inner sep=0mm] [fit = (ngram1) (ngram2) (ngram3) (ngram4) (lmlabel) (ngrame)] (langaugemodel) {};
 }
 \end{pgfonlayer}
 
@@ -96,14 +96,14 @@
 }
 
 {
-\draw[->,thick,ublue] (bidata.east)--([xshift=2.2em]bidata.east) node[pos=0.5,above] (simexample) {\color{red}{\scriptsize{\scriptsize{学习}}}};
+\draw[->,thick,ublue] (bidata.east)--([xshift=4.2em]bidata.east) node[pos=0.5,above] (simexample) {\color{red}{\scriptsize{\scriptsize{学习}}}};
 }
 
 {
-\draw[->,thick,ublue] (monodata.east)--([xshift=2.2em]monodata.east) node[pos=0.5,above] (simexample) {\color{red}{\scriptsize{\scriptsize{学习}}}};
+\draw[->,thick,ublue] (monodata.east)--([xshift=4.2em]monodata.east) node[pos=0.5,above] (simexample) {\color{red}{\scriptsize{\scriptsize{学习}}}};
 }
 
-\begin{scope}[xshift=3.6in]
+\begin{scope}[xshift=4in]
 {\footnotesize
 {
 \node[anchor=center] (srcsentence) at (0,0) {我 对 你 感到 满意};

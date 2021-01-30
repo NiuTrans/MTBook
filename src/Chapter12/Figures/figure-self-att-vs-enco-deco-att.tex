@@ -1,7 +1,7 @@
 \begin{tikzpicture}
    
 
-\node[rounded corners=1pt,minimum width=11.0em,minimum height=2.0em,fill=pink!30,draw=black](p1) at (0,0) {\small{Self-Attention}};
+\node[rounded corners=1pt,minimum width=11.0em,minimum height=2.0em,fill=pink!60,draw=black](p1) at (0,0) {\small{Self-Attention}};
 
 \node[anchor=north](word1) at ([xshift=0.0em,yshift=-2.0em]p1.south) {\small \mathbi{K}};
 \node[anchor=west](word2) at ([xshift=2.2em]word1.east) {\small \mathbi{V}};
@@ -11,7 +11,7 @@
 \draw[->,thick]([xshift=-3.6em]word1.north)--([xshift=-3.6em]p1.south);
 \draw[->,thick]([xshift=3.6em]word1.north)--([xshift=3.6em]p1.south);
 
-\node[anchor=north,rounded corners=1pt,minimum width=11.0em,minimum height=3.5em,draw=ugreen!70,very thick,dotted](p1-1) at ([yshift=-5.2em]p1.south) {\small{解码端每个位置的表示}};
+\node[anchor=north,rounded corners=1pt,minimum width=11.0em,minimum height=3.5em,draw=ugreen!70,very thick,dotted](p1-1) at ([yshift=-5.2em]p1.south) {\small{解码器每个位置的表示}};
 
 \draw [->,thick,dashed] (word3.south) .. controls +(south:1.5em) and +(north:1.5em) .. ([xshift=-0.4em]p1-1.north);
 \draw [->,thick,dashed](word1.south) --(p1-1.north);
@@ -19,7 +19,7 @@
 
 \node[anchor=north](caption1) at ([xshift=0.0em,yshift=-9.5em]p1.south){\small{(a) Self-Attention的输入}};
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\node[anchor=west,rounded corners=1pt,minimum width=14.0em,minimum height=2.0em,fill=pink!30,draw=black](p2) at ([xshift=5.0em]p1.east){\small{Encoder-Decoder Attention}};
+\node[anchor=west,rounded corners=1pt,minimum width=14.0em,minimum height=2.0em,fill=pink!50,draw=black](p2) at ([xshift=5.0em]p1.east){\small{Encoder-Decoder Attention}};
 
 \node[anchor=north](word1-2) at ([xshift=0.0em,yshift=-2.0em]p2.south) {\small \mathbi{K}};
 \node[anchor=west](word2-2) at ([xshift=2.2em]word1-2.east) {\small \mathbi{V}};
@@ -29,7 +29,7 @@
 \draw[->,thick]([xshift=-3.6em]word1-2.north)--([xshift=-3.6em]p2.south);
 \draw[->,thick]([xshift=3.6em]word1-2.north)--([xshift=3.6em]p2.south);
 
-\node[anchor=north,rounded corners=1pt](p2-1) at ([xshift=-3.55em,yshift=-5.5em]p2.south) {\small{解码端每个}};
+\node[anchor=north,rounded corners=1pt](p2-1) at ([xshift=-3.55em,yshift=-5.5em]p2.south) {\small{解码器每个}};
 \node[anchor=north,rounded corners=1pt](p2-2) at ([xshift=-3.55em,yshift=-6.8em]p2.south) {\small{位置的表示}};
 \begin{pgfonlayer}{background}
 {
@@ -38,7 +38,7 @@
 \end{pgfonlayer}
 
 
-\node[anchor=north,rounded corners=1pt](p2-3) at ([xshift=3.55em,yshift=-5.5em]p2.south) {\small{编码端每个}};
+\node[anchor=north,rounded corners=1pt](p2-3) at ([xshift=3.55em,yshift=-5.5em]p2.south) {\small{编码器每个}};
 \node[anchor=north,rounded corners=1pt](p2-4) at ([xshift=3.55em,yshift=-6.8em]p2.south) {\small{位置的表示}};
 \begin{pgfonlayer}{background}
 {

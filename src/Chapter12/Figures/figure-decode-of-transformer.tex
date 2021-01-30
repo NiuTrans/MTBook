@@ -3,14 +3,14 @@
 
    \begin{tikzpicture}
     \begin{scope}
-    \tikzstyle{rnnnode} = [minimum height=1.1em,minimum width=2.1em,inner sep=2pt,rounded corners=1pt,draw,fill=red!20];
+    \tikzstyle{rnnnode} = [minimum height=1.1em,minimum width=2.7em,inner sep=2pt,rounded corners=1pt,draw,fill=red!20];
 
     \node [rnnnode,anchor=west] (h1) at (0,0) {\tiny{$\mathbi{h}_1$}};
-    \node [rnnnode,anchor=west] (h2) at ([xshift=1em]h1.east) {\tiny{$\mathbi{h}_2$}};
-    \node [rnnnode,anchor=west] (h3) at ([xshift=1em]h2.east) {\tiny{$\mathbi{h}_3$}};
+    \node [rnnnode,anchor=west] (h2) at ([xshift=1.5em]h1.east) {\tiny{$\mathbi{h}_2$}};
+    \node [rnnnode,anchor=west] (h3) at ([xshift=1.5em]h2.east) {\tiny{$\mathbi{h}_3$}};
     \node [rnnnode,anchor=north,fill=green!20] (e1) at ([yshift=-1em]h1.south) {\tiny{$e_x()$}};
-    \node [rnnnode,anchor=west,fill=green!20] (e2) at ([xshift=1em]e1.east) {\tiny{$e_x()$}};
-    \node [rnnnode,anchor=west,fill=green!20] (e3) at ([xshift=1em]e2.east) {\tiny{$e_x()$}};
+    \node [rnnnode,anchor=west,fill=green!20] (e2) at ([xshift=1.5em]e1.east) {\tiny{$e_x()$}};
+    \node [rnnnode,anchor=west,fill=green!20] (e3) at ([xshift=1.5em]e2.east) {\tiny{$e_x()$}};
     \node [anchor=north,inner sep=2pt] (w1) at ([yshift=-0.6em]e1.south) {\tiny{你}};
     \node [anchor=north,inner sep=2pt] (w2) at ([yshift=-0.6em]e2.south) {\tiny{好}};
     \node [anchor=north,inner sep=2pt] (w3) at ([yshift=-0.6em]e3.south) {\tiny{$\langle$eos$\rangle$}};
@@ -33,14 +33,14 @@
     \node [anchor=south] (encoder) at ([xshift=-0.2em]h1.north west) {\scriptsize{\textbf{编码器}}};
 
 {
-    \node [rnnnode,anchor=west,fill=green!20] (t1) at ([xshift=3em]e3.east) {\tiny{$e_y()$}};
+    \node [rnnnode,anchor=west,fill=green!20] (t1) at ([xshift=3.5em]e3.east) {\tiny{$e_y()$}};
     }
 {
-    \node [rnnnode,anchor=west,fill=green!20] (t2) at ([xshift=1.5em]t1.east) {\tiny{$e_y()$}};
+    \node [rnnnode,anchor=west,fill=green!20] (t2) at ([xshift=1.8em]t1.east) {\tiny{$e_y()$}};
     }
 {
-    \node [rnnnode,anchor=west,fill=green!20] (t3) at ([xshift=1.5em]t2.east) {\tiny{$e_y()$}};
-    \node [rnnnode,anchor=west,fill=green!20] (t4) at ([xshift=1.5em]t3.east) {\tiny{$e_y()$}};
+    \node [rnnnode,anchor=west,fill=green!20] (t3) at ([xshift=1.8em]t2.east) {\tiny{$e_y()$}};
+    \node [rnnnode,anchor=west,fill=green!20] (t4) at ([xshift=1.8em]t3.east) {\tiny{$e_y()$}};
     %\node [anchor=west,inner sep=2pt] (t5) at ([xshift=0.3em]t4.east) {\tiny{...}};
     }
 {

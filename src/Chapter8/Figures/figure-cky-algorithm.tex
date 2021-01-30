@@ -22,13 +22,13 @@
 \node[srcnode,anchor=north west] (c8) at ([xshift=-4.5em,yshift=0.4em]c7.south west) {\normalsize{\textbf{return} $span[0, J]$}};
 
 \node[anchor=west] (c9) at ([xshift=-3.2em,yshift=1.7em]c1.west) {\small{\textrm{参数：}\seq{s}为输入字符串。$G$为输入CFG。$J$为待分析字符串长度。}};
-\node[anchor=west] (c10) at ([xshift=0em,yshift=1.3em]c9.west) {\small{\textrm{输出：字符串全部可能的语法分析结果}}};
+\node[anchor=west] (c10) at ([xshift=0em,yshift=1.3em]c9.west) {\small{\textrm{输出：全部可能的字符串语法分析结果}}};
 \node[anchor=west] (c11) at ([xshift=0em,yshift=1.3em]c10.west) {\small{\textrm{输入：符合乔姆斯基范式的待分析字符串和一个上下文无关文法（CFG）}}};
 
 
 
 \begin{pgfonlayer}{background}
-\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=blue!10!white] [fit = (c1) (c21) (c3) (c6) (c7) (c8) (c11)] (gl1) {};
+\node [rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (c1) (c21) (c3) (c6) (c7) (c8) (c11)] (gl1) {};
 \end{pgfonlayer}
 
 \end{scope}

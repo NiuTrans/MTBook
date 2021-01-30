@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -136,7 +136,7 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 
 \parinterval 对于第一个问题，可以给计算机一个翻译词典，这样计算机可以发挥计算方面的优势，尽可能多地把翻译结果拼装出来。比如，可以把每个翻译结果看作是对单词翻译的拼装，这可以被形象地比作贯穿多个单词的一条路径，计算机所做的就是尽可能多地生成这样的路径。图\ref{fig:5-4}中蓝色和红色的折线就分别表示了两条不同的译文选择路径，区别在于“满意”和“对”的翻译候选是不一样的，蓝色折线选择的是“satisfy”和“to”，而红色折线是“satisfied”和“with”。换句话说，不同的译文对应不同的路径（即使词序不同也会对应不同的路径）。
 
-\parinterval 对于第二个问题，尽管机器能够找到很多译文选择路径，但它并不知道哪些路径是好的。说地再直白一些，简单地枚举路径实际上就是一个体力活，没有太多的智能。因此计算机还需要再聪明一些，运用它的能够“掌握”的知识判断翻译结果的好与坏。这一步是最具挑战的，当然也有很多思路。在统计机器翻译中，这个问题被定义为：设计一种统计模型，它可以给每个译文一个可能性，而这个可能性越高表明译文越接近人工翻译。
+\parinterval 对于第二个问题，尽管机器能够找到很多译文选择路径，但它并不知道哪些路径是好的。说地再直白一些，简单地枚举路径实际上就是一个体力活，没有太多的智能。因此计算机还需要再聪明一些，运用它的能够“掌握”的知识判断翻译结果的好与坏。这一步是最具挑战的，当然也有很多思路来解决这个问题。在统计机器翻译中，这个问题被定义为：设计一种统计模型，它可以给每个译文一个可能性，而这个可能性越高表明译文越接近人工翻译。
 
 \parinterval 如图\ref{fig:5-4}所示，每个单词翻译候选的右侧黑色框里的数字就是单词的翻译概率，使用这些单词的翻译概率，可以得到整句译文的概率（用符号$\funp{P}$表示）。这样，就用概率化的模型描述了每个翻译候选的可能性。基于这些翻译候选的可能性，机器翻译系统可以对所有的翻译路径进行打分，比如，图\ref{fig:5-4}中第一条路径的分数为0.042，第二条是0.006，以此类推。最后，系统可以选择分数最高的路径作为源语言句子的最终译文。
 
@@ -153,7 +153,7 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsubsection{3. 人工翻译 vs. 机器翻译}
+\subsubsection{3. 人工翻译 vs 机器翻译}
 \parinterval 人在翻译时的决策是非常确定并且快速的，但计算机处理这个问题时却充满了概率化的思想。当然它们也有类似的地方。首先，计算机使用统计模型的目的是把翻译知识变得可计算，并把这些“知识”储存在模型参数中，这个模型和人类大脑的作用是类似的\footnote{这里并不是要把统计模型等同于生物学或者认知科学上的人脑，这里是指它们处理翻译问题时发挥的作用类似。}；其次，计算机对统计模型进行训练相当于人类对知识的学习，二者都可以被看作是理解、加工知识的过程；再有，计算机使用学习到的模型对新句子进行翻译的过程相当于人运用知识的过程。在统计机器翻译中，模型学习的过程被称为训练，目的是从双语平行数据中自动学习翻译“知识”；而使用模型处理新句子的过程是一个典型的预测过程，也被称为解码或推断。图\ref{fig:5-4}的右侧标注在翻译过程中训练和解码的作用。最终，统计机器翻译的核心由三部分构成\ \dash \ 建模、训练和解码。本章后续内容会围绕这三个问题展开讨论。
 
 %----------------------------------------------------------------------------------------
@@ -200,10 +200,12 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 
 \parinterval 以汉译英为例，当翻译“我”这个单词时，可能直接会想到用“I”、“me”或“I'm”作为它的译文，而几乎不会选择“you”、“satisfied”等含义相差太远的译文。这是为什么呢？如果从统计学的角度来看，无论是何种语料，包括教材、新闻、小说等，绝大部分情况下“我”都翻译成了“I”、“me”等，几乎不会看到我被翻译成“you”或“satisfied”的情况。可以说“我”翻译成“I”、“me”等属于高频事件，而翻译成“you”、“satisfied”等属于低频或小概率事件。因此人在翻译时也是选择在统计意义上概率更大的译文，这也间接反映出统计模型可以在一定程度上描述人的翻译习惯和模式。
 
-\parinterval 表\ref{tab:5-1}展示了汉语到英语的单词翻译实例及相应的翻译概率。可以看到，“我”翻译成“I”的概率最高，为0.5。这是符合人类对翻译的认知的。此外，这种概率化的模型避免了非0即1的判断，所有的译文都是可能的，只是概率不同。这也使得统计模型可以覆盖更多的翻译现象，甚至捕捉到一些人所忽略的情况。\\ \\ \\
+\parinterval 表\ref{tab:5-1}展示了汉语到英语的单词翻译实例及相应的翻译概率。可以看到，“我”翻译成“I”的概率最高，为0.5。这是符合人类对翻译的认知的。此外，这种概率化的模型避免了非0即1的判断，所有的译文都是可能的，只是概率不同。这也使得统计模型可以覆盖更多的翻译现象，甚至捕捉到一些人所忽略的情况。
+
 %----------------------------------------------
 \begin{table}[htp]
     \centering
+    \caption{汉译英单词翻译概率}
     \begin{tabular}{c | c  c}
     源语言 & 目标语言 & 翻译概率 \\ \hline
                 & I              & 0.50 \\
@@ -213,10 +215,11 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
                 & am         & 0.10 \\
     ...         & ...           & ... \\
     \end{tabular}
-    \caption{汉译英单词翻译概率}
     \label{tab:5-1}
 \end{table}
 %----------------------------------------------
+
+%\vspace{-0.5em}
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -259,7 +262,7 @@ $\seq{t}$ = machine\; \underline{translation}\; is\; a\; process\; of\; generati
 \begin{eqnarray}
 \funp{P}(\text{机器},\text{translation}; \seq{s},\seq{t})  & = & \frac{2}{121} \\
 \funp{P}(\text{机器},\text{look}; \seq{s},\seq{t})  & =  & \frac{0}{121}
-\label{eq:5-3}
+\label{eq:5-4}
 \end{eqnarray}
 
 \noindent 注意，由于“look”没有出现在数据中，因此$\funp{P}(\text{机器},\text{look}; \seq{s},\seq{t})=0$。这时，可以使用{\chaptertwo}介绍的平滑算法赋予它一个非零的值，以保证在后续的步骤中整个翻译模型不会出现零概率的情况。
@@ -272,11 +275,11 @@ $\seq{t}$ = machine\; \underline{translation}\; is\; a\; process\; of\; generati
 
 \parinterval 如果有更多的句子，上面的方法同样适用。假设，有$K$个互译句对$\{(\seq{s}^{[1]},\seq{t}^{[1]})$,...,\\$(\seq{s}^{[K]},\seq{t}^{[K]})\}$。仍然可以使用基于相对频次的方法估计翻译概率$\funp{P}(x,y)$，具体方法如下:
 \begin{eqnarray}
-\funp{P}(x,y)  =  \frac{{\sum_{k=1}^{K} c(x,y;\seq{s}^{[k]},\seq{t}^{[k]})}}{\sum_{k=1}^{K}{{\sum_{x',y'} c(x',y';\seq{s}^{[k]},\seq{t}^{[k]})}}}
-\label{eq:5-4}
+\funp{P}(x,y)  &=&  \frac{{\sum_{k=1}^{K} c(x,y;\seq{s}^{[k]},\seq{t}^{[k]})}}{\sum_{k=1}^{K}{{\sum_{x',y'} c(x',y';\seq{s}^{[k]},\seq{t}^{[k]})}}}
+\label{eq:5-5}
 \end{eqnarray}
 
-\parinterval 与公式\eqref{eq:5-1}相比，公式\eqref{eq:5-4}的分子、分母都多了一项累加符号$\sum_{k=1}^{K} \cdot$，它表示遍历语料库中所有的句对。换句话说，当计算词的共现次数时，需要对每个句对上的计数结果进行累加。从统计学习的角度，使用更大规模的数据进行参数估计可以提高结果的可靠性。计算单词的翻译概率也是一样，在小规模的数据上看，很多翻译现象的特征并不突出，但是当使用的数据量增加到一定程度，翻译的规律会很明显的体现出来。
+\parinterval 与公式\eqref{eq:5-1}相比，公式\eqref{eq:5-5}的分子、分母都多了一项累加符号$\sum_{k=1}^{K} \cdot$，它表示遍历语料库中所有的句对。换句话说，当计算词的共现次数时，需要对每个句对上的计数结果进行累加。从统计学习的角度，使用更大规模的数据进行参数估计可以提高结果的可靠性。计算单词的翻译概率也是一样，在小规模的数据上看，很多翻译现象的特征并不突出，但是当使用的数据量增加到一定程度，翻译的规律会很明显的体现出来。
 
 \parinterval 举个例子，实例\ref{eg:5-2}展示了一个由两个句对构成的平行语料库。
 
@@ -300,10 +303,10 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
                                                                             & = & \frac{4 + 1}{|\seq{s}^{[1]}| \times |\seq{t}^{[1]}| + |\seq{s}^{[2]}| \times |\seq{t}^{[2]}|} \nonumber \\
                                                                             & = & \frac{4 + 1}{11 \times 11 + 5 \times 7} \nonumber \\
                                                                             & = & \frac{5}{156}
-\label{eq:5-5}
+\label{eq:5-6}
 \end{eqnarray}
 }
-\parinterval 公式\eqref{eq:5-5}所展示的计算过程很简单，分子是两个句对中“翻译”和“translation”共现次数的累计，分母是两个句对的源语言单词和目标语言单词的组合数的累加。显然，这个方法也很容易推广到处理更多句子的情况。
+\parinterval 公式\eqref{eq:5-6}所展示的计算过程很简单，分子是两个句对中“翻译”和“translation”共现次数的累计，分母是两个句对的源语言单词和目标语言单词的组合数的累加。显然，这个方法也很容易推广到处理更多句子的情况。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -320,14 +323,14 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
 
 \subsubsection{1. 基础模型}
 
-\parinterval 计算句子级翻译概率并不简单。因为自然语言非常灵活，任何数据无法覆盖足够多的句子，因此，无法像公式\eqref{eq:5-4}一样直接用简单计数的方式对句子的翻译概率进行估计。这里，采用一个退而求其次的方法：找到一个函数$g(\seq{s},\seq{t})\ge 0$来模拟翻译概率对译文可能性进行估计。可以定义一个新的函数$g(\seq{s},\seq{t})$，令其满足：给定$\seq{s}$，翻译结果$\seq{t}$出现的可能性越大，$g(\seq{s},\seq{t})$的值越大；$\seq{t}$出现的可能性越小，$g(\seq{s},\seq{t})$的值越小。换句话说，$g(\seq{s},\seq{t})$和翻译概率$\funp{P}(\seq{t}|\seq{s})$呈正相关。如果存在这样的函数$g(\seq{s},\seq{t}
+\parinterval 计算句子级翻译概率并不简单。因为自然语言非常灵活，任何数据无法覆盖足够多的句子，因此，无法像公式\eqref{eq:5-5}一样直接用简单计数的方式对句子的翻译概率进行估计。这里，采用一个退而求其次的方法：找到一个函数$g(\seq{s},\seq{t})\ge 0$来模拟翻译概率对译文可能性进行估计。可以定义一个新的函数$g(\seq{s},\seq{t})$，令其满足：给定$\seq{s}$，翻译结果$\seq{t}$出现的可能性越大，$g(\seq{s},\seq{t})$的值越大；$\seq{t}$出现的可能性越小，$g(\seq{s},\seq{t})$的值越小。换句话说，$g(\seq{s},\seq{t})$和翻译概率$\funp{P}(\seq{t}|\seq{s})$呈正相关。如果存在这样的函数$g(\seq{s},\seq{t}
 )$，可以利用$g(\seq{s},\seq{t})$近似表示$\funp{P}(\seq{t}|\seq{s})$，如下：
 \begin{eqnarray}
-\funp{P}(\seq{t}|\seq{s})  \equiv  \frac{g(\seq{s},\seq{t})}{\sum_{\seq{t}'}g(\seq{s},\seq{t}')}
-\label{eq:5-6}
+\funp{P}(\seq{t}|\seq{s}) & \equiv & \frac{g(\seq{s},\seq{t})}{\sum_{\seq{t}'}g(\seq{s},\seq{t}')}
+\label{eq:5-7}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-6}相当于在函数$g(\cdot)$上做了归一化，这样等式右端的结果具有一些概率的属性，比如，$0 \le \frac{g(\seq{s},\seq{t})}{\sum_{\seq{t'}}g(\seq{s},\seq{t'})} \le 1$。具体来说，对于源语言句子$\seq{s}$，枚举其所有的翻译结果，并把所对应的函数$g(\cdot)$相加作为分母，而分子是某个翻译结果$\seq{t}$所对应的$g(\cdot)$的值。
+\parinterval 公式\eqref{eq:5-7}相当于在函数$g(\cdot)$上做了归一化，这样等式右端的结果具有一些概率的属性，比如，$0 \le \frac{g(\seq{s},\seq{t})}{\sum_{\seq{t'}}g(\seq{s},\seq{t'})} \le 1$。 具体来说，对于源语言句子$\seq{s}$，枚举其所有的翻译结果，并把所对应的函数$g(\cdot)$相加作为分母，而分子是某个翻译结果$\seq{t}$所对应的$g(\cdot)$的值。
 
 \parinterval 上述过程初步建立了句子级翻译模型，并没有直接求$\funp{P}(\seq{t}|\seq{s})$，而是把问题转化为对$g(\cdot)$的设计和计算上。但是，面临着两个新的问题：
 
@@ -335,13 +338,13 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
 \vspace{0.5em}
 \item 如何定义函数$g(\seq{s},\seq{t})$？即，在知道单词翻译概率的前提下，如何计算$g(\seq{s},\seq{t})$；
 \vspace{0.5em}
-\item 公式\eqref{eq:5-6}中分母$\sum_{seq{t'}}g(\seq{s},{\seq{t}'})$需要累加所有翻译结果的$g(\seq{s},{\seq{t}'})$，但枚举所有${\seq{t}'}$是不现实的。
+\item 公式\eqref{eq:5-7}中分母$\sum_{seq{t'}}g(\seq{s},{\seq{t}'})$需要累加所有翻译结果的$g(\seq{s},{\seq{t}'})$，但枚举所有${\seq{t}'}$是不现实的。
 \vspace{0.5em}
 \end{itemize}
 
 \parinterval  当然，这里最核心的问题还是函数$g(\seq{s},\seq{t})$的定义。而第二个问题其实不需要解决，因为机器翻译只关注于可能性最大的翻译结果，即$g(\seq{s},\seq{t})$的计算结果最大时对应的译文。这个问题会在后面进行讨论。
 
-\parinterval 回到设计$g(\seq{s},\seq{t})$的问题上。这里，采用“大题小作”的方法，这个技巧在{\chaptertwo}已经进行了充分的介绍。具体来说，直接建模句子之间的对应比较困难，但可以利用单词之间的对应来描述句子之间的对应关系。这就用到了上一小节所介绍的单词翻译概率。
+\parinterval 回到设计$g(\seq{s},\seq{t})$的问题上。这里，采用“大题小作”的方法，这个技巧在{\chaptertwo}已经进行了充分的介绍。具体来说，直接建模句子之间的对应比较困难，但可以利用单词之间的对应来描述句子之间的对应关系。这就用到了\ref{chapter5.2.3}小节所介绍的单词翻译概率。
 
 \parinterval 首先引入一个非常重要的概念\ \dash \ {\small\sffamily\bfseries{词对齐}}\index{词对齐}（Word Alignment）\index{Word Alignment}，它是统计机器翻译中最核心的概念之一。词对齐描述了平行句对中单词之间的对应关系，它体现了一种观点：本质上句子之间的对应是由单词之间的对应表示的。当然，这个观点在神经机器翻译或者其他模型中可能会有不同的理解，但是翻译句子的过程中考虑词级的对应关系是符合人类对语言的认知的。
 
@@ -359,15 +362,15 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
 
 \parinterval 对于句对$(\seq{s},\seq{t})$，假设可以得到最优词对齐$\widehat{A}$，于是可以使用单词翻译概率计算$g(\seq{s},\seq{t})$，如下
 \begin{eqnarray}
-g(\seq{s},\seq{t}) = \prod_{(j,i)\in \widehat{A}}\funp{P}(s_j,t_i)
-\label{eq:5-7}
+g(\seq{s},\seq{t}) &= &\prod_{(j,i)\in \widehat{A}}\funp{P}(s_j,t_i)
+\label{eq:5-8}
 \end{eqnarray}
 
 \noindent 其中$g(\seq{s},\seq{t})$被定义为句子$\seq{s}$中的单词和句子$\seq{t}$中的单词的翻译概率的乘积，并且这两个单词之间必须有词对齐连接。$\funp{P}(s_j,t_i)$表示具有词对齐连接的源语言单词$s_j$和目标语言单词$t_i$的单词翻译概率。以图\ref{fig:5-7}中的句对为例，其中“我”与“I”、“对”与“with”、“你” 与“you”等相互对应，可以把它们的翻译概率相乘得到$g(\seq{s},\seq{t})$的计算结果，如下：
 \begin{eqnarray}
 {g(\seq{s},\seq{t})}&= &  \funp{P}(\textrm{我,I}) \times \funp{P}(\textrm{对,with}) \times \funp{P}(\textrm{你,you}) \times \nonumber \\
           &    & \funp{P}(\textrm{感到, am}) \times \funp{P}(\textrm{满意,satisfied})
-\label{eq:5-8}
+\label{eq:5-9}
 \end{eqnarray}
 
 \parinterval  显然，如果每个词对齐连接所对应的翻译概率变大，那么整个句子翻译的得分也会提高。也就是说，词对齐越准确，翻译模型的打分越高，$\seq{s}$和$\seq{t}$之间存在翻译关系的可能性越大。
@@ -378,7 +381,7 @@ g(\seq{s},\seq{t}) = \prod_{(j,i)\in \widehat{A}}\funp{P}(s_j,t_i)
 
 \subsubsection{2. 生成流畅的译文}
 
-\parinterval 公式\eqref{eq:5-7}定义的$g(\seq{s},\seq{t})$存在的问题是没有考虑词序信息。这里用一个简单的例子说明这个问题。如图\ref{fig:5-8}所示，源语言句子“我 对 你 感到 满意”有两个翻译结果，第一个翻译结果是“I am satisfied with you”，第二个是“I with you am satisfied”。虽然这两个译文包含的目标语单词是一样的，但词序存在很大差异。比如，它们都选择了“satisfied”作为源语单词“满意”的译文，但是在第一个翻译结果中“satisfied”处于第3个位置，而第二个结果中处于最后的位置。显然第一个翻译结果更符合英语的表达习惯，翻译的质量更高。遗憾的是，对于有明显差异的两个译文，公式\eqref{eq:5-7}计算得到的函数$g(\cdot)$的值却是一样的。
+\parinterval 公式\eqref{eq:5-8}定义的$g(\seq{s},\seq{t})$存在的问题是没有考虑词序信息。这里用一个简单的例子说明这个问题。如图\ref{fig:5-8}所示，源语言句子“我 对 你 感到 满意”有两个翻译结果，第一个翻译结果是“I am satisfied with you”，第二个是“I with you am satisfied”。虽然这两个译文包含的目标语单词是一样的，但词序存在很大差异。比如，它们都选择了“satisfied”作为源语单词“满意”的译文，但是在第一个翻译结果中“satisfied”处于第3个位置，而第二个结果中处于最后的位置。显然第一个翻译结果更符合英语的表达习惯，翻译的质量更高。遗憾的是，对于有明显差异的两个译文，公式\eqref{eq:5-8}计算得到的函数$g(\cdot)$的值却是一样的。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -395,18 +398,18 @@ g(\seq{s},\seq{t}) = \prod_{(j,i)\in \widehat{A}}\funp{P}(s_j,t_i)
 \begin{eqnarray}
 \funp{P}_{\textrm{lm}}(\seq{t}) & = & \funp{P}_{\textrm{lm}}(t_1...t_l) \nonumber \\
                                            & =  & \funp{P}(t_1)\times \funp{P}(t_2|t_1)\times \funp{P}(t_3|t_2)\times ... \times \funp{P}(t_l|t_{l-1})
-\label{eq:5-9}
-\end{eqnarray}
-
-\noindent  其中，$\seq{t}=t_1...t_l$表示由$l$个单词组成的句子，$\funp{P}_{\textrm{lm}}(\seq{t})$表示语言模型给句子$\seq{t}$的打分。具体而言，$\funp{P}_{\textrm{lm}}(\seq{t})$被定义为$\funp{P}(t_i|t_{i-1})(i=1,2,...,l)$的连乘\footnote{为了确保数学表达的准确性，本书中定义$\funp{P}(t_1|t_0) \equiv \funp{P}(t_1)$}，其中$\funp{P}(t_i|t_{i-1})(i=1,2,...,l)$表示前面一个单词为$t_{i-1}$时，当前单词为$t_i$的概率。语言模型的训练方法可以参看{\chaptertwo}相关内容。
-
-\parinterval 回到建模问题上来。既然语言模型可以帮助系统度量每个译文的流畅度，那么可以使用它对翻译进行打分。一种简单的方法是把语言模型$\funp{P}_{\textrm{lm}}{(\seq{t})}$ 和公式\eqref{eq:5-7}中的$g(\seq{s},\seq{t})$相乘，这样就得到了一个新的$g(\seq{s},\seq{t})$，它同时考虑了翻译准确性（$\prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)}$）和流畅度（$\funp{P}_{\textrm{lm}}(\seq{t})$）:
-\begin{eqnarray}
-g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times  \funp{P}_{\textrm{lm}}(\seq{t})
 \label{eq:5-10}
 \end{eqnarray}
 
-\parinterval 如图\ref{fig:5-9}所示，语言模型$\funp{P}_{\textrm{lm}}(\seq{t})$分别给$\seq{t}^{'}$和$\seq{t}^{”}$赋予0.0107和0.0009的概率，这表明句子$\seq{t}^{'}$更符合英文的表达，这与期望是相吻合的。它们再分别乘以$\prod_{j,i \in \widehat{A}}{\funp{P}(s_j},t_i)$的值，就得到公式\eqref{eq:5-10}定义的函数$g(\cdot)$的值。显然句子$\seq{t}^{'}$的分数更高。至此，完成了对函数$g(\seq{s},\seq{t})$的一个简单定义，把它带入公式\eqref{eq:5-6}就得到了同时考虑准确性和流畅性的句子级统计翻译模型。
+\noindent  其中，$\seq{t}=\{ t_1...t_l \}$表示由$l$个单词组成的句子，$\funp{P}_{\textrm{lm}}(\seq{t})$表示语言模型给句子$\seq{t}$的打分。具体而言，$\funp{P}_{\textrm{lm}}(\seq{t})$被定义为$\funp{P}(t_i|t_{i-1})(i=1,2,...,l)$的连乘\footnote{为了确保数学表达的准确性，本书中定义$\funp{P}(t_1|t_0) \equiv \funp{P}(t_1)$}，其中$\funp{P}(t_i|t_{i-1})(i=1,2,...,l)$表示前面一个单词为$t_{i-1}$时，当前单词为$t_i$的概率。语言模型的训练方法可以参看{\chaptertwo}相关内容。
+
+\parinterval 回到建模问题上来。既然语言模型可以帮助系统度量每个译文的流畅度，那么可以使用它对翻译进行打分。一种简单的方法是把语言模型$\funp{P}_{\textrm{lm}}{(\seq{t})}$ 和公式\eqref{eq:5-8}中的$g(\seq{s},\seq{t})$相乘，这样就得到了一个新的$g(\seq{s},\seq{t})$，它同时考虑了翻译准确性（$\prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)}$）和流畅度（$\funp{P}_{\textrm{lm}}(\seq{t})$）:
+\begin{eqnarray}
+g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times  \funp{P}_{\textrm{lm}}(\seq{t})
+\label{eq:5-11}
+\end{eqnarray}
+
+\parinterval 如图\ref{fig:5-9}所示，语言模型$\funp{P}_{\textrm{lm}}(\seq{t})$分别给$\seq{t}^{'}$和$\seq{t}^{”}$赋予0.0107和0.0009的概率，这表明句子$\seq{t}^{'}$更符合英文的表达，这与期望是相吻合的。它们再分别乘以$\prod_{j,i \in \widehat{A}}{\funp{P}(s_j},t_i)$的值，就得到公式\eqref{eq:5-11}定义的函数$g(\cdot)$的值。显然句子$\seq{t}^{'}$的分数更高。至此，完成了对函数$g(\seq{s},\seq{t})$的一个简单定义，把它带入公式\eqref{eq:5-7}就得到了同时考虑准确性和流畅性的句子级统计翻译模型。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -427,23 +430,23 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \parinterval 解码是指在得到翻译模型后，对于新输入的句子生成最佳译文的过程。具体来说，当给定任意的源语言句子$\seq{s}$，解码系统要找到翻译概率最大的目标语译文$\hat{\seq{t}}$。这个过程可以被形式化描述为：
 \begin{eqnarray}
-\widehat{\seq{t}}=\argmax_{\seq{t}} \funp{P}(\seq{t}|\seq{s})
-\label{eq:5-11}
-\end{eqnarray}
-
-\noindent  其中$\argmax_{\seq{t}} \funp{P}(\seq{t}|\seq{s})$表示找到使$\funp{P}(\seq{t}|\seq{s})$达到最大时的译文$\seq{t}$。结合上一小节中关于$\funp{P}(\seq{t}|\seq{s})$的定义，把公式\eqref{eq:5-6}带入公式\eqref{eq:5-11}得到：
-\begin{eqnarray}
-\widehat{\seq{t}}=\argmax_{\seq{t}}\frac{g(\seq{s},\seq{t})}{\sum_{\seq{t}^{'}g(\seq{s},\seq{t}^{'})}}
+\widehat{\seq{t}}&=&\argmax_{\seq{t}} \funp{P}(\seq{t}|\seq{s})
 \label{eq:5-12}
 \end{eqnarray}
 
-\parinterval 在公式\eqref{eq:5-12}中，可以发现${\sum_{\seq{t}^{'}g(\seq{s},\seq{t}^{'})}}$是一个关于$\seq{s}$的函数，当给定源语句$\seq{s}$时，它是一个常数，而且$g(\cdot) \ge 0$，因此${\sum_{\seq{t}^{'}g(\seq{s},\seq{t}^{'})}}$不影响对$\widehat{\seq{t}}$的求解，也不需要计算。基于此，公式\eqref{eq:5-12}可以被化简为：
+\noindent  其中$\argmax_{\seq{t}} \funp{P}(\seq{t}|\seq{s})$表示找到使$\funp{P}(\seq{t}|\seq{s})$达到最大时的译文$\seq{t}$。结合\ref{sec:sentence-level-translation}小节中关于$\funp{P}(\seq{t}|\seq{s})$的定义，把公式\eqref{eq:5-7}带入公式\eqref{eq:5-12}得到：
 \begin{eqnarray}
-\widehat{\seq{t}}=\argmax_{\seq{t}}g(\seq{s},\seq{t})
+\widehat{\seq{t}}&=&\argmax_{\seq{t}}\frac{g(\seq{s},\seq{t})}{\sum_{\seq{t}^{'}g(\seq{s},\seq{t}^{'})}}
 \label{eq:5-13}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-13}定义了解码的目标，剩下的问题是实现$\argmax$，以快速准确地找到最佳译文$\widehat{\seq{t}}$。但是，简单遍历所有可能的译文并计算$g(\seq{s},\seq{t})$ 的值是不可行的，因为所有潜在译文构成的搜索空间是十分巨大的。为了理解机器翻译的搜索空间的规模，假设源语言句子$\seq{s}$有$m$个词，每个词有$n$个可能的翻译候选。如果从左到右一步步翻译每个源语言单词，那么简单的顺序翻译会有$n^m$种组合。如果进一步考虑目标语单词的任意调序，每一种对翻译候选进行选择的结果又会对应$m!$种不同的排序。因此，源语句子$\seq{s}$至少有$n^m \cdot m!$ 个不同的译文。
+\parinterval 在公式\eqref{eq:5-13}中，可以发现${\sum_{\seq{t}^{'}g(\seq{s},\seq{t}^{'})}}$是一个关于$\seq{s}$的函数，当给定源语句$\seq{s}$时，它是一个常数，而且$g(\cdot) \ge 0$，因此${\sum_{\seq{t}^{'}g(\seq{s},\seq{t}^{'})}}$不影响对$\widehat{\seq{t}}$的求解，也不需要计算。基于此，公式\eqref{eq:5-13}可以被化简为：
+\begin{eqnarray}
+\widehat{\seq{t}}&=&\argmax_{\seq{t}}g(\seq{s},\seq{t})
+\label{eq:5-14}
+\end{eqnarray}
+
+\parinterval 公式\eqref{eq:5-14}定义了解码的目标，剩下的问题是实现$\argmax$，以快速准确地找到最佳译文$\widehat{\seq{t}}$。但是，简单遍历所有可能的译文并计算$g(\seq{s},\seq{t})$ 的值是不可行的，因为所有潜在译文构成的搜索空间是十分巨大的。为了理解机器翻译的搜索空间的规模，假设源语言句子$\seq{s}$有$m$个词，每个词有$n$个可能的翻译候选。如果从左到右一步步翻译每个源语言单词，那么简单的顺序翻译会有$n^m$种组合。如果进一步考虑目标语单词的任意调序，每一种对翻译候选进行选择的结果又会对应$m!$种不同的排序。因此，源语句子$\seq{s}$至少有$n^m \cdot m!$ 个不同的译文。
 
 \parinterval $n^{m}\cdot m!$是什么样的概念呢？如表\ref{tab:5-2}所示，当$m$和$n$分别为2和10时，译文只有200个，不算多。但是当$m$和$n$分别为20和10时，即源语言句子的长度20，每个词有10个候选译文，系统会面对$2.4329 \times 10^{38}$个不同的译文，这几乎是不可计算的。
 
@@ -466,28 +469,6 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 %----------------------------------------------
 
 \parinterval 已经有工作证明机器翻译问题是NP难的\upcite{knight1999decoding}。对于如此巨大的搜索空间，需要一种十分高效的搜索算法才能实现机器翻译的解码。在{\chaptertwo}已经介绍一些常用的搜索方法。这里使用一种贪婪的搜索方法实现机器翻译的解码。它把解码分成若干步骤，每步只翻译一个单词，并保留当前“ 最好”的结果，直至所有源语言单词都被翻译完毕。
-\vspace{0.3em}
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-\input{./Chapter5/Figures/figure-greedy-mt-decoding-pseudo-code}
-    \caption{贪婪的机器翻译解码算法的伪代码}
-    \label{fig:5-10}
-\end{figure}
-%----------------------------------------------
-
-\parinterval 图\ref{fig:5-10}给出了贪婪解码算法的伪代码。其中$\pi$保存所有源语单词的候选译文，$\pi[j]$表示第$j$个源语单词的翻译候选的集合，$best$保存当前最好的翻译结果，$h$保存当前步生成的所有译文候选。算法的主体有两层循环，在内层循环中如果第$j$个源语单词没有被翻译过，则用$best$和它的候选译文$\pi[j]$生成新的翻译，再存于$h$中，即操作$h=h\cup{\textrm{Join}(best,\pi[j])}$。外层循环再从$h$中选择得分最高的结果存于$best$中，即操作$best=\textrm{PruneForTop1}(h)$；同时标识相应的源语单词已翻译，即$used[best.j]=true$。
-
-%----------------------------------------------
-%\begin{figure}[htp]
-%    \centering
-%\subfigure{\input{./Chapter5/Figures/figure-greedy-mt-decoding-process-1}}
-%\subfigure{\input{./Chapter5/Figures/greedy-mt-decoding-process-3}}
-%\setlength{\belowcaptionskip}{14.0em}
-    %\caption{贪婪的机器翻译解码过程实例}
-    %\label{fig:5-11}
-%\end{figure}
-%----------------------------------------------
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -499,13 +480,23 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \end{figure}
 %----------------------------------------------
 
-该算法的核心在于，系统一直维护一个当前最好的结果，之后每一步考虑扩展这个结果的所有可能，并计算模型得分，然后再保留扩展后的最好结果。注意，在每一步中，只有排名第一的结果才会被保留，其他结果都会被丢弃。这也体现了贪婪的思想。显然这个方法不能保证搜索到全局最优的结果，但是由于每次扩展只考虑一个最好的结果，因此该方法速度很快。图\ref{fig:5-11}给出了算法执行过程的简单示例。当然，机器翻译的解码方法有很多，这里仅仅使用简单的贪婪搜索方法来解决机器翻译的解码问题，在后续章节会对更加优秀的解码方法进行介绍。
+\parinterval 图\ref{fig:5-10}给出了贪婪解码算法的伪代码。其中$\pi$保存所有源语单词的候选译文，$\pi[j]$表示第$j$个源语单词的翻译候选的集合，$best$保存当前最好的翻译结果，$h$保存当前步生成的所有译文候选。算法的主体有两层循环，在内层循环中如果第$j$个源语单词没有被翻译过，则用$best$和它的候选译文$\pi[j]$生成新的翻译，再存于$h$中，即操作$h=h\cup{\textrm{Join}(best,\pi[j])}$。外层循环再从$h$中选择得分最高的结果存于$best$中，即操作$best=\textrm{PruneForTop1}(h)$；同时标记相应的源语言单词状态为已翻译，即$used[best.j]=true$。
+
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter5/Figures/figure-greedy-mt-decoding-pseudo-code}
+    \caption{贪婪的机器翻译解码算法的伪代码}
+    \label{fig:5-10}
+\end{figure}
+%----------------------------------------------
+
+\parinterval 该算法的核心在于，系统一直维护一个当前最好的结果，之后每一步考虑扩展这个结果的所有可能，并计算模型得分，然后再保留扩展后的最好结果。注意，在每一步中，只有排名第一的结果才会被保留，其他结果都会被丢弃。这也体现了贪婪的思想。显然这个方法不能保证搜索到全局最优的结果，但是由于每次扩展只考虑一个最好的结果，因此该方法速度很快。图\ref{fig:5-11}给出了算法执行过程的简单示例。当然，机器翻译的解码方法有很多，这里仅仅使用简单的贪婪搜索方法来解决机器翻译的解码问题，在后续章节会对更加优秀的解码方法进行介绍。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\sectionnewpage
 \section{噪声信道模型}
 
 \vspace{0.5em}
@@ -540,22 +531,22 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \parinterval 举个例子，对于汉译英的翻译任务，英语句子$\seq{t}$可以被看作是汉语句子$\seq{s}$加入噪声通过信道后得到的结果。换句话说，汉语句子经过噪声-信道传输时发生了变化，在信道的输出端呈现为英语句子。于是需要根据观察到的汉语特征，通过概率$\funp{P}(\seq{t}|\seq{s})$猜测最为可能的英语句子。这个找到最可能的目标语句（信源）的过程也被称为
 {\small\sffamily\bfseries{解码}}（Decoding）。直到今天，解码这个概念也被广泛地使用在机器翻译及相关任务中。这个过程也可以表述为：给定输入$\seq{s}$，找到最可能的输出$\seq{t}$，使得$\funp{P}(\seq{t}|\seq{s})$达到最大：
 \begin{eqnarray}
-\widehat{\seq{t}}=\argmax_{\seq{t}}\funp{P}(\seq{t}|\seq{s})
-\label{eq:5-14}
-\end{eqnarray}
-
-\parinterval 公式\eqref{eq:5-14}的核心内容之一是定义$\funp{P}(\seq{t}|\seq{s})$。在IBM模型中，可以使用贝叶斯准则对$\funp{P}(\seq{t}|\seq{s})$进行如下变换：
-\begin{eqnarray}
-\funp{P}(\seq{t}|\seq{s}) & = &\frac{\funp{P}(\seq{s},\seq{t})}{\funp{P}(\seq{s})} \nonumber \\
-                       & = & \frac{\funp{P}(\seq{s}|\seq{t})\funp{P}(\seq{t})}{\funp{P}(\seq{s})}
+\widehat{\seq{t}}&=&\argmax_{\seq{t}}\funp{P}(\seq{t}|\seq{s})
 \label{eq:5-15}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-15}把$\seq{s}$到$\seq{t}$的翻译概率转化为$\frac{\funp{P}(\seq{s}|\seq{t})\textrm{P(t)}}{\funp{P}(\seq{s})}$，它包括三个部分：
+\parinterval 公式\eqref{eq:5-15}的核心内容之一是定义$\funp{P}(\seq{t}|\seq{s})$。在IBM模型中，可以使用贝叶斯准则对$\funp{P}(\seq{t}|\seq{s})$进行如下变换：
+\begin{eqnarray}
+\funp{P}(\seq{t}|\seq{s}) & = &\frac{\funp{P}(\seq{s},\seq{t})}{\funp{P}(\seq{s})} \nonumber \\
+                       & = & \frac{\funp{P}(\seq{s}|\seq{t})\funp{P}(\seq{t})}{\funp{P}(\seq{s})}
+\label{eq:5-16}
+\end{eqnarray}
+
+\parinterval 公式\eqref{eq:5-16}把$\seq{s}$到$\seq{t}$的翻译概率转化为$\frac{\funp{P}(\seq{s}|\seq{t})\textrm{P(t)}}{\funp{P}(\seq{s})}$，它包括三个部分：
 
 \begin{itemize}
 \vspace{0.5em}
-\item 第一部分是由译文$\seq{t}$到源语言句子$\seq{s}$的翻译概率$\funp{P}(\seq{s}|\seq{t})$，也被称为翻译模型。它表示给定目标语句$\seq{t}$生成源语句$\seq{s}$的概率。需要注意是翻译的方向已经从$\funp{P}(\seq{t}|\seq{s})$转向了$\funp{P}(\seq{s}|\seq{t})$，但无须刻意地区分，可以简单地理解为翻译模型刻画了$\seq{s}$和$\seq{t}$的翻译对应程度；
+\item 第一部分是由译文$\seq{t}$到源语言句子$\seq{s}$的翻译概率$\funp{P}(\seq{s}|\seq{t})$，也被称为翻译模型。它表示给定目标语句$\seq{t}$生成源语句$\seq{s}$的概率。需要注意是翻译的方向已经从$\funp{P}(\seq{t}|\seq{s})$转向了$\funp{P}(\seq{s}|\seq{t})$，但无须刻意地区分，可以简单地理解为翻译模型描述了$\seq{s}$和$\seq{t}$的翻译对应程度；
 \vspace{0.5em}
 \item 第二部分是$\funp{P}(\seq{t})$，也被称为语言模型。它表示的是目标语言句子$\seq{t}$出现的可能性；
 \vspace{0.5em}
@@ -568,22 +559,22 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \widehat{\seq{t}} & = & \argmax_{\seq{t}} \funp{P}(\seq{t}|\seq{s}) \nonumber \\
           & = & \argmax_{\seq{t}} \frac{\funp{P}(\seq{s}|\seq{t})\funp{P}(\seq{t})}{\funp{P}(\seq{s})} \nonumber \\
           & = & \argmax_{\seq{t}} \funp{P}(\seq{s}|\seq{t})\funp{P}(\seq{t})
-\label{eq:5-16}
+\label{eq:5-17}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-16}展示了IBM模型最基础的建模方式，它把模型分解为两项：（反向）翻译模型$\funp{P}(\seq{s}|\seq{t})$和语言模型$\funp{P}(\seq{t})$。一个很自然的问题是：直接用$\funp{P}(\seq{t}|\seq{s})$定义翻译问题不就可以了吗，为什么要用$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$的联合模型？从理论上来说，正向翻译模型$\funp{P}(\seq{t}|\seq{s})$和反向翻译模型$\funp{P}(\seq{s}|\seq{t})$的数学建模可以是一样的，因为我们只需要在建模的过程中把两个语言调换即可。使用$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$的联合模型的意义在于引入了语言模型，它可以很好地对译文的流畅度进行评价，确保结果是通顺的目标语言句子。
+\parinterval 公式\eqref{eq:5-17}展示了IBM模型最基础的建模方式，它把模型分解为两项：（反向）翻译模型$\funp{P}(\seq{s}|\seq{t})$和语言模型$\funp{P}(\seq{t})$。仔细观察公式\eqref{eq:5-17}的推导过程，我们很容易发现一个问题：直接用$\funp{P}(\seq{t}|\seq{s})$定义翻译问题不就可以了吗，为什么要用$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$的联合模型？从理论上来说，正向翻译模型$\funp{P}(\seq{t}|\seq{s})$和反向翻译模型$\funp{P}(\seq{s}|\seq{t})$的数学建模可以是一样的，因为我们只需要在建模的过程中把两个语言调换即可。使用$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$的联合模型的意义在于引入了语言模型，它可以很好地对译文的流畅度进行评价，确保结果是通顺的目标语言句子。
 
-\parinterval 可以回忆一下\ref{sec:sentence-level-translation}节中讨论的问题，如果只使用翻译模型可能会造成一个局面：译文的单词都和源语言单词对应的很好，但是由于语序的问题，读起来却不像人说的话。从这个角度说，引入语言模型是十分必要的。这个问题在Brown等人的论文中也有讨论\upcite{DBLP:journals/coling/BrownPPM94}，他们提到单纯使用$\funp{P}(\seq{s}|\seq{t})$会把概率分配给一些翻译对应比较好但是不合法的目标语句子，而且这部分概率可能会很大，影响模型的决策。这也正体现了IBM模型的创新之处，作者用数学技巧把$\funp{P}(\seq{t})$引入进来，保证了系统的输出是通顺的译文。语言模型也被广泛使用在语音识别等领域以保证结果的流畅性，甚至应用的历史比机器翻译要长得多，这里的方法也有借鉴相关工作的味道。
+\parinterval 可以回忆一下\ref{sec:sentence-level-translation}节中讨论的问题，如果只使用翻译模型可能会造成一个局面：译文的单词都和源语言单词对应的很好，但是由于语序的问题，读起来却不像人说的话。从这个角度说，引入语言模型是十分必要的。这个问题在Brown等人的论文中也有讨论\upcite{DBLP:journals/coling/BrownPPM94}，他们提到单纯使用$\funp{P}(\seq{s}|\seq{t})$会把概率分配给一些翻译对应比较好但是不通顺甚至不合逻辑的目标语言句子，而且这部分概率可能会很大，影响模型的决策。这也正体现了IBM模型的创新之处，作者用数学技巧把$\funp{P}(\seq{t})$引入进来，保证了系统的输出是通顺的译文。语言模型也被广泛使用在语音识别等领域以保证结果的流畅性，甚至应用的历史比机器翻译要长得多，这里的方法也有借鉴相关工作的味道。
 
-实际上，在机器翻译中引入语言模型是一个很深刻的概念。在IBM模型之后相当长的时间里，语言模型一直是机器翻译各个部件中最重要的部分。对译文连贯性的建模也是所有系统中需要包含的内容（即使隐形体现）。
+实际上，在机器翻译中引入语言模型这个概念十分重要。在IBM模型之后相当长的时间里，语言模型一直是机器翻译各个部件中最重要的部分。对译文连贯性的建模也是所有系统中需要包含的内容（即使隐形体现）。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-\sectionnewpage
+
 \section{统计机器翻译的三个基本问题}
 
-\parinterval 公式\eqref{eq:5-16}给出了统计机器翻译的数学描述。为了实现这个过程，面临着三个基本问题：
+\parinterval 公式\eqref{eq:5-17}给出了统计机器翻译的数学描述。为了实现这个过程，面临着三个基本问题：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -595,13 +586,13 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 为了理解以上的问题，可以先回忆一下\ref{sec:sentence-level-translation}小节中的公式\eqref{eq:5-10}，即$g(\seq{s},\seq{t})$函数的定义，它用于评估一个译文的好与坏。如图\ref{fig:5-14}所示，$g(\seq{s},\seq{t})$函数与公式\eqref{eq:5-16}的建模方式非常一致，即$g(\seq{s},\seq{t})$函数中红色部分描述译文$\seq{t}$的可能性大小，对应翻译模型$\funp{P}(\seq{s}|\seq{t})$；蓝色部分描述译文的平滑或流畅程度，对应语言模型$\funp{P}(\seq{t})$。尽管这种对应并不十分严格的，但也可以看出在处理机器翻译问题上，很多想法的本质是一样的。
+\parinterval 为了理解以上的问题，可以先回忆一下\ref{sec:sentence-level-translation}小节中的公式\eqref{eq:5-11}，即$g(\seq{s},\seq{t})$函数的定义，它用于评估一个译文的好与坏。如图\ref{fig:5-14}所示，$g(\seq{s},\seq{t})$函数与公式\eqref{eq:5-17}的建模方式非常一致，即$g(\seq{s},\seq{t})$函数中红色部分描述译文$\seq{t}$的可能性大小，对应翻译模型$\funp{P}(\seq{s}|\seq{t})$；蓝色部分描述译文的平滑或流畅程度，对应语言模型$\funp{P}(\seq{t})$。尽管这种对应并不十分严格的，但也可以看出在处理机器翻译问题上，很多想法的本质是一样的。
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
 \input{./Chapter5/Figures/figure-correspondence-between-ibm-model&formula-1.13}
-    \caption{IBM模型与公式\eqref{eq:5-10}的对应关系}
+    \caption{IBM模型与公式\eqref{eq:5-11}的对应关系}
     \label{fig:5-14}
 \end{figure}
 %----------------------------------------------
@@ -614,7 +605,7 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \subsection{词对齐}
 
-\parinterval IBM模型的一个基本的假设是词对齐假设。词对齐描述了源语言句子和目标语句子之间单词级别的对应。具体来说，给定源语句子$\seq{s}=s_1...s_m$和目标语译文$\seq{t}=t_1...t_l$，IBM模型假设词对齐具有如下两个性质。
+\parinterval IBM模型的一个基本的假设是词对齐假设。词对齐描述了源语言句子和目标语句子之间单词级别的对应。具体来说，给定源语句子$\seq{s}=\{ s_1...s_m \}$和目标语译文$\seq{t}=\{ t_1...t_l \}$，IBM模型假设词对齐具有如下两个性质。
 
 \begin{itemize}
 \vspace{0.5em}
@@ -643,7 +634,7 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 %----------------------------------------------
 \end{itemize}
 
-\parinterval 通常，把词对齐记为$\seq{a}$，它由$a_1$到$a_m$共$m$个词对齐连接组成，即$\seq{a}=a_1...a_m$。$a_j$表示第$j$个源语单词$s_j$对应的目标语单词的位置。在图\ref{fig:5-16}的例子中，词对齐关系可以记为$a_1=0, a_2=3, a_3=1$，即第1个源语单词“在”对应到目标语译文的第0个位置，第2个源语单词“桌子”对应到目标语译文的第3个位置，第3个源语单词“上”对应到目标语译文的第1个位置。
+\parinterval 通常，把词对齐记为$\seq{a}$，它由$a_1$到$a_m$共$m$个词对齐连接组成，即$\seq{a}=\{ a_1...a_m \}$。$a_j$表示第$j$个源语单词$s_j$对应的目标语单词的位置。在图\ref{fig:5-16}的例子中，词对齐关系可以记为$a_1=0, a_2=3, a_3=1$，即第1个源语单词“在”对应到目标语译文的第0个位置，第2个源语单词“桌子”对应到目标语译文的第3个位置，第3个源语单词“上”对应到目标语译文的第1个位置。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -654,13 +645,13 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \parinterval 直接准确估计$\funp{P}(\seq{s}|\seq{t})$很难，训练数据只能覆盖整个样本空间非常小的一部分，绝大多数句子在训练数据中一次也没出现过。为了解决这个问题，IBM模型假设：句子之间的对应可以由单词之间的对应进行表示。于是，翻译句子的概率可以被转化为词对齐生成的概率：
 
 \begin{eqnarray}
-\funp{P}(\seq{s}|\seq{t})= \sum_{\seq{a}}\funp{P}(\seq{s},\seq{a}|\seq{t})
-\label{eq:5-17}
+\funp{P}(\seq{s}|\seq{t})&=& \sum_{\seq{a}}\funp{P}(\seq{s},\seq{a}|\seq{t})
+\label{eq:5-18}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-17}使用了简单的全概率公式把$\funp{P}(\seq{s}|\seq{t})$进行展开。通过访问$\seq{s}$和$\seq{t}$之间所有可能的词对齐$\seq{a}$，并把对应的对齐概率进行求和，得到了$\seq{t}$到$\seq{s}$的翻译概率。这里，可以把词对齐看作翻译的隐含变量，这样从$\seq{t}$到$\seq{s}$的生成就变为从$\seq{t}$同时生成$\seq{s}$和隐含变量$\seq{a}$的问题。引入隐含变量是生成式模型常用的手段，通过使用隐含变量，可以把较为困难的端到端学习问题转化为分步学习问题。
+\parinterval 公式\eqref{eq:5-18}使用了简单的全概率公式把$\funp{P}(\seq{s}|\seq{t})$进行展开。通过访问$\seq{s}$和$\seq{t}$之间所有可能的词对齐$\seq{a}$，并把对应的对齐概率进行求和，得到了$\seq{t}$到$\seq{s}$的翻译概率。这里，可以把词对齐看作翻译的隐含变量，这样从$\seq{t}$到$\seq{s}$的生成就变为从$\seq{t}$同时生成$\seq{s}$和隐含变量$\seq{a}$的问题。引入隐含变量是生成式模型常用的手段，通过使用隐含变量，可以把较为困难的端到端学习问题转化为分步学习问题。
 
-\parinterval 举个例子说明公式\eqref{eq:5-17}的实际意义。如图\ref{fig:5-17}所示，可以把从“谢谢\ 你”到“thank you”的翻译分解为9种可能的词对齐。因为源语言句子$\seq{s}$有2个词，目标语言句子$\seq{t}$加上空标记$t_0$共3个词，因此每个源语言单词有3个可能对齐的位置，整个句子共有$3\times3=9$种可能的词对齐。
+\parinterval 举个例子说明公式\eqref{eq:5-18}的实际意义。如图\ref{fig:5-17}所示，可以把从“谢谢\ 你”到“thank you”的翻译分解为9种可能的词对齐。因为源语言句子$\seq{s}$有2个词，目标语言句子$\seq{t}$加上空标记$t_0$共3个词，因此每个源语言单词有3个可能对齐的位置，整个句子共有$3\times3=9$种可能的词对齐。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -673,11 +664,11 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \parinterval 接下来的问题是如何定义$\funp{P}(\seq{s},\seq{a}|\seq{t})$\ \dash \ 即定义词对齐的生成概率。但是，隐含变量$\seq{a}$仍然很复杂，因此直接定义$\funp{P}(\seq{s},\seq{a}|\seq{t})$也很困难，在IBM模型中，为了化简问题，$\funp{P}(\seq{s},\seq{a}|\seq{t})$被进一步分解。使用链式法则，可以得到：
 \begin{eqnarray}
-\funp{P}(\seq{s},\seq{a}|\seq{t})=\funp{P}(m|\seq{t})\prod_{j=1}^{m}{\funp{P}(a_j|\seq{a}{}_1^{j-1},\seq{s}{}_1^{j-1},m,\seq{t})\funp{P}(s_j|\seq{a}{}_1^{j},\seq{s}{}_1^{j-1},m,\seq{t})}
-\label{eq:5-18}
+\funp{P}(\seq{s},\seq{a}|\seq{t})&=&\funp{P}(m|\seq{t})\prod_{j=1}^{m}{\funp{P}(a_j|\seq{a}{}_1^{j-1},\seq{s}{}_1^{j-1},m,\seq{t})\funp{P}(s_j|\seq{a}{}_1^{j},\seq{s}{}_1^{j-1},m,\seq{t})}
+\label{eq:5-19}
 \end{eqnarray}
 
-\noindent  其中$s_j$和$a_j$分别表示第$j$个源语言单词及第$j$个源语言单词对齐到的目标位置，\seq{s}${{}_1^{j-1}}$表示前$j-1$个源语言单词（即\seq{s}${}_1^{j-1}=s_1...s_{j-1}$），\seq{a}${}_1^{j-1}$表示前$j-1$个源语言的词对齐（即\seq{a}${}_1^{j-1}=a_1...a_{j-1}$），$m$表示源语句子的长度。公式\eqref{eq:5-18}将$\funp{P}(\seq{s},\seq{a}|\seq{t})$分解为四个部分，具体含义如下：
+\noindent  其中$s_j$和$a_j$分别表示第$j$个源语言单词及第$j$个源语言单词对齐到的目标位置，\seq{s}${{}_1^{j-1}}$表示前$j-1$个源语言单词（即\seq{s}${}_1^{j-1}=\{ s_1...s_{j-1} \}$），\seq{a}${}_1^{j-1}$表示前$j-1$个源语言的词对齐（即\seq{a}${}_1^{j-1}=\{ a_1...a_{j-1} \}$），$m$表示源语句子的长度。公式\eqref{eq:5-19}将$\funp{P}(\seq{s},\seq{a}|\seq{t})$分解为四个部分，具体含义如下：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -692,7 +683,7 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \end{itemize}
 \parinterval 换句话说，当求$\funp{P}(\seq{s},\seq{a}|\seq{t})$时，首先根据译文$\seq{t}$确定源语言句子$\seq{s}$的长度$m$；当知道源语言句子有多少个单词后，循环$m$次，依次生成第1个到第$m$个源语言单词；当生成第$j$个源语言单词时，要先确定它是由哪个目标语译文单词生成的，即确定生成的源语言单词对应的译文单词的位置；当知道了目标语译文单词的位置，就能确定第$j$个位置的源语言单词。
 
-\parinterval 需要注意的是公式\eqref{eq:5-18}定义的模型并没有做任何化简和假设，也就是说公式的左右两端是严格相等的。在后面的内容中会看到，这种将一个整体进行拆分的方法可以有助于分步骤化简并处理问题。
+\parinterval 需要注意的是公式\eqref{eq:5-19}定义的模型并没有做任何化简和假设，也就是说公式的左右两端是严格相等的。在后面的内容中会看到，这种将一个整体进行拆分的方法可以有助于分步骤化简并处理问题。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -700,7 +691,7 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \subsection{基于词对齐的翻译实例}
 
-\parinterval 用前面图\ref{fig:5-16}中例子来对公式\eqref{eq:5-18}进行说明。例子中，源语言句子“在\ \ 桌子\ \ 上”目标语译文“on the table”之间的词对齐为$\seq{a}=\{\textrm{1-0, 2-3, 3-1}\}$。 公式\eqref{eq:5-18}的计算过程如下：
+\parinterval 用前面图\ref{fig:5-16}中例子来对公式\eqref{eq:5-19}进行说明。例子中，源语言句子“在\ \ 桌子\ \ 上”目标语译文“on the table”之间的词对齐为$\seq{a}=\{\textrm{1-0, 2-3, 3-1}\}$。 公式\eqref{eq:5-19}的计算过程如下：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -722,7 +713,7 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 &&{\funp{P}(s_2=\textrm{桌子} \mid \textrm{\{1-0, 2-3\}},\textrm{在},3,\textrm{$t_0$ on the table}) {\times}} \nonumber \\
 &&{\funp{P}(a_3=1 \mid \textrm{\{1-0, 2-3\}},\textrm{在\ \ 桌子},3,\textrm{$t_0$ on the table}) {\times}} \nonumber \\
 &&{\funp{P}(s_3=\textrm{上} \mid \textrm{\{1-0, 2-3, 3-1\}},\textrm{在\ \ 桌子},3,\textrm{$t_0$ on the table})  }
-\label{eq:5-19}
+\label{eq:5-20}
 \end{eqnarray}
 
 %----------------------------------------------------------------------------------------
@@ -730,14 +721,14 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 %----------------------------------------------------------------------------------------
 
 \sectionnewpage
-\section{IBM模型1}
-\parinterval 公式\eqref{eq:5-17}和公式\eqref{eq:5-18}把翻译问题定义为对译文和词对齐同时进行生成的问题。其中有两个问题：
+\section{IBM模型1}\label{IBM-model1}
+\parinterval 公式\eqref{eq:5-18}和公式\eqref{eq:5-19}把翻译问题定义为对译文和词对齐同时进行生成的问题。其中有两个问题：
 
 \begin{itemize}
 \vspace{0.3em}
-\item 首先，公式\eqref{eq:5-17}的右端（$ \sum_{\seq{a}}\funp{P}(\seq{s},\seq{a}|\seq{t})$）要求对所有的词对齐概率进行求和，但是词对齐的数量随着句子长度是呈指数增长，如何遍历所有的对齐$\seq{a}$？
+\item 首先，公式\eqref{eq:5-18}的右端（$ \sum_{\seq{a}}\funp{P}(\seq{s},\seq{a}|\seq{t})$）要求对所有的词对齐概率进行求和，但是词对齐的数量随着句子长度是呈指数增长，如何遍历所有的对齐$\seq{a}$？
 \vspace{0.3em}
-\item 其次，公式\eqref{eq:5-18}虽然对词对齐的问题进行了描述，但是模型中的很多参数仍然很复杂，如何计算$\funp{P}(m|\seq{t})$、$\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t})$ 和$\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})$？
+\item 其次，公式\eqref{eq:5-19}虽然对词对齐的问题进行了描述，但是模型中的很多参数仍然很复杂，如何计算$\funp{P}(m|\seq{t})$、$\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t})$ 和$\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})$？
 \vspace{0.3em}
 \end{itemize}
 
@@ -747,37 +738,37 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 \vspace{-0.5em}
-\subsection{IBM模型1}
-\parinterval IBM模型1对公式\eqref{eq:5-18}中的三项进行了简化。具体方法如下：
+\subsection{IBM模型1的建模}
+\parinterval IBM模型1对公式\eqref{eq:5-19}中的三项进行了简化。具体方法如下：
 
 \begin{itemize}
 \item 假设$\funp{P}(m|\seq{t})$为常数$\varepsilon$，即源语言句子长度的生成概率服从均匀分布，如下：
 \begin{eqnarray}
-\funp{P}(m|\seq{t})\; \equiv \; \varepsilon
-\label{eq:5-20}
-\end{eqnarray}
-\item 对齐概率$\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t})$仅依赖于译文长度$l$，即每个词对齐连接的生成概率也服从均匀分布。换句话说，对于任何源语言位置$j$对齐到目标语言任何位置都是等概率的。比如译文为“on the table”，再加上$t_0$共4个位置，相应的，任意源语单词对齐到这4个位置的概率是一样的。具体描述如下：
-\begin{eqnarray}
-\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t}) \equiv \frac{1}{l+1}
+\funp{P}(m|\seq{t})& \equiv & \varepsilon
 \label{eq:5-21}
+\end{eqnarray}
+\item 对齐概率$\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t})$仅依赖于译文长度$l$，即每个词对齐连接的生成概率也服从均匀分布。换句话说，对于任意源语言位置$j$对齐到目标语言任意位置都是等概率的。比如译文为“on the table”，再加上$t_0$共4个位置，相应的，任意源语单词对齐到这4个位置的概率是一样的。具体描述如下：
+\begin{eqnarray}
+\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t})& \equiv &  \frac{1}{l+1}
+\label{eq:5-22}
 \end{eqnarray}
 
 \item 源语单词$s_j$的生成概率$\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})$仅依赖与其对齐的译文单词$t_{a_j}$，即词汇翻译概率$f(s_j|t_{a_j})$。此时词汇翻译概率满足$\sum_{s_j}{f(s_j|t_{a_j})}=1$。比如在图\ref{fig:5-18}表示的例子中，源语单词“上”出现的概率只和与它对齐的单词“on”有关系，与其他单词没有关系。
 \begin{eqnarray}
-\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t}) \equiv f(s_j|t_{a_j})
-\label{eq:5-22}
+\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})& \equiv &  f(s_j|t_{a_j})
+\label{eq:5-23}
 \end{eqnarray}
 
-用一个简单的例子对公式\eqref{eq:5-22}进行说明。比如，在图\ref{fig:5-18}中，“桌子”对齐到“table”，可被描述为$f(s_2 |t_{a_2})=f(\textrm{“桌子”}|\textrm{“table”})$，表示给定“table”翻译为“桌子”的概率。通常，$f(s_2 |t_{a_2})$被认为是一种概率词典，它反应了两种语言词汇一级的对应关系。
+用一个简单的例子对公式\eqref{eq:5-23}进行说明。比如，在图\ref{fig:5-18}中，“桌子”对齐到“table”，可被描述为$f(s_2 |t_{a_2})=f(\textrm{“桌子”}|\textrm{“table”})$，表示给定“table”翻译为“桌子”的概率。通常，$f(s_2 |t_{a_2})$被认为是一种概率词典，它反应了两种语言词汇一级的对应关系。
 \end{itemize}
 
-\parinterval 将上述三个假设和公式\eqref{eq:5-18}代入公式\eqref{eq:5-17}中，得到$\funp{P}(\seq{s}|\seq{t})$的表达式：
+\parinterval 将上述三个假设和公式\eqref{eq:5-19}代入公式\eqref{eq:5-18}中，得到$\funp{P}(\seq{s}|\seq{t})$的表达式：
 \begin{eqnarray}
 \funp{P}(\seq{s}|\seq{t}) & = &  \sum_{\seq{a}}{\funp{P}(\seq{s},\seq{a}|\seq{t})} \nonumber \\
                         & = &  \sum_{\seq{a}}{\funp{P}(m|\seq{t})}\prod_{j=1}^{m}{\funp{P}(a_j|a_1^{j-1},s_1^{j-1},m,\seq{t})\funp{P}(s_j |a_1^j,s_1^{j-1},m,\seq{t})} \nonumber \\
                         & = &  \sum_{\seq{a}}{\varepsilon}\prod_{j=1}^{m}{\frac{1}{l+1}f(s_j|t_{a_j})} \nonumber \\
                         & = & \sum_{\seq{a}}{\frac{\varepsilon}{(l+1)^m}}\prod_{j=1}^{m}f(s_j|t_{a_j})
-\label{eq:5-23}
+\label{eq:5-24}
 \end{eqnarray}
 
 %----------------------------------------------
@@ -789,19 +780,19 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 \end{figure}
 %----------------------------------------------
 
-\parinterval 在公式\eqref{eq:5-23}中，需要遍历所有的词对齐，即$ \sum_{\seq{a}}{\cdot}$。但这种表示不够直观，因此可以把这个过程重新表示为如下形式：
+\parinterval 在公式\eqref{eq:5-24}中，需要遍历所有的词对齐，即$ \sum_{\seq{a}}{\cdot}$。但这种表示不够直观，因此可以把这个过程重新表示为如下形式：
 \begin{eqnarray}
-\funp{P}(\seq{s}|\seq{t})={\sum_{a_1=0}^{l}\cdots}{\sum_{a_m=0}^{l}\frac{\varepsilon}{(l+1)^m}}{\prod_{j=1}^{m}f(s_j|t_{a_j})}
-\label{eq:5-24}
+\funp{P}(\seq{s}|\seq{t})&=&{\sum_{a_1=0}^{l}\cdots}{\sum_{a_m=0}^{l}\frac{\varepsilon}{(l+1)^m}}{\prod_{j=1}^{m}f(s_j|t_{a_j})}
+\label{eq:5-25}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-24}分为两个主要部分。第一部分：遍历所有的对齐$\seq{a}$。其中$\seq{a}$由$\{a_1,...,a_m\}$\\ 组成，每个$a_j\in \{a_1,...,a_m\}$从译文的开始位置$(0)$循环到截止位置$(l)$。如图\ref{fig:5-19}表示的例子，描述的是源语单词$s_3$从译文的开始$t_0$遍历到结尾$t_3$，即$a_3$的取值范围。第二部分: 对于每个$\seq{a}$累加对齐概率$\funp{P}(\seq{s},a| \seq{t})=\frac{\varepsilon}{(l+1)^m}{\prod_{j=1}^{m}f(s_j|t_{a_j})}$。
+\parinterval 公式\eqref{eq:5-25}分为两个主要部分。第一部分：遍历所有的对齐$\seq{a}$。其中$\seq{a}$由$\{a_1,...,a_m\}$\\ 组成，每个$a_j\in \{a_1,...,a_m\}$从译文的开始位置$(0)$循环到截止位置$(l)$。如图\ref{fig:5-19}表示的例子，描述的是源语单词$s_3$从译文的开始$t_0$遍历到结尾$t_3$，即$a_3$的取值范围。第二部分: 对于每个$\seq{a}$累加对齐概率$\funp{P}(\seq{s},a| \seq{t})=\frac{\varepsilon}{(l+1)^m}{\prod_{j=1}^{m}f(s_j|t_{a_j})}$。
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
 \input{./Chapter5/Figures/figure-formula-3.25-part-1-example}
-    \caption{公式{\eqref{eq:5-24}}第一部分实例}
+    \caption{公式{\eqref{eq:5-25}}第一部分实例}
     \label{fig:5-19}
 \end{figure}
 %----------------------------------------------
@@ -814,36 +805,36 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \subsection{解码及计算优化}\label{decoding&computational-optimization}
 
-\parinterval 如果模型参数给定，可以使用IBM模型1对新的句子进行翻译。比如，可以使用\ref{sec:simple-decoding}节描述的解码方法搜索最优译文。在搜索过程中，只需要通过公式\eqref{eq:5-24}计算每个译文候选的IBM模型翻译概率。但是，公式\eqref{eq:5-24}的高计算复杂度导致这些模型很难直接使用。以IBM模型1为例，这里把公式\eqref{eq:5-24}重写为：
+\parinterval 如果模型参数给定，可以使用IBM模型1对新的句子进行翻译。比如，可以使用\ref{sec:simple-decoding}节描述的解码方法搜索最优译文。在搜索过程中，只需要通过公式\eqref{eq:5-25}计算每个译文候选的IBM模型翻译概率。但是，公式\eqref{eq:5-25}的高计算复杂度导致这些模型很难直接使用。以IBM模型1为例，这里把公式\eqref{eq:5-25}重写为：
 \begin{eqnarray}
-\funp{P}(\seq{s}| \seq{t}) = \frac{\varepsilon}{(l+1)^{m}} \underbrace{\sum\limits_{a_1=0}^{l} ... \sum\limits_{a_m=0}^{l}}_{(l+1)^m\textrm{次循环}} \underbrace{\prod\limits_{j=1}^{m} f(s_j|t_{a_j})}_{m\textrm{次循环}}
-\label{eq:5-27}
+\funp{P}(\seq{s}| \seq{t}) &=& \frac{\varepsilon}{(l+1)^{m}} \underbrace{\sum\limits_{a_1=0}^{l} ... \sum\limits_{a_m=0}^{l}}_{(l+1)^m\textrm{次循环}} \underbrace{\prod\limits_{j=1}^{m} f(s_j|t_{a_j})}_{m\textrm{次循环}}
+\label{eq:5-26}
 \end{eqnarray}
 
 \noindent 可以看到，遍历所有的词对齐需要$(l+1)^m$次循环，遍历所有源语言位置累计$f(s_j|t_{a_j})$需要$m$次循环，因此这个模型的计算复杂度为$O((l+1)^m m)$。当$m$较大时，计算这样的模型几乎是不可能的。不过，经过仔细观察，可以发现公式右端的部分有另外一种计算方法，如下：
 \begin{eqnarray}
-\sum\limits_{a_1=0}^{l} ... \sum\limits_{a_m=0}^{l} \prod\limits_{j=1}^{m} f(s_j|t_{a_j}) = \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
-\label{eq:5-28}
+\sum\limits_{a_1=0}^{l} ... \sum\limits_{a_m=0}^{l} \prod\limits_{j=1}^{m} f(s_j|t_{a_j}) &=& \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
+\label{eq:5-27}
 \end{eqnarray}
 
-\noindent  公式\eqref{eq:5-28}的技巧在于把若干个乘积的加法（等式左手端）转化为若干加法结果的乘积（等式右手端），这样省去了多次循环，把$O((l+1)^m m)$的计算复杂度降为$O((l+1)m)$。此外，公式\eqref{eq:5-28}相比公式\eqref{eq:5-27}的另一个优点在于，公式\eqref{eq:5-28}中乘法的数量更少，因为现代计算机中乘法运算的代价要高于加法，因此公式\eqref{eq:5-28}的计算机实现效率更高。图\ref{fig:5-21} 对这个过程进行了进一步解释。
+\noindent  公式\eqref{eq:5-27}的技巧在于把若干个乘积的加法（等式左手端）转化为若干加法结果的乘积（等式右手端），这样省去了多次循环，把$O((l+1)^m m)$的计算复杂度降为$O((l+1)m)$。此外，公式\eqref{eq:5-27}相比公式\eqref{eq:5-26}的另一个优点在于，公式\eqref{eq:5-27}中乘法的数量更少，因为现代计算机中乘法运算的代价要高于加法，因此公式\eqref{eq:5-27}的计算机实现效率更高。图\ref{fig:5-21} 对这个过程进行了进一步解释。
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
 \input{./Chapter5/Figures/figure-example-of-formula3.29}
-   \caption{$\sum\limits_{a_1=0}^{l} ... \sum\limits_{a_m=0}^{l} \prod\limits_{j=1}^{m} f(s_j|t_{a_j}) = \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)$的实例}
+   \caption{$\sum\limits_{a_1=0}^{l} ... \sum\limits_{a_m=0}^{l} \prod\limits_{j=1}^{m} f(s_j|t_{a_j}) \; = \; \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)$的实例}
    \label{fig:5-21}
 \end{figure}
 %----------------------------------------------
 
-\parinterval 接着，利用公式\eqref{eq:5-28}的方式，可以把公式\eqref{eq:5-24}重写表示为：
+\parinterval 接着，利用公式\eqref{eq:5-27}的方式，可以把公式\eqref{eq:5-25}重写表示为：
 \begin{eqnarray}
-\textrm{IBM模型1：\ \ \ \ } \funp{P}(\seq{s}| \seq{t}) & = & \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \label{eq:5-64}
-\label{eq:5-29}
+\textrm{IBM模型1：\ \ \ \ } \funp{P}(\seq{s}| \seq{t}) & = & \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
+\label{eq:5-28}
 \end{eqnarray}
 
-公式\eqref{eq:5-64}是IBM模型1的最终表达式，在解码和训练中可以被直接使用。
+公式\eqref{eq:5-28}是IBM模型1的最终表达式，在解码和训练中可以被直接使用。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -872,19 +863,19 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \parinterval 在IBM模型中，优化的目标函数被定义为$\funp{P}(\seq{s}| \seq{t})$。也就是，对于给定的句对$(\seq{s},\seq{t})$，最大化翻译概率$\funp{P}(\seq{s}| \seq{t})$。 这里用符号$\funp{P}_{\theta}(\seq{s}|\seq{t})$表示模型由参数$\theta$决定，模型训练可以被描述为对目标函数$\funp{P}_{\theta}(\seq{s}|\seq{t})$的优化过程：
 \begin{eqnarray}
-\widehat{\theta}=\argmax_{\theta}\funp{P}_{\theta}(\seq{s}|\seq{t})
-\label{eq:5-30}
+\widehat{\theta}&=&\argmax_{\theta}\funp{P}_{\theta}(\seq{s}|\seq{t})
+\label{eq:5-29}
 \end{eqnarray}
 
 \noindent 其中，$\argmax_{\theta}$表示求最优参数的过程（或优化过程）。
 
-\parinterval 公式\eqref{eq:5-30}实际上也是一种基于极大似然的模型训练方法。这里，可以把$\funp{P}_{\theta}(\seq{s}|\seq{t})$看作是模型对数据描述的一个似然函数，记作$L(\seq{s},\seq{t};\theta)$。也就是，优化目标是对似然函数的优化：$\{\widehat{\theta}\}=\{\argmax_{\theta \in \Theta}L(\seq{s},\seq{t};\theta)\}$，其中\{$\widehat{\theta}$\} 表示可能有多个结果，$\Theta$表示参数空间。
+\parinterval 公式\eqref{eq:5-29}实际上也是一种基于极大似然的模型训练方法。这里，可以把$\funp{P}_{\theta}(\seq{s}|\seq{t})$看作是模型对数据描述的一个似然函数，记作$L(\seq{s},\seq{t};\theta)$。也就是，优化目标是对似然函数的优化：$\{\widehat{\theta}\}=\{\argmax_{\theta \in \Theta}L(\seq{s},\seq{t};\theta)\}$，其中\{$\widehat{\theta}$\} 表示可能有多个结果，$\Theta$表示参数空间。
 
-\parinterval 回到IBM模型的优化问题上。以IBM模型1为例，优化的目标是最大化翻译概率$\funp{P}(\seq{s}| \seq{t})$。使用公式\eqref{eq:5-64} ，可以把这个目标表述为：
+\parinterval 回到IBM模型的优化问题上。以IBM模型1为例，优化的目标是最大化翻译概率$\funp{P}(\seq{s}| \seq{t})$。使用公式\eqref{eq:5-28} ，可以把这个目标表述为：
 \begin{eqnarray}
 &                    & \textrm{max}\Big(\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f({s_j|t_i})}\Big) \nonumber \\
-& \textrm{s.t.} & \textrm{任意单词} t_{y}:\;\sum_{s_x}{f(s_x|t_y)}=1 \nonumber
-\label{eq:5-31}
+& \textrm{s.t.} & \textrm{任意单词} t_{y}:\;\sum_{s_x}{f(s_x|t_y)} = 1 \nonumber
+\label{eq:5-29-30}
 \end{eqnarray}
 \noindent 其中，$\textrm{max}(\cdot)$表示最大化，$\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f({s_j|t_i})}$是目标函数，$f({s_j|t_i})$是模型的参数，$\sum_{s_x}{f(s_x|t_y)}=1$是优化的约束条件，以保证翻译概率满足归一化的要求。需要注意的是$\{f(s_x |t_y)\}$对应了很多参数，每个源语言单词和每个目标语单词的组合都对应一个参数$f(s_x |t_y)$。
 
@@ -896,11 +887,11 @@ g(\seq{s},\seq{t}) \equiv \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \times 
 
 \parinterval 可以看到，IBM模型的参数训练问题本质上是带约束的目标函数优化问题。由于目标函数是可微分函数，解决这类问题的一种常用手法是把带约束的优化问题转化为不带约束的优化问题。这里用到了{\small\sffamily\bfseries{拉格朗日乘数法}}\index{拉格朗日乘数法}（Lagrange Multiplier Method）\index{The Lagrange Multiplier Method}，它的基本思想是把含有$n$个变量和$m$个约束条件的优化问题转化为含有$n+m$个变量的无约束优化问题。
 
-\parinterval 这里的目标是$\max(\funp{P}_{\theta}(\seq{s}|\seq{t}))$，约束条件是对于任意的目标语单词$t_y$有\\$\sum_{s_x}{\funp{P}(s_x|t_y)}=1$。根据拉格朗日乘数法，可以把上述优化问题重新定义最大化如下拉格朗日函数：
+\parinterval 这里的目标是$\max(\funp{P}_{\theta}(\seq{s}|\seq{t}))$，约束条件是对于任意的目标语单词$t_y$有\\$\sum_{s_x}{\funp{P}(s_x|t_y)}=1$。根据拉格朗日乘数法，可以把上述优化问题重新定义为最大化如下拉格朗日函数的问题：
 \vspace{-0.5em}
 \begin{eqnarray}
-L(f,\lambda)=\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f(s_j|t_i)}-\sum_{t_y}{\lambda_{t_y}(\sum_{s_x}{f(s_x|t_y)}-1)}
-\label{eq:5-32}
+L(f,\lambda)&=&\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f(s_j|t_i)}-\sum_{t_y}{\lambda_{t_y}(\sum_{s_x}{f(s_x|t_y)}-1)}
+\label{eq:5-30}
 \end{eqnarray}
 
 \vspace{-0.3em}
@@ -920,52 +911,53 @@ L(f,\lambda)=\frac{\varepsilon}{(l+1)^m}\prod_{j=1}^{m}\sum_{i=0}^{l}{f(s_j|t_i)
 \frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}& = & \frac{\partial \big[ \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)} - \nonumber \\
                                                                      &     & \frac{\partial \big[ \sum_{t_y} \lambda_{t_y} (\sum_{s_x} f(s_x|t_y) -1) \big]}{\partial f(s_u|t_v)} \nonumber \\
                                                                      & =  & \frac{\varepsilon}{(l+1)^{m}} \cdot \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)} - \lambda_{t_v}
-\label{eq:5-33}
+\label{eq:5-31}
 \end{eqnarray}
 
 \noindent 这里$s_u$和$t_v$分别表示源语言和目标语言词表中的某一个单词。为了求$\frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}$，这里引入一个辅助函数。令$g(z)=\alpha z^{\beta}$ 为变量$z$ 的函数，显然，
 $\frac{\partial g(z)}{\partial z} = \alpha \beta z^{\beta-1} = \frac{\beta}{z}\alpha z^{\beta} = \frac{\beta}{z} g(z)$。这里可以把$\prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i)$看做$g(z)=\alpha z^{\beta}$的实例。首先，令$z=\sum_{i=0}^{l}f(s_u|t_i)$，注意$s_u$为给定的源语单词。然后，把$\beta$定义为$\sum_{i=0}^{l}f(s_u|t_i)$在$\prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i)$ 中出现的次数，即源语句子中与$s_u$相同的单词的个数。
+\vspace{-1em}
 \begin{eqnarray}
-\beta=\sum_{j=1}^{m} \delta(s_j,s_u)
-\label{eq:5-34}
+\beta &=& \sum_{j=1}^{m} \delta(s_j,s_u)
+\label{eq:5-32}
 \end{eqnarray}
-
 \noindent 其中，当$x=y$时，$\delta(x,y)=1$，否则为0。
 
 \parinterval 根据$\frac{\partial g(z)}{\partial z} = \frac{\beta}{z} g(z)$，可以得到
+\vspace{-0.5em}
 \begin{eqnarray}
-\frac{\partial g(z)}{\partial z} = \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]} = \frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
-\label{eq:5-35}
+\frac{\partial g(z)}{\partial z}& =& \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]}\nonumber \\
+ &=& \frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i)
+\label{eq:5-33}
 \end{eqnarray}
-
 \parinterval 根据$\frac{\partial g(z)}{\partial z}$和$\frac{\partial z}{\partial f}$计算的结果，可以得到
+\vspace{-0.5em}
 \begin{eqnarray}
 {\frac{\partial \big[ \prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}}& =& {{\frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \big]}{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]}} \cdot{\frac{\partial \big[ \sum\limits_{i=0}^{l}f(s_u|t_i) \big]}{\partial f(s_u|t_v)}}} \nonumber \\
 & = &{\frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v)}
+\label{eq:5-34}
+\end{eqnarray}
+\parinterval 将$\frac{\partial \big[ \prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}$进一步代入$\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}$，得到$L(f,\lambda)$的导数
+\vspace{-0.5em}
+\begin{eqnarray}
+{\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}} &=&{\frac{\varepsilon}{(l+1)^{m}} \cdot \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_{a_j}) \big]}{\partial f(s_u|t_v)} - \lambda_{t_v}}\nonumber \\
+&=&{\frac{\varepsilon}{(l+1)^{m}} \frac{\sum_{j=1}^{m} \delta(s_j,s_u) \cdot \sum_{i=0}^{l} \delta(t_i,t_v)}{\sum_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) - \lambda_{t_v}}
+\label{eq:5-35}
+\end{eqnarray}
+\parinterval 令$\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}=0$，有
+\vspace{-1em}
+\begin{eqnarray}
+f(s_u|t_v) &=& \frac{\lambda_{t_v}^{-1} \varepsilon}{(l+1)^{m}} \cdot \frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \cdot f(s_u|t_v)
 \label{eq:5-36}
 \end{eqnarray}
-
-\parinterval 将$\frac{\partial \big[ \prod_{j=1}^{m} \sum_{i=0}^{l} f(s_j|t_i) \big]}{\partial f(s_u|t_v)}$进一步代入$\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}$，得到$L(f,\lambda)$的导数
+\parinterval 将上式稍作调整得到下式：
+\vspace{-1em}
 \begin{eqnarray}
-& &{\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}}\nonumber \\
-&=&{\frac{\varepsilon}{(l+1)^{m}} \cdot \frac{\partial \big[ \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_{a_j}) \big]}{\partial f(s_u|t_v)} - \lambda_{t_v}}\nonumber \\
-&=&{\frac{\varepsilon}{(l+1)^{m}} \frac{\sum_{j=1}^{m} \delta(s_j,s_u) \cdot \sum_{i=0}^{l} \delta(t_i,t_v)}{\sum_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) - \lambda_{t_v}}
+f(s_u|t_v) &=& \lambda_{t_v}^{-1} \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \sum\limits_{j=1}^{m} \delta(s_j,s_u) \sum\limits_{i=0}^{l} \delta(t_i,t_v) \frac{f(s_u|t_v) }{\sum\limits_{i=0}^{l}f(s_u|t_i)}
 \label{eq:5-37}
 \end{eqnarray}
 
-\parinterval 令$\frac{\partial L(f,\lambda)}{\partial f(s_u|t_v)}=0$，有
-\begin{eqnarray}
-f(s_u|t_v) = \frac{\lambda_{t_v}^{-1} \varepsilon}{(l+1)^{m}} \cdot \frac{\sum\limits_{j=1}^{m} \delta(s_j,s_u) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v)}{\sum\limits_{i=0}^{l}f(s_u|t_i)} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \cdot f(s_u|t_v)
-\label{eq:5-38}
-\end{eqnarray}
-
-\parinterval 将上式稍作调整得到下式：
-\begin{eqnarray}
-f(s_u|t_v) = \lambda_{t_v}^{-1} \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}^{m} \sum\limits_{i=0}^{l} f(s_j|t_i) \sum\limits_{j=1}^{m} \delta(s_j,s_u) \sum\limits_{i=0}^{l} \delta(t_i,t_v) \frac{f(s_u|t_v) }{\sum\limits_{i=0}^{l}f(s_u|t_i)}
-\label{eq:5-39}
-\end{eqnarray}
-
-\parinterval  可以看出，这不是一个计算$f(s_u|t_v)$的解析式，因为等式右端仍含有$f(s_u|t_v)$。不过它蕴含着一种非常经典的方法\ $\dash$\ {\small\sffamily\bfseries{期望最大化}}\index{期望最大化}（Expectation Maximization）\index{Expectation Maximization}方法，简称EM方法（或算法）。使用EM方法可以利用上式迭代地计算$f(s_u|t_v)$，使其最终收敛到最优值。EM方法的思想是：用当前的参数，求似然函数的期望，之后最大化这个期望同时得到新的一组参数的值。对于IBM模型来说，其迭代过程就是反复使用公式\eqref{eq:5-39}，具体如图\ref{fig:5-24}所示。
+\parinterval  可以看出，这不是一个计算$f(s_u|t_v)$的解析式，因为等式右端仍含有$f(s_u|t_v)$。不过它蕴含着一种非常经典的方法\ $\dash$\ {\small\sffamily\bfseries{期望最大化}}\index{期望最大化}（Expectation Maximization）\index{Expectation Maximization}方法，简称EM方法（或算法）。使用EM方法可以利用式\ref{eq:5-37}迭代地计算$f(s_u|t_v)$，使其最终收敛到最优值。EM方法的思想是：用当前的参数，求似然函数的期望，之后最大化这个期望同时得到新的一组参数的值。对于IBM模型来说，其迭代过程就是反复使用公式\eqref{eq:5-37}，具体如图\ref{fig:5-24}所示。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -976,23 +968,25 @@ f(s_u|t_v) = \lambda_{t_v}^{-1} \frac{\varepsilon}{(l+1)^{m}} \prod\limits_{j=1}
 \end{figure}
 %----------------------------------------------
 
-\parinterval 为了化简$f(s_u|t_v)$的计算，在此对公式\eqref{eq:5-39}进行了重新组织，见图\ref{fig:5-25}。其中，红色部分表示翻译概率P$(\seq{s}|\seq{t})$；蓝色部分表示$(s_u,t_v)$ 在句对$(\seq{s},\seq{t})$中配对的总次数，即“$t_v$翻译为$s_u$”在所有对齐中出现的次数；绿色部分表示$f(s_u|t_v)$对于所有的$t_i$的相对值，即“$t_v$翻译为$s_u$”在所有对齐中出现的相对概率；蓝色与绿色部分相乘表示“$t_v$翻译为$s_u$”这个事件出现次数的期望的估计，称之为{\small\sffamily\bfseries{期望频次}}\index{期望频次}（Expected Count）\index{Expected Count}。
+\parinterval 为了化简$f(s_u|t_v)$的计算，在此对公式\eqref{eq:5-37}进行了重新组织，见图\ref{fig:5-25}。其中，红色部分表示翻译概率P$(\seq{s}|\seq{t})$；蓝色部分表示$(s_u,t_v)$ 在句对$(\seq{s},\seq{t})$中配对的总次数，即“$t_v$翻译为$s_u$”在所有对齐中出现的次数；绿色部分表示$f(s_u|t_v)$对于所有的$t_i$的相对值，即“$t_v$翻译为$s_u$”在所有对齐中出现的相对概率；蓝色与绿色部分相乘表示“$t_v$翻译为$s_u$”这个事件出现次数的期望的估计，称之为{\small\sffamily\bfseries{期望频次}}\index{期望频次}（Expected Count）\index{Expected Count}。
 \vspace{-0.3em}
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
 \input{./Chapter5/Figures/figure-a-more-detailed-explanation-of-formula-3.40}
-   \caption{公式\eqref{eq:5-39}的解释}
+   \caption{公式\eqref{eq:5-37}的解释}
    \label{fig:5-25}
 \end{figure}
 %----------------------------------------------
 
 \parinterval 期望频次是事件在其分布下出现次数的期望。另$c_{\mathbb{E}}(X)$为事件$X$的期望频次，其计算公式为：
+\vspace{-0.5em}
+\begin{eqnarray}
+c_{\mathbb{E}}(X)&=&\sum_i c(x_i) \cdot \funp{P}(x_i)
+\label{eq:5-38}
+\end{eqnarray}
 
-\begin{equation}
-c_{\mathbb{E}}(X)=\sum_i c(x_i) \cdot \funp{P}(x_i)
-\end{equation}
-
+\vspace{-0.5em}
 \noindent 其中$c(x_i)$表示$X$取$x_i$时出现的次数，$\funp{P}(x_i)$表示$X=x_i$出现的概率。图\ref{fig:5-26}展示了事件$X$的期望频次的详细计算过程。其中$x_1$、$x_2$和$x_3$分别表示事件$X$出现2次、1次和5次的情况。
 
 %----------------------------------------------
@@ -1005,50 +999,70 @@ c_{\mathbb{E}}(X)=\sum_i c(x_i) \cdot \funp{P}(x_i)
 \end{figure}
 %----------------------------------------------
 
+\vspace{-0.5em}
 \parinterval 因为在$\funp{P}(\seq{s}|\seq{t})$中，$t_v$翻译（连接）到$s_u$的期望频次为：
+\vspace{-0.5em}
 \begin{eqnarray}
-c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t}) \equiv \sum\limits_{j=1}^{m} \delta(s_j,s_u) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v) \cdot \frac {f(s_u|t_v)}{\sum\limits_{i=0}^{l}f(s_u|t_i)}
+c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t}) & \equiv & \sum\limits_{j=1}^{m} \delta(s_j,s_u) \cdot \sum\limits_{i=0}^{l} \delta(t_i,t_v) \cdot \frac {f(s_u|t_v)}{\sum\limits_{i=0}^{l}f(s_u|t_i)}
+\label{eq:5-39}
+\end{eqnarray}
+
+\vspace{-0.5em}
+\parinterval 所以公式\ref {eq:5-37}可重写为：
+\vspace{-0.5em}
+\begin{eqnarray}
+f(s_u|t_v)&=&\lambda_{t_v}^{-1} \cdot \funp{P}(\seq{s}| \seq{t}) \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})
 \label{eq:5-40}
 \end{eqnarray}
 
-\parinterval 所以公式\ref {eq:5-39}可重写为：
-\begin{eqnarray}
-f(s_u|t_v)=\lambda_{t_v}^{-1} \cdot \funp{P}(\seq{s}| \seq{t}) \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})
-\label{eq:5-41}
-\end{eqnarray}
-
+\vspace{-0.5em}
 \parinterval 在此如果令$\lambda_{t_v}^{'}=\frac{\lambda_{t_v}}{\funp{P}(\seq{s}| \seq{t})}$，可得：
+\vspace{-0.5em}
 \begin{eqnarray}
 f(s_u|t_v) &= &\lambda_{t_v}^{-1} \cdot \funp{P}(\seq{s}| \seq{t}) \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t}) \nonumber \\
  &=&{(\lambda_{t_v}^{'})}^{-1} \cdot c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})
+\label{eq:5-41}
+\end{eqnarray}
+
+\vspace{-0.5em}
+\parinterval 又因为IBM模型对$f(\cdot|\cdot)$的约束如下：
+\vspace{-0.5em}
+\begin{eqnarray}
+\forall t_y : \sum\limits_{s_x} f(s_x|t_y) &=& 1
 \label{eq:5-42}
 \end{eqnarray}
 
-\parinterval 又因为IBM模型对$f(\cdot|\cdot)$的约束如下：
+\vspace{-0.5em}
+\parinterval 为了满足$f(\cdot|\cdot)$的概率归一化约束，易得$\lambda_{t_v}^{'}$为：
+\vspace{-0.5em}
 \begin{eqnarray}
-\forall t_y : \sum\limits_{s_x} f(s_x|t_y) =1
+\lambda_{t_v}^{'}&=&\sum\limits_{s'_u} c_{\mathbb{E}}(s'_u|t_v;\seq{s},\seq{t})
 \label{eq:5-43}
 \end{eqnarray}
 
-\parinterval 为了满足$f(\cdot|\cdot)$的概率归一化约束，易知$\lambda_{t_v}^{'}$为：
+\vspace{-0.5em}
+\parinterval 因此，$f(s_u|t_v)$的计算式可再一步变换成下式：
+\vspace{-0.5em}
 \begin{eqnarray}
-\lambda_{t_v}^{'}=\sum\limits_{s_u} c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})
+f(s_u|t_v)&=&\frac{c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})}  { \sum\limits_{s'_u} c_{\mathbb{E}}(s'_u|t_v;\seq{s},\seq{t}) }
 \label{eq:5-44}
 \end{eqnarray}
+%----------------------------------------------
+\begin{figure}[htp]
+    \centering
+\input{./Chapter5/Figures/figure-calculation-formula&iterative-process-of-function}
+   \caption{$f(s_u|t_v)$的计算公式和迭代过程}
+   \label{fig:5-27}
+\end{figure}
+%----------------------------------------------
 
-\parinterval 因此，$f(s_u|t_v)$的计算式可再一步变换成下式：
-\begin{eqnarray}
-f(s_u|t_v)=\frac{c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t})}  { \sum\limits_{s_u} c_{\mathbb{E}}(s_u|t_v;\seq{s},\seq{t}) }
-\label{eq:5-45}
-\end{eqnarray}
-
-
-
+\vspace{-0.5em}
 \parinterval 进一步，假设有$K$个互译的句对（称作平行语料）：
+\vspace{-0.5em}
 $\{(\seq{s}^{[1]},\seq{t}^{[1]}),...,(\seq{s}^{[K]},\seq{t}^{[K]})\}$，$f(s_u|t_v)$的期望频次为：
 \begin{eqnarray}
-c_{\mathbb{E}}(s_u|t_v)=\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},t^{[k]})
-\label{eq:5-46}
+c_{\mathbb{E}}(s_u|t_v)&=&\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},t^{[k]})
+\label{eq:5-45}
 \end{eqnarray}
 
 \parinterval 于是有$f(s_u|t_v)$的计算公式和迭代过程图\ref{fig:5-27}所示。完整的EM算法如图\ref{fig:5-28}所示。其中E-Step对应4-5行，目的是计算$c_{\mathbb{E}}(\cdot)$；M-Step对应6-9行，目的是计算$f(\cdot|\cdot)$。
@@ -1061,20 +1075,8 @@ c_{\mathbb{E}}(s_u|t_v)=\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},t^
    \label{fig:5-28}
 \end{figure}
 %----------------------------------------------
-%----------------------------------------------
-\begin{figure}[htp]
-    \centering
-\input{./Chapter5/Figures/figure-calculation-formula&iterative-process-of-function}
-   \caption{$f(s_u|t_v)$的计算公式和迭代过程}
-   \label{fig:5-27}
-\end{figure}
-%----------------------------------------------
 
 \parinterval 至此，本章完成了对IBM模型1训练方法的介绍。其可以通过图\ref{fig:5-27}所示的算法进行实现。算法最终的形式并不复杂，因为只需要遍历每个句对，之后计算$f(\cdot|\cdot)$的期望频次，最后估计新的$f(\cdot|\cdot)$，这个过程迭代直至$f(\cdot|\cdot)$收敛至稳定状态。
-
-\vspace{-1.5em}
-
-
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -1089,7 +1091,7 @@ c_{\mathbb{E}}(s_u|t_v)=\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},t^
 
 \begin{itemize}
 \vspace{0.5em}
-\item 在IBM基础模型之上，有很多改进的工作。例如，对空对齐、低频词进行额外处理\upcite{DBLP:conf/acl/Moore04}；考虑源语言-目标语言和目标语言-源语言双向词对齐进行更好地词对齐对称化\upcite{肖桐1991面向统计机器翻译的重对齐方法研究}；使用词典、命名实体等多种信息对模型进行改进\upcite{2005Improvin}；通过引入短语增强IBM基础模型\upcite{1998Grammar}；引入相邻单词对齐之间的依赖关系增加模型鲁棒性\upcite{DBLP:conf/acl-vlc/DaganCG93}等；也可以对IBM模型的正向和反向结果进行对称化处理，以得到更加准确词对齐结果\upcite{och2003systematic}。
+\item 在IBM基础模型之上，有很多改进的工作。例如，对空对齐、低频词进行额外处理\upcite{DBLP:conf/acl/Moore04}；考虑源语言-目标语言和目标语言-源语言双向词对齐进行更好地词对齐对称化\upcite{肖桐1991面向统计机器翻译的重对齐方法研究}；使用词典、命名实体等多种信息对模型进行改进\upcite{2005Improvin}；通过引入短语增强IBM基础模型\upcite{1998Grammar}；引入相邻单词对齐之间的依赖关系增加模型健壮性\upcite{DBLP:conf/acl-vlc/DaganCG93}等；也可以对IBM模型的正向和反向结果进行对称化处理，以得到更加准确词对齐结果\upcite{och2003systematic}。
 
 \item 随着词对齐概念的不断深入，也有很多词对齐方面的工作并不依赖IBM模型。比如，可以直接使用判别式模型利用分类器解决词对齐问题\upcite{ittycheriah2005maximum}；使用带参数控制的动态规划方法来提高词对齐准确率\upcite{DBLP:conf/naacl/GaleC91}；甚至可以把对齐的思想用于短语和句法结构的双语对应\upcite{xiao2013unsupervised}；无监督的对称词对齐方法，正向和反向模型联合训练，结合数据的相似性\upcite{DBLP:conf/naacl/LiangTK06}；除了GIZA++，研究人员也开发了很多优秀的自动对齐工具，比如，FastAlign\upcite{DBLP:conf/naacl/DyerCS13}、Berkeley Word Aligner\upcite{taskar2005a}等，这些工具现在也有很广泛的应用。
 

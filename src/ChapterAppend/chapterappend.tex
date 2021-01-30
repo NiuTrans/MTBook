@@ -2,8 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 %----------------------------------------------------------------------------------------
-% 机器翻译：统计建模与深度学习方法
-% Machine Translation: Statistical Modeling and Deep Learning Methods
+% 机器翻译：基础与模型
+% Machine Translation: Foundations and Models
 %
 % Copyright 2020
 % 肖桐(xiaotong@mail.neu.edu.cn) 朱靖波 (zhujingbo@mail.neu.edu.cn)
@@ -38,27 +38,27 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item NiuTrans.SMT。NiuTrans\upcite{Tong2012NiuTrans}是由东北大学自然语言处理实验室自主研发的统计机器翻译系统，该系统可支持基于短语的模型、基于层次短语的模型以及基于句法的模型。由于使用C++ 语言开发，所以该系统运行时间快，所占存储空间少。系统中内嵌有$n$-gram语言模型，故无需使用其他的系统即可对完成语言建模。网址：\url{http://opensource.niutrans.com/smt/index.html}
+\item NiuTrans.SMT。NiuTrans\upcite{Tong2012NiuTrans}是由东北大学自然语言处理实验室自主研发的统计机器翻译系统，该系统可支持基于短语的模型、基于层次短语的模型以及基于句法的模型。由于使用C++ 语言开发，所以该系统运行时间快，所占存储空间少。系统中内嵌有$n$-gram语言模型，故无需使用其他的系统即可对完成语言建模。
 \vspace{0.5em}
-\item Moses。Moses\upcite{Koehn2007Moses}是统计机器翻译时代最著名的系统之一，（主要）由爱丁堡大学的机器翻译团队开发。最新的Moses系统支持很多的功能，例如，它既支持基于短语的模型，也支持基于句法的模型。Moses 提供因子化翻译模型（Factored Translation Model），因此该模型可以很容易地对不同层次的信息进行建模。此外，它允许将混淆网络和字格作为输入，可缓解系统的1-best输出中的错误。Moses还提供了很多有用的脚本和工具，被机器翻译研究者广泛使用。网址：\url{http://www.statmt.org/moses/}
+\item Moses。Moses\upcite{Koehn2007Moses}是统计机器翻译时代最著名的系统之一，（主要）由爱丁堡大学的机器翻译团队开发。最新的Moses系统支持很多的功能，例如，它既支持基于短语的模型，也支持基于句法的模型。Moses 提供因子化翻译模型（Factored Translation Model），因此该模型可以很容易地对不同层次的信息进行建模。此外，它允许将混淆网络和字格作为输入，可缓解系统的1-best输出中的错误。Moses还提供了很多有用的脚本和工具，被机器翻译研究人员广泛使用。
 \vspace{0.5em}
-\item Joshua。Joshua\upcite{Li2010Joshua}是由约翰霍普金斯大学的语言和语音处理中心开发的层次短语翻译系统。由于Joshua是由Java语言开发，所以它在不同的平台上运行或开发时具有良好的可扩展性和可移植性。Joshua也是使用非常广泛的开源机器翻译系统之一。网址：\url{https://cwiki.apache.org/confluence/display/JOSHUA/}
+\item Joshua。Joshua\upcite{Li2010Joshua}是由约翰霍普金斯大学的语言和语音处理中心开发的层次短语翻译系统。由于Joshua是由Java语言开发，所以它在不同的平台上运行或开发时具有良好的可扩展性和可移植性。Joshua也是使用非常广泛的开源机器翻译系统之一。
 \vspace{0.5em}
-\item SilkRoad。SilkRoad是由五个国内机构（中科院计算所、中科院软件所、中科院自动化所、厦门大学和哈尔滨工业大学）联合开发的基于短语的统计机器翻译系统。该系统是中国乃至亚洲地区第一个开源的统计机器翻译系统。SilkRoad支持多种解码器和规则提取模块，这样可以组合成不同的系统，提供多样的选择。网址：\url{http://www.nlp.org.cn/project/project.php?projid=14}
+\item SilkRoad。SilkRoad是由五个国内机构（中科院计算所、中科院软件所、中科院自动化所、厦门大学和哈尔滨工业大学）联合开发的基于短语的统计机器翻译系统。该系统是中国乃至亚洲地区第一个开源的统计机器翻译系统。SilkRoad支持多种解码器和规则提取模块，这样可以组合成不同的系统，提供多样的选择。
 \vspace{0.5em}
-\item SAMT。SAMT\upcite{zollmann2007the}是由卡内基梅隆大学机器翻译团队开发的语法增强的统计机器翻译系统。SAMT在解码的时候使用目标树来生成翻译规则，而不严格遵守目标语言的语法。SAMT 的一个亮点是它提供了简单但高效的方式在机器翻译中使用句法信息。由于SAMT在hadoop中实现，它可受益于大数据集的分布式处理。网址：\url{http://www.cs.cmu.edu/zollmann/samt/}
+\item SAMT。SAMT\upcite{zollmann2007the}是由卡内基梅隆大学机器翻译团队开发的语法增强的统计机器翻译系统。SAMT在解码的时候使用目标树来生成翻译规则，而不严格遵守目标语言的语法。SAMT 的一个亮点是它提供了简单但高效的方式在机器翻译中使用句法信息。由于SAMT在hadoop中实现，它可受益于大数据集的分布式处理。
 \vspace{0.5em}
-\item HiFST。HiFST\upcite{iglesias2009hierarchical}是剑桥大学开发的统计机器翻译系统。该系统完全基于有限状态自动机实现，因此非常适合对搜索空间进行有效的表示。网址：\url{http://ucam-smt.github.io/}
+\item HiFST。HiFST\upcite{iglesias2009hierarchical}是剑桥大学开发的统计机器翻译系统。该系统完全基于有限状态自动机实现，因此非常适合对搜索空间进行有效的表示。
 \vspace{0.5em}
-\item cdec。cdec\upcite{dyer2010cdec}是一个强大的解码器，是由Chris Dyer 和他的合作者们一起开发。cdec的主要功能是它使用了翻译模型的一个统一的内部表示，并为结构预测问题的各种模型和算法提供了实现框架。所以，cdec也可以被用来做一个对齐系统或者一个更通用的学习框架。此外，由于使用C++语言编写，cdec的运行速度较快。网址：\url{http://cdec-decoder.org/index.php?title=MainPage}
+\item cdec。cdec\upcite{dyer2010cdec}是一个强大的解码器，是由Chris Dyer 和他的合作者们一起开发。cdec的主要功能是它使用了翻译模型的一个统一的内部表示，并为结构预测问题的各种模型和算法提供了实现框架。所以，cdec也可以被用来做一个对齐系统或者一个更通用的学习框架。此外，由于使用C++语言编写，cdec的运行速度较快。
 \vspace{0.5em}
-\item Phrasal。Phrasal\upcite{Cer2010Phrasal}是由斯坦福大学自然语言处理小组开发的系统。除了传统的基于短语的模型，Phrasal还支持基于非层次短语的模型，这种模型将基于短语的翻译延伸到非连续的短语翻译，增加了模型的泛化能力。网址：\url{http://nlp.stanford.edu/phrasal/}
+\item Phrasal。Phrasal\upcite{Cer2010Phrasal}是由斯坦福大学自然语言处理小组开发的系统。除了传统的基于短语的模型，Phrasal还支持基于非层次短语的模型，这种模型将基于短语的翻译延伸到非连续的短语翻译，增加了模型的泛化能力。
 \vspace{0.5em}
-\item Jane。Jane\upcite{vilar2012jane}是一个基于短语和基于层次短语的机器翻译系统，由亚琛工业大学的人类语言技术与模式识别小组开发。Jane提供了系统融合模块，因此可以非常方便的对多个系统进行融合。网址：\url{https://www-i6.informatik.rwth-aachen.de/jane/}
+\item Jane。Jane\upcite{vilar2012jane}是一个基于短语和基于层次短语的机器翻译系统，由亚琛工业大学的人类语言技术与模式识别小组开发。Jane提供了系统融合模块，因此可以非常方便的对多个系统进行融合。
 \vspace{0.5em}
-\item GIZA++。GIZA++\upcite{och2003systematic}是Franz Och研发的用于训练IBM模型1-5和HMM单词对齐模型的工具包。在早期，GIZA++是所有统计机器翻译系统中词对齐的标配工具。网址：\url{https://github.com/moses-smt/giza-pp}
+\item GIZA++。GIZA++\upcite{och2003systematic}是Franz Och研发的用于训练IBM模型1-5和HMM单词对齐模型的工具包。在早期，GIZA++是所有统计机器翻译系统中词对齐的标配工具。
 \vspace{0.5em}
-\item FastAlign。FastAlign\upcite{DBLP:conf/naacl/DyerCS13}是一个快速，无监督的词对齐工具，由卡内基梅隆大学开发。网址：\url{https://github.com/clab/fast\_align}
+\item FastAlign。FastAlign\upcite{DBLP:conf/naacl/DyerCS13}是一个快速，无监督的词对齐工具，由卡内基梅隆大学开发。
 \vspace{0.5em}
 \end{itemize}
 
@@ -69,33 +69,33 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item GroundHog。GroundHog\upcite{bahdanau2014neural}基于Theano\upcite{al2016theano}框架，由蒙特利尔大学LISA 实验室使用Python语言编写的一个框架，旨在提供灵活而高效的方式来实现复杂的循环神经网络模型。它提供了包括LSTM在内的多种模型。Bahdanau等人在此框架上又编写了GroundHog神经机器翻译系统。该系统也作为了很多论文的基线系统。网址：\url{https://github.com/lisa-groundhog/GroundHog}
+\item GroundHog。GroundHog\upcite{bahdanau2014neural}基于Theano\upcite{al2016theano}框架，由蒙特利尔大学LISA 实验室使用Python语言编写的一个框架，旨在提供灵活而高效的方式来实现复杂的循环神经网络模型。它提供了包括LSTM在内的多种模型。Bahdanau等人在此框架上又编写了GroundHog神经机器翻译系统。该系统也作为了很多论文的基线系统。
 \vspace{0.5em}
-\item Nematus。Nematus\upcite{DBLP:journals/corr/SennrichFCBHHJL17}是英国爱丁堡大学开发的，基于Theano框架的神经机器翻译系统。该系统使用GRU作为隐层单元，支持多层网络。Nematus 编码端有正向和反向的编码方式，可以同时提取源语言句子中的上下文信息。该系统的一个优点是，它可以支持输入端有多个特征的输入（例如词的词性等）。网址：\url{https://github.com/EdinburghNLP/nematus}
+\item Nematus。Nematus\upcite{DBLP:journals/corr/SennrichFCBHHJL17}是英国爱丁堡大学开发的，基于Theano框架的神经机器翻译系统。该系统使用GRU作为隐层单元，支持多层网络。Nematus 编码端有正向和反向的编码方式，可以同时提取源语言句子中的上下文信息。该系统的一个优点是，它可以支持输入端有多个特征的输入（例如词的词性等）。
 \vspace{0.5em}
-\item ZophRNN。ZophRNN\upcite{zoph2016simple}是由南加州大学的Barret Zoph 等人使用C++语言开发的系统。Zoph既可以训练序列表示模型（如语言模型），也可以训练序列到序列的模型（如神经机器翻译模型）。当训练神经机器翻译系统时，ZophRNN也支持多源输入。网址：\url{https://github.com/isi-nlp/Zoph\_RNN}
+\item ZophRNN。ZophRNN\upcite{zoph2016simple}是由南加州大学的Barret Zoph 等人使用C++语言开发的系统。Zoph既可以训练序列表示模型（如语言模型），也可以训练序列到序列的模型（如神经机器翻译模型）。当训练神经机器翻译系统时，ZophRNN也支持多源输入。
 \vspace{0.5em}
-\item Fairseq。Fairseq\upcite{Ottfairseq}是由Facebook开发的，基于PyTorch框架的用以解决序列到序列问题的工具包，其中包括基于卷积神经网络、基于循环神经网络、基于Transformer的模型等。Fairseq是当今使用最广泛的神经机器翻译开源系统之一。网址：\url{https://github.com/facebookresearch/fairseq}
+\item Fairseq。Fairseq\upcite{Ottfairseq}是由Facebook开发的，基于PyTorch框架的用以解决序列到序列问题的工具包，其中包括基于卷积神经网络、基于循环神经网络、基于Transformer的模型等。Fairseq是当今使用最广泛的神经机器翻译开源系统之一。
 \vspace{0.5em}
-\item Tensor2Tensor。Tensor2Tensor\upcite{Vaswani2018Tensor2TensorFN}是由谷歌推出的，基于TensorFlow框架的开源系统。该系统基于Transformer模型，因此可以支持大多数序列到序列任务。得益于Transformer 的网络结构，系统的训练速度较快。现在，Tensor2Tensor也是机器翻译领域广泛使用的开源系统之一。网址：\url{https://github.com/tensorflow/tensor2tensor}
+\item Tensor2Tensor。Tensor2Tensor\upcite{Vaswani2018Tensor2TensorFN}是由谷歌推出的，基于TensorFlow框架的开源系统。该系统基于Transformer模型，因此可以支持大多数序列到序列任务。得益于Transformer 的网络结构，系统的训练速度较快。现在，Tensor2Tensor也是机器翻译领域广泛使用的开源系统之一。
 \vspace{0.5em}
-\item OpenNMT。OpenNMT\upcite{KleinOpenNMT}系统是由哈佛大学自然语言处理研究组开源的，基于Torch框架的神经机器翻译系统。OpenNMT系统的早期版本使用Lua 语言编写，现在也扩展到了TensorFlow和PyTorch，设计简单易用，易于扩展，同时保持效率和翻译精度。网址：\url{https://github.com/OpenNMT/OpenNMT}
+\item OpenNMT。OpenNMT\upcite{KleinOpenNMT}系统是由哈佛大学自然语言处理研究组开源的，基于Torch框架的神经机器翻译系统。OpenNMT系统的早期版本使用Lua 语言编写，现在也扩展到了TensorFlow和PyTorch，设计简单易用，易于扩展，同时保持效率和翻译精度。
 \vspace{0.5em}
-\item 斯坦福神经机器翻译开源代码库。斯坦福大学自然语言处理组（Stanford NLP）发布了一篇教程，介绍了该研究组在神经机器翻译上的研究信息，同时实现了多种翻译模型\upcite{luong2016acl_hybrid}。 网址：\url{https://nlp.stanford.edu/projects/nmt/}
+\item 斯坦福神经机器翻译开源代码库。斯坦福大学自然语言处理组（Stanford NLP）发布了一篇教程，介绍了该研究组在神经机器翻译上的研究信息，同时实现了多种翻译模型\upcite{luong2016acl_hybrid}。 
 \vspace{0.5em}
-\item THUMT。清华大学NLP团队实现的神经机器翻译系统，支持Transformer等模型\upcite{ZhangTHUMT}。该系统主要基于TensorFlow和Theano实现，其中Theano版本包含了RNNsearch模型，训练方式包括MLE （Maximum Likelihood Estimate）, MRT（Minimum Risk Training）, SST（Semi-Supervised Training）。TensorFlow 版本实现了Seq2Seq, RNNsearch, Transformer三种基本模型。网址：\url{https://github.com/THUNLP-MT/THUMT}
+\item THUMT。清华大学NLP团队实现的神经机器翻译系统，支持Transformer等模型\upcite{ZhangTHUMT}。该系统主要基于TensorFlow和Theano实现，其中Theano版本包含了RNNsearch模型，训练方式包括MLE （Maximum Likelihood Estimate）, MRT（Minimum Risk Training）, SST（Semi-Supervised Training）。TensorFlow 版本实现了Seq2Seq, RNNsearch, Transformer三种基本模型。
 \vspace{0.5em}
-\item NiuTrans.NMT。由小牛翻译团队基于NiuTensor实现的神经机器翻译系统。支持循环神经网络、Transformer等结构，并支持语言建模、序列标注、机器翻译等任务。支持机器翻译GPU与CPU 训练及解码。其小巧易用，为开发人员提供快速二次开发基础。此外，NiuTrans.NMT已经得到了大规模应用，形成了支持304种语言翻译的小牛翻译系统。网址：\url{https://github.com/NiuTrans/NiuTrans.NMT}
+\item NiuTrans.NMT。由小牛翻译团队基于NiuTensor实现的神经机器翻译系统。支持循环神经网络、Transformer等结构，并支持语言建模、序列标注、机器翻译等任务。支持机器翻译GPU与CPU 训练及解码。其小巧易用，为开发人员提供快速二次开发基础。此外，NiuTrans.NMT已经得到了大规模应用，形成了支持304种语言翻译的小牛翻译系统。
 \vspace{0.5em}
-\item MARIAN。主要由微软翻译团队搭建\upcite{JunczysMarian}，其使用C++实现的用于GPU/CPU训练和解码的引擎，支持多GPU训练和批量解码，最小限度依赖第三方库，静态编译一次之后，复制其二进制文件就能在其他平台使用。网址：\url{https://marian-nmt.github.io/}
+\item MARIAN。主要由微软翻译团队搭建\upcite{JunczysMarian}，其使用C++实现的用于GPU/CPU训练和解码的引擎，支持多GPU训练和批量解码，最小限度依赖第三方库，静态编译一次之后，复制其二进制文件就能在其他平台使用。
 \vspace{0.5em}
-\item Sockeye。由Awslabs开发的神经机器翻译框架\upcite{hieber2017sockeye}。其中支持RNNsearch、Transformer、CNN等翻译模型，同时提供了从图片翻译到文字的模块以及WMT 德英新闻翻译、领域适应任务、多语言零资源翻译任务的教程。网址：\url{https://awslabs.github.io/sockeye/}
+\item Sockeye。由Awslabs开发的神经机器翻译框架\upcite{hieber2017sockeye}。其中支持RNNsearch、Transformer、CNN等翻译模型，同时提供了从图片翻译到文字的模块以及WMT 德英新闻翻译、领域适应任务、多语言零资源翻译任务的教程。
 \vspace{0.5em}
-\item CytonMT。由NICT开发的一种用C++实现的神经机器翻译开源工具包\upcite{WangCytonMT}。主要支持Transformer模型，并支持一些常用的训练方法以及解码方法。网址：\url{https://github.com/arthurxlw/cytonMt}
+\item CytonMT。由NICT开发的一种用C++实现的神经机器翻译开源工具包\upcite{WangCytonMT}。主要支持Transformer模型，并支持一些常用的训练方法以及解码方法。
 \vspace{0.5em}
-\item OpenSeq2Seq。由NVIDIA团队开发的\upcite{DBLP:journals/corr/abs-1805-10387}基于TensorFlow的模块化架构，用于序列到序列的模型，允许从可用组件中组装新模型，支持混合精度训练，利用NVIDIA Volta Turing GPU中的Tensor核心，基于Horovod的快速分布式训练，支持多GPU，多节点多模式。网址：\url{https://nvidia.github.io/OpenSeq2Seq/html/index.html}
+\item OpenSeq2Seq。由NVIDIA团队开发的\upcite{DBLP:journals/corr/abs-1805-10387}基于TensorFlow的模块化架构，用于序列到序列的模型，允许从可用组件中组装新模型，支持混合精度训练，利用NVIDIA Volta Turing GPU中的Tensor核心，基于Horovod的快速分布式训练，支持多GPU，多节点多模式。
 \vspace{0.5em}
-\item NMTPyTorch。由勒芒大学语言实验室发布的基于序列到序列框架的神经网络翻译系统\upcite{nmtpy2017}，NMTPyTorch的核心部分依赖于Numpy，PyTorch和tqdm。其允许训练各种端到端神经体系结构，包括但不限于神经机器翻译、图像字幕和自动语音识别系统。网址：\url{https://github.com/lium-lst/nmtpytorch}
+\item NMTPyTorch。由勒芒大学语言实验室发布的基于序列到序列框架的神经网络翻译系统\upcite{nmtpy2017}，NMTPyTorch的核心部分依赖于Numpy，PyTorch和tqdm。其允许训练各种端到端神经体系结构，包括但不限于神经机器翻译、图像字幕和自动语音识别系统。
 \vspace{0.5em}
 \end{itemize}
 
@@ -109,7 +109,7 @@
 \label{appendix-B}
 \parinterval 除了开源系统，机器翻译的发展还离不开评测比赛。评测比赛使得各个研究组织的成果可以进行科学的对比，共同推动机器翻译的发展与进步。另外在构建机器翻译系统的过程中，数据是必不可少的，尤其是现在主流的神经机器翻译系统，系统的性能往往受限于语料库规模和质量。所幸的是，随着语料库语言学的发展，一些主流语种的相关语料资源已经十分丰富。
 
-\parinterval 为了方便读者进行相关研究，我们汇总了几个常见的评测比赛、一些常用的基准数据集和常用的平行语料。
+\parinterval 为了方便读者进行相关研究，本书汇总了几个常见的评测比赛、一些常用的基准数据集和常用的平行语料。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -119,28 +119,32 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item CCMT（全国机器翻译大会），前身为CWMT（全国机器翻译研讨会）是国内机器翻译领域的旗舰会议，自2005年起已经组织多次机器翻译评测，对国内机器翻译相关技术的发展产生了深远影响。该评测主要针对汉语、英语以及国内的少数民族语言（蒙古语、藏语、维吾尔语等）进行评测，领域包括新闻、口语、政府文件等，不同语言方向对应的领域也有所不同。评价方式不同届略有不同，主要采用自动评价的方式，自CWMT\ 2013起则针对某些领域增设人工评价。自动评价的指标一般包括BLEU-SBP、BLEU-NIST、TER、METEOR、NIST、GTM、mWER、mPER 以及ICT 等，其中以BLEU-SBP 为主，汉语为目标语言的翻译采用基于字符的评价方式，面向英语的翻译采用基于词的评价方式。每年该评测吸引国内外近数十家企业及科研机构参赛，业内认可度极高。关于CCMT的更多信息可参考中文信息学会机器翻译专业委员会相关页面：\url{http://sc.cipsc.org.cn/mt/index.php/CWMT.html}。
+\item CCMT。CCMT（全国机器翻译大会），前身为CWMT（全国机器翻译研讨会）是国内机器翻译领域的旗舰会议，自2005年起已经组织多次机器翻译评测，对国内机器翻译相关技术的发展产生了深远影响。该评测主要针对汉语、英语以及国内的少数民族语言（蒙古语、藏语、维吾尔语等）进行评测，领域包括新闻、口语、政府文件等，不同语言方向对应的领域也有所不同。评价方式不同届略有不同，主要采用自动评价的方式，自CWMT\ 2013起则针对某些领域增设人工评价。自动评价的指标一般包括BLEU-SBP、BLEU-NIST、TER、METEOR、NIST、GTM、mWER、mPER 以及ICT 等，其中以BLEU-SBP 为主，汉语为目标语言的翻译采用基于字符的评价方式，面向英语的翻译采用基于词的评价方式。每年该评测吸引国内外近数十家企业及科研机构参赛，业内认可度极高。关于CCMT的更多信息可参考中文信息学会机器翻译专业委员会相关页面。
+
 \vspace{0.5em}
-\item WMT由Special Interest Group for Machine Translation（SIGMT）主办，会议自2006年起每年召开一次，是一个涉及机器翻译多种任务的综合性会议，包括多领域翻译评测任务、质量评价任务以及其他与机器翻译的相关任务（如文档对齐评测等）。现在WMT已经成为机器翻译领域的旗舰评测会议，很多研究工作都以WMT评测结果作为基准。WMT评测涉及的语言范围较广，包括英语、德语、芬兰语、捷克语、罗马尼亚语等十多种语言，翻译方向一般以英语为核心，探索英语与其他语言之间的翻译性能，领域包括新闻、信息技术、生物医学。最近，也增加了无指导机器翻译等热门问题。WMT在评价方面类似于CCMT，也采用人工评价与自动评价相结合的方式，自动评价的指标一般为BLEU、TER 等。此外，WMT公开了所有评测数据，因此也经常被机器翻译相关人员所使用。更多WMT的机器翻译评测相关信息可参考SIGMT官网：\url{http://www.sigmt.org/}。
+\item WMT。WMT由Special Interest Group for Machine Translation（SIGMT）主办，会议自2006年起每年召开一次，是一个涉及机器翻译多种任务的综合性会议，包括多领域翻译评测任务、质量评价任务以及其他与机器翻译的相关任务（如文档对齐评测等）。现在WMT已经成为机器翻译领域的旗舰评测会议，很多研究工作都以WMT评测结果作为基准。WMT评测涉及的语言范围较广，包括英语、德语、芬兰语、捷克语、罗马尼亚语等十多种语言，翻译方向一般以英语为核心，探索英语与其他语言之间的翻译性能，领域包括新闻、信息技术、生物医学。最近，也增加了无指导机器翻译等热门问题。WMT在评价方面类似于CCMT，也采用人工评价与自动评价相结合的方式，自动评价的指标一般为BLEU、TER 等。此外，WMT公开了所有评测数据，因此也经常被机器翻译相关人员所使用。更多WMT的机器翻译评测相关信息可参考SIGMT官网。
+
 \vspace{0.5em}
-\item NIST机器翻译评测开始于2001年，是早期机器翻译公开评测中颇具代表性的任务，现在WMT和CCMT很多任务的设置也大量参考了当年NIST评测的内容。NIST评测由美国国家标准技术研究所主办，作为美国国防高级计划署（DARPA）中TIDES计划的重要组成部分。早期，NIST评测主要评价阿拉伯语和汉语等语言到英语的翻译效果，评价方法一般采用人工评价与自动评价相结合的方式。人工评价采用5分制评价。自动评价使用多种方式，包括BLEU，METEOR，TER以及HyTER。此外NIST从2016 年起开始对稀缺语言资源技术进行评估，其中机器翻译作为其重要组成部分共同参与评测，评测指标主要为BLEU。除对机器翻译系统进行评测之外，NIST在2008 和2010年对于机器翻译的自动评价方法（MetricsMaTr）也进行了评估，以鼓励更多研究人员对现有评价方法进行改进或提出更加贴合人工评价的方法。同时NIST评测所提供的数据集由于数据质量较高受到众多科研人员喜爱，如MT04，MT06等（汉英）平行语料经常被科研人员在实验中使用。不过，近几年NIST评测已经停止。更多NIST的机器翻译评测相关信息可参考官网：\url{https://www.nist.gov/programs-projects/machine-translation}。
+\item NIST。NIST机器翻译评测开始于2001年，是早期机器翻译公开评测中颇具代表性的任务，现在WMT和CCMT很多任务的设置也大量参考了当年NIST评测的内容。NIST评测由美国国家标准技术研究所主办，作为美国国防高级计划署（DARPA）中TIDES计划的重要组成部分。早期，NIST评测主要评价阿拉伯语和汉语等语言到英语的翻译效果，评价方法一般采用人工评价与自动评价相结合的方式。人工评价采用5分制评价。自动评价使用多种方式，包括BLEU，METEOR，TER以及HyTER。此外NIST从2016 年起开始对稀缺语言资源技术进行评估，其中机器翻译作为其重要组成部分共同参与评测，评测指标主要为BLEU。除对机器翻译系统进行评测之外，NIST在2008 和2010年对于机器翻译的自动评价方法（MetricsMaTr）也进行了评估，以鼓励更多研究人员对现有评价方法进行改进或提出更加贴合人工评价的方法。同时NIST评测所提供的数据集由于数据质量较高受到众多科研人员喜爱，如MT04，MT06等（汉英）平行语料经常被科研人员在实验中使用。不过，近几年NIST评测已经停止。更多NIST的机器翻译评测相关信息可参考官网。
+
 \vspace{0.5em}
-\item 从2004年开始举办的IWSLT也是颇具特色的机器翻译评测，它主要关注口语相关的机器翻译任务，测试数据包括TED talks的多语言字幕以及QED 教育讲座影片字幕等，语言涉及英语、法语、德语、捷克语、汉语、阿拉伯语等众多语言。此外在IWSLT 2016 中还加入了对于日常对话的翻译评测，尝试将微软Skype中一种语言的对话翻译成其他语言。评价方式采用自动评价的模式，评价标准和WMT类似，一般为BLEU 等指标。另外，IWSLT除了对文本到文本的翻译评测外，还有自动语音识别以及语音转另一种语言的文本的评测。更多IWSLT的机器翻译评测相关信息可参考IWSLT\ 2019官网：\url{https://workshop2019.iwslt.org/}。
+\item IWSLT。从2004年开始举办的IWSLT也是颇具特色的机器翻译评测，它主要关注口语相关的机器翻译任务，测试数据包括TED talks的多语言字幕以及QED 教育讲座影片字幕等，语言涉及英语、法语、德语、捷克语、汉语、阿拉伯语等众多语言。此外在IWSLT 2016 中还加入了对于日常对话的翻译评测，尝试将微软Skype中一种语言的对话翻译成其他语言。评价方式采用自动评价的模式，评价标准和WMT类似，一般为BLEU 等指标。另外，IWSLT除了对文本到文本的翻译评测外，还有自动语音识别以及语音转另一种语言的文本的评测。更多IWSLT的机器翻译评测相关信息可参考IWSLT\ 官网。
+
 \vspace{0.5em}
-\item 日本举办的机器翻译评测WAT是亚洲范围内的重要评测之一，由日本科学振兴机构（JST）、情报通信研究机构（NICT）等多家机构共同组织，旨在为亚洲各国之间交流融合提供便宜之处。语言方向主要包括亚洲主流语言（汉语、韩语、印地语等）以及英语对日语的翻译，领域丰富多样，包括学术论文、专利、新闻、食谱等。评价方式包括自动评价（BLEU、RIBES以及AMFM 等）以及人工评价，其特点在于对于测试语料以段落为单位进行评价，考察其上下文关联的翻译效果。更多WAT的机器翻译评测相关信息可参考官网：\url{http://lotus.kuee.kyoto-u.ac.jp/WAT/}。
+\item WAT。日本举办的机器翻译评测WAT是亚洲范围内的重要评测之一，由日本科学振兴机构（JST）、情报通信研究机构（NICT）等多家机构共同组织，旨在为亚洲各国之间交流融合提供便宜之处。语言方向主要包括亚洲主流语言（汉语、韩语、印地语等）以及英语对日语的翻译，领域丰富多样，包括学术论文、专利、新闻、食谱等。评价方式包括自动评价（BLEU、RIBES以及AMFM 等）以及人工评价，其特点在于对于测试语料以段落为单位进行评价，考察其上下文关联的翻译效果。更多WAT的机器翻译评测相关信息可参考官网。
+
 \vspace{0.5em}
-\item NTCIR计划是由日本国家科学咨询系统中心策划主办的，旨在建立一个用在自然语言处理以及信息检索相关任务上的日文标准测试集。在NTCIR-9和NTCIR-10中开设的Patent Machine Translation（PatentMT）任务主要针对专利领域进行翻译测试，其目的在于促进机器翻译在专利领域的发展和应用。在NTCIR-9中，评测方式采取人工评价与自动评价相结合，以人工评价为主导。人工评价主要根据准确度和流畅度进行评估，自动评价采用BLEU、NIST等方式进行。NTCIR-10评价方式在此基础上增加了专利审查评估、时间评估以及多语种评估，分别考察机器翻译系统在专利领域翻译的实用性、耗时情况以及不同语种的翻译效果等。更多NTCIR评测相关信息可参考官网：\url{http://research.nii.ac.jp/ntcir/index-en.html}。
-\vspace{0.5em}
+\item NTCIR。NTCIR计划是由日本国家科学咨询系统中心策划主办的，旨在建立一个用在自然语言处理以及信息检索相关任务上的日文标准测试集。在NTCIR-9和NTCIR-10中开设的Patent Machine Translation（PatentMT）任务主要针对专利领域进行翻译测试，其目的在于促进机器翻译在专利领域的发展和应用。在NTCIR-9中，评测方式采取人工评价与自动评价相结合，以人工评价为主导。人工评价主要根据准确度和流畅度进行评估，自动评价采用BLEU、NIST等方式进行。NTCIR-10评价方式在此基础上增加了专利审查评估、时间评估以及多语种评估，分别考察机器翻译系统在专利领域翻译的实用性、耗时情况以及不同语种的翻译效果等。更多NTCIR评测相关信息可参考官网。
 \end{itemize}
 
-\parinterval 以上评测数据大多可以从评测网站上下载，此外部分数据也可以从LDC（Lingu-istic Data Consortium）上申请，网址为\url{https://www.ldc.upenn.edu/}。ELRA（Euro-pean Language Resources Association）上也有一些免费的语料库供研究使用，其官网为\url{http://www.elra.info/}。从机器翻译发展的角度看，这些评测任务给相关研究提供了基准数据集，使得不同的系统都可以在同一个环境下进行比较和分析，进而建立了机器翻译研究所需的实验基础。此外，公开评测也使得研究者可以第一时间了解机器翻译研究的最新成果，比如，有多篇ACL会议最佳论文的灵感就来自当年参加机器翻译评测任务的系统。
+\parinterval 以上评测数据大多可以从评测网站上下载，此外部分数据也可以从LDC（Lingu-istic Data Consortium）上申请。ELRA（European Language Resources Association）上也有一些免费的语料库供研究使用。从机器翻译发展的角度看，这些评测任务给相关研究提供了基准数据集，使得不同的系统都可以在同一个环境下进行比较和分析，进而建立了机器翻译研究所需的实验基础。此外，公开评测也使得研究人员可以第一时间了解机器翻译研究的最新成果，比如，有多篇ACL会议最佳论文的灵感就来自当年参加机器翻译评测任务的系统。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
 \section{基准数据集}
-\parinterval 这些数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作可以进行复现和对比。
+\parinterval 表\ref{tab:Reference-data-set}所展示的数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作可以进行复现和对比。
 
 %----------------------------------------------
 \begin{table}[htp]{
@@ -148,30 +152,17 @@
 \begin{center}
 \caption{基准数据集}
 \label{tab:Reference-data-set}
-\begin{tabular}{p{1.6cm} | p{1.2cm} p{1.6cm} p{2.6cm} p{3.9cm}}
-{任务} & {语种} &{领域} &{描述} &{数据集地址} \\
+\begin{tabular}{p{1.6cm} | p{1.3cm} p{1.6cm} p{5.2cm}}
+{任务} & {语种} &{领域} &{描述} \\
 \hline
-\rule{0pt}{15pt}WMT & En Zh& 新闻、医学 & 以英语为核心的多& {http://www.statmt.org/wmt19/} \\
- & De Ru等 & 、翻译 & 语种机器翻译数据 & \\
- & & & 集，涉及多种任务 & \\
-\rule{0pt}{15pt}IWSLT & En De Fr & 口语翻译 & 文本翻译数据集来 & {https://wit3.fbk.eu/} \\
- &  Cs Zh等 &  &自TED演讲，数 & \\
- &  &  & 据规模较小 & \\
-\rule{0pt}{15pt}NIST & Zh-En等 & 新闻翻译 & 评测集包括4句参 & {https://www.ldc.upenn.edu/coll} \\
- &  Cs Zh等 &  & 考译文，质量较高 & aborations/evaluations/nist \\
-\rule{0pt}{15pt}TVsub & Zh-En & 字幕翻译 & 数据抽取自电视剧 & {https://github.com/longyuewan} \\
- &   &   & 字幕，用于对话中 & gdcu/tvsub \\
- &   &  & 长距离上下文研究 & \\
-\rule{0pt}{15pt}Flickr30K & En-De & 多模态翻译 & 31783张图片，每 & {http://shannon.cs.illinois.edu/D} \\
- & &  & 张图片5个语句标 & enotationGraph/ \\
- &   &  & 注 & \\
-\rule{0pt}{15pt}Multi30K  & En-De & 多模态翻译 & 31014张图片，每 & {http://www.statmt.org/wmt16/} \\
- &  En-Fr &  & 张图片5个语句标 & multimodal-task.html \\
- &   &  & 注 & \\
-\rule{0pt}{15pt}IAPRTC-12 & En-De & 多模态翻译 & 20000张图片及对 & {https://www.imageclef.org} \\
- &   &  & 应标注  & /photodata \\
-\rule{0pt}{15pt}IKEA & En-De & 多模态翻译 & 3600张图片及对应  & {https://github.com/sampalomad} \\
- &  En-Fr &  & 标注 & /IKEA-Dataset.git \\
+\rule{0pt}{15pt}WMT & En-Zh、En-De等& 新闻、医学、翻译 & 以英语为核心的多语种机器翻译数据集，涉及多种任务\\
+\rule{0pt}{15pt}IWSLT & En-De、En-Zh等 & 口语翻译 & 文本翻译数据集来自TED演讲，数据规模较小\\
+\rule{0pt}{15pt}NIST & Zh-En、En-Cs等 & 新闻翻译 & 评测集包括4句参考译文，质量较高\\
+\rule{0pt}{15pt}TVsub & Zh-En & 字幕翻译 & 数据抽取自电视剧字幕，用于对话中长距离上下文研究\\
+\rule{0pt}{15pt}Flickr30K & En-De & 多模态翻译 & 31783张图片，每张图片5个语句标注 \\
+\rule{0pt}{15pt}Multi30K  & En-De、En-Fr & 多模态翻译 & 31014张图片，每张图片5个语句标注  \\
+\rule{0pt}{15pt}IAPRTC-12 & En-De & 多模态翻译 & 20000张图片及对应标注  \\
+\rule{0pt}{15pt}IKEA & En-De、En-Fr & 多模态翻译 & 3600张图片及对应标注   \\
 \end{tabular}
 \end{center}
 }\end{table}
@@ -183,38 +174,38 @@
 %----------------------------------------------------------------------------------------
 
 \section{平行语料}
-\parinterval 神经机器翻译系统的训练需要大量的双语数据，这里我们汇总了一些公开的平行语料，方便读者获取。
+\parinterval 神经机器翻译系统的训练需要大量的双语数据，这里本节汇总了一些公开的平行语料，方便读者获取。
 \vspace{0.5em}
 \begin{itemize}
-\item News Commentary Corpus：包括汉语、英语等12个语种，64个语言对的双语数据，爬取自Project Syndicate网站的政治、经济评论。URL：\url{http://www.casmacat.eu/corpus/news-commentary.html}
+\item News Commentary Corpus：包括汉语、英语等12个语种，64个语言对的双语数据，爬取自Project Syndicate网站的政治、经济评论。
 \vspace{0.5em}
-\item CWMT Corpus：中国计算机翻译研讨会社区收集和共享的中英平行语料，涵盖多种领域，例如新闻、电影字幕、小说和政府文档等。URL：\url{http://nlp.nju.edu.cn/cwmt-wmt/}
+\item CWMT Corpus：中国计算机翻译研讨会社区收集和共享的中英平行语料，涵盖多种领域，例如新闻、电影字幕、小说和政府文档等。
 \vspace{0.5em}
-\item Common Crawl corpus：包括捷克语、德语、俄语、法语4种语言到英语的双语数据，爬取自互联网网页。URL：\url{http://www.statmt.org/wmt13/training-parallel-commoncrawl.tgz}
+\item Common Crawl corpus：包括捷克语、德语、俄语、法语4种语言到英语的双语数据，爬取自互联网网页。
 \vspace{0.5em}
-\item Europarl Corpus：包括保加利亚语、捷克语等20种欧洲语言到英语的双语数据，来源于欧洲议会记录。URL：\url{http://www.statmt.org/europarl/}
+\item Europarl Corpus：包括保加利亚语、捷克语等20种欧洲语言到英语的双语数据，来源于欧洲议会记录。
 \vspace{0.5em}
-\item ParaCrawl Corpus：包括23种欧洲语言到英语的双语语料，数据来源于网络爬取。URL：\url{https://www.paracrawl.eu/index.php}
+\item ParaCrawl Corpus：包括23种欧洲语言到英语的双语语料，数据来源于网络爬取。
 \vspace{0.5em}
-\item United Nations Parallel Corpus：包括阿拉伯语、英语、西班牙语、法语、俄语、汉语6种联合国正式语言，30种语言对的双语数据，来源自联合国公共领域的官方记录和其他会议文件。URL：\url{https://conferences.unite.un.org/UNCorpus/}
+\item United Nations Parallel Corpus：包括阿拉伯语、英语、西班牙语、法语、俄语、汉语6种联合国正式语言，30种语言对的双语数据，来源自联合国公共领域的官方记录和其他会议文件。
 \vspace{0.5em}
-\item TED Corpus：TED大会演讲在其网站公布了自2007年以来的演讲字幕，以及超过100种语言的翻译版本。WIT收集整理了这些数据，以方便科研工作者使用，同时，会为每年的IWSLT评测比赛提供评测数据集。URL：\url{https://wit3.fbk.eu/}
+\item TED Corpus：TED大会演讲在其网站公布了自2007年以来的演讲字幕，以及超过100种语言的翻译版本。WIT收集整理了这些数据，以方便科研工作者使用，同时，会为每年的IWSLT评测比赛提供评测数据集。
 \vspace{0.5em}
-\item OpenSubtile：由P. Lison和J. Tiedemann收集自opensubtiles电影字幕网站，包含62种语言、1782个语种对的平行语料，资源相对比较丰富。URL：\url{http://opus.nlpl.eu/OpenSubtitles2018.php}
+\item OpenSubtile：由P. Lison和J. Tiedemann收集自opensubtiles电影字幕网站，包含62种语言、1782个语种对的平行语料，资源相对比较丰富。
 \vspace{0.5em}
-\item Wikititles Corpus：包括古吉拉特语等14个语种，11个语言对的双语数据，数据来源自维基百科的标题。URL：\url{http://data.statmt.org/wikititles/v1/}
+\item Wikititles Corpus：包括古吉拉特语等14个语种，11个语言对的双语数据，数据来源自维基百科的标题。
 \vspace{0.5em}
-\item CzEng:捷克语和英语的平行语料，数据来源于欧洲法律、信息技术和小说领域。URL:\url{ http://ufal.mff.cuni.cz/czeng/czeng17}
+\item CzEng:捷克语和英语的平行语料，数据来源于欧洲法律、信息技术和小说领域。
 \vspace{0.5em}
-\item Yandex Corpus：俄语和英语的平行语料，爬取自互联网网页。URL：\url{https://translate.yandex.ru/corpus}
+\item Yandex Corpus：俄语和英语的平行语料，爬取自互联网网页。
 \vspace{0.5em}
-\item Tilde MODEL Corpus：欧洲语言的多语言开放数据，包含多个数据集，数据来自于经济、新闻、政府、旅游等门户网站。URL：\url{https://tilde-model.s3-eu-west-1.amazonaws.com/Tilde_MODEL_Corpus.html}
+\item Tilde MODEL Corpus：欧洲语言的多语言开放数据，包含多个数据集，数据来自于经济、新闻、政府、旅游等门户网站。
 \vspace{0.5em}
-\item Setimes Corpus：包括克罗地亚语、阿尔巴尼亚等9种巴尔干语言，72个语言对的双语数据，来源于东南欧时报的新闻报道。URL：\url{http://www.statmt.org/setimes/}
+\item Setimes Corpus：包括克罗地亚语、阿尔巴尼亚等9种巴尔干语言，72个语言对的双语数据，来源于东南欧时报的新闻报道。
 \vspace{0.5em}
-\item TVsub：收集自电视剧集字幕的中英文对话语料库，包含超过200万的句对，可用于对话领域和长距离上下文信息的研究。URL：\url{https://github.com/longyuewangdcu/tvsub}
+\item TVsub：收集自电视剧集字幕的中英文对话语料库，包含超过200万的句对，可用于对话领域和长距离上下文信息的研究。
 \vspace{0.5em}
-\item Recipe Corpus：由Cookpad公司创建的日英食谱语料库，包含10万多的句对。URL：\url{http://lotus.kuee.kyoto-u.ac.jp/WAT/recipe-corpus/}
+\item Recipe Corpus：由Cookpad公司创建的日英食谱语料库，包含10万多的句对。
 \end{itemize}
 
 
@@ -300,19 +291,19 @@ c(s_u|t_v,\seq{s},\seq{t}) &\approx & \sum_{\seq{a} \in S}\big[\funp{P}_{\theta}
 
 \parinterval 可以以同样的方式修改公式\eqref{eq:1.3}-\eqref{eq:1.6}的修改结果。进一步，在IBM模型3中，可以定义$S$如下：
 \begin{eqnarray}
-S &=& N(b^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t},2))))
+S &=& N(b^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t};2))))
 \label{eq:1.12}
 \end{eqnarray}
 
 \parinterval 为了理解这个公式，先介绍几个概念。
 \begin{itemize}
-\item $V(\seq{s}|\seq{t})$表示Viterbi词对齐，$V(\seq{s}|\seq{t},1)$、$V(\seq{s}|\seq{t},2)$和$V(\seq{s}|\seq{t},3)$就分别对应了模型1、2 和3 的Viterbi 词对齐；
-\item 把那些满足第$j$个源语言单词对应第$i$个目标语言单词（$a_j=i$）的词对齐构成的集合记为$\seq{a}_{i \leftrightarrow j}(\seq{s},\seq{t})$。通常称这些对齐中$j$和$i$被``钉''在了一起。在$\seq{a}_{i \leftrightarrow j}(\seq{s},\seq{t})$中使$\funp{P}(\seq{a}|\seq{s},\seq{t})$达到最大的那个词对齐被记为$V_{i \leftrightarrow j}(\seq{s}|\seq{t})$；
+\item $V(\seq{s}|\seq{t})$表示Viterbi词对齐，$V(\seq{s}|\seq{t};1)$、$V(\seq{s}|\seq{t};2)$和$V(\seq{s}|\seq{t};3)$就分别对应了模型1、2 和3 的Viterbi 词对齐；
+\item 把那些满足第$j$个源语言单词对应第$i$个目标语言单词（$a_j=i$）的词对齐构成的集合记为$\seq{a}_{i \leftrightarrow j}(\seq{s},\seq{t})$。通常称这些对齐中$j$和$i$被``钉''在了一起。在$\seq{a}_{i \leftrightarrow j}(\seq{s},\seq{t})$中使$\funp{P}(\seq{s},\seq{a}| \seq{t})$达到最大的那个词对齐被记为$V_{i \leftrightarrow j}(\seq{s}|\seq{t})$；
 \item 如果两个词对齐，通过交换两个词对齐连接就能互相转化，则称它们为邻居。一个词对齐$\seq{a}$的所有邻居记为$N(\seq{a})$。
 \end{itemize}
 
 \vspace{0.5em}
-\parinterval 公式\eqref{eq:1.12}中，$b^{\infty}(V(\seq{s}|\seq{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t},2))$ 分别是对 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t},3)$ 的估计。在计算$S$的过程中，需要知道一个对齐$\seq{a}$的邻居$\seq{a}'$的概率，即通过$\funp{P}_{\theta}(\seq{a},\seq{s}|\seq{t})$计算$\funp{P}_{\theta}(\seq{a}',\seq{s}|\seq{t})$。在模型3中，如果$\seq{a}$和$\seq{a}'$仅区别于某个源语单词$s_j$对齐从$a_j$变到$a_{j}'$，且$a_j$和$a'_j$均不为零，令$a_j=i$，$a'_{j}=i'$，那么
+\parinterval 公式\eqref{eq:1.12}中，应该使用 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t};3)$进行计算，但其复杂度较高，因此使用 $b^{\infty}(V(\seq{s}|\seq{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t};2))$ 分别对 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t};3)$ 进行估计。在计算$S$的过程中，需要知道一个对齐$\seq{a}$的邻居$\seq{a}'$的概率，即通过$\funp{P}_{\theta}(\seq{a},\seq{s}|\seq{t})$计算$\funp{P}_{\theta}(\seq{a}',\seq{s}|\seq{t})$。在模型3中，如果$\seq{a}$和$\seq{a}'$仅区别于某个源语言单词$s_j$对齐从$a_j$变到$a_{j}'$，且$a_j$和$a'_j$均不为零，令$a_j=i$，$a'_{j}=i'$，那么
 
 \begin{eqnarray}
 \funp{P}_{\theta}(\seq{a}',\seq{s}|\seq{t}) & = & \funp{P}_{\theta}(\seq{a},\seq{s}|\seq{t}) \cdot  \nonumber \\
@@ -381,7 +372,7 @@ z_{>1}(\Delta_j|cb;\seq{a},\seq{s},\seq{t}) & = & \sum_{i=1}^l \big[\varepsilon(
 \parinterval 模型4 需要像模型3 一样，通过定义一个词对齐集合$S$，使得每次训练迭代都在$S$ 上进行，进而降低运算量。模型4 中$S$的定义为：
 
 \begin{eqnarray}
-S &=& N(\tilde{b}^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(\tilde{b}_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t},2))))
+S &=& N(\tilde{b}^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(\tilde{b}_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t};2))))
 \label{eq:1.22}
 \end{eqnarray}
 
@@ -435,7 +426,7 @@ z_{>1}(\Delta_j|cb,v;\seq{a},\seq{s},\seq{t}) & = & \sum_{i=1}^l\Big[\varepsilon
 
 \parinterval 在模型5中同样需要定义一个词对齐集合$S$，使得每次迭代都在$S$上进行。可以对$S$进行如下定义
 \begin{eqnarray}
-S &=& N(\tilde{\tilde{b}}^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(\tilde{\tilde{b}}_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t},2))))
+S &=& N(\tilde{\tilde{b}}^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(\tilde{\tilde{b}}_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t};2))))
 \label{eq:1.29}
 \end{eqnarray}
 \vspace{0.5em}

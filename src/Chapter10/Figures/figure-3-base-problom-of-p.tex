@@ -12,7 +12,7 @@
 				% RNN Encoder
 				\coordinate (eemb0) at (0,0);
 				\foreach \x [count=\y from 0] in {1,2,...,3}
-					\node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.4\base]eemb\y.east) {\tiny{$\textrm{e}_x()$}};
+					\node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.6\base]eemb\y.east) {\tiny{$\textrm{e}_x()$}};
 				\foreach \x in {1,2,...,3}
 					\node[rnnnode,fill=blue!30!white,anchor=south] (enc\x) at ([yshift=0.3\base]eemb\x.north) {};
 			        \node[] (enclabel1) at (enc1) {\tiny{$\mathbi{h}_{m-2}$}};
@@ -73,7 +73,7 @@
 				\draw[-latex'] (enc3.north) .. controls +(north:0.3\base) and +(east:\base) .. (bridge) .. controls +(west:2.7\base) and +(west:0.3\base) .. (dec1.west);
 				
 				{
-				\node [anchor=east] (line1) at ([xshift=-3em,yshift=0.5em]softmax1.west) {\scriptsize{基于RNN的隐层状态$\mathbi{s}_i$}};
+				\node [anchor=east] (line1) at ([xshift=-4em,yshift=0.5em]softmax1.west) {\scriptsize{基于RNN的隐层状态$\mathbi{s}_i$}};
 				\node [anchor=north west] (line2) at ([yshift=0.3em]line1.south west) {\scriptsize{预测目标词的概率}};
 				\node [anchor=north west] (line3) at ([yshift=0.3em]line2.south west) {\scriptsize{通常，用Softmax函数}};
 				\node [anchor=north west] (line4) at ([yshift=0.3em]line3.south west) {\scriptsize{实现 $\funp{P}(y_i|...)$}};
@@ -87,7 +87,7 @@
 				}
 				
 				{
-				\node [anchor=west] (line21) at ([xshift=1.3em,yshift=1.5em]enc3.east)  {\scriptsize{源语编码器最后一个}};
+				\node [anchor=west] (line21) at ([xshift=3.3em,yshift=1.5em]enc3.east)  {\scriptsize{源语编码器最后一个}};
 				\node [anchor=north west] (line22) at ([yshift=0.3em]line21.south west) {\scriptsize{循环单元的输出被}};
 				\node [anchor=north west] (line23) at ([yshift=0.3em]line22.south west) {\scriptsize{看作是句子的表示,}};
 				\node [anchor=north west] (line24) at ([yshift=0.3em]line23.south west) {\scriptsize{记为$\mathbi{C}$}};
@@ -97,21 +97,21 @@
 				{
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=red!10,drop shadow,draw=red,minimum width =9em] [fit = (line1) (line2) (line3) (line4)] (box1) {};
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,very thick,dotted,draw=red] [fit = (softmax1) (softmax2) (softmax3)] (box4) {};
-				\draw [->,dotted,very thick,red] ([yshift=1em,xshift=2.5em]box1.east) -- ([yshift=1em,xshift=0.1em]box1.east);
+				\draw [->,dotted,very thick,red] ([yshift=1em,xshift=3.5em]box1.east) -- ([yshift=1em,xshift=0.1em]box1.east);
 				}
 				
 				{
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=green!10,drop shadow,draw=ugreen,minimum width =9em] [fit = (line11) (line12) (line13) (line14)] (box2) {};
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,very thick,dotted,draw=ugreen] [fit = (eemb1) (eemb2) (eemb3)] (box5) {};
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,very thick,dotted,draw=ugreen] [fit = (demb1) (demb2) (demb3)] (box6) {};
-				\draw [->,dotted,very thick,ugreen] ([yshift=-1.3em,xshift=2.5em]box2.east) -- ([yshift=-1.3em,xshift=0.1em]box2.east);
+				\draw [->,dotted,very thick,ugreen] ([yshift=-1.7em,xshift=3.5em]box2.east) -- ([yshift=-1.7em,xshift=0.1em]box2.east);
 				\draw [->,dotted,very thick,ugreen] ([xshift=0.1em]box6.west) .. controls +(west:1) and +(east:1) .. ([yshift=1.0em]box2.east) ;
 				}
 				
 				{
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,fill=purple!10,drop shadow,draw=purple] [fit = (line21) (line22) (line23) (line24)] (box3) {};
 				\node [rectangle,inner sep=0.2em,rounded corners=1pt,very thick,dotted,draw=purple] [fit = (enc3)] (box7) {};
-				\draw [->,dotted,very thick,purple] ([xshift=0.1em]box7.east) -- ([xshift=0.8em]box7.east) ;
+				\draw [->,dotted,very thick,purple] ([xshift=0.1em]box7.east) -- ([xshift=2.8em]box7.east) ;
 				}
 							
 				\end{pgfonlayer}

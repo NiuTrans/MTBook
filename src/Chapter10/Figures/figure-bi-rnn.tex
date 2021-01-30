@@ -13,7 +13,7 @@
             % RNN Encoder
             \coordinate (eemb0) at (0,0);
             \foreach \x [count=\y from 0] in {1,2,...,10}
-                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.4\base]eemb\y.east) {};
+                \node[rnnnode,minimum height=0.5\base,fill=green!30!white,anchor=west] (eemb\x) at ([xshift=0.7\base]eemb\y.east) {};
             \foreach \x in {1,2,...,10}
                 \node[rnnnode,fill=blue!30!white,anchor=south] (backenc\x) at ([yshift=0.5\base]eemb\x.north) {};
             \foreach \x in {1,2,...,10}

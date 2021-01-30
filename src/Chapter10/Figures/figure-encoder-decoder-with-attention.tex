@@ -11,7 +11,7 @@
 %%% a simple encoder-decoder model
 \begin{scope}
 \foreach \x in {1,2,...,6}
-    \node[] (s\x) at (\x * 1.6em,0) {};
+    \node[] (s\x) at (\x * 2em,0) {};
 
 \node [] (ws1) at (s1) {\scriptsize{这}};
 \node [] (ws2) at (s2) {\scriptsize{是}};
@@ -21,7 +21,7 @@
 \node [] (ws6) at (s6) {\scriptsize{句子}};
 
 \foreach \x in {1,2,...,6}
-    \node[] (t\x) at (\x * 1.6em + 2.4in,0) {};
+    \node[] (t\x) at (\x * 2em + 2.8in,0) {};
 
 \node [] (wt1) at (t1) {\scriptsize{This}};
 \node [] (wt2) at (t2) {\scriptsize{is}};
@@ -30,9 +30,9 @@
 \node [] (wt5) at (t5) {\scriptsize{long}};
 \node [] (wt6) at ([xshift=1em]t6) {\scriptsize{sentence}};
 
-\node [anchor=south west,fill=red!30,minimum width=1.6in,minimum height=1.5em] (encoder) at ([yshift=1.0em]ws1.north west) {\footnotesize{Encoder}};
-\node [anchor=west,fill=blue!30,minimum width=1.9in,minimum height=1.5em] (decoder) at ([xshift=4.5em]encoder.east) {\footnotesize{Decoder}};
-\node [anchor=west,fill=green!30,minimum height=1.5em] (representation) at ([xshift=1em]encoder.east) {\footnotesize{表示}};
+\node [anchor=south west,fill=red!30,minimum width=1.9in,minimum height=1.5em] (encoder) at ([yshift=1.0em,xshift=-0.4em]ws1.north west) {\footnotesize{Encoder}};
+\node [anchor=west,fill=green!30,minimum height=1.5em] (representation) at ([xshift=2em]encoder.east) {\footnotesize{表示}};
+\node [anchor=west,fill=blue!30,minimum width=1.9in,minimum height=1.5em] (decoder) at ([xshift=2em]representation.east) {\footnotesize{Decoder}};
 \draw [->,thick] ([xshift=1pt]encoder.east)--([xshift=-1pt]representation.west);
 \draw [->,thick] ([xshift=1pt]representation.east)--([xshift=-1pt]decoder.west);
 
@@ -42,7 +42,7 @@
 \foreach \x in {1,2,...,5}
     \draw[<-] ([yshift=0.1em]t\x.north) -- ([yshift=1.2em]t\x.north);
 
-\draw[<-] ([yshift=0.1em,xshift=1em]t6.north) -- ([yshift=1.2em,xshift=1em]t6.north);
+\draw[<-,thick] ([yshift=0.1em,xshift=1em]t6.north) -- ([yshift=1.2em,xshift=1em]t6.north);
 \node [anchor=north] (cap) at ([xshift=2em,yshift=-2.5em]encoder.south east) {\small{(a) 简单的编码器-解码器框架}};
 
 \end{scope}
@@ -50,7 +50,7 @@
 %%% a encoder-decoder model with attention
 \begin{scope}[yshift=-1.7in]
 \foreach \x in {1,2,...,6}
-    \node[] (s\x) at (\x * 1.6em,0) {};
+    \node[] (s\x) at (\x * 2em,0) {};
 
 \node [] (ws1) at (s1) {\scriptsize{这}};
 \node [] (ws2) at (s2) {\scriptsize{是}};
@@ -60,7 +60,7 @@
 \node [] (ws6) at (s6) {\scriptsize{句子}};
 
 \foreach \x in {1,2,...,6}
-    \node[] (t\x) at (\x * 1.6em + 2.4in,0) {};
+    \node[] (t\x) at (\x * 2em + 2.8in,0) {};
 
 \node [] (wt1) at (t1) {\scriptsize{This}};
 \node [] (wt2) at (t2) {\scriptsize{is}};
@@ -69,8 +69,8 @@
 \node [] (wt5) at (t5) {\scriptsize{long}};
 \node [] (wt6) at ([xshift=1em]t6) {\scriptsize{sentence}};
 
-\node [anchor=south west,fill=red!30,minimum width=1.6in,minimum height=1.5em] (encoder) at ([yshift=1.0em]ws1.north west) {\footnotesize{Encoder}};
-\node [anchor=west,fill=blue!30,minimum width=1.9in,minimum height=1.5em] (decoder) at ([xshift=4.5em]encoder.east) {\footnotesize{Decoder}};
+\node [anchor=south west,fill=red!30,minimum width=1.9in,minimum height=1.5em] (encoder) at ([yshift=1.0em,xshift=-0.4em]ws1.north west) {\footnotesize{Encoder}};
+\node [anchor=west,fill=blue!30,minimum width=1.9in,minimum height=1.5em] (decoder) at ([xshift=6.4em]encoder.east) {\footnotesize{Decoder}};
 
 \foreach \x in {1,2,...,6}
     \draw[->] ([yshift=0.1em]s\x.north) -- ([yshift=1.2em]s\x.north);
@@ -78,11 +78,11 @@
 \foreach \x in {1,2,...,5}
     \draw[<-] ([yshift=0.1em]t\x.north) -- ([yshift=1.2em]t\x.north);
 
-\draw[<-] ([yshift=0.1em,xshift=1em]t6.north) -- ([yshift=1.2em,xshift=1em]t6.north);
+\draw[<-,thick] ([yshift=0.1em,xshift=1em]t6.north) -- ([yshift=1.2em,xshift=1em]t6.north);
 
-\draw [->] ([yshift=3em]s6.north) -- ([yshift=4em]s6.north) -- ([yshift=4em]t1.north) node [pos=0.5,fill=green!30,inner sep=2pt] (c1) {\scriptsize{表示$\mathbi{C}_1$}} -- ([yshift=3em]t1.north) ;
-\draw [->] ([yshift=3em]s5.north) -- ([yshift=5.3em]s5.north) -- ([yshift=5.3em]t2.north) node [pos=0.5,fill=green!30,inner sep=2pt] (c2) {\scriptsize{表示$\mathbi{C}_2$}} -- ([yshift=3em]t2.north) ;
-\draw [->] ([yshift=3.5em]s3.north) -- ([yshift=6.6em]s3.north) -- ([yshift=6.6em]t4.north) node [pos=0.5,fill=green!30,inner sep=2pt] (c3) {\scriptsize{表示$\mathbi{C}_i$}} -- ([yshift=3.5em]t4.north) ;
+\draw [->,thick] ([yshift=3em]s6.north) -- ([yshift=4em]s6.north) -- ([yshift=4em]t1.north) node [pos=0.5,fill=green!30,inner sep=2pt] (c1) {\scriptsize{表示$\mathbi{C}_1$}} -- ([yshift=3em]t1.north) ;
+\draw [->,thick] ([yshift=3em]s5.north) -- ([yshift=5.3em]s5.north) -- ([yshift=5.3em]t2.north) node [pos=0.5,fill=green!30,inner sep=2pt] (c2) {\scriptsize{表示$\mathbi{C}_2$}} -- ([yshift=3em]t2.north) ;
+\draw [->,thick] ([yshift=3.5em]s3.north) -- ([yshift=6.6em]s3.north) -- ([yshift=6.6em]t4.north) node [pos=0.5,fill=green!30,inner sep=2pt] (c3) {\scriptsize{表示$\mathbi{C}_i$}} -- ([yshift=3.5em]t4.north) ;
 \node [anchor=north] (smore) at ([yshift=3.5em]s3.north) {...};
 \node [anchor=north] (tmore) at ([yshift=3.5em]t4.north) {...};
 

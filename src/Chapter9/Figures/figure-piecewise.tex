@@ -2,15 +2,17 @@
 \begin{tikzpicture}
 
 %% a two-layer neural network
-\begin{scope}[xshift=2in]
+\begin{scope}[xshift=2.8in]
 \tikzstyle{neuronnode} = [minimum size=1.7em,circle,draw,ublue,very thick,inner sep=1pt, fill=white,align=center,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}]
 %% output illustration
 \begin{scope}[xshift=2.8in,yshift=0.1in]
 {
 \draw [->,thick] (-2.2,0) -- (2.2,0);
 \draw [->,thick] (0,0) -- (0,2);
+\node [anchor=south] (heng1) at (1.95,-0.35) {\scriptsize{$x$}};
+\node [anchor=south] (zong1) at (-0.2,1.6) {\scriptsize{$y$}};
 \draw [-] (-0.05,1) -- (0.05,1);
-\node [anchor=north,inner sep=1pt] (labelb) at (0,-0.2) {\footnotesize{(b)}};
+\node [anchor=north,inner sep=1pt] (labelb) at (0,-0.2) {\small{(b)}};
 }
 {
 \draw [->,thick] (-2.2,0) -- (2.2,0);
@@ -32,10 +34,12 @@
 {
 \draw [->,thick] (-2.2,0) -- (2.2,0);
 \draw [->,thick] (0,0) -- (0,2);
+\node [anchor=south] (heng1) at (1.95,-0.35) {\scriptsize{$x$}};
+\node [anchor=south] (zong1) at (-0.2,1.6) {\scriptsize{$y$}};
 \draw [-] (-0.05,1) -- (0.05,1);
 \node [anchor=east,inner sep=1pt] (label1) at (0,1.18) {\tiny{1}};
 \node [anchor=south east,inner sep=1pt] (label2) at (0,0) {\tiny{0}};
-\node [anchor=north,inner sep=1pt] (labela) at (0,-0.2) {\footnotesize{(a)}};
+\node [anchor=north,inner sep=1pt] (labela) at (0,-0.2) {\small{(a)}};
 }
 {
 \draw [->,thick] (-2.2,0) -- (2.2,0);

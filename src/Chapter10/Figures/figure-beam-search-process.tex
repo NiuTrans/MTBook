@@ -5,7 +5,7 @@
 
 \begin{tikzpicture}
 \begin{scope}
-\tikzstyle{rnnnode} = [minimum height=1.1em,minimum width=3.5em,inner sep=2pt,rounded corners=1pt,draw,fill=red!20];
+\tikzstyle{rnnnode} = [minimum height=1.1em,minimum width=4em,inner sep=2pt,rounded corners=1pt,draw,fill=red!20];
 \tikzstyle{wnode} = [minimum height=1.0em,minimum width=3.5em,inner sep=2pt,rounded corners=1pt,draw,fill=white];
 
 
@@ -137,13 +137,13 @@
 }
 
 {
-\node [anchor=east] (vocab) at ([xshift=-5em]s1.west) {\tiny{$\begin{bmatrix} \textrm{Have} & 0.50 \\ \textrm{I} & 0.02 \\ \textrm{it} & 0.03 \\ \textrm{has} & 0.30 \\ \textrm{you} & 0.01 \\ \textrm{the} & 0.01 \\ \textrm{a} & 0.01 \\ \textrm{an} & 0.02 \\ \textrm{he} & 0.03 \\ \textrm{she} & 0.01 \\ \textrm{are} & 0.00 \\ \textrm{am} & 0.01 \\ ... & ... \end{bmatrix}$}};
+\node [anchor=east] (vocab) at ([xshift=-8em]s1.west) {\tiny{$\begin{bmatrix} \textrm{Have} & 0.50 \\ \textrm{I} & 0.02 \\ \textrm{it} & 0.03 \\ \textrm{has} & 0.30 \\ \textrm{you} & 0.01 \\ \textrm{the} & 0.01 \\ \textrm{a} & 0.01 \\ \textrm{an} & 0.02 \\ \textrm{he} & 0.03 \\ \textrm{she} & 0.01 \\ \textrm{are} & 0.00 \\ \textrm{am} & 0.01 \\ ... & ... \end{bmatrix}$}};
 \node [anchor=south] (vocablabel) at (vocab.north) {\scriptsize{单词的概率分布}};
 \draw [->,red,very thick,dotted] (o1.west) .. controls +(west:1) and +(east:2) .. ([yshift=1em]vocab.south east);
 }
 
 {
-\node [anchor=east,inner sep=1pt] (vocabtopn) at ([xshift=-0.5em,yshift=-0.5em]wo1.west) {\scriptsize{$\begin{bmatrix} \textrm{Have} \\ \textrm{has} \\ \textrm{it} \end{bmatrix}$}};
+\node [anchor=east,inner sep=1pt] (vocabtopn) at ([xshift=-1.5em,yshift=-0.5em]wo1.west) {\scriptsize{$\begin{bmatrix} \textrm{Have} \\ \textrm{has} \\ \textrm{it} \end{bmatrix}$}};
 \draw [->] ([yshift=-1.6em,xshift=-0.4em]vocab.north east) .. controls +(east:1) and +(west:1) ..  ([xshift=0.1em,yshift=0.4em]vocabtopn.west) node [pos=0.3,below] (topnlabel) {\scriptsize{top-3}};
 
 {
