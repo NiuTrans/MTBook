@@ -180,8 +180,6 @@
 
 **<a href="https://opensource.niutrans.com/mtbook/postscript.html" title="随笔">随笔</a>**
 
-**<a href="https://opensource.niutrans.com/mtbook/acknowledgement.html" title="后记">后记</a>**
-
 **Part V 附录**
 
 * <a href="https://opensource.niutrans.com/mtbook/appendix-a.html" title="附录 A">附录 A：开源机器翻译系统</a>
