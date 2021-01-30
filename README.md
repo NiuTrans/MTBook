@@ -10,6 +10,8 @@
 *网站：*[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
 
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
+
+*百度网盘：* https://pan.baidu.com/s/1dWbdBVZ7ZaikMjoU5K0-AQ 提取码：MTBK 
 </div>
 
 :sunny: **谢谢大家的关注，我们更名了！** :grin:
@@ -21,7 +23,6 @@
 <div align="center">
 <!-- <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% /> -->
 <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% />
-
 </div>
 
 ## 内容
@@ -41,9 +42,9 @@
 2. 统计语言建模基础
   * <a href="https://opensource.niutrans.com/mtbook/section2-1.html" title="概率论基础">2.1 概率论基础</a>
   * <a href="https://opensource.niutrans.com/mtbook/section2-2.html" title="掷骰子游戏">2.2 掷骰子游戏</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section2-3.html" title="n-gram 语言模型">2.3 *n*-gram 语言模型</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section2-3.html" title="n-gram 语言模型">2.3 *n*-gram 语言模型</a>
   * <a href="https://opensource.niutrans.com/mtbook/section2-4.html" title="预测与搜索">2.4 预测与搜索</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section2-5.html" title="小结及拓展阅读">2.5 小结及拓展阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section2-5.html" title="小结及拓展阅读">2.5 小结及拓展阅读</a>
 
 3. 词法分析和语法分析基础
   * <a href="https://opensource.niutrans.com/mtbook/section3-1.html" title="问题概述">3.1 问题概述</a>
@@ -84,7 +85,7 @@
   * <a href="https://opensource.niutrans.com/mtbook/section7-5.html" title="翻译特征">7.5 翻译特征</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-6.html" title="最小错误率训练">7.6 最小错误率训练</a>
   * <a href="https://opensource.niutrans.com/mtbook/section7-7.html" title="栈解码">7.7 栈解码</a>
-  * <a href="https://opensource.niutrans.com/mtbook/section7-8.html" title="小结及拓展阅读">7.8 小结及拓展阅读</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section7-8.html" title="小结及拓展阅读">7.8 小结及拓展阅读</a>
 
 8.  基于句法的模型
   * <a href="https://opensource.niutrans.com/mtbook/section8-1.html" title="翻译中句法信息的使用">8.1 翻译中句法信息的使用</a>
@@ -129,7 +130,57 @@
 
 **Part IV 机器翻译前沿**
 
-13-18 进行中...
+13. 神经机器翻译模型训练
+* <a href="https://opensource.niutrans.com/mtbook/section13-1.html" title="开放词表">13.1 开放词表</a>
+* <a href="https://opensource.niutrans.com/mtbook/section13-2.html" title="正则化">13.2 正则化</a>
+* <a href="https://opensource.niutrans.com/mtbook/section13-3.html" title="对抗样本训练">13.3 对抗样本训练</a>
+* <a href="https://opensource.niutrans.com/mtbook/section13-4.html" title="学习策略">13.4 学习策略</a>
+* <a href="https://opensource.niutrans.com/mtbook/section13-5.html" title="知识蒸馏">13.5 知识蒸馏</a>
+* <a href="https://opensource.niutrans.com/mtbook/section13-6.html" title="基于样本价值的学习">13.6 基于样本价值的学习</a>
+* <a href="https://opensource.niutrans.com/mtbook/section13-7.html" title="小结及拓展阅读">13.7 小结及拓展阅读</a>
+
+14. 神经机器翻译模型推断
+* <a href="https://opensource.niutrans.com/mtbook/section14-1.html" title="面临的挑战">14.1 面临的挑战</a>
+* <a href="https://opensource.niutrans.com/mtbook/section14-2.html" title="基本问题">14.2 基本问题</a>
+* <a href="https://opensource.niutrans.com/mtbook/section14-3.html" title="轻量模型">14.3 轻量模型</a>
+* <a href="https://opensource.niutrans.com/mtbook/section14-4.html" title="=非自回归翻译">14.4 非自回归翻译</a>
+* <a href="https://opensource.niutrans.com/mtbook/section14-5.html" title="多模型集成">14.5 多模型集成</a>
+* <a href="https://opensource.niutrans.com/mtbook/section14-6.html" title="小结及拓展阅读">14.6 小结及拓展阅读</a>
+
+15. 神经机器翻译结构优化
+  * <a href="https://opensource.niutrans.com/mtbook/section15-1.html" title="注意力机制的改进">15.1 注意力机制的改进</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section15-2.html" title="神经网络连接优化及深层模型">15.2 神经网络连接优化及深层模型</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section15-3.html" title="基于句法的神经机器翻译模型">15.3 基于句法的神经机器翻译模型</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section15-4.html" title="基于结构搜索的翻译模型优化">15.4 基于结构搜索的翻译模型优化</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section15-5.html" title="小结及拓展阅读">15.5 小结及拓展阅读</a>
+
+16. 低资源神经机器翻译 
+* <a href="https://opensource.niutrans.com/mtbook/section16-1.html" title="数据的有效使用">16.1 数据的有效使用</a>
+* <a href="https://opensource.niutrans.com/mtbook/section16-2.html" title="双向翻译模型">16.2 双向翻译模型</a>
+* <a href="https://opensource.niutrans.com/mtbook/section16-3.html" title="多语言翻译模型">16.3 多语言翻译模型</a>
+* <a href="https://opensource.niutrans.com/mtbook/section16-4.html" title="无监督机器翻译">16.4 无监督机器翻译</a>
+* <a href="https://opensource.niutrans.com/mtbook/section16-5.html" title="领域适应">16.5 领域适应</a>
+* <a href="https://opensource.niutrans.com/mtbook/section16-6.html" title="小结及拓展阅读">16.6 小结及拓展阅读</a>
+  
+17. 多模态、多层次机器翻译 
+* <a href="https://opensource.niutrans.com/mtbook/section17-1.html" title="机器翻译需要更多的上下文">17.1 机器翻译需要更多的上下文</a>
+* <a href="https://opensource.niutrans.com/mtbook/section17-2.html" title="语音翻译">17.2 语音翻译</a>
+* <a href="https://opensource.niutrans.com/mtbook/section17-3.html" title="图像翻译">17.3 图像翻译</a>
+* <a href="https://opensource.niutrans.com/mtbook/section17-4.html" title="篇章级翻译">17.4 篇章级翻译</a>
+* <a href="https://opensource.niutrans.com/mtbook/section17-5.html" title="小结及拓展阅读">17.5 小结及拓展阅读</a>
+  
+18. 机器翻译应用技术
+  * <a href="https://opensource.niutrans.com/mtbook/section18-1.html" title="机器翻译的应用并不简单">18.1 机器翻译的应用并不简单</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section18-2.html" title="增量式模型优化">18.2 增量式模型优化</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section18-3.html" title="交互式机器翻译">18.3 交互式机器翻译</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section18-4.html" title="翻译结果的可干预性">18.4 翻译结果的可干预性</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section18-5.html" title="小设备机器翻译">18.5 小设备机器翻译</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section18-6.html" title="机器翻译系统的部署">18.6 机器翻译系统的部署</a>
+  * <a href="https://opensource.niutrans.com/mtbook/section18-7.html" title="机器翻译的应用场景">18.7 机器翻译的应用场景</a>
+
+**<a href="https://opensource.niutrans.com/mtbook/postscript.html" title="随笔">随笔</a>**
+
+**<a href="https://opensource.niutrans.com/mtbook/acknowledgement.html" title="后记">后记</a>**
 
 **Part V 附录**
 
