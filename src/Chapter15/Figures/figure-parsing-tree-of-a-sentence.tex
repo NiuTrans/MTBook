@@ -1,0 +1,66 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.5em,minimum width=2em]
+
+\begin{scope}[sibling distance=15pt, level distance = 30pt]
+
+\Tree[.\node(n1){{S}};
+        [.\node(n2){{NP}};
+	        [.\node(n3){{PRN}}; \node(w1){{I}};]
+		    ]
+	        [.\node(n4){{VP}};
+	            [. \node(n5){VBP}; \node(w2){{love}};]
+	            [. \node(cw4){NP};
+                   [. \node(n6){NNS}; \node(w3){{dogs}};]
+                ]
+	        ]
+        ]
+     ]
+
+\node [anchor=north] (label1) at ([xshift=0em,yshift=-4em]w2.south) {(a)句法树};
+
+\end{scope}
+
+
+\begin{scope}[xshift=1.8in,yshift=0em]
+
+\node [anchor=west,wnode] (w1) at (0,0) {I};
+\node [anchor=west,wnode] (w2) at ([xshift=3em,yshift=0em]w1.east) {love};
+\node [anchor=west,wnode] (w3) at ([xshift=3em,yshift=0em]w2.east) {dogs};
+
+\node [anchor=north,wnode] (w4) at ([xshift=0em,yshift=-2em]w1.south) {$w_1$};
+\node [anchor=north,wnode] (w5) at ([xshift=0em,yshift=-2em]w2.south) {$w_2$};
+\node [anchor=north,wnode] (w6) at ([xshift=0em,yshift=-2em]w3.south) {$w_3$};
+
+\node [anchor=north] (label2) at ([xshift=0em,yshift=-1.5em]w5.south) {(b)词序列};
+
+\end{scope}
+
+\begin{scope}[xshift=1.2in,yshift=-1.5in]
+
+\node [anchor=west,wnode] (l1) at (0,0) {S};
+\node [anchor=west,wnode] (l2) at ([xshift=1em,yshift=0em]l1.east) {NP};
+\node [anchor=west,wnode] (l3) at ([xshift=1em,yshift=0em]l2.east) {PRN};
+\node [anchor=west,wnode] (l4) at ([xshift=1em,yshift=0em]l3.east) {VP};
+\node [anchor=west,wnode] (l5) at ([xshift=1em,yshift=0em]l4.east) {VBP};
+\node [anchor=west,wnode] (l6) at ([xshift=1em,yshift=0em]l5.east) {NP};
+\node [anchor=west,wnode] (l7) at ([xshift=1em,yshift=0em]l6.east) {NNS};
+
+\node [anchor=north,wnode] (l8) at ([xshift=0em,yshift=-1em]l1.south) {$l_1$};
+\node [anchor=north,wnode] (l9) at ([xshift=0em,yshift=-1em]l2.south) {$l_2$};
+\node [anchor=north,wnode] (l10) at ([xshift=0em,yshift=-1em]l3.south) {$l_3$};
+\node [anchor=north,wnode] (l11) at ([xshift=0em,yshift=-1em]l4.south) {$l_4$};
+\node [anchor=north,wnode] (l12) at ([xshift=0em,yshift=-1em]l5.south) {$l_5$};
+\node [anchor=north,wnode] (l13) at ([xshift=0em,yshift=-1em]l6.south) {$l_6$};
+\node [anchor=north,wnode] (l14) at ([xshift=0em,yshift=-1em]l7.south) {$l_7$};
+
+\node [anchor=north] (label3) at ([xshift=0em,yshift=-1.5em]l11.south) {(c)句法序列};
+
+\end{scope}
+
+
+\end{tikzpicture}
+\end{center}

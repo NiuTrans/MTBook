@@ -1,0 +1,19 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\tikzstyle{node}=[minimum height=2.5em,minimum width=8em,draw,rounded corners=2pt,thick,drop shadow]
+
+\node[node,fill=red!30] (n1) at (0,0){\small\bfnew{环境}};
+\node[anchor=south,node,fill=blue!30] (n2) at ([yshift=5em]n1.north){\small\bfnew{智能体}};
+\node[anchor=north,font=\footnotesize] at ([yshift=-0.2em]n1.south){（结构所应用于的任务）};
+\node[anchor=south,font=\footnotesize] at ([yshift=0.2em]n2.north){（结构生成器）};
+
+\draw[-latex,thick] ([yshift=.4em]n1.180) .. controls ([xshift=-3.4em,yshift=.4em]n1.180) and  ([xshift=-3.4em,yshift=-.4em]n2.180) .. node[right,font=\scriptsize,align=left]{\scriptsize\bfnew{奖励} \\ （对输出结果的评价）}([yshift=-.4em]n2.180);
+\draw[-latex,thick] ([yshift=-.4em]n1.180) .. controls ([xshift=-4.4em,yshift=-.4em]n1.180) and  ([xshift=-4.4em,yshift=.4em]n2.180) .. node[left,font=\scriptsize,align=right]{\scriptsize\bfnew{状态} \\ （这个结构在任务中应 \\ 用后得到的输出结果）}([yshift=.4em]n2.180);
+\draw[-latex,thick] (n2.0) .. controls ([xshift=4em]n2.0) and  ([xshift=4em]n1.0) .. node[right,font=\scriptsize,align=left]{\scriptsize\bfnew{动作} \\ （生成一个结构）}(n1.0);
+\end{tikzpicture}
+
+
+
+

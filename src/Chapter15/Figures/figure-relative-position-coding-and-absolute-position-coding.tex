@@ -1,0 +1,153 @@
+\begin{tikzpicture}
+
+\tikzstyle{Sanode} = [minimum height=1.1em,minimum width=7em,inner sep=3pt,rounded corners=1.5pt,draw,thick];
+\tikzstyle{Resnode} = [minimum height=1.1em,minimum width=7em,inner sep=3pt,rounded corners=1.5pt,draw,thick];
+\tikzstyle{ffnnode} = [minimum height=1.1em,minimum width=7em,inner sep=3pt,rounded corners=1.5pt,draw,thick];
+\tikzstyle{outputnode} = [minimum height=1.4em,minimum width=7em,inner sep=3pt,rounded corners=1.5pt,draw,thick];
+\tikzstyle{inputnode} = [minimum height=1.4em,minimum width=3.5em,inner sep=3pt,rounded corners=1.5pt,draw,fill=red!20,thick];
+\tikzstyle{posnode} = [minimum height=1.4em,minimum width=3.5em,inner sep=3pt,rounded corners=1.5pt,draw,fill=black!10!white,thick];
+\tikzstyle{standard} = [rounded corners=3pt];
+
+\begin{scope}
+\node [Sanode,anchor=west] (sa1) at (0,0) {\tiny{$\textbf{Self-Attention}$}};
+\node [Resnode,anchor=south] (res1) at ([yshift=0.3em]sa1.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+\node [ffnnode,anchor=south] (ffn1) at ([yshift=0.5em]res1.north) {\tiny{$\textbf{Feed Forward Network}$}};
+\node [Resnode,anchor=south] (res2) at ([yshift=0.3em]ffn1.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+
+\node [anchor=south,minimum height=1.4em,minimum width=7em] (dot1) at ([yshift=1.5em]res2.north) {\tiny{$\cdots$}};
+
+\node [Sanode,anchor=south] (sa2) at ([yshift=1.5em]dot1.north) {\tiny{$\textbf{Self-Attention}$}};
+\node [Resnode,anchor=south] (res3) at ([yshift=0.3em]sa2.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+\node [ffnnode,anchor=south] (ffn2) at ([yshift=0.5em]res3.north) {\tiny{$\textbf{Feed Forward Network}$}};
+\node [Resnode,anchor=south] (res4) at ([yshift=0.3em]ffn2.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+
+\node [anchor=north west,font=\scriptsize,align=center,ublue] (l1) at ([xshift=0.1em]ffn1.north east) {第 \\ $1$ \\ 层};
+\node [anchor=north west,font=\scriptsize,align=center,ublue] (l2) at ([xshift=0.1em]ffn2.north east) {第 \\ $n$ \\ 层};
+\node [anchor=south east,font=\scriptsize] (l3) at ([yshift=3em]l1.north east) {};
+\node [anchor=north east,font=\scriptsize,align=center,opacity=0.0] (l4) at ([xshift=0.1em]ffn1.north west) {第 \\ $1$ \\ 层};
+\node [anchor=north east,font=\scriptsize,align=center,opacity=0.0] (l5) at ([xshift=0.1em]ffn2.north west) {第 \\ $n$ \\ 层};
+\node [anchor=south west,font=\scriptsize] (l6) at ([yshift=3em]l4.north west) {};
+
+\node [anchor=south west] (e1) at ([xshift=-1.4em,yshift=0.3em]res4.north west) {{编码器}};
+
+\node [anchor=north,minimum height=0.1em,minimum width=0.1em] (set1) at ([xshift=0em,yshift=0.3em]sa1.south) {};
+\node [anchor=north,minimum height=0.1em,minimum width=0.1em] (set2) at ([xshift=0em,yshift=0.3em]sa2.south) {};
+
+\begin{pgfonlayer}{background}
+	\node [rectangle,inner sep=0.6em,rounded corners=5pt,very thick,dotted,minimum height=1.4em,minimum width=3.5em,draw=red] [fit = (e1) (sa1) (l1) (l4) (set1)] (b4) {};
+	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (l1) (sa1) (res2) (l4) (set1)] (b1) {};		
+	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (dot1) (l3) (l6)] (b2) {};	
+	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (l2) (sa2) (res4) (l5) (set2)] (b3) {};	
+\end{pgfonlayer}
+
+\node [inputnode,anchor=north west] (input1) at ([yshift=-1.6em,xshift=-0.5em]sa1.south west) {\tiny{$\textbf{Embedding}$}};
+\node [] (add) at ([yshift=-2.2em,xshift=3.5em]sa1.south west) {$+$};
+\node [posnode,anchor=north east] (pos1) at ([yshift=-1.6em,xshift=1.6em]sa1.south east) {\tiny{$\textbf{Absolute Position}$}};
+
+\node [anchor=north] (wi) at ([yshift=-0.5em]pos1.south) {\scriptsize{词序信息}};
+
+\draw [->] (wi.north) -- (pos1.south);
+\draw [->] (add.north) -- (sa1.south);
+\draw [->] (sa1.north) -- (res1.south);
+\draw [->] (res1.north) -- (ffn1.south);
+\draw [->] (ffn1.north) -- (res2.south);
+\draw [->] (res2.north) -- ([yshift=-0.4em]dot1.south);
+\draw [->] ([yshift=0.3em]dot1.north) -- (sa2.south);
+\draw [->] (sa2.north) -- (res3.south);
+\draw [->] (res3.north) -- (ffn2.south);
+\draw [->] (ffn2.north) -- (res4.south);
+\draw [->] (res4.north) -- ([yshift=1em]res4.north);
+
+\draw[->,standard] ([yshift=-0.3em]sa1.south) -- ([xshift=-4em,yshift=-0.3em]sa1.south) -- ([xshift=-4em,yshift=2em]sa1.south) -- ([xshift=-3.5em,yshift=2em]sa1.south);
+\draw[->,standard] ([yshift=0.2em]res1.north) -- ([xshift=-4em,yshift=0.2em]res1.north) -- ([xshift=-4em,yshift=2.5em]res1.north) -- ([xshift=-3.5em,yshift=2.5em]res1.north);
+
+\draw[->,standard] ([yshift=-0.3em]sa2.south) -- ([xshift=-4em,yshift=-0.3em]sa2.south) -- ([xshift=-4em,yshift=2em]sa2.south) -- ([xshift=-3.5em,yshift=2em]sa2.south);
+\draw[->,standard] ([yshift=0.2em]res3.north) -- ([xshift=-4em,yshift=0.2em]res3.north) -- ([xshift=-4em,yshift=2.5em]res3.north) -- ([xshift=-3.5em,yshift=2.5em]res3.north);
+
+\begin{pgfonlayer}{background}
+	\node [rectangle,inner sep=0.2em,rounded corners=1pt,very thick,dotted,fill=red!40] [fit = (input1) (pos1)] (box1) {};
+\end{pgfonlayer}
+
+\node [anchor=north,font=\small] (label) at ([yshift=-3em]add.south) {{(a)绝对位置编码}};
+
+\end{scope}
+
+
+\begin{scope}[xshift=2in]
+\node [Sanode,anchor=west] (sa1) at (0,0) {\tiny{$\textbf{Self-Attention}$}};
+\node [Resnode,anchor=south] (res1) at ([yshift=0.3em]sa1.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+\node [ffnnode,anchor=south] (ffn1) at ([yshift=0.5em]res1.north) {\tiny{$\textbf{Feed Forward Network}$}};
+\node [Resnode,anchor=south] (res2) at ([yshift=0.3em]ffn1.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+
+\node [anchor=south,minimum height=1.4em,minimum width=7em] (dot1) at ([yshift=1.5em]res2.north) {\tiny{$\cdots$}};
+
+\node [Sanode,anchor=south] (sa2) at ([yshift=1.5em]dot1.north) {\tiny{$\textbf{Self-Attention}$}};
+\node [Resnode,anchor=south] (res3) at ([yshift=0.3em]sa2.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+\node [ffnnode,anchor=south] (ffn2) at ([yshift=0.5em]res3.north) {\tiny{$\textbf{Feed Forward Network}$}};
+\node [Resnode,anchor=south] (res4) at ([yshift=0.3em]ffn2.north) {\tiny{$\textbf{Add \& LayerNorm}$}};
+
+\node [anchor=north west,font=\scriptsize,align=center,ublue] (l1) at ([xshift=0.1em]ffn1.north east) {第 \\ $1$ \\ 层};
+\node [anchor=north west,font=\scriptsize,align=center,ublue] (l2) at ([xshift=0.1em]ffn2.north east) {第 \\ $n$ \\ 层};
+\node [anchor=south east,font=\scriptsize] (l3) at ([yshift=3em]l1.north east) {};
+\node [anchor=north east,font=\scriptsize,align=center,opacity=0.0] (l4) at ([xshift=0.1em]ffn1.north west) {第 \\ $1$ \\ 层};
+\node [anchor=north east,font=\scriptsize,align=center,opacity=0.0] (l5) at ([xshift=0.1em]ffn2.north west) {第 \\ $n$ \\ 层};
+\node [anchor=south west,font=\scriptsize] (l6) at ([yshift=3em]l4.north west) {};
+
+\node [anchor=south west] (e1) at ([xshift=-1.4em,yshift=0.3em]res4.north west) {{编码器}};
+
+\node [anchor=north,minimum height=0.1em,minimum width=0.1em] (set1) at ([xshift=0em,yshift=0.3em]sa1.south) {};
+\node [anchor=north,minimum height=0.1em,minimum width=0.1em] (set2) at ([xshift=0em,yshift=0.3em]sa2.south) {};
+
+\begin{pgfonlayer}{background}
+	\node [rectangle,inner sep=0.6em,rounded corners=5pt,very thick,dotted,minimum height=1.4em,minimum width=3.5em,draw=red] [fit = (e1) (sa1) (l1) (l4) (set1)] (b4) {};
+	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (l1) (sa1) (res2) (l4) (set1)] (b1) {};		
+	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (dot1) (l3) (l6)] (b2) {};	
+	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (l2) (sa2) (res4) (l5) (set2)] (b3) {};	
+\end{pgfonlayer}
+
+\node [inputnode,anchor=north west] (input1) at ([yshift=-1.6em,xshift=-0.5em]sa1.south west) {\tiny{Embedding}};
+\node [] (add) at ([yshift=-2.2em,xshift=3.5em]sa1.south west) {$+$};
+\node [posnode,anchor=north east] (pos1) at ([yshift=-1.6em,xshift=1.5em]sa1.south east) {\tiny{Absolute Position}};
+
+\node [anchor=north] (wi) at ([yshift=-0.5em]pos1.south) {\scriptsize{词序信息}};
+
+\node [posnode,anchor=west,font=\tiny,align=center] (pos2) at ([yshift=0em,xshift=1em]pos1.east) {Relative \\ Position 1};
+\node [posnode,anchor=west,font=\tiny,align=center,minimum width=1em] (pos3) at ([yshift=0em,xshift=1em]pos2.east) {$\cdots$};
+\node [posnode,anchor=west,font=\tiny,align=center] (pos4) at ([yshift=0em,xshift=1em]pos3.east) {Relative \\ Position $n$};
+
+\draw [->] (wi.north) -- (pos1.south);
+\draw [->] (add.north) -- (sa1.south);
+\draw [->] (sa1.north) -- (res1.south);
+\draw [->] (res1.north) -- (ffn1.south);
+\draw [->] (ffn1.north) -- (res2.south);
+\draw [->] (res2.north) -- ([yshift=-0.4em]dot1.south);
+\draw [->] ([yshift=0.3em]dot1.north) -- (sa2.south);
+\draw [->] (sa2.north) -- (res3.south);
+\draw [->] (res3.north) -- (ffn2.south);
+\draw [->] (ffn2.north) -- (res4.south);
+\draw [->] (res4.north) -- ([yshift=1em]res4.north);
+
+\draw[->,standard] ([yshift=-0.3em]sa1.south) -- ([xshift=-4em,yshift=-0.3em]sa1.south) -- ([xshift=-4em,yshift=2em]sa1.south) -- ([xshift=-3.5em,yshift=2em]sa1.south);
+\draw[->,standard] ([yshift=0.2em]res1.north) -- ([xshift=-4em,yshift=0.2em]res1.north) -- ([xshift=-4em,yshift=2.5em]res1.north) -- ([xshift=-3.5em,yshift=2.5em]res1.north);
+
+\draw[->,standard] ([yshift=-0.3em]sa2.south) -- ([xshift=-4em,yshift=-0.3em]sa2.south) -- ([xshift=-4em,yshift=2em]sa2.south) -- ([xshift=-3.5em,yshift=2em]sa2.south);
+\draw[->,standard] ([yshift=0.2em]res3.north) -- ([xshift=-4em,yshift=0.2em]res3.north) -- ([xshift=-4em,yshift=2.5em]res3.north) -- ([xshift=-3.5em,yshift=2.5em]res3.north);
+
+\draw[->,standard] ([xshift=0em]wi.east) -- ([xshift=3.2em,yshift=0em]wi.east) -- ([xshift=-0em,yshift=0em]pos2.south);
+\draw[->,standard] ([xshift=0em]wi.east) -- ([xshift=6.7em,yshift=0em]wi.east) -- ([xshift=-0em,yshift=0em]pos3.south);
+\draw[->,standard] ([xshift=0em]wi.east) -- ([xshift=10.2em,yshift=0em]wi.east) -- ([xshift=-0em,yshift=0em]pos4.south);
+\draw[->,standard] ([xshift=0em]pos2.north) -- ([xshift=0em,yshift=2.1em]pos2.north) -- ([xshift=-0em,yshift=0em]sa1.east);
+\draw[->,standard] ([xshift=0em]pos3.north) -- ([xshift=0em,yshift=9.6em]pos3.north) -- ([xshift=-0em,yshift=0em]dot1.east);
+\draw[->,standard] ([xshift=0em]pos4.north) -- ([xshift=0em,yshift=12.3em]pos4.north) -- ([xshift=-0em,yshift=0em]sa2.east);
+
+
+\begin{pgfonlayer}{background}
+	\node [rectangle,inner sep=0.2em,rounded corners=1pt,very thick,dotted,fill=red!40] [fit = (pos2) (pos3) (pos4)] (box1) {};
+\end{pgfonlayer}
+
+\node [anchor=north,font=\small] (label) at ([xshift=4em,yshift=-3em]add.south) {{(b)相对位置编码}};
+
+\end{scope}
+
+
+\end{tikzpicture}

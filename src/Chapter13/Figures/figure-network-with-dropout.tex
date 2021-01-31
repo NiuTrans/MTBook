@@ -1,0 +1,125 @@
+
+\begin{tikzpicture}
+\def\neuronsep{1}
+
+\tikzstyle{neuronnode} = [minimum size=1.5em,circle,draw=ublue,very thick,inner sep=0pt, fill=white,align=center]
+
+
+%standard
+\foreach \n in {1,...,4}{
+    \node [neuronnode] (neuron0\n) at (0,\n * \neuronsep) {};
+}
+
+\foreach \n in {1,...,4}{
+    \node [neuronnode] (neuron1\n) at (1.5\neuronsep ,\n * \neuronsep) {};
+}
+
+\foreach \n in {1,...,4}{
+    \node [neuronnode] (neuron2\n) at (3*\neuronsep ,\n * \neuronsep) {};
+}
+
+\node [neuronnode] (neuron3) at (4.5*\neuronsep ,2.5 * \neuronsep) {};
+
+\foreach \n / \o in {1/180,2/165,3/150,4/135}{
+        \draw [->,line width=0.2mm] (neuron0\n.east) -- (neuron11.\o);
+}
+
+\foreach \n / \o in {1/220,2/190,3/170,4/140}{
+    \foreach \m in {2,3}{
+        \draw [->,line width=0.2mm] (neuron0\n.east) -- (neuron1\m.\o);
+    }
+}
+
+\foreach \n / \o in {1/225,2/210,3/195,4/180}{
+        \draw [->,line width=0.2mm] (neuron0\n.east) -- (neuron14.\o);
+}
+
+%\foreach \n in {1,...,4}{
+%    \foreach \m in {1,...,4}{
+%        \draw [->,line width=0.2mm] (neuron1\n.east) -- (neuron2\m.west);
+%    }
+%}
+
+\foreach \n / \o in {1/180,2/165,3/150,4/135}{
+        \draw [->,line width=0.2mm] (neuron1\n.east) -- (neuron21.\o);
+}
+
+\foreach \n / \o in {1/220,2/190,3/170,4/140}{
+    \foreach \m in {2,3}{
+        \draw [->,line width=0.2mm] (neuron1\n.east) -- (neuron2\m.\o);
+    }
+}
+
+\foreach \n / \o in {1/225,2/210,3/195,4/180}{
+        \draw [->,line width=0.2mm] (neuron1\n.east) -- (neuron24.\o);
+}
+
+\foreach \n / \o in {1/220,2/190,3/170,4/140}{
+    \draw [->,line width=0.2mm] (neuron2\n.east) -- (neuron3.\o);
+}
+
+%drop
+%layer1
+\foreach \n in {1,3,4}{
+    \node [neuronnode] (neuron4\n) at (7*\neuronsep,\n * \neuronsep) {};
+}
+\node [neuronnode,dashed] (neuron42) at (7*\neuronsep,2 * \neuronsep) {};
+%layer1
+\foreach \n in {1,2,4}{
+    \node [neuronnode] (neuron5\n) at (8.5*\neuronsep ,\n * \neuronsep) {};
+}
+
+\node [neuronnode,dashed] (neuron53) at (8.5*\neuronsep,3 * \neuronsep) {};
+%layer3
+\foreach \n in {1,4}{
+    \node [neuronnode] (neuron6\n) at (10*\neuronsep ,\n * \neuronsep) {};
+}
+
+\node [neuronnode,dashed] (neuron62) at (10*\neuronsep ,2 * \neuronsep) {};
+\node [neuronnode,dashed] (neuron63) at (10*\neuronsep ,3 * \neuronsep) {};
+%layer4
+\node [neuronnode] (neuron7) at (11.5*\neuronsep ,2.5 * \neuronsep) {};
+
+%\foreach \n in {1,3,4}{
+%    \foreach \m in {1,2,4}{
+%        \draw [->,line width=0.2mm] (neuron4\n.east) -- (neuron5\m.west);
+%    }
+%}
+
+\foreach \n / \o in {1/180,3/150,4/135}{
+        \draw [->,line width=0.2mm] (neuron4\n.east) -- (neuron51.\o);
+}
+
+\foreach \n / \o in {1/220,3/170,4/140}{
+    \foreach \m in {2}{
+        \draw [->,line width=0.2mm] (neuron4\n.east) -- (neuron5\m.\o);
+    }
+}
+
+\foreach \n / \o in {1/225,3/195,4/180}{
+        \draw [->,line width=0.2mm] (neuron4\n.east) -- (neuron54.\o);
+}
+
+%\foreach \n in {1,2,4}{
+%    \foreach \m in {1,4}{
+%        \draw [->,line width=0.2mm] (neuron5\n.east) -- (neuron6\m.west);
+%    }
+%}
+
+\foreach \n / \o in {1/180,2/165,4/135}{
+        \draw [->,line width=0.2mm] (neuron5\n.east) -- (neuron61.\o);
+}
+
+\foreach \n / \o in {1/225,2/210,4/180}{
+        \draw [->,line width=0.2mm] (neuron5\n.east) -- (neuron64.\o);
+}
+
+%\foreach \n in {1,4}{
+%    \draw [->,line width=0.2mm] (neuron6\n.east) -- (neuron7.west);
+%}
+
+\foreach \n / \o in {1/220,4/140}{
+    \draw [->,line width=0.2mm] (neuron6\n.east) -- (neuron7.\o);
+}
+
+\end{tikzpicture}

@@ -1,0 +1,106 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{wrnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=3em,rounded corners=5pt,fill=blue!30,draw,thick]
+\tikzstyle{srnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=3em,rounded corners=5pt,fill=orange!30,draw,thick]
+\tikzstyle{dotnode}=[inner sep=0mm,minimum height=0.5em,minimum width=1.5em]
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.8em]
+
+
+{\small
+\begin{scope}[]
+
+\node [anchor=west,srnode] (sr1) at (0,0) {$\mathbi{h}_{l_1}$};
+\node [anchor=west,dotnode] (dot1) at ([xshift=0.8em,yshift=0em]sr1.east) {$\cdots$};
+\node [anchor=west,srnode] (sr2) at ([xshift=0.8em,yshift=0em]dot1.east) {$\mathbi{h}_{l_3}$};
+\node [anchor=west,dotnode] (dot2) at ([xshift=0.8em,yshift=0em]sr2.east) {$\cdots$};
+\node [anchor=west,srnode] (sr3) at ([xshift=0.8em,yshift=0em]dot2.east) {$\mathbi{h}_{l_5}$};
+\node [anchor=west,dotnode] (dot3) at ([xshift=0.8em,yshift=0em]sr3.east) {$\cdots$};
+\node [anchor=west,srnode] (sr4) at ([xshift=0.8em,yshift=0em]dot3.east) {$\mathbi{h}_{l_7}$};
+
+\node [anchor=north,wnode,font=\footnotesize] (w4) at ([xshift=0em,yshift=-1em]sr1.south) {$l_1$\ :\ S};
+\node [anchor=north,dotnode] (dot4) at ([xshift=0em,yshift=-2.4em]dot1.south) {$\cdots$};
+\node [anchor=north,wnode,font=\footnotesize] (w5) at ([xshift=0em,yshift=-1em]sr2.south) {$l_3$\ :\ PRN};
+\node [anchor=north,dotnode] (dot5) at ([xshift=0em,yshift=-2.2em]dot2.south) {$\cdots$};
+\node [anchor=north,wnode,font=\footnotesize] (w6) at ([xshift=0em,yshift=-1em]sr3.south) {$l_5$\ :\ VBP};
+\node [anchor=north,dotnode] (dot6) at ([xshift=0em,yshift=-2.3em]dot3.south) {$\cdots$};
+\node [anchor=north,wnode,font=\footnotesize] (w7) at ([xshift=0em,yshift=-1em]sr4.south) {$l_7$\ :\ NNS};
+
+\node [anchor=south,circle,draw,minimum size=1.2em] (c1) at ([xshift=0em,yshift=4.5em]sr2.north){};
+\node [anchor=south,circle,draw,minimum size=1.2em] (c2) at ([xshift=0em,yshift=4.5em]sr3.north){};
+\node [anchor=south,circle,draw,minimum size=1.2em] (c3) at ([xshift=0em,yshift=4.5em]sr4.north){};
+
+\draw[-] (c1.west)--(c1.east);
+\draw[-] (c1.north)--(c1.south);
+\draw[-] (c2.west)--(c2.east);
+\draw[-] (c2.north)--(c2.south);
+\draw[-] (c3.west)--(c3.east);
+\draw[-] (c3.north)--(c3.south);
+
+\node [anchor=north east,wnode,font=\footnotesize] (w1) at ([xshift=-1em,yshift=-1em]c1.south west) {$w_1$\ :\ I};
+\node [anchor=north east,wnode,font=\footnotesize] (w2) at ([xshift=-1em,yshift=-1em]c2.south west) {$w_2$\ :\ love};
+\node [anchor=north east,wnode,font=\footnotesize] (w3) at ([xshift=-1em,yshift=-1em]c3.south west) {$w_3$\ :\ dogs};
+
+\node [anchor=south,wnode] (w8) at ([xshift=0em,yshift=0.5em]c1.north) {$\mathbi{e}_{w_1}$};
+\node [anchor=south,wnode] (w9) at ([xshift=0em,yshift=0.5em]c2.north) {$\mathbi{e}_{w_2}$};
+\node [anchor=south,wnode] (w10) at ([xshift=0em,yshift=0.5em]c3.north) {$\mathbi{e}_{w_2}$};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,minimum height=5em,inner sep=0.6em,fill=green!30,rounded corners=8pt,draw,thick] [fit = (c1) (w8)] (box6) {};
+\node [rectangle,minimum height=5em,inner sep=0.6em,fill=green!30,rounded corners=8pt,draw,thick] [fit = (c2) (w9)] (box7) {};
+\node [rectangle,minimum height=5em,inner sep=0.6em,fill=green!30,rounded corners=8pt,draw,thick] [fit = (c3) (w10)] (box8) {};
+\end{pgfonlayer}
+
+\node [anchor=south,wrnode] (wr1) at ([xshift=0em,yshift=1em]box6.north) {$\mathbi{h}_{w_1}$};
+\node [anchor=south,wrnode] (wr2) at ([xshift=0em,yshift=1em]box7.north) {$\mathbi{h}_{w_2}$};
+\node [anchor=south,wrnode] (wr3) at ([xshift=0em,yshift=1em]box8.north) {$\mathbi{h}_{w_3}$};
+
+\node [anchor=south,wnode] (h1) at ([xshift=0em,yshift=0.3em]wr1.north) {${\mathbi{h}'}_1$\ :\ };
+\node [anchor=south,wnode] (h2) at ([xshift=0em,yshift=0.3em]wr2.north) {${\mathbi{h}'}_2$\ :\ };
+\node [anchor=south,wnode] (h3) at ([xshift=0em,yshift=0.3em]wr3.north) {${\mathbi{h}'}_3$\ :\ };
+
+\begin{pgfonlayer}{background}
+\node [rectangle,minimum width=20em,minimum height=13em,inner sep=0.5em,draw=blue!80,dashed,very thick,rounded corners=10pt] [fit = (h1) (w1) (h3) (c3)] (box1) {};
+\node [rectangle,inner sep=0.5em,draw=orange!80,dashed,very thick,rounded corners=10pt] [fit = (sr1) (sr4) (w4) (w7)] (box2) {};
+\node [rectangle,inner sep=0.4em,fill=gray!20,draw=black,dashed,very thick,rounded corners=8pt] [fit = (wr1)] (box3) {};
+\node [rectangle,inner sep=0.4em,fill=gray!20,draw=black,dashed,very thick,rounded corners=8pt] [fit = (wr2)] (box4) {};
+\node [rectangle,inner sep=0.4em,fill=gray!20,draw=black,dashed,very thick,rounded corners=8pt] [fit = (wr3)] (box5) {};
+\end{pgfonlayer}
+
+\draw [->,thick] ([xshift=0em,yshift=0em]w4.north) -- ([xshift=0em,yshift=0em]sr1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w5.north) -- ([xshift=0em,yshift=0em]sr2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w6.north) -- ([xshift=0em,yshift=0em]sr3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w7.north) -- ([xshift=0em,yshift=0em]sr4.south);
+
+\draw [->,thick] ([xshift=0em,yshift=0.7em]dot4.north) -- ([xshift=0em,yshift=-0.7em]dot1.south);
+\draw [->,thick] ([xshift=0em,yshift=0.7em]dot5.north) -- ([xshift=0em,yshift=-0.7em]dot2.south);
+\draw [->,thick] ([xshift=0em,yshift=0.7em]dot6.north) -- ([xshift=0em,yshift=-0.7em]dot3.south);
+
+\draw [<->,thick] ([xshift=0em,yshift=0em]wr1.east) -- ([xshift=0em,yshift=0em]wr2.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]wr2.east) -- ([xshift=0em,yshift=0em]wr3.west);
+
+\draw [<->,thick] ([xshift=0em,yshift=0em]sr1.east) -- ([xshift=0em,yshift=0em]dot1.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]dot1.east) -- ([xshift=0em,yshift=0em]sr2.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]sr2.east) -- ([xshift=0em,yshift=0em]dot2.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]dot2.east) -- ([xshift=0em,yshift=0em]sr3.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]sr3.east) -- ([xshift=0em,yshift=0em]dot3.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]dot3.east) -- ([xshift=0em,yshift=0em]sr4.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]sr2.north) -- ([xshift=0em,yshift=0em]c1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]sr3.north) -- ([xshift=0em,yshift=0em]c2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]sr4.north) -- ([xshift=0em,yshift=0em]c3.south);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]box6.north) -- ([xshift=0em,yshift=0em]wr1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]box7.north) -- ([xshift=0em,yshift=0em]wr2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]box8.north) -- ([xshift=0em,yshift=0em]wr3.south);
+
+\node [anchor=east] (r2) at ([xshift=-2em,yshift=0em]box2.west) {句法RNN};
+\node [anchor=south] (r1) at ([xshift=0em,yshift=8em]r2.north) {词语RNN};
+\node [anchor=north] (label2) at ([xshift=0em,yshift=-2em]w5.south) {(b)分层结构};
+
+\end{scope}
+}
+\end{tikzpicture}
+\end{center}

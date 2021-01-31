@@ -1,0 +1,48 @@
+\begin{tikzpicture}[scale=0.8]
+\tikzstyle{every node}=[scale=0.8]
+%figure 1
+\coordinate (A1) at (0, 0);
+\coordinate (B1) at ([xshift=1.5em,yshift=-0.4em]A1);
+\coordinate (C1) at ([xshift=0.3em,yshift=-2.6em]A1);
+\coordinate (D1) at ([xshift=2.7em,yshift=-2.6em]A1);
+\coordinate (E1) at ([xshift=2.4em,yshift=-1.5em]A1);
+\coordinate (F1) at ([xshift=0.3em]D1);
+
+
+%figure 2
+\coordinate (A2) at ([xshift=15em]A1);
+\coordinate (B2) at ([xshift=1.5em,yshift=-0.4em]A2);
+\coordinate (C2) at ([xshift=0.3em,yshift=-2.6em]A2);
+\coordinate (D2) at ([xshift=2.7em,yshift=-2.6em]A2);
+\coordinate (E2) at ([xshift=2.4em,yshift=-1.5em]A2);
+\coordinate (F2) at ([xshift=0.3em]D2);
+
+
+\foreach \x in {1,2}{
+\draw[-,line width=2pt] (A\x) -- ([xshift=3.6em]A\x) -- ([xshift=3.6em,yshift=-3em]A\x) -- ([yshift=-3em]A\x) -- (A\x) -- ([xshift=1em]A\x);
+\draw[-, very thick] (B\x) -- (C\x) -- (D\x) -- (B\x);
+\draw[-, very thick,fill=black] ([xshift=-0.6em,yshift=-1.2em]B\x)  -- ([xshift=-0.3em,yshift=-1em]B\x) -- ([yshift=-1.2em]B\x) --([xshift=0.3em,yshift=-1em]B\x) -- ([xshift=0.6em,yshift=-1.2em]B\x) -- (D\x) -- (C\x) -- ([xshift=-0.6em,yshift=-1.2em]B\x);
+\draw[-, very thick,fill=black] (E\x) -- ([xshift=0.2em,yshift=0.3em]E\x) -- ([xshift=0.33em]F\x) -- (F\x) -- (E\x);
+\node[circle,inner sep=0pt,minimum size=0.4em,fill=black] at ([xshift=-0.7em,yshift=-0.2em]B\x){};
+\node[draw,rounded corners=2pt,fill=yellow!20,minimum width=4.3em,minimum height=2.2em](cnn\x) at ([xshift=1.8em,yshift=3.6em]A\x){CNN};
+}
+\node[draw,anchor=south,rounded corners=2pt,minimum width=4.0cm,minimum height=2.2em,fill=red!20](encoder) at ([yshift=2.6em,xshift=2.2em]cnn1.north){编码器};
+\node[anchor=north,font=\Large](x) at ([xshift=2.5em,yshift=-3.4em]encoder.south){$\seq{x}$};
+
+\node[draw,anchor=south,rounded corners=2pt,minimum width=4.0cm,minimum height=2.2em,fill=blue!20](decoder) at ([yshift=2.6em,xshift=2.2em]cnn2.north){解码器};
+\node[anchor=north,font=\Large](y) at ([xshift=2.5em,yshift=-3.4em]decoder.south){$\seq{y}_{<}$};
+\node[anchor=south,font=\Large](y_1) at ([yshift=3em]decoder.north){$\seq{y}$};
+
+\draw[->,thick] ([yshift=-2.1em]cnn1.south) -- ([yshift=-0.1em]cnn1.south);
+\draw[->,thick] ([yshift=-2.1em]cnn2.south) -- ([yshift=-0.1em]cnn2.south);
+\draw[->,thick] ([yshift=0.1em]cnn1.north) -- ([yshift=2.4em]cnn1.north);
+\draw[->,thick] ([yshift=0.1em]cnn2.north) -- ([yshift=2.4em]cnn2.north);
+\draw[->,thick] ([yshift=0.3em]x.north) -- ([yshift=4.5em]x.south);
+\draw[->,thick] ([yshift=0.3em]y.north) -- ([yshift=4.7em]y.south);
+\draw[->,thick] ([xshift=0.1em]encoder.east) -- ([xshift=-0.1em]decoder.west);
+\draw[->,thick] ([yshift=0.1em]decoder.north) -- ([yshift=-0.1em]y_1.south);
+\node [anchor=south,scale=1.2] (node1) at ([xshift=-0.7em,yshift=4em]encoder.north) {\small{$x$：源语言文本数据}};
+\node [anchor=north,scale=1.2] (node2) at ([xshift=0.57em]node1.south){\small{$y$：目标语言文本数据}};
+\end{tikzpicture}
+%------------------------------------------------------------------------------------------------------------
+

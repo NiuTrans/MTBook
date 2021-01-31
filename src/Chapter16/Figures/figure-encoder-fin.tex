@@ -1,0 +1,62 @@
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{word} = [font=\scriptsize]
+\tikzstyle{model} = [rectangle,draw,minimum height=2.5em,minimum width=5em,rounded corners=4pt,fill=blue!15!white,line width=0.7pt]
+
+\node [model,minimum width=10.5em] (encoder0) at (0,0) {Encoder};
+\node [word] (w1) at ([yshift=-2em,xshift=1em]encoder0.south) {\#};
+\node [word] (w2) at ([xshift=-1em]w1.west) {\#};
+\node [word] (w3) at ([xshift=-1em]w2.west) {\small{$x_2$}};
+\node [word] (w4) at ([xshift=-1em]w3.west) {\small{$x_1$}};
+\node [word] (w5) at ([xshift=1em]w1.east) {\#};
+\node [word] (w6) at ([xshift=1em]w5.east) {\small{$x_6$}};
+
+\node [word] (w7) at ([yshift=2em,xshift=1.0em]encoder0.north) {\small{$x_4$}};
+\node [word] (w8) at ([yshift=5.95em]w2.north) {\small{$x_3$}};
+\node [word] (w9) at ([yshift=5.95em]w5.north) {\small{$x_5$}};
+
+\draw [->,line width=1pt] (w1.north) -- ([yshift=1.35em]w1.north);
+\draw [->,line width=1pt] (w2.north) -- ([yshift=1.35em]w2.north);
+\draw [->,line width=1pt] (w3.north) -- ([yshift=1.35em]w3.north);
+\draw [->,line width=1pt] (w4.north) -- ([yshift=1.35em]w4.north);
+\draw [->,line width=1pt] (w5.north) -- ([yshift=1.35em]w5.north);
+\draw [->,line width=1pt] (w6.north) -- ([yshift=1.35em]w6.north);
+
+\draw [->,line width=1pt] ([yshift=-1.4em]w7.south) -- (w7.south);
+\draw [->,line width=1pt] ([yshift=-1.4em]w8.south) -- (w8.south);
+\draw [->,line width=1pt] ([yshift=-1.4em]w9.south) -- (w9.south);
+
+
+\node [model] (encoder1) at ([xshift=8em]encoder0.east) {Encoder};
+\node [model,fill=red!15!white] (decoder) at ([xshift=5em]encoder1.east) {Decoder};
+\node [] (sinput) at ([yshift=-3em]encoder1.south) {\footnotesize{源语输入}};
+\node [] (tinput) at ([yshift=-3em]decoder.south) {\footnotesize{目标语输入}};
+\node [] (output) at ([yshift=3em]decoder.north) {\footnotesize{目标语输出}};
+
+\draw [->,line width=1pt] (sinput) -- (encoder1);
+\draw [->,line width=1pt] (tinput) -- (decoder);
+\draw [->,line width=1pt] (decoder) -- (output);
+
+\coordinate (do0) at ([yshift=1em]encoder1.north);
+\coordinate (do1) at ([xshift=3.5em]do0.east);
+\coordinate (do2) at ([yshift=-2.3em]do1.south);
+
+\draw [-,line width=1pt] (encoder1.north) -- (do0);
+\draw [-,line width=1pt] (do0) -- (do1);
+\draw [-,line width=1pt] (do1) -- (do2);
+\draw [->,line width=1pt] (do2) -- (decoder.west);
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=1em,fill=black!5,rounded corners=4pt] [fit =(w4) (w6) (w9) (encoder0) ] (box) {};
+\end{pgfonlayer}
+
+\node [font=\footnotesize] (left) at ([yshift=-1.5em]box.south) {编码器使用单语数据预训练};
+\node [font=\footnotesize] (right) at ([xshift=11em]left.east) {在翻译任务上进行微调};
+
+
+\node[anchor=north] (arrow1) at (3.85,0.1){};
+\draw[fill=yellow!20,draw=yellow]([yshift=-0.3em]arrow1.north)--([xshift=-1em,yshift=0.5em]arrow1.north west)--([xshift=-1em,yshift=0.1em]arrow1.north west)--([xshift=-2.6em,yshift=0.1em]arrow1.north west)--([xshift=-2.6em,yshift=-0.1em]arrow1.south west)--([xshift=-1em,yshift=-0.1em]arrow1.south west)--([xshift=-1em,yshift=-0.5em]arrow1.south west)--([yshift=-0.3em]arrow1.north);
+
+
+\end{scope}
+\end{tikzpicture}

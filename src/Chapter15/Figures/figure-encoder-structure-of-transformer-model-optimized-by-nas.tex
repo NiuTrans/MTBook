@@ -1,0 +1,99 @@
+\begin{tikzpicture}
+	\tikzstyle{unit}=[draw,rounded corners=2pt,drop shadow,font=\tiny,thick]
+
+%left
+\begin{scope}
+\foreach \x/\d in {1/2em, 2/8em}
+	\node[unit,fill=orange!30] at (0,\d) (ln_\x) {层标准化};
+
+\foreach \x/\d in {1/4em}
+	\node[unit,fill=green!30] at (0,\d) (sa_\x) {8头自注意力：512};
+
+\foreach \x/\d in {1/6em, 2/16em}
+	\node[draw,circle,minimum size=1em,inner sep=1pt] at (0,\d) (add_\x) {\scriptsize\bfnew{+}};
+
+\foreach \x/\d in {2/14em}
+	\node[unit,fill=red!30] at (0,\d) (conv_\x) {卷积$1 \times 1$：512};
+
+\foreach \x/\d in {1/10em}
+	\node[unit,fill=red!30] at (0,\d) (conv_\x) {卷积$1 \times 1$：2048};
+
+\foreach \x/\d in {1/12em}
+	\node[unit,fill=blue!30] at (0,\d) (relu_\x) {RELU};
+
+\draw[->,thick] ([yshift=-1.4em]ln_1.-90) -- ([yshift=-0.1em]ln_1.-90);
+\draw[->,thick] ([yshift=0.1em]ln_1.90) -- ([yshift=-0.1em]sa_1.-90);
+\draw[->,thick] ([yshift=0.1em]sa_1.90) -- ([yshift=-0.1em]add_1.-90);
+\draw[->,thick] ([yshift=0.1em]add_1.90) -- ([yshift=-0.1em]ln_2.-90);
+\draw[->,thick] ([yshift=0.1em]ln_2.90) -- ([yshift=-0.1em]conv_1.-90);
+\draw[->,thick] ([yshift=0.1em]conv_1.90) -- ([yshift=-0.1em]relu_1.-90);
+\draw[->,thick] ([yshift=0.1em]relu_1.90) -- ([yshift=-0.1em]conv_2.-90);
+\draw[->,thick] ([yshift=0.1em]conv_2.90) -- ([yshift=-0.1em]add_2.-90);
+\draw[->,thick] ([yshift=0.1em]add_2.90) -- ([yshift=1em]add_2.90);
+
+
+\draw[->,thick] ([yshift=-0.8em]ln_1.-90) .. controls ([xshift=5em,yshift=-0.8em]ln_1.-90) and ([xshift=5em]add_1.0) .. (add_1.0);
+\draw[->,thick] (add_1.0) .. controls ([xshift=5em]add_1.0) and ([xshift=5em]add_2.0) .. (add_2.0);
+
+\node[font=\scriptsize] at (0em, -1.1em){(a) Transformer编码器中若干块的结构};
+\end{scope}
+
+%right
+\begin{scope}[xshift=13em]
+
+
+
+\foreach \x/\d in {1/2em, 2/8em, 3/16em}
+	\node[unit,fill=orange!30] at (0,\d) (ln_\x) {层标准化};
+
+\foreach \x/\d in {1/6em, 2/14em, 3/20em}
+	\node[draw,circle,minimum size=1em,inner sep=1pt] at (0,\d) (add_\x) {\scriptsize\bfnew{+}};
+
+\node[unit,fill=red!30] at (0,4em) (glu_1) {门控线性单元：512};
+\node[unit,fill=red!30] at (-3em,10em) (conv_1) {卷积$1 \times 1$：2048};
+\node[unit,fill=cyan!30] at (3em,10em) (conv_2) {卷积$3 \times 1$：256};
+\node[unit,fill=blue!30] at (-3em,12em) (relu_1) {RELU};
+\node[unit,fill=blue!30] at (3em,12em) (relu_2) {RELU};
+\node[unit,fill=cyan!30] at (0em,18em) (conv_3) {Sep卷积$9 \times 1$：256};
+
+
+\draw[->,thick] ([yshift=-1.4em]ln_1.-90) -- ([yshift=-0.1em]ln_1.-90);
+\draw[->,thick] ([yshift=0.1em]ln_1.90) -- ([yshift=-0.1em]glu_1.-90);
+\draw[->,thick] ([yshift=0.1em]glu_1.90) -- ([yshift=-0.1em]add_1.-90);
+\draw[->,thick] ([yshift=0.1em]add_1.90) -- ([yshift=-0.1em]ln_2.-90);
+\draw[->,thick] ([,yshift=0.1em]ln_2.135) -- ([yshift=-0.1em]conv_1.-90);
+\draw[->,thick] ([yshift=0.1em]ln_2.45) -- ([yshift=-0.1em]conv_2.-90);
+\draw[->,thick] ([yshift=0.1em]conv_1.90) -- ([yshift=-0.1em]relu_1.-90);
+\draw[->,thick] ([yshift=0.1em]conv_2.90) -- ([yshift=-0.1em]relu_2.-90);
+\draw[->,thick] ([yshift=0.1em]relu_1.90) -- ([yshift=-0.1em]add_2.-135);
+\draw[->,thick] ([yshift=0.1em]relu_2.90) -- ([yshift=-0.1em]add_2.-45);
+\draw[->,thick] ([yshift=0.1em]add_2.90) -- ([yshift=-0.1em]ln_3.-90);
+\draw[->,thick] ([yshift=0.1em]ln_3.90) -- ([yshift=-0.1em]conv_3.-90);
+\draw[->,thick] ([yshift=0.1em]conv_3.90) -- ([yshift=-0.1em]add_3.-90);
+\draw[->,thick] ([yshift=0.1em]add_3.90) -- ([yshift=1em]add_3.90);
+
+
+
+\draw[->,thick] ([yshift=-0.8em]ln_1.-90) .. controls ([xshift=5em,yshift=-0.8em]ln_1.-90) and ([xshift=5em]add_1.0) .. (add_1.0);
+\draw[->,thick] (add_1.0) .. controls ([xshift=8em]add_1.0) and ([xshift=8em]add_3.0) .. (add_3.0);
+
+
+
+\node[font=\scriptsize,align=center] at (0em, -1.5em){(b) 使用结构搜索方法优化后的 \\ Transformer编码器中若干块的结构};
+
+\node[minimum size=0.8em,inner sep=0pt,rounded corners=1pt,draw,fill=blue!30] (act) at (8em, 20em){};
+\node[anchor=west,font=\footnotesize] at ([xshift=0.1em]act.east){激活函数};
+\node[anchor=north,minimum size=0.8em,inner sep=0pt,rounded corners=1pt,draw,fill=orange!30] (nor) at ([yshift=-0.6em]act.south){};
+\node[anchor=west,font=\footnotesize] at ([xshift=0.1em]nor.east){层标准化};
+\node[anchor=north,minimum size=0.8em,inner sep=0pt,rounded corners=1pt,draw,fill=cyan!30] (wc) at ([yshift=-0.6em]nor.south){};
+\node[anchor=west,font=\footnotesize] at ([xshift=0.1em]wc.east){宽卷积};
+\node[anchor=north,minimum size=0.8em,inner sep=0pt,rounded corners=1pt,draw,fill=green!30] (at) at ([yshift=-0.6em]wc.south){};
+\node[anchor=west,font=\footnotesize] (tag) at ([xshift=0.1em]at.east){注意力机制};
+\node[anchor=north,minimum size=0.8em,inner sep=0pt,rounded corners=1pt,draw,fill=red!30] (nsl) at ([yshift=-0.6em]at.south){};
+\node[anchor=west,font=\footnotesize] at ([xshift=0.1em]nsl.east){非空间层};
+
+\begin{pgfonlayer}{background}
+\node[draw,drop shadow,fill=white][fit=(act)(nsl)(tag)]{};
+\end{pgfonlayer}
+\end{scope}
+\end{tikzpicture}

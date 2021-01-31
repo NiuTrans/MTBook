@@ -1,0 +1,53 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 调序模型1：基于距离的调序
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{manode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=10em,rounded corners=5pt,thick,draw,fill=teal!30]
+\tikzstyle{ffnnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=3em,rounded corners=5pt,thick,fill=red!30,draw]
+\tikzstyle{lnnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=2.5em,rounded corners=5pt,thick,fill=green!30,draw]
+
+\begin{scope}[]
+
+\node [anchor=east,circle,fill=black,inner sep = 2pt] (n1) at (-0, 0) {};
+\node [anchor=west,draw,circle,inner sep=5pt] (n2) at ([xshift=13em,yshift=0em]n1.east){};
+\node [anchor=west,lnnode] (n3) at ([xshift=1.5em,yshift=0em]n2.east){LN};
+\node [anchor=west,circle,fill=black,inner sep=2pt] (n4) at ([xshift=1.5em,yshift=0em]n3.east){};
+\node [anchor=west,draw,circle,inner sep=5pt] (n5) at ([xshift=5em,yshift=0em]n4.east){};
+\node [anchor=west,lnnode] (n6) at ([xshift=1.5em,yshift=0em]n5.east){LN};
+
+\node [anchor=west,manode] (a1) at ([xshift=1.5em,yshift=2em]n1.east){Multi-Head Attention};
+\node [anchor=south] (a2) at ([xshift=0em,yshift=0.2em]a1.north){$\cdots$};
+\node [anchor=south,manode] (a3) at ([xshift=0em,yshift=0.2em]a2.north){Multi-Head Attention};
+
+\node [anchor=west,ffnnode] (f1) at ([xshift=1em,yshift=2em]n4.east){FFN};
+
+
+\draw[->,thick] ([xshift=-1em,yshift=0em]n1.west)--([xshift=0em,yshift=0em]n1.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n1.east)--([xshift=0em,yshift=0em]n2.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n2.east)--([xshift=0em,yshift=0em]n3.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n3.east)--([xshift=0em,yshift=0em]n4.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n4.east)--([xshift=0em,yshift=0em]n5.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n5.east)--([xshift=0em,yshift=0em]n6.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n6.east)--([xshift=1em,yshift=0em]n6.east);
+
+\draw[->,thick] ([xshift=0em,yshift=0em]n1.east)--([xshift=0em,yshift=0em]a1.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n1.east)--([xshift=0em,yshift=0em]a3.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]n4.east)--([xshift=0em,yshift=0em]f1.west);
+
+\draw[->,thick,ublue,dashed] ([xshift=0em,yshift=0em]a1.east)--([xshift=0em,yshift=0em]n2.west);
+\draw[->,thick,ublue,dashed] ([xshift=0em,yshift=0em]a3.east)--([xshift=0em,yshift=0em]n2.west);
+\draw[->,thick,ublue,dashed] ([xshift=0em,yshift=0em]f1.east)--([xshift=0em,yshift=0em]n5.west);
+
+\node [anchor=west,ublue,font=\footnotesize,align=left] (w1) at ([xshift=5em,yshift=-0.5em]a2.east){以概率\\$p$丢弃};
+\node [anchor=west,ublue,font=\footnotesize,align=left] (w2) at ([xshift=0.5em,yshift=0em]f1.east){以概率\\$p$丢弃};
+
+\draw[-,thick] ([xshift=0em,yshift=0em]n2.west)--([xshift=-0em,yshift=0em]n2.east);
+\draw[-,thick] ([xshift=0em,yshift=0em]n2.south)--([xshift=-0em,yshift=-0em]n2.north);
+
+\draw[-,thick] ([xshift=0em,yshift=0em]n5.west)--([xshift=-0em,yshift=0em]n5.east);
+\draw[-,thick] ([xshift=0em,yshift=0em]n5.south)--([xshift=-0em,yshift=-0em]n5.north);
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

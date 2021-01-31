@@ -1,0 +1,113 @@
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{lnode}=[rectangle,inner sep=0mm,minimum height=1.5em,minimum width=3em,rounded corners=2pt,draw,thick]
+\tikzstyle{snode}=[rectangle,inner sep=0mm,minimum height=1.5em,minimum width=0.8em,rounded corners=2pt,draw,thick]
+\tikzstyle{vlnode}=[rectangle,inner sep=0mm,minimum height=1em,minimum width=4em,rounded corners=2pt,draw,thick]
+
+
+\node [anchor=west,lnode] (n1) at (0, 0) {$\mathbi{h}^3$};
+\node [anchor=north west,lnode] (n2) at ([xshift=0em,yshift=-0.5em]n1.south west) {$\mathbi{h}^2$};
+\node [anchor=north west,lnode] (n3) at ([xshift=0em,yshift=-0.5em]n2.south west) {$\mathbi{h}^1$};
+
+\node [anchor=south] (d1) at ([xshift=0em,yshift=0.2em]n1.north) {1D};
+
+\node [anchor=west,lnode] (n4) at ([xshift=1em,yshift=0em]n1.east) {};
+\node [anchor=west,lnode] (n5) at ([xshift=1em,yshift=0em]n2.east) {};
+\node [anchor=west,lnode] (n6) at ([xshift=1em,yshift=0em]n3.east) {};
+
+\node [anchor=south,lnode] (n7) at ([xshift=0em,yshift=1em]n4.north) {$\mathbi{W}_1$};
+
+\node [anchor=west] (sig) at ([xshift=0em,yshift=0.4em]n5.east) {$\sigma$};
+
+\node [anchor=west,snode,fill=purple!30] (nc11) at ([xshift=1.2em,yshift=0em]n4.east) {};
+\node [anchor=west,snode,fill=yellow!30] (nc12) at ([xshift=-0.06em,yshift=0em]nc11.east) {};
+\node [anchor=west,snode,fill=red!30] (nc13) at ([xshift=-0.06em,yshift=0em]nc12.east) {};
+\node [anchor=west,snode,fill=blue!30] (nc14) at ([xshift=-0.06em,yshift=0em]nc13.east) {};
+\node [anchor=west,snode,font=\footnotesize,fill=ugreen!30] (nc15) at ([xshift=-0.06em,yshift=0em]nc14.east) {$\mathbi{o}_5^3$};
+
+\node [anchor=west,snode,fill=purple!30] (nc21) at ([xshift=1.2em,yshift=0em]n5.east) {};
+\node [anchor=west,snode,fill=yellow!30] (nc22) at ([xshift=-0.06em,yshift=0em]nc21.east) {};
+\node [anchor=west,snode,fill=red!30] (nc23) at ([xshift=-0.06em,yshift=0em]nc22.east) {};
+\node [anchor=west,snode,fill=blue!30] (nc24) at ([xshift=-0.06em,yshift=0em]nc23.east) {};
+\node [anchor=west,snode,font=\footnotesize,fill=ugreen!30] (nc25) at ([xshift=-0.06em,yshift=0em]nc24.east) {$\mathbi{o}_5^2$};
+
+\node [anchor=west,snode,fill=purple!30] (nc31) at ([xshift=1.2em,yshift=0em]n6.east) {};
+\node [anchor=west,snode,fill=yellow!30] (nc32) at ([xshift=-0.06em,yshift=0em]nc31.east) {};
+\node [anchor=west,snode,fill=red!30] (nc33) at ([xshift=-0.06em,yshift=0em]nc32.east) {};
+\node [anchor=west,snode,fill=blue!30] (nc34) at ([xshift=-0.06em,yshift=0em]nc33.east) {};
+\node [anchor=west,snode,font=\footnotesize,fill=ugreen!30] (nc35) at ([xshift=-0.06em,yshift=0em]nc34.east) {$\mathbi{o}_5^1$};
+
+\node [anchor=south,lnode] (n8) at ([xshift=0em,yshift=1em]nc13.north) {$\mathbi{W}_2$};
+
+\node [anchor=west,font=\footnotesize] (n9) at ([xshift=0.1em,yshift=0.5em]nc25.east) {Softmax};
+
+\node [anchor=west,snode,fill=purple!30] (ns11) at ([xshift=3.5em,yshift=0em]nc15.east) {};
+\node [anchor=west,snode,fill=yellow!30] (ns12) at ([xshift=-0.06em,yshift=0em]ns11.east) {};
+\node [anchor=west,snode,fill=red!30] (ns13) at ([xshift=-0.06em,yshift=0em]ns12.east) {};
+\node [anchor=west,snode,fill=blue!30] (ns14) at ([xshift=-0.06em,yshift=0em]ns13.east) {};
+\node [anchor=west,snode,font=\tiny,fill=ugreen!30] (ns15) at ([xshift=-0.06em,yshift=0em]ns14.east) {0.3};
+
+\node [anchor=west,snode,fill=purple!30] (ns21) at ([xshift=3.5em,yshift=0em]nc25.east) {};
+\node [anchor=west,snode,fill=yellow!30] (ns22) at ([xshift=-0.06em,yshift=0em]ns21.east) {};
+\node [anchor=west,snode,fill=red!30] (ns23) at ([xshift=-0.06em,yshift=0em]ns22.east) {};
+\node [anchor=west,snode,fill=blue!30] (ns24) at ([xshift=-0.06em,yshift=0em]ns23.east) {};
+\node [anchor=west,snode,font=\tiny,fill=ugreen!30] (ns25) at ([xshift=-0.06em,yshift=0em]ns24.east) {0.2};
+
+\node [anchor=west,snode,fill=purple!30] (ns31) at ([xshift=3.5em,yshift=0em]nc35.east) {};
+\node [anchor=west,snode,fill=yellow!30] (ns32) at ([xshift=-0.06em,yshift=0em]ns31.east) {};
+\node [anchor=west,snode,fill=red!30] (ns33) at ([xshift=-0.06em,yshift=0em]ns32.east) {};
+\node [anchor=west,snode,fill=blue!30] (ns34) at ([xshift=-0.06em,yshift=0em]ns33.east) {};
+\node [anchor=west,snode,font=\tiny,fill=ugreen!30] (ns35) at ([xshift=-0.06em,yshift=0em]ns34.east) {0.5};
+
+\node [anchor=west,vlnode,fill=purple!30] (ln1) at ([xshift=3.5em,yshift=-1.5em]ns15.east) {};
+\node [anchor=north west,vlnode,fill=yellow!30] (ln2) at ([xshift=-0.4em,yshift=-0.4em]ln1.north west) {};
+\node [anchor=north west,vlnode,fill=red!30] (ln3) at ([xshift=-0.4em,yshift=-0.4em]ln2.north west) {};
+\node [anchor=north west,vlnode,fill=blue!30] (ln4) at ([xshift=-0.4em,yshift=-0.4em]ln3.north west) {};
+\node [anchor=north west,vlnode,fill=ugreen!30] (ln5) at ([xshift=-0.4em,yshift=-0.4em]ln4.north west) {};
+
+\node [anchor=south] (d2) at ([xshift=0em,yshift=0.2em]ln1.north) {2D};
+
+\node [anchor=south,vlnode,rotate=-90] (ffn) at ([xshift=2em,yshift=0em]ln3.east) {FFN};
+
+\node [anchor=west,rectangle,inner sep=0mm,minimum height=3.5em,minimum width=0.8em,rounded corners=2pt,draw,thick] (fn) at ([xshift=1em,yshift=0em]ffn.north) {$\mathbi{g}$};
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.east) -- ([xshift=0em,yshift=0em]n4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east) -- ([xshift=0em,yshift=0em]n5.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.east) -- ([xshift=0em,yshift=0em]n6.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.east) -- ([xshift=0em,yshift=0em]nc11.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.east) -- ([xshift=0em,yshift=0em]nc21.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n6.east) -- ([xshift=0em,yshift=0em]nc31.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n7.south) -- ([xshift=0em,yshift=0em]n4.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n8.south) -- ([xshift=0em,yshift=0em]nc13.north);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]nc25.east) -- ([xshift=0em,yshift=0em]ns21.west);
+
+\draw[->,thick,dotted] ([xshift=0em,yshift=-0em]ns15.east)..controls +(east:1.5em) and +(west:1.5em)..([xshift=-0em,yshift=-0em]ln5.west) ;
+\draw[->,thick,dotted] ([xshift=0em,yshift=-0em]ns25.east)..controls +(east:1em) and +(west:1em)..([xshift=-0em,yshift=-0em]ln5.west) ;
+\draw[->,thick,dotted] ([xshift=0em,yshift=-0em]ns35.east)..controls +(east:1.5em) and +(west:1.5em)..([xshift=-0em,yshift=-0em]ln5.west) ;
+
+\draw [->,thick] ([xshift=0.8em,yshift=0em]ln3.east) -- ([xshift=0em,yshift=0em]ffn.south);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]ffn.north) -- ([xshift=0em,yshift=0em]fn.west);
+
+
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]n3.south west) to node [midway,font=\small,align=center,xshift=0em,yshift=-0.8em] {$d_{\textrm{model}}$} ([xshift=0em]n3.south east);
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]n6.south west) to node [midway,font=\small,align=center,xshift=0em,yshift=-0.8em] {$d_{\rm a}$} ([xshift=0em]n6.south east);
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]n7.north west) to node [midway,font=\small,align=center,xshift=-1.4em,yshift=-0em] {$d_{\textrm{model}}$} ([xshift=0em]n7.south west);
+\draw [decorate,decoration={brace}] ([xshift=0em]n7.north west) to node [midway,font=\small,align=center,xshift=0em,yshift=0.7em] {$d_{\rm a}$} ([xshift=0em]n7.north east);
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]n8.north west) to node [midway,font=\small,align=center,xshift=-0.8em,yshift=-0em] {$d_{\rm a}$} ([xshift=0em]n8.south west);
+\draw [decorate,decoration={brace}] ([xshift=0em]n8.north west) to node [midway,font=\small,align=center,xshift=0em,yshift=0.8em] {$n_{\rm hop}$} ([xshift=0em]n8.north east);
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]nc31.south west) to node [midway,font=\small,align=center,xshift=0em,yshift=-0.8em] {$n_{\rm hop}$} ([xshift=0em]nc35.south east);
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]ln5.south west) to node [midway,font=\small,align=center,xshift=0em,yshift=-0.8em] {$d_{\textrm{model}}$} ([xshift=0em]ln5.south east);
+\draw [decorate] ([xshift=0em]ln5.south east) to node [midway,font=\footnotesize,align=center,xshift=1em,yshift=-0.5em] {$n_{\rm hop}$} ([xshift=0em]ln1.south east);
+\draw [decorate,decoration={brace,mirror}] ([xshift=0em]fn.south east) to node [midway,font=\small,align=center,xshift=1.4em,yshift=-0em] {$d_{\textrm{model}}$} ([xshift=0em]fn.north east);
+
+
+
+\end{scope}
+\end{tikzpicture}

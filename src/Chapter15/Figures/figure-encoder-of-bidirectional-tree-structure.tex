@@ -1,0 +1,74 @@
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{hnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=3em,rounded corners=5pt,fill=green!30,draw,thick]
+\tikzstyle{tnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=3em,rounded corners=5pt,fill=red!30,draw,thick]
+\tikzstyle{fnoder}=[rectangle,inner sep=0em,minimum height=2.6em,minimum width=6.8em,draw,dashed,very thick,rounded corners=5pt,red!50]
+\tikzstyle{fnodeg}=[rectangle,inner sep=0em,minimum height=2.6em,minimum width=6.8em,draw,dashed,very thick,rounded corners=5pt,green!50]
+
+\node [anchor=south west,fnodeg] (f1) at (0,0) {};
+\node [anchor=west,hnode] (n1) at ([xshift=0.2em,yshift=0em]f1.west) {$\mathbi{h}_1^{\textrm{up}}$};
+\node [anchor=east,hnode] (n2) at ([xshift=-0.2em,yshift=0em]f1.east) {$\mathbi{h}_1^{\textrm{down}}$};
+
+\node [anchor=west,fnodeg] (f2) at ([xshift=0.6em,yshift=0em]f1.east) {};
+\node [anchor=west,hnode] (n3) at ([xshift=0.2em,yshift=0em]f2.west) {$\mathbi{h}_2^{\textrm{up}}$};
+\node [anchor=east,hnode] (n4) at ([xshift=-0.2em,yshift=0em]f2.east) {$\mathbi{h}_2^{\textrm{down}}$};
+
+\node [anchor=west,fnodeg] (f3) at ([xshift=0.6em,yshift=0em]f2.east) {};
+\node [anchor=west,hnode] (n5) at ([xshift=0.2em,yshift=0em]f3.west) {$\mathbi{h}_3^{\textrm{up}}$};
+\node [anchor=east,hnode] (n6) at ([xshift=-0.2em,yshift=0em]f3.east) {$\mathbi{h}_3^{\textrm{down}}$};
+
+\node [anchor=west,fnodeg] (f4) at ([xshift=0.6em,yshift=0em]f3.east) {};
+\node [anchor=west,hnode] (n7) at ([xshift=0.2em,yshift=0em]f4.west) {$\cdots$};
+\node [anchor=east,hnode] (n8) at ([xshift=-0.2em,yshift=0em]f4.east) {$\cdots$};
+
+\node [anchor=west,fnodeg] (f5) at ([xshift=0.6em,yshift=0em]f4.east) {};
+\node [anchor=west,hnode] (n9) at ([xshift=0.2em,yshift=0em]f5.west) {$\mathbi{h}_m^{\textrm{up}}$};
+\node [anchor=east,hnode] (n10) at ([xshift=-0.2em,yshift=0em]f5.east) {$\mathbi{h}_m^{\textrm{down}}$};
+
+\node [anchor=south,fnoder] (f6) at ([xshift=3.7em,yshift=1em]f1.north) {};
+\node [anchor=west,tnode] (n11) at ([xshift=0.2em,yshift=0em]f6.west) {$\mathbi{h}_{m+1}^{\textrm{up}}$};
+\node [anchor=east,tnode] (n12) at ([xshift=-0.2em,yshift=0em]f6.east) {$\mathbi{h}_{m+1}^{\textrm{down}}$};
+
+\node [anchor=south,fnoder] (f7) at ([xshift=3.7em,yshift=1em]f6.north) {};
+\node [anchor=west,tnode] (n13) at ([xshift=0.2em,yshift=0em]f7.west) {$\mathbi{h}_{m+2}^{\textrm{up}}$};
+\node [anchor=east,tnode] (n14) at ([xshift=-0.2em,yshift=0em]f7.east) {$\mathbi{h}_{m+2}^{\textrm{down}}$};
+
+\node [anchor=south,fnoder] (f8) at ([xshift=3.7em,yshift=1em]f7.north) {};
+\node [anchor=west,tnode] (n15) at ([xshift=0.2em,yshift=0em]f8.west) {$\cdots$};
+\node [anchor=east,tnode] (n16) at ([xshift=-0.2em,yshift=0em]f8.east) {$\cdots$};
+
+\node [anchor=south,fnoder] (f9) at ([xshift=3.7em,yshift=1em]f8.north) {};
+\node [anchor=west,tnode] (n17) at ([xshift=0.2em,yshift=0em]f9.west) {$\mathbi{h}_{2m-1}^{\textrm{up}}$};
+\node [anchor=east,tnode] (n18) at ([xshift=-0.2em,yshift=0em]f9.east) {$\mathbi{h}_{2m-1}^{\textrm{down}}$};
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n11.east) -- ([xshift=0em,yshift=0em]n12.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n13.east) -- ([xshift=0em,yshift=0em]n14.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n15.east) -- ([xshift=0em,yshift=0em]n16.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n17.east) -- ([xshift=0em,yshift=0em]n18.west);
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.north) -- ([xshift=0em,yshift=0em]n11.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.north) -- ([xshift=0em,yshift=0em]n11.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n12.south) -- ([xshift=0em,yshift=0em]n4.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n12.south) -- ([xshift=0em,yshift=0em]n2.north);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n11.north) -- ([xshift=0em,yshift=0em]n13.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.north) -- ([xshift=0em,yshift=0em]n13.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n14.south) -- ([xshift=0em,yshift=0em]n12.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n14.south) -- ([xshift=0em,yshift=0em]n6.north);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n13.north) -- ([xshift=0em,yshift=0em]n15.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n7.north) -- ([xshift=0em,yshift=0em]n15.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n16.south) -- ([xshift=0em,yshift=0em]n14.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n16.south) -- ([xshift=0em,yshift=0em]n8.north);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n15.north) -- ([xshift=0em,yshift=0em]n17.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n9.north) -- ([xshift=0em,yshift=0em]n17.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n18.south) -- ([xshift=0em,yshift=0em]n16.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n18.south) -- ([xshift=0em,yshift=0em]n10.north);
+
+\end{scope}
+\end{tikzpicture}

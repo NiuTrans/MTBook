@@ -1,0 +1,97 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{wrnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=4em,rounded corners=5pt,fill=blue!30,draw,thick]
+\tikzstyle{arnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=4em,rounded corners=5pt,fill=red!30,draw,thick]
+\tikzstyle{dotnode}=[inner sep=0mm,minimum height=0.5em,minimum width=1.5em]
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.8em]
+{\small
+\begin{scope}[]
+
+\node [anchor=north west,wnode] (w1) at (0,0) {词预测模型};
+\node [anchor=west,wrnode] (w2) at ([xshift=1.5em,yshift=0em]w1.east) {$\mathbi{h}_{1}^{\textrm{word}}$};
+\node [anchor=west,wrnode] (w3) at ([xshift=1.5em,yshift=0em]w2.east) {$\mathbi{h}_{2}^{\textrm{word}}$};
+\node [anchor=west,wrnode] (w4) at ([xshift=7em,yshift=0em]w3.east) {$\mathbi{h}_{4}^{\textrm{word}}$};
+\node [anchor=west,dotnode] (dot1) at ([xshift=1.5em,yshift=0em]w4.east) {$\cdots$};
+
+
+\node [anchor=north east,wnode] (a1) at ([xshift=0em,yshift=-6.6em]w1.south east) {动作模型};
+\node [anchor=west,arnode] (a2) at ([xshift=1.5em,yshift=0em]a1.east) {$\mathbi{h}_{1}^{\textrm{action}}$};
+\node [anchor=west,arnode] (a3) at ([xshift=1.5em,yshift=0em]a2.east) {$\mathbi{h}_{2}^{\textrm{action}}$};
+\node [anchor=west,arnode] (a4) at ([xshift=1.5em,yshift=0em]a3.east) {$\mathbi{h}_{3}^{\textrm{action}}$};
+\node [anchor=west,arnode] (a5) at ([xshift=1.5em,yshift=0em]a4.east) {$\mathbi{h}_{4}^{\textrm{action}}$};
+\node [anchor=west,arnode] (a6) at ([xshift=1.5em,yshift=0em]a5.east) {$\mathbi{h}_{5}^{\textrm{action}}$};
+
+\node [anchor=south,wnode] (word1) at ([xshift=0em,yshift=1em]w2.north) {你};
+\node [anchor=south,wnode] (word2) at ([xshift=0em,yshift=1em]w3.north) {是};
+\node [anchor=south,wnode] (word3) at ([xshift=0em,yshift=1em]w4.north) {谁};
+\node [anchor=north,wnode] (word4) at ([xshift=0em,yshift=-1em]w2.south) {$\langle$sos$\rangle$};
+\node [anchor=north,wnode] (word5) at ([xshift=0em,yshift=-1em]w3.south) {你};
+\node [anchor=north,wnode] (word6) at ([xshift=0em,yshift=-1em]w4.south) {谁};
+
+\node [anchor=south,wnode] (word7) at ([xshift=0em,yshift=1em]a2.north) {移位};
+\node [anchor=south,wnode] (word8) at ([xshift=0em,yshift=1em]a3.north) {移位};
+\node [anchor=south,wnode] (word9) at ([xshift=0em,yshift=1em]a4.north) {左规约};
+\node [anchor=south,wnode] (word10) at ([xshift=0em,yshift=1em]a5.north) {移位};
+\node [anchor=south,wnode] (word11) at ([xshift=0em,yshift=1em]a6.north) {右规约};
+\node [anchor=north,wnode] (word12) at ([xshift=0em,yshift=-1em]a2.south) {$\langle$sos$\rangle$};
+\node [anchor=north,wnode] (word13) at ([xshift=0em,yshift=-1em]a3.south) {移位};
+\node [anchor=north,wnode] (word14) at ([xshift=0em,yshift=-1em]a4.south) {移位};
+\node [anchor=north,wnode] (word15) at ([xshift=0em,yshift=-1em]a5.south) {左规约};
+\node [anchor=north,wnode] (word16) at ([xshift=0em,yshift=-1em]a6.south) {移位};
+
+
+\node [anchor=south,wnode] (wl1) at ([xshift=6em,yshift=-1em]dot1.north) {是};
+\node [anchor=north,wnode] (wl2) at ([xshift=-2em,yshift=-2em]wl1.south) {你};
+\node [anchor=north,wnode] (wl3) at ([xshift=2em,yshift=-2em]wl1.south) {谁};
+
+\node [anchor=north,font=\tiny,rotate=45] (e1) at ([xshift=-2.2em,yshift=-0.4em]wl1.south) {左规约生成};
+\node [anchor=north,font=\tiny,rotate=-45] (e2) at ([xshift=2.2em,yshift=-0.4em]wl1.south) {右规约生成};
+
+\draw [->,thick] ([xshift=0em,yshift=0em]wl1.south) -- ([xshift=0em,yshift=0em]wl2.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]wl1.south) -- ([xshift=0em,yshift=0em]wl3.north);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]w1.east) -- ([xshift=0em,yshift=0em]w2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]w2.east) -- ([xshift=0em,yshift=0em]w3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]w3.east) -- ([xshift=0em,yshift=0em]w4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]w4.east) -- ([xshift=0em,yshift=0em]dot1.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]a1.east) -- ([xshift=0em,yshift=0em]a2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]a2.east) -- ([xshift=0em,yshift=0em]a3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]a3.east) -- ([xshift=0em,yshift=0em]a4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]a4.east) -- ([xshift=0em,yshift=0em]a5.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]a5.east) -- ([xshift=0em,yshift=0em]a6.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]w2.north) -- ([xshift=0em,yshift=0em]word1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w3.north) -- ([xshift=0em,yshift=0em]word2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w4.north) -- ([xshift=0em,yshift=0em]word3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word4.north) -- ([xshift=0em,yshift=0em]w2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word5.north) -- ([xshift=0em,yshift=0em]w3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word6.north) -- ([xshift=0em,yshift=0em]w4.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word7.north) -- ([xshift=0em,yshift=0em]word4.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word8.north) -- ([xshift=0em,yshift=0em]word5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word10.north) -- ([xshift=0em,yshift=0em]word6.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]a2.north) -- ([xshift=0em,yshift=0em]word7.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]a3.north) -- ([xshift=0em,yshift=0em]word8.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]a4.north) -- ([xshift=0em,yshift=0em]word9.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]a5.north) -- ([xshift=0em,yshift=0em]word10.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]a6.north) -- ([xshift=0em,yshift=0em]word11.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word12.north) -- ([xshift=0em,yshift=0em]a2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word13.north) -- ([xshift=0em,yshift=0em]a3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word14.north) -- ([xshift=0em,yshift=0em]a4.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word15.north) -- ([xshift=0em,yshift=0em]a5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]word16.north) -- ([xshift=0em,yshift=0em]a6.south);
+
+\draw[->,thick,dashed] ([xshift=0em,yshift=-0em]word1.east)..controls +(east:4em) and +(west:3em)..([xshift=-0em,yshift=-0em]a3.west) ;
+\draw[->,thick,dashed] ([xshift=0em,yshift=-0em]word2.east)..controls +(east:4em) and +(west:3em)..([xshift=-0em,yshift=-0em]a4.west) ;
+\draw[->,thick,dashed] ([xshift=0em,yshift=-0em]word2.east)..controls +(east:10em) and +(west:4em)..([xshift=-0em,yshift=-0em]a5.west) ;
+\draw[->,thick,dashed] ([xshift=0em,yshift=-0em]word3.east)..controls +(east:4em) and +(west:3em)..([xshift=-0em,yshift=-0em]a6.west) ;
+
+
+
+\end{scope}
+}
+\end{tikzpicture}
+\end{center}

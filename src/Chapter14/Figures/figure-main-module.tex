@@ -1,0 +1,17 @@
+
+\begin{tikzpicture}
+%左
+\node [anchor=west,draw=black!70,rounded corners,drop shadow,very thick,minimum width=6em,minimum height=3.5em,fill=red!30,align=center,text=black] (part1) at (0,0) {\small{预测模块}};
+\node [anchor=south] (text) at ([xshift=0.5em,yshift=-3.5em]part1.south) {\scriptsize{源语言句子（编码器输出）}};
+\node [anchor=east,draw=black!70,rounded corners,drop shadow,very thick,minimum width=6em,minimum height=3.5em,fill=green!30,align=center,text=black] (part2) at ([xshift=10em]part1.east) {\small{搜索模块}};
+
+\node [anchor=south] (text1) at ([xshift=0.1em,yshift=2.2em]part1.north) {\scriptsize{译文中已经生成的单词}};
+\node [anchor=south] (text2) at ([xshift=0.5em,yshift=2.2em]part2.north) {\scriptsize{预测当前位置的单词概率分布}};
+
+\draw [->,draw=black, thick] ([yshift=2em]part1.north) -- ([yshift=0.1em]part1.north);
+\draw [->,draw=black, thick] ([yshift=-2em]part1.south) -- ([yshift=-0.1em]part1.south);
+\draw [->,draw=black, thick] ([yshift=0em]part2.north) -- ([yshift=2em]part2.north);
+\draw [->,draw=black,very thick] ([yshift=-0.7em]part1.east) -- ([xshift=-0.05em,yshift=-0.7em]part2.west);
+\draw [->,draw=black,very thick,dashed] ([yshift=0.7em]part2.west) -- ([xshift=0.05em,yshift=0.7em]part1.east);
+
+\end{tikzpicture}

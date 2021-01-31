@@ -1,0 +1,98 @@
+\begin{tikzpicture}
+\tikzstyle{tnode} = [rectangle,inner sep=0em,minimum width=8em,minimum height=6.6em,rounded corners=5pt,fill=green!15,drop shadow]
+\tikzstyle{pnode} = [rectangle,inner sep=0em,minimum width=8em,minimum height=6.6em,rounded corners=5pt,fill=yellow!15,drop shadow]
+\tikzstyle{mnode} = [rectangle,inner sep=0em,minimum width=8em,minimum height=6.6em,rounded corners=5pt,fill=red!15,drop shadow]
+\tikzstyle{wnode} = [inner sep=0em,minimum height=1.5em]
+
+%第一排
+\node [anchor=north west,wnode,font=\large] (n1) at (0,0) {预处理};
+
+\node [anchor=north west,tnode,font=\large] (n2) at ([xshift=0em,yshift=-0.5em]n1.south west) {文本};
+
+\node [anchor=west,tnode] (n3) at ([xshift=5em,yshift=0em]n2.east) {};
+\node [anchor=north west,align=left,font=\footnotesize] (n31) at ([xshift=0.2em,yshift=-0.2em]n3.north west) {{\small 词表}\\low\\lower\\newest\\widest\\$\ldots$};
+\node [anchor=north east,align=center,font=\footnotesize] (n32) at ([xshift=-0.2em,yshift=-0.2em]n3.north east) {{\small 频次}\\6\\2\\6\\3\\$\ldots$};
+
+\node [anchor=west,tnode] (n4) at ([xshift=5em,yshift=0em]n3.east) {};
+\node [anchor=north west,align=left,font=\footnotesize] (n41) at ([xshift=0.2em,yshift=-0.2em]n4.north west) {{\small 词表}\\l/o/w\\l/o/w/e/r\\n/e/w/e/s/t\\w/i/d/e/s/t\\$\ldots$};
+\node [anchor=north east,align=center,font=\footnotesize] (n42) at ([xshift=-0.2em,yshift=-0.2em]n4.north east) {{\small 频次}\\6\\2\\6\\3\\$\ldots$};
+
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.7em,draw,ugreen!60,dashed,thick,rounded corners=7pt] [fit = (n1) (n4)] (box1) {};
+\end{pgfonlayer}
+
+\node [anchor=west,align=left,font=\footnotesize] (nt1) at ([xshift=0.1em,yshift=0em]n2.east) {统计词表和\\[0.5ex]词频};
+\node [anchor=west,align=left,font=\footnotesize] (nt2) at ([xshift=0.1em,yshift=1em]n3.east) {按字符切分};
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]n2.east)--([xshift=0em,yshift=0em]n3.west);
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]n3.east)--([xshift=0em,yshift=0em]n4.west);
+
+%第二排
+\node [anchor=north west,wnode,font=\large] (n5) at ([xshift=0em,yshift=-2em]n2.south west) {BPE学习};
+
+\node [anchor=north west,tnode] (n6) at ([xshift=0em,yshift=-0.5em]n5.south west) {};
+\node [anchor=north west,align=left,font=\footnotesize] (n61) at ([xshift=0.2em,yshift=-0.2em]n6.north west) {{\small 词表}\\l/o/w\\l/o/w/e/r\\n/e/w/e/s/t\\w/i/d/e/s/t\\$\ldots$};
+\node [anchor=north east,align=center,font=\footnotesize] (n62) at ([xshift=-0.2em,yshift=-0.2em]n6.north east) {{\small 频次}\\6\\2\\6\\3\\$\ldots$};
+
+\draw [->,thick,ublue] ([xshift=-0em,yshift=-0em]n4.south) .. controls +(south:4em) and +(north:4em) .. ([xshift=1em,yshift=-0em]n6.north);
+
+\node [anchor=west,pnode] (n7) at ([xshift=5em,yshift=0em]n6.east) {};
+\node [anchor=north west,align=left,font=\footnotesize] (n71) at ([xshift=0.2em,yshift=-0.2em]n7.north west) {{\small 二元组}\\(e,s)\\(s,t)\\(l,o)\\(o,w)\\$\ldots$};
+\node [anchor=north east,align=center,font=\footnotesize] (n72) at ([xshift=-0.2em,yshift=-0.2em]n7.north east) {{\small 频次}\\9\\9\\8\\8\\$\ldots$};
+
+\node [anchor=west,mnode] (n8) at ([xshift=5em,yshift=0em]n7.east) {};
+\node [anchor=north,align=center,font=\footnotesize] (n81) at ([xshift=0em,yshift=-0.2em]n8.north) {{\small 符号合并表}\\(e,s)};
+
+\node [anchor=west,align=left,font=\footnotesize] (nt3) at ([xshift=0.1em,yshift=0em]n6.east) {统计二元组\\[0.5ex]的频次};
+\node [anchor=west,align=left,font=\footnotesize] (nt4) at ([xshift=0em,yshift=-0.4em]n7.east) {频次最高的\\[0.5ex](e,s)加入表\\中};
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]n6.east)--([xshift=0em,yshift=0em]n7.west);
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]n7.east)--([xshift=0em,yshift=0em]n8.west);
+
+%第三排
+\node [anchor=north,tnode] (n9) at ([xshift=0em,yshift=-2.5em]n6.south) {};
+\node [anchor=north west,align=left,font=\footnotesize] (n91) at ([xshift=0.2em,yshift=-0.2em]n9.north west) {{\small 词表}\\l/o/w\\l/o/w/e/r\\n/e/w/{\red es}/t\\w/i/d/{\red es}/t\\$\ldots$};
+\node [anchor=north east,align=center,font=\footnotesize] (n92) at ([xshift=-0.2em,yshift=-0.2em]n9.north east) {{\small 频次}\\6\\2\\6\\3\\$\ldots$};
+
+\draw [->,thick,ublue] ([xshift=-0em,yshift=-0em]n8.south) .. controls +(south:3em) and +(north:3em) .. ([xshift=1em,yshift=-0em]n9.north);
+\node [anchor=north west,ublue,font=\footnotesize,align=left] (l1) at ([xshift=1em,yshift=-0em]n7.south east) {在词表中\\[0.8ex]合并(e,s)};
+
+\node [anchor=west,pnode] (n10) at ([xshift=5em,yshift=0em]n9.east) {};
+\node [anchor=north west,align=left,font=\footnotesize] (n101) at ([xshift=0.2em,yshift=-0.2em]n10.north west) {{\small 二元组}\\(es,t)\\(l,o)\\(o,w)\\(n,e)\\$\ldots$};
+\node [anchor=north east,align=center,font=\footnotesize] (n102) at ([xshift=-0.2em,yshift=-0.2em]n10.north east) {{\small 频次}\\9\\8\\8\\6\\$\ldots$};
+
+\node [anchor=west,mnode] (n11) at ([xshift=5em,yshift=0em]n10.east) {};
+\node [anchor=north,align=center,font=\footnotesize] (n111) at ([xshift=0em,yshift=-0.2em]n11.north) {{\small 符号合并表}\\(e,s)\\(es,t)};
+
+\node [anchor=west,align=left,font=\footnotesize] (nt5) at ([xshift=0.1em,yshift=0em]n9.east) {统计二元组\\[0.5ex]的频次};
+\node [anchor=west,align=left,font=\footnotesize] (nt6) at ([xshift=0em,yshift=-0.4em]n10.east) {频次最高的\\[0.5ex](es,t)加入表\\中};
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]n9.east)--([xshift=0em,yshift=0em]n10.west);
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]n10.east)--([xshift=0em,yshift=0em]n11.west);
+
+%第四排
+\node [anchor=north,ublue] (cd) at ([xshift=0em,yshift=-2.0em]n10.south) {$\cdots$};
+\draw [->,thick,ublue] ([xshift=-0em,yshift=-0em]n11.south) .. controls +(south:2em) and +(north:2em) .. ([xshift=-0em,yshift=-0em]cd.north);
+\node [anchor=north west,ublue,font=\footnotesize,align=left] (l2) at ([xshift=1em,yshift=-1.0em]n10.south east) {在词表中\\[0.8ex]合并(es,t)};
+\node [anchor=east,ublue,align=left,font=\footnotesize] (l3) at ([xshift=-0.5em,yshift=0em]cd.west) {直至达到设定的符号合\\并表大小或无法合并};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.7em,draw,orange!40,dashed,thick,rounded corners=7pt] [fit = (n5) (n8) (l3) (cd)] (box2) {};
+\end{pgfonlayer}
+
+%第五排
+\node [anchor=north,mnode,minimum width=34em,minimum height=4em] (n12) at ([xshift=0em,yshift=-5em]cd.south) {};
+\node [anchor=north west,font=\footnotesize] (n121) at ([xshift=0.2em,yshift=-0.2em]n12.north west) {{\small 符号合并表}：};
+\node [anchor=north west,align=left,font=\footnotesize] (n122) at ([xshift=0.8em,yshift=-0em]n121.north east) {(e,s),\\[0.5ex](ne,w),\\[0.5ex](wid,est),};
+\node [anchor=north west,align=left,font=\footnotesize] (n123) at ([xshift=0.8em,yshift=-0em]n122.north east) {(es,t),\\[0.5ex](new,est),\\[0.5ex](low,e),};
+\node [anchor=north west,align=left,font=\footnotesize] (n124) at ([xshift=0.8em,yshift=-0em]n123.north east) {(l,o),\\[0.5ex](w,i),\\[0.5ex](lowe,r),};
+\node [anchor=north west,align=left,font=\footnotesize] (n125) at ([xshift=0.8em,yshift=-0em]n124.north east) {(lo,w),\\[0.5ex](wi,d),\\[0.5ex]$\ldots$};
+\node [anchor=north west,align=left,font=\footnotesize] (n126) at ([xshift=0.8em,yshift=-0em]n125.north east) {(n,e),\\[0.5ex]$\ldots$\\[0.5ex]$\ldots$};
+
+\node [anchor=south west,wnode,font=\large] (n13) at ([xshift=0em,yshift=0.5em]n12.north west) {输出符号合并表};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.7em,draw,red!40,dashed,thick,rounded corners=7pt] [fit = (n12) (n13)] (box3) {};
+\end{pgfonlayer}
+
+\draw [->,thick,ublue] ([xshift=0em,yshift=0em]cd.south)--([xshift=0em,yshift=0em]n12.north);
+
+\end{tikzpicture}

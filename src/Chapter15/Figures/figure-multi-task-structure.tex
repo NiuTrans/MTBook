@@ -1,0 +1,34 @@
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{enode}=[rectangle,inner sep=0mm,minimum height=5em,minimum width=5em,rounded corners=7pt,fill=blue!30,draw,thick]
+\tikzstyle{dnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=6.5em,rounded corners=5pt,fill=red!30,draw,thick]
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=2em,minimum width=4em]
+
+\node [anchor=south west] (w1) at (0,0) {汉语（源语言）};
+
+\node [anchor=west,enode] (e1) at ([xshift=1.5em,yshift=0em]w1.east) {编码器};
+
+\node [anchor=west,dnode] (d1) at ([xshift=3em,yshift=6em]e1.east) {翻译任务};
+\node [anchor=north,dnode] (d2) at ([xshift=0em,yshift=-2em]d1.south) {句法分析任务};
+\node [anchor=north,dnode] (d3) at ([xshift=0em,yshift=-2em]d2.south) {语言理解任务};
+\node [anchor=north,dnode] (d4) at ([xshift=0em,yshift=-2em]d3.south) {其他任务};
+
+\node [anchor=west] (w2) at ([xshift=2em,yshift=0em]d1.east) {英语（目标语言）};
+\node [anchor=west] (w3) at ([xshift=2em,yshift=0em]d2.east) {汉语句法标签};
+\node [anchor=west] (w4) at ([xshift=2em,yshift=0em]d3.east) {汉语上下文};
+
+\draw [->,thick] ([xshift=0em,yshift=0em]w1.east) -- ([xshift=0em,yshift=0em]e1.west);
+
+\draw[->,thick] ([xshift=0em,yshift=0em]e1.east) .. controls +(east:2em) and +(west:2em) .. (d1.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]e1.east) .. controls +(east:2em) and +(west:2em) .. (d2.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]e1.east) .. controls +(east:2em) and +(west:2em) .. (d3.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]e1.east) .. controls +(east:2em) and +(west:2em) .. (d4.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]d1.east) -- ([xshift=0em,yshift=0em]w2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]d2.east) -- ([xshift=0em,yshift=0em]w3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]d3.east) -- ([xshift=0em,yshift=0em]w4.west);
+
+\end{scope}
+\end{tikzpicture}

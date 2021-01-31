@@ -1,0 +1,99 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 调序模型1：基于距离的调序
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{tnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=4em,rounded corners=5pt,thick,draw,fill=teal!20]
+\tikzstyle{stnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=4em,rounded corners=5pt,thick,fill=red!20,draw]
+\tikzstyle{rnnnode}=[rectangle,inner sep=0mm,minimum height=1.8em,minimum width=5em,rounded corners=5pt,thick,fill=green!20,draw]
+
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=2em,minimum width=4em]
+
+\begin{scope}[]
+
+\node [anchor=west,rnnnode] (r1) at (0, 0) {循环单元};
+\node [anchor=south,rnnnode] (r2) at ([xshift=0em,yshift=1em]r1.north){循环单元};
+\node [anchor=south] (r3) at ([xshift=0em,yshift=1em]r2.north){$\cdots$};
+\node [anchor=south,rnnnode] (r4) at ([xshift=0em,yshift=1em]r3.north){循环单元};
+
+\node [anchor=east,wnode,font=\footnotesize,align=left,minimum width=3em] (wr1) at ([xshift=-1em,yshift=0em]r1.west) {1时刻\\ 输入};
+\node [anchor=east,wnode,font=\footnotesize,align=left,minimum width=3em] (wr2) at ([xshift=-1em,yshift=0em]r2.west) {2时刻\\ 输入};
+\node [anchor=east,wnode,font=\footnotesize,align=left,minimum width=3em] (wr3) at ([xshift=-1em,yshift=0em]r4.west) {$n$时刻\\ 输入};
+
+\node [anchor=north,wnode] (input) at ([xshift=0em,yshift=-1em]r1.south) {$\mathbi{h}_0$};
+\node [anchor=south,wnode] (output) at ([xshift=0em,yshift=1em]r4.north) {输出};
+
+\draw[->,very thick] ([xshift=-0.3em,yshift=-1em]wr1.west)--([xshift=-0.3em,yshift=1em]wr3.west);
+
+\draw[->,thick] ([xshift=0em,yshift=0em]input.north)--([xshift=0em,yshift=0em]r1.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r1.north)--([xshift=0em,yshift=0em]r2.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r2.north)--([xshift=0em,yshift=0em]r3.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r3.north)--([xshift=0em,yshift=0em]r4.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r4.north)--([xshift=0em,yshift=0em]output.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]wr1.east)--([xshift=0em,yshift=0em]r1.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]wr2.east)--([xshift=0em,yshift=0em]r2.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]wr3.east)--([xshift=0em,yshift=0em]r4.west);
+
+\node [anchor=north,font=\small] (label) at ([xshift=-3em,yshift=-0.7em]input.south) {(a)RNN};
+
+\end{scope}
+
+\begin{scope}[xshift=1.85in]
+
+\node [anchor=west,stnode] (r1) at (0, 0) {第1层};
+\node [anchor=south,tnode] (r2) at ([xshift=0em,yshift=1em]r1.north){第2层};
+\node [anchor=south] (r3) at ([xshift=0em,yshift=1em]r2.north){$\cdots$};
+\node [anchor=south,tnode] (r4) at ([xshift=0em,yshift=1em]r3.north){第$n$层};
+
+\node [anchor=east,wnode,font=\footnotesize,minimum width=3em] (wr1) at ([xshift=-0.3em,yshift=0em]r1.west) {1时刻};
+\node [anchor=east,wnode,font=\footnotesize,minimum width=3em] (wr2) at ([xshift=-0.3em,yshift=0em]r2.west) {2时刻};
+\node [anchor=east,wnode,font=\footnotesize,minimum width=3em] (wr3) at ([xshift=-0.3em,yshift=0em]r4.west) {$n$时刻};
+
+\node [anchor=north,wnode] (input) at ([xshift=0em,yshift=-1em]r1.south) {$\mathbi{h}_0$};
+\node [anchor=south,wnode] (output) at ([xshift=0em,yshift=1em]r4.north) {输出};
+
+\draw[->,very thick] ([xshift=-0.3em,yshift=-1em]wr1.west)--([xshift=-0.3em,yshift=1em]wr3.west);
+
+\draw[->,thick] ([xshift=0em,yshift=0em]input.north)--([xshift=0em,yshift=0em]r1.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r1.north)--([xshift=0em,yshift=0em]r2.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r2.north)--([xshift=0em,yshift=0em]r3.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r3.north)--([xshift=0em,yshift=0em]r4.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r4.north)--([xshift=0em,yshift=0em]output.south);
+
+\node [anchor=north,font=\small] (label) at ([xshift=-1.5em,yshift=-0.7em]input.south) {(b)原始Transformer模型};
+
+\end{scope}
+
+\begin{scope}[xshift=3.9in]
+
+\node [anchor=west,stnode] (r1) at (0, 0) {第1层};
+\node [anchor=south,stnode] (r2) at ([xshift=0em,yshift=1em]r1.north){第2层};
+\node [anchor=south] (r3) at ([xshift=0em,yshift=1em]r2.north){$\cdots$};
+\node [anchor=south,stnode] (r4) at ([xshift=0em,yshift=1em]r3.north){第$n$层};
+
+\node [anchor=east,wnode,font=\footnotesize,align=left] (wr1) at ([xshift=-1em,yshift=0em]r1.west) {1时刻\\ 编码向量};
+\node [anchor=east,wnode,font=\footnotesize,align=left] (wr2) at ([xshift=-1em,yshift=0em]r2.west) {2时刻\\ 编码向量};
+\node [anchor=east,wnode,font=\footnotesize,align=left] (wr3) at ([xshift=-1em,yshift=0em]r4.west) {$n$时刻\\ 编码向量};
+
+\node [anchor=north,wnode] (input) at ([xshift=0em,yshift=-1em]r1.south) {$\mathbi{h}_0$};
+\node [anchor=south,wnode] (output) at ([xshift=0em,yshift=1em]r4.north) {输出};
+
+\draw[->,very thick] ([xshift=-0.3em,yshift=-1em]wr1.west)--([xshift=-0.3em,yshift=1em]wr3.west);
+
+\draw[->,thick] ([xshift=0em,yshift=0em]input.north)--([xshift=0em,yshift=0em]r1.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r1.north)--([xshift=0em,yshift=0em]r2.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r2.north)--([xshift=0em,yshift=0em]r3.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r3.north)--([xshift=0em,yshift=0em]r4.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]r4.north)--([xshift=0em,yshift=0em]output.south);
+\draw[->,thick] ([xshift=0em,yshift=0em]wr1.east)--([xshift=0em,yshift=0em]r1.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]wr2.east)--([xshift=0em,yshift=0em]r2.west);
+\draw[->,thick] ([xshift=0em,yshift=0em]wr3.east)--([xshift=0em,yshift=0em]r4.west);
+
+\node [anchor=north,font=\small,align=left] (label) at ([xshift=-3em,yshift=-0.7em]input.south) {(c)共享权重的\\ Transformer模型};
+
+\end{scope}
+
+
+
+\end{tikzpicture}
+\end{center}

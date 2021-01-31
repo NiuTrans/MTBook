@@ -1,0 +1,32 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+
+\begin{axis}[
+width=10cm,height=6cm,
+legend style={legend pos=north west,font=\footnotesize,align=center},
+xtick={-5,-4,-3,-2,-1,0,1,2,3},
+ytick={-2,-1,0,1,2,3},
+x tick label style={font=\scriptsize},
+y tick label style={font=\scriptsize},
+xmin=-5,xmax=3,
+ymin=-2,ymax=3,
+y tick style={opacity=0},
+x tick style={opacity=0},
+grid=major,
+title={\small\bfnew{Swish}},
+]
+
+\addplot[cyan,smooth,thick]{x*(1+exp(-10*x))^-1};
+\addplot[red,smooth,thick]{x*(1+exp(-1*x))^-1};
+\addplot[brown,smooth,thick]{x*(1+exp(-0.1*x))^-1};
+\addplot[gray!60, very thick] coordinates {(0,-2) (0,3)};
+\addplot[gray!60, very thick] coordinates {(0,0) (3,0)};
+\legend{$\beta=0.1$,$\beta=1.0$,$ \ \ \beta=10.0$}
+\end{axis}
+\end{tikzpicture}
+
+
+
+

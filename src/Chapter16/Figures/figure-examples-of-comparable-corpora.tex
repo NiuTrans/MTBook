@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=center] (node1) at (0,0) {\textbf{Machine Translation}, sometimes referred to by the abbreviation \textbf{MT} (not to be };
+\node [anchor=north] (node2) at (node1.south) {confused with computer-aided translation,machine-aided human translation inter};
+\node [anchor=north] (node3) at (node2.south) {-active translation), is a subfield of computational linguistics that investigates the};
+\node [anchor=north] (node4) at ([xshift=-1.8em]node3.south) {use of software to translate text or speech from one language to another.};
+\node [anchor=south] (node5) at ([xshift=-12.8em,yshift=0.5em]node1.north) {\Large{WIKIPEDIA}};
+\draw [-,line width=1pt]([xshift=-16.1em]node1.north) -- ([xshift=16.1em]node1.north);
+
+\draw [-,line width=1pt]([xshift=-16.1em,yshift=-9.4em]node1.north) -- ([xshift=16.1em,yshift=-9.4em]node1.north);
+\node [anchor=north] (node6) at ([xshift=-11.8em,yshift=-0.8em]node4.south) {\Large{维基百科}};
+\node [anchor=north] (node7) at ([yshift=-4.6em]node3.south) {{\small\sffamily\bfnew{机器翻译}}（英语：Machine Translation，经常简写为MT，简称机译或机翻）};
+\node [anchor=north] (node8) at ([xshift=-0.1em]node7.south) {属于计算语言学的范畴，其研究借由计算机程序将文字或演说从一种自然};
+\node [anchor=north] (node9) at ([xshift=-9.85em]node8.south) {语言翻译成另一种自然语言。};
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=black,inner sep=0.2em,fill=white,drop shadow] [fit =(node1)(node2)(node3)(node4)(node5)(node6)(node7)(node8)(node9)]  (remark2) {};
+}
+\end{pgfonlayer}
+
+
+\end{scope}
+\end{tikzpicture}

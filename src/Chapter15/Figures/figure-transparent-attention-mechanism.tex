@@ -1,0 +1,110 @@
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{encnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=4.5em,rounded corners=5pt,thick]
+\tikzstyle{decnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=4.5em,rounded corners=5pt,thick]
+\tikzstyle{cnode}=[rectangle,draw=teal!80, inner sep=0mm,minimum height=1.4em,minimum width=4.4em,fill=teal!17,rounded corners=2pt,thick]
+
+\node [anchor=north,encnode] (n1) at (0, 0) {编码器};
+
+\node [anchor=north,rectangle,minimum height=1.5em,minimum width=2.5em,rounded corners=5pt] (n2) at ([xshift=0em,yshift=-0.2em]n1.south) {$\mathbi{X}$};
+
+\node [anchor=west,encnode,draw=red!60!black!80,fill=red!20] (n3) at ([xshift=1.5em,yshift=0em]n2.east) {$\mathbi{h}_0$};
+
+\node [anchor=west,encnode,draw=red!60!black!80,fill=red!20] (n4) at ([xshift=1.5em,yshift=0em]n3.east) {$\mathbi{h}_1$};
+
+\node [anchor=west,encnode,draw=red!60!black!80,fill=red!20] (n5) at ([xshift=1.5em,yshift=0em]n4.east) {$\mathbi{h}_2$};
+
+\node [anchor=west,rectangle,minimum height=1.5em,minimum width=2.5em,rounded corners=5pt] (n6) at ([xshift=1em,yshift=0em]n5.east) {$\ldots$};
+
+\node [anchor=west,encnode,draw=red!60!black!80,fill=red!20] (n7) at ([xshift=1em,yshift=0em]n6.east) {$\mathbi{h}_{N-1}$};
+
+
+\node [anchor=north,cnode] (cn1) at ([xshift=0em,yshift=-2.8em]n4.south) {\footnotesize{权重聚合$\mathbi{g}$}};
+
+\node [anchor=north,cnode,opacity=0.5] (cn2) at ([xshift=0em,yshift=-2.8em]n3.south) {\footnotesize{权重聚合$\mathbi{g}$}};
+
+\node [anchor=north,cnode,opacity=0.5] (cn3) at ([xshift=0em,yshift=-2.8em]n5.south) {\footnotesize{权重聚合$\mathbi{g}$}};
+
+\node [anchor=north,cnode,opacity=0.5] (cn4) at ([xshift=0em,yshift=-2.8em]n7.south) {\footnotesize{权重聚合$\mathbi{g}$}};
+
+
+\node [anchor=west,decnode] (n9) at ([xshift=0em,yshift=-7.2em]n1.west) {解码器};
+
+\node [anchor=north,rectangle,minimum height=1.5em,minimum width=2.5em,rounded corners=5pt] (n10) at ([xshift=0em,yshift=-0.2em]n9.south) {$\mathbi{y}_{<j}$};
+
+\node [anchor=west,decnode,draw=ublue,fill=blue!10] (n11) at ([xshift=1.5em,yshift=0em]n10.east) {$\mathbi{s}_j^0$};
+
+\node [anchor=west,decnode,draw=ublue,fill=blue!10] (n12) at ([xshift=1.5em,yshift=0em]n11.east) {$\mathbi{s}_j^1$};
+
+\node [anchor=west,decnode,draw=ublue,fill=blue!10] (n13) at ([xshift=1.5em,yshift=0em]n12.east) {$\mathbi{s}_j^2$};
+
+\node [anchor=west,rectangle,minimum height=1.5em,minimum width=2.5em,rounded corners=5pt] (n14) at ([xshift=1em,yshift=0em]n13.east) {$\ldots$};
+
+\node [anchor=west,decnode,draw=ublue,fill=blue!10] (n15) at ([xshift=1em,yshift=0em]n14.east) {$\mathbi{s}_j^{M-1}$};
+
+\node [anchor=west,rectangle,minimum height=1.5em,minimum width=2.5em,rounded corners=5pt] (n16) at ([xshift=1.5em,yshift=0em]n15.east) {$\mathbi{y}_{j}$};
+
+
+\node [anchor=south,minimum height=1.5em,minimum width=2.5em] (n17) at ([xshift=0em,yshift=6em]n16.north) {};
+
+
+\node [anchor=west,minimum height=0.5em,minimum width=4em] (n20) at ([xshift=0em,yshift=-2.5em]n2.east) {};
+\node [anchor=west,minimum height=0.5em,minimum width=4em] (n21) at ([xshift=0em,yshift=-3.9em]n2.east) {};
+\node [anchor=north,minimum height=0.5em,minimum width=4em] (n22) at ([xshift=0em,yshift=-0.7em]n11.south) {};
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,inner sep=2pt,fill=blue!7] [fit = (n1) (n7) (n17) (n20)] (bg1) {};
+\node[rectangle,inner sep=2pt,fill=red!7] [fit = (n9) (n16) (n13) (n21) (n22)] (bg2) {};
+}
+\end{pgfonlayer}
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east) -- ([xshift=0em,yshift=0em]n3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.east) -- ([xshift=0em,yshift=0em]n4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.east) -- ([xshift=0em,yshift=0em]n5.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.east) -- ([xshift=0em,yshift=0em]n6.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n6.east) -- ([xshift=0em,yshift=0em]n7.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n10.east) -- ([xshift=0em,yshift=0em]n11.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n11.east) -- ([xshift=0em,yshift=0em]n12.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n12.east) -- ([xshift=0em,yshift=0em]n13.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n13.east) -- ([xshift=0em,yshift=0em]n14.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n14.east) -- ([xshift=0em,yshift=0em]n15.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n15.east) -- ([xshift=0em,yshift=0em]n16.west);
+
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]cn2.south) -- ([xshift=0em,yshift=0em]n11.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]cn1.south) -- ([xshift=0em,yshift=0em]n12.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]cn3.south) -- ([xshift=0em,yshift=0em]n13.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]cn4.south) -- ([xshift=0em,yshift=0em]n15.north);
+
+
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n2.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn2.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n3.south)..controls +(south:0.8em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn2.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n4.south)..controls +(south:0.6em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn2.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n5.south)..controls +(south:0.7em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn2.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n7.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn2.north);
+
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n2.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn3.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n3.south)..controls +(south:0.8em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn3.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n4.south)..controls +(south:0.6em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn3.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n5.south)..controls +(south:0.7em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn3.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n7.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn3.north);
+
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n2.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn4.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n3.south)..controls +(south:0.8em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn4.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n4.south)..controls +(south:0.6em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn4.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n5.south)..controls +(south:0.7em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn4.north);
+\draw [->,thick,gray!70,opacity=0.5] ([xshift=0em,yshift=0em]n7.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn4.north);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn1.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.south)..controls +(south:0.8em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn1.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.south)..controls +(south:0.6em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn1.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.south)..controls +(south:0.7em) and +(north:0.7em)..([xshift=0em,yshift=0em]cn1.north);
+\draw [->,thick] ([xshift=0em,yshift=0em]n7.south)..controls +(south:1.4em) and +(north:0.6em)..([xshift=0em,yshift=0em]cn1.north);
+
+
+
+\end{scope}
+\end{tikzpicture}

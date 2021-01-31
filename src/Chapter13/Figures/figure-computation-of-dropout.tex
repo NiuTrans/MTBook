@@ -1,0 +1,71 @@
+
+\begin{tikzpicture}
+\def\neuronsep{1.5}
+\def\nodespace{1}
+\def\picturespace{0.8}
+
+\tikzstyle{neuronnode} = [minimum size=1.8em,circle,draw=ublue,very thick,inner sep=0pt, fill=white,align=center]
+
+%standard
+\node [neuronnode] (neuron_b) at (0,0) {\scriptsize{$b^{l}$}};
+\node [neuronnode] (neuron_y3) at (0,-1*\neuronsep) {\scriptsize{$x_{3}^{l}$}};
+\node [neuronnode] (neuron_y2) at (0,-2*\neuronsep) {\scriptsize{$x_{2}^{l}$}};
+\node [neuronnode] (neuron_y1) at (0,-3*\neuronsep) {\scriptsize{$x_{1}^{l}$}};
+\node [neuronnode] (neuron_z) at (1.2 * \nodespace,-1.5 * \neuronsep) {\scriptsize{$z_{i}^{l+1}$}};
+\node [neuronnode] (neuron_y') at (2.4 * \nodespace,-1.5 * \neuronsep) {\scriptsize{$x_{i}^{l+1}$}};
+
+\node [anchor=north] (standard) at ([yshift=-4em]neuron_z.south) {\scriptsize{标准网络}};
+\node [] (standard) at ([xshift=-1em]neuron_z.west) {\scriptsize{$\mathbi{w}_{i}^{l}$}};
+\node [] (standard) at ([xshift=0.6em,yshift=0.3em]neuron_z.east) {\scriptsize{$f$}};
+
+\draw [->,line width=0.3mm] (neuron_b.east) -- (neuron_z.130);
+\draw [->,line width=0.3mm] (neuron_y3.east) -- (neuron_z.170);
+\draw [->,line width=0.3mm] (neuron_y2.east) -- (neuron_z.190);
+\draw [->,line width=0.3mm] (neuron_y1.east) -- (neuron_z.230);
+\draw [->,line width=0.3mm] (neuron_z.east) -- (neuron_y'.west);
+
+%dropout
+\node [neuronnode] (drop_neuron_b) at (5*\nodespace,0) {\scriptsize{$b^{l}$}};
+\node [neuronnode] (drop_neuron_y3') at (5*\nodespace,-1*\neuronsep) {\scriptsize{$\tilde{x}_{3}^{l}$}};
+\node [neuronnode] (drop_neuron_y2') at (5*\nodespace,-2*\neuronsep) {\scriptsize{$\tilde{x}_{2}^{l}$}};
+\node [neuronnode] (drop_neuron_y1') at (5*\nodespace,-3*\neuronsep) {\scriptsize{$\tilde{x}_{1}^{l}$}};
+\node [neuronnode] (drop_neuron_z) at (6.2 * \nodespace,-1.5 * \neuronsep) {\scriptsize{$z_{i}^{l+1}$}};
+\node [neuronnode] (drop_neuron_y') at (7.4 * \nodespace,-1.5 * \neuronsep) {\scriptsize{$x_{i}^{l+1}$}};
+
+\node [neuronnode] (drop_neuron_y3) at (3.8*\nodespace,-1*\neuronsep) {\scriptsize{$x_{3}^{l}$}};
+\node [neuronnode] (drop_neuron_y2) at (3.8*\nodespace,-2*\neuronsep) {\scriptsize{$x_{2}^{l}$}};
+\node [neuronnode] (drop_neuron_y1) at (3.8*\nodespace,-3*\neuronsep) {\scriptsize{$x_{1}^{l}$}};
+
+\node [neuronnode] (drop_neuron_r3) at (4.4*\nodespace,-0.5*\neuronsep) {\scriptsize{$r_{3}^{l}$}};
+\node [neuronnode] (drop_neuron_r2) at (4.4*\nodespace,-1.5*\neuronsep) {\scriptsize{$r_{2}^{l}$}};
+\node [neuronnode] (drop_neuron_r1) at (4.4*\nodespace,-2.5*\neuronsep) {\scriptsize{$r_{1}^{l}$}};
+
+\node [anchor=north] (standard) at ([xshift=2em,yshift=-4em]drop_neuron_z.south) {\scriptsize{应用Dropout后的网络}};
+\node [] (standard) at ([xshift=-1em]drop_neuron_z.west) {\scriptsize{$\mathbi{w}_{i}^{l}$}};
+\node [] (standard) at ([xshift=0.6em,yshift=0.3em]drop_neuron_z.east) {\scriptsize{$f$}};
+%structure
+\draw [->,line width=0.3mm] (drop_neuron_b.east) -- (drop_neuron_z.130);
+\draw [->,line width=0.3mm] (drop_neuron_y3'.east) -- (drop_neuron_z.170);
+\draw [->,line width=0.3mm] (drop_neuron_y2'.east) -- (drop_neuron_z.190);
+\draw [->,line width=0.3mm] (drop_neuron_y1'.east) -- (drop_neuron_z.230);
+\draw [->,line width=0.3mm] (drop_neuron_z.east) -- (drop_neuron_y'.west);
+%r
+\draw [->,line width=0.3mm] (drop_neuron_y3.east) -- (drop_neuron_y3'.west);
+\draw [->,line width=0.3mm] (drop_neuron_y2.east) -- (drop_neuron_y2'.west);
+\draw [->,line width=0.3mm] (drop_neuron_y1.east) -- (drop_neuron_y1'.west);
+
+\draw [-,line width=0.3mm] (drop_neuron_r3.south) -- ([yshift=-1em]drop_neuron_r3.south);
+\draw [-,line width=0.3mm] (drop_neuron_r2.south) -- ([yshift=-1em]drop_neuron_r2.south);
+\draw [-,line width=0.3mm] (drop_neuron_r1.south) -- ([yshift=-1em]drop_neuron_r1.south);
+
+%equ
+\node [anchor=west,inner sep = 2pt] (line1) at (9*\nodespace,0) {未应用Dropout：};
+\node [anchor=north west,inner sep = 2pt] (line2) at (line1.south west) {$z_{i}^{l+1}=\mathbi{w}^{l} \mathbi{x}^{l} + b^{l}$};
+\node [anchor=north west,inner sep = 2pt] (line3) at (line2.south west) {$x_{i}^{l+1}=f\left(z_{i}^{l+1}\right)$};
+\node [anchor=north west,inner sep = 2pt] (line4) at (line3.south west) {应用Dropout：};
+\node [anchor=north west,inner sep = 2pt] (line5) at (line4.south west) {$r_{j}^{l} \sim$ Bernoulli $(1-p)$};
+\node [anchor=north west,inner sep = 2pt] (line6) at (line5.south west) {$\tilde{\mathbi{x}}=\mathbi{r} * \mathbi{x}$};
+\node [anchor=north west,inner sep = 2pt] (line7) at (line6.south west) {$z_{i}^{l+1}=\mathbi{w}^{l} \widetilde{\mathbi{x}}^{l} + b^{l}$};
+\node [anchor=north west,inner sep = 2pt] (line8) at (line7.south west) {$x_{i}^{l+1}=f\left(z_{i}^{l+1}\right)$};
+
+\end{tikzpicture}

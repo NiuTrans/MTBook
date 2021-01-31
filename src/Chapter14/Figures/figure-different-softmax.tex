@@ -1,0 +1,71 @@
+
+\begin{tikzpicture}
+
+\tikzstyle{layer} = [rectangle,draw,rounded corners=3pt,minimum width=1cm,minimum height=0.5cm,line width=1pt];
+\tikzstyle{prob} = [minimum width=0.3cm,rectangle,fill=ugreen!30!white,inner sep=0pt];
+
+\begin{scope}[local bounding box=STANDARD]
+    \node [] (input1) at (0,0) {$\cdots$};
+    \node [anchor=south,layer,fill=orange!25!white] (net1) at ([yshift=0.5cm]input1.north) {};
+    \node [anchor=south,layer,fill=orange!25!white] (out1) at ([yshift=0.5cm]net1.north) {};
+
+    \node [anchor=south,prob,minimum height=0.9cm] (prob5) at ([yshift=1.2cm]out1.north) {};
+    \node [anchor=south east,prob,minimum height=0.1cm] (prob4) at ([xshift=-1pt]prob5.south west) {};
+    \node [anchor=south east,prob,minimum height=0.2cm] (prob3) at ([xshift=-1pt]prob4.south west) {};
+    \node [anchor=south east,prob,minimum height=0.5cm] (prob2) at ([xshift=-1pt]prob3.south west) {};
+    \node [anchor=south east,prob,minimum height=0.4cm] (prob1) at ([xshift=-1pt]prob2.south west) {};
+
+    \node [anchor=south west,prob,minimum height=0.6cm] (prob6) at ([xshift=1pt]prob5.south east) {};
+    \node [anchor=south west,prob,minimum height=0.3cm] (prob7) at ([xshift=1pt]prob6.south east) {};
+    \node [anchor=south west,prob,minimum height=0.2cm] (prob8) at ([xshift=1pt]prob7.south east) {};
+    \node [anchor=south west,prob,minimum height=0.1cm] (prob9) at ([xshift=1pt]prob8.south east) {};
+
+    \path [fill=blue!30!white,draw=white] (out1.north west) -- (prob1.south west) -- (prob9.south east) -- (out1.north east) -- (out1.north west);
+
+    \draw [->,line width=1pt] (input1) to (net1);
+    \draw [->,line width=1pt] (net1) to (out1);
+
+    \node [font=\small] (label1) at ([yshift=0.6cm]out1.north) {Softmax};
+\end{scope}
+
+\begin{scope}[local bounding box=SELECTION]
+    \node [] (input2) at (6cm,0) {$\cdots$};
+    \node [anchor=south,layer,fill=orange!25!white] (net2) at ([yshift=0.5cm]input2.north) {};
+    \node [anchor=south,layer,fill=orange!25!white] (out2) at ([yshift=0.5cm]net2.north) {};
+
+    \node [anchor=south,prob,minimum height=0.9cm] (prob5) at ([yshift=1.2cm]out2.north) {};
+    \node [anchor=south east,prob,minimum height=0.1cm,opacity=0] (prob4) at ([xshift=-1pt]prob5.south west) {};
+    \node [text=red,anchor=south,inner sep=1pt] () at (prob4.south) {$\times$};
+    \node [anchor=south east,prob,minimum height=0.2cm,opacity=0] (prob3) at ([xshift=-1pt]prob4.south west) {};
+    \node [text=red,anchor=south,inner sep=1pt] () at (prob3.south) {$\times$};
+    \node [anchor=south east,prob,minimum height=0.5cm] (prob2) at ([xshift=-1pt]prob3.south west) {};
+    \node [anchor=south east,prob,minimum height=0.4cm] (prob1) at ([xshift=-1pt]prob2.south west) {};
+
+    \node [anchor=south west,prob,minimum height=0.6cm,opacity=0] (prob6) at ([xshift=1pt]prob5.south east) {};
+    \node [text=red,anchor=south,inner sep=1pt] () at (prob6.south) {$\times$};
+    \node [anchor=south west,prob,minimum height=0.3cm,opacity=0] (prob7) at ([xshift=1pt]prob6.south east) {};
+    \node [text=red,anchor=south,inner sep=1pt] () at (prob7.south) {$\times$};
+    \node [anchor=south west,prob,minimum height=0.2cm] (prob8) at ([xshift=1pt]prob7.south east) {};
+    \node [anchor=south west,prob,minimum height=0.1cm,opacity=0] (prob9) at ([xshift=1pt]prob8.south east) {};
+    \node [text=red,anchor=south,inner sep=1pt] (plabel9) at (prob9.south) {$\times$};
+
+    \path [fill=blue!30!white,draw=white] (out2.north west) -- (prob1.south west) -- (prob9.south east) -- (out2.north east) -- (out2.north west);
+
+    \draw [->,line width=1pt] (input2) to (net2);
+    \draw [->,line width=1pt] (net2) to (out2);
+
+    \node [font=\small] (label2) at ([yshift=0.6cm]out2.north) {Softmax};
+
+    \node [anchor=west,layer,fill=orange!25!white] (net3) at ([xshift=2cm]net2.east) {};
+    \node [anchor=north,font=\scriptsize] (input3) at ([yshift=-0.5cm]net3.south) {源语言};
+    \node [anchor=south,layer,align=center,font=\scriptsize,fill=yellow!25!white] (out3) at ([yshift=0.9cm]net3.north) {候选\\列表};
+
+    \draw [->,line width=1pt] (input3) to (net3);
+    \draw [->,line width=1pt] (net3) to (out3);
+    \draw [->,line width=1pt] (out3) |- (plabel9.east);
+\end{scope}
+
+\node [anchor=north,font=\scriptsize] () at ([yshift=-0.2em]STANDARD.south) {\small(a) 标准方法};
+\node [anchor=north,font=\scriptsize] () at ([xshift=1.2em]SELECTION.south) {\small(b) 词汇选择};
+
+\end{tikzpicture}

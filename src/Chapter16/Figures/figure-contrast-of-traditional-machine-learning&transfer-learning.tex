@@ -1,0 +1,48 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+	\tikzstyle{node}=[rounded corners=2pt,draw,minimum width=5em,minimum height=2em,drop shadow,font=\footnotesize]
+
+\node[node,fill=blue!20,line width=0.6pt] (nmt1) at (0,0){NMT系统1};
+\node[node,anchor=west,fill=yellow!20,line width=0.6pt] (nmt2) at ([xshift=1em]nmt1.east){NMT系统2};
+\node[node,anchor=west,fill=red!20,line width=0.6pt] (nmt3) at ([xshift=1em]nmt2.east){NMT系统3};
+
+\node[node,anchor=south,fill=blue!20,line width=0.6pt] (n1) at ([yshift=2.4em]nmt1.north){我不悦};
+\node[node,anchor=west,fill=yellow!20,line width=0.6pt] (n2) at ([xshift=1em]n1.east){我不开心};
+\node[node,anchor=west,fill=red!20,line width=0.6pt] (n3) at ([xshift=1em]n2.east){吾怀忳忳};
+
+\node[node,anchor=south,fill=green!20,minimum height=1.6em,line width=0.6pt] (task1) at ([yshift=2.6em]n2.north){不同任务};
+
+\node[node,anchor=west,fill=green!20,minimum height=1.6em,line width=0.6pt] (task2) at ([xshift=8em]task1.east){源任务};
+\node[node,anchor=north,minimum height=3.2em,fill=orange!20,line width=0.6pt] (n4) at ([yshift=-2em]task2.south){};
+\node[draw,anchor=north,cylinder,shape border rotate=90,minimum width=3em,aspect=0.4,fill=orange!20,line width=0.6pt] (kd) at ([yshift=-1.7em]n4.south){\footnotesize 知识};
+
+\node[draw,minimum width=4em,font=\scriptsize,anchor=north,inner ysep=2pt,fill=blue!20,line width=0.6pt] at ([yshift=-2.35em]task2.south){我不悦};
+\node[draw,minimum width=4em,font=\scriptsize,anchor=north,inner ysep=2pt,fill=yellow!20,line width=0.6pt] at ([yshift=-3.75em]task2.south){我不开心};
+
+\node[node,anchor=west,fill=green!20,minimum height=1.6em,line width=0.6pt] (task3) at ([xshift=3em]task2.east){目标任务};
+\node[node,anchor=north,fill=red!20,line width=0.6pt] (n5) at ([yshift=-2.5em]task3.south){吾怀忳忳};
+\node[node,anchor=north,fill=red!20,line width=0.6pt] (sys) at ([yshift=-2.5em]n5.south){学习系统};
+
+\draw[->,thick] ([yshift=-0.2em,xshift=-0.7em]task1.-145) -- node[left,font=\scriptsize,yshift=0.2em]{书面语}([yshift=0.2em]n1.90);
+\draw[->,thick] ([yshift=-0.2em]task1.-90) -- node[right,font=\scriptsize,yshift=0.2em,xshift=-0.2em]{口语}([yshift=0.2em]n2.90);
+\draw[->,thick] ([yshift=-0.2em,xshift=0.7em]task1.-45) -- node[right,font=\scriptsize,yshift=0.2em]{文言文}([yshift=0.2em]n3.90);
+\draw[->,thick] ([yshift=-0.2em]task2.-90) -- ([yshift=0.2em]n4.90);
+\draw[->,thick] ([yshift=-0.2em]task3.-90) -- ([yshift=0.2em]n5.90);
+\draw[->,thick] ([yshift=-0.2em]n1.-90) -- ([yshift=0.2em]nmt1.90);
+\draw[->,thick] ([yshift=-0.2em]n2.-90) -- ([yshift=0.2em]nmt2.90);
+\draw[->,thick] ([yshift=-0.2em]n3.-90) -- ([yshift=0.2em]nmt3.90);
+\draw[->,thick] ([yshift=-0.2em]n4.-90) -- ([yshift=0.2em]kd.90);
+\draw[->,thick] ([yshift=-0.2em]n5.-90) -- ([yshift=0.2em]sys.90);
+\draw[->,thick] ([yshift=0.3em,xshift=0.2em]kd.0) -- ([yshift=-0.2em,xshift=-0.2em]sys.180);
+
+\node [anchor=north] (re1) at ([yshift=-1em]nmt2.south) {\small{(a) 传统机器学习}};
+\node [anchor=west] (re2) at ([xshift=11.0em]re1.east) {\small{(b) 迁移学习}};
+
+
+\end{tikzpicture}
+
+
+
+

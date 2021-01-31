@@ -1,0 +1,48 @@
+\definecolor{taupegray}{rgb}{0.55, 0.52, 0.54}
+\definecolor{babyblueeyes}{rgb}{0.63, 0.79, 0.95}
+
+
+\tikzstyle{er} = [rectangle,minimum width=2.5cm,minimum height=1.5cm,rounded corners,text centered,draw,drop shadow]
+\begin{tikzpicture}[node distance = 0,scale = 0.75]
+\tikzstyle{every node}=[scale=0.75]
+\node (encoder)[er,thick,draw,fill=red!25,minimum width=2.8cm]{\Large{编码器}};
+\node (lenpre)[er,anchor=north,thick,draw,fill=yellow!30,minimum height=0.8cm] at ([yshift=1.5cm]encoder.north){\Large{长度预测器}};
+\node (decoder_1)[er,thick,draw,right of=encoder,xshift=5cm,fill=blue!25]{\Large{解码器}};
+\node (decoder_2)[er,thick,draw,right of=decoder_1,xshift=3.7cm,fill=blue!25]{\Large{解码器}};
+\node (point)[right of=decoder_2,xshift=3cm,]{\LARGE{...}};
+\node (decoder_3)[er,thick,draw,right of=point,xshift=3cm,fill=blue!20]{\Large{解码器}};
+\draw [->,very thick,draw=black]([xshift=0cm]encoder.east) --  ([xshift=-0cm]decoder_1.west);
+
+\draw [->,very thick,draw=black]([xshift=0,yshift=-1cm]encoder.south) --  ([xshift=0]encoder.south);
+\draw [->,very thick,draw=black](encoder.north) --  (lenpre.south);
+\node [below of = encoder,xshift=0cm,yshift=-2.2cm]{\Large$\seq{x}$};
+
+\draw [->,very thick,draw=black]([xshift=0,yshift=-1cm]decoder_1.south) --  ([xshift=0]decoder_1.south);
+\draw [->,very thick,draw=black]([xshift=0]decoder_1.north) --  ([xshift=0,yshift=1cm]decoder_1.north);
+\node (d1x) [below of = decoder_1,xshift=0cm,yshift=-2.2cm]{\Large$\seq{x'}$};
+\draw [-,very thick,draw=black] (lenpre.east) --([xshift=1.26cm]lenpre.east);
+\draw [-,very thick,draw=black,dashed] ([xshift=1.26cm]lenpre.east) -- ([xshift=-2cm]d1x.west);
+\draw [->,very thick,draw=black] ([xshift=-2cm]d1x.west) -- ([xshift=0cm]d1x.west);
+\node (line1_1)[below of = decoder_1,xshift=0cm,yshift=2.2cm]{\Large$\seq{y}^{[1]}$};
+
+\draw [->,thick,]([xshift=0,yshift=-1cm]decoder_2.south) --  ([xshift=0]decoder_2.south);
+\draw [->,very thick,draw=black]([xshift=0]decoder_2.north) --  ([xshift=0,yshift=1cm]decoder_2.north);
+\node (line1_2)[below of = decoder_2,xshift=0cm,yshift=-2.2cm]{\Large$\seq{y}^{[1]}$};
+\node (line2_1)[below of = decoder_2,xshift=0cm,yshift=2.2cm]{\Large$\seq{y}^{[2]}$};
+\node (line2_2)[below of = point,xshift=0cm,yshift=-2.2cm]{};
+\node (line3_1)[below of = point,xshift=0cm,yshift=2.2cm]{};
+
+\draw [->,very thick,draw=black]([xshift=0,yshift=-1cm]decoder_3.south) --  ([xshift=0]decoder_3.south);
+\draw [->,very thick,draw=black]([xshift=0]decoder_3.north) --  ([xshift=0,yshift=1cm]decoder_3.north);
+\node (line3_2)[below of = decoder_3,xshift=0cm,yshift=-2.2cm]{\Large$\seq{y}^{[N-1]}$};
+\node [below of = decoder_3,xshift=0cm,yshift=2.2cm]{\Large$\seq{y}^{[N]}$};
+
+\draw[->,very thick,draw=black, out=0, in=180,dotted] (line1_1.east) to (line1_2.west);
+\draw[->,very thick,draw=black, out=0, in=180,dotted] (line2_1.east) to (line2_2.west);
+\draw[->,very thick,draw=black, out=0, in=180,dotted] (line3_1.east) to (line3_2.west);
+
+\draw [->,very thick,draw=black] ([xshift=0.5cm]encoder.east) -- ([xshift=0.5cm,yshift=-2.8cm]encoder.east) --([xshift=5.55cm,yshift=-2.8cm]encoder.east) --([xshift=-0.5cm]decoder_2.west) -- (decoder_2.west);
+\draw [->,very thick,draw=black] ([xshift=5.55cm,yshift=-2.8cm]encoder.east) -- ([xshift=9.45cm,yshift=-2.8cm]encoder.east) --([xshift=-0.5cm]point.west) -- (point.west);
+\draw [->,very thick,draw=black] ([xshift=9.45cm,yshift=-2.8cm]encoder.east) -- ([xshift=11.55cm,yshift=-2.8cm]encoder.east) -- ([xshift=-0.5cm]decoder_3.west) -- (decoder_3.west);
+
+\end{tikzpicture}

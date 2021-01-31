@@ -1,0 +1,87 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{hnode}=[rectangle,inner sep=0mm,minimum height=1.6em,minimum width=3em,rounded corners=5pt,fill=red!30,draw,thick]
+\tikzstyle{dotnode}=[inner sep=0mm,minimum height=0.5em,minimum width=1.5em]
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.6em]
+{\small
+\begin{scope}[scale=1]
+\tikzstyle{every node}=[scale=1]
+\node [anchor=west,hnode] (n1) at (0,0) {$\mathbi{h}_{1}$};
+\node [anchor=west,hnode] (n2) at ([xshift=1em,yshift=0em]n1.east) {$\mathbi{h}_{2}$};
+\node [anchor=west,dotnode] (dot1) at ([xshift=1em,yshift=0em]n2.east) {$\cdots$};
+\node [anchor=west,hnode] (n3) at ([xshift=1em,yshift=0em]dot1.east) {$\mathbi{h}_{4}$};
+\node [anchor=west,dotnode] (dot2) at ([xshift=1em,yshift=0em]n3.east) {$\cdots$};
+\node [anchor=west,hnode] (n4) at ([xshift=1em,yshift=0em]dot2.east) {$\mathbi{h}_{7}$};
+\node [anchor=west,dotnode] (dot3) at ([xshift=1em,yshift=0em]n4.east) {$\cdots$};
+\node [anchor=west,hnode] (n5) at ([xshift=1em,yshift=0em]dot3.east) {$\mathbi{h}_{10}$};
+
+\node [anchor=north,wnode,font=\footnotesize] (w1) at ([xshift=0em,yshift=-0.7em]n1.south) {$l_1$\ :\ S};
+\node [anchor=north,wnode,font=\footnotesize] (w2) at ([xshift=0em,yshift=-0.7em]n2.south) {$l_3$\ :\ NP};
+\node [anchor=north,dotnode] (dot4) at ([xshift=0em,yshift=-2em]dot1.south) {$\cdots$};
+\node [anchor=north,wnode,font=\footnotesize] (w3) at ([xshift=0em,yshift=-0.7em]n3.south) {$w_1$\ :\ I};
+\node [anchor=north,dotnode] (dot5) at ([xshift=0em,yshift=-2em]dot2.south) {$\cdots$};
+\node [anchor=north,wnode,font=\footnotesize] (w4) at ([xshift=0em,yshift=-0.7em]n4.south) {$w_2$\ :\ love};
+\node [anchor=north,dotnode] (dot6) at ([xshift=0em,yshift=-2em]dot3.south) {$\cdots$};
+\node [anchor=north,wnode,font=\footnotesize] (w5) at ([xshift=0em,yshift=-0.7em]n5.south) {$w_3$\ :\ dogs};
+
+
+\node [anchor=south,wnode] (h1) at ([xshift=0em,yshift=0.3em]n3.north) {${\mathbi{h}'}_1$\ :\ };
+\node [anchor=south,wnode] (h2) at ([xshift=0em,yshift=0.3em]n4.north) {${\mathbi{h}'}_2$\ :\ };
+\node [anchor=south,wnode] (h3) at ([xshift=0em,yshift=0.3em]n5.north) {${\mathbi{h}'}_3$\ :\ };
+
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.5em,draw=red!80,dashed,very thick,rounded corners=10pt] [fit = (w1) (w5) (n1) (h3)] (box1) {};
+\node [rectangle,inner sep=0.4em,fill=gray!20,draw=black,dashed,very thick,rounded corners=8pt] [fit = (n3)] (box3) {};
+\node [rectangle,inner sep=0.4em,fill=gray!20,draw=black,dashed,very thick,rounded corners=8pt] [fit = (n4)] (box4) {};
+\node [rectangle,inner sep=0.4em,fill=gray!20,draw=black,dashed,very thick,rounded corners=8pt] [fit = (n5)] (box5) {};
+\end{pgfonlayer}
+
+
+\node [anchor=east,font=\small] (r1) at ([xshift=-2em,yshift=0em]box1.west) {混合RNN};
+
+{\small
+\node [anchor=south west,wnode] (l1) at ([xshift=1em,yshift=5em]r1.north west) {先序遍历句法树，得到序列：};
+\node [anchor=north west,wnode,align=center] (l2) at ([xshift=0.5em,yshift=-0.6em]l1.north east) {S\\[0.5em]$l_1$};
+\node [anchor=north west,wnode,align=center] (l3) at ([xshift=0.5em,yshift=0em]l2.north east) {NP\\[0.5em]$l_2$};
+\node [anchor=north west,wnode,align=center] (l4) at ([xshift=0.5em,yshift=0em]l3.north east) {PRN\\[0.5em]$l_3$};
+\node [anchor=north west,wnode,align=center] (l5) at ([xshift=0.5em,yshift=0em]l4.north east) {I\\[0.5em]$w_1$};
+\node [anchor=north west,wnode,align=center] (l6) at ([xshift=0.5em,yshift=0em]l5.north east) {VP\\[0.5em]$l_4$};
+\node [anchor=north west,wnode,align=center] (l7) at ([xshift=0.5em,yshift=0em]l6.north east) {VBP\\[0.5em]$l_5$};
+\node [anchor=north west,wnode,align=center] (l8) at ([xshift=0.5em,yshift=0em]l7.north east) {love\\[0.5em]$w_2$};
+\node [anchor=north west,wnode,align=center] (l9) at ([xshift=0.5em,yshift=0em]l8.north east) {NP\\[0.5em]$l_6$};
+\node [anchor=north west,wnode,align=center] (l10) at ([xshift=0.5em,yshift=0em]l9.north east) {NNS\\[0.5em]$l_7$};
+\node [anchor=north west,wnode,align=center] (l11) at ([xshift=0.5em,yshift=0em]l10.north east) {dogs\\[0.5em]$w_3$};
+}
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]w1.north) -- ([xshift=0em,yshift=0em]n1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w2.north) -- ([xshift=0em,yshift=0em]n2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w3.north) -- ([xshift=0em,yshift=0em]n3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w4.north) -- ([xshift=0em,yshift=0em]n4.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]w5.north) -- ([xshift=0em,yshift=0em]n5.south);
+
+
+\draw [->,thick] ([xshift=0em,yshift=0.6em]dot4.north) -- ([xshift=0em,yshift=-0.7em]dot1.south);
+\draw [->,thick] ([xshift=0em,yshift=0.6em]dot5.north) -- ([xshift=0em,yshift=-0.7em]dot2.south);
+\draw [->,thick] ([xshift=0em,yshift=0.6em]dot6.north) -- ([xshift=0em,yshift=-0.7em]dot3.south);
+
+
+\draw [<->,thick] ([xshift=0em,yshift=0em]n1.east) -- ([xshift=0em,yshift=0em]n2.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]n2.east) -- ([xshift=0em,yshift=0em]dot1.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]dot1.east) -- ([xshift=0em,yshift=0em]n3.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]n3.east) -- ([xshift=0em,yshift=0em]dot2.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]dot2.east) -- ([xshift=0em,yshift=0em]n4.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]n4.east) -- ([xshift=0em,yshift=0em]dot3.west);
+\draw [<->,thick] ([xshift=0em,yshift=0em]dot3.east) -- ([xshift=0em,yshift=0em]n5.west);
+
+
+\node [anchor=north,font=\small] (label2) at ([xshift=-2em,yshift=-1em]w3.south) {(c)混合结构};
+
+\end{scope}
+}
+\end{tikzpicture}
+\end{center}

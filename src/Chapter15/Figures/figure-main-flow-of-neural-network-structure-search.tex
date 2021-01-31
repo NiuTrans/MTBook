@@ -1,0 +1,68 @@
+
+\begin{tikzpicture}
+\tikzstyle{node}=[draw,minimum height=1.4em,minimum width=2em,rounded corners=1pt,thick]
+%violet
+\begin{scope}[scale=0.36]
+\tikzstyle{every node}=[scale=0.36]
+
+\node[draw,very thick,rounded corners=3pt,drop shadow,fill=red!30,minimum width=40em,minimum height=25em] (rec3) at (2.25,0){};
+\node[draw,very thick,rounded corners=3pt,drop shadow,fill=yellow!30,minimum width=22em,minimum height=25em] (rec2) at (-12.4,0){};
+\node[draw,very thick,rounded corners=3pt,drop shadow,fill=orange!30,minimum width=24em,minimum height=25em] (rec1) at (-24,0){};
+
+%left
+\node[] (label1) at (-26.4,4){\Huge\bfnew{结构空间}};
+\node[align=left] at (-24,-0.5){\Huge{1.前馈神经网络} \\ [4ex] \Huge{2.卷积神经网络} \\ [4ex] \Huge{3.循环神经网络} \\  [4ex] \Huge{4. Transformer网络} \\ [4ex] \Huge{...}};
+
+\draw[very thick,-latex] (rec1.0) -- node[align=center,above,text=ublue]{\huge\bfnew{设计} \\ \huge\bfnew{搜索} \\ \huge\bfnew{空间}}(rec2.180);
+
+%mid
+\node[] (label2) at (-14.4,4){\Huge\bfnew{搜索空间}};
+\node[align=left] at (-12.4,-0.5){\Huge{循环神经网络} \\ [4ex] \Huge{1.普通RNN网络} \\ [4ex] \Huge{2. LSTM网络} \\  [4ex] \Huge{3. GRU网络} \\ [4ex] \Huge{...}};
+
+\draw[very thick,-latex] (rec2.0) -- node[align=center,above,text=ublue]{\huge\bfnew{选择} \\ \huge\bfnew{搜索} \\ \huge\bfnew{策略}}(rec3.180);
+
+\draw[very thick,-latex,out=-150,in=-30] (rec3.-90) to node[above,text=ublue,yshift=1em]{\huge\bfnew{迭代结构搜索的过程}}(rec2.-90);
+
+\draw[very thick,-latex,out=60,in=130] ([xshift=-8em]rec3.90) to node[above,text=ublue]{\huge\bfnew{性能评估}}([xshift=8em]rec3.90);
+%right
+\node[node] (n1) at (0,0){};
+\node[node] (n2) at (1.5,0){};
+\node[node] (n3) at (3,0){};
+\node[node] (n4) at (4.5,0){};
+\node[node] (n5) at (1.5,-1.3){};
+\node[node] (n6) at (3,-1.3){};
+\node[node] (n7) at (2.25,-2.4){};
+\node[node] (n8) at (3,1.3){};
+
+\draw[->,thick] (n1.0) -- (n2.180);
+\draw[->,thick] (n2.0) -- (n3.180);
+\draw[->,thick] (n3.0) -- (n4.180);
+\draw[->,thick,out=60,in=180] (n1.90) to (n8.180);
+\draw[->,thick,out=-10,in=90] (n8.0) to (n4.90);
+\draw[->,thick,out=90,in=-90] (n5.90) to (n3.-90);
+\draw[->,thick,out=90,in=-90] (n6.90) to (n4.-90);
+\draw[->,thick,out=90,in=-90] (n7.90) to (n5.-90);
+\draw[->,thick,out=90,in=-90] (n7.90) to (n6.-90);
+\node[font=\huge] (ht) at (-0.2,2.2){$\mathbi h_t$};
+
+\node[draw,font=\huge,inner sep=0pt,minimum width=4em,minimum height=4em,very thick,rounded corners=2pt] (ht-1) at (-3,0) {$\mathbi h_{t-1}$};
+\node[draw,font=\huge,inner sep=0pt,minimum width=4em,minimum height=4em,very thick,rounded corners=2pt] (ht+1) at (7.5,0) {$\mathbi h_{t+1}$};
+
+\node[font=\huge] (xt) at (2.25,-4.2){$x_t$};
+\node[font=\Huge]  at (9,0){$\cdots$};
+\node[font=\Huge]  at (-4.5,0){$\cdots$};
+
+\node[] (label3) at (-2,4){\Huge\bfnew{找到的模型结构}};
+
+\node[draw,rounded corners=6pt,very thick,minimum width=16em,minimum height=15em] (box1) at (2.25,0){};
+
+\draw[->,very thick] (ht-1.0) -- (box1.180);
+\draw[->,very thick] (box1.0) -- (ht+1.180);
+\draw[->,very thick] (ht-1.90) -- ([yshift=2em]ht-1.90);
+\draw[->,very thick] (ht+1.90) -- ([yshift=2em]ht+1.90);
+\draw[->,very thick] (box1.90) -- ([yshift=2em]box1.90);
+\draw[->,very thick] ([yshift=-2em]ht-1.-90) -- (ht-1.-90);
+\draw[->,very thick] ([yshift=-2em]ht+1.-90) -- (ht+1.-90);
+\draw[->,very thick] ([yshift=-2em]box1.-90) -- (box1.-90);
+\end{scope}
+\end{tikzpicture}

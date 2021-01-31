@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+	\tikzstyle{node}=[circle,minimum size=1.2em,draw,inner sep=0pt,fill=yellow!20,font=\footnotesize,thick]
+	\tikzstyle{word}=[font=\scriptsize]
+	
+\node[node] (n0) at (0,0) {0};
+\node[anchor=west,node] (n2) at ([xshift=3em]n0.east){2};
+\node[anchor=west,node] (n6) at ([xshift=13em]n2.east){6};
+\node[anchor=west,node] (n8) at ([xshift=2.4em]n6.east){8};
+\node[anchor=west,node] (n9) at ([xshift=2.4em]n8.east){9};
+\node[anchor=south,node] (n1) at ([xshift=0.6em,yshift=3.2em]n2.north){1};
+\node[anchor=north,node] (n3) at ([xshift=2.2em,yshift=-1.6em]n2.south){3};
+\node[anchor=north,node] (n7) at ([xshift=5.2em,yshift=-0.8em]n2.south){7};
+\node[anchor=west,node] (n10) at ([xshift=4em]n7.east){10};
+\node[anchor=south,node] (n11) at ([yshift=3.0em]n7.north){11};
+\node[anchor=south,node] (n5) at ([yshift=3.0em]n10.north){5};
+\node[anchor=north,node] (n4) at ([xshift=6em,yshift=-1.6em]n3.south){4};
+
+
+\draw[->] (n0.0) -- node[word,above]{for /0.227}(n2.180);
+\draw[->] (n0.60) -- node[word,above,rotate=40]{a /0.628}(n1.-150);
+\draw[->] (n0.-50) -- node[word,above,rotate=-20]{our /0.103}(n3.150);
+\draw[->] (n0.-70) .. controls ([xshift=-8em]n4.180) and ([xshift=-8em]n4.180) .. node[above,word,xshift=3em,yshift=-0.6em]{this /0.042} (n4.180);
+\draw[->] (n4.0) .. node[word,above,xshift=-2em,yshift=-0.4em]{video /1} controls ([xshift=5em]n4.0) and ([yshift=-6em]n6.-90) .. (n6.-90);
+\draw[->] (n2.-90) -- node[word,above,rotate=-18,pos=0.55]{movie /0.127}(n7.180);
+\draw[->] (n3.-10) node[word,above,xshift=3.6em,yshift=-0.8em]{book /1} .. controls ([xshift=4.6em,yshift=-1.8em]n3.-10) and ([yshift=-1.6em,xshift=-3em]n10.-135) .. (n10.-135);
+\draw[->] (n7.0) -- node[word,above]{which /1}(n10.180);
+\draw[->] (n2.0) -- node[word,above,pos=0.5]{video /0.300}(n6.180);
+\draw[->] (n2.45) -- node[word,above,rotate=18,pos=0.3]{a /0.573}(n11.-135);
+\draw[->,rounded corners=1em] (n1.-45) node[word,above,xshift=1.4em,yshift=-1.3em,rotate=-43]{movie /0.187} -- ([yshift=-0.4em,xshift=-1em]n11.-90) -- (n7.100);
+\draw[->] (n1.20) node[word,above,xshift=4em]{book /0.520} .. controls ([xshift=8em]n1.20) and  ([xshift=-0.6em,yshift=2.2em]n5.110) .. (n5.110);
+\draw[->] (n11.0) -- node[word,above]{book /1}(n5.180);
+\draw[->] (n5.-90) ..node[word,above,xshift=1.4em]{is /0.822} controls ([yshift=-1.6em]n5.-90) and ([xshift=-3em]n6.150]) .. (n6.150);
+\draw[->] (n5.0) node[word, above,xshift=1.4em]{as /0.178}.. controls ([xshift=2.6em]n5.0) and ([xshift=-0.6em,yshift=2em]n6.120) .. (n6.120);
+
+\coordinate (a) at ([xshift=6em,yshift=3em]n1);
+\draw[->] (n1.60) .. controls ([xshift=3em,yshift=2em]n1.60) and ([xshift=-2em]a) .. (a) node[word,above,xshift=1em]{video /0.293}.. controls ([xshift=8em]a) and ([xshift=-0.6em,yshift=6em]n6.90) .. (n6.90);
+\draw[->] (n10.0) -- node[above,word,pos=0.4,rotate=30]{is /1}(n6.-135);
+\draw[->] (n6.0) -- node[above,word,yshift=0.2em]{being /1}(n8.180);
+\draw[->] (n8.0) -- node[above,word,yshift=0.3em]{written /1}(n9.180);
+\end{tikzpicture}

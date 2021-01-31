@@ -1,0 +1,10 @@
+
+\begin{tikzpicture} % "THE GLOBE" showcase
+\begin{scope}[rotate=-30]
+\def\R{1.4} % sphere radius
+\def\angEl{35} % elevation angle
+\filldraw[ball color=gray!20] (0,0) circle (\R);
+\foreach \t in {-80,-60,...,80} { \DrawLatitudeCircle[\R]{\t} }
+\foreach \t in {-5,-35,...,-175} { \DrawLongitudeCircle[\R]{\t} }
+\end{scope}
+\end{tikzpicture}

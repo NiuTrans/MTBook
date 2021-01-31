@@ -1,0 +1,80 @@
+
+
+%------------------------------------------------------------
+
+\begin{tikzpicture}
+
+\tikzstyle{rnnnode} = [draw,thick,inner sep=2pt,minimum width=4em,minimum height=2em,rounded corners=1pt,fill=red!15]
+\tikzstyle{snode} = [draw,thick,inner sep=2pt,minimum width=4em,minimum height=2em,rounded corners=1pt,fill=blue!15]
+\tikzstyle{ynode} = [inner sep=2pt,minimum width=4em,minimum height=2em,rounded corners=1pt]
+
+
+\node [anchor=west,rnnnode] (n1) at (0,0) {$\mathbi{h}_{1}$};
+\node [anchor=west] (n2) at ([xshift=3em,yshift=0em]n1.east) {$\cdots$};
+\node [anchor=west,rnnnode] (n3) at ([xshift=3em,yshift=0em]n2.east) {$\mathbi{h}_{j-1}$};
+\node [anchor=west,rnnnode] (n4) at ([xshift=3em,yshift=0em]n3.east) {$\mathbi{h}_{j}$};
+\node [anchor=south,snode] (n5) at ([xshift=0em,yshift=1em]n3.north) {Softmax};
+\node [anchor=south,ynode,fill=green!20] (n6) at ([xshift=0em,yshift=1em]n5.north) {$\hat{{y}}_{j-1}$};
+\node [anchor=south,snode] (n7) at ([xshift=0em,yshift=1em]n4.north) {Softmax};
+\node [anchor=south,ynode] (n8) at ([xshift=0em,yshift=1em]n7.north) {$\hat{{y}}_{j}$};
+
+\node [anchor=south,snode] (n13) at ([xshift=0em,yshift=1em]n1.north) {Softmax};
+\node [anchor=south,ynode] (n14) at ([xshift=0em,yshift=1em]n13.north) {$\hat{{y}}_{1}$};
+
+\node [anchor=north] (x1) at ([xshift=0em,yshift=-1em]n1.south) {$\langle$sos$\rangle$};
+\node [anchor=north,font=\small] (x2) at ([xshift=-1.3em,yshift=-2.3em]n3.south) {$\hat{{y}}_{j-2}$};
+\node [anchor=north,font=\small] (x3) at ([xshift=1.3em,yshift=-2.5em]n3.south) {${y}_{j-2}$};
+\node [anchor=north,font=\small] (x4) at ([xshift=1.3em,yshift=-2.5em]n4.south) {${y}_{j-1}$};
+\node [anchor=north,font=\small,fill=green!20] (x5) at ([xshift=-1.3em,yshift=-2.3em]n4.south) {$\hat{{y}}_{j-1}$};
+
+\node [anchor=south,inner sep=2pt] (st1) at (n6.north) {\scriptsize{\textbf{[step $j-1$]}}};
+\node [anchor=south,inner sep=2pt] (st2) at (n8.north) {\scriptsize{\textbf{[step $j$]}}};
+\node [anchor=south,inner sep=2pt] (st3) at (n14.north) {\scriptsize{\textbf{[step $1$]}}};
+
+\node [anchor=north,font=\tiny,rotate=90] (e1) at ([xshift=-2.7em,yshift=-1.1em]n3.south) {${1-\epsilon_i}$};
+%\node [anchor=north,font=\scriptsize] (e2) at ([xshift=2em,yshift=-0.1em]n3.south) {$\funp{P}=\epsilon_i$};
+%\node [anchor=north,font=\scriptsize] (e3) at ([xshift=-2em,yshift=-1em]n4.south) {$\funp{P}={1-\epsilon_i}$};
+\node [anchor=north,font=\tiny,rotate=90] (e4) at ([xshift=1.5em,yshift=-1.2em]n4.south) {$\epsilon_i$};
+
+%\node [anchor=south east,font=\small] (l1) at ([xshift=-1em,yshift=0.5em]n5.north west) {Loss};
+%\node [anchor=south west,font=\small] (l2) at ([xshift=1em,yshift=0.5em]n7.north east) {Loss};
+
+\draw [->,thick] ([xshift=0em,yshift=0em]x1.north)--([xshift=0em,yshift=0em]n1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.east)--([xshift=0em,yshift=0em]n2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east)--([xshift=0em,yshift=0em]n3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.east)--([xshift=0em,yshift=0em]n4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.east)--([xshift=3em,yshift=0em]n4.east);
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.north)--([xshift=0em,yshift=0em]n5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.north)--([xshift=0em,yshift=0em]n6.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.north)--([xshift=0em,yshift=0em]n7.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n7.north)--([xshift=0em,yshift=0em]n8.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.north)--([xshift=0em,yshift=0em]n13.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n13.north)--([xshift=0em,yshift=0em]n14.south);
+
+%\draw [->,thick] ([xshift=0em,yshift=0em]l1.south) .. controls +(south:1em) and +(west:0.1em) .. ([xshift=0em,yshift=0em]n5.west);
+%\draw [->,thick] ([xshift=0em,yshift=0em]l2.south) .. controls +(south:1em) and +(east:0.1em) .. ([xshift=0em,yshift=0em]n7.east);
+
+\node [circle,fill=black,minimum size=1pt,inner sep=1.2pt] (c1) at ([xshift=0em,yshift=0.6em]x2.north) {};
+\node [circle,fill=black,minimum size=1pt,inner sep=1.2pt] (c2) at ([xshift=0em,yshift=0.8em]x3.north) {};
+\node [circle,fill=black,minimum size=1pt,inner sep=1.2pt] (c3) at ([xshift=0em,yshift=0.8em]x4.north) {};
+\node [circle,fill=black,minimum size=1pt,inner sep=1.2pt] (c4) at ([xshift=0em,yshift=0.6em]x5.north) {};
+
+\draw [-,thick] ([xshift=0em,yshift=-0em]x2.north)-- ([xshift=-1.3em,yshift=0em]n3.south);
+
+\draw [-,thick] ([xshift=0em,yshift=0.2em]x3.north)-- ([xshift=0em,yshift=0em]c2.south);
+\draw [-,thick] ([xshift=0em,yshift=0em]c2.north)-- ([xshift=0.3em,yshift=0.6em]c2.north);
+\draw [-,thick] ([xshift=0em,yshift=0.6em]c2.north)-- ([xshift=1.3em,yshift=0em]n3.south);
+
+\draw [-,thick] ([xshift=-0em,yshift=-0em]x5.north)-- ([xshift=0em,yshift=0em]c4.south);
+\draw [-,thick] ([xshift=-0em,yshift=0em]c4.north)-- ([xshift=0.3em,yshift=0.6em]c4.north);
+\draw [-,thick] ([xshift=-0em,yshift=0.6em]c4.north)-- ([xshift=-1.3em,yshift=0em]n4.south);
+
+\draw [-,thick] ([xshift=0em,yshift=0.2em]x4.north)-- ([xshift=1.3em,yshift=0em]n4.south);
+
+\draw [->,thick,dotted] ([xshift=-2.5em,yshift=1em]x2.north) .. controls +(south:2em) and +(west:0.1em) .. ([xshift=0.2em,yshift=0em]x2.west);
+\draw [->,thick,dotted,ugreen] ([xshift=0em,yshift=0em]n6.east) .. controls +(east:2.5em) and +(west:2.5em) .. ([xshift=-0em,yshift=-0em]x5.west);
+\draw [->,thick,dotted] ([xshift=0em,yshift=0em]n14.east) .. controls +(east:0.3em) and +(north:1.5em) .. ([xshift=3em,yshift=-0.5em]n14.south);
+
+\end{tikzpicture}

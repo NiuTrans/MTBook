@@ -1,0 +1,106 @@
+\begin{tikzpicture}
+
+\tikzstyle{elementnode} = [anchor=center,draw,minimum size=0.6em,inner sep=0.1pt,gray!80]
+
+\begin{scope}[scale=1.0]
+\foreach \i / \j in
+    {0/4, 1/4, 2/4, 3/4, 4/4, 5/4, 6/4, 7/4,
+    0/3, 1/3, 2/3, 3/3, 4/3, 5/3, 6/3, 7/3,
+    0/2, 1/2, 2/2, 3/2, 4/2, 5/2, 6/2, 7/2,
+    0/1, 1/1, 2/1, 3/1, 4/1, 5/1, 6/1, 7/1,
+    0/0, 1/0, 2/0, 3/0, 4/0, 5/0, 6/0, 7/0}
+    \node[elementnode] (a\i\j) at (0.6em*\i,0.6em*\j) {};
+
+\foreach \i / \j in
+    {0/4, 1/4, 2/4, 3/4, 4/4, 5/4, 6/4, 7/4,
+    0/3, 1/3, 2/3, 3/3, 4/3, 5/3, 6/3, 7/3,
+    0/2, 1/2, 2/2, 3/2, 4/2, 5/2, 6/2, 7/2,
+    0/1, 1/1, 2/1, 3/1, 4/1, 5/1, 6/1, 7/1,
+    0/0, 1/0, 2/0, 3/0, 4/0, 5/0, 6/0, 7/0}
+    \node[elementnode,fill=gray!50] (b\i\j) at (0.6em*\i+5.5em,0.6em*\j) {};
+
+
+\node [anchor=south west,minimum height=0.5em,minimum width=4.8em,inner sep=0.1pt,very thick,blue!60,draw] (n1) at ([xshift=0em,yshift=0em]a01.south west) {};
+\node [anchor=north west,minimum height=0.5em,minimum width=4.8em,inner sep=0.1pt,very thick,red!60,draw] (n2) at ([xshift=0em,yshift=0em]a02.north west) {};
+\node [anchor=west,minimum height=0.6em,minimum width=0.6em,inner sep=0.1pt,very thick,blue!60,draw] (n3) at ([xshift=0em,yshift=0em]b21.west) {};
+\node [anchor=west,minimum height=0.6em,minimum width=0.6em,inner sep=0.1pt,very thick,red!60,draw] (n4) at ([xshift=0em,yshift=0em]b42.west) {};
+
+\draw [-,very thick,dotted,blue!60] ([xshift=0em,yshift=0em]n1.south east) -- ([xshift=0em,yshift=0em]n3.south west);
+\draw [-,very thick,dotted,blue!60] ([xshift=0em,yshift=0em]n1.north east) -- ([xshift=0em,yshift=0em]n3.north west);
+\draw [-,very thick,dotted,red!60] ([xshift=0em,yshift=0em]n2.south east) -- ([xshift=0em,yshift=0em]n4.south west);
+\draw [-,very thick,dotted,red!60] ([xshift=0em,yshift=0em]n2.north east) -- ([xshift=0em,yshift=0em]n4.north west);
+
+\node [anchor=north] (l1) at ([xshift=0.5em,yshift=-1em]a70.south){\footnotesize {(a)标准自注意力模型}};
+\node [anchor=south,rotate=90] (l2) at ([xshift=0em,yshift=0em]a02.west){\scriptsize {注意力头}};
+\node [anchor=south] (l2) at ([xshift=0em,yshift=0em]a44.north){\scriptsize {句子长度}};
+
+\end{scope}
+
+\begin{scope}[scale=1.0,xshift=4.6cm]
+\foreach \i / \j in
+    {0/4, 1/4, 2/4, 3/4, 4/4, 5/4, 6/4, 7/4,
+    0/3, 1/3, 2/3, 3/3, 4/3, 5/3, 6/3, 7/3,
+    0/2, 1/2, 2/2, 3/2, 4/2, 5/2, 6/2, 7/2,
+    0/1, 1/1, 2/1, 3/1, 4/1, 5/1, 6/1, 7/1,
+    0/0, 1/0, 2/0, 3/0, 4/0, 5/0, 6/0, 7/0}
+    \node[elementnode] (a\i\j) at (0.6em*\i,0.6em*\j) {};
+
+\foreach \i / \j in
+    {0/4, 1/4, 2/4, 3/4, 4/4, 5/4, 6/4, 7/4,
+    0/3, 1/3, 2/3, 3/3, 4/3, 5/3, 6/3, 7/3,
+    0/2, 1/2, 2/2, 3/2, 4/2, 5/2, 6/2, 7/2,
+    0/1, 1/1, 2/1, 3/1, 4/1, 5/1, 6/1, 7/1,
+    0/0, 1/0, 2/0, 3/0, 4/0, 5/0, 6/0, 7/0}
+    \node[elementnode,fill=gray!50] (b\i\j) at (0.6em*\i+5.5em,0.6em*\j) {};
+
+
+\node [anchor=south west,minimum height=0.5em,minimum width=3em,inner sep=0.1pt,very thick,blue!60,draw] (n1) at ([xshift=0em,yshift=0em]a01.south west) {};
+\node [anchor=north west,minimum height=0.5em,minimum width=3em,inner sep=0.1pt,very thick,red!60,draw] (n2) at ([xshift=0em,yshift=0em]a22.north west) {};
+\node [anchor=west,minimum height=0.6em,minimum width=0.6em,inner sep=0.1pt,very thick,blue!60,draw] (n3) at ([xshift=0em,yshift=0em]b21.west) {};
+\node [anchor=west,minimum height=0.6em,minimum width=0.6em,inner sep=0.1pt,very thick,red!60,draw] (n4) at ([xshift=0em,yshift=0em]b42.west) {};
+
+\draw [-,very thick,dotted,blue!60] ([xshift=0em,yshift=0em]n1.south east) -- ([xshift=0em,yshift=0em]n3.south west);
+\draw [-,very thick,dotted,blue!60] ([xshift=0em,yshift=0em]n1.north east) -- ([xshift=0em,yshift=0em]n3.north west);
+\draw [-,very thick,dotted,red!60] ([xshift=0em,yshift=0em]n2.south east) -- ([xshift=0em,yshift=0em]n4.south west);
+\draw [-,very thick,dotted,red!60] ([xshift=0em,yshift=0em]n2.north east) -- ([xshift=0em,yshift=0em]n4.north west);
+
+\node [anchor=north] (l1) at ([xshift=0.5em,yshift=-1em]a70.south){\footnotesize {(b)一维卷积注意力模型}};
+\node [anchor=south,rotate=90] (l2) at ([xshift=0em,yshift=0em]a02.west){\scriptsize {注意力头}};
+\node [anchor=south] (l2) at ([xshift=0em,yshift=0em]a44.north){\scriptsize {句子长度}};
+
+\end{scope}
+
+\begin{scope}[scale=1.0,xshift=9.2cm]
+\foreach \i / \j in
+    {0/4, 1/4, 2/4, 3/4, 4/4, 5/4, 6/4, 7/4,
+    0/3, 1/3, 2/3, 3/3, 4/3, 5/3, 6/3, 7/3,
+    0/2, 1/2, 2/2, 3/2, 4/2, 5/2, 6/2, 7/2,
+    0/1, 1/1, 2/1, 3/1, 4/1, 5/1, 6/1, 7/1,
+    0/0, 1/0, 2/0, 3/0, 4/0, 5/0, 6/0, 7/0}
+    \node[elementnode] (a\i\j) at (0.6em*\i,0.6em*\j) {};
+
+\foreach \i / \j in
+    {0/4, 1/4, 2/4, 3/4, 4/4, 5/4, 6/4, 7/4,
+    0/3, 1/3, 2/3, 3/3, 4/3, 5/3, 6/3, 7/3,
+    0/2, 1/2, 2/2, 3/2, 4/2, 5/2, 6/2, 7/2,
+    0/1, 1/1, 2/1, 3/1, 4/1, 5/1, 6/1, 7/1,
+    0/0, 1/0, 2/0, 3/0, 4/0, 5/0, 6/0, 7/0}
+    \node[elementnode,fill=gray!50] (b\i\j) at (0.6em*\i+5.5em,0.6em*\j) {};
+
+
+\node [anchor=south west,minimum height=1.8em,minimum width=3em,inner sep=0.1pt,very thick,blue!60,draw] (n1) at ([xshift=0em,yshift=0em]a00.south west) {};
+\node [anchor=north west,minimum height=1.8em,minimum width=3em,inner sep=0.1pt,very thick,red!60,draw] (n2) at ([xshift=0em,yshift=0em]a23.north west) {};
+\node [anchor=west,minimum height=0.6em,minimum width=0.6em,inner sep=0.1pt,very thick,blue!60,draw] (n3) at ([xshift=0em,yshift=0em]b21.west) {};
+\node [anchor=west,minimum height=0.6em,minimum width=0.6em,inner sep=0.1pt,very thick,red!60,draw] (n4) at ([xshift=0em,yshift=0em]b42.west) {};
+
+\draw [-,very thick,dotted,blue!60] ([xshift=0em,yshift=0em]n1.south east) -- ([xshift=0em,yshift=0em]n3.south west);
+\draw [-,very thick,dotted,blue!60] ([xshift=0em,yshift=0em]n1.north east) -- ([xshift=0em,yshift=0em]n3.north west);
+\draw [-,very thick,dotted,red!60] ([xshift=0em,yshift=0em]n2.south east) -- ([xshift=0em,yshift=0em]n4.south west);
+\draw [-,very thick,dotted,red!60] ([xshift=0em,yshift=0em]n2.north east) -- ([xshift=0em,yshift=0em]n4.north west);
+
+\node [anchor=north] (l1) at ([xshift=0.5em,yshift=-1em]a70.south){\footnotesize {(c)二维卷积注意力模型}};
+\node [anchor=south,rotate=90] (l2) at ([xshift=0em,yshift=0em]a02.west){\scriptsize {注意力头}};
+\node [anchor=south] (l2) at ([xshift=0em,yshift=0em]a44.north){\scriptsize {句子长度}};
+
+\end{scope}
+\end{tikzpicture}

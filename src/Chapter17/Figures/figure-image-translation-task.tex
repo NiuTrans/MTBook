@@ -1,0 +1,103 @@
+\begin{tikzpicture}[scale=0.6]
+\tikzstyle{every node}=[scale=0.6]
+%figure 1
+\coordinate (A1) at (0, 0);
+\coordinate (B1) at ([xshift=1.5em,yshift=-0.4em]A1);
+\coordinate (C1) at ([xshift=0.3em,yshift=-2.6em]A1);
+\coordinate (D1) at ([xshift=2.7em,yshift=-2.6em]A1);
+\coordinate (E1) at ([xshift=2.4em,yshift=-1.5em]A1);
+\coordinate (F1) at ([xshift=0.3em]D1);
+
+\coordinate (G1) at ([xshift=0.3em,yshift=-5em]A1);
+\coordinate (H1) at ([xshift=0.4em,yshift=-1.6em]G1);
+\coordinate (I1) at ([xshift=0.4em,yshift=-2.0em]G1);
+\coordinate (J1) at ([xshift=0.4em,yshift=-2.5em]G1);
+\coordinate (K1) at ([xshift=0.4em,yshift=-3.0em]G1);
+\coordinate (L1) at ([xshift=0.4em,yshift=-3.5em]G1);
+
+\coordinate (G2) at ([xshift=8em,yshift=-2.5em]A1);
+\coordinate (H2) at ([xshift=0.4em,yshift=-1.6em]G2);
+\coordinate (I2) at ([xshift=0.4em,yshift=-2.0em]G2);
+\coordinate (J2) at ([xshift=0.4em,yshift=-2.5em]G2);
+\coordinate (K2) at ([xshift=0.4em,yshift=-3.0em]G2);
+\coordinate (L2) at ([xshift=0.4em,yshift=-3.5em]G2);
+
+%figure 2
+\coordinate (A2) at ([yshift=-0.5em,xshift=7em]G2);
+\coordinate (B2) at ([xshift=1.5em,yshift=-0.4em]A2);
+\coordinate (C2) at ([xshift=0.3em,yshift=-2.6em]A2);
+\coordinate (D2) at ([xshift=2.7em,yshift=-2.6em]A2);
+\coordinate (E2) at ([xshift=2.4em,yshift=-1.5em]A2);
+\coordinate (F2) at ([xshift=0.3em]D2);
+
+\coordinate (G3) at ([xshift=8em,yshift=0.5em]A2);
+\coordinate (H3) at ([xshift=0.4em,yshift=-1.6em]G3);
+\coordinate (I3) at ([xshift=0.4em,yshift=-2.0em]G3);
+\coordinate (J3) at ([xshift=0.4em,yshift=-2.5em]G3);
+\coordinate (K3) at ([xshift=0.4em,yshift=-3.0em]G3);
+\coordinate (L3) at ([xshift=0.4em,yshift=-3.5em]G3);
+
+%figure 3
+\coordinate (A3) at ([yshift=-0.5em,xshift=7em]G3);
+\coordinate (B3) at ([xshift=1.5em,yshift=-0.4em]A3);
+\coordinate (C3) at ([xshift=0.3em,yshift=-2.6em]A3);
+\coordinate (D3) at ([xshift=2.7em,yshift=-2.6em]A3);
+\coordinate (E3) at ([xshift=2.4em,yshift=-1.5em]A3);
+\coordinate (F3) at ([xshift=0.3em]D3);
+
+\coordinate (A4) at ([xshift=8em]A3);
+\coordinate (B4) at ([xshift=1.5em,yshift=-0.4em]A4);
+\coordinate (C4) at ([xshift=0.3em,yshift=-2.6em]A4);
+\coordinate (D4) at ([xshift=2.7em,yshift=-2.6em]A4);
+\coordinate (E4) at ([xshift=2.4em,yshift=-1.5em]A4);
+\coordinate (F4) at ([xshift=0.3em]D4);
+
+%figure 4
+\coordinate (G4) at ([xshift=7.6em,yshift=0.5em]A4);
+\coordinate (H4) at ([xshift=0.4em,yshift=-1.6em]G4);
+\coordinate (I4) at ([xshift=0.4em,yshift=-2.0em]G4);
+\coordinate (J4) at ([xshift=0.4em,yshift=-2.5em]G4);
+\coordinate (K4) at ([xshift=0.4em,yshift=-3.0em]G4);
+\coordinate (L4) at ([xshift=0.4em,yshift=-3.5em]G4);
+
+\coordinate (A5) at ([yshift=-0.5em,xshift=8em]G4);
+\coordinate (B5) at ([xshift=1.5em,yshift=-0.4em]A5);
+\coordinate (C5) at ([xshift=0.3em,yshift=-2.6em]A5);
+\coordinate (D5) at ([xshift=2.7em,yshift=-2.6em]A5);
+\coordinate (E5) at ([xshift=2.4em,yshift=-1.5em]A5);
+\coordinate (F5) at ([xshift=0.3em]D5);
+
+\foreach \x in {1,2,3,4,5}{
+\draw[-,line width=2pt] (A\x) -- ([xshift=3.6em]A\x) -- ([xshift=3.6em,yshift=-3em]A\x) -- ([yshift=-3em]A\x) -- (A\x) -- ([xshift=1em]A\x);
+\draw[-, very thick] (B\x) -- (C\x) -- (D\x) -- (B\x);
+\draw[-, very thick,fill=black] ([xshift=-0.6em,yshift=-1.2em]B\x)  -- ([xshift=-0.3em,yshift=-1em]B\x) -- ([yshift=-1.2em]B\x) --([xshift=0.3em,yshift=-1em]B\x) -- ([xshift=0.6em,yshift=-1.2em]B\x) -- (D\x) -- (C\x) -- ([xshift=-0.6em,yshift=-1.2em]B\x);
+\draw[-, very thick,fill=black] (E\x) -- ([xshift=0.2em,yshift=0.3em]E\x) -- ([xshift=0.33em]F\x) -- (F\x) -- (E\x);
+\node[circle,inner sep=0pt,minimum size=0.4em,fill=black] at ([xshift=-0.7em,yshift=-0.2em]B\x){};
+}
+
+\foreach \y in {1,2,3,4}{
+\draw[-,line width=2pt] (G\y) -- ([xshift=1.6em]G\y) -- ([xshift=3em,yshift=-1.4em]G\y) -- ([xshift=3em,yshift=-4em]G\y) -- ([yshift=-4em]G\y) -- (G\y) -- ([xshift=1em]G\y);
+\draw[-,line width=2pt] ([xshift=1.6em]G\y) -- ([xshift=1.5em,yshift=-1.4em]G\y) -- ([xshift=3em,yshift=-1.4em]G\y) ;
+\draw[-,line width=1.6pt] (H\y) -- ([xshift=0.6em]H\y);
+\draw[-,line width=1.6pt] (I\y) -- ([xshift=2em]I\y);
+\draw[-,line width=1.6pt] (J\y) -- ([xshift=2em]J\y);
+\draw[-,line width=1.6pt] (K\y) -- ([xshift=2em]K\y);
+\draw[-,line width=1.6pt] (L\y) -- ([xshift=2em]L\y);
+}
+
+\draw[-,thick] ([yshift=4em,xshift=5em]G2) -- ([yshift=-8em,xshift=5em]G2);
+\draw[-,thick] ([yshift=4em,xshift=5em]G3) -- ([yshift=-8em,xshift=5em]G3);
+\draw[-,thick] ([yshift=4.5em,xshift=5.6em]A4) -- ([yshift=-7.5em,xshift=5.6em]A4);
+
+\node [draw,single arrow,minimum height=2.4em,single arrow head extend=0.4em] (arrow1) at ([xshift=-2.4em,yshift=-2em]G2) {};
+\node [draw,single arrow,minimum height=2.4em,single arrow head extend=0.4em] (arrow2) at ([xshift=-2.4em,yshift=-2em]G3) {};
+\node [draw,single arrow,minimum height=2.4em,single arrow head extend=0.4em] (arrow3) at ([xshift=-2.4em,yshift=-1.5em]A4) {};
+\node [draw,single arrow,minimum height=2.4em,single arrow head extend=0.4em] (arrow4) at ([xshift=-2.5em,yshift=-1.5em]A5) {};
+
+\node[anchor=north,font=\small,scale=1.5] at ([yshift=-6em]arrow1.south){(a) 多模态机器翻译};
+\node[anchor=north,font=\small,scale=1.5] at ([yshift=-6em]arrow2.south){(b) 图像到文本翻译};
+\node[anchor=north,font=\small,scale=1.5] at ([yshift=-6em]arrow3.south){(c) 图像到图像翻译};
+\node[anchor=north,font=\small,scale=1.5] at ([yshift=-6em]arrow4.south){(d) 文本到图像翻译};
+\end{tikzpicture}
+%------------------------------------------------------------------------------------------------------------
+

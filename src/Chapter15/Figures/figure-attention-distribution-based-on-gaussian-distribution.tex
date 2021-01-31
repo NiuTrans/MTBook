@@ -1,0 +1,115 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{cirnode}=[circle,inner sep=4pt,draw]
+\tikzstyle{colnode}=[fill=ugreen!30,inner sep=0.1pt]
+
+\tikzstyle{show}=[fill=red,circle,inner sep=0.5pt]
+
+\begin{scope}
+
+\node [anchor=north west,circle,inner sep=4pt] (c1) at (0, 0) {};
+
+\draw[-,dotted] ([xshift=-1em,yshift=-0.5em]c1.south)--([xshift=9.3em,yshift=-0.5em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-2em]c1.south)--([xshift=9.3em,yshift=-2em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-3.5em]c1.south)--([xshift=9.3em,yshift=-3.5em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-5em]c1.south)--([xshift=9.3em,yshift=-5em]c1.south);
+
+\node [anchor=south,colnode,minimum height=1.6em,minimum width=1em] (b1) at ([xshift=0em,yshift=-5em]c1.south) {};
+\node [anchor=south,colnode,minimum height=4.1em,minimum width=1em] (b2) at ([xshift=1.67em,yshift=0em]b1.south) {};
+\node [anchor=south,colnode,minimum height=0.8em,minimum width=1em] (b3) at ([xshift=1.67em,yshift=0em]b2.south) {};
+\node [anchor=south,colnode,minimum height=0.4em,minimum width=1em] (b4) at ([xshift=1.67em,yshift=0em]b3.south) {};
+\node [anchor=south,colnode,minimum height=0.15em,minimum width=1em] (b5) at ([xshift=1.67em,yshift=0em]b4.south) {};
+\node [anchor=south,colnode,minimum height=0.15em,minimum width=1em] (b6) at ([xshift=1.67em,yshift=0em]b5.south) {};
+
+{\scriptsize
+\node [anchor=center] (n1) at ([xshift=0em,yshift=-1em]b1.south){\color{orange}It};
+\node [anchor=west] (n2) at ([xshift=1em,yshift=0em]n1.east){\color{ugreen}is};
+\node [anchor=west] (n3) at ([xshift=1em,yshift=-0.1em]n2.east){a};
+\node [anchor=west] (n4) at ([xshift=0.5em,yshift=0.1em]n3.east){nice};
+\node [anchor=west] (n5) at ([xshift=0em,yshift=-0.1em]n4.east){day};
+\node [anchor=west] (n6) at ([xshift=-0.1em,yshift=0em]n5.east){today};
+}
+
+\node [anchor=north] (l1) at ([xshift=1em,yshift=-1em]n3.south){\small {(a)原始分布}};
+
+\draw[-,very thick] ([xshift=1.2em,yshift=2.4em]b6.north)--([xshift=1.7em,yshift=1.9em]b6.north);
+\draw[-,very thick] ([xshift=1.2em,yshift=1.9em]b6.north)--([xshift=1.7em,yshift=2.4em]b6.north);
+
+\end{scope}
+
+\begin{scope}[xshift=4.4cm,yshift=0em]
+
+\node [anchor=north west,circle,inner sep=4pt] (c1) at (0, 0) {};
+
+\draw[-,dotted] ([xshift=-1em,yshift=-0.5em]c1.south)--([xshift=9.3em,yshift=-0.5em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-2em]c1.south)--([xshift=9.3em,yshift=-2em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-3.5em]c1.south)--([xshift=9.3em,yshift=-3.5em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-5em]c1.south)--([xshift=9.3em,yshift=-5em]c1.south);
+
+\node [anchor=south,inner sep=0.1pt,minimum height=1.6em,minimum width=1em] (b1) at ([xshift=0em,yshift=-5em]c1.south) {};
+\node [anchor=south,inner sep=0.1pt,minimum height=4.1em,minimum width=1em] (b2) at ([xshift=1.67em,yshift=0em]b1.south) {};
+\node [anchor=south,inner sep=0.1pt,minimum height=0.8em,minimum width=1em] (b3) at ([xshift=1.67em,yshift=0em]b2.south) {};
+\node [anchor=south,inner sep=0.1pt,minimum height=0.4em,minimum width=1em] (b4) at ([xshift=1.67em,yshift=0em]b3.south) {};
+\node [anchor=south,inner sep=0.1pt,minimum height=0.15em,minimum width=1em] (b5) at ([xshift=1.67em,yshift=0em]b4.south) {};
+\node [anchor=south,inner sep=0.1pt,minimum height=0.15em,minimum width=1em] (b6) at ([xshift=1.67em,yshift=0em]b5.south) {};
+
+{\scriptsize
+\node [anchor=center] (n1) at ([xshift=0em,yshift=-1em]b1.south){\color{orange}It};
+\node [anchor=west] (n2) at ([xshift=0.5em,yshift=0em]n1.east){is};
+\node [anchor=west] (n3) at ([xshift=0.5em,yshift=-0.1em]n2.east){a};
+\node [anchor=west] (n4) at ([xshift=0.5em,yshift=0.1em]n3.east){\color{blue}nice};
+\node [anchor=west] (n5) at ([xshift=0em,yshift=-0.1em]n4.east){day};
+\node [anchor=west] (n6) at ([xshift=0em,yshift=0em]n5.east){today};
+}
+
+\draw [-,blue!60,thick] ([xshift=-1em,yshift=-4.7em]c1.south) cos(2em,-4em) sin (4.4em,-1.7em) cos(7.3em,-4em) sin([xshift=9.3em,yshift=-4.7em]c1.south);
+%\draw[-,blue!60,thick] ([xshift=-1em,yshift=-4.7em]c1.south)..controls (3.8em,-6em) and (3.9em,3.6em)..([xshift=9.3em,yshift=-4.3em]c1.south);
+
+\node [anchor=north] (l1) at ([xshift=1em,yshift=-1em]n3.south){\small {(b)高斯分布}};
+
+\draw[-,very thick] ([xshift=1.2em,yshift=2.2em]b6.north)--([xshift=1.7em,yshift=2.2em]b6.north);
+\draw[-,very thick] ([xshift=1.2em,yshift=1.9em]b6.north)--([xshift=1.7em,yshift=1.9em]b6.north);
+
+\node [anchor=south] (t1) at ([xshift=0em,yshift=5.7em]n4.north){$D_i$};
+\draw[->] ([xshift=0em,yshift=0em]t1.west)--([xshift=-1em,yshift=0em]t1.west);
+\draw[->] ([xshift=0em,yshift=0em]t1.east)--([xshift=1em,yshift=0em]t1.east);
+\draw[-] ([xshift=1em,yshift=-0.5em]t1.east)--([xshift=1em,yshift=0.5em]t1.east);
+\draw[-] ([xshift=-1em,yshift=-0.5em]t1.west)--([xshift=-1em,yshift=0.5em]t1.west);
+
+\end{scope}
+
+\begin{scope}[xshift=8.8cm,yshift=0em]
+
+\node [anchor=north west,circle,inner sep=4pt] (c1) at (0, 0) {};
+
+\draw[-,dotted] ([xshift=-1em,yshift=-0.5em]c1.south)--([xshift=9.3em,yshift=-0.5em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-2em]c1.south)--([xshift=9.3em,yshift=-2em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-3.5em]c1.south)--([xshift=9.3em,yshift=-3.5em]c1.south);
+\draw[-,dotted] ([xshift=-1em,yshift=-5em]c1.south)--([xshift=9.3em,yshift=-5em]c1.south);
+
+\node [anchor=south,colnode,minimum height=0.85em,minimum width=1em] (b1) at ([xshift=0em,yshift=-5em]c1.south) {};
+\node [anchor=south,colnode,minimum height=4.2em,minimum width=1em] (b2) at ([xshift=1.67em,yshift=0em]b1.south) {};
+\node [anchor=south,colnode,minimum height=3.2em,minimum width=1em] (b3) at ([xshift=1.67em,yshift=0em]b2.south) {};
+\node [anchor=south,colnode,minimum height=4.2em,minimum width=1em] (b4) at ([xshift=1.67em,yshift=0em]b3.south) {};
+\node [anchor=south,colnode,minimum height=1.4em,minimum width=1em] (b5) at ([xshift=1.67em,yshift=0em]b4.south) {};
+\node [anchor=south,colnode,minimum height=0.35em,minimum width=1em] (b6) at ([xshift=1.67em,yshift=0em]b5.south) {};
+
+{\scriptsize
+\node [anchor=center] (n1) at ([xshift=0em,yshift=-1em]b1.south){\color{orange}It};
+\node [anchor=west] (n2) at ([xshift=1em,yshift=0em]n1.east){\color{ugreen}is};
+\node [anchor=west] (n3) at ([xshift=1em,yshift=-0.1em]n2.east){\color{ugreen}a};
+\node [anchor=west] (n4) at ([xshift=0.5em,yshift=0.1em]n3.east){\color{ugreen}nice};
+\node [anchor=west] (n5) at ([xshift=0em,yshift=-0.1em]n4.east){day};
+\node [anchor=west] (n6) at ([xshift=-0.1em,yshift=0em]n5.east){today};
+}
+
+\node [anchor=north] (l1) at ([xshift=1em,yshift=-1em]n3.south){\small {(c)修改后的分布}};
+
+\end{scope}
+
+
+\end{tikzpicture}
+\end{center}

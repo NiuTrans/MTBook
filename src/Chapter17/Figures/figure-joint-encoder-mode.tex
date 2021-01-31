@@ -1,0 +1,16 @@
+\tikzstyle{coder} = [rectangle,thick,rounded corners,minimum width=2.3cm,minimum height=1cm,text centered,draw=black!70,fill=red!25]
+
+\begin{tikzpicture}[node distance = 0,scale = 0.75]
+\tikzstyle{every node}=[scale=0.75]
+\node(encoder)[coder]{\large{编码器}};
+\node(decoder_1)[coder,above of =encoder,xshift=-1.6cm,yshift=2.4cm,fill=blue!20]{\large{解码器}};
+\node(decoder_2)[coder,above of =encoder, xshift=1.6cm,yshift=2.4cm,fill=yellow!25]{\large{解码器}};
+\node(s)[below of = encoder,yshift=-1.8cm,scale=1.6]{$s$};
+\node(y)[above of = decoder_2,yshift=1.8cm,scale=1.6]{$y$};
+
+\draw[->,thick](s.north)to(encoder.south);
+\draw[->,thick](decoder_1.east)to(decoder_2.west);
+\draw[->,thick](decoder_2.north)to(y.south);
+\draw[->,thick](encoder.north)--([yshift=0.6725cm]encoder.north)--([yshift=-0.7cm]decoder_1.south)--(decoder_1.south);
+\draw[->,thick](encoder.north)--([yshift=0.6725cm]encoder.north)--([yshift=-0.7cm]decoder_2.south)--(decoder_2.south);
+\end{tikzpicture}
