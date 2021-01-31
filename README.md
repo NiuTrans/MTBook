@@ -22,7 +22,7 @@
 
 <div align="center">
 <!-- <img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% /> -->
-<img src="https://opensource.niutrans.com/mtbook/guideline.png" width=80% height=80% />
+<img src="guideline.png" width=80% height=80% />
 </div>
 
 ## 内容
