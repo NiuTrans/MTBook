@@ -1,0 +1,127 @@
+
+%\definecolor{dblue}{cmyk}{0.99998,1,0,0 }
+\definecolor{dblue}{cmyk}{100,0,90,0 }
+
+\begin{tikzpicture}[decoration=brace]
+\begin{scope}
+\setlength{\wseg}{1.5cm}
+\setlength{\hseg}{0.6cm}
+\setlength{\wnode}{2cm}
+\setlength{\hnode}{1.2cm}
+\tikzstyle{layernode} = [rectangle,draw,thick,densely dotted,inner sep=3pt,rounded corners,minimum width=2.1\wnode,minimum height=2.7\hnode]
+\tikzstyle{attnnode} = [rectangle,draw,inner sep=3pt,rounded corners, minimum width=2\wnode,minimum height=2.2\hnode]
+\tikzstyle{thinnode} = [rectangle,inner sep=1pt,rounded corners=1pt,minimum size=0.3\hnode,font=\scriptsize]
+\tikzstyle{fatnode} = [rectangle,inner sep=1pt,rounded corners=1pt,minimum height=0.3\hnode,minimum width=\wnode,font=\small]
+
+% 0.3\wseg here can be used to determine the distance between two adjacent blocks
+\coordinate (layer00) at (0,0);
+\foreach \i / \j in {1/0,2/1,3/2,4/3,5/4}
+    \coordinate (layer0\i) at ([xshift=2.05\wnode+0.3\wseg]layer0\j);
+
+
+\node[layernode,anchor=north] (layer11) at ([yshift=-\hseg]layer01.south) {};
+\node[attnnode,anchor=south] (attn11) at ([yshift=0.1\hnode]layer11.south) {};
+\node[anchor=north west,inner sep=4pt,font=\small] () at (attn11.north west) {注意力};
+\node[anchor=south,inner sep=0pt] (out11) at ([yshift=0.3\hseg]attn11.north) {$\cdots$};
+\node[thinnode,anchor=south west,thick,draw=dblue,text=black] (q11) at ([xshift=0.1\wseg,yshift=0.2\hseg]attn11.south west) {$Q^n$};
+\node[thinnode,anchor=south,thick,draw=orange,text=black] (k11) at ([yshift=0.2\hseg]attn11.south) {$K^n$};
+\node[thinnode,anchor=south east,thick,draw=purple,text=black] (v11) at ([xshift=-0.1\wseg,yshift=0.2\hseg]attn11.south east) {$V^n$};
+\node[fatnode,anchor=south,thick,draw] (s11) at ([xshift=0.5\wseg,yshift=0.8\hseg]q11.north east) {$S^n\!=\!S(Q^n\!\cdot\!K^n)$};
+\node[fatnode,anchor=south,thick,draw] (a11) at ([xshift=0.45\wseg,yshift=1.3\hseg+0.6\hnode]k11.north east) {$A^n\!=\!S^n\!\cdot\!V$};
+\begin{scope}[fill=black!100]
+    \draw[-latex',thick,draw=black!100] (q11.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s11.south);
+    \draw[-latex',thick,draw=black!100] (k11.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s11.south);
+\end{scope}
+\begin{scope}[fill=black!100]
+    \draw[-latex',thick,draw=black!100] (s11.north) .. controls +(north:0.7\hseg) and +(south:0.8\hseg) ..(a11.south);
+    \draw[-latex',thick,draw=black!100] (v11.north) .. controls +(north:2.7\hseg) and +(south:0.9\hseg) .. (a11.south);
+\end{scope}
+\draw[-latex',thick] (a11.north).. controls +(north:0.3\hseg) and +(south:0.7\hseg) ..(out11.south);
+
+
+\node[layernode,anchor=north] (layer12) at ([yshift=-\hseg]layer02.south) {};
+\node[attnnode,anchor=south] (attn12) at ([yshift=0.1\hnode]layer12.south) {};
+\node[anchor=north west,inner sep=4pt,font=\small] () at (attn12.north west) {注意力};
+\node[anchor=south,inner sep=0pt] (out12) at ([yshift=0.3\hseg]attn12.north) {$\cdots$};
+\node[thinnode,anchor=south west,thick,draw=dblue!40,text=black!40] (q12) at ([xshift=0.1\wseg,yshift=0.2\hseg]attn12.south west) {$Q^n$};
+\node[thinnode,anchor=south,thick,draw=orange!40,text=black!40] (k12) at ([yshift=0.2\hseg]attn12.south) {$K^n$};
+\node[thinnode,anchor=south east,thick,draw=purple,text=black] (v12) at ([xshift=-0.1\wseg,yshift=0.2\hseg]attn12.south east) {$V^n$};
+\node[fatnode,anchor=south,thick,densely dashed,draw] (s12) at ([xshift=0.5\wseg,yshift=0.8\hseg]q12.north east) {$S^n\!=\!S^m$};
+\node[fatnode,anchor=south,thick,draw] (a12) at ([xshift=0.45\wseg,yshift=1.3\hseg+0.6\hnode]k12.north east) {$A^n\!=\!S^n\!\cdot\!V$};
+\begin{scope}[fill=black!40]
+    \draw[-latex',thick,draw=black!40] (q12.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s12.south);
+    \draw[-latex',thick,draw=black!40] (k12.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s12.south);
+\end{scope}
+\begin{scope}[fill=black!100]
+    \draw[-latex',thick,draw=black!100] (s12.north).. controls +(north:0.7\hseg) and +(south:0.8\hseg) .. (a12.south);
+    \draw[-latex',thick,draw=black!100] (v12.north).. controls +(north:2.7\hseg) and +(south:0.9\hseg) .. (a12.south);
+\end{scope}
+\draw[-latex',thick] (a12.north).. controls +(north:0.3\hseg) and +(south:0.7\hseg) ..(out12.south);
+
+
+\node[layernode,anchor=north] (layer13) at ([yshift=-\hseg]layer03.south) {};
+\node[attnnode,anchor=south] (attn13) at ([yshift=0.1\hnode]layer13.south) {};
+\node[anchor=north west,inner sep=4pt,font=\small] () at (attn13.north west) {注意力};
+\node[anchor=south,inner sep=0pt] (out13) at ([yshift=0.3\hseg]attn13.north) {$\cdots$};
+\node[thinnode,anchor=south west,thick,draw=dblue!40,text=black!40] (q13) at ([xshift=0.1\wseg,yshift=0.2\hseg]attn13.south west) {$Q^n$};
+\node[thinnode,anchor=south,thick,draw=orange!40,text=black!40] (k13) at ([yshift=0.2\hseg]attn13.south) {$K^n$};
+\node[thinnode,anchor=south east,thick,draw=purple!40,text=black!40] (v13) at ([xshift=-0.1\wseg,yshift=0.2\hseg]attn13.south east) {$V^n$};
+\node[fatnode,anchor=south,thick,draw=black!40,text=black!40] (s13) at ([xshift=0.5\wseg,yshift=0.8\hseg]q13.north east) {$S^n$};
+\node[fatnode,anchor=south,thick,densely dashed,draw] (a13) at ([xshift=0.45\wseg,yshift=1.3\hseg+0.6\hnode]k13.north east) {$A^n\!=\!A^m$};
+\begin{scope}[fill=black!40]
+    \draw[-latex',thick,draw=black!40] (q13.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s13.south);
+    \draw[-latex',thick,draw=black!40] (k13.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s13.south);
+\end{scope}
+\begin{scope}[fill=black!40]
+    \draw[-latex',thick,draw=black!40] (s13.north) .. controls +(north:0.7\hseg) and +(south:0.8\hseg) .. (a13.south);
+    \draw[-latex',thick,draw=black!40] (v13.north) .. controls +(north:2.7\hseg) and +(south:0.9\hseg) .. (a13.south);
+\end{scope}
+\draw[-latex',thick] (a13.north).. controls +(north:0.3\hseg) and +(south:0.7\hseg) ..(out13.south);
+
+
+\foreach \i / \j / \k / \q / \s / \t / \v in
+    {2/1/1/100/100/100/100, 2/2/1/100/100/100/100, 2/3/1/100/100/100/100}
+    {
+        \node[layernode,anchor=north] (layer\i\j) at ([yshift=-0.8\hseg]layer\k\j.south) {};
+        \node[attnnode,anchor=south] (attn\i\j) at ([yshift=0.1\hnode]layer\i\j.south) {};
+        \node[anchor=north west,inner sep=4pt,font=\small] () at (attn\i\j.north west) {注意力};
+        \node[anchor=south,inner sep=0pt] (out\i\j) at ([yshift=0.3\hseg]attn\i\j.north) {$\cdots$};
+
+        \node[thinnode,anchor=south west,thick,draw=dblue!\q,text=black] (q\i\j) at ([xshift=0.1\wseg,yshift=0.2\hseg]attn\i\j.south west) {$Q^m$};
+        \node[thinnode,anchor=south,thick,draw=orange!\q,text=black] (k\i\j) at ([yshift=0.2\hseg]attn\i\j.south) {$K^m$};
+        \node[thinnode,anchor=south east,thick,draw=purple!\s,text=black] (v\i\j) at ([xshift=-0.1\wseg,yshift=0.2\hseg]attn\i\j.south east) {$V^m$};
+        \node[fatnode,anchor=south,thick,draw=black!\s] (s\i\j) at ([xshift=0.45\wseg,yshift=0.8\hseg]q\i\j.north east) {$S^m\!=\!S(Q^m\!\cdot\!K^m)$};
+        \node[fatnode,anchor=south,thick,draw=black!80] (a\i\j) at ([xshift=0.45\wseg,yshift=1.3\hseg+0.6\hnode]k\i\j.north east) {$A^m\!=\!S^m\!\cdot\!V$};
+        \begin{scope}[fill=black!\q]
+            \draw[-latex',thick,draw=black!\t] (q\i\j.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s\i\j.south);
+            \draw[-latex',thick,draw=black!\t] (k\i\j.north) .. controls +(north:0.5\hseg) and +(south:0.8\hseg) .. (s\i\j.south);
+        \end{scope}
+        \begin{scope}[fill=black!\s]
+            \draw[-latex',thick,draw=black!\v] (s\i\j.north).. controls +(north:0.7\hseg) and +(south:0.8\hseg) ..(a\i\j.south);
+            \draw[-latex',thick,draw=black!\v] (v\i\j.north).. controls +(north:2.7\hseg) and +(south:0.9\hseg) ..(a\i\j.south);
+        \end{scope}
+        \draw[-latex',thick] (a\i\j.north).. controls +(north:0.3\hseg) and +(south:0.7\hseg) ..(out\i\j.south);
+    }
+
+\draw[-latex',densely dashed,very thick] (s22.west) to [out=120,in=-120] (s12.west);
+\draw[-latex',densely dashed,very thick] (a23.east) to [out=60,in=-60] (a13.east);
+
+\foreach \i in {1,2,3}
+{
+    \node[anchor=north west,inner sep=3pt,font=\tiny] () at ([yshift=-0.2em]layer1\i.north west) {Layer $n\!=\!m\!+\!i$};
+    \node[anchor=north west,inner sep=3pt,font=\tiny] () at ([yshift=-0.2em]layer2\i.north west) {Layer $m$};
+    \node[anchor=center,inner sep=1pt] (dot1\i) at ([yshift=0.5\hseg]layer1\i.north) {$\cdots$};
+    \draw[->,thick] (out1\i.north) -- ([yshift=0.1em]dot1\i.south);
+    \node[anchor=center,inner sep=1pt] (dot2\i) at ([yshift=-0.4\hseg]layer1\i.south) {$\cdots$};
+    \draw[->,thick] ([yshift=-0.15em]dot2\i.north) -- ([yshift=-0.3em]attn1\i.south);
+    \draw[->,thick] (out2\i.north) -- ([yshift=0.1em]dot2\i.south);
+    \node[anchor=center,inner sep=1pt] (dot3\i) at ([yshift=-0.4\hseg]layer2\i.south) {$\cdots$};
+    \draw[->,thick] ([yshift=-0.15em]dot3\i.north) -- ([yshift=-0.3em]attn2\i.south);
+}
+
+\node[anchor=north,align=left,inner sep=1pt,font=\footnotesize] () at (dot31.south) {\small{(a) 标准的多层自注意力}};
+\node[anchor=north,align=left,inner sep=1pt,font=\footnotesize] () at (dot32.south) {\small{(b) 共享自注意力}};
+\node[anchor=north,align=left,inner sep=1pt,font=\footnotesize] () at (dot33.south) {\small{(c) 共享编码-解码注意力}};
+
+\end{scope}
+\end{tikzpicture}

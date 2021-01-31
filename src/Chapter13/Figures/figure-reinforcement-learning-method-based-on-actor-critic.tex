@@ -1,0 +1,34 @@
+
+\begin{tikzpicture}
+	
+	\node[anchor=west,thick,inner sep=0mm,minimum height=4em,minimum width=8em,rounded corners=15pt,align=left,draw,fill=red!15] (n1) at (0,0) {Decoder\\Encoder};
+
+	\node[anchor=west,thick,inner sep=0mm,minimum height=4em,minimum width=8em,rounded corners=15pt,align=left,draw,fill=green!15] (n2) at ([xshift=14em,yshift=0em]n1.east) {Decoder\\Encoder};
+
+	\node[anchor=south,inner sep=0mm,font=\small] (a1) at ([xshift=0em,yshift=1em]n1.north) {演员$p$};
+
+	\node[anchor=north,inner sep=0mm] (a2) at ([xshift=0em,yshift=-1em]n1.south) {$x$};
+
+	\node[anchor=south,inner sep=0mm,font=\small] (c1) at ([xshift=0em,yshift=1em]n2.north) {评论家$Q$};
+	\node[anchor=north,inner sep=0mm] (c2) at ([xshift=0em,yshift=-1em]n2.south) {$y$};
+
+%	\node[anchor=west,inner sep=0mm] (n3) at ([xshift=2.1em,yshift=2em]n1.east) {$Q_1,Q_2,\ldots,Q_J$};
+%	\node[anchor=west,inner sep=0mm] (n4) at ([xshift=2.9em,yshift=-0.4em]n1.east) {$\hat{\mathbi{y}}_1,\hat{\mathbi{y}}_2,\ldots,\hat{\mathbi{y}}_J$};
+%	\node[anchor=west,inner sep=0mm,font=\small] (n5) at ([xshift=3em,yshift=-3em]n1.east) {演员状态};
+
+\draw [-,thick] ([xshift=0em,yshift=0em]n1.west) -- ([xshift=0em,yshift=0em]n1.east);
+\draw [-,thick] ([xshift=0em,yshift=0em]n2.west) -- ([xshift=0em,yshift=0em]n2.east);
+
+%\draw [->,thick] ([xshift=0em,yshift=1em]n2.west) -- ([xshift=0em,yshift=1em]n1.east);
+%\draw [->,thick] ([xshift=0em,yshift=0.5em]n1.east) -- ([xshift=0em,yshift=0.5em]n2.west);
+
+%\draw [->,dotted,very thick] ([xshift=0em,yshift=0em]n1.east)  .. controls ([xshift=3em,yshift=-1em]n1.-90) and ([xshift=-3em,yshift=-1em]n2.-90) .. (n2.west);
+
+	\node[anchor=west,inner sep=0mm] (n3) at ([xshift=4.1em,yshift=1em]n1.east) {$Q_1,Q_2,\ldots,Q_J$};
+	\node[anchor=west,inner sep=0mm] (n4) at ([xshift=4.9em,yshift=-1em]n1.east) {$\tilde{{y}}_1,\tilde{{y}}_2,\ldots,\tilde{{y}}_J$};
+
+\draw [->,thick] ([xshift=-0.1em,yshift=0.6em]n2.west) -- ([xshift=0.1em,yshift=0.6em]n1.east);
+\draw [->,thick] ([xshift=0.1em,yshift=-0.6em]n1.east) -- ([xshift=-0.1em,yshift=-0.6em]n2.west);
+
+
+\end{tikzpicture}

@@ -1,0 +1,238 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}[scale=0.6]
+	\tikzstyle{every node}=[scale=0.6]
+	\tikzstyle{cell} = [draw,circle,inner sep=0pt,minimum size=1.4em]
+	\tikzstyle{point} = [circle,fill=white,minimum size=0.46em,inner sep=0pt]
+	\tikzstyle{point_line} = [-,white,line width=1.4pt]
+	\tikzstyle{cell_line} = [-,thick]
+	\tikzstyle{background} = [rounded corners=4pt,minimum width=44em,fill=gray!20]
+
+%figure 1
+\node[inner sep=0pt,minimum size=4em,fill=black,rounded corners=6pt] (n1) at (-1.6em,0) {};
+\node[circle,fill=white,minimum size=2em] at (-1.6em,0){};
+\node[circle,fill=black,minimum size=1.4em] (n2) at (1.8em,0){};
+\draw[line width=4pt,-] ([xshift=-0.1em]n1.east) -- ([xshift=0.1em]n2.west);
+\draw[line width=4pt,-, out=-45,in=45] ([xshift=0.2em,yshift=1em]n2.east) to ([xshift=0.2em,yshift=-1em]n2.east);
+\draw[line width=4pt,-, out=-45,in=45] ([xshift=0.8em,yshift=1.4em]n2.east) to ([xshift=0.8em,yshift=-1.4em]n2.east);
+\draw[line width=4pt,-, out=-45,in=45] ([xshift=1.4em,yshift=1.8em]n2.east) to ([xshift=1.4em,yshift=-1.8em]n2.east);
+
+
+%figure 2
+\node[inner sep=0pt,minimum size=6em,fill=black,rounded corners=6pt] (n3) at (14em,0) {};
+\node[inner sep=0pt,minimum size=5em,fill=white,rounded corners=8pt] (n4) at (14em,0) {};
+\node[inner sep=0pt,minimum size=4.4em,fill=black,rounded corners=6pt] (n5) at (14em,0) {};
+
+\node[point] (dot1) at (12.7em,-1em){};
+\node[point] (dot2) at (12.8em,1.2em){};
+\node[point] (dot3) at (14.8em,-0.9em){};
+\node[point] (dot4) at (15.2em,-0.2em){};
+\node[point] (dot5) at (13.5em,0.3em){};
+\node[point] (dot6) at (14em,0.8em){};
+\draw[point_line] ([yshift=-1em]dot1.south) -- ([yshift=0.1em]dot1.south);
+\draw[point_line] ([yshift=-1.1em,xshift=-1.6em]dot3.south) -- ([yshift=-0.5em,xshift=-1.6em]dot3.south)-- ([yshift=-0.5em]dot3.south) -- ([yshift=0.1em]dot3.south);
+\draw[point_line] ([xshift=-0.1em]dot4.east) -- ([xshift=1em]dot4.east);
+\draw[point_line] ([xshift=-1em,yshift=-1.3em]dot2.south) -- ([yshift=-1.3em]dot2.south) -- ([yshift=0.1em]dot2.south);
+\draw[point_line] ([xshift=-0.1em]dot5.east) -- ([xshift=0.9em]dot5.east) --([xshift=0.9em,yshift=0.8em]dot5.east) -- ([xshift=2.6em,yshift=0.8em]dot5.east);
+\draw[point_line] ([yshift=-0.1em]dot6.north) -- ([yshift=0.6em]dot6.north) -- ([yshift=0.6em,xshift=1em]dot6.north) -- ([yshift=1.2em,xshift=1em]dot6.north);
+
+\foreach \x in {1,2,3,4}{
+\node[fill=black,inner sep=0pt,minimum width=1.2em,minimum height=0.6em] at (17.8em,-3em+1.2em*\x){};
+\node[inner sep=0pt,circle,minimum size=0.6em,fill=black] at (18.4em,-3em+1.2em*\x){};}
+
+\foreach \x in {1,2,3,4}{
+\node[fill=black,inner sep=0pt,minimum width=1.2em,minimum height=0.6em] at (10.2em,-3em+1.2em*\x){};
+\node[inner sep=0pt,circle,minimum size=0.6em,fill=black] at (9.6em,-3em+1.2em*\x){};}
+
+\foreach \x in {1,2,3,4}{
+\node[fill=black,inner sep=0pt,minimum width=0.6em,minimum height=1.2em] at (10.9em+1.2em*\x,3.8em){};
+\node[inner sep=0pt,circle,minimum size=0.6em,fill=black] at (10.9em+1.2em*\x,4.2em){};}
+
+\foreach \x in {1,2,3,4}{
+\node[fill=black,inner sep=0pt,minimum width=0.6em,minimum height=1.2em] at (10.9em+1.2em*\x,-3.8em){};
+\node[inner sep=0pt,circle,minimum size=0.6em,fill=black] at (10.9em+1.2em*\x,-4.2em){};}
+
+%figure 3
+\node[circle,line width=2pt,minimum size=3.8em,draw,fill=white] (f1) at (26em,0){};
+\node[circle,line width=2pt,minimum size=1em,draw,fill=white] (c1) at (26em,0){};
+\node[circle,line width=2pt,minimum size=3.8em,draw,fill=white] (f2)at (30.4em,0){};
+\node[circle,line width=2pt,minimum size=1em,draw,fill=white] (c2) at (30.4em,0){};
+
+\draw[line width=2pt,out=90,in=90] ([xshift=0.1em]c1.180) to ([xshift=0.1em]f1.180);
+\draw[line width=2pt,out=45,in=45] ([xshift=0.1em,yshift=-0.1em]c1.135) to ([xshift=0.1em,yshift=-0.1em]f1.135);
+\draw[line width=2pt,out=0,in=0] ([yshift=-0.1em]c1.90) to ([yshift=-0.1em]f1.90);
+\draw[line width=2pt,out=-45,in=-45] ([xshift=-0.1em,yshift=-0.1em]c1.45) to ([xshift=-0.1em,yshift=-0.1em]f1.45);
+\draw[line width=2pt,out=-90,in=-90] ([xshift=-0.1em]c1.0) to ([xshift=-0.1em]f1.0);
+\draw[line width=2pt,out=-135,in=-135] ([xshift=-0.1em,yshift=0.1em]c1.-45) to ([xshift=-0.1em,yshift=0.1em]f1.-45);
+\draw[line width=2pt,out=-180,in=-180] ([yshift=0.1em]c1.-90) to ([yshift=0.1em]f1.-90);
+\draw[line width=2pt,out=-225,in=-225] ([xshift=0.1em,yshift=0.1em]c1.-135) to ([xshift=0.1em,yshift=0.1em]f1.-135);
+
+\draw[line width=2pt,out=90,in=90] ([xshift=0.1em]c2.180) to ([xshift=0.1em]f2.180);
+\draw[line width=2pt,out=45,in=45] ([xshift=0.1em,yshift=-0.1em]c2.135) to ([xshift=0.1em,yshift=-0.1em]f2.135);
+\draw[line width=2pt,out=0,in=0] ([yshift=-0.1em]c2.90) to ([yshift=-0.1em]f2.90);
+\draw[line width=2pt,out=-45,in=-45] ([xshift=-0.1em,yshift=-0.1em]c2.45) to ([xshift=-0.1em,yshift=-0.1em]f2.45);
+\draw[line width=2pt,out=-90,in=-90] ([xshift=-0.1em]c2.0) to ([xshift=-0.1em]f2.0);
+\draw[line width=2pt,out=-135,in=-135] ([xshift=-0.1em,yshift=0.1em]c2.-45) to ([xshift=-0.1em,yshift=0.1em]f2.-45);
+\draw[line width=2pt,out=-180,in=-180] ([yshift=0.1em]c2.-90) to ([yshift=0.1em]f2.-90);
+\draw[line width=2pt,out=-225,in=-225] ([xshift=0.1em,yshift=0.1em]c2.-135) to ([xshift=0.1em,yshift=0.1em]f2.-135);
+
+\draw[line width=2pt,-] (22.8em,2.6em) -- (23.4em,2.6em) -- (23.4em,-3em);
+\draw[line width=2pt,-] (23.4em,1.6em) -- (23em,1.6em) -- (23em,0.8em) -- (23.4em,0.8em);
+\draw[line width=2pt,-] (23.4em,0.4em) -- (23em,0.4em) -- (23em,-2em) -- (23.4em,-2em);
+\draw[line width=2pt,-] (23.4em,2em) -- (24.4em,2em) -- (25em,2.6em) -- (30.4em,2.6em);
+\draw[line width=2pt,-] (23.4em,-2.5em) -- (30.8em,-2.5em);
+\draw[line width=2pt,-] (25em,-2.5em) -- (25em,-3em) -- (26em,-3em) -- (26em,-2.5em);
+\draw[line width=2pt,-] (26.5em,-2.5em) -- (26.5em,-3em) -- (29.4em, -3em) -- (29.4em,-2.5em) ;
+\draw[line width=2pt,-,out=0,in=120] (30.4em,2.6em) to (32.8em,1em);
+\draw[line width=2pt,-,out=0,in=-70] (30.8em,-2.5em) to (33.2em,1em);
+\draw[line width=2pt,-] (32.8em,1em) to (33.2em,1em);
+\draw[line width=2pt,-] (27.4em,2.6em) -- (28.4em,1.6em) -- (29.6em,1.6em);
+
+\node[] at (0em,4.6em) {\huge\bfnew{Different Hardware}};
+\node[] at (6.4em,22em) {\huge\bfnew{SubTransformers(Weight-Sharing)}};
+\node[] at (-0.4em,37.6em) {\huge\bfnew{SuperTransformer}};
+\node[] at (0.4em,-6.2em) {\huge\bfnew{IOT}};
+\node[] at (14em,-6.2em) {\huge\bfnew{CPU}};
+\node[] at (28em,-6.2em) {\huge\bfnew{GPU}};
+\begin{pgfonlayer}{background}
+{
+\draw[line width=3pt,-] (23.4em,-1.6em) -- (28.2em,-1.6em) -- (28.6em,-2.5em);
+\node[background,minimum height=14em] (bg1) at (13.4em,-0.8em){};
+\node[background,minimum height=11.4em] (bg2) at (13.4em,17.8em){};
+\node[background,minimum height=10em] (bg3) at (13.4em,34em){};
+\draw[thick,out=45,in=-45,-latex] (bg1.north east) to (bg2.north east);
+}
+\end{pgfonlayer}
+
+\node[cell,fill=red!60] (c1_1) at (-1.5em,18.5em){};
+\node[cell,fill=red!60] (c1_2) at (1.5em,18.5em){};
+\node[cell,fill=ublue!60] (c1_3) at (-1.5em,15.5em){};
+\node[cell,fill=ublue!60] (c1_4) at (1.5em,15.5em){};
+
+\node[cell,fill=red!60] (c2_1) at (12.5em,20em){};
+\node[cell,fill=red!60] (c2_2) at (15.5em,20em){};
+\node[cell,fill=ublue!60] (c2_3) at (12.5em,17em){};
+\node[cell,fill=ublue!60] (c2_4) at (15.5em,17em){};
+\node[cell,fill=orange!60] (c2_5) at (9.5em,14em){};
+\node[cell,fill=orange!60] (c2_6) at (12.5em,14em){};
+\node[cell,fill=orange!60] (c2_7) at (15.5em,14em){};
+\node[cell,fill=orange!60] (c2_8) at (18.5em,14em){};
+
+\node[cell,fill=red!60] (c3_1) at (23.5em,19em){};
+\node[cell,fill=red!60] (c3_2) at (26.5em,19em){};
+\node[cell,fill=red!60] (c3_3) at (29.5em,19em){};
+\node[cell,fill=red!60] (c3_4) at (32.5em,19em){};
+\node[cell,fill=ublue!60] (c3_5) at (23.5em,15em){};
+\node[cell,fill=ublue!60] (c3_6) at (26.5em,15em){};
+\node[cell,fill=ublue!60] (c3_7) at (29.5em,15em){};
+\node[cell,fill=ublue!60] (c3_8) at (32.5em,15em){};
+
+
+\draw[-,thick] (c1_1.-90) -- (c1_3.90);
+\draw[-,thick] (c1_1.-45) -- (c1_4.135);
+\draw[-,thick] (c1_2.-90) -- (c1_4.90);
+\draw[-,thick] (c1_2.-135) -- (c1_3.45);
+
+\draw[-,thick] (c2_1.-90) -- (c2_3.90);
+\draw[-,thick] (c2_1.-45) -- (c2_4.135);
+\draw[-,thick] (c2_2.-90) -- (c2_4.90);
+\draw[-,thick] (c2_2.-135) -- (c2_3.45);
+
+\draw[-,thick] (c2_3.-90) -- (c2_6.90);
+\draw[-,thick] (c2_3.-135) -- (c2_5.45);
+\draw[-,thick] (c2_3.-45) -- (c2_7.135);
+\draw[-,thick] (c2_3.-30) -- (c2_8.150);
+\draw[-,thick] (c2_4.-150) -- (c2_5.30);
+\draw[-,thick] (c2_4.-135) -- (c2_6.45);
+\draw[-,thick] (c2_4.-90) -- (c2_7.90);
+\draw[-,thick] (c2_4.-45) -- (c2_8.135);
+
+\draw[-,thick] (c3_1.-90) -- (c3_5.90);
+\draw[-,thick] (c3_1.-45) -- (c3_6.135);
+\draw[-,thick] (c3_1.-30) -- (c3_7.150);
+\draw[-,thick] (c3_1.-15) -- (c3_8.165);
+\draw[-,thick] (c3_2.-90) -- (c3_6.90);
+\draw[-,thick] (c3_2.-135) -- (c3_5.45);
+\draw[-,thick] (c3_2.-45) -- (c3_7.135);
+\draw[-,thick] (c3_2.-30) -- (c3_8.150);
+\draw[-,thick] (c3_3.-150) -- (c3_5.30);
+\draw[-,thick] (c3_3.-135) -- (c3_6.45);
+\draw[-,thick] (c3_3.-90) -- (c3_7.90);
+\draw[-,thick] (c3_3.-45) -- (c3_8.135);
+\draw[-,thick] (c3_4.-165) -- (c3_5.15);
+\draw[-,thick] (c3_4.-150) -- (c3_6.30);
+\draw[-,thick] (c3_4.-135) -- (c3_7.45);
+\draw[-,thick] (c3_4.-90) -- (c3_8.90);
+
+
+\node[cell,fill=red!60] (c4_1) at (9.5em,37em){};
+\node[cell,fill=red!60] (c4_2) at (12.5em,37em){};
+\node[cell,fill=red!60] (c4_3) at (15.5em,37em){};
+\node[cell,fill=red!60] (c4_4) at (18.5em,37em){};
+\node[cell,fill=ublue!60] (c4_5) at (9.5em,34em){};
+\node[cell,fill=ublue!60] (c4_6) at (12.5em,34em){};
+\node[cell,fill=ublue!60] (c4_7) at (15.5em,34em){};
+\node[cell,fill=ublue!60] (c4_8) at (18.5em,34em){};
+\node[cell,fill=orange!60] (c4_9) at (9.5em,31em){};
+\node[cell,fill=orange!60] (c4_10) at (12.5em,31em){};
+\node[cell,fill=orange!60] (c4_11) at (15.5em,31em){};
+\node[cell,fill=orange!60] (c4_12) at (18.5em,31em){};
+
+
+\draw[-,thick] (c4_1.-90) -- (c4_5.90);
+\draw[-,thick] (c4_1.-45) -- (c4_6.135);
+\draw[-,thick] (c4_1.-30) -- (c4_7.150);
+\draw[-,thick] (c4_1.-15) -- (c4_8.165);
+\draw[-,thick] (c4_2.-90) -- (c4_6.90);
+\draw[-,thick] (c4_2.-135) -- (c4_5.45);
+\draw[-,thick] (c4_2.-45) -- (c4_7.135);
+\draw[-,thick] (c4_2.-30) -- (c4_8.150);
+\draw[-,thick] (c4_3.-150) -- (c4_5.30);
+\draw[-,thick] (c4_3.-135) -- (c4_6.45);
+\draw[-,thick] (c4_3.-90) -- (c4_7.90);
+\draw[-,thick] (c4_3.-45) -- (c4_8.135);
+\draw[-,thick] (c4_4.-165) -- (c4_5.15);
+\draw[-,thick] (c4_4.-150) -- (c4_6.30);
+\draw[-,thick] (c4_4.-135) -- (c4_7.45);
+\draw[-,thick] (c4_4.-90) -- (c4_8.90);
+
+\draw[-,thick] (c4_5.-90) -- (c4_9.90);
+\draw[-,thick] (c4_5.-45) -- (c4_10.135);
+\draw[-,thick] (c4_5.-30) -- (c4_11.150);
+\draw[-,thick] (c4_5.-15) -- (c4_12.165);
+\draw[-,thick] (c4_6.-90) -- (c4_10.90);
+\draw[-,thick] (c4_6.-135) -- (c4_9.45);
+\draw[-,thick] (c4_6.-45) -- (c4_11.135);
+\draw[-,thick] (c4_6.-30) -- (c4_12.150);
+\draw[-,thick] (c4_7.-150) -- (c4_9.30);
+\draw[-,thick] (c4_7.-135) -- (c4_10.45);
+\draw[-,thick] (c4_7.-90) -- (c4_11.90);
+\draw[-,thick] (c4_7.-45) -- (c4_12.135);
+\draw[-,thick] (c4_8.-165) -- (c4_9.15);
+\draw[-,thick] (c4_8.-150) -- (c4_10.30);
+\draw[-,thick] (c4_8.-135) -- (c4_11.45);
+\draw[-,thick] (c4_8.-90) -- (c4_12.90);
+
+\draw[line width=2pt,-latex] ([xshift=0.5em,yshift=-0.6em]bg3.south) -- ([xshift=0.5em,yshift=0.6em]bg2.north); 
+\draw[line width=2pt,-latex] ([xshift=-2.5em,yshift=-0.6em]bg3.south) -- ([xshift=-9.5em,yshift=0.6em]bg2.north);
+\draw[line width=2pt,-latex] ([xshift=3.5em,yshift=-0.6em]bg3.south) -- ([xshift=9.5em,yshift=0.6em]bg2.north);
+\draw[line width=2pt,-latex] (0em, 10.4em) -- (0em, 7em); 
+\draw[line width=2pt,-latex] (14em, 10.4em) -- (14em, 7em);
+\draw[line width=2pt,-latex] (28em, 10.4em) -- (28em, 7em);
+\node[align=center] at (0.5em,-9em){\Large\bfnew{TinyML}};
+\node[align=center] at (14em,-9em){\Large\bfnew{Deeper}};
+\node[align=center] at (28em,-9em){\Large\bfnew{Wider}};
+\node[font=\footnotesize,align=center] at (30em,26em){\Large\bfnew{Evolutionary Search with} \\ \Large\bfnew{Hardware Constraints}};
+\node[font=\footnotesize,align=center] at ([yshift=-1em]bg2.south){\Large\bfnew{Specialized Deployment is Efficient}};
+\node[font=\footnotesize,align=center] at ([xshift=3em,yshift=5em]bg1.east){\Large\bfnew{Hardware}\\\Large\bfnew{Latency}\\\Large\bfnew{Feedback}};
+
+\node[circle,inner sep=0pt,minimum size=3em,draw,fill=white] (clock) at ([xshift=3.4em,yshift=-2.4em]bg2.east){};
+\node[circle,inner sep=0pt,minimum size=0.4em,draw,fill=black] (clock2)at ([xshift=3.4em,yshift=-2.4em]bg2.east){};
+\draw[] ([xshift=-0.3em]clock.0) arc (1:180:1.2em);
+\draw[fill=black] (clock2.90) -- ([xshift=0.6em,yshift=-0.6em]clock.135) -- (clock2.180) -- (clock2.90);
+\end{tikzpicture}
+
+
+
+

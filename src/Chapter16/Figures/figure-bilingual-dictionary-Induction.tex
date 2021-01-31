@@ -1,0 +1,180 @@
+\begin{tikzpicture}
+
+%%%%%%%%词典推断------------------------------------------------------------
+\begin{scope}
+\draw [-,ublue,line width=0.5pt] (0,0)..controls (0.3,0.2) and (0.5,0)..(0.7,-0.2)..controls (0.8,-0.3) and (0.9,-0.4)..(1.1,-0.4)..controls (1.3,-0.4) and (1.3,-0.1)..(1.28,0)..controls (1.26,0.1) and (1.25,0.2)..(1.2,0.3)..controls (1.15,0.4)and (1.2,0.5)..(1.6,0.55)..controls (1.7,0.56) and (1.78,0.5)..(1.85,0.35)..controls (2.0,0.0) and (2.05,-0.1)..(2.05,-0.5)..controls (2.04,-1.1) and (1.5,-1.1)..(0.6,-0.78)..controls (0.5,-0.74) and (0.4,-0.7)..(0.2,-0.5)..controls(0.1,-0.4) and (-0.15,-0.1)..(0,0) ;
+
+\draw [-,red!70,line width=0.5pt] (0.04,-0.5) .. controls (0,-0.4) and (0.4,-0.1)..(0.7,-0.3)..controls (0.9,-0.45) and (1.1,-0.4)..(1.2,-0.3)..controls (1.3,-0.2) and (1.2,0.1).. (1.0,0.3)..controls (0.8,0.5) and (1.0,0.6)..(1.2,0.67)..controls (1.5,0.78) and (1.8,0.5)..(1.9,0.2)..controls(2.1,-0.3) and (2,-0.5)..(1.8,-0.75)..controls (1.5,-1.1) and (1.2,-1.0)..(0.4,-0.8)..controls (0.3,-0.77) and (0.14,-0.755)..(0.04,-0.5);
+
+\draw [-,thick] (-0.7,1.0)--(-0.7,-1.0);
+
+\node [anchor=center](c1) at (-0.1,0){\tiny{$\mathbi{Y}$}};
+\node [anchor=center](c2) at (-0.3,-0.7){\tiny{$\mathbi{W} \mathbi{X}$}};
+\node [anchor=center,red!70](cr1) at (0.65,-0.65){\scriptsize{$\bullet$}}; 
+\node [anchor=center,ublue](cb1) at (0.6,-0.5){\scriptsize{$\bullet$}};
+\node [anchor=center,red!70](cr2) at (1.65,-0.65){\scriptsize{$\bullet$}}; 
+\node [anchor=center,ublue](cb2) at (1.55,-0.8){\scriptsize{$\bullet$}};
+\node [anchor=center,red!70](cr3) at (1.5,0.1){\scriptsize{$\bullet$}}; 
+\node [anchor=center,ublue](cb3) at (1.6,-0.05){\scriptsize{$\bullet$}}; 
+\draw [-,red](0.65,-0.65)--(0.60,-0.62)--(0.66,-0.58)--(0.6,-0.55)--(0.63,-0.52)--(0.6,-0.5);
+\draw [-,red](1.65,-0.65)--(1.60,-0.68)--(1.64,-0.72)--(1.56,-0.72)--(1.60,-0.76)--(1.55,-0.8);
+\draw [-,red](1.5,0.1)--(1.53,0.08)--(1.49,0.04)--(1.58,0.03)--(1.54,-0.01)--(1.6,-0.05);
+\end{scope}
+
+%%%%%%%%X映射到Y空间------------------------------------------------------------
+\begin{scope}[xshift=-8.0em]
+\draw [-,ublue,line width=0.5pt] (0,0)..controls (0.3,0.2) and (0.5,0)..(0.7,-0.2)..controls (0.8,-0.3) and (0.9,-0.4)..(1.1,-0.4)..controls (1.3,-0.4) and (1.3,-0.1)..(1.28,0)..controls (1.26,0.1) and (1.25,0.2)..(1.2,0.3)..controls (1.15,0.4)and (1.2,0.5)..(1.6,0.55)..controls (1.7,0.56) and (1.78,0.5)..(1.85,0.35)..controls (2.0,0.0) and (2.05,-0.1)..(2.05,-0.5)..controls (2.04,-1.1) and (1.5,-1.1)..(0.6,-0.78)..controls (0.5,-0.74) and (0.4,-0.7)..(0.2,-0.5)..controls(0.1,-0.4) and (-0.15,-0.1)..(0,0) ;
+
+\draw [-,red!70,line width=0.5pt] (0.04,-0.5) .. controls (0,-0.4) and (0.4,-0.1)..(0.7,-0.3)..controls (0.9,-0.45) and (1.1,-0.4)..(1.2,-0.3)..controls (1.3,-0.2) and (1.2,0.1).. (1.0,0.3)..controls (0.8,0.5) and (1.0,0.6)..(1.2,0.67)..controls (1.5,0.78) and (1.8,0.5)..(1.9,0.2)..controls(2.1,-0.3) and (2,-0.5)..(1.8,-0.75)..controls (1.5,-1.1) and (1.2,-1.0)..(0.4,-0.8)..controls (0.3,-0.77) and (0.14,-0.755)..(0.04,-0.5);
+
+\draw [-,thick] (-0.7,1.0)--(-0.7,-1.0);
+
+\node [anchor=center](c1) at (-0.1,0){\tiny{$\mathbi{Y}$}};
+\node [anchor=center](c2) at (-0.3,-0.7){\tiny{$\mathbi{W} \mathbi{X}$}};
+\node [anchor=center,red!70](cr1) at (0.65,-0.65){\scriptsize{$\bullet$}}; 
+\node [anchor=center,ublue](cb1) at (0.6,-0.5){\scriptsize{$\bullet$}};
+\node [anchor=center,red!70](cr2) at (1.65,-0.65){\scriptsize{$\bullet$}}; 
+\node [anchor=center,ublue](cb2) at (1.55,-0.8){\scriptsize{$\bullet$}};
+\node [anchor=center,red!70](cr3) at (1.5,0.1){\scriptsize{$\bullet$}}; 
+\node [anchor=center,ublue](cb3) at (1.6,-0.05){\scriptsize{$\bullet$}}; 
+%%%%%%一堆红色的球
+\node [anchor=center,red!70](cr4) at (0.15,-0.6){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr5) at (0.3,-0.6){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr6) at (0.5,-0.55){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr7) at (0.35,-0.4){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr8) at (0.4,-0.7){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr8) at (0.55,-0.8){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr9) at (0.9,-0.8){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr10) at (0.9,-0.5){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr11) at (1.4,-0.8){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr12) at (1.45,-0.3){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr13) at (1.35,0.3){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr14) at (1.2,0.4){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr15) at (1.6,0.45){\Large{$\cdot$}};
+%%%%%%一堆蓝色的球
+\node [anchor=center,ublue](cb4) at (0.1,-0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb5) at (0.3,-0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb6) at (0.5,-0.25){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb7) at (0.4,-0.1){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb8) at (0.35,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb9) at (0.45,-0.6){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb10) at (0.85,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb11) at (1.45,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb12) at (1.3,-0.85){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb13) at (1.8,-0.5){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb14) at (1.75,0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb15) at (1.6,0.2){\Large{$\cdot$}};
+\end{scope}
+
+%%%%%%%%X、Y词嵌入空间------------------------------------------------------------
+\begin{scope}[xshift=-16em]
+\draw [-,ublue,line width=0.5pt] (0,0)..controls (0.3,0.2) and (0.5,0)..(0.7,-0.2)..controls (0.8,-0.3) and (0.9,-0.4)..(1.1,-0.4)..controls (1.3,-0.4) and (1.3,-0.1)..(1.28,0)..controls (1.26,0.1) and (1.25,0.2)..(1.2,0.3)..controls (1.15,0.4)and (1.2,0.5)..(1.6,0.55)..controls (1.7,0.56) and (1.78,0.5)..(1.85,0.35)..controls (2.0,0.0) and (2.05,-0.1)..(2.05,-0.5)..controls (2.04,-1.1) and (1.5,-1.1)..(0.6,-0.78)..controls (0.5,-0.74) and (0.4,-0.7)..(0.2,-0.5)..controls(0.1,-0.4) and (-0.15,-0.1)..(0,0) ;
+
+\node [anchor=center](x1) at (-1.45,0.2){\tiny{$\mathbi{X}$}};
+\node [anchor=center](y1) at (1.1,0.1){\tiny{$\mathbi{Y}$}};
+
+\node [anchor=center,ublue](cb1) at (0.6,-0.5){\scriptsize{$\bullet$}};
+\node [anchor=center,ublue](cb2) at (1.55,-0.8){\scriptsize{$\bullet$}};
+\node [anchor=center,ublue](cb3) at (1.6,-0.05){\scriptsize{$\bullet$}}; 
+%%%%%%一堆蓝色的球
+\node [anchor=center,ublue](cb4) at (0.1,-0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb5) at (0.3,-0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb6) at (0.5,-0.25){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb7) at (0.4,-0.1){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb8) at (0.35,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb9) at (0.45,-0.6){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb10) at (0.85,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb11) at (1.45,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb12) at (1.3,-0.85){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb13) at (1.8,-0.5){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb14) at (1.75,0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb15) at (1.6,0.2){\Large{$\cdot$}};
+
+\node [anchor=center](rw1) at (-0.5,0.45){\tiny{cat}}; 
+\node [anchor=center](rw2) at (0.05,0.4){\tiny{feline}}; 
+\node [anchor=center](rw3) at (-1.17,-0.07){\tiny{car}}; 
+\node [anchor=center](rw4) at (-0.7,-0.65){\tiny{deep}};
+\node [anchor=center](bw1) at (0.2,-0.1){\tiny{felin}};
+\node [anchor=center](bw2) at (0.75,-0.65){\tiny{katze}};
+\node [anchor=center](bw3) at (1.55,-0.65){\tiny{auto}};
+\node [anchor=center](bw4) at (1.6,-0.2){\tiny{tief}};
+\node [anchor=center](de1) at (0.3,-1.5) {\small{(a) $\mathbi{X}$、$\mathbi{Y}$词嵌入空间}};
+\node [anchor=center](de2) at (3.9,-1.5) {\small{(b) $\mathbi{X}$映射到$\mathbi{Y}$空间}};
+\node [anchor=center](de3) at (7,-1.5) {\small{(c) 词典推断}};
+\node [anchor=center](de4) at (10.1,-1.5) {\small{(d) 微调结果}};
+
+\end{scope}
+
+\begin{scope}[xshift=-14.5em,yshift=0.8em,rotate=-150]
+\draw [-,red!70,line width=0.5pt] (0.04,-0.5) .. controls (0,-0.4) and (0.4,-0.1)..(0.7,-0.3)..controls (0.9,-0.45) and (1.1,-0.4)..(1.2,-0.3)..controls (1.3,-0.2) and (1.2,0.1).. (1.0,0.3)..controls (0.8,0.5) and (1.0,0.6)..(1.2,0.67)..controls (1.5,0.78) and (1.8,0.5)..(1.9,0.2)..controls(2.1,-0.3) and (2,-0.5)..(1.8,-0.75)..controls (1.5,-1.1) and (1.2,-1.0)..(0.4,-0.8)..controls (0.3,-0.77) and (0.14,-0.755)..(0.04,-0.5);
+
+\node [anchor=center,red!70](cr1) at (0.65,-0.65){\scriptsize{$\bullet$}}; 
+\node [anchor=center,red!70](cr2) at (1.65,-0.65){\scriptsize{$\bullet$}}; 
+\node [anchor=center,red!70](cr3) at (1.5,0.1){\scriptsize{$\bullet$}}; 
+%%%%%%一堆红色的球
+\node [anchor=center,red!70](cr4) at (0.15,-0.6){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr5) at (0.3,-0.6){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr6) at (0.5,-0.55){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr7) at (0.35,-0.4){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr8) at (0.4,-0.7){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr8) at (0.55,-0.8){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr9) at (0.9,-0.8){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr10) at (0.9,-0.5){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr11) at (1.4,-0.8){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr12) at (1.45,-0.3){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr13) at (1.35,0.3){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr14) at (1.2,0.4){\Large{$\cdot$}};
+\node [anchor=center,red!70](cr15) at (1.6,0.45){\Large{$\cdot$}};
+\end{scope}
+
+%%%%%%%%%%%微调结果------------------------------------------------------------
+\begin{scope}[xshift=8.2em]
+\draw [-,red!70,line width=0.5pt] (0,0.4688)..controls (0.3,0.45) and (0.5,0.2)..(0.7,-0.25)..controls (0.8,-0.45) and (0.9,-0.4)..(1.1,-0.4)..controls (1.3,-0.42) and (1.3,-0.12)..(1.28,0)..controls (1.26,0.1) and (1.25,0.2)..(1.2,0.3)..controls (1.13,0.4) and (1.18,0.5)..(1.6,0.55)..controls (1.7,0.56) and (1.78,0.5)..(1.85,0.35)..controls (2.03,0.0) and (2.08,-0.1)..(2.07,-0.5)..controls (2.04,-1.1) and (1.5,-1.16)..(0.6,-0.91)..controls (0.05,-0.71) and (-0.2,-0.53)..(-0.25,-0.45)..controls (-0.55,0.0) and (-0.5,0.501)..(0,0.4688);
+
+\draw [-,ublue,line width=0.5pt] (0,0.5)..controls (0.3,0.5) and (0.5,0.2)..(0.7,-0.25)..controls (0.8,-0.45) and (0.9,-0.4)..(1.1,-0.4)..controls (1.3,-0.40) and (1.3,-0.1)..(1.28,0)..controls (1.26,0.1) and (1.25,0.2)..(1.2,0.3)..controls (1.15,0.4)and (1.2,0.5)..(1.6,0.55)..controls (1.7,0.56) and (1.78,0.5)..(1.85,0.35)..controls (2.0,0.0) and (2.05,-0.1)..(2.05,-0.5)..controls (2.04,-1.1) and (1.5,-1.1)..(0.6,-0.91)..controls (0.0,-0.75) and (-0.2,-0.53)..(-0.25,-0.45)..controls (-0.5,0.0) and (-0.5,0.501)..(0,0.5);
+
+\draw [-,thick] (-0.8,1.0)--(-0.8,-1.0);
+
+\node [anchor=center](c1) at (0.1,0.6){\tiny{$\mathbi{Y}$}};
+\node [anchor=center](c2) at (-0.45,-0.7){\tiny{$\mathbi{W} \mathbi{X}$}};
+
+\node [anchor=center,red!70](cr1) at (0.2,-0.35){\scriptsize{$\bullet$}};
+\node [anchor=center,red!70](cr2) at (1.58,-0.78){\scriptsize{$\bullet$}};
+\node [anchor=center,red!70](cr3) at (1.6,0){\scriptsize{$\bullet$}}; 
+
+\node [anchor=center,ublue](cb1) at (0.2,-0.3){\scriptsize{$\bullet$}};
+\node [anchor=center,ublue](cb2) at (1.55,-0.8){\scriptsize{$\bullet$}};
+\node [anchor=center,ublue](cb3) at (1.6,-0.05){\scriptsize{$\bullet$}}; 
+%%%%%%一堆红色的球
+\node [anchor=center,red!70](cb4) at (-0.35,0.16){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb5) at (-0.03,0.37){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb6) at (-0.03,0.12){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb7) at (0.37,0.02){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb8) at (-0.18,-0.18){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb9) at (0.65,-0.43){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb10) at (0.32,-0.68){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb11) at (0.82,-0.73){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb12) at (1.23,-0.85){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb13) at (1.8,-0.47){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb14) at (1.75,0.23){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb15) at (1.38,-0.44){\Large{$\cdot$}};
+\node [anchor=center,red!70](cb16) at (1.42,0.26){\Large{$\cdot$}};
+%%%%%%一堆蓝色的球
+\node [anchor=center,ublue](cb4) at (-0.35,0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb5) at (0,0.4){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb6) at (0,0.15){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb7) at (0.4,0.05){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb8) at (-0.15,-0.15){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb9) at (0.65,-0.4){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb10) at (0.3,-0.65){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb11) at (0.8,-0.7){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb12) at (1.2,-0.85){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb13) at (1.8,-0.5){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb14) at (1.75,0.2){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb15) at (1.4,-0.45){\Large{$\cdot$}};
+\node [anchor=center,ublue](cb16) at (1.45,0.3){\Large{$\cdot$}};
+\node [anchor=center](rw1) at (0.22,-0.45){\tiny{cat}};
+\node [anchor=center](rw2) at (0.20,-0.15){\tiny{katze}};
+\end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,55 @@
+%%
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=0.6]
+
+\node [anchor=east,fill=red!50,draw,rounded corners=3pt] (s11) at (-0.5em, 0) {\footnotesize{sublayer1}};
+\node [anchor=west,draw,circle,line width=1pt] (c11) at ([xshift=2em]s11.east) {};
+
+\node [anchor=north,fill=red!10,draw,dotted,rounded corners=3pt] (s21) at ([yshift=-3em]s11.south) {\footnotesize{sublayer1}};
+\node [anchor=west, draw,circle,dotted,line width=1pt] (c21) at ([xshift=2em]s21.east) {};
+\node [anchor=west,fill=red!10,draw,dotted,rounded corners=3pt] (s22) at ([xshift=2em]c21.east) {\footnotesize{sublayer2}};
+\node [anchor=west, draw,circle,dotted,line width=1pt] (c22) at ([xshift=2em]s22.east) {};
+
+\node [anchor=north,fill=red!50,draw,rounded corners=3pt] (s31) at ([yshift=-3em]s21.south) {\footnotesize{sublayer1}};
+\node [anchor=west,draw,circle,line width=1pt] (c31) at ([xshift=2em]s31.east) {};
+
+
+\node [anchor=north,fill=red!10,draw,dotted,rounded corners=3pt] (s41) at ([yshift=-3em]s31.south) {\footnotesize{sublayer1}};
+\node [anchor=east, draw,circle,line width=1pt] (c44) at ([xshift=-2em]s41.west) {};
+\node [anchor=west, draw,circle,dotted,line width=1pt] (c41) at ([xshift=2em]s41.east) {};
+\node [anchor=west,fill=red!10,draw,dotted,rounded corners=3pt] (s42) at ([xshift=2em]c41.east) {\footnotesize{sublayer2}};
+\node [anchor=west, draw,circle,dotted,line width=1pt] (c42) at ([xshift=2em]s42.east) {};
+\node [anchor=west,fill=red!50,draw,rounded corners=3pt] (s43) at ([xshift=2em]c42.east) {\footnotesize{sublayer3}};
+\node [anchor=west, draw,circle,line width=1pt] (c43) at ([xshift=2em]s43.east) {};
+
+\draw[-,rounded corners,line width=1pt] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em,yshift=2.3em]s11.west) -- ([xshift=2.8em,,yshift=2.3em]s11.east) -- (c11.north);
+\draw[-,rounded corners,line width=1pt] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em]s11.west) -- (s11.west);
+\draw[-,rounded corners,line width=1pt] (s11.east) -- (c11.west);
+\draw[-,rounded corners,line width=1pt] (c11.east) -- ([xshift=11.3em]c11.east) -- (c22.north);
+
+\draw[-,rounded corners,line width=1pt,dotted] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em,yshift=2.3em]s21.west) -- ([xshift=2.7em,,yshift=2.3em]s21.east) -- (c21.north);
+\draw[-,rounded corners,line width=1pt,dotted] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em]s21.west) -- (s21.west);
+\draw[-,rounded corners,line width=1pt,dotted] (s21.east) -- (c21.west);
+\draw[-,rounded corners,line width=1pt,dotted] (c21.east) -- (s22.west);
+\draw[-,rounded corners,line width=1pt,dotted] (s22.east) -- (c22.west);
+\draw[-,rounded corners,line width=1pt] (c22.east) -- ([xshift=11.3em]c22.east) -- (c43.north);
+
+\draw[-,rounded corners,line width=1pt] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em,yshift=2.3em]s31.west) -- ([xshift=2.7em,,yshift=2.3em]s31.east) -- (c31.north);
+\draw[-,rounded corners,line width=1pt] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em]s31.west) -- (s31.west);
+\draw[-,rounded corners,line width=1pt] (s31.east) -- (c31.west);
+\draw[-,rounded corners,line width=1pt] (c31.east) -- ([xshift=11.3em]c31.east) -- (c42.north);
+
+\draw[-,rounded corners,line width=1pt,dotted] (c44.east) -- ([xshift=0.8em]c44.east) -- ([xshift=-1.2em,yshift=2.3em]s41.west) -- ([xshift=2.7em,,yshift=2.3em]s41.east) -- (c41.north);
+\draw[-,rounded corners,line width=1pt,dotted] (c44.east) -- (s41.west);
+\draw[-,rounded corners,line width=1pt,dotted] (s41.east) -- (c41.west);
+\draw[-,rounded corners,line width=1pt,dotted] (c41.east) -- (s42.west);
+\draw[-,rounded corners,line width=1pt,dotted] (s42.east) -- (c42.west);
+\draw[-,rounded corners,line width=1pt] (c42.east) -- (s43.west);
+\draw[-,rounded corners,line width=1pt] (s43.east) -- (c43.west);
+\draw[->,rounded corners,line width=1pt] (c43.east) -- ([xshift=2em]c43.east);
+\end{scope} 
+\end{tikzpicture}
+\end{center}
+
+

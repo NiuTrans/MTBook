@@ -1,0 +1,110 @@
+\begin{tabular}{l l l l l}
+\begin{tikzpicture}
+\draw[->, thick] (0,0) to (3,0);
+\draw[->, thick] (0,-0) to (0,2);
+
+\node (a) at (1*0.3,6*0.2) {};
+\node (b) at (2*0.3,4*0.2) {};
+\node (c) at (3*0.3,3*0.2) {};
+\node (d) at (4*0.3,3*0.2) {};
+\node (e) at (6*0.3,4*0.2) {};
+\node (f)  at (7*0.3,6*0.2) {};
+\node (g) at (8*0.3,8.4*0.2) {};
+\node (h) at (9*0.3,9.7*0.2) {};
+\fill [black] (a) circle(1pt);
+\fill [black] (b) circle(1pt);
+\fill [black] (c) circle(1pt);
+\fill [black] (d) circle(1pt);
+\fill [black] (e) circle(1pt);
+\fill [black] (f) circle(1pt);
+\fill [black] (g) circle(1pt);
+\fill [black] (h) circle(1pt);
+
+% y=0.73x + 2.54
+\draw [thick,red] (0.5*0.3,1.81*0.2) to (10*0.3,9.84*0.2);
+\node [font=\footnotesize] at (1.5,-0.5) {欠拟合};
+\end{tikzpicture} 
+
+&
+
+\hspace{3em}
+
+&\begin{tikzpicture}
+\draw[->, thick] (0,0) to (3,0);
+\draw[->, thick] (0,-0) to (0,2);
+
+\node (a) at (1*0.3,6*0.2) {};
+\node (b) at (2*0.3,4*0.2) {};
+\node (c) at (3*0.3,3*0.2) {};
+\node (d) at (4*0.3,3*0.2) {};
+\node (e) at (6*0.3,4*0.2) {};
+\node (f)  at (7*0.3,6*0.2) {};
+\node (g) at (8*0.3,8.4*0.2) {};
+\node (h) at (9*0.3,9.7*0.2) {};
+\fill [black] (a) circle(1pt);
+\fill [black] (b) circle(1pt);
+\fill [black] (c) circle(1pt);
+\fill [black] (d) circle(1pt);
+\fill [black] (e) circle(1pt);
+\fill [black] (f) circle(1pt);
+\fill [black] (g) circle(1pt);
+\fill [black] (h) circle(1pt);
+
+\draw [thick,red] (0.5*0.3,6.15*0.2) to [bend right]  (5*0.3,3*0.2) ;
+\draw [thick,red] (5*0.3,3*0.2) to [bend right]  (8.5*0.3,10*0.2) ;
+
+\node [font=\footnotesize] at (1.5,-0.5) {拟合合适};
+\end{tikzpicture} 
+
+&
+
+\hspace{3em}
+
+&\begin{tikzpicture}
+\draw[->, thick] (0,0) to (3,0);
+\draw[->, thick] (0,-0) to (0,2);
+
+\node (a) at (1*0.3,6*0.2) {};
+\node (b) at (2*0.3,4*0.2) {};
+\node (c) at (3*0.3,3*0.2) {};
+\node (d) at (4*0.3,3*0.2) {};
+\node (e) at (6*0.3,4*0.2) {};
+\node (f)  at (7*0.3,6*0.2) {};
+\node (g) at (8.4*0.3,8.4*0.2) {};
+\node (h) at (9.4*0.3,9.7*0.2) {};
+\fill [black] (a) circle(1pt);
+\fill [black] (b) circle(1pt);
+\fill [black] (c) circle(1pt);
+\fill [black] (d) circle(1pt);
+\fill [black] (e) circle(1pt);
+\fill [black] (f) circle(1pt);
+\fill [black] (g) circle(1pt);
+\fill [black] (h) circle(1pt);
+
+%0-a
+\draw [thick,red] (0.2*0.3,4*0.2) to [bend left]  (1*0.3,6*0.2) ;
+% a-b
+\draw [thick,red] (1*0.3,6*0.2) to [bend left]  (2*0.3,3*0.2) ;
+% b-c
+\draw [thick,red] (2*0.3,3*0.2) to [bend right]  (3*0.3,2.5*0.2) ;
+% c-d
+\draw [thick,red] (3*0.3,2.5*0.2) to [bend left]  (3.5*0.3,4*0.2) ;
+\draw [thick,red] (3.5*0.3,4*0.2) to [bend left]  (4.3*0.3,2*0.2) ;
+\draw [thick,red] (4.3*0.3,2*0.2) to [bend right] (5*0.3,1.5*0.2) ;
+% d-e
+\draw [thick,red] (5*0.3,1.5*0.2) to [bend right]  (6.2*0.3,7*0.2) ;
+\draw [thick,red] (6.2*0.3,7*0.2) to [bend right]  (6.5*0.3,7*0.2) ;
+% e-f
+\draw [thick,red] (6.5*0.3,7*0.2) to [bend left]  (7*0.3,5*0.2) ;
+\draw [thick,red] (7*0.3,5*0.2) to [bend right]  (7.5*0.3,4*0.2) ;
+\draw [thick,red] (7.5*0.3,4*0.2) to [bend right]  (8*0.3,4*0.2) ;
+%
+% f-g
+\draw [thick,red] (8*0.3,4*0.2) to [bend right]  (8*0.3,10*0.2) ;
+\draw [thick,red] (8*0.3,10*0.2) to [bend left]  (8.7*0.3,10*0.2) ;
+% g-h
+\draw [thick,red] (8.7*0.3,10*0.2) to [bend left]  (9.7*0.3,9.4*0.2) ;
+
+\node [font=\footnotesize] at (1.5,-0.5) {过拟合};
+\end{tikzpicture} \\
+\end{tabular}

@@ -1,0 +1,33 @@
+\tikzstyle{word} = [rectangle,thick,minimum width=2cm,minimum height=0.7cm,text centered,]
+\begin{tikzpicture}[node distance = 0,scale = 0.9]
+\tikzstyle{every node}=[scale=0.9]
+\node(figure)[draw=white,scale=0.4] {\includegraphics[width=0.62\textwidth]{./Chapter17/Figures/figure-bank-without-attention.jpg}};
+\node(river)[word, right of = figure, xshift=5cm, yshift=0.35cm, fill=blue!45]{river};
+\node(mountain)[word, above of = river, yshift=0.75cm, fill=blue!45]{mountain};
+\node(child)[word, above of = mountain, yshift=0.75cm, fill=blue!15]{child};
+\node(woman)[word, above of = child, yshift=0.75cm, fill=blue!25]{girl};
+\node(jump)[word, below of = river, yshift=-0.75cm, fill=blue!30]{jump};
+\node(bank)[word, below of = jump, yshift=-0.75cm, fill=blue!65]{bank};
+\node(sky)[word, below of = bank, yshift=-0.75cm, fill=blue!30]{sky};
+\node(tree)[word, below of = sky, yshift=-0.75cm, fill=blue!15]{tree};
+\node(cir)[circle,thick, minimum width=0.6cm, xshift=8cm,  draw=black]{};
+\node(decoder)[rectangle, rounded corners, minimum height=2.2em,minimum width=4.3em, right of = cir,xshift=3cm, draw=black, fill=blue!25]{\large{解码器}};
+\node(yn_1)[below of = decoder,yshift=-2cm,scale=1.2]{$y_{<j}$};
+\node(yn_2)[above of = decoder,yshift=2cm,scale=1.2]{$y_{j}$(bank)};
+
+\draw[->, thick]([xshift=0.1cm]figure.east)to([xshift=2cm]figure.east);
+\draw[-,thick]([xshift=-0.03cm]cir.east)to([xshift=0.03cm]cir.west);
+\draw[-,thick]([yshift=0.03cm]cir.south)to([yshift=-0.03cm]cir.north);
+\draw[->, thick]([xshift=0.1cm]cir.east)to([xshift=-0.1cm]decoder.west);
+\draw[->, thick](yn_1)to([yshift=-0.1cm]decoder.south);
+\draw[->, thick]([yshift=0.1cm]decoder.north)to(yn_2);
+
+\draw[->, thick, color=blue!25]([xshift=0.05cm]woman.east)to([xshift=-0.05cm]cir.north);
+\draw[->, thick, color=blue!15]([xshift=0.05cm]child.east)to([yshift=0.7em,xshift=0.4em]cir.west);
+\draw[->, thick, color=blue!45]([xshift=0.05cm]mountain.east)to([yshift=0.5em,xshift=0.15em]cir.west);
+\draw[->, thick, color=blue!45]([xshift=0.05cm]river.east)to([yshift=0.15em]cir.west);
+\draw[->, thick, color=blue!30]([xshift=0.05cm]jump.east)to([yshift=-0.15em]cir.west);
+\draw[->, very thick, color=blue!65]([xshift=0.05cm]bank.east)to([yshift=-0.5em,xshift=0.15em]cir.west);
+\draw[->, thick, color=blue!30]([xshift=0.05cm]sky.east)to([yshift=-0.7em,xshift=0.4em]cir.west);
+\draw[->, thick, color=blue!15]([xshift=0.05cm]tree.east)to([xshift=-0.05em]cir.south);
+\end{tikzpicture}

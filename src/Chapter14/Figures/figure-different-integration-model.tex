@@ -1,0 +1,117 @@
+	\definecolor{cocoabrown}{rgb}{0.82, 0.41, 0.12}
+
+
+    \centering
+    \hspace*{\fill}
+    \subfigure[\small{假设选择}]
+    {
+        \begin{tikzpicture}[scale=0.5]
+            \tikzstyle{system} = [rectangle,thick,minimum width=1.2cm,font=\scriptsize];
+            \tikzstyle{output} = [rectangle,thick,rounded corners=3pt,minimum width=1.2cm,align=center,font=\scriptsize];
+
+            \begin{scope}
+                \node [system,fill=yellow!30,draw] (model3) at (0,0) {模型 $3$};
+                \node [system,fill=green!20,draw,anchor=south] (model2) at ([yshift=0.5cm]model3.north) {模型 $2$};
+                \node [system,fill=red!20,draw,anchor=south] (model1) at ([yshift=0.5cm]model2.north) {模型 $1$};
+
+                \node [output,fill=yellow!30,draw,anchor=west] (output3) at ([xshift=0.8cm]model3.east) {输出 $3$};
+                \node [output,fill=green!20,draw,anchor=west] (output2) at ([xshift=0.8cm]model2.east) {输出 $2$};
+                \node [output,fill=red!20,draw,anchor=west] (output1) at ([xshift=0.8cm]model1.east) {输出 $1$};
+
+                \begin{pgfonlayer}{background}
+                    \node [draw,thick,dashed,rounded corners=3pt,inner sep=3pt,fit=(output1) (output2) (output3)] (output) {};
+                \end{pgfonlayer}
+
+                \node [output,fill=cocoabrown!20,draw,minimum width=1.2cm,right=1cm of output] (final) {最终\\输出};
+
+                \draw [->,very thick] (model1) to (output1);
+                \draw [->,very thick] (model2) to (output2);
+                \draw [->,very thick] (model3) to (output3);
+
+                \draw [->,very thick] (output) to node [above,pos=0.5,font=\scriptsize] {选择} (final);
+            \end{scope}
+        \end{tikzpicture}
+    }
+    \hfill
+    \subfigure[\small{预测融合}]
+    {
+        \begin{tikzpicture}[scale=0.5]
+            \tikzstyle{system} = [rectangle,thick,minimum width=1.2cm,font=\scriptsize];
+            \tikzstyle{output} = [rectangle,thick,rounded corners=3pt,minimum width=1.2cm,align=center,font=\scriptsize];
+
+            \begin{scope}
+                \node [system,fill=yellow!30,draw] (model3) at (0,0) {模型 $3$};
+                \node [system,fill=green!20,draw,anchor=south] (model2) at ([yshift=0.5cm]model3.north) {模型 $2$};
+                \node [system,fill=red!20,draw,anchor=south] (model1) at ([yshift=0.5cm]model2.north) {模型 $1$};
+
+                \begin{pgfonlayer}{background}
+                    \node [draw,thick,dashed,inner sep=3pt,fit=(model3) (model2) (model1)] (ensemble) {};
+                \end{pgfonlayer}
+
+                \node [system,fill=green!20,draw,right=1cm of ensemble] (model) {模型};
+
+                \node [output,fill=cocoabrown!20,draw,minimum width=1.2cm,anchor=west] (final) at ([xshift=0.8cm]model.east) {最终\\输出};
+
+                \draw [->,very thick] (ensemble) to node [above,pos=0.5,font=\scriptsize] {融合} (model);
+
+                \draw [->,very thick] (model) to (final);
+            \end{scope}
+        \end{tikzpicture}
+    }
+    \hspace*{\fill}
+    \\
+    \subfigure[\small{译文重组}]
+    {
+        \begin{tikzpicture}[scale=0.5]
+            \tikzstyle{system} = [rectangle,thick,minimum width=1.2cm,font=\scriptsize];
+            \tikzstyle{output} = [rectangle,thick,rounded corners=3pt,minimum width=1.2cm,align=center,font=\scriptsize];
+            \tikzstyle{dot} = [circle,fill=blue!40!white,minimum size=5pt,inner sep=0pt];
+
+            \begin{scope}
+                \node [system,fill=yellow!30,draw] (model3) at (0,0) {模型 $3$};
+                \node [system,fill=green!20,draw,anchor=south] (model2) at ([yshift=0.5cm]model3.north) {模型 $2$};
+                \node [system,fill=red!20,draw,anchor=south] (model1) at ([yshift=0.5cm]model2.north) {模型 $1$};
+
+                \node [output,fill=yellow!30,draw,anchor=west] (output3) at ([xshift=0.8cm]model3.east) {输出 $3$};
+                \node [output,fill=green!20,draw,anchor=west] (output2) at ([xshift=0.8cm]model2.east) {输出 $2$};
+                \node [output,fill=red!20,draw,anchor=west] (output1) at ([xshift=0.8cm]model1.east) {输出 $1$};
+
+                \draw [->,very thick] (model1) to (output1);
+                \draw [->,very thick] (model2) to (output2);
+                \draw [->,very thick] (model3) to (output3);
+
+                \begin{pgfonlayer}{background}
+                    \node [draw,thick,dashed,rounded corners=3pt,inner sep=3pt,fit=(output1) (output2) (output3)] (output) {};
+                \end{pgfonlayer}
+
+                \node [dot,anchor=west] (lattice1) at ([shift={(1.5cm,0.5cm)}]output2.east) {};
+                \node [dot,anchor=west] (lattice2) at ([shift={(1cm,0)}]lattice1.east) {};
+                \node [dot,anchor=west] (lattice3) at ([shift={(1cm,0)}]lattice2.east) {};
+                \node [dot,anchor=west] (lattice4) at ([shift={(1.5cm,-0.5cm)}]output2.east) {};
+                \node [dot,anchor=west] (lattice5) at ([shift={(1cm,0)}]lattice4.east) {};
+
+                \draw [-latex,blue] (lattice1) to [out=30,in=150] (lattice2);
+                \draw [-latex,blue] (lattice2) to [out=30,in=150] (lattice3);
+                \draw [-latex,blue] (lattice4) to [out=15,in=-120] (lattice2);
+                \draw [-latex,blue] (lattice4) to [out=-30,in=-150] (lattice5);
+                \draw [-latex,blue] (lattice5) to [out=15,in=-120] (lattice3);
+                \draw [-latex,blue] (lattice5) to [out=-60,in=-90] (lattice3);
+
+                \begin{pgfonlayer}{background}
+                    \node [fill=blue,fill=white,drop shadow,thick,rounded corners=3pt,inner sep=5pt,fit=(lattice1) (lattice2) (lattice3) (lattice4) (lattice5),label={[font=\scriptsize,label distance=0pt]90:词格}] (lattice) {};
+                \end{pgfonlayer}
+
+                \draw [->,very thick] (output) to (lattice);
+
+                \node [system,fill=purple!20,draw,anchor=west] (model) at ([xshift=5.3cm]output1.east) {模型};
+
+                \node [output,fill=cocoabrown!20,draw,minimum width=1.2cm,right=1.5cm of lattice] (final) {最终输出};
+
+                \draw [->,very thick] (model) |- (final);
+                \draw [->,very thick] (lattice) -- (final);
+
+            \end{scope}
+        \end{tikzpicture}
+    }
+
+

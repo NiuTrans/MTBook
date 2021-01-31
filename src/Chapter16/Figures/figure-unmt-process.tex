@@ -1,0 +1,30 @@
+
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{circle} = [draw,black,line width=0.6pt,inner sep=3.5pt,rounded corners=4pt,minimum width=2em,align=center,fill=blue!20]
+\tikzstyle{word} = [inner sep=3.5pt]
+
+\node[circle](center) at (0,0) {
+\begin{tabular}{c | c}
+$x\rightarrow y$ & $y\rightarrow x$ \\
+\small{模型} & \small{模型}
+\end{tabular}
+};
+\node[circle,fill=red!20] (left) at ([xshift=-9em]center.west) {$x\rightarrow y$ \\ \small{数据}};
+\node[circle,fill=red!20] (right) at ([xshift=9em]center.east) {$y\rightarrow x$ \\ \small{数据}};
+
+\node[word] (init) at ([yshift=6em]center.north){\small{初始化}};
+
+\node[circle,fill=red!20] (down) at ([yshift=-8em]center.south) {$x,y$ \\ \small{数据}};
+
+\draw[->,thick] (init.south) -- ([yshift=0.2em]center.north);
+\draw[->,thick] ([yshift=0.2em]down.north) -- ([yshift=-0.2em]center.south) node[pos=0.6,midway,align=left,xshift=-2.5em,yshift=0.5em] {\small{语言模型}\\\small{目标函数}};
+\node [anchor=center] at ([yshift=2.0em,xshift=-2.5em]down.north){\small{（模型优化）}};
+\draw[->,thick] ([yshift=1pt]left.north) .. controls +(90:2em) and +(90:2em) .. ([yshift=1pt,xshift=-2.2em]center.north) node[above,midway,align=center] {\small{翻译模型目标函数}\\\small{（模型优化）}};
+\draw[->,thick] ([yshift=1pt,xshift=-1.8em]center.north) .. controls +(90:2em) and +(90:2em) .. ([yshift=1pt]right.north) node[above,pos=0.6,align=center] {\small{回译}\\\small{（数据优化）}};
+
+\draw [->,thick] ([yshift=1pt]right.south) .. controls +(-90:2em) and +(-90:2em) .. ([yshift=1pt,xshift=2.2em]center.south) node[below,midway,align=center] {\small{翻译模型目标函数}\\\small{（模型优化）}};
+\draw [->,thick] ([yshift=1pt,xshift=1.8em]center.south) .. controls +(-90:2em) and +(-90:2em) .. ([yshift=1pt]left.south) node[below,pos=0.6,align=center] {\small{回译}\\\small{（数据优化）}};
+
+\end{scope}
+\end{tikzpicture}

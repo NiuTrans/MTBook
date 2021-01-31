@@ -1,0 +1,77 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 调序模型1：基于距离的调序
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}[minimum height = 20pt]
+
+\node [anchor=east] (x1) at (-0.5em, 0) {$\mathbi{x}_l$};
+\node [anchor=west,draw,fill=red!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (ln1) at ([xshift=1em]x1.east){\small{\textrm{LN}}};
+\node [anchor=west,draw,fill=green!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (f1) at ([xshift=0.6em]ln1.east){\small{$F$}};
+\node [anchor=west,circle,draw,,minimum size=1em] (n1) at ([xshift=3em]f1.east){};
+\node [anchor=west] (x2) at ([xshift=1em]n1.east) {$\mathbi{x}_{l+1}$};
+\node [anchor=west,draw,fill=red!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (ln12) at ([xshift=1em]x2.east){\small{\textrm{LN}}};
+\node [anchor=west,draw,fill=green!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (f12) at ([xshift=0.6em]ln12.east){\small{$F$}};
+\node [anchor=west,circle,draw,,minimum size=1em] (n12) at ([xshift=3em]f12.east){};
+\node [anchor=west] (x22) at ([xshift=1em]n12.east) {$\mathbi{x}_{l+2}$};
+
+\node [anchor=north] (x3) at ([yshift=-5em]x1.south) {$\mathbi{x}_l$};
+\node [anchor=west,draw,fill=red!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (ln2) at ([xshift=1em]x3.east){\small{\textrm{LN}}};
+\node [anchor=west,draw,fill=green!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (f2) at ([xshift=0.6em]ln2.east){\small{$F$}};
+\node [anchor=west,minimum size=1em] (p1) at ([xshift=1em]f2.east){};
+\node [anchor=north] (m1) at ([yshift=0.6em]p1.south){\footnotesize{\red{Mask=1}}};
+\node [anchor=west,circle,draw,,minimum size=1em] (n2) at ([xshift=3em]f2.east){};
+\node [anchor=west] (x4) at ([xshift=1em]n2.east) {$\mathbi{x}_{l+1}$};
+\node [anchor=west,draw,fill=red!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (ln22) at ([xshift=1em]x4.east){\small{\textrm{LN}}};
+\node [anchor=west,draw,fill=green!30,inner xsep=5pt,rounded corners=2pt,draw,thick] (f22) at ([xshift=0.6em]ln22.east){\small{$F$}};
+\node [anchor=west,minimum size=1em] (p2) at ([xshift=1em]f22.east){};
+\node [anchor=north] (m2) at ([yshift=0.6em]p2.south){\footnotesize{\red{Mask=0}}};
+\node [anchor=west,circle,draw,,minimum size=1em] (n22) at ([xshift=3em]f22.east){};
+\node [anchor=west] (x42) at ([xshift=1em]n22.east) {$\mathbi{x}_{l+2}$};
+
+\draw[->, line width=1pt] ([xshift=-0.1em]x1.east)--(ln1.west);
+\draw[->, line width=1pt] ([xshift=-0.1em]ln1.east)--(f1.west);
+\draw[->, line width=1pt] ([xshift=0.1em]f1.east)--(n1.west);
+\draw[->, line width=1pt] (n1.east)--(x2.west);
+\draw[->, line width=1pt] ([xshift=-0.1em]x3.east)--(ln2.west);
+\draw[->, line width=1pt] ([xshift=-0.1em]ln2.east)--(f2.west);
+\draw[-, line width=1pt] ([xshift=0.1em]f2.east)--(p1.west);
+\draw[*-,red,line width=0.6pt] (p1.west) -- (p1.east);
+\draw[->, line width=1pt] (p1.east)--(n2.west);
+\draw[->, line width=1pt] (n2.east)--(x4.west);
+\draw[->,rounded corners,line width=1pt] ([yshift=-0.2em]x1.north) -- ([yshift=1em]x1.north) -- ([yshift=1.4em]n1.north) -- (n1.north);
+\draw[->,rounded corners,line width=1pt] ([yshift=-0.2em]x3.north) -- ([yshift=1em]x3.north) -- ([yshift=1.4em]n2.north) -- (n2.north);
+\draw[-] (n1.west)--(n1.east);
+\draw[-] (n1.north)--(n1.south);
+\draw[-] (n2.west)--(n2.east);
+\draw[-] (n2.north)--(n2.south);
+
+\draw[->, line width=1pt] ([xshift=-0.1em]x2.east)--(ln12.west);
+\draw[->, line width=1pt] ([xshift=-0.1em]ln12.east)--(f12.west);
+\draw[->, line width=1pt] ([xshift=0.1em]f12.east)--(n12.west);
+\draw[->, line width=1pt] (n12.east)--(x22.west);
+\draw[->, line width=1pt] ([xshift=-0.1em]x4.east)--(ln22.west);
+\draw[->, line width=1pt] ([xshift=-0.1em]ln22.east)--(f22.west);
+\draw[-, line width=1pt] ([xshift=0.1em]f22.east)--(p2.west);
+\draw[*-,red,line width=0.6pt] ([yshift=-0.1em]p2.west) -- (p2.north east);
+\draw[->, line width=1pt] (p2.east)--(n22.west);
+\draw[->, line width=1pt] (n22.east)--(x42.west);
+\draw[->,rounded corners,line width=1pt] ([yshift=-0.2em]x2.north) -- ([yshift=1em]x2.north) -- ([yshift=1.4em]n12.north) -- (n12.north);
+\draw[->,rounded corners,line width=1pt] ([yshift=-0.2em]x4.north) -- ([yshift=1em]x4.north) -- ([yshift=1.4em]n22.north) -- (n22.north);
+\draw[-] (n12.west)--(n12.east);
+\draw[-] (n12.north)--(n12.south);
+\draw[-] (n22.west)--(n22.east);
+\draw[-] (n22.north)--(n22.south);
+
+\node [anchor=south] (k1) at ([yshift=-0.1em]x1.north){};
+\node [anchor=south] (k2) at ([yshift=-0.1em]x3.north){};
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.3em,fill=orange!10] [fit = (x1) (f1) (n1) (ln1) (x2) (k1) (f12) (n12) (ln12) (x22)] (box0) {};
+\node [rectangle,inner sep=0.3em,fill=blue!10] [fit = (x3) (f2) (n2) (ln2) (x4) (k2) (f22) (n22) (ln22) (x42)] (box1) {};
+\end{pgfonlayer}
+
+\node [anchor=north] (c1) at (box0.south){\footnotesize {(a)标准的Pre-Norm}};
+\node [anchor=north] (c2) at (box1.south){\footnotesize {(b)基于随机子层跳跃的Pre-Norm}};
+\end{scope}
+\end{tikzpicture}
+\end{center}

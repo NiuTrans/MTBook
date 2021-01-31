@@ -1,0 +1,108 @@
+\begin{tabular}{c c}
+
+\begin{tikzpicture}
+\begin{scope}
+% ,minimum height =1em,minimum width=2em
+\tikzstyle{memory} = [draw,black,very thick,inner sep=2pt,rounded corners=0pt,fill=blue!20,minimum width=2em,minimum height=1.5em,anchor=west]
+\tikzstyle{thread} = [very thick,inner sep=3.5pt,rounded corners=0pt,minimum width=3em,minimum height=1.5em]
+\tikzstyle{word} = [inner sep=3.5pt,font=\scriptsize]
+
+\node[thread] (one) at (0,0) {};
+\node [word] at (one.north) {\scriptsize 数据1};
+\draw[|-|,very thick] (-1.5em,0em) -- (1.6em,0em);
+
+\node[thread,minimum width=5em] (two) at ([yshift=-1em,xshift=2.6em]one.south east) {};
+\node [word] at (two.north) {\scriptsize 数据2};
+\draw[|-|,very thick] (1.8em,-1.8em) -- (6.5em,-1.8em);
+
+\node[thread,minimum width=4em] (three) at ([yshift=-1em,xshift=0.3em]two.south east) {};
+\node [word] at (three.north) {\scriptsize 数据3};
+\draw[|-|,very thick] (5em,-1.8*2em) -- (9em,-1.8*2em);
+
+\node[thread,minimum width=2em] (four) at ([yshift=-1em,xshift=1.2em]three.south east) {};
+\node [word] at (four.north) {\scriptsize 数据4};
+\draw[|-|,very thick] (9.3em,-1.8*3em) -- (11em,-1.8*3em);
+
+\node [memory] (mone) at ([yshift=4em,xshift=1em]one.north) {};
+\node [memory] (mtwo) at ([xshift=0em]mone.east) {};
+\node [memory] (mthree) at ([xshift=0em]mtwo.east) {};
+\node [memory] (mfour) at ([xshift=0em]mthree.east) {};
+
+\draw[->,very thick] (-0.8,-2.5) -- (4.7,-2.5);
+\draw[->,very thick] (-0.8,-2.5) -- (-0.8,1);
+ 
+\node [word] (time) at ([yshift=-1.5em,xshift=0.3em]four.south) {\scriptsize 时间线};
+\node [word] (time) at ([yshift=1.5em,xshift=-2.2em]one.west) {\scriptsize 数据};
+
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em]one.north) .. controls +(north:1.5em) and +(south:1.5em) .. ([yshift=-0.2em]mone.south);
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em]two.north) -- ([yshift=-0.2em]mtwo.south);
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em,xshift=0.5em]three.north) .. controls +(north:3.5em) and +(south:4.5em) .. ([yshift=-0.2em]mthree.south);
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em]four.north) .. controls +(north:4.5em) and +(south:4.5em) .. ([yshift=-0.2em]mfour.south);
+
+\node [word] at ([yshift=-6em]two.south) {(a) 显存不复用};
+
+%占位
+\node[word] at ([xshift=1em]four.east) {};
+
+\node [word] at ([xshift=1.5em,yshift=5.6em]one.north) {\scriptsize 显存};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.5em,rounded corners=1pt,minimum width=10em,minimum height=3.6em,fill=gray!10,drop shadow] at ([yshift=6.6em,xshift=1em]two.north) {};
+\end{pgfonlayer}
+
+\end{scope}
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+\begin{scope}
+%\tikzstyle{memory} = [draw,black,very thick,inner sep=2pt,rounded corners=0pt,fill=blue!20,minimum width=2em,minimum height=1.5em,anchor=west]
+%\tikzstyle{thread} = [draw,black,very thick,inner sep=3.5pt,rounded corners=0pt,fill=green!20,minimum width=3em,minimum height=1.5em]
+\tikzstyle{memory} = [draw,black,very thick,inner sep=2pt,rounded corners=0pt,fill=blue!20,minimum width=2em,minimum height=1.5em,anchor=west]
+\tikzstyle{thread} = [very thick,inner sep=3.5pt,rounded corners=0pt,minimum width=3em,minimum height=1.5em]
+\tikzstyle{word} = [inner sep=3.5pt,font=\scriptsize]
+
+\node[thread] (one) at (0,0) {};
+\node [word] at (one.north) {\scriptsize 数据1};
+\draw[|-|,very thick] (-1.5em,0em) -- (1.6em,0em);
+
+\node[thread,minimum width=5em] (two) at ([yshift=-1em,xshift=2.6em]one.south east) {};
+\node [word] at (two.north) {\scriptsize 数据2};
+\draw[|-|,very thick] (1.8em,-1.8em) -- (6.5em,-1.8em);
+
+\node[thread,minimum width=4em] (three) at ([yshift=-1em,xshift=0.3em]two.south east) {};
+\node [word] at (three.north) {\scriptsize 数据3};
+\draw[|-|,very thick] (5em,-1.8*2em) -- (9em,-1.8*2em);
+
+\node[thread,minimum width=2em] (four) at ([yshift=-1em,xshift=1.2em]three.south east) {};
+\node [word] at (four.north) {\scriptsize 数据4};
+\draw[|-|,very thick] (9.3em,-1.8*3em) -- (11em,-1.8*3em);
+
+\node [memory] (mone) at ([yshift=4em,xshift=1em]one.north) {};
+\node [memory] (mtwo) at ([xshift=0em]mone.east) {};
+\node [memory,fill=white,minimum width=4em] (mthree) at ([xshift=0em]mtwo.east) {};
+%\node [memory,fill=white] (mfour) at ([xshift=0em]mthree.east) {};
+
+\draw[->,very thick] (-0.8,-2.5) -- (4.7,-2.5);
+\draw[->,very thick] (-0.8,-2.5) -- (-0.8,1);
+
+\node [word] (time) at ([yshift=-1.5em,xshift=0.3em]four.south) {\scriptsize 时间线};
+\node [word] (time) at ([yshift=1.5em,xshift=-2.2em]one.west) {\scriptsize 数据};
+
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em]one.north) .. controls +(north:1.5em) and +(south:1.5em) .. ([yshift=-0.2em,xshift=-0.4em]mone.south);
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em]two.north) .. controls +(north:3.5em) and +(south:3.5em) .. ([yshift=-0.2em,xshift=0.4em]mone.south);
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em,xshift=0.5em]three.north) .. controls +(north:3.5em) and +(south:3.5em) .. ([yshift=-0.2em,xshift=-0.4em]mtwo.south);
+\draw [->,dashed,line width=0.7pt] ([yshift=0.5em]four.north) .. controls +(north:4.5em) and +(south:3.5em) .. ([yshift=-0.2em,xshift=0.4em]mtwo.south);
+
+\node [word] at ([xshift=1.5em,yshift=5.6em]one.north) {\scriptsize 显存};
+
+\node [word] at ([yshift=-6em]two.south) {(b) 显存复用};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.5em,rounded corners=1pt,minimum width=10em,minimum height=3.6em,fill=gray!10,drop shadow] at ([yshift=6.6em,xshift=1em]two.north) {};
+\end{pgfonlayer}
+
+
+\end{scope}
+\end{tikzpicture}
+
+\end{tabular}

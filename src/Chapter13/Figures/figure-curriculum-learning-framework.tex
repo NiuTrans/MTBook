@@ -1,0 +1,33 @@
+
+\begin{tikzpicture}
+
+\tikzstyle{node}=[inner sep=0mm, draw,thick,minimum height=3em,minimum width=6em,rounded corners=5pt]
+
+
+\node[anchor=west,node,fill=ugreen!30] (n1) at (0,0) {训练集};
+\node[anchor=west,node,fill=yellow!30] (n2) at ([xshift=4em,yshift=0em]n1.east) {难度评估器};
+\node[anchor=west,node,fill=red!30] (n3) at ([xshift=4em,yshift=0em]n2.east) {训练调度器};
+\node[anchor=west,node,fill=blue!30] (n4) at ([xshift=4em,yshift=0em]n3.east) {模型训练器};
+
+\draw [->,very thick] ([xshift=0em,yshift=0em]n1.east) -- ([xshift=0em,yshift=0em]n2.west);
+\draw [->,very thick] ([xshift=0em,yshift=0em]n2.east) -- ([xshift=0em,yshift=0em]n3.west);
+\draw [->,very thick] ([xshift=0em,yshift=0em]n3.east) -- ([xshift=0em,yshift=0em]n4.west);
+
+\node[anchor=west,inner sep=0mm,minimum height=2em,minimum width=3em,font=\small,align=left] (n5) at ([xshift=0.5em,yshift=-1.5em]n2.east) {排序过\\的数据};
+\node[anchor=west,inner sep=0mm,minimum height=2em,minimum width=3em,font=\small,align=left] (n6) at ([xshift=1em,yshift=-1.5em]n3.east) {采样\\批次$t$};
+\node[anchor=south west,inner sep=0mm,minimum height=2em,minimum width=4em,font=\small] (n7) at ([xshift=2.5em,yshift=1em]n3.north) {如果模型收敛};
+
+\node[anchor=south west,inner sep=0mm] (n8) at ([xshift=0em,yshift=1.5em]n4.north) {批次$t$};
+\node[anchor=north east,inner sep=0mm] (n9) at ([xshift=0em,yshift=-1em]n3.south east) {课程设计};
+
+\draw [->,dotted,very thick] ([xshift=0em,yshift=0em]n4.north) --  ([xshift=0em,yshift=1em]n4.north) --  ([xshift=0em,yshift=1em]n3.north) -- (n3.north);
+
+    \begin{pgfonlayer}{background}
+      \node[rectangle,inner sep=5pt,rounded corners=5pt,fill=gray!15] [fit = (n3) (n4) (n6) (n8) ] (g2) {};
+      \node[rectangle,inner sep=5pt,rounded corners=5pt,fill=orange!15] [fit = (n2) (n3) (n9) ] (g1) {};
+
+
+    \end{pgfonlayer}
+
+
+\end{tikzpicture}

@@ -1,0 +1,135 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+	\tikzstyle{emb} = [font=\scriptsize,rounded corners=1pt, fill=orange!25, minimum width=1.8em,minimum height=1.5em,draw]
+	\tikzstyle{po} = [font=\scriptsize,rounded corners=1pt, fill=gray!20, minimum width=1.8em,minimum height=1.5em,draw]
+\begin{scope} 
+\node[rounded corners=3pt, thick,fill=red!25, drop shadow, minimum width=10em,minimum height=4em,draw]  (encoder) at (0,0) {编码器};
+\node[anchor=north,rounded corners=3pt, thick,fill=yellow!30, drop shadow, minimum width=10em,minimum height=2em,draw] (lenpre) at([yshift=3em]encoder.north){长度预测器};
+\node[anchor=north] (lable) at([xshift=3.5em,yshift=2.5em]lenpre.north){译文长度：4};
+\node[anchor=west, rounded corners=3pt, thick,fill=blue!25, drop shadow, minimum width=16em,minimum height=4em,draw] (decoder) at ([xshift=1.8cm]encoder.east) {解码器};
+
+\node[anchor=north,emb] (en2) at ([yshift=-1.3em]encoder.south) {${\mathbi e}(x_2)$};
+\node[anchor=north,emb] (en1) at ([yshift=-1.3em,xshift=-3em]encoder.south) {${\mathbi e}(x_1)$};
+\node[anchor=north,emb] (en3) at ([yshift=-1.3em,xshift=3em]encoder.south) {${\mathbi e}(x_3)$};
+
+\node[anchor=north,po] (po1) at ([yshift=-1.4em]en1.south) {PE(1)};
+\node[anchor=north,po] (po2) at ([yshift=-1.4em]en2.south) {PE(2)};
+\node[anchor=north,po] (po3) at ([yshift=-1.4em]en3.south) {PE(3)};
+\node[anchor=south,font=\small](labelb) at ([xshift=9em,yshift=-2.5em]po3.south){(b) 非自回归翻译模型};
+\foreach \x in {1,2,3}{
+	\node [anchor=north] (plus\x) at ([yshift=-0.04em]en\x.south) {\large{\textbf{$\oplus$}}};
+}
+
+\node[anchor=north,po] (de1) at ([yshift=-1.3em,xshift=-4.5em]decoder.south) {PE(1)};
+\node[anchor=north,po] (de2) at ([yshift=-1.3em,xshift=-1.5em]decoder.south) {PE(2)};
+\node[anchor=north,po] (de3) at ([yshift=-1.3em,xshift=1.5 em]decoder.south) {PE(3)};
+\node[anchor=north,po] (de4) at ([yshift=-1.3em,xshift=4.5em]decoder.south) {PE(4)};
+\node[rounded corners=3pt, minimum width=12.5em,minimum height=2em,draw,dashed,very thick] (box1) at ([yshift=-2.05em]decoder.south) {};
+
+
+\node[anchor=south,font=\scriptsize] (out1) at ([yshift=1.3em,xshift=-4.5em]decoder.north) {$y_1$};
+\node[anchor=south,font=\scriptsize] (out2) at ([yshift=1.3em,xshift=-1.5em]decoder.north) {$y_2$};
+\node[anchor=south,font=\scriptsize] (out3) at ([yshift=1.3em,xshift=1.5em]decoder.north) {$y_3$};
+\node[anchor=south,font=\scriptsize] (out4) at ([yshift=1.3em,xshift=4.5em]decoder.north) {$y_4$};
+
+
+\draw[->, thick] ([yshift=0em]en1.north) -- ([xshift=-3em,yshift=0em]encoder.south);
+\draw[->, thick] ([yshift=0em]en2.north) -- ([xshift=0em,yshift=0em]encoder.south);
+\draw[->, thick] ([yshift=0em]en3.north) -- ([xshift=3em,yshift=0em]encoder.south);
+\draw[->, thick] ([yshift=0em]encoder.north) -- ([yshift=0em]lenpre.south);
+\draw[-, thick] ([yshift=0em]lenpre.north) -- ([yshift=1em]lenpre.north) -- ([xshift=7.4em,yshift=1em]lenpre.north);
+\draw[-, thick,dashed] ([xshift=7.4em,yshift=1em]lenpre.north) -- ([xshift=-4em]box1.west);
+\draw[->, thick] ([xshift=-4em]box1.west) -- (box1.west);
+
+
+\draw[->,thick] ([yshift=0em]de1.north) -- ([xshift=-4.5em]decoder.south);
+\draw[->, thick] ([yshift=0em]de2.north) -- ([xshift=-1.5em]decoder.south);
+\draw[->, thick] ([yshift=0em]de3.north) -- ([xshift=1.5em]decoder.south);
+\draw[->, thick] ([yshift=0em]de4.north) -- ([xshift=4.5em]decoder.south);
+
+\draw[->, thick] ([xshift=-4.5em]decoder.north) -- ([yshift=-0em]out1.south);
+\draw[->, thick] ([xshift=-1.5em]decoder.north) -- ([yshift=-0em]out2.south);
+\draw[->, thick] ([xshift=1.5em]decoder.north) -- ([yshift=-0em]out3.south);
+\draw[->, thick] ([xshift=4.5em]decoder.north) -- ([yshift=-0em]out4.south);
+
+
+\draw[->,line width=1pt] (encoder.east) -- (decoder.west);
+\end{scope} 
+
+\begin{scope}[yshift=2.8in]
+\node[rounded corners=3pt, thick,fill=red!25, drop shadow, minimum width=10em,minimum height=4em,draw]  (encoder) at (0,0) {编码器};
+\node[anchor=west,minimum width=16em,minimum height=4em] (decoder) at ([xshift=1.8cm]encoder.east) {};
+
+\node[anchor=north,emb] (en2) at ([yshift=-1.3em]encoder.south) {${\mathbi e}(x_2)$};
+\node[anchor=north,emb] (en1) at ([yshift=-1.3em,xshift=-3em]encoder.south) {${\mathbi e}(x_1)$};
+\node[anchor=north,emb] (en3) at ([yshift=-1.3em,xshift=3em]encoder.south) {${\mathbi e}(x_3)$};
+
+\node[anchor=north,po] (po1) at ([yshift=-1.4em]en1.south) {PE(1)};
+\node[anchor=north,po] (po2) at ([yshift=-1.4em]en2.south) {PE(2)};
+\node[anchor=north,po] (po3) at ([yshift=-1.4em]en3.south) {PE(3)};
+
+\foreach \x in {1,2,3}{
+	\node [anchor=north] (plus\x) at ([yshift=-0.04em]en\x.south) {\large{\textbf{$\oplus$}}};
+}
+
+\node[anchor=north,emb] (de3) at ([yshift=-1.3em]decoder.south) {${\mathbi e}(y_2)$};
+\node[anchor=north,po] (po4) at ([yshift=-1.4em]de3.south) {PE(3)};
+\node[anchor=north,emb] (de2) at ([yshift=-1.3em,xshift=-3.5em]decoder.south) {${\mathbi e}(y_1)$};
+\node[anchor=north,po] (po5) at ([yshift=-1.4em]de2.south) {PE(2)};
+\node[anchor=north,emb] (de1) at ([yshift=-1.3em,xshift=-7em]decoder.south) {${\mathbi e}$(sos)};
+\node[anchor=north,po] (po6) at ([yshift=-1.4em]de1.south) {PE(1)};
+\node[anchor=north,emb] (de4) at ([yshift=-1.3em,xshift=3.5em]decoder.south) {${\mathbi e}(y_3)$};
+\node[anchor=north,po] (po7) at ([yshift=-1.4em]de4.south) {PE(4)};
+\node[anchor=north,emb] (de5) at ([yshift=-1.3em,xshift=7em]decoder.south) {${\mathbi e}(y_4)$};
+\node[anchor=north,po] (po8) at ([yshift=-1.4em]de5.south) {PE(5)};
+\node[anchor=south,font=\small](labela) at ([xshift=1em,yshift=-2.5em]po6.south){(a) 自回归翻译模型};
+
+\foreach \x in {1,2,3,4,5}{
+	\node [anchor=north] (plus\x) at ([yshift=-0.04em]de\x.south) {\large{\textbf{$\oplus$}}};
+}
+
+
+\node[anchor=south,font=\scriptsize] (out1) at ([yshift=1.3em,xshift=-7em]decoder.north) {$y_1$};
+\node[anchor=south,font=\scriptsize] (out2) at ([yshift=1.3em,xshift=-3.5em]decoder.north) {$y_2$};
+\node[anchor=south,font=\scriptsize] (out3) at ([yshift=1.3em,xshift=0em]decoder.north) {$y_3$};
+\node[anchor=south,font=\scriptsize] (out4) at ([yshift=1.3em,xshift=3.5em]decoder.north) {$y_4$};
+\node[anchor=south,font=\scriptsize] (out5) at ([yshift=1.3em,xshift=7em]decoder.north) {<eos>};
+
+
+\draw[->, thick] ([yshift=0em]en1.north) -- ([xshift=-3em,yshift=0em]encoder.south);
+\draw[->, thick] ([yshift=0em]en2.north) -- ([xshift=0em,yshift=0em]encoder.south);
+\draw[->, thick] ([yshift=0em]en3.north) -- ([xshift=3em,yshift=0em]encoder.south);
+
+
+
+\draw[->,thick] ([yshift=0em]de1.north) -- ([xshift=-7em]decoder.south);
+\draw[->, thick] ([yshift=0em]de2.north) -- ([xshift=-3.5em]decoder.south);
+\draw[->, thick] ([yshift=0em]de3.north) -- ([xshift=0em]decoder.south);
+\draw[->, thick] ([yshift=0em]de4.north) -- ([xshift=3.5em]decoder.south);
+\draw[->, thick] ([yshift=0em]de5.north) -- ([xshift=7em]decoder.south);
+
+\draw[->, thick] ([xshift=-7em]decoder.north) -- ([yshift=-0em]out1.south);
+\draw[->, thick] ([xshift=-3.5em]decoder.north) -- ([yshift=-0em]out2.south);
+\draw[->, thick] ([xshift=0em]decoder.north) -- ([yshift=-0em]out3.south);
+\draw[->, thick] ([xshift=3.5em]decoder.north) -- ([yshift=-0em]out4.south);
+\draw[->, thick] ([xshift=7em]decoder.north) -- ([yshift=-0em]out5.south);
+
+\draw [->,very thick,dotted] ([xshift=-0.3em]out1.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0em]de2.west);
+\draw [->,very thick,dotted] ([xshift=-0.3em]out2.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0em]de3.west);
+\draw [->,very thick,dotted] ([xshift=-0.3em]out3.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0em]de4.west);
+\draw [->,very thick,dotted] ([xshift=-0.3em]out4.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0em]de5.west);
+\node[anchor=west, rounded corners=3pt, thick,fill=blue!25, drop shadow, minimum width=16em,minimum height=4em,draw] (decoder2) at ([xshift=1.8cm]encoder.east) {解码器};
+
+\draw[->,line width=1pt] (encoder.east) -- (decoder.west);
+\end{scope}
+
+
+\end{tikzpicture}
+
+
+
+

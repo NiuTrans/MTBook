@@ -1,0 +1,40 @@
+
+	\begin{tikzpicture}
+		\node[rounded corners=3pt,minimum width=1.0em,minimum height=2.0em,font=\scriptsize,fill=red!10,drop shadow,thick](top) at (0,0) {
+		\begin{tabular}{lllllll}
+			\multicolumn{7}{c}{符号合并表}  \\
+			(r,$<$e$>$), & (e,s), & (l,o),  & (es,t), & (lo,w), & (est,$<$e$>$), & (e,r$<$e$>$)                             
+			\end{tabular}
+		};
+		\node[font=\footnotesize,anchor=north] (l1) at ([xshift=0em,yshift=-1em]top.south) {(a) 符号合并表};
+
+		\node[font=\scriptsize,anchor=west] (n1) at ([xshift=-4.5em,yshift=-6em]top.west) {l\ o\ w\ e\ r\ $<$e$>$};
+		\node[font=\scriptsize,anchor=west] (n2) at ([xshift=2.6em]n1.east) {l\ o\ w\ e\ {\red r$<$e$>$}};
+		\node[font=\scriptsize,anchor=west] (n3) at ([xshift=2.6em]n2.east) {{\red lo}\ w\ e\ r$<$e$>$};
+		\node[font=\scriptsize,anchor=west] (n4) at ([xshift=2.6em]n3.east) {{\red low}\ e\ r$<$e$>$};
+		\node[font=\scriptsize,anchor=west] (n5) at ([xshift=2.6em]n4.east) {low\ {\red er$<$e$>$}};
+		
+		\node[font=\scriptsize,anchor=west] (t1) at ([yshift=-2.5em]n1.south west) {l\ o\ w\ e\ s\ t\ $<$e$>$};
+		\node[font=\scriptsize,anchor=west] (t2) at ([xshift=0.8em]t1.east) {l\ o\ w\ {\red es}\ t\ $<$e$>$};
+		\node[font=\scriptsize,anchor=west] (t3) at ([xshift=0.8em]t2.east) {{\red lo}\ w\ es\ t\ $<$e$>$};
+		\node[font=\scriptsize,anchor=west] (t4) at ([xshift=0.8em]t3.east) {lo\ w\ {\red est}\ $<$e$>$};
+		\node[font=\scriptsize,anchor=west] (t5) at ([xshift=0.8em]t4.east) {{\red low}\ est\ $<$e$>$};
+		\node[font=\scriptsize,anchor=west] (t6) at ([xshift=0.8em]t5.east) {low\ {\red est$<$e$>$}};
+
+		\node[font=\scriptsize,anchor=north east] (s1) at ([yshift=0.1em]n1.north west) {样例1:};
+		\node[font=\scriptsize,anchor=north east] (s1) at ([yshift=0.1em]t1.north west) {样例2:};
+
+		\node[font=\footnotesize,anchor=north] (l2) at ([xshift=2em,yshift=-1em]t3.south) {(b) 合并样例};
+		
+		\draw[->,thick](n1.east) -- (n2.west);
+		\draw[->,thick](n2.east) -- (n3.west);
+		\draw[->,thick](n3.east) -- (n4.west);
+		\draw[->,thick](n4.east) -- (n5.west);
+
+		\draw[->,thick](t1.east) -- (t2.west);
+		\draw[->,thick](t2.east) -- (t3.west);
+		\draw[->,thick](t3.east) -- (t4.west);
+		\draw[->,thick](t4.east) -- (t5.west);
+		\draw[->,thick](t5.east) -- (t6.west);
+
+	\end{tikzpicture}

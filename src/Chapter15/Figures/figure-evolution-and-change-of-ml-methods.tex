@@ -1,0 +1,110 @@
+\begin{tikzpicture}
+
+\tikzstyle{opnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=4em,rounded corners=5pt,fill=orange!30,draw,thick,drop shadow]
+\tikzstyle{cnode}=[circle,draw,minimum size=1.2em]
+\tikzstyle{mnode}=[rectangle,inner sep=0mm,minimum height=5em,minimum width=11em,rounded corners=5pt,fill=yellow!30,draw,thick,drop shadow]
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.5em]
+
+\begin{pgfonlayer}{background}
+\node[anchor=west,mnode] (m1) at (0em,0em){};
+\node[anchor=west,mnode] (m2) at ([xshift=1em,yshift=0em]m1.east){};
+\node[anchor=west,mnode] (m3) at ([xshift=1em,yshift=0em]m2.east){};
+
+\node[anchor=north west,rectangle,inner sep=0mm,minimum height=2.6em,minimum width=3.5em,rounded corners=5pt,fill=blue!30,draw,thick,drop shadow] (ml1) at ([xshift=0em,yshift=-0.5em]m1.south west){};
+\node[anchor=west,rectangle,inner sep=0mm,minimum height=2.6em,minimum width=3.5em,rounded corners=5pt,fill=green!30,draw,thick,drop shadow] (ml2) at ([xshift=0.25em,yshift=0em]ml1.east){};
+\node[anchor=north east,rectangle,inner sep=0mm,minimum height=2.6em,minimum width=3.5em,rounded corners=5pt,fill=red!30,draw,thick,drop shadow] (ml3) at ([xshift=0em,yshift=-0.5em]m1.south east){};
+
+\node[anchor=north west,rectangle,inner sep=0mm,minimum height=2.6em,minimum width=5.25em,rounded corners=5pt,fill=blue!30,draw,thick,drop shadow] (mc1) at ([xshift=0em,yshift=-0.5em]m2.south west){};
+\node[anchor=north east,rectangle,inner sep=0mm,minimum height=2.6em,minimum width=5.25em,rounded corners=5pt,fill=red!30,draw,thick,drop shadow] (mc2) at ([xshift=0em,yshift=-0.5em]m2.south east){};
+
+\node[anchor=north,rectangle,inner sep=0mm,minimum height=2.6em,minimum width=11em,rounded corners=5pt,fill=blue!30,draw,thick,drop shadow] (mr1) at ([xshift=0em,yshift=-0.5em]m3.south){};
+
+\end{pgfonlayer}
+
+{\scriptsize
+\node[anchor=south,opnode] (op1) at ([xshift=0em,yshift=1em]m1.north){输出};
+\node[anchor=south,opnode] (op2) at ([xshift=0em,yshift=1em]m2.north){输出};
+\node[anchor=south,opnode] (op3) at ([xshift=0em,yshift=1em]m3.north){输出};
+
+\node[anchor=north west,wnode,font=\footnotesize,align=left] (w1) at ([xshift=0.3em,yshift=-0.3em]m1.north west){传统机器\\学习};
+\node[anchor=north west,wnode,font=\footnotesize] (w2) at ([xshift=0.3em,yshift=-0.3em]m2.north west){深度学习};
+\node[anchor=north west,wnode,align=left] (w3) at ([xshift=0.3em,yshift=-0.3em]m3.north west){深度学习和网\\络结构搜索};
+
+{%subfigure-left
+\node[anchor=north,wnode,font=\footnotesize] (wl1) at ([xshift=0em,yshift=-0.15em]ml1.north){训练数据};
+\node[anchor=north,wnode,font=\footnotesize] (wl2) at ([xshift=0em,yshift=-0.15em]ml2.north){特征信息};
+\node[anchor=north,wnode,font=\footnotesize] (wl3) at ([xshift=0em,yshift=-0.15em]ml3.north){模型结构};
+\node[anchor=south,wnode,font=\tiny] (wl4) at ([xshift=0em,yshift=0.15em]ml1.south){人工/自动收集};
+\node[anchor=south,wnode] (wl5) at ([xshift=0em,yshift=0.15em]ml2.south){人工设计};
+\node[anchor=south,wnode] (wl6) at ([xshift=0em,yshift=0.15em]ml3.south){人工设计};
+
+\node[anchor=south,cnode,fill=white] (cl1) at ([xshift=-4em,yshift=1.5em]m1.south){};
+\node[anchor=north,cnode,fill=white] (cl2) at ([xshift=0em,yshift=-1em]m1.north){};
+
+\node[anchor=south west,wnode,align=left,font=\tiny] (wl7) at ([xshift=0.5em,yshift=0em]cl1.east){使用{\color{ugreen}\bfnew{特征}}对{\color{blue}\bfnew{数据}}\\中信息进行提取};
+\node[anchor=west,wnode,align=right,font=\tiny] (wl8) at ([xshift=0.5em,yshift=0em]cl2.east){使用提取的信息对\\{\color{red!50}\bfnew{模型}}中的参数\\进行训练};
+
+\draw [-,thick,dashed] ([xshift=0em,yshift=0em]ml1.west) -- ([xshift=0em,yshift=0em]ml1.east);
+\draw [-,thick,dashed] ([xshift=0em,yshift=0em]ml2.west) -- ([xshift=0em,yshift=0em]ml2.east);
+\draw [-,thick,dashed] ([xshift=0em,yshift=0em]ml3.west) -- ([xshift=0em,yshift=0em]ml3.east);
+
+\draw[->,thick] ([xshift=-1.5em,yshift=-0em]ml1.north)..controls +(north:3em) and +(west:0em)..([xshift=-0em,yshift=-0em]cl1.west) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]ml2.north)..controls +(north:3em) and +(west:0em)..([xshift=-0em,yshift=-0em]cl1.east) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]cl1.north)..controls +(north:2em) and +(west:0em)..([xshift=-0em,yshift=-0em]cl2.west) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]ml3.north)..controls +(north:6em) and +(west:0em)..([xshift=-0em,yshift=-0em]cl2.east) ;
+\draw [->,thick] ([xshift=0em,yshift=0em]cl2.north) -- ([xshift=0em,yshift=0em]op1.south);
+
+}
+
+{%subfigure-center
+\node[anchor=north,wnode,font=\footnotesize] (wc1) at ([xshift=0em,yshift=-0.15em]mc1.north){训练数据};
+\node[anchor=north,wnode,font=\footnotesize] (wc2) at ([xshift=0em,yshift=-0.15em]mc2.north){模型结构};
+\node[anchor=south,wnode] (wc3) at ([xshift=0em,yshift=0.15em]mc1.south){人工/自动收集};
+\node[anchor=south,wnode] (wc4) at ([xshift=0em,yshift=0.15em]mc2.south){人工设计};
+
+\node[anchor=south,cnode,fill=white] (cc1) at ([xshift=-4em,yshift=1.5em]m2.south){};
+\node[anchor=north,cnode,fill=white] (cc2) at ([xshift=0em,yshift=-1em]m2.north){};
+
+\node[anchor=south west,wnode,align=left,font=\tiny] (wl7) at ([xshift=0.5em,yshift=0em]cc1.east){使用{\color{red!50} \bfnew{模型}}对{\color{blue} \bfnew{数据}}\\中信息进行提取};
+\node[anchor=west,wnode,align=right,font=\tiny] (wl8) at ([xshift=0.5em,yshift=0em]cc2.east){使用提取的信息对\\{\color{red!50} \bfnew{模型}}中的参数\\进行训练};
+
+\draw [-,thick,dashed] ([xshift=0em,yshift=0em]mc1.west) -- ([xshift=0em,yshift=0em]mc1.east);
+\draw [-,thick,dashed] ([xshift=0em,yshift=0em]mc2.west) -- ([xshift=0em,yshift=0em]mc2.east);
+
+\draw[->,thick] ([xshift=-2em,yshift=-0em]mc1.north)..controls +(north:3em) and +(west:0em)..([xshift=-0em,yshift=-0em]cc1.west) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]mc2.north)..controls +(north:2em) and +(west:0em)..([xshift=-0em,yshift=-0em]cc1.east) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]cc1.north)..controls +(north:2em) and +(west:0em)..([xshift=-0em,yshift=-0em]cc2.west) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]mc2.north)..controls +(north:6em) and +(west:0em)..([xshift=-0em,yshift=-0em]cc2.east) ;
+\draw [->,thick] ([xshift=0em,yshift=0em]cc2.north) -- ([xshift=0em,yshift=0em]op2.south);
+
+}
+
+{%subfigure-right
+\node[anchor=north,wnode,font=\footnotesize] (wr1) at ([xshift=0em,yshift=-0.15em]mr1.north){训练数据};
+\node[anchor=south,wnode] (wr2) at ([xshift=0em,yshift=0.15em]mr1.south){人工/自动收集};
+
+
+\node[anchor=south,cnode,fill=white] (cr1) at ([xshift=-2.5em,yshift=2.8em]m3.south){};
+\node[anchor=north,cnode,fill=white] (cr2) at ([xshift=0em,yshift=-1em]m3.north){};
+\node[anchor=south,cnode,fill=white] (cr3) at ([xshift=-6.2em,yshift=0.7em]m3.south){};
+
+\node[anchor=north,wnode,align=right,font=\tiny] (wr3) at ([xshift=1em,yshift=-0.5em]cr2.south){使用{\color{red!50} \bfnew{模型}}提\\取{\color{blue} \bfnew{数据}}\\中的\\信息};
+\node[anchor=west,wnode,align=right,font=\tiny] (wr4) at ([xshift=0.5em,yshift=0em]cr2.east){使用提取的信息对\\{\color{red!50} \bfnew{模型}}中的参数\\进行训练};
+\node[anchor=west,wnode,align=left,font=\tiny] (wr5) at ([xshift=0.2em,yshift=0em]cr3.east){使用{\color{blue} \bfnew{数据}}对{\color{red!50} \bfnew{模型}}\\的结构进行搜索};
+
+\draw [-,thick,dashed] ([xshift=0em,yshift=0em]mr1.west) -- ([xshift=0em,yshift=0em]mr1.east);
+
+\draw[->,thick] ([xshift=-6.2em,yshift=0em]mr1.north) -- ([xshift=0em,yshift=0em]cr3.south);
+\draw[->,thick] ([xshift=0em,yshift=-0em]cr3.north)..controls +(north:1.3em) and +(west:0em)..([xshift=-0em,yshift=-0em]cr1.west) ;
+\draw[->,thick] ([xshift=1em,yshift=-0em]mr1.north)..controls +(north:4em) and +(west:0em)..([xshift=-0em,yshift=-0em]cr1.east) ;
+\draw[->,thick] ([xshift=0em,yshift=-0em]cr1.north east)..controls +(north:1em) and +(west:0em)..([xshift=-0em,yshift=-0em]cr2.west) ;
+\draw[->,thick] ([xshift=5.7em,yshift=-0em]mr1.north)..controls +(north:6em) and +(west:0em)..([xshift=-0em,yshift=-0em]cr2.east) ;
+\draw[->,thick] ([xshift=0em,yshift=0em]cr2.north) -- ([xshift=0em,yshift=0em]op3.south);
+
+
+}
+
+}
+
+
+\end{tikzpicture}

@@ -1,0 +1,54 @@
+\definecolor{taupegray}{rgb}{0.55, 0.52, 0.54}
+\tikzstyle{er} = [rectangle,minimum width=7cm,minimum height=2.5cm,text centered,draw,drop shadow,rounded corners]
+\begin{tikzpicture}[node distance = 0,scale = 0.55]
+\tikzstyle{every node}=[scale=0.55]
+\node (encoder)[er,thick,minimum width=5.5cm,fill=red!25]{\huge{编码器}};
+\node (decoder)[er,thick,right of=encoder,xshift=8.75cm,fill=blue!25]{\huge{解码器}};
+\node (decoder_1)[er,thick,right of=decoder,xshift=8.75cm,fill=blue!25]{\huge{解码器}};
+\draw [->,very thick,draw=black]([xshift=0cm]encoder.east) --  ([xshift=-0cm]decoder.west);
+
+\foreach \x in {-2.2cm,-1.1cm,...,2.2cm}
+\draw [->,very thick,draw=black]([xshift=\x,yshift=-1cm]encoder.south) --  ([xshift=\x,yshift=-0.2cm]encoder.south);
+\node [below of = encoder,xshift=-2.3cm,yshift=-2.92cm,scale=1.2]{\small{<LEN>}};
+\node [below of = encoder,xshift=-1cm,yshift=-2.9cm,scale=1.2]{\large{Hello}};
+\node [below of = encoder,xshift=0cm,yshift=-3.05cm,scale=1.2]{,};
+\node [below of = encoder,xshift=1.1cm,yshift=-2.9cm,scale=1.2]{\large{world}};
+\node [below of = encoder,xshift=2.2cm,yshift=-2.9cm,scale=1.2]{!};
+
+
+
+\foreach \x in {-2.7cm,-0.9cm,...,2.8cm}
+{\draw [->,very thick,draw=black]([xshift=\x,yshift=-1cm]decoder.south) --  ([xshift=\x,yshift=-0.2cm]decoder.south);
+\draw [->,very thick,draw=black]([xshift=\x,yshift=0.2cm]decoder.north) --  ([xshift=\x,yshift=1cm]decoder.north);}
+\node (mask_1) [below of = decoder,xshift=-3cm,yshift=-2.9cm,scale=1.6]{\small{<Mask>}};
+\node [below of = decoder,xshift=-1cm,yshift=-2.9cm,scale=1.6]{\small{<Mask>}};
+\node [below of = decoder,xshift=1cm,yshift=-2.9cm,scale=1.6]{\small{<Mask>}};
+\node [below of = decoder,xshift=3cm,yshift=-2.9cm,scale=1.6]{\small{<Mask>}};
+\node [below of = decoder,xshift=-3cm,yshift=2.9cm,scale=1.6]{你好};
+\node [below of = decoder,xshift=-1cm,yshift=2.7cm,scale=1.6]{，};
+\node [below of = decoder,xshift=1cm,yshift=2.9cm,scale=1.6]{你好};
+\node (line1)[below of = decoder,xshift=2.6cm,yshift=2.9cm,scale=1.6]{！};
+
+
+
+\foreach \x in {-2.7cm,-0.9cm,...,2.8cm}
+{\draw [->,very thick,draw=black]([xshift=\x,yshift=-1cm]decoder_1.south) --  ([xshift=\x,yshift=-0.2cm]decoder_1.south);
+\draw [->,very thick,draw=black]([xshift=\x,yshift=0.2cm]decoder_1.north) --  ([xshift=\x,yshift=1cm]decoder_1.north);}
+\node [below of = decoder_1,xshift=-2.7cm,yshift=2.9cm,scale=1.6]{你好};
+\node [below of = decoder_1,xshift=-0.9cm,yshift=2.7cm,scale=1.6]{，};
+\node [below of = decoder_1,xshift=0.9cm,yshift=2.9cm,scale=1.6]{世界};
+\node [below of = decoder_1,xshift=2.6cm,yshift=2.8cm,scale=1.6]{！};
+
+\node (line2)[below of = decoder_1,xshift=-2.7cm,yshift=-2.9cm,scale=1.6]{你好};
+\node [below of = decoder_1,xshift=-0.9cm,yshift=-3cm,scale=1.6]{，};
+\node [below of = decoder_1,xshift=0.9cm,yshift=-2.9cm,scale=1.6]{\small{<Mask>}};
+\node [below of = decoder_1,xshift=2.6cm,yshift=-2.8cm,scale=1.6]{！};
+
+\draw [-,very thick,draw=black]([xshift=-2.2cm]encoder.north) --  ([xshift=-2.2cm,yshift=0.5cm]encoder.north)--  ([xshift=4.1cm,yshift=0.5cm]encoder.north);
+\draw [-,very thick,draw=black,dashed]([xshift=4.1cm,yshift=0.5cm]encoder.north) -- ([xshift=-0.5cm]mask_1.west);
+\draw [->,very thick,draw=black]([xshift=-0.5cm]mask_1.west) -- (mask_1.west);
+\draw [->,very thick,draw=black]([xshift=0.5cm]encoder.east) -- ([xshift=0.5cm,yshift=-3.5cm]encoder.east) -- ([xshift=10.5cm,yshift=-3.5cm]encoder.east) -- ([xshift=-0.72cm]decoder_1.west) --  (decoder_1.west);
+
+\draw [->,very thick,dotted] (line1.east) .. controls +(east:1.2) and +(west:1.2) ..(line2.west);
+\node [below of = encoder,xshift=1.2cm,yshift=2.4cm,scale=1.7]{译文长度：4};
+\end{tikzpicture}

@@ -1,0 +1,122 @@
+
+\begin{tikzpicture}[scale=0.8]
+\begin{scope}
+\tikzstyle{data} = [draw,black,very thick,inner sep=2pt,rounded corners=0pt,minimum width=2.5em,minimum height=1.5em,anchor=west]
+\tikzstyle{model} = [draw,black,very thick,inner sep=3.5pt,rounded corners=0pt,fill=red!20,minimum width=3em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{word} = [inner sep=3.5pt,align=left,font=\scriptsize]
+\tikzstyle{more} = [inner sep=2pt,rounded corners=0pt,minimum width=2.5em,minimum height=1.5em,anchor=west]
+
+\node[data,fill=blue!20] (one) at (0,0) {};
+\node[data,fill=green!20] (two) at ([xshift=-0.2em]one.east) {};
+\node[data,fill=yellow!20] (three) at ([xshift=-0.2em]two.east) {};
+
+\node[data,fill=blue!20,minimum width=1em] (one_) at ([yshift=-6em]one.south west) {};
+\node[data,fill=green!20,minimum width=4.5em] (two_) at ([xshift=-0.2em]one_.east) {};
+\node[data,fill=yellow!20,minimum width=2em] (three_) at ([xshift=-0.2em]two_.east) {};
+
+\node[model] (mo) at ([xshift=0.5em,yshift=-5em]two_.south){模型};
+
+\node[word] at ([xshift=-1.5em]one.west) {原始 \\ 数据};
+\node[word] at ([xshift=-1.5em]one_.west) {加权};
+
+\node[word,font=\tiny] at ([yshift=1em]one.north) {$(x_1,y_1)$};
+\node[word,font=\tiny] at ([yshift=1em]two.north) {$(x_2,y_2)$};
+\node[word,font=\tiny] at ([yshift=1em]three.north) {$(x_3,y_3)$};
+
+\node[word,font=\tiny] at ([yshift=1em]one_.north) {$(x_1,y_1)$};
+\node[word,font=\tiny] at ([yshift=1em]two_.north) {$(x_2,y_2)$};
+\node[word,font=\tiny] at ([yshift=1em]three_.north) {$(x_3,y_3)$};
+
+\draw [->,thick] ([yshift=-0.2em]one.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]one_.north);
+\draw [->,thick] ([yshift=-0.2em]two.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]two_.north);
+\draw [->,thick] ([yshift=-0.2em]three.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]three_.north);
+
+\draw [->,thick] ([xshift=0.5em,yshift=-0.2em]two_.south) -- ([yshift=0.2em]mo.north) node[pos=0.5,left,align=center,font=\footnotesize]{训练};
+
+\node[font=\small] at ([yshift=-4em]mo.south){(a)数据加权};
+\end{scope}
+
+\begin{scope}
+\tikzstyle{data} = [draw,black,very thick,inner sep=2pt,rounded corners=0pt,minimum width=2.5em,minimum height=1.5em,anchor=west]
+\tikzstyle{model} = [draw,black,very thick,inner sep=3.5pt,rounded corners=0pt,fill=red!20,minimum width=3em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{word} = [inner sep=3.5pt,align=left,font=\scriptsize]
+\tikzstyle{more} = [inner sep=2pt,rounded corners=0pt,minimum width=2.5em,minimum height=1.5em,anchor=west]
+
+\node[data,fill=blue!20] (one-2) at ([xshift=10.0em]one.east) {};
+\node[data,fill=green!20] (two-2) at ([xshift=-0.2em]one-2.east) {};
+\node[data,fill=yellow!20] (three-2) at ([xshift=-0.2em]two-2.east) {};
+
+\node[data,fill=blue!20] (one_-2) at ([yshift=-6em]one-2.south west) {};
+\node[data,fill=yellow!20] (three_-2) at ([xshift=-0.2em]one_-2.east) {};
+
+\node[model] (mo-2) at ([xshift=1.7em,yshift=-5em]one_-2.south){模型};
+
+\node[word] at ([xshift=-1.5em]one-2.west) {原始 \\ 数据};
+\node[word] at ([xshift=-1.5em]one_-2.west) {选择};
+
+\node[word,font=\tiny] at ([yshift=1em]one-2.north) {$(x_1,y_1)$};
+\node[word,font=\tiny] at ([yshift=1em]two-2.north) {$(x_2,y_2)$};
+\node[word,font=\tiny] at ([yshift=1em]three-2.north) {$(x_3,y_3)$};
+
+\node[word,font=\tiny] at ([yshift=1em]one_-2.north) {$(x_1,y_1)$};
+\node[word,font=\tiny] at ([yshift=1em]three_-2.north) {$(x_3,y_3)$};
+
+\draw [->,thick] ([yshift=-0.2em]one-2.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]one_-2.north);
+\draw [->,thick] ([yshift=-0.2em]three-2.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]three_-2.north);
+
+\draw [->,thick] ([xshift=1.7em,yshift=-0.2em]one_-2.south) -- ([yshift=0.2em]mo-2.north) node[pos=0.5,left,align=center,font=\footnotesize]{训练};
+\node[font=\small] at ([yshift=-4em]mo-2.south){(b)数据选择};
+\end{scope}
+
+\begin{scope}
+\tikzstyle{data} = [draw,black,very thick,inner sep=2pt,rounded corners=0pt,minimum width=2.5em,minimum height=1.5em,anchor=west]
+\tikzstyle{model} = [draw,black,very thick,inner sep=3.5pt,rounded corners=0pt,fill=red!20,minimum width=3em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{word} = [inner sep=3.5pt,align=left,font=\scriptsize]
+\tikzstyle{more} = [inner sep=2pt,rounded corners=0pt,minimum width=2.5em,minimum height=1.5em,anchor=west]
+
+\node[data,fill=blue!20] (one-3) at ([xshift=10.0em]one-2.east) {};
+\node[data,fill=green!20] (two-3) at ([xshift=-0.2em]one-3.east) {};
+\node[data,fill=yellow!20] (three-3) at ([xshift=-0.2em]two-3.east) {};
+
+\node[data,fill=blue!20] (one_-3) at ([yshift=-6em]one-3.south west) {};
+\node[data,fill=green!20] (two_-3) at ([xshift=-0.2em]one_-3.east) {};
+\node[data,fill=yellow!20] (three_-3) at ([xshift=-0.2em]two_-3.east) {};
+\node[data,fill=black!10] (new_-3) at ([xshift=1.2em]three_-3.east) {};
+
+\node[model] (mo-3) at ([xshift=1.7em,yshift=-5em]two_-3.south){模型};
+
+\node[word] at ([xshift=-1.5em]one-3.west) {原始 \\ 数据};
+
+\node[word,font=\tiny] at ([yshift=1em]one-3.north) {$(x_1,y_1)$};
+\node[word,font=\tiny] at ([yshift=1em]two-3.north) {$(x_2,y_2)$};
+\node[word,font=\tiny] at ([yshift=1em]three-3.north) {$(x_3,y_3)$};
+\node[word,font=\scriptsize] (monolingual-3)  at ([xshift=6em]three-3.south) {$\tilde{x}_4$};
+
+\node[word,font=\tiny] (w-3) at ([yshift=1em]one_-3.north) {$(x_1,y_1)$};
+\node[word,font=\tiny] at ([yshift=1em]two_-3.north) {$(x_2,y_2)$};
+\node[word,font=\tiny] at ([yshift=1em]three_-3.north) {$(x_3,y_3)$};
+\node[word,font=\tiny] (w4-3) at ([yshift=1em]new_-3.north) {{\red $(\tilde{x}_4,y_4^*)$}};
+
+\draw [->,thick] ([yshift=-0.2em]one-3.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]one_-3.north);
+\draw [->,thick] ([yshift=-0.2em]two-3.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]two_-3.north);
+\draw [->,thick] ([yshift=-0.2em]three-3.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([yshift=1.5em]three_-3.north);
+\draw [->,thick] ([yshift=-0.0em]monolingual-3.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([xshift=0.8em,yshift=1.7em]new_-3.north) node[pos=0.5,left,align=center,font=\tiny]{翻译};
+
+\draw [->,thick] ([xshift=1.7em,yshift=-0.2em]two_-3.south) -- ([yshift=0.2em]mo-3.north) node[pos=0.5,left,align=center,font=\footnotesize]{训练};
+\node[font=\small] at ([yshift=-4em]mo-3.south){(c)伪数据};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,rounded corners=1pt,fill=orange!10] [fit = (w-3) (one_-3)(three_-3)] (box1) {};
+\node [rectangle,rounded corners=1pt,fill=cyan!10] [fit = (w4-3) (new_-3)] (box2) {};
+\end{pgfonlayer}
+
+\node[word,draw=orange!50,dotted,very thick,inner sep=2.5pt] (realdata-3) at ([xshift=-3.5em,yshift=-2em]box1.south) {真实数据};
+\node[word,draw=cyan!50,dotted,very thick,inner sep=2.5pt] (fake-3) at ([xshift=0em,yshift=-2em]box2.south) {伪数据};
+\node[word,draw,dotted,very thick,inner sep=2.5pt] (monodata-3) at ([xshift=0em,yshift=2em]monolingual-3.north) {单语数据};
+
+\draw[->,dotted,very thick] ([yshift=0.0em]monolingual-3.north)-- ([yshift=-0.2em,xshift=0.0em]monodata-3.south);
+\draw[->,dotted,very thick,cyan] (box2.south) -- ([xshift=-0em,yshift=0.2em]fake-3.north);
+\draw[->,dotted,very thick,orange] ([xshift=-3.5em]box1.south) -- ([xshift=0em,yshift=0.2em]realdata-3.north);
+
+\end{scope}
+\end{tikzpicture}

@@ -1,0 +1,41 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\tikzstyle{lan}=[font=\footnotesize,inner ysep=2pt,minimum height=1em]
+\node[minimum height=4em,minimum width=8em,fill=orange!20,draw,rounded corners=2pt,align=center,line width=0.6pt,font=\small] (sys) at (0,0){多语言 \\ 单模型系统};
+\node[draw,font=\footnotesize,minimum width=4em,fill=red!20,rounded corners=1pt,line width=0.6pt] (en) at (-3em,5em){英语};
+\node[draw,font=\footnotesize,minimum width=4em,fill=red!20,rounded corners=1pt,line width=0.6pt] (fr) at (3em,5em){法语};
+\node[minimum width=4em]  at (6.6em,5em){$\dots$};
+\node[draw,font=\footnotesize,minimum width=4em,fill=blue!20,rounded corners=1pt,line width=0.6pt] (de) at (-3em,-5em){德语};
+\node[draw,font=\footnotesize,minimum width=4em,fill=blue!20,rounded corners=1pt,line width=0.6pt] (sp) at (3em,-5em){西班牙语};
+\node[minimum width=4em]  at (6.6em,-5em){$\dots$};
+
+\draw[->,thick] (en.-90) -- ([xshift=-1em]sys.90);
+\draw[->,thick] (fr.-90) -- ([xshift=1em]sys.90);
+\draw[->,thick] ([xshift=-1em]sys.-90) -- (de.90);
+\draw[->,thick] ([xshift=1em]sys.-90) -- (sp.90);
+
+\node[font=\footnotesize] (train) at (11em,7em) {\small\bfnew{训练阶段：}};
+\node[anchor=north,font=\footnotesize] (pair1) at ([yshift=-1em,xshift=1em]train.south) {双语句对1：};
+\node[anchor=west,lan](train1) at ([yshift=.7em,xshift=0.4em]pair1.east) {英语：{\color{red}<spanish>} \ hello};
+\node[anchor=west,lan](train2) at ([yshift=-.7em,xshift=0.4em]pair1.east) {西班牙语：hola};
+\node[anchor=north,font=\footnotesize] (pair2) at ([yshift=-4.5em,xshift=1em]train.south) {双语句对2：};
+\node[anchor=west,lan](train3) at ([yshift=.7em,xshift=0.4em]pair2.east) {法语：{\color{red}<german>} \ Bonjour};
+\node[anchor=west,lan](train4) at ([yshift=-.7em,xshift=0.4em]pair2.east) {德语：Hallo};
+\node[anchor=north,font=\footnotesize] (decode) at ([yshift=-8em]train.south) {\small\bfnew{推断阶段：}};
+\node[anchor=north,font=\footnotesize] (input) at ([xshift=2.13em,yshift=-0.6em]decode.south) {输入：};
+\node[anchor=west,lan](decode2) at ([xshift=0.4em]input.east) {英语：{\color{red}<german>} \ hello};
+\node[anchor=north,font=\footnotesize] (output) at ([xshift=2.13em,yshift=-2.6em]decode.south) {输出：};
+\node[anchor=west,lan](decode3) at ([xshift=0.4em]output.east) {德语：Hallo};
+\node[anchor=north,lan,minimum width=9.8em] (box7) at ([yshift=-4em]train3.south) {};
+
+\begin{pgfonlayer}{background}
+\node[draw=ugreen,rounded corners=2pt,inner ysep=6pt,line width=1pt][fit=(train)(train4)(train1)(train2)(train3)]{};
+\node[draw=purple,rounded corners=2pt,inner ysep=6pt,line width=1pt][fit=(decode)(output)(decode2)(decode3)(box7)]{};
+\end{pgfonlayer}
+\end{tikzpicture}
+
+
+
+

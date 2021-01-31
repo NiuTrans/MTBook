@@ -1,0 +1,41 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+	\tikzstyle{node}=[rounded corners=4pt,draw,minimum height=3em,drop shadow,font=\footnotesize]
+
+\node[node,minimum width=6em,minimum height=2.4em,fill=red!20,line width=0.6pt] (encoder1) at (0,0){\small 编码器};
+\node[node,anchor=west,minimum width=6em,minimum height=2.4em,fill=red!30,line width=0.6pt] (encoder2) at ([xshift=7em,yshift=0em]encoder1.east){\small 编码器};
+
+
+\node[node,anchor=north,minimum width=6em,minimum height=2.4em,fill=blue!20,line width=0.6pt] (decoder1) at ([yshift=-2em]encoder1.south){\small 解码器};
+\node[node,anchor=west,minimum width=6em,minimum height=2.4em,fill=blue!30,line width=0.6pt] (decoder2) at ([xshift=7em,yshift=0em]decoder1.east){\small 解码器};
+
+
+\node[anchor=north,font=\scriptsize,fill=yellow!20,drop shadow,draw] (w1) at ([yshift=-1.6em]decoder1.south){知识 \ 就是 \ 力量 \ 。 \ <eos>};
+\node[anchor=north,font=\scriptsize,fill=green!20,drop shadow,draw] (w3) at ([yshift=-1.6em]decoder2.south){El conocimiento es poder . <eos>};
+\node[anchor=south,font=\scriptsize,fill=orange!20,drop shadow,draw] (w2) at ([yshift=1.6em]encoder1.north){Knowledge \ is \ power \ . };
+\node[anchor=south,font=\scriptsize,fill=orange!20,drop shadow,draw] (w4) at ([yshift=1.6em]encoder2.north){Knowledge \ is \ power \ . };
+
+
+\draw[->,thick] (decoder1.-90) -- (w1.north);
+\draw[->,thick] (decoder2.-90) -- (w3.north);
+\draw[->,thick] (w2.-90) -- (encoder1.90);
+\draw[->,thick] (w4.-90) -- (encoder2.90);
+
+\draw[->,thick](encoder1.south)--(decoder1.north);
+\draw[->,thick](encoder2.south)--(decoder2.north);
+
+
+\node[anchor=south,yshift=3.4em] at (encoder1.north){\small\bfnew{父模型}};
+\node[anchor=south,yshift=3.4em] at (encoder2.north){\small\bfnew{子模型}};
+
+\draw[->,dash pattern=on 3pt off 2pt,thick] ([yshift=0em]encoder1.0) -- node[above,font=\scriptsize]{参数复用\&微调}(encoder2.180);
+\draw[->,dash pattern=on 3pt off 2pt,thick] ([yshift=0em]decoder1.0) -- node[above,font=\scriptsize]{参数复用\&微调}(decoder2.180);
+
+
+\end{tikzpicture}
+
+
+
+

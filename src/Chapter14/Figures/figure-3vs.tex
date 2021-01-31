@@ -1,0 +1,91 @@
+\begin{tikzpicture}
+\tikzstyle{decoder} = [rectangle,thick,rounded corners,minimum width=5cm,minimum height=0.6cm,text centered,draw=black,fill=blue!25,drop shadow]
+
+\begin{scope}
+\node (encoder) at (0,0) {来自编码器的信息};
+\node (aa)[decoder,anchor=east] at ([xshift=5.5cm]encoder.east) {};
+\node (y2b)[anchor=south] at ([yshift=-2.5em]aa.south) {$y_2$};
+\node (label)[anchor=south] at ([xshift=-4.5em,yshift=-1.8em]y2b.south) {\small{(a) 自回归解码}};
+\node (y1b)[anchor=east] at ([xshift=-2.5em]y2b.east) {$y_1$};
+\node (sos)[anchor=east] at ([xshift=-4.3em]y2b.east) {\small{<sos>}};
+\node (y3b)[anchor=west] at ([xshift=2.5em]y2b.west) {$y_3$};
+\node (y4b)[anchor=west] at ([xshift=5em]y2b.west) {$y_4$};
+
+\node (y3a)[anchor=north] at ([yshift=2.5em]aa.north) {$y_3$};
+\node (y2a)[anchor=east] at ([xshift=-2.5em]y3a.east) {$y_2$};
+\node (y1a)[anchor=east] at ([xshift=-5em]y3a.east) {$y_1$};
+\node (y4a)[anchor=west] at ([xshift=2.5em]y3a.west) {$y_4$};
+\node (eos)[anchor=west] at ([xshift=4.3em]y3a.west) {\small{<eos>}};
+
+\draw [->,very thick,dotted] ([xshift=-0.3em]y1a.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0.3em]y1b.west);
+\draw [->,very thick,dotted] ([xshift=-0.3em]y2a.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0.3em]y2b.west);
+\draw [->,very thick,dotted] ([xshift=-0.3em]y3a.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0.3em]y3b.west);
+\draw [->,very thick,dotted] ([xshift=-0.3em]y4a.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0.3em]y4b.west);
+
+\node (autodecoder)[decoder,anchor=east] at ([xshift=5.5cm]encoder.east) {自回归解码器};
+%\node (encoder)[decoder,anchor=west,fill=red!20] at ([xshift=-2cm]autodecoder.west) {编码器};
+\draw [->,thick](encoder.east) to (autodecoder.west); 
+\draw [->,thick]([yshift=0em]y1b.north) to ([yshift=1.15em]y1b.north); 
+\draw [->,thick]([yshift=0em]y2b.north) to ([yshift=1.15em]y2b.north);
+\draw [->,thick]([yshift=0em]y3b.north) to ([yshift=1.15em]y3b.north);
+\draw [->,thick]([yshift=0em]y4b.north) to ([yshift=1.15em]y4b.north);
+\draw [->,thick]([yshift=0em]sos.north) to ([yshift=1.15em]sos.north);
+
+\draw [->,thick]([yshift=-1.15em]y1a.south) to (y1a.south); 
+\draw [->,thick]([yshift=-1.15em]y2a.south) to (y2a.south);
+\draw [->,thick]([yshift=-1.15em]y3a.south) to (y3a.south);
+\draw [->,thick]([yshift=-1.15em]y4a.south) to (y4a.south);
+\draw [->,thick]([yshift=-1.2em]eos.south) to (eos.south);
+\end{scope}
+
+\begin{scope}[yshift=-1.45in]
+\node (encoder) at (0,0) {来自编码器的信息};
+\node (aa)[decoder,anchor=east] at ([xshift=5.5cm]encoder.east) {};
+\node (y1y2b)[rectangle,anchor=south,inner sep=0.25em,densely dashed,draw] at ([yshift=-2.6em]aa.south) {$y_1\;y_2$};
+\node (label)[anchor=south] at ([xshift=-4em,yshift=-2.1em]y1y2b.south) {\small{(b) 半自回归解码}};
+\node (sos)[anchor=east] at ([xshift=-4.55em]y1y2b.east) {\small{<sos>}};
+\node (y3y4b)[rectangle,anchor=west,inner sep=0.25em,densely dashed,draw] at ([xshift=4.7em]y1y2b.west) {$y_3\;y_4$};
+
+\node (y3y4a)[rectangle,anchor=north,inner sep=0.25em,densely dashed,draw] at ([yshift=2.6em]aa.north) {$y_3\;y_4$};
+\node (y1y2a)[rectangle,anchor=west,inner sep=0.25em,densely dashed,draw] at ([xshift=-4.7em]y3y4a.west) {$y_1\;y_2$};
+\node (eos)[anchor=east] at ([xshift=4.85em]y3y4a.east) {\small{<eos>}};
+
+\draw [->,very thick,dotted] ([xshift=-0em]y1y2a.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0em]y1y2b.west);
+\draw [->,very thick,dotted] ([xshift=-0em]y3y4a.east) .. controls +(east:0.5) and +(west:0.5) ..([xshift=0em]y3y4b.west);
+
+\node (autodecoder)[decoder,anchor=east] at ([xshift=5.5cm]encoder.east)  {半自回归解码器};
+%\node (encoder)[decoder,anchor=west,fill=red!20] at ([xshift=-2cm]autodecoder.west) {编码器};
+\draw [->,thick](encoder.east) to (autodecoder.west); 
+
+\draw [->,thick]([yshift=0.05em]sos.north) to ([yshift=1.38em]sos.north);
+\draw [->,thick]([yshift=0em]y1y2b.north) to ([yshift=1.38em]y1y2b.north);
+\draw [->,thick]([yshift=0em]y3y4b.north) to ([yshift=1.38em]y3y4b.north);
+
+\draw [->,thick]([yshift=-1.5em]y1y2a.south) to ([yshift=-0.02em]y1y2a.south);
+\draw [->,thick]([yshift=-1.5em]y3y4a.south) to ([yshift=-0.02em]y3y4a.south);
+\draw [->,thick]([yshift=-1.4em]eos.south) to ([yshift=-0.05em]eos.south);
+\end{scope}
+
+\begin{scope}[yshift=-2.9in]
+\node (encoder) at (0,0) {来自编码器的信息};
+\node (aa)[decoder,anchor=east] at ([xshift=5.5cm]encoder.east) {非自回归解码器};
+%\node (encoder)[decoder,anchor=west,fill=red!20] at ([xshift=-2cm]aa.west) {编码器};
+\draw [->,thick](encoder.east) to (aa.west); 
+
+\node (label)[anchor=south] at ([xshift=-4em,yshift=-2.3em]aa.south) {\small{(c) 非自回归解码}};
+
+\node (y2a)[anchor=north] at ([xshift=-1.5em,yshift=2.5em]aa.north) {$y_2$};
+\node (y1a)[anchor=east] at ([xshift=-3em]y2a.east) {$y_1$};
+\node (y3a)[anchor=west] at ([xshift=3em]y2a.west) {$y_3$};
+\node (y4a)[anchor=west] at ([xshift=6em]y2a.west) {$y_4$};
+
+
+
+\draw [->,thick]([yshift=-1.2em]y1a.south) to (y1a.south); 
+\draw [->,thick]([yshift=-1.2em]y2a.south) to (y2a.south);
+\draw [->,thick]([yshift=-1.2em]y3a.south) to (y3a.south);
+\draw [->,thick]([yshift=-1.2em]y4a.south) to (y4a.south);
+
+\end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,33 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.5em,minimum width=2em]
+{\small
+\begin{scope}[sibling distance=15pt, level distance = 30pt]
+
+\Tree[.\node(n1){{S}};
+        [.\node(n2){{NP}}; \node(w1){{Jane}};]
+        [.\node(n3){{VP}};
+            [. \node(w2){had};]
+            [. \node(n4){NP}; \node(w3){{a cat}};]
+            ]
+        [. \node(w4){.};]
+     ]
+
+\end{scope}
+}
+
+{\small
+\begin{scope}[xshift=1in,yshift=-0.7in]
+
+\node [anchor=west] (n1) at (0.5em,0em) {(Root(S(NP Jane)NP(VP had(NP a cat)NP)VP .)S)Root};
+
+\draw [->,very thick] ([xshift=-2.3em,yshift=0em]n1.west) -- ([xshift=-0.5em,yshift=0em]n1.west);
+
+\end{scope}
+}
+
+\end{tikzpicture}
+\end{center}

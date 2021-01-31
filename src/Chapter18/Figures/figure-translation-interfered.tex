@@ -1,0 +1,31 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}[scale=0.8]
+\tikzstyle{diction}=[align=center,rounded corners=2pt, draw,drop shadow,fill=green!20,font=\scriptsize]
+\tikzstyle{word}=[align=center,anchor=west]
+\begin{scope}
+
+\node[word] (origin) at (0,0) {源文};
+\node[word] (n1) at ([xshift=1em]origin.east){{\color{red} 小牛翻译}的总部在哪里？}; 
+
+\node[word] (right) at ([yshift=-6em]origin.south west){译文};
+\node[word] (n3) at ([xshift=1em]right.east){Where is the headquarters \\ of {\color{red} NiuTrans}?}; 
+
+%\node[diction] (dic) at ([xshift=2em,yshift=-1.8em]n1.south east) {
+%术语词典 \\
+%小牛翻译 = NiuTrans \\
+%......
+%};
+%\draw[->,red] ([yshift=-0.2em]dic.west)  .. controls +(west:2em) and +(south:2em) .. ( [xshift=-4em]n1.south) node[above,midway,font=\scriptsize]{};
+\node[font=\scriptsize] at ([yshift=-2.3em,xshift=-6em]n1.south) {“小牛翻译”=“NiuTrans”};
+\draw[->,very thick] ([yshift=-0.2em,xshift=-0.4em]n1.south) -- ([yshift=0.2em]n3.north);
+%\draw[->,very thick] ([yshift=-0.2em,xshift=-0.2em]n2.south) -- ([yshift=0.2em]n3.north);
+
+\end{scope}
+\end{tikzpicture}
+
+
+
+
+

@@ -1,0 +1,88 @@
+
+\begin{tikzpicture}[node distance = 0,scale = 0.8]
+\tikzstyle{every node}=[scale=0.8]
+
+\foreach \x in {1,2,3,4}
+	\node[draw,inner sep=0pt,minimum height=1em,minimum width=1.6em,fill=red!35,rounded corners=1pt] (c1_\x) at (0em+2em*\x, 0em){};
+\node[anchor=north] (hpre) at ([yshift=1.8em]c1_1.north) {${\mathbi{h}}^ {\textrm{pre}k}$};
+\foreach \x in {1,2,3}
+	\node[draw,inner sep=0pt,minimum height=1em,minimum width=1.6em,fill=red!35,rounded corners=1pt] (c2_\x) at (11em+2em*\x, 0em){};
+\node[anchor=north] (hpre) at ([yshift=1.8em]c2_1.north) {${\mathbi{h}}^ {\textrm{pre}1}$};
+\foreach \x in {1,2,3,4,5}
+	\node[draw,inner sep=0pt,minimum height=1em,minimum width=1.6em,fill=red!35,rounded corners=1pt] (c3_\x) at (18.4em+2em*\x, 0em){};,minimum width=1em
+
+\foreach \x in {1,2,3,4,5}
+	\node[draw,inner sep=0pt,minimum height=1em,minimum width=1.6em,fill=blue!35,rounded corners=1pt] (c4_\x) at (18.4em+2em*\x, 10.4em){};
+
+%\node[inner sep=0pt,minimum size=1em,fill=ugreen,circle,thick] (c5) at (9em, 7em){};
+\node[draw,inner sep=0pt,minimum size=1.2em,fill=green!30!white,circle,thick] (qs) at (18.6em, 6.4em){};
+\node[draw,inner sep=0pt,minimum size=1.2em,fill=green!30!white,circle,thick] (qw) at (18.6em, 4.4em){};
+\node[anchor=north] (qslab) at ([xshift=-0.8em,yshift=1em]qs.north) {${\mathbi{q}}_s$};
+\node[anchor=north] (qwlab) at ([xshift=-0.8em,yshift=1em]qw.north) {${\mathbi{q}}_w$};
+
+\node[draw,thick,inner sep=0pt, minimum size=1.2em, circle,thick] (sigma) at (24.4em, 8em){};
+\draw[-,thick] (sigma.0) -- (sigma.180);
+\draw[-,thick] (sigma.90) -- (sigma.-90);
+
+\node[draw,fill=orange!35,inner sep=0pt, minimum size=1.2em, circle,thick] (add1) at (5em, 3em){};
+\node[draw,fill=orange!35,inner sep=0pt, minimum size=1.2em, circle,thick] (add2) at (15em, 3em){};
+\node[draw,fill=orange!35,inner sep=0pt, minimum size=1.2em, circle,thick] (add3) at (10em, 5.2em){};
+\node[anchor=north] (cond) at ([xshift=-1.2em,yshift=0.5em]add3.north) {${\mathbi{d}_t}$};
+\node[anchor=north] (cons1) at ([xshift=-1em,yshift=0.5em]add2.north) {${\mathbi{s}}^1$};
+\node[anchor=north] (consj) at ([xshift=-1em,yshift=0.5em]add1.north) {${\mathbi{s}}^k$};
+\begin{pgfonlayer}{background}
+\node[draw,rounded corners=2pt,drop shadow,fill=white, minimum width=8.3em,thick][fit=(c1_1)(c1_4)](box1){};
+\node[draw,rounded corners=2pt,drop shadow,fill=white,minimum width=6.4em,thick][fit=(c2_1)(c2_3)](box2){};
+\node[draw,rounded corners=2pt,drop shadow,fill=white,minimum width=10.5em,thick][fit=(c3_1)(c3_5)](box3){};
+\node[draw,rounded corners=2pt,drop shadow,fill=white,minimum width=10.3em,thick][fit=(c4_1)(c4_5)](box4){};
+%\node[draw,rounded corners=2pt,inner xsep=6pt,drop shadow,fill=white][fit=(c5)](box5){};
+\end{pgfonlayer}
+
+\node[draw=violet,densely dotted,minimum width=1.9em, minimum height=2.1em,very thick] (n1) at (24.4em,0em){};
+\node[draw=violet,densely dotted,minimum width=1.8em, minimum height=2em,very thick] (n2) at (24.4em,10.4em){};
+%\node[] at (24.4em, -1.5em){$\mathbi{x}_\mathbi{t}$};
+\node[text=ublue] at (10.5em, 0em) {\small\bfnew{...}};
+\node[text=ublue] (hh) at (-0.8em, 0em) {\small\bfnew{...}};
+
+\draw[->,thick, out=70, in=-120] ([yshift=0.1em]c1_1.90) to ([yshift=-0.1em]add1.-120);
+%node[xshift=-0.4em,yshift=1.2em]{$ \mathbi{h}^ {\textrm j}$}
+\draw[->,thick, out=80, in=-100] ([yshift=0.1em]c1_2.90) to ([yshift=-0.1em]add1.-100);
+\draw[->,thick, out=100, in=-80] ([yshift=0.1em]c1_3.90) to ([yshift=-0.1em]add1.-80);
+\draw[->,thick, out=110, in=-60] ([yshift=0.1em]c1_4.90) to ([yshift=-0.1em]add1.-60);
+
+\draw[->,thick, out=70, in=-110] ([yshift=0.1em]c2_1.90) to ([yshift=-0.1em]add2.-110);
+\draw[->,thick, out=90, in=-90] ([yshift=0.1em]c2_2.90) to ([yshift=-0.1em]add2.-90);
+\draw[->,thick, out=110, in=-70] ([yshift=0.1em]c2_3.90) to ([yshift=-0.1em]add2.-70);
+
+
+\draw[->,thick, out=30, in=-130] ([yshift=0.1em]add1.90) to ([yshift=-0.1em]add3.-120);
+\draw[->,thick, out=150, in=-50] ([yshift=0.1em]add2.90) to ([yshift=-0.1em]add3.-70);
+\draw[->,thick, ugreen!60,out=160,in=-10] ([xshift=-0.1em]qs.160) to ([xshift=0.1em]add3.0);
+\draw[->,thick, ugreen!60,out=180,in=0] ([xshift=-0.1em]qw.180) to ([xshift=0.1em]add2.0);
+\draw[->,thick, ugreen!60,out=170,in=-10] ([xshift=-0.1em]qw.160) to ([xshift=0.1em]add1.0);
+
+\draw[->,thick] ([yshift=0.1em]n1.135) .. controls ([xshift=-2em]n1.130) and ([xshift=2em]qw.0) .. ([xshift=0.1em]qw.0);
+\draw[->,thick] ([yshift=0.1em]n1.120) .. controls ([xshift=-2em,yshift=1em]n1.120) and ([xshift=3em]qs.0) .. ([xshift=0.1em]qs.0);
+\draw[->,thick] ([yshift=0.1em]n1.90) node[yshift=0.5em,right]{$ {\mathbi{h}}_{\textrm{t}}$}-- ([yshift=-0.1em]sigma.-90);
+\draw[->,thick] ([yshift=0.1em]sigma.90) -- ([yshift=-0.1em]n2.-90);
+\draw[->,thick] ([yshift=0.1em]n2.90) -- node[right]{$ \widetilde{\mathbi{h}}_{\textrm{t}}$}([yshift=2em]n2.90);
+
+\draw[decorate,decoration={brace, mirror},gray, thick] ([yshift=-2em]hh.-180) -- node[font=\footnotesize,text=black,below]{前几个句子}([yshift=-2em]box2.0);
+\draw[decorate,decoration={brace, mirror},gray, thick] ([yshift=-2em]box3.-180) -- node[font=\footnotesize,text=black,below]{当前句子}([yshift=-2em]box3.0);
+\draw[->, thick, rounded corners=2pt] ([yshift=0.1em]add3.90) -- ([yshift=2.1em]add3.90) -- ([xshift=-0.1em]sigma.180);
+
+
+%annotation
+%\node[fill=red!30,rounded corners=1pt,inner sep=0pt,minimum size=1em] (a1) at (2em,-4.5em) {};
+%\node[anchor=west,font=\footnotesize] (w1) at ([xshift=0.4em]a1.east) {编码表示};
+
+%\node[anchor=west,fill=orange!30,rounded corners=1pt,inner sep=0pt,minimum size=1em] (a2) at ([xshift=2em]w1.east) {};
+%\node[anchor=west,font=\footnotesize] (w2)at ([xshift=0.4em]a2.east) {层次注意力};
+
+%\node[anchor=west,fill=blue!30,rounded corners=1pt,inner sep=0pt,minimum size=1em] (a3) at ([xshift=2em]w2.east) {};
+%\node[anchor=west,font=\footnotesize] at ([xshift=0.4em]a3.east) {融合上下文信息的编码表示};
+\end{tikzpicture}
+
+
+
+

@@ -1,0 +1,67 @@
+\begin{tikzpicture}
+\tikzstyle{rec} = [inner sep=0.3em,minimum width=4em,draw=black,line width=0.6pt,rounded corners=2pt]
+\node [anchor=north,fill=green!20,rec](node1-1) at (0,0){\small{汉语}};
+\node [anchor=north,fill=green!20,rec](node1-2) at (node1-1.south){\small{英语}};
+\node [anchor=north,fill=yellow!20,rec](node2-1) at ([yshift=-5.0em]node1-1.south){\small{汉语}};
+\node [anchor=north,fill=red!20,rec](node2-2) at (node2-1.south){\small{英语}};
+\node [anchor=east] (node3-1) at ([xshift=-4.0em,yshift=-3.5em]node1-1.west) {\small{正向}};
+\node [anchor=north] (node3-2) at ([yshift=0.5em]node3-1.south) {\small{翻译模型}};
+\begin{pgfonlayer}{background}
+{
+\node[fill=blue!20,inner sep=0.3em,draw=black,line width=0.6pt,minimum width=3.0em,drop shadow,rounded corners=2pt] [fit =(node3-1)(node3-2)]  (remark1) {};
+}
+\end{pgfonlayer}
+\draw [->,thick]([yshift=-0.75em]node1-1.west)--(remark1.north east);
+\draw [->,thick,dashed](remark1.south east)--([yshift=-0.75em]node2-1.west);
+
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node3-3) at ([xshift=1.0em,yshift=3em]remark1.east){1};
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node3-4) at ([xshift=1.0em,yshift=-1.8em]remark1.east){2};
+
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node3-5) at ([xshift=1.0em,yshift=-1.0em]node1-1.east){3};
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node3-6) at ([xshift=1.0em,yshift=0.6em]node2-1.east){3};
+
+\node [anchor=west] (node4-1) at ([xshift=4.0em,yshift=-3.5em]node1-1.east) {\small{反向}};
+\node [anchor=north] (node4-2) at ([yshift=0.5em]node4-1.south) {\small{翻译模型}};
+\begin{pgfonlayer}{background}
+{
+\node[fill=blue!20,inner sep=0.3em,draw=black,line width=0.6pt,minimum width=3.0em,drop shadow,rounded corners=2pt] [fit =(node4-1)(node4-2)]  (remark2) {};
+}
+\end{pgfonlayer}
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node4-3) at ([xshift=1.0em,yshift=-1.8em]remark2.east){4};
+
+\draw [->,thick]([yshift=-0.75em]node1-1.east)--(remark2.north west);
+\draw [->,thick]([yshift=-0.75em]node2-1.east)--(remark2.south west);
+
+\node [anchor=west,fill=green!20,rec](node5-1) at ([xshift=4.0em,yshift=3.48em]node4-1.east){\small{英语}};
+\node [anchor=north,fill=green!20,rec](node5-2) at (node5-1.south){\small{汉语}};
+\node [anchor=north,fill=yellow!20,rec](node6-1) at ([yshift=-5.0em]node5-1.south){\small{英语}};
+\node [anchor=north,fill=red!20,rec](node6-2) at (node6-1.south){\small{汉语}};
+
+\draw [->,thick,dashed](remark2.south east)--([yshift=-0.75em]node6-1.west);
+
+\node [anchor=west] (node7-1) at ([xshift=4.0em,yshift=-3.5em]node5-1.east) {\small{正向}};
+\node [anchor=north] (node7-2) at ([yshift=0.5em]node7-1.south) {\small{翻译模型}};
+\begin{pgfonlayer}{background}
+{
+\node[fill=blue!20,inner sep=0.3em,draw=black,line width=0.6pt,minimum width=3.0em,drop shadow,rounded corners=2pt] [fit =(node7-1)(node7-2)]  (remark3) {};
+}
+\end{pgfonlayer}
+
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node6-3) at ([xshift=1.0em,yshift=-1.0em]node5-1.east){5};
+\node [anchor=west,font=\tiny,circle,draw=black,inner sep=0.1em](node6-4) at ([xshift=1.0em,yshift=0.6em]node6-1.east){5};
+
+\draw [->,thick]([yshift=-0.75em]node5-1.east)--(remark3.north west);
+\draw [->,thick]([yshift=-0.75em]node6-1.east)--(remark3.south west);
+
+\node [anchor=south](d1) at ([xshift=-0.7em,yshift=5.5em]remark1.north){\small{真实双语数据：}};
+\node [anchor=west](d2) at ([xshift=2.0em]d1.east){\small{伪数据：}};
+\node [anchor=west](d3) at ([xshift=2.0em]d2.east){\small{额外单语数据：}};
+\node [anchor=west,fill=green!20,minimum width=1.5em](d1-1) at ([xshift=-0.0em]d1.east){};
+\node [anchor=west,fill=red!20,minimum width=1.5em](d2-1) at ([xshift=-0.0em]d2.east){};
+\node [anchor=west,fill=yellow!20,minimum width=1.5em](d3-1) at ([xshift=-0.0em]d3.east){};
+\node [anchor=north] (d4) at ([xshift=1em]d1.south) {\small{训练：}};
+\node [anchor=north] (d5) at ([xshift=0.5em]d2.south) {\small{推断：}};
+\draw [->,thick] ([xshift=0em]d4.east)--([xshift=1.5em]d4.east);
+\draw [->,thick,dashed] ([xshift=0em]d5.east)--([xshift=1.5em]d5.east);
+
+\end{tikzpicture}

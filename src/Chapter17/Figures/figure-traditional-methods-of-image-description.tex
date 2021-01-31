@@ -1,0 +1,32 @@
+\definecolor{color_gray}{rgb}{0.278,0.337,0.426}
+\definecolor{color_green}{rgb}{0.663,0.82,0.557}
+\definecolor{color_orange}{rgb}{0.957,0.694,0.514}
+\definecolor{color_blue}{rgb}{0.335,0.708,0.735}
+\tikzstyle{description} = [rectangle,rounded corners=1mm, minimum width=3cm,minimum height=0.6cm,text centered,draw,thick]
+\begin{tikzpicture}[node distance = 0,scale = 0.8]
+\tikzstyle{every node}=[scale=0.8]
+
+
+
+\node(figure-1)[draw=white,scale=0.25] at (0,0){\includegraphics[width=0.62\textwidth]{./Chapter17/Figures/figure-dog-with-hat.png}};
+\node(ground-1)[rectangle,rounded corners, minimum width=5cm, minimum height=3.5cm,right of = figure-1, xshift=5cm,fill=gray!10,draw,thick,drop shadow]{};
+\node(text-1)[right of = figure-1, xshift=3.6cm,yshift=2.1cm,scale=1.2]{{描述候选池}};
+\node(text_1-1)[description, right of = figure-1, xshift=4.2cm,yshift=1.2cm,fill=gray!20]{{天空中有很多鸟。}};
+\node(text_2-1)[description, right of = figure-1, xshift=5.3cm,yshift=0.5cm,fill=green!20]{{孩子从河岸上跳下来。}};
+\node(text_3-1)[description, right of = figure-1, xshift=4.5cm,yshift=-0.2cm,fill=orange!20]{{狗在吐舌头。}};
+\node(surd-1)[right of = text_3-1, xshift=2cm,scale=1.5]{\textcolor{red}{$\surd$}};
+\node(text_4-1)[description, right of = figure-1, xshift=5.2cm,yshift=-0.9cm,fill=blue!20]{{男人戴着眼镜。}};
+\node(point-1)[right of = figure-1, xshift=5cm,yshift=-1.4cm,scale=1.5]{...};
+\draw[->,thick](figure-1)to([xshift=-0.1cm]ground-1.west);
+
+\node(figure)[draw=white,scale=0.25]at ([xshift=20.0em]figure-1.east){\includegraphics[width=0.62\textwidth]{./Chapter17/Figures/figure-dog-with-hat.png}};
+\node(ground)[rectangle,rounded corners, minimum width=5cm, minimum height=1.5cm,right of = figure, xshift=5cm,yshift=-2.6em,fill=gray!10,draw,thick,drop shadow]{\large{图片中有\underline{\textcolor{red}{狗}}，\underline{\textcolor{red}{帽子}}，\underline{\quad\ }。}};
+\node(dog)[rectangle,rounded corners, minimum width=1cm, minimum height=0.7cm,right of = figure, xshift=3cm,yshift=1.5cm,thick, draw,fill=orange!20,thick]{狗};
+\node(hat)[rectangle,rounded corners, minimum width=1.5cm, minimum height=0.7cm,right of = figure, xshift=4.5cm,yshift=1.5cm,thick, draw,fill=green!20,thick]{帽子};
+\draw[->, thick](figure.east)to([xshift=-0.1cm]dog.west)node[left,xshift=-0.2cm,yshift=-0.1cm,color=black]{图片检测};
+\draw[->, thick]([yshift=-0.1cm]hat.south)to([yshift=0.1cm]ground.north)node[right,xshift=-0.2cm,yshift=0.5cm,color=black]{模板填充};
+
+\node [anchor=north](pos1)at ([xshift=-3.8em,yshift=-1em]ground-1.south){(a) 基于检索的图像描述生成};
+\node [anchor=north](pos2)at ([xshift=-3.8em,yshift=-1em]ground.south){(b) 基于模板的图像描述生成};
+
+\end{tikzpicture}

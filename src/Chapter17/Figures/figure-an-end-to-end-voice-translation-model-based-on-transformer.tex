@@ -1,0 +1,68 @@
+\begin{tikzpicture}
+	\tikzstyle{layer}=[draw,rounded corners=2pt,font=\scriptsize,align=center,minimum width=7.1em]
+	\tikzstyle{word}=[font=\scriptsize]
+%%%%encoder
+\node[layer,fill=red!20] (en_sa) at (0,0){Multi-Head \\ Attention};
+\node[anchor=south,layer,fill=yellow!20](en_add1) at ([yshift=1.0em]en_sa.north) {Add \& LayerNorm};
+\node[layer,anchor=south,fill=green!20] (en_ffn) at ([yshift=1.0em]en_add1.north){Feed Forward \\ Network};
+\node[anchor=south,layer,fill=yellow!20](en_add2) at ([yshift=1.0em]en_ffn.north) {Add \& LayerNorm};
+\node[draw,circle,inner sep=0pt, minimum size=1em,anchor=north,thick] (en_add) at ([yshift=-1.4em]en_sa.south){};
+\draw[thick] (en_add.90) -- (en_add.-90);
+\draw[thick] (en_add.0) -- (en_add.180);
+\node[layer,anchor=north,fill=yellow!20] (en_cnn) at ([yshift=-1.0em]en_add.south){CNN};
+\node[anchor=east,font=\scriptsize,align=center] (en_pos) at ([xshift=-2em]en_add.west){位置编码};
+\node[anchor=north,font=\scriptsize,align=center] (en_input) at ([yshift=-1em]en_cnn.south){源语言语音特征\\（FBank/MFCC）};
+
+\draw[->,thick] (en_input.90) -- ([yshift=-0.1em]en_cnn.-90);
+\draw[->,thick] ([yshift=0.1em]en_cnn.90) -- ([yshift=-0.1em]en_add.-90);
+\draw[->,thick] ([yshift=0.1em]en_add.90) -- ([yshift=-0.1em]en_sa.-90);
+\draw[->,thick] ([yshift=0.1em]en_sa.90) -- ([yshift=-0.1em]en_add1.-90);
+\draw[->,thick] ([yshift=0.1em]en_add1.90) -- ([yshift=-0.1em]en_ffn.-90);
+\draw[->,thick] ([yshift=0.1em]en_ffn.90) --([yshift=-0.1em]en_add2.-90);
+\draw[->,rounded corners=2pt,thick] ([yshift=-0.6em]en_sa.south)--([yshift=-0.6em,xshift=-4.0em]en_sa.south)--([xshift=-0.43em]en_add1.west)--(en_add1.west);
+\draw[->,rounded corners=2pt,thick] ([yshift=-0.6em]en_ffn.south)--([yshift=-0.6em,xshift=-4.0em]en_ffn.south)--([xshift=-0.43em]en_add2.west)--(en_add2.west);
+
+%%%%decoder
+\node[draw,circle,inner sep=0pt, minimum size=1em,anchor=west,thick] (de_add) at ([xshift=9em]en_add.east){};
+\draw[thick] (de_add.90) -- (de_add.-90);
+\draw[thick] (de_add.0) -- (de_add.180);
+\node[layer,anchor=south,fill=red!20] (de_sa) at ([yshift=1.4em]de_add.north){Masked \\Multi-Head\\Attention};
+\node[anchor=south,layer,fill=yellow!20](de_add1) at ([yshift=1.0em]de_sa.north) {Add \& LayerNorm};
+\node[layer,anchor=south,fill=red!20] (de_ca) at ([yshift=1.0em]de_add1.north){Multi-Head \\ Attention};
+\node[anchor=south,layer,fill=yellow!20](de_add2) at ([yshift=1.0em]de_ca.north) {Add \& LayerNorm};
+\node[layer,anchor=south,fill=green!20] (de_ffn) at ([yshift=1.0em]de_add2.north){Feed Forward \\ Network};
+\node[anchor=south,layer,fill=yellow!20](de_add3) at ([yshift=1.0em]de_ffn.north) {Add \& LayerNorm};
+\node[layer,anchor=south,fill=blue!20] (sf) at ([yshift=1.2em]de_add3.north){Softmax};
+\node[anchor=north,font=\scriptsize,align=center] (de_input) at ([yshift=-1.1em]de_add.south){目标语言文本\\编码表示};
+
+\node[anchor=west,font=\scriptsize,align=center] (de_pos) at ([xshift=2em]de_add.east){位置编码};
+
+\draw[->,thick] (de_input.90) -- ([yshift=-0.1em]de_add.-90);
+\draw[->,thick] ([yshift=0.1em]de_add.90) -- ([yshift=-0.1em]de_sa.-90);
+\draw[->,thick] ([yshift=0.1em]de_sa.90) -- ([yshift=-0.1em]de_add1.-90);
+\draw[->,thick] ([yshift=0.1em]de_add1.90) -- ([yshift=-0.1em]de_ca.-90);
+\draw[->,thick] ([yshift=0.1em]de_ca.90) -- ([yshift=-0.1em]de_add2.-90);
+\draw[->,thick] ([yshift=0.1em]de_add2.90) -- ([yshift=-0.1em]de_ffn.-90);
+\draw[->,thick] ([yshift=0.1em]de_ffn.90) -- ([yshift=-0.1em]de_add3.-90);
+\draw[->,thick] ([yshift=0.1em]de_add3.90) -- ([yshift=-0.1em]sf.-90);
+\draw[->,thick] ([yshift=0.1em]sf.90) -- ([yshift=1.0em]sf.90);
+\draw[->,thick] ([xshift=0.1em]en_pos.0) -- ([xshift=-0.1em]en_add.180);
+\draw[->,thick] ([xshift=-0.1em]de_pos.180) -- ([xshift=0.1em]de_add.0);
+\draw[->,rounded corners=2pt,thick] ([yshift=-0.6em]de_sa.south)--([yshift=-0.6em,xshift=4.0em]de_sa.south)--([xshift=0.43em]de_add1.east)--(de_add1.east);
+\draw[->,rounded corners=2pt,thick] ([yshift=-0.6em]de_ca.south)--([yshift=-0.6em,xshift=4.0em]de_ca.south)--([xshift=0.43em]de_add2.east)--(de_add2.east);
+\draw[->,rounded corners=2pt,thick] ([yshift=-0.6em]de_ffn.south)--([yshift=-0.6em,xshift=4.0em]de_ffn.south)--([xshift=0.43em]de_add3.east)--(de_add3.east);
+
+\draw[->,rounded corners=2pt,thick] ([yshift=0.1em]en_add2.90) -- ([yshift=1.5em]en_add2.90) -- ([xshift=5.0em,yshift=1.5em]en_add2.90) -- ([xshift=-1.5em]de_ca.west) -- ([xshift=-0.1em]de_ca.west);
+
+
+\begin{pgfonlayer}{background}
+\node[draw=ugreen,rounded corners=2pt,inner xsep=6pt,inner ysep=8pt,dashed,thick,xshift=-0.2em,yshift=-0.2em][fit=(en_add1)(en_add2)(en_sa)(en_ffn)](box1){};
+\node[draw=red,rounded corners=2pt,inner xsep=6pt,inner ysep=8pt,dashed,thick,xshift=0.2em,yshift=-0.2em][fit=(de_sa)(de_ca)(de_ffn)(de_add3)](box2){};
+\end{pgfonlayer}
+
+\node[anchor=east,font=\scriptsize,text=ugreen] at ([xshift=-0.1em]box1.west){$N \times$};
+\node[anchor=west,font=\scriptsize,text=red] at ([xshift=0.1em]box2.east){$\times N$};
+\node[anchor=east,font=\scriptsize] at ([xshift=-0.1em]en_cnn.west){$2 \times$};
+\node[anchor=east,font=\scriptsize,align=center,text=ugreen] at ([xshift=-0.1em,yshift=3em]box1.west){ST \\ 编码器};
+\node[anchor=west,font=\scriptsize,align=center,text=red] at ([xshift=0.1em,yshift=5em]box2.east){ST \\ 解码器};
+\end{tikzpicture}

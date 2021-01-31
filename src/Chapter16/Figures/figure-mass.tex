@@ -1,0 +1,55 @@
+\begin{tikzpicture}
+\tikzstyle{word} = [font=\scriptsize,minimum height=1.4em]
+\tikzstyle{model} = [rectangle,line width=0.7pt,draw,minimum height=2.2em,minimum width=13em,rounded corners=4pt,fill=red!20]
+
+\node [anchor=center] (ate) at (0,0) {};
+%decoder
+\node [anchor=center,model,fill=blue!20] (decoder) at ([xshift=7.5em]ate.east) {\small{解码器}};
+\node [anchor=north,word] (w1) at ([yshift=-1.5em,xshift=0em]decoder.south) {\small{$x_3$}};
+\node [anchor=west,word] (w2) at ([xshift=0em]w1.east) {\small{$x_4$}};
+\node [anchor=west,word] (w3) at ([xshift=-0.26em]w2.east) {<M>};
+
+\node [anchor=east,word] (w4) at ([xshift=0em]w1.west) {<M>};
+\node [anchor=east,word] (w5) at ([xshift=0em]w4.west) {<M>};
+\node [anchor=east,word] (w6) at ([xshift=0em]w5.west) {<M>};
+\node [anchor=west,word] (w7) at ([xshift=0em]w3.east) {<M>};
+
+\node [anchor=south,word] (w8) at ([yshift=1.5em,xshift=0em]decoder.north) {\small{$x_4$}};
+\node [anchor=east,word] (w9) at (w8.west) {\small{$x_3$}};
+\node [anchor=west,word] (w10) at (w8.east) {\small{$x_5$}};
+
+\draw [->,thick] (w1.north) -- ([yshift=1.35em]w1.north);
+\draw [->,thick] (w2.north) -- ([yshift=1.35em]w2.north);
+\draw [->,thick] (w3.north) -- ([yshift=1.35em]w3.north);
+\draw [->,thick] (w4.north) -- ([yshift=1.35em]w4.north);
+\draw [->,thick] (w5.north) -- ([yshift=1.35em]w5.north);
+\draw [->,thick] (w6.north) -- ([yshift=1.35em]w6.north);
+\draw [->,thick] (w7.north) -- ([yshift=1.35em]w7.north);
+
+\draw [->,thick] ([yshift=-1.4em]w8.south) -- (w8.south);
+\draw [->,thick] ([yshift=-1.4em]w9.south) -- (w9.south);
+\draw [->,thick] ([yshift=-1.4em]w10.south) -- (w10.south);
+
+%encoder
+\node [model] (encoder) at ([xshift=-7.5em]ate.west) {\small{编码器}};
+
+\node [anchor=north,word] (we1) at ([yshift=-1.5em,xshift=0em]encoder.south) {<M>};
+\node [anchor=west,word] (we2) at ([xshift=0em]we1.east) {<M>};
+\node [anchor=west,word] (we3) at ([xshift=0em]we2.east) {\small{$x_6$}};
+
+\node [anchor=east,word] (we4) at ([xshift=0em]we1.west) {<M>};
+\node [anchor=east,word] (we5) at ([xshift=0em]we4.west) {\small{$x_2$}};
+\node [anchor=east,word] (we6) at ([xshift=0em]we5.west) {\small{$x_1$}};
+\node [anchor=west,word] (we7) at ([xshift=0em]we3.east) {\small{$x_7$}};
+
+\draw [->,thick] (we1.north) -- ([yshift=1.35em]we1.north);
+\draw [->,thick] (we2.north) -- ([yshift=1.35em]we2.north);
+\draw [->,thick] (we3.north) -- ([yshift=1.35em]we3.north);
+\draw [->,thick] (we4.north) -- ([yshift=1.35em]we4.north);
+\draw [->,thick] (we5.north) -- ([yshift=1.35em]we5.north);
+\draw [->,thick] (we6.north) -- ([yshift=1.35em]we6.north);
+\draw [->,thick] (we7.north) -- ([yshift=1.35em]we7.north);
+
+\draw [->,very thick] ([xshift=0.5em]encoder)--([xshift=-0.3em]decoder);
+\node [anchor=south] (ex) at ([xshift=-4.0em,yshift=1.0em]encoder.north) {\small{<M>：<Mask>}};
+\end{tikzpicture}

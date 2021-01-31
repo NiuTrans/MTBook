@@ -1,0 +1,66 @@
+%%%------------------------------------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\node [anchor=east,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s11) at (-0.5em, 0) {\footnotesize{$\times l$}};
+\node [rectangle,anchor=west,fill=blue!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s12) at ([xshift=1.2em]s11.east) {};
+
+\node [anchor=north,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s21) at ([yshift=-1.2em]s11.south) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=orange!20,draw=red,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em,dashed] (s22) at ([xshift=1.2em]s21.east) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=blue!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s23) at ([xshift=1.2em]s22.east) {};
+
+\node [anchor=north,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s31) at ([yshift=-1.2em]s21.south) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s32) at ([xshift=1.2em]s31.east) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=orange!20,draw=red,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em,dashed] (s33) at ([xshift=1.2em]s32.east) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=blue!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s34) at ([xshift=1.2em]s33.east) {};
+
+\node [anchor=north,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s41) at ([yshift=-1.2em]s31.south) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s42) at ([xshift=1.2em]s41.east) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=orange!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s43) at ([xshift=1.2em]s42.east) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=orange!20,draw=red,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em,dashed] (s44) at ([xshift=1.2em]s43.east) {\footnotesize{$\times l$}};
+\node [anchor=west,fill=blue!20,draw,rounded corners=3pt,minimum height=1.6em,minimum width=1.6em] (s45) at ([xshift=1.2em]s44.east) {};
+
+\node [anchor=east] (p1) at ([xshift=-2em]s11.west) {\footnotesize{step 1}};
+\node [anchor=east] (p2) at ([xshift=-2em]s21.west) {\footnotesize{step 2}};
+\node [anchor=east] (p3) at ([xshift=-2em]s31.west) {\footnotesize{step 3}};
+\node [anchor=east] (p4) at ([xshift=-2em]s41.west) {\footnotesize{step 4}};
+
+\node [anchor=south,fill=orange!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (b1) at ([xshift=-0.2em,yshift=1.6em]p1.north) {};
+\node [anchor=west] (b2) at (b1.east) {\footnotesize{：编码器}};
+\node [anchor=west,fill=blue!20,draw,rounded corners=3pt,minimum height=1.4em,minimum width=1.4em] (b3) at ([xshift=1em]b2.east) {};
+\node [anchor=west] (b4) at (b3.east) {\footnotesize{：解码器}};
+\node [anchor=west] (b5) at ([xshift=2em]b4.east) {\footnotesize{：拷贝}};
+\draw[-latex,thick,red,dashed] ([xshift=0.5em]b4.east) -- (b5.west);
+
+\draw [-latex, line width=0.8pt] ([xshift=-1.2em]s11.west) -- (s11.west);
+\draw [-latex, line width=0.8pt] (s11.east) -- (s12.west);
+\draw [-latex, line width=0.8pt] (s12.east) -- ([xshift=1.2em]s12.east);
+
+\draw [-latex, line width=0.8pt] ([xshift=-1.2em]s21.west) -- (s21.west);
+\draw [-latex, line width=0.8pt] (s21.east) -- (s22.west);
+\draw [-latex, line width=0.8pt] (s22.east) -- (s23.west);
+\draw [-latex, line width=0.8pt] (s23.east) -- ([xshift=1.2em]s23.east);
+
+\draw [-latex, line width=0.8pt] ([xshift=-1.2em]s31.west) -- (s31.west);
+\draw [-latex, line width=0.8pt] (s31.east) -- (s32.west);
+\draw [-latex, line width=0.8pt] (s32.east) -- (s33.west);
+\draw [-latex, line width=0.8pt] (s33.east) -- (s34.west);
+\draw [-latex, line width=0.8pt] (s34.east) -- ([xshift=1.2em]s34.east);
+
+\draw [-latex, line width=0.8pt] ([xshift=-1.2em]s41.west) -- (s41.west);
+\draw [-latex, line width=0.8pt] (s41.east) -- (s42.west);
+\draw [-latex, line width=0.8pt] (s42.east) -- (s43.west);
+\draw [-latex, line width=0.8pt] (s43.east) -- (s44.west);
+\draw [-latex, line width=0.8pt] (s44.east) -- (s45.west);
+\draw [-latex, line width=0.8pt] (s45.east) -- ([xshift=1.2em]s45.east);
+
+\draw[-latex,thick,red,dashed] (s11.south)..controls +(south:1em) and +(north:1.2em)..(s22.north);
+\draw[-latex,thick,red,dashed] (s22.south)..controls +(south:1em) and +(north:1.2em)..(s33.north);
+\draw[-latex,thick,red,dashed] (s33.south)..controls +(south:1em) and +(north:1.2em)..(s44.north);
+\end{scope} 
+\end{tikzpicture}
+\end{center}
+
+

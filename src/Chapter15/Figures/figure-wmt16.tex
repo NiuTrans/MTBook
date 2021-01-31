@@ -1,0 +1,53 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\begin{tikzpicture}
+\begin{axis}
+[  
+  width=5cm, height=3.5cm, 
+  xtick={15,17,19,21,23,25},
+  ytick={6.0,6.5,7.0},
+  xlabel={\scriptsize Epoch},
+  ylabel={},
+  ylabel style={},
+  x tick label style={},
+  y tick label style={},
+  tick align=inside,
+  legend style={anchor=north,xshift=1.7cm,yshift=1cm,legend  columns =-1},
+  ymin=5.7,
+  ymax=7.3,
+  xmin=14.6,
+  xmax=25.4,
+  extra y ticks={6.0,6.5,7.0},
+  extra y tick labels={3.7,3.8,3.9},
+  extra y tick style={ticklabel pos=right}]
+  \addplot [sharp plot,very thick,red!60,mark=diamond*] coordinates{(15,6.75) (16,6.73) (17,6.70) (18,6.67) (19,6.64) (20,6.61) (21,6.59) (22,6.58) (23,6.57) (24,6.58) (25,6.59)};
+  \addplot [sharp plot,very thick,purple!60,mark=triangle*] coordinates{(15,6.70) (16,6.4) (17,6.20) (18,6.30) (19,6.20) (20,6.10) (21,6.15) (22,6.10) (23,6.15) (24,6.16) (25,6.17)};
+  \legend{\scriptsize {训练集},\scriptsize{校验集}}
+\end{axis}
+\begin{axis}
+[ xshift=6.6cm,
+  width=5cm, height=3.5cm, 
+  xtick={15,17,19,21,23,25},
+  ytick={5.0,5.5,6.0},
+  xlabel={\scriptsize Epoch},
+  ylabel={},
+  ylabel style={},
+  x tick label style={},
+  y tick label style={},
+  tick align=inside,
+  ymin=4.7,
+  ymax=6.3,
+  xmin=14.6,
+  xmax=25.4,
+  extra y ticks={5.0,5.5,6.0},
+  extra y tick labels={3.5,3.6,3.7},
+  extra y tick style={ticklabel pos=right}]
+  \addplot [sharp plot,very thick,red!60,mark=diamond*] coordinates{(15,5.7) (16,5.65) (17,5.6) (18,5.55) (19,5.5) (20,5.45) (21,5.4) (22,5.38) (23,5.36) (24,5.34) (25,5.27)};
+  \addplot [sharp plot,very thick,purple!60,mark=triangle*] coordinates{(15,5.0) (16,4.9) (17,4.9) (18,5.05) (19,4.9) (20,5.0) (21,5.0) (22,5.1) (23,5.0) (24,5.15) (25,5.5)};
+\end{axis}
+\node [anchor=north,rotate=90] (n1) at (-1.3cm,1cm) {\scriptsize 训练集\ PPL};
+\node [anchor=north,rotate=90] (n2) at (5.4cm,1cm) {\scriptsize 训练集\ PPL};
+\node [anchor=north,rotate=90] (n3) at (4.2cm,1cm) {\scriptsize 校验集\ PPL};
+\node [anchor=north,rotate=90] (n4) at (10.7cm,1cm) {\scriptsize 校验集\ PPL};
+\end{tikzpicture}
+
+%---------------------------------------------------------------------

@@ -1,0 +1,180 @@
+\begin{tikzpicture}[scale=1]
+\tikzstyle{prob} = [rectangle,fill=blue!40,text=white,inner sep=0pt,font=\scriptsize];
+\tikzstyle{word} = [inner sep=0pt,font=\small];             
+\begin{scope}[]
+                    % Column 1
+                    \node [prob,minimum size=0.1cm] (prob11) at (0,0) {};
+                    \node [prob,minimum size=0.5cm,anchor=center] (prob21) at ([yshift=-0.5cm]prob11.center) {$0.7$};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob31) at ([yshift=-0.5cm]prob21.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob41) at ([yshift=-0.5cm]prob31.center) {};
+                    \node [prob,minimum size=0.3cm,anchor=center,font=\tiny] (prob51) at ([yshift=-0.5cm]prob41.center) {$0.2$};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob51.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob11.center);
+                        \node [draw,fit=(prob11) (prob21) (prob31) (prob41) (prob51) (topright) (bottomleft)] (prob1) {};
+                    \end{pgfonlayer}
+%                    \node [anchor=center] (word11) at ([yshift=0.7cm]prob11.center) {I};
+                    
+                    % Column 2
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob12) at ([xshift=1cm]prob11.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob22) at ([yshift=-0.5cm]prob12.center) {};
+                    \node [prob,minimum size=0.4cm,anchor=center,font=\tiny] (prob32) at ([yshift=-0.5cm]prob22.center) {0$.4$};
+                    \node [prob,minimum size=0.3cm,anchor=center,font=\tiny] (prob42) at ([yshift=-0.5cm]prob32.center) {$0.3$};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob52) at ([yshift=-0.5cm]prob42.center) {};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob52.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob12.center);
+                        \node [draw,fit=(prob12) (prob22) (prob32) (prob42) (prob52) (topright) (bottomleft)] (prob2) {};
+                    \end{pgfonlayer}
+%                    \node [anchor=center] (word12) at ([yshift=0.68cm]prob12.center) {am};
+                    
+                    % Column 3
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob13) at ([xshift=1cm]prob12.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob23) at ([yshift=-0.5cm]prob13.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob33) at ([yshift=-0.5cm]prob23.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob43) at ([yshift=-0.5cm]prob33.center) {};
+                    \node [prob,minimum size=0.4cm,anchor=center,font=\tiny] (prob53) at ([yshift=-0.5cm]prob43.center) {$0.6$};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob53.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob13.center);
+                        \node [draw,fit=(prob13) (prob23) (prob33) (prob43) (prob53) (topright) (bottomleft)] (prob3) {};
+                    \end{pgfonlayer}
+%                    \node [anchor=center] (word13) at ([yshift=0.7cm]prob13.center) {fine};
+                    
+                    % Column 4
+                    \node [prob,minimum size=0.5cm,anchor=center] (prob14) at ([xshift=1cm]prob13.center) {$0.8$};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob24) at ([yshift=-0.5cm]prob14.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob34) at ([yshift=-0.5cm]prob24.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob44) at ([yshift=-0.5cm]prob34.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob54) at ([yshift=-0.5cm]prob44.center) {};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob54.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob14.center);
+                        \node [draw,fit=(prob14) (prob24) (prob34) (prob44) (prob54) (topright) (bottomleft)] (prob4) {};
+                    \end{pgfonlayer}
+%                    \node [anchor=center] (word14) at ([yshift=0.68cm]prob14.center) {$\langle$eos$\rangle$};
+
+                    % Label
+                    \draw [decorate,decoration={brace}] ([xshift=0.1cm]prob4.north east) to node [midway,right,font=\small,align=center] {教师\\模型\\输出\\分布} ([xshift=0.1cm]prob4.south east);
+                
+                    % Vocab
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob11.center) {$\langle$eos$\rangle$};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob21.center) {I};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob31.center) {am};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob41.center) {fine};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob51.center) {good};
+                
+                    \draw [decorate,decoration={brace,mirror}] ([xshift=-1cm]prob1.north west) to node [midway,left,font=\small,align=center] {词\\表} ([xshift=-1cm]prob1.south west);
+                
+                    % Model
+                    \coordinate (bottomleft) at ([yshift=-1cm]prob1.south west);
+                    \coordinate (topright) at ([yshift=-0.5cm]prob4.south east);
+                    \node [draw,rounded corners=3pt,fill=green!20,inner sep=0pt,fit=(bottomleft) (topright)] (model) {};
+                    \node [word] () at (model.center) {Student};
+                
+                    \foreach \i in {1,2,...,4}
+                        \draw [-latex,thick] (prob\i.south) to ([yshift=-0.5cm]prob\i.south);
+                
+                    % Input
+                    \node [word,anchor=south] (input1) at ([yshift=-1.87cm]prob1.south) {$\langle$eos$\rangle$};
+                    \node [word,anchor=south] (input2) at ([yshift=-1.8cm]prob2.south) {I};
+                    \node [word,anchor=south] (input3) at ([yshift=-1.8cm]prob3.south) {am};
+                    \node [word,anchor=south] (input4) at ([yshift=-1.8cm]prob4.south) {fine};
+                
+                    \foreach \i in {2,3,4}
+                        \draw [-latex,thick] ([yshift=0.3cm]input\i.south) to ([yshift=0.8cm]input\i.south);
+\draw [-latex,thick] ([yshift=0.36cm]input1.south) to ([yshift=0.86cm]input1.south);
+
+                    \node [word,anchor=south] (ns) at ([xshift=-1.2cm]input1.south) {真实数据:};
+\node [word,anchor=north] () at ([xshift=2.1cm,yshift=-0.5cm]ns.south) {(a)\ Word-level};
+\end{scope}
+               
+\begin{scope}[xshift=2.7in]
+                    % Column 1
+                    \node [prob,minimum size=0.1cm] (prob11) at (0,0) {};
+                    \node [prob,minimum size=0.5cm,anchor=center] (prob21) at ([yshift=-0.5cm]prob11.center) {$1$};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob31) at ([yshift=-0.5cm]prob21.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob41) at ([yshift=-0.5cm]prob31.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob51) at ([yshift=-0.5cm]prob41.center) {};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob51.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob11.center);
+                        \node [draw,fit=(prob11) (prob21) (prob31) (prob41) (prob51) (topright) (bottomleft)] (prob1) {};
+                    \end{pgfonlayer}
+                    \node [anchor=center] (word11) at ([yshift=0.7cm]prob11.center) {I};
+                    
+                    % Column 2
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob12) at ([xshift=1cm]prob11.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob22) at ([yshift=-0.5cm]prob12.center) {};
+                    \node [prob,minimum size=0.5cm,anchor=center] (prob32) at ([yshift=-0.5cm]prob22.center) {$1$};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob42) at ([yshift=-0.5cm]prob32.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob52) at ([yshift=-0.5cm]prob42.center) {};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob52.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob12.center);
+                        \node [draw,fit=(prob12) (prob22) (prob32) (prob42) (prob52) (topright) (bottomleft)] (prob2) {};
+                    \end{pgfonlayer}
+                    \node [anchor=center] (word12) at ([yshift=0.68cm]prob12.center) {am};
+                    
+                    % Column 3
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob13) at ([xshift=1cm]prob12.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob23) at ([yshift=-0.5cm]prob13.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob33) at ([yshift=-0.5cm]prob23.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob43) at ([yshift=-0.5cm]prob33.center) {};
+                    \node [prob,minimum size=0.5cm,anchor=center] (prob53) at ([yshift=-0.5cm]prob43.center) {$1$};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob53.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob13.center);
+                        \node [draw,fit=(prob13) (prob23) (prob33) (prob43) (prob53) (topright) (bottomleft)] (prob3) {};
+                    \end{pgfonlayer}
+                    \node [anchor=center] (word13) at ([yshift=0.68cm]prob13.center) {good};
+                    
+                    % Column 4
+                    \node [prob,minimum size=0.5cm,anchor=center] (prob14) at ([xshift=1cm]prob13.center) {$1$};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob24) at ([yshift=-0.5cm]prob14.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob34) at ([yshift=-0.5cm]prob24.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob44) at ([yshift=-0.5cm]prob34.center) {};
+                    \node [prob,minimum size=0.1cm,anchor=center] (prob54) at ([yshift=-0.5cm]prob44.center) {};
+                    \begin{pgfonlayer}{background}
+                        \coordinate (bottomleft) at ([shift={(-0.25cm,-0.25cm)}]prob54.center);
+                        \coordinate (topright) at ([shift={(0.25cm,0.25cm)}]prob14.center);
+                        \node [draw,fit=(prob14) (prob24) (prob34) (prob44) (prob54) (topright) (bottomleft)] (prob4) {};
+                    \end{pgfonlayer}
+                    \node [anchor=center] (word14) at ([yshift=0.68cm]prob14.center) {$\langle$eos$\rangle$};
+
+                    % Label
+                    \draw [decorate,decoration={brace}] ([xshift=0.1cm]prob4.north east) to node [midway,right,font=\small,align=center] {教师\\模型\\输出\\译文} ([xshift=0.1cm]prob4.south east);
+                
+                    % Vocab
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob11.center) {$\langle$eos$\rangle$};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob21.center) {I};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob31.center) {am};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob41.center) {fine};
+                    \node [word,anchor=center] () at ([xshift=-0.9cm]prob51.center) {good};
+                
+                    \draw [decorate,decoration={brace,mirror}] ([xshift=-1cm]prob1.north west) to node [midway,left,font=\small,align=center] {词\\表} ([xshift=-1cm]prob1.south west);
+                
+                    % Model
+                    \coordinate (bottomleft) at ([yshift=-1cm]prob1.south west);
+                    \coordinate (topright) at ([yshift=-0.5cm]prob4.south east);
+                    \node [draw,rounded corners=3pt,fill=green!20,inner sep=0pt,fit=(bottomleft) (topright)] (model) {};
+                    \node [word] () at (model.center) {Student};
+                
+                    \foreach \i in {1,2,...,4}
+                        \draw [-latex,thick] (prob\i.south) to ([yshift=-0.5cm]prob\i.south);
+                
+                    % Input
+                    \node [word,anchor=south] (input1) at ([yshift=-1.85cm]prob1.south) {$\langle$eos$\rangle$};
+                    \node [word,anchor=south] (input2) at ([yshift=-1.8cm]prob2.south) {I};
+                    \node [word,anchor=south] (input3) at ([yshift=-1.8cm]prob3.south) {am};
+                    \node [word,anchor=center] (input4) at ([xshift=1cm]input3.center) {good};
+                
+                    \foreach \i in {2,3}
+                        \draw [-latex,thick] ([yshift=0.3cm]input\i.south) to ([yshift=0.8cm]input\i.south);
+\draw [-latex,thick] ([yshift=0.36cm]input4.south) to ([yshift=0.86cm]input4.south);
+\draw [-latex,thick] ([yshift=0.36cm]input1.south) to ([yshift=0.86cm]input1.south);
+
+                    \node [word,anchor=south] (ns) at ([xshift=-1.2cm]input1.south) {教师译文:};
+\node [word,anchor=north] () at ([xshift=2.1cm,yshift=-0.5cm]ns.south) {(b)\ Sequence-level };
+\end{scope}          
+\end{tikzpicture}
