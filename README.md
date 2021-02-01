@@ -7,11 +7,11 @@
 
 *顾问：姚天顺 (Tianshun Yao)*    *王宝库 (Baoku Wang)*
 
-*网站：*[https://opensource.niutrans.com/mtbook/index.html](https://opensource.niutrans.com/mtbook/index.html)
+*网站：*[https://opensource.niutrans.com/mtbook/homepage.html](https://opensource.niutrans.com/mtbook/homepage.html)
 
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
-*百度网盘：* https://pan.baidu.com/s/1Zc0XIpoQHzHAWo0Unrkmgw 提取码：MTBK 
+*百度网盘：* [https://pan.baidu.com/s/1Zc0XIpoQHzHAWo0Unrkmgw](https://pan.baidu.com/s/1Zc0XIpoQHzHAWo0Unrkmgw) 提取码：MTBK 
 </div>
 
 :sunny: **谢谢大家的关注，完整版来了！** :grin:
