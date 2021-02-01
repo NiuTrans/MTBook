@@ -224,7 +224,8 @@ xelatex mt-book-xelatex
 
 ## 课件
 
-本教程部分章节的课件已开放。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
+本教程部分章节的课件已开放（我们对有些章节进行了合并）。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
+
 ## 开源协议
 
 本书的开源内容基于The Creative Commons Attribution-NonCommercial 4.0 Unported License（[link](https://creativecommons.org/licenses/by-nc/4.0)）
