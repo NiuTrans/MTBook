@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{cirnode}=[rectangle,rounded corners=2pt,minimum height=2em,minimum width=3em,font=\footnotesize,draw,fill=blue!20,thick]
+\tikzstyle{recnode}=[rectangle,rounded corners=2pt,inner sep=0mm,minimum height=1.8em,minimum width=6em]
+
+\node [anchor=west,cirnode] (n1) at (0, 0) {$\mathbi{h}_{i-2}^l$};
+\node [anchor=west,cirnode] (n2) at ([xshift=1.2em,yshift=0em]n1.east) {$\mathbi{h}_{i-1}^l$};
+\node [anchor=west,cirnode] (n3) at ([xshift=1.2em,yshift=0em]n2.east) {$\mathbi{h}_{i}^l$};
+\node [anchor=west,cirnode] (n4) at ([xshift=1.2em,yshift=0em]n3.east) {$\mathbi{h}_{i+1}^l$};
+\node [anchor=west,cirnode] (n5) at ([xshift=1.2em,yshift=0em]n4.east) {$\mathbi{h}_{i+2}^l$};
+
+\begin{pgfonlayer}{background}
+\node [anchor=center,red!30,minimum height=3.5em,minimum width=21em,very thick,draw] (c3) at ([xshift=0em,yshift=0em]n3.center) {};
+\node [anchor=center,ugreen!30,minimum height=3em,minimum width=13em,very thick,draw] (c2) at ([xshift=0em,yshift=0em]n3.center) {};
+\node [anchor=center,orange!30,minimum height=2.5em,minimum width=4em,very thick,draw] (c1) at ([xshift=0em,yshift=0em]n3.center) {};
+\end{pgfonlayer}
+
+\node [anchor=south,recnode,fill=red!30] (r1) at ([xshift=-3.5em,yshift=2.5em]n2.north) {$\textrm{head}_1$};
+\node [anchor=south,recnode,fill=orange!30] (r2) at ([xshift=0em,yshift=2.5em]n3.north) {$\textrm{head}_2$};
+\node [anchor=south,recnode,fill=ugreen!30] (r3) at ([xshift=3.5em,yshift=2.5em]n4.north) {$\textrm{head}_3$};
+
+\node [anchor=south,cirnode] (n6) at ([xshift=0em,yshift=1.5em]r2.north) {$\mathbi{h}_{i}^{l+1}$};
+
+\draw [->,very thick,orange!30] ([xshift=0em,yshift=0em]c1.north) -- ([xshift=0em,yshift=0em]r2.south);
+\draw [->,very thick,ugreen!30] ([xshift=3em,yshift=0em]c2.north)..controls +(north:1.5em) and +(south:1.5em)..([xshift=0em,yshift=0em]r3.south);
+\draw [->,very thick,red!30] ([xshift=-3em,yshift=0em]c3.north)..controls +(north:1.5em) and +(south:1.5em)..([xshift=0em,yshift=0em]r1.south);
+
+\draw [->,red!30,very thick] ([xshift=0em,yshift=0em]r1.north) -- ([xshift=-0.1em,yshift=-0.05em]n6.south);
+\draw [->,orange!30,very thick] ([xshift=0em,yshift=0em]r2.north) -- ([xshift=0em,yshift=0em]n6.south);
+\draw [->,ugreen!30,very thick] ([xshift=0em,yshift=0em]r3.north) -- ([xshift=0.1em,yshift=-0.05em]n6.south);
+
+\end{scope}
+\end{tikzpicture}

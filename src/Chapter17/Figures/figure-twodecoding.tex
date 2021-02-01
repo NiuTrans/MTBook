@@ -1,0 +1,41 @@
+\tikzstyle{encoder} = [rectangle,thick,rounded corners,minimum width=4.3em,minimum height=2.2em,text centered,draw=black,fill=red!30]
+\tikzstyle{decoder} = [rectangle,thick,rounded corners,minimum width=4.3em,minimum height=2.2em,text centered,draw=black,fill=blue!25]
+\tikzstyle{attention} = [rectangle,thick,rounded corners,minimum width=2.6cm,minimum height=2.2em,text centered,draw=black,fill=green!25]
+
+\begin{tikzpicture}[node distance = 0,scale = 0.75]
+\tikzstyle{every node}=[scale=0.75]
+\node(decoder_left)[decoder]{\normalsize{解码器}};
+\node(decoder_right)[decoder, right of = decoder_left, xshift=2.2cm]{\normalsize{解码器}};
+\node(encoder_left)[encoder, above of = decoder_left, yshift=1.6cm]{\normalsize{编码器}};
+\node(encoder_right)[encoder, above of = decoder_right, yshift=1.6cm]{\normalsize{编码器}};
+\node(text_left)[below of = encoder_left, yshift=1.5cm]{\normalsize{前文}};
+\node(text_right)[below of = encoder_right, yshift=1.5cm]{\normalsize{源语言句子}};
+\node(text_top)[above of = decoder_right, yshift=-1.6cm]{\normalsize{句子级翻译结果}};
+\node(title_1)[above of = text_left, xshift=1.1cm, yshift=3cm]{\large\bfnew{一阶段翻译}};
+\node(ground2)[rectangle,very thick,rounded corners,minimum width=5cm,minimum height=5.8cm,right of = decoder_right,xshift=5.3cm,yshift=1.6cm,draw=black,dashed]{};
+\node(ground1)[rectangle,thick,rounded corners,minimum width=3.3cm,minimum height=5cm,right of = decoder_right,xshift=4.8cm,yshift=1.58cm,draw=black,fill=yellow!15]{};
+\node(attention_below)[attention, right of = decoder_right, xshift=4.8cm]{\normalsize{注意力机制}};
+\node(attention_above)[attention, above of = attention_below, yshift=1.6cm]{\normalsize{注意力机制}};
+\node(ffn)[attention, above of = attention_above, yshift=1.6cm, fill=blue!8]{\normalsize{前馈神经网络}};
+\node [right of = attention_above, xshift=2.35cm,yshift=2.5cm,scale=1.2]{\footnotesize{解码器}};
+\node(n)[right of = attention_above, xshift=2.4cm,scale=1.5]{$\times N$};
+\node(text_2)[above of = ffn, yshift=1.9cm]{\normalsize{基于上下文的修正结果}};
+\node(title_2)[right of = title_1, xshift=6.3cm]{\large\bfnew{二阶段翻译}};
+%\node(text_rright)[right of = text_right, xshift=5.5cm]{\normalsize{句子级翻译结果}};
+
+\draw[->,very thick]([yshift=-0.1cm]text_left.south)to(encoder_left.north);
+\draw[->,very thick]([yshift=-0.1cm]text_right.south)to(encoder_right.north);
+\draw[->,very thick](encoder_left.south)to(decoder_left.north);
+\draw[->,very thick](encoder_right.south)to(decoder_right.north);
+\draw[->,very thick](decoder_right.south)to([yshift=0.1cm]text_top.north);
+%\draw[->,very thick]([yshift=0.2cm]text_rright.north)to(attention_below.south);
+\draw[->,very thick](attention_below.north)to(attention_above.south);
+\draw[->,very thick](attention_above.north)to([yshift=-0.05cm]ffn.south);
+\draw[->,very thick](ffn.north)to([yshift=-0.05cm]text_2.south);
+\draw[->,very thick]([yshift=-0.05em]text_top.south) -- ([yshift=-4.8em]decoder_right.south) -- ([yshift=-4.78em]attention_below.south) --(attention_below.south);
+\draw[-,very thick,dashed]([xshift=1.25cm,yshift=-3cm]decoder_right.east)to([xshift=1.25cm,yshift=6.5cm]decoder_right.east);
+\draw[->,very thick,draw=gray,rounded corners=2pt] (encoder_left.south)--([yshift=-0.3cm]encoder_left.south)--([yshift=-0.3cm,xshift=3.42cm]encoder_left.south)--([xshift=-2.25cm]attention_above.west)--(attention_above.west);
+\draw[->,very thick,draw=gray,rounded corners=2pt] (encoder_right.south)--([yshift=-0.3cm]encoder_right.south)--([yshift=-0.3cm,xshift=3.42cm]encoder_left.south)--([xshift=-2.25cm]attention_above.west)--(attention_above.west);
+\draw[->,very thick,draw=gray,rounded corners=2pt](decoder_left.south)--([yshift=-0.3cm]decoder_left.south)--([yshift=-0.3cm,xshift=3.42cm]decoder_left.south)--([xshift=-2.25cm]attention_below.west)--(attention_below.west);
+\draw[->,very thick,draw=gray,rounded corners=2pt](decoder_right.south)--([yshift=-0.3cm]decoder_right.south)--([yshift=-0.3cm,xshift=3.42cm]decoder_left.south)--([xshift=-2.25cm]attention_below.west)--(attention_below.west);
+\end{tikzpicture}

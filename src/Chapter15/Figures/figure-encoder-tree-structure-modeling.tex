@@ -1,0 +1,36 @@
+
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{hnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=4.5em,rounded corners=5pt,fill=green!30,draw,thick]
+\tikzstyle{tnode}=[rectangle,inner sep=0mm,minimum height=2em,minimum width=4.5em,rounded corners=5pt,fill=red!30,draw,thick]
+\tikzstyle{wnode}=[inner sep=0mm,minimum height=1.4em,minimum width=4.4em]
+
+\node [anchor=south west,hnode] (n1) at (0,0) {$\mathbi{h}_1$};
+\node [anchor=west,hnode] (n2) at ([xshift=2em,yshift=0em]n1.east) {$\mathbi{h}_2$};
+\node [anchor=west,hnode] (n3) at ([xshift=2em,yshift=0em]n2.east) {$\mathbi{h}_3$};
+\node [anchor=west,hnode] (n4) at ([xshift=2em,yshift=0em]n3.east) {$\cdots$};
+\node [anchor=west,hnode] (n5) at ([xshift=2em,yshift=0em]n4.east) {$\mathbi{h}_m$};
+
+\node [anchor=south,tnode] (t1) at ([xshift=3.3em,yshift=1em]n1.north) {$\mathbi{h}_{m+1}$};
+\node [anchor=south,tnode] (t2) at ([xshift=3.3em,yshift=1em]t1.north) {$\mathbi{h}_{m+2}$};
+\node [anchor=south,tnode] (t3) at ([xshift=3.3em,yshift=1em]t2.north) {$\cdots$};
+\node [anchor=south,tnode] (t4) at ([xshift=3.3em,yshift=1em]t3.north) {$\mathbi{h}_{2m-1}$};
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.east) -- ([xshift=0em,yshift=0em]n2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east) -- ([xshift=0em,yshift=0em]n3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.east) -- ([xshift=0em,yshift=0em]n4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.east) -- ([xshift=0em,yshift=0em]n5.west);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.north) -- ([xshift=0em,yshift=0em]t1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.north) -- ([xshift=0em,yshift=0em]t1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]t1.north) -- ([xshift=0em,yshift=0em]t2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.north) -- ([xshift=0em,yshift=0em]t2.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]t2.north) -- ([xshift=0em,yshift=0em]t3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.north) -- ([xshift=0em,yshift=0em]t3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]t3.north) -- ([xshift=0em,yshift=0em]t4.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.north) -- ([xshift=0em,yshift=0em]t4.south);
+
+
+\end{scope}
+\end{tikzpicture}

@@ -1,0 +1,59 @@
+
+  \begin{tikzpicture}
+
+    \newlength{\YShift}
+    \newlength{\XShift}
+    \setlength{\YShift}{0.8\base}
+    \setlength{\XShift}{0.8\base}
+
+    \tikzstyle{modelnode} = [rectangle,draw,thick,rounded corners=2pt,inner sep=2pt,minimum height=4.5em,minimum width=2em,font=\small,anchor=north]
+
+    \coordinate (stu01) at (0,0);
+    \coordinate (stu02) at ([xshift=4em]stu01);
+    \coordinate (stu03) at ([xshift=4em]stu02);
+    \coordinate (stu04) at ([xshift=4em]stu03);
+    \coordinate (stu05) at ([xshift=4em]stu04);
+    \coordinate (tea01) at ([xshift=10em]stu05);
+    \coordinate (tea02) at ([xshift=4em]tea01);
+
+    % iterations
+    \foreach \curr / \prev in {1/0,2/1,3/2}
+    {
+      % models
+      \node[modelnode,fill=yellow!20,align=center] (stu\curr1) at ([yshift=-3em]stu\prev1.south) {学\\[-0.5ex]生\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$1$};
+      \node[modelnode,fill=yellow!20,align=center] (stu\curr2) at ([yshift=-3em]stu\prev2.south) {学\\[-0.5ex]生\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$2$};
+      \node[modelnode,fill=yellow!20,align=center] (stu\curr3) at ([yshift=-3em]stu\prev3.south) {学\\[-0.5ex]生\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$3$};
+      \node[modelnode,fill=yellow!20,align=center] (stu\curr4) at ([yshift=-3em]stu\prev4.south) {学\\[-0.5ex]生\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$4$};
+      \node[modelnode,fill=yellow!20,align=center] (stu\curr5) at ([yshift=-3em]stu\prev5.south) {学\\[-0.5ex]生\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$5$};
+      \node[modelnode,align=center,text=red!60] (tea\curr1) at ([yshift=-3em]tea\prev1.south) {教\\[-0.5ex]师\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$1$};
+      \node[modelnode,align=center,text=blue!60] (tea\curr2) at ([yshift=-3em]tea\prev2.south) {教\\[-0.5ex]师\\[-0.5ex]模\\[-0.5ex]型\\[-0.5ex]$2$};
+
+      % 集成 labels
+      \draw[->,very thick] ([xshift=2pt]stu\curr5.east) to node [auto] {\small 集成} ([xshift=-2pt]tea\curr1.west);
+    }
+
+    % iteration labels
+    \node[font=\small,anchor=east,purple!80,align=center] (iterate1) at ([xshift=-1em]stu21.west) {轮\\数\\$1$};
+    \node[font=\small,anchor=east,purple!80,align=center] (iterate2) at ([xshift=-1em]stu31.west) {轮\\数\\$2$};
+
+    % distillation labels
+    \node[font=\small,anchor=south west] (distill1) at ([yshift=1.2em]iterate1.north west) {知识蒸馏};
+    \node[font=\small,anchor=south west] (distill2) at ([yshift=1.2em]iterate2.north west) {知识蒸馏};
+
+    % 学生模型 groups
+    \begin{pgfonlayer}{background}
+      \node[rectangle,draw,very thick,red!60,densely dotted,inner sep=2pt,rounded corners=2pt,fill=red!20] [fit = (stu21) (stu22) (stu23) ] (group21) {};
+      \node[rectangle,draw,very thick,blue!60,densely dotted,inner sep=2pt,rounded corners=2pt,fill=blue!20] [fit = (stu24) (stu25) ] (group22) {};
+
+      \node[rectangle,draw,very thick,blue!60,densely dotted,inner sep=2pt,rounded corners=2pt,fill=blue!20] [fit = (stu31) (stu32) ] (group31) {};
+      \node[rectangle,draw,very thick,red!60,densely dotted,inner sep=2pt,rounded corners=2pt,fill=red!20] [fit = (stu33) (stu34) (stu35) ] (group32) {};
+    \end{pgfonlayer}
+
+    % distillation
+    \draw[-latex',red!60,very thick] (tea11.south) .. controls +(south:1.5em) and +(north:3em) .. (group21.north);
+    \draw[-latex',blue!60,very thick] (tea12.south) .. controls +(south:2em) and +(north:2em) .. (group22.north);
+
+    \draw[-latex',red!60,very thick] (tea21.south) .. controls +(south:2em) and +(north:2.5em) .. (group32.north);
+    \draw[-latex',blue!60,very thick] (tea22.south) .. controls +(south:2em) and +(north:3em) .. (group31.north);
+
+  \end{tikzpicture}

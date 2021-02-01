@@ -1,0 +1,42 @@
+\definecolor{color1}{rgb}{1,0.725,0.058}
+\tikzstyle{coder} = [rectangle,thick,rounded corners,minimum width=2.8cm,minimum height=1.1cm,text centered,draw=black!,fill=blue!30,drop shadow]
+\tikzstyle{attention} = [rectangle,thick,rounded corners,minimum width=2.6cm,minimum height=0.9cm,text centered,draw=black,fill=green!30!white,drop shadow]
+
+\begin{tikzpicture}[node distance = 0,scale = 0.7]
+\tikzstyle{every node}=[scale=0.7]
+\node(encoder_c)[coder]{\large{编码器}};
+\node(encoder_s)[coder, right of = encoder_c, xshift=3.5cm, fill=red!30]{\large{编码器}};
+\node(h_pre)[above of = encoder_c, yshift=1.3cm,scale=1.3]{${\mathbi{h}}^{\rm pre}$};
+\node(h)[above of = encoder_s, yshift=1.3cm,scale=1.3]{$\mathbi{h}$};
+\node(cir)[circle,very thick, right of = h, draw=black!90,minimum width=0.5cm,xshift=1.1cm]{};
+\draw[-,very thick,draw=black!90]([xshift=0.04cm]cir.west)--([xshift=-0.04cm]cir.east);
+\draw[-,very thick,draw=black!90]([yshift=-0.04cm]cir.north)--([yshift=0.04cm]cir.south);
+\node(last)[below of = encoder_c, yshift=-1.3cm]{\large{前一个句子}};
+\node(current)[below of = encoder_s, yshift=-1.3cm]{\large{当前句子}};
+\node(attention_left)[attention, above of = encoder_c, xshift=2.4cm,yshift=3.1cm]{\large{注意力机制}};
+\node(d)[above of = attention_left, yshift=1.1cm,scale=1.3]{$\mathbi{d}$};
+\node(ground)[rectangle, thick, rounded corners, minimum width=5cm, minimum height=5.5cm, right of = encoder_s, xshift=4.4cm,yshift=2.2cm, draw=black, fill=gray!10]{};
+\node(decoder)[above of = encoder_s, xshift=3.1cm]{\large{解码器}};
+\node(attention_right)[attention, right of = attention_left, xshift=5.4cm,yshift=-0.4cm]{\large{注意力机制}};
+\node(target)[right of = current, xshift=5.3cm]{\large{目标语言句子（位置$j$之前）}};
+\node(point_below)[right of = encoder_s, xshift=5.3cm]{\Huge{...}};
+\node(point_above)[above of = attention_right, yshift=1.8cm]{\Huge{...}};
+\node(target_above)[above of = attention_right, yshift=3.3cm]{\large{目标语言句子}};
+
+\draw[->,thick](last)to([yshift=-0.05cm]encoder_c.south);
+\draw[->,thick](current)to([yshift=-0.05cm]encoder_s.south);
+\draw[->,thick](target.north)to([yshift=-0.05cm]point_below.south);
+\draw[->,thick]([yshift=0.05cm]encoder_c.north)to([yshift=0.03cm]h_pre.south);
+\draw[->,thick]([yshift=0.05cm]encoder_s.north)to(h.south);
+\draw[->,thick]([yshift=0cm]h.north)to([yshift=0.95cm]h.north);
+\draw[->,thick,in=270,out=90]([yshift=-0.15cm]h_pre.north)to([xshift=1.25cm,yshift=0.9cm]h_pre.north);
+\draw[->,thick,in=270,out=80]([yshift=-0.15cm]h_pre.north)to([xshift=2.4cm,yshift=0.9cm]h_pre.north);
+\draw[->,thick]([yshift=0.03cm]attention_left.north)to([yshift=0.1cm]d.south);
+\draw[->,thick]([xshift=-0.03cm]h.east)to([xshift=-0.03cm]cir.west);
+\draw[->,thick](point_below.north)to([yshift=2.03cm]point_below.north);
+\draw[->,thick](attention_right.north)to([yshift=-0.03cm]point_above.south);
+\draw[->,thick](point_above.north)to([yshift=0.83cm]point_above.north);
+\draw[->,thick, in=270,out=0]([xshift=0.2cm]cir.east)to([xshift=3cm,yshift=0.88cm]cir.east);
+\draw[->,thick, in=270,out=0]([xshift=0.2cm]cir.east)to([xshift=2cm,yshift=0.88cm]cir.east);
+\draw[->,very thick,]([xshift=0.1cm]d.east)to([xshift=1.92cm]d.east)to([yshift=0.03cm]cir.north);
+\end{tikzpicture}

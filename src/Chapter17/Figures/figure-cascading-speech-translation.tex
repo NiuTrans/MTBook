@@ -1,0 +1,45 @@
+\tikzstyle{process} = [rectangle,very thick,rounded corners,minimum width=3.2cm,minimum height=3cm,text centered,draw=black!70,fill=red!20]
+\tikzstyle{cir} = [circle,thick,rounded corners,minimum width=0.7cm,text centered,draw=black,fill=green!25]
+
+\begin{tikzpicture}[node distance = 0,scale = 0.5]
+\tikzstyle{every node}=[scale=0.5]
+\node(process_1)[process]{};
+\draw[-,thick]([xshift=-1.2cm]process_1.center)--([xshift=1.2cm]process_1.center);
+\draw[-,thick]([xshift=-1cm,yshift=-0.8cm]process_1.center)--([xshift=-0.9cm,yshift=0.4cm]process_1.center)--([xshift=-0.8cm,yshift=-0.3cm]process_1.center)--([xshift=-0.7cm,yshift=0.7cm]process_1.center)--([xshift=-0.6cm,yshift=-0.1cm]process_1.center)--([xshift=-0.5cm,yshift=0.3cm]process_1.center)--([xshift=-0.4cm,yshift=-0.5cm]process_1.center)--([xshift=-0.3cm,yshift=0.7cm]process_1.center)--([xshift=-0.2cm,yshift=-0.2cm]process_1.center)--([xshift=-0.1cm,yshift=0.4cm]process_1.center)--([xshift=0cm,yshift=-0.9cm]process_1.center)--([xshift=0.1cm,yshift=0.5cm]process_1.center)--([xshift=0.2cm,yshift=-0.4cm]process_1.center)--([xshift=0.3cm,yshift=0.3cm]process_1.center)--([xshift=0.4cm,yshift=-0.2cm]process_1.center)--([xshift=0.5cm,yshift=0.1cm]process_1.center)--([xshift=0.6cm,yshift=-0.8cm]process_1.center)--([xshift=0.7cm,yshift=0.4cm]process_1.center)--([xshift=0.8cm,yshift=-0.6cm]process_1.center)--([xshift=0.9cm,yshift=0.7cm]process_1.center)--([xshift=1cm,yshift=-0.2cm]process_1.center);
+\node(text_1)[below of = process_1,yshift=-2cm,scale=1.5]{语音信号};
+\node(process_2)[process,fill=blue!20,right of = process_1,xshift=7.0cm,text width=4cm,align=center]{\baselineskip=4pt\LARGE{[[0.2,...,0.3], \qquad ..., \qquad  0.3,...,0.5]]}\par};
+\node(text_2)[below of = process_2,yshift=-2cm,scale=1.5]{语音特征};
+\node(process_3)[process,fill=orange!20,minimum width=6cm,minimum height=5cm,right of = process_2,xshift=8.2cm,text width=4cm,align=center]{};
+\node(text_3)[below of = process_3,yshift=-3cm,scale=1.5]{源语言文本及其词格};
+\node(cir_s)[cir,very thick, below of = process_3,xshift=-2.2cm,yshift=1.1cm]{\LARGE S};
+\node(cir_a)[cir,right of = cir_s,xshift=1cm,yshift=0.8cm]{\LARGE a};
+\node(cir_c)[cir,right of = cir_a,xshift=1.2cm,yshift=0cm]{\LARGE c};
+\node(cir_f)[cir,right of = cir_c,xshift=1.2cm,yshift=0cm]{\LARGE f};
+\node(cir_E)[cir,very thick,right of = cir_f,xshift=1cm,yshift=-0.8cm]{\LARGE E};
+\node(cir_b)[cir,right of = cir_s,xshift=1cm,yshift=-0.8cm]{\Large b};
+\node(cir_d)[cir,right of = cir_b,xshift=1cm,yshift=0.6cm]{\Large d};
+\node(cir_e)[cir, right of = cir_b,xshift=1cm,yshift=-0.8cm]{\LARGE e};
+\node(cir_g)[cir,right of = cir_e,xshift=1cm,yshift=0.8cm]{\LARGE g};
+\draw[-latex](cir_s)node[above,xshift=0.3cm,yshift=0.4cm]{0.4}to(cir_a);
+\draw[-latex](cir_a)node[above,xshift=0.6cm,yshift=0cm]{1}to(cir_c);
+\draw[-latex](cir_c)node[above,xshift=0.6cm,yshift=0cm]{1}to(cir_f);
+\draw[-latex](cir_f)node[above,xshift=0.6cm,yshift=-0.3cm]{1}to(cir_E);
+\draw[-latex](cir_s)node[above,xshift=0.7cm,yshift=-0.4cm]{0.6}to(cir_b);
+\draw[-latex](cir_b)node[above,xshift=0.3cm,yshift=0.3cm]{0.8}to(cir_d);
+\draw[-latex](cir_b)node[above,xshift=0.7cm,yshift=-0.4cm]{0.2}to(cir_e);
+\draw[-latex](cir_e)node[above,xshift=0.3cm,yshift=0.3cm]{1}to(cir_g);
+\draw[-latex](cir_d)node[above,xshift=0.7cm,yshift=0cm]{1}to(cir_f);
+\draw[-latex](cir_g)node[above,xshift=0.6cm,yshift=0.3cm]{1}--(cir_E);
+
+
+\node(text)[below of = process_3,yshift=-1.8cm,scale=1.8]{你是谁};
+\node(process_4)[process,fill=ugreen!20,right of = process_3,xshift=8.2cm,text width=4cm,align=center]{\Large\textbf{Who are you?}};
+\node(text_4)[below of = process_4,yshift=-2cm,scale=1.5]{翻译结果};
+
+\draw[->,very thick](process_1.east)to(process_2.west);
+\draw[->,very thick](process_2.east)to(process_3.west);
+\draw[->,very thick](process_3.east)to(process_4.west);
+\node(arrow_text1)[right of = process_1,xshift=3.2cm,yshift=0.7cm,scale=1.4,align=center]{音频\\特征提取};
+\node(arrow_text2)[right of = process_2,xshift=3.6cm,yshift=0.7cm,scale=1.4,align=center]{语音\\识别系统};
+\node(arrow_text3)[right of = process_3,xshift=4.5cm,yshift=0.4cm,scale=1.4]{翻译系统};
+\end{tikzpicture}

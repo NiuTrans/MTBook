@@ -1,0 +1,16 @@
+\tikzstyle{process} = [rectangle,very thick,rounded corners,minimum width=5cm,minimum height=2.5cm,text centered,draw=black!70,fill=red!25]
+\tikzstyle{cir} = [circle,thick,rounded corners,minimum width=0.7cm,text centered,draw=black,fill=green!25]
+
+\begin{tikzpicture}[node distance = 0,scale = 1]
+\tikzstyle{every node}=[scale=1]
+\node [anchor=center](ori) at (-0.2,-0.2) {0};
+\draw[->,thick](-0.5,0)--(5,0)node[below,scale=0.8]{时间};
+\draw[->,thick](0,-2)--(0,2)node[left,scale=0.8]{量化值};
+\draw[-,thick](0,0)sin(0.7,1.5)cos(1.4,0)sin(2.1,-1.5)cos(2.8,0)sin(3.5,1.5)cos(4.2,0);
+\draw[-,thick,dashed](0.5,-1.8)--(0.5,1.8);
+\draw[-](1.2,-1.8)--(1.2,1.8);
+\draw[-,thick,dashed](1.9,-1.8)--(1.9,1.8);
+\draw[<->,thick](0,-1.1)--(1.2,-1.1)node[left,xshift=-0.05cm,yshift=0.15cm,scale=0.6]{帧长};
+\draw[<->,thick](0,-1.4)--(0.5,-1.4)node[left,xshift=0.05cm,yshift=-0.25cm,scale=0.6]{帧移};
+%\draw[<->,thick](0.5,-1.4)--(1.9,-1.4);
+\end{tikzpicture}

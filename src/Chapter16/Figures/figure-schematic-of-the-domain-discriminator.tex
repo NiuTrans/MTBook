@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+\tikzstyle{rec} = [,line width=0.6pt,draw,rounded corners,minimum height=2.2em,minimum width=4.3em,fill=blue!20]
+\node [anchor=center](node1) at (0,0) {\small{源语言}};
+
+\node [anchor=west,rec,fill=red!20](node2) at ([xshift=2.0em]node1.east){\small{编码器}};
+\node [anchor=west,rec](node3) at ([xshift=3.0em,yshift=2.0em]node2.east){\small{解码器}};
+\node [anchor=west,rec,fill=yellow!20](node4) at ([xshift=3.0em,yshift=-2.0em]node2.east){\small{判别器}};
+
+\draw [->,thick](node1.east)--(node2.west);
+\draw [->,thick](node2.east)--([xshift=1.5em]node2.east)--([xshift=1.5em,yshift=2.0em]node2.east)--(node3.west);
+\draw [->,thick](node2.east)--([xshift=1.5em]node2.east)--([xshift=1.5em,yshift=-2.0em]node2.east)--(node4.west);
+\node [anchor=west,minimum width=5.0em](node5) at ([xshift=2.0em]node3.east) {\small{目标语言}};
+\node [anchor=west,minimum width=5.0em](node6) at ([xshift=2.0em]node4.east) {\small{< 领域 >}};
+\draw [->,thick](node3.east)--(node5.west);
+\draw [->,thick](node4.east)--(node6.west);
+\end{tikzpicture}

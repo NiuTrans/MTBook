@@ -36,10 +36,7 @@
 \node [partnode,anchor=south,red,minimum height=9.5em,minimum width=22.7em,fill=white] (part3) at ([yshift=3em,xshift=2.5em]part2.north east) {};
 \node [anchor=north] (part3label) at ([yshift=-0.3em]part3.north) {\sffamily\bfseries{神经机器翻译}};
 \node [anchor=north west,draw=red,thick,fill=white,rounded corners] (part3title) at ([xshift=-0.3em,yshift=0.3em]part3.north west) {{\color{red} {\sffamily\bfseries 第三部分}}};
-\node [secnode,anchor=south,fill=magenta!20,minimum width=21.6em,align=center] (sec09) at ([yshift=0.5em]part3.south) {第九章\hspace{1em} 人工神经网络和神经语言建模
-
-
-};
+\node [secnode,anchor=south,fill=magenta!20,minimum width=21.6em,align=center] (sec09) at ([yshift=0.5em]part3.south) {第九章\hspace{1em} 人工神经网络和神经语言建模};
 \node [secnode,anchor=south west,fill=red!20,minimum width=6.6em,minimum height=4.5em,align=center] (sec10) at ([yshift=0.8em]sec09.north west) {第十章\\ 基于循环神经 \\ 网络的模型};
 \node [secnode,anchor=south west,fill=red!20,minimum width=6.6em,minimum height=4.5em,align=center] (sec11) at ([xshift=0.8em]sec10.south east) {第十一章\\ 基于卷积神经 \\ 网络的模型};
 \node [secnode,anchor=south west,fill=red!20,minimum width=6.6em,minimum height=4.5em,align=center] (sec12) at ([xshift=0.8em]sec11.south east) {第十二章\\ 基于自注意力 \\ 的模型};
@@ -47,16 +44,17 @@
 \draw [->,very thick] ([yshift=-0.7em]sec11.south) -- ([yshift=-0.1em]sec11.south);
 \draw [->,very thick] ([yshift=-0.7em]sec12.south) -- ([yshift=-0.1em]sec12.south);
 
+
 % part 4
 \node [partnode,anchor=south,ugreen,minimum height=12.0em,minimum width=29.7em,fill=white] (part4) at ([yshift=3em,xshift=6em]part3.north west) {};
 \node [anchor=north] (part4label) at ([yshift=-0.3em]part4.north) {\sffamily\bfseries{机器翻译前沿}};
 \node [anchor=north west,draw=ugreen,thick,fill=white,rounded corners] (part4title) at ([xshift=-0.3em,yshift=0.3em]part4.north west) {{\color{ugreen} {\sffamily\bfseries 第四部分}}};
-\node [secnode,anchor=south west,fill=gray!20,minimum width=14.0em,align=center] (sec13) at ([yshift=0.5em,xshift=0.5em]part4.south west) {\Large{\yh{?}}};
-\node [secnode,anchor=west,fill=gray!20,minimum width=14.0em,align=center] (sec14) at ([xshift=0.6em]sec13.east) {\Large{\yh{?}}};
-\node [secnode,anchor=south west,fill=gray!30,minimum width=9em,minimum height=4.5em,align=center] (sec15) at ([yshift=0.8em]sec13.north west) {\Huge{\yh{?}}};
-\node [secnode,anchor=south west,fill=gray!30,minimum width=9em,minimum height=4.5em,align=center] (sec16) at ([xshift=0.8em]sec15.south east) {\Huge{\yh{?}}};
-\node [secnode,anchor=south west,fill=gray!30,minimum width=9em,minimum height=4.5em,align=center] (sec17) at ([xshift=0.8em]sec16.south east) {\Huge{\yh{?}}};
-\node [secnode,anchor=south west,fill=gray!25,minimum width=28.7em,align=center] (sec18) at ([yshift=0.8em]sec15.north west) {\Large{\yh{?}}};
+\node [secnode,anchor=south west,fill=cyan!20,minimum width=14.0em,align=center] (sec13) at ([yshift=0.5em,xshift=0.5em]part4.south west) {第十三章\hspace{1em} 神经机器翻译模型训练};
+\node [secnode,anchor=west,fill=cyan!20,minimum width=14.0em,align=center] (sec14) at ([xshift=0.6em]sec13.east) {第十四章\hspace{1em} 神经机器翻译模型推断};
+\node [secnode,anchor=south west,fill=green!30,minimum width=9em,minimum height=4.5em,align=center] (sec15) at ([yshift=0.8em]sec13.north west) {第十五章\\ 神经机器翻译 \\ 结构优化};
+\node [secnode,anchor=south west,fill=green!30,minimum width=9em,minimum height=4.5em,align=center] (sec16) at ([xshift=0.8em]sec15.south east) {第十六章\\ 低资源 \\ 神经机器翻译};
+\node [secnode,anchor=south west,fill=green!30,minimum width=9em,minimum height=4.5em,align=center] (sec17) at ([xshift=0.8em]sec16.south east) {第十七章\\ 多模态、多层次 \\ 机器翻译};
+\node [secnode,anchor=south west,fill=amber!25,minimum width=28.7em,align=center] (sec18) at ([yshift=0.8em]sec15.north west) {第十八章\hspace{1em} 机器翻译应用技术};
 \node [rectangle,draw,dotted,thick,inner sep=0.1em,fill opacity=1] [fit = (sec13) (sec14)] (nmtbasebox) {};
 \draw [->,very thick] ([yshift=-0.7em]sec15.south) -- ([yshift=-0.1em]sec15.south);
 \draw [->,very thick] ([yshift=-0.7em]sec16.south) -- ([yshift=-0.1em]sec16.south);

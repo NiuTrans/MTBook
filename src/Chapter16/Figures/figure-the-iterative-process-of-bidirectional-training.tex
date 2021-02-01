@@ -1,0 +1,69 @@
+\definecolor{color1}{rgb}{1,0.725,0.058}
+\tikzstyle{data} = [rectangle,very thick,rounded corners,minimum width=2.3cm,minimum height=0.83cm,text centered,draw=black!70,fill=color1!25]
+\tikzstyle{data_shadow} = [rectangle,very thick,rounded corners,minimum width=2.3cm,minimum height=0.83cm,text centered,draw=black!70,fill=black!70]
+\tikzstyle{process} = [rectangle,thick,rounded corners,minimum width=2cm,minimum height=0.7cm,text centered,draw=black!80,fill=gray!25]
+\tikzstyle{state} = [rectangle,thick,rounded corners,minimum width=3cm,minimum height=0.7cm,text centered,draw=black!80,fill=gray!25]
+\begin{tikzpicture}[node distance = 0,scale = 1]
+\tikzstyle{every node}=[scale=1]
+\node(monolingual_X_shadow)[data_shadow]{};
+\node(bilingual_D_shadow)[data_shadow, right of = monolingual_X_shadow, xshift=5cm]{};
+\node(monolingual_Y_shadow)[data_shadow, right of = bilingual_D_shadow, xshift=5cm]{};
+\node(monolingual_X)[data,right of = monolingual_X_shadow,xshift=-0.08cm,yshift=0.08cm]{单语语料X};
+\node(bilingual_D)[data, right of = monolingual_X, xshift=5cm, fill=ugreen!30]{双语语料D};
+\node(monolingual_Y)[data, right of = bilingual_D, xshift=5cm, fill=blue!25]{单语语料Y};
+
+\node(process_1_1)[process, right of = monolingual_X, xshift=2.5cm, yshift=-1.5cm]{\textbf{$M^0_{x\to y}$}};
+\node(process_1_2)[process, right of = process_1_1, xshift=5cm, fill=red!25]{$M^0_{y\to x}$};
+\node(process_2_1)[process, below of = process_1_1, yshift=-1.2cm]{翻译过程};
+\node(process_2_2)[process, below of = process_1_2, yshift=-1.2cm, fill=red!25]{翻译过程};
+\node(process_3_1)[state, below of = process_2_1, yshift=-1.2cm, fill=color1!25]{\{$x_i,\hat{y}^0_i$\}};
+\node(process_3_2)[state, below of = process_2_2, yshift=-1.2cm, fill=blue!25]{\{$\hat{x}^0_i,{y_i}$\}};
+\node(process_4_1)[process, below of = process_3_1, yshift=-1.2cm]{\textbf{$M^1_{x\to y}$}};
+\node(process_4_2)[process, below of = process_3_2, yshift=-1.2cm, fill=red!25]{$M^1_{y\to x}$};
+\node(process_5_1)[process, below of = process_4_1, yshift=-1.2cm]{翻译过程};
+\node(process_5_2)[process, below of = process_4_2, yshift=-1.2cm, fill=red!25]{翻译过程};
+\node(process_6_1)[state, below of = process_5_1, yshift=-1.2cm, fill=color1!25]{\{$x_i,\hat{y}^1_i$\}};
+\node(process_6_2)[state, below of = process_5_2, yshift=-1.2cm, fill=blue!25]{\{$\hat{x}^1_i,{y_i}$\}};
+\node(process_7_1)[process, below of = process_6_1, yshift=-1.2cm]{\textbf{$M^2_{x\to y}$}};
+\node(process_7_2)[process, below of = process_6_2, yshift=-1.2cm, fill=red!25]{$M^2_{y\to x}$};
+\node(ellipsis_1)[below of = monolingual_X, yshift=-9.9cm,scale=1.5]{$...$};
+\node(ellipsis_2)[below of = process_7_1, yshift=-1.2cm,scale=1.5]{$...$};
+\node(ellipsis_3)[below of = bilingual_D, yshift=-9.9cm,scale=1.5]{$...$};
+\node(ellipsis_4)[below of = process_7_2, yshift=-1.2cm,scale=1.5]{$...$};
+\node(ellipsis_5)[below of = monolingual_Y, yshift=-9.9cm,scale=1.5]{$...$};
+\node(text_1)[left of = process_2_1, xshift=-4cm,scale=0.8]{第0轮迭代};
+\node(text_2)[left of = process_5_1, xshift=-4cm,scale=0.8]{第1轮迭代};
+\node(text_3)[left of = ellipsis_2, xshift=-4cm, scale=0.8]{第2轮迭代};
+\draw[->, very thick, color=color1!40](monolingual_X.south)--(ellipsis_1.north);
+\draw[->, very thick, color=ugreen!30](bilingual_D.south)--(ellipsis_3.north);
+\draw[->, very thick, color=blue!55](monolingual_Y.south)--(ellipsis_5.north);
+\draw[->, very thick, color=color1!40]([xshift=-1.5cm]process_2_1.west)--(process_2_1.west);
+\draw[->, very thick, color=color1!40]([xshift=-1.5cm]process_5_1.west)--(process_5_1.west);
+\draw[->, very thick, color=blue!55]([xshift=1.5cm]process_2_2.east)--(process_2_2.east);
+\draw[->, very thick, color=blue!55]([xshift=1.5cm]process_5_2.east)--(process_5_2.east);
+\draw[->, thick](process_1_1.south)--(process_2_1.north);
+\draw[->, thick](process_1_2.south)--(process_2_2.north);
+\draw[->, thick](process_2_1.south)--(process_3_1.north);
+\draw[->, thick](process_2_2.south)--(process_3_2.north);
+\draw[->, thick](process_4_1.south)--(process_5_1.north);
+\draw[->, thick](process_4_2.south)--(process_5_2.north);
+\draw[->, thick](process_5_1.south)--(process_6_1.north);
+\draw[->, thick](process_5_2.south)--(process_6_2.north);
+\draw[->, thick](process_7_1.south)--(ellipsis_2.north);
+\draw[->, thick](process_7_2.south)--(ellipsis_4.north);
+\draw[->, very thick, color=color1!40](process_3_1.east)--([yshift=0.35cm]process_4_2.west);
+\draw[->, very thick, color=color1!40](process_3_2.west)--([yshift=0.35cm]process_4_1.east);
+\draw[->, very thick, color=color1!40](process_6_1.east)--([yshift=0.35cm]process_7_2.west);
+\draw[->, very thick, color=color1!40](process_6_2.west)--([yshift=0.35cm]process_7_1.east);
+\draw[->, very thick, color=ugreen!30,in=0,out=270]([xshift=-0.3cm]bilingual_D.south)to(process_1_1.east);
+\draw[->, very thick, color=ugreen!30,in=180,out=270]([xshift=0.3cm]bilingual_D.south)to(process_1_2.west);
+\draw[->, very thick, color=ugreen!30,in=0,out=270]([yshift=-3.7cm]bilingual_D.south)to(process_4_1.east);
+\draw[->, very thick, color=ugreen!30,in=180,out=270]([yshift=-3.7cm]bilingual_D.south)to(process_4_2.west);
+\draw[->, very thick, color=ugreen!30,in=0,out=270]([yshift=-7.3cm]bilingual_D.south)to(process_7_1.east);
+\draw[->, very thick, color=ugreen!30,in=180,out=270]([yshift=-7.3cm]bilingual_D.south)to(process_7_2.west);
+\draw[->, very thick, color=ugreen!30,in=180,out=270]([yshift=-7.3cm]bilingual_D.south)to(process_7_2.west);
+
+\draw[-, very thick, dashed, color=blue!55]([xshift=-1cm,yshift=-0.35cm]text_1.south)--([xshift=12.7cm,yshift=-0.35cm]text_1.south);
+\draw[-, very thick, dashed, color=blue!55]([xshift=-1cm,yshift=-0.35cm]text_2.south)--([xshift=12.7cm,yshift=-0.35cm]text_2.south);
+\draw[-, very thick, dashed, color=blue!55]([xshift=-1cm,yshift=-0.35cm]text_3.south)--([xshift=12.7cm,yshift=-0.35cm]text_3.south);
+\end{tikzpicture}

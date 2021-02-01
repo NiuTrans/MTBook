@@ -1,0 +1,151 @@
+\begin{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%dropout
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a11) at (0,0) {我};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a12) at ([yshift=-0.2em]a11.south) {对};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a13) at ([yshift=-0.2em]a12.south) {你};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a14) at ([yshift=-0.2em]a13.south) {感到};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a15) at ([yshift=-0.2em]a14.south) {满意};
+
+\node [anchor=south east,inner sep=1pt,fill=black] (pa11) at (a11.south east) {\tiny{\color{white} \textbf{1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa12) at (a12.south east) {\tiny{\color{white} \textbf{2}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa13) at (a13.south east) {\tiny{\color{white} \textbf{3}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa14) at (a14.south east) {\tiny{\color{white} \textbf{4}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa15) at (a15.south east) {\tiny{\color{white} \textbf{5}}};
+
+\node [anchor=west,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=2.0em] (a21) at ([xshift=1.0em]a11.east) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=2.0em] (a22) at ([yshift=-0.2em]a21.south) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=2.0em] (a23) at ([yshift=-0.2em]a22.south) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=2.0em] (a24) at ([yshift=-0.2em]a23.south) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=2.0em] (a25) at ([yshift=-0.2em]a24.south) {\footnotesize{$P=0.1$}};
+
+\node [anchor=west,inner sep=2pt] (a31) at ([xshift=0.3em]a23.east) {$\Rightarrow$};
+
+\node [anchor=west,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a41) at ([xshift=2.0em]a21.east) {我};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a42) at ([yshift=-1.94em]a41.south) {你};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a43) at ([yshift=-0.2em]a42.south) {感到};
+\node [anchor=north,inner sep=2pt,fill=green!20,minimum height=1.5em,minimum width=3.0em] (a44) at ([yshift=-0.2em]a43.south) {满意};
+
+\node [anchor=south east,inner sep=1pt,fill=black] (pa41) at (a41.south east) {\tiny{\color{white} \textbf{1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa42) at (a42.south east) {\tiny{\color{white} \textbf{3}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa43) at (a43.south east) {\tiny{\color{white} \textbf{4}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pa44) at (a44.south east) {\tiny{\color{white} \textbf{5}}};
+
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (a10) at (a11.north) {\scriptsize{源语言}};
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (a20) at (a21.north) {\small{$P$}};
+\node [anchor=south,inner sep=2pt] (a30) at (a41.north) {\scriptsize{丢弃的结果}};
+\node [anchor=south,inner sep=2pt] (a30-2) at (a30.north) {\scriptsize{部分词随机}};
+\node [anchor=north,inner sep=2pt] (pos1) at ([xshift=0.5em,yshift=-0.5em]a25.south) {\small{(a)部分词随机丢弃的加噪方法}};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%mask
+\node [anchor=west,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b11) at ([xshift=2.0em]a41.east) {我};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b12) at ([yshift=-0.2em]b11.south) {对};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b13) at ([yshift=-0.2em]b12.south) {你};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b14) at ([yshift=-0.2em]b13.south) {感到};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b15) at ([yshift=-0.2em]b14.south) {满意};
+
+\node [anchor=south east,inner sep=1pt,fill=black] (pb11) at (b11.south east) {\tiny{\color{white} \textbf{1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb12) at (b12.south east) {\tiny{\color{white} \textbf{2}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb13) at (b13.south east) {\tiny{\color{white} \textbf{3}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb14) at (b14.south east) {\tiny{\color{white} \textbf{4}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb15) at (b15.south east) {\tiny{\color{white} \textbf{5}}};
+
+\node [anchor=west,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=2.0em] (b21) at ([xshift=1.0em]b11.east) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=2.0em] (b22) at ([yshift=-0.2em]b21.south) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=2.0em] (b23) at ([yshift=-0.2em]b22.south) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=2.0em] (b24) at ([yshift=-0.2em]b23.south) {\footnotesize{$P=0.1$}};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=2.0em] (b25) at ([yshift=-0.2em]b24.south) {\footnotesize{$P=0.1$}};
+
+\node [anchor=west,inner sep=2pt] (b31) at ([xshift=0.3em]b23.east) {$\Rightarrow$};
+
+\node [anchor=west,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b41) at ([xshift=2.0em]b21.east) {我};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b42) at ([yshift=-0.2em]b41.south) {对};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b43) at ([yshift=-0.2em]b42.south) {\scriptsize{[mask]}};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b44) at ([yshift=-0.2em]b43.south) {感到};
+\node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.5em,minimum width=3.0em] (b45) at ([yshift=-0.2em]b44.south) {满意};
+
+\node [anchor=south east,inner sep=1pt,fill=black] (pb41) at (b41.south east) {\tiny{\color{white} \textbf{1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb42) at (b42.south east) {\tiny{\color{white} \textbf{2}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb43) at (b43.south east) {\tiny{\color{white} \textbf{3}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb44) at (b44.south east) {\tiny{\color{white} \textbf{4}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pb45) at (b45.south east) {\tiny{\color{white} \textbf{5}}};
+
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (b10) at (b11.north) {\scriptsize{源语言}};
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (b20) at (b21.north) {\small{$P$}};
+\node [anchor=south,inner sep=2pt] (b30) at (b41.north) {\scriptsize{屏蔽的结果}};
+\node [anchor=south,inner sep=2pt] (b30-2) at (b30.north) {\scriptsize{部分词随机}};
+\node [anchor=north,inner sep=2pt] (pos2) at ([xshift=0.5em,yshift=-0.5em]b25.south) {\small{(b)部分词随机屏蔽的加噪方法}};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%打乱源语句子
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c11) at ([yshift=-4.5em]a15.south) {我};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c12) at ([yshift=-0.2em]c11.south) {对};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c13) at ([yshift=-0.2em]c12.south) {你};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c14) at ([yshift=-0.2em]c13.south) {感到};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c15) at ([yshift=-0.2em]c14.south) {满意};
+
+\node [anchor=south east,inner sep=1pt,fill=black] (pc11) at (c11.south east) {\tiny{\color{white} \textbf{1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc12) at (c12.south east) {\tiny{\color{white} \textbf{2}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc13) at (c13.south east) {\tiny{\color{white} \textbf{3}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc14) at (c14.south east) {\tiny{\color{white} \textbf{4}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc15) at (c15.south east) {\tiny{\color{white} \textbf{5}}};
+
+\node [anchor=west,inner sep=2pt] (c21) at ([xshift=0.35em]c11.east) {\footnotesize{+}};
+\node [anchor=west,inner sep=2pt] (c22) at ([xshift=0.35em]c12.east) {\footnotesize{+}};
+\node [anchor=west,inner sep=2pt] (c23) at ([xshift=0.35em]c13.east) {\footnotesize{+}};
+\node [anchor=west,inner sep=2pt] (c24) at ([xshift=0.35em]c14.east) {\footnotesize{+}};
+\node [anchor=west,inner sep=2pt] (c25) at ([xshift=0.35em]c15.east) {\footnotesize{+}};
+
+\node [anchor=west,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=2.5em] (c31) at ([xshift=0.423em]c21.east) {\footnotesize{2.54}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=2.5em] (c32) at ([yshift=-0.2em]c31.south) {\footnotesize{0.63}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=2.5em] (c33) at ([yshift=-0.2em]c32.south) {\footnotesize{1.77}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=2.5em] (c34) at ([yshift=-0.2em]c33.south) {\footnotesize{1.32}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=2.5em] (c35) at ([yshift=-0.2em]c34.south) {\footnotesize{2.15}};
+
+\node [anchor=west,inner sep=2pt] (c41) at ([xshift=0.55em]c31.east) {\footnotesize{=}};
+\node [anchor=west,inner sep=2pt] (c42) at ([xshift=0.55em]c32.east) {\footnotesize{=}};
+\node [anchor=west,inner sep=2pt] (c43) at ([xshift=0.55em]c33.east) {\footnotesize{=}};
+\node [anchor=west,inner sep=2pt] (c44) at ([xshift=0.55em]c34.east) {\footnotesize{=}};
+\node [anchor=west,inner sep=2pt] (c45) at ([xshift=0.55em]c35.east) {\footnotesize{=}};
+
+\node [anchor=west,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c51) at ([xshift=0.56em]c41.east) {\footnotesize{$S_{1}=3.54$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c52) at ([yshift=-0.2em]c51.south) {\footnotesize{$S_{2}=2.63$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c53) at ([yshift=-0.2em]c52.south) {\footnotesize{$S_{3}=4.77$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c54) at ([yshift=  -0.2em]c53.south) {\footnotesize{$S_{4}=5.33$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c55) at ([yshift=-0.2em]c54.south) {\footnotesize{$S_{5}=7.15$}};
+
+\node [anchor=west,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c61) at ([xshift=4.55em]c51.east) {\footnotesize{$S_{2}^{'}=2.63$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c62) at ([yshift=-0.2em]c61.south) {\footnotesize{$S_{1}^{'}=3.54$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c63) at ([yshift=-0.2em]c62.south) {\footnotesize{$S_{3}^{'}=4.77$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c64) at ([yshift=-0.2em]c63.south) {\footnotesize{$S_{4}^{'}=5.33$}};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c65) at ([yshift=-0.2em]c64.south) {\footnotesize{$S_{5}^{'}=7.15$}};
+
+\node [anchor=north,inner sep=2pt] (c71) at ([yshift=-12.3em]b31.south) {$\Rightarrow$};
+
+\node [anchor=west,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=3.0em] (c81) at ([xshift=1.99em]c61.east) {对};
+\node [anchor=north,inner sep=2pt,fill=red!20,minimum height=1.5em,minimum width=3.0em] (c82) at ([yshift=-0.2em]c81.south) {我};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c83) at ([yshift=-0.2em]c82.south) {你};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c84) at ([yshift=-0.2em]c83.south) {感到};
+\node [anchor=north,inner sep=2pt,fill=yellow!20,minimum height=1.5em,minimum width=3.0em] (c85) at ([yshift=-0.2em]c84.south) {满意};
+
+\node [anchor=south east,inner sep=1pt,fill=black] (pc81) at (c81.south east) {\tiny{\color{white} \textbf{2}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc82) at (c82.south east) {\tiny{\color{white} \textbf{1}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc83) at (c83.south east) {\tiny{\color{white} \textbf{3}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc84) at (c84.south east) {\tiny{\color{white} \textbf{4}}};
+\node [anchor=south east,inner sep=1pt,fill=black] (pc85) at (c85.south east) {\tiny{\color{white} \textbf{5}}};
+
+\draw [->,dashed](c51.east)--(c62.west);
+\draw [->,dashed](c52.east)--(c61.west);
+\draw [->,dashed](c53.east)--(c63.west);
+\draw [->,dashed](c54.east)--(c64.west);
+\draw [->,dashed](c55.east)--(c65.west);
+
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (c10) at (c11.north) {\scriptsize{源语言}};
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (c30) at (c31.north) {\small{$n$=3}};
+\node [anchor=south,inner sep=2pt,minimum height=1.5em,minimum width=3.0em] (c50) at (c51.north) {\small{$\seq{S}$}};
+\node [anchor=south,inner sep=2pt] (c60) at (c61.north) {\scriptsize{进行排序}};
+\node [anchor=south,inner sep=2pt] (c60-2) at (c60.north) {\scriptsize{由小到大}};
+
+\node [anchor=south,inner sep=2pt] (c80) at (c81.north) {\scriptsize{后的结果}};
+\node [anchor=south,inner sep=2pt] (c80-2) at (c80.north) {\scriptsize{打乱顺序}};
+
+\node [anchor=north,inner sep=2pt] (pos3) at ([xshift=2.4em,yshift=-0.5em]c55.south) {\small{(c)轻微打乱单词顺序的加噪方法}};
+
+
+\end{tikzpicture}

@@ -1,0 +1,41 @@
+
+\begin{tikzpicture}
+
+\tikzstyle{node1}=[inner sep=0mm,minimum height=1.5em,minimum width=3em,fill=blue!10]
+\tikzstyle{node2}=[inner sep=0mm,minimum height=1.5em,minimum width=3em,fill=blue!25]
+\tikzstyle{node3}=[inner sep=0mm,minimum height=1.5em,minimum width=3em,fill=blue!40]
+\tikzstyle{node4}=[inner sep=0mm,minimum height=1.5em,minimum width=3em,fill=blue!55]
+\tikzstyle{node5}=[inner sep=0mm,minimum height=1.5em,minimum width=3em,fill=blue!70]
+
+\begin{scope}
+\foreach \i / \j / \z in 
+		{0/0/node1, 
+		 1/0/node1, 1/1/node2,
+		 2/0/node1, 2/1/node2, 2/2/node3,
+		 3/0/node1, 3/1/node2, 3/2/node3, 3/3/node4,
+		 4/0/node1, 4/1/node2, 4/2/node3, 4/3/node4, 4/4/node5,
+		 5/0/node1, 5/1/node2, 5/2/node3, 5/3/node4, 5/4/node5,
+		}
+	\node[anchor=south west,\z,draw=white](n\i\j) at (1.0*3.2em*\i + 0*0em,1.5*1em*\j + 0*0em){};
+
+	\node[anchor=south west,node1,draw=white](nc) at (0,0){};
+
+\draw [->,very thick] ([xshift=-1em,yshift=-1em]n00.south west) --  ([xshift=19.7em,yshift=-1em]n00.south west);
+\draw [->,very thick] ([xshift=-1em,yshift=-1em]n00.south west) --  ([xshift=-1em,yshift=9em]n00.south west);
+
+\node[anchor=east] (x1) at ([xshift=-1em,yshift=8em]n00.south west) {数据块};
+\node[anchor=north west] (y1) at ([xshift=14.5em,yshift=-1.3em]n00.south west) {训练时长};
+\node[anchor=west,font=\small] (t1) at ([xshift=0.5em,yshift=0em]n52.east) {$\cdots$};
+
+\node[anchor=west,node1,minimum width=0.5em] (c1) at ([xshift=5em,yshift=0em]n50.east) {};
+\node[anchor=south,node2,minimum width=0.5em] (c2) at ([xshift=0em,yshift=0em]c1.north) {};
+\node[anchor=south,node3,minimum width=0.5em] (c3) at ([xshift=0em,yshift=0em]c2.north) {};
+\node[anchor=south,node4,minimum width=0.5em] (c4) at ([xshift=0em,yshift=0em]c3.north) {};
+\node[anchor=south,node5,minimum width=0.5em] (c5) at ([xshift=0em,yshift=0em]c4.north) {};
+
+\node[anchor=north] (l1) at ([xshift=0em,yshift=-0.3em]c1.south) {易};
+\node[anchor=south] (l2) at ([xshift=0em,yshift=0.3em]c5.north) {难};
+
+\end{scope}
+
+\end{tikzpicture}

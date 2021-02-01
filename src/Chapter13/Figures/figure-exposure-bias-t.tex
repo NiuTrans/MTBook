@@ -1,0 +1,176 @@
+
+
+%------------------------------------------------------------
+
+\begin{tikzpicture}
+
+\begin{scope}[]
+
+\tikzstyle{rnnnode} = [draw,inner sep=2pt,minimum width=3em,minimum height=1.5em,rounded corners=1pt,fill=red!20]
+\tikzstyle{snode} = [draw,inner sep=2pt,minimum width=3em,minimum height=1.5em,rounded corners=1pt,fill=blue!20]
+\tikzstyle{ynode} = [inner sep=2pt,minimum width=3em,minimum height=1.5em,rounded corners=1pt]
+
+
+\node [anchor=west,rnnnode] (n1) at (0,0) {$\mathbi{h}_{1}$};
+\node [anchor=west] (n2) at ([xshift=2em,yshift=0em]n1.east) {$\cdots$};
+\node [anchor=west,rnnnode] (n3) at ([xshift=2em,yshift=0em]n2.east) {$\mathbi{h}_{j-1}$};
+\node [anchor=west,rnnnode] (n4) at ([xshift=2em,yshift=0em]n3.east) {$\mathbi{h}_{j}$};
+\node [anchor=south,snode,font=\footnotesize] (n5) at ([xshift=0em,yshift=1em]n3.north) {Softmax};
+\node [anchor=south,ynode] (n6) at ([xshift=0em,yshift=1em]n5.north) {$\tilde{{y}}_{j-1}$};
+\node [anchor=south,snode,font=\footnotesize] (n7) at ([xshift=0em,yshift=1em]n4.north) {Softmax};
+\node [anchor=south,ynode] (n8) at ([xshift=0em,yshift=1em]n7.north) {$\tilde{{y}}_{j}$};
+\node [anchor=south,snode,font=\footnotesize] (n13) at ([xshift=0em,yshift=1em]n1.north) {Softmax};
+\node [anchor=south,ynode] (n14) at ([xshift=0em,yshift=1em]n13.north) {$\tilde{{y}}_{1}$};
+
+\node [anchor=north] (n11) at ([xshift=0em,yshift=-1em]n3.south) {${{y}}_{j-2}$};
+\node [anchor=north] (n12) at ([xshift=0em,yshift=-1em]n4.south) {${{y}}_{j-1}$};
+
+\node [anchor=north] (n9) at ([xshift=0em,yshift=-3em]n4.south) {\small{(a) 训练阶段}};
+
+\node [anchor=north] (x1) at ([xshift=0em,yshift=-1em]n1.south) {$\langle$sos$\rangle$};
+
+\node [anchor=south,inner sep=2pt] (st1) at (n6.north) {\scriptsize{\textbf{[step $j-1$]}}};
+\node [anchor=south,inner sep=2pt] (st2) at (n8.north) {\scriptsize{\textbf{[step $j$]}}};
+\node [anchor=south,inner sep=2pt] (st3) at (n14.north) {\scriptsize{\textbf{[step $1$]}}};
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]x1.north)--([xshift=0em,yshift=0em]n1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.east)--([xshift=0em,yshift=0em]n2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east)--([xshift=0em,yshift=0em]n3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.east)--([xshift=0em,yshift=0em]n4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.east)--([xshift=2em,yshift=0em]n4.east);
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.north)--([xshift=0em,yshift=0em]n5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.north)--([xshift=0em,yshift=0em]n6.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.north)--([xshift=0em,yshift=0em]n7.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n7.north)--([xshift=0em,yshift=0em]n8.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.north)--([xshift=0em,yshift=0em]n13.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n13.north)--([xshift=0em,yshift=0em]n14.south);
+
+
+\draw [->,thick] ([xshift=-0em,yshift=0em]n11.north)--([xshift=-0em,yshift=0em]n3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n12.north)--([xshift=-0em,yshift=-0em]n4.south);
+
+\node [anchor=west] (n10) at ([xshift=4em,yshift=0em]n8.east) {真实数据$\seq{y}$服从的分布：};
+
+\node [anchor=north west] (y1) at ([xshift=0em,yshift=-4em]n10.south west) {${y}_{1}$};
+\node [anchor=west] (y2) at ([xshift=-0.25em,yshift=0em]y1.east) {${y}_{2}$};
+\node [anchor=west] (y3) at ([xshift=-0.25em,yshift=0em]y2.east) {${y}_{3}$};
+\node [anchor=west] (y4) at ([xshift=-0.25em,yshift=0em]y3.east) {${y}_{4}$};
+\node [anchor=west] (y5) at ([xshift=-0.25em,yshift=0em]y4.east) {${y}_{5}$};
+\node [anchor=west] (y6) at ([xshift=-0.25em,yshift=0em]y5.east) {${y}_{6}$};
+\node [anchor=west] (y7) at ([xshift=-0.25em,yshift=0em]y6.east) {$\ldots$};
+\node [anchor=west] (y8) at ([xshift=-0.25em,yshift=0em]y7.east) {${y}_{n}$};
+
+
+
+\node [anchor=south,minimum width=0.8em,minimum height=1.4em,fill=ugreen!50,inner sep=0pt] (label1) at ([xshift=-0.1em,yshift=0em]y1.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=2.2em,fill=ugreen!50,inner sep=0pt] (label2) at ([xshift=-0.1em,yshift=0em]y2.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=2.8em,fill=ugreen!50,inner sep=0pt] (label3) at ([xshift=-0.1em,yshift=0em]y3.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=3.2em,fill=ugreen!50,inner sep=0pt] (label4) at ([xshift=-0.1em,yshift=0em]y4.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=2.4em,fill=ugreen!50,inner sep=0pt] (label5) at ([xshift=-0.1em,yshift=0em]y5.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=1.7em,fill=ugreen!50,inner sep=0pt] (label6) at ([xshift=-0.1em,yshift=0em]y6.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=0.4em,fill=ugreen!50,inner sep=0pt] (label8) at ([xshift=-0.1em,yshift=0em]y8.north) {};
+
+
+\begin{pgfonlayer}{background}
+
+\node [rectangle,inner sep=0.1em,rounded corners=5pt,very thick,dotted,draw=ugreen] [fit = (n11) (n12)] (b1) {};
+\node [rectangle,inner sep=0.5em,rounded corners=5pt,very thick,dotted,draw=ugreen] [fit = (n10) (y1) (y8)] (b2) {};
+
+\draw [->,dotted,very thick,ugreen] ([yshift=-0em]b1.east) .. controls +(east:1.7) and +(west:1) .. ([xshift=-0.1em]b2.west);
+\node [anchor=east] (inputlabel1) at ([yshift=-0.2em]b1.west) {{\color{red} \footnotesize{人工标注数据}}};
+        
+\end{pgfonlayer}
+
+\end{scope}
+
+\begin{scope}[yshift=-2in]
+
+\tikzstyle{rnnnode} = [draw,inner sep=2pt,minimum width=3em,minimum height=1.5em,rounded corners=1pt,fill=red!20]
+\tikzstyle{snode} = [draw,inner sep=2pt,minimum width=3em,minimum height=1.5em,rounded corners=1pt,fill=blue!20]
+\tikzstyle{ynode} = [inner sep=2pt,minimum width=3em,minimum height=1.5em,rounded corners=1pt]
+
+
+\node [anchor=west,rnnnode] (n1) at (0,0) {$\mathbi{h}_{1}$};
+\node [anchor=west] (n2) at ([xshift=2em,yshift=0em]n1.east) {$\cdots$};
+\node [anchor=west,rnnnode] (n3) at ([xshift=2em,yshift=0em]n2.east) {$\mathbi{h}_{j-1}$};
+\node [anchor=west,rnnnode] (n4) at ([xshift=2em,yshift=0em]n3.east) {$\mathbi{h}_{j}$};
+\node [anchor=south,snode,font=\footnotesize] (n5) at ([xshift=0em,yshift=1em]n3.north) {Softmax};
+\node [anchor=south,ynode] (n6) at ([xshift=0em,yshift=1em]n5.north) {$\tilde{{y}}_{j-1}$};
+\node [anchor=south,snode,font=\footnotesize] (n7) at ([xshift=0em,yshift=1em]n4.north) {Softmax};
+\node [anchor=south,ynode] (n8) at ([xshift=0em,yshift=1em]n7.north) {$\tilde{{y}}_{j}$};
+\node [anchor=south,snode,font=\footnotesize] (n13) at ([xshift=0em,yshift=1em]n1.north) {Softmax};
+\node [anchor=south,ynode] (n14) at ([xshift=0em,yshift=1em]n13.north) {$\tilde{{y}}_{1}$};
+
+\node [anchor=north] (n9) at ([xshift=0em,yshift=-3em]n4.south) {\small{(b) 推断阶段}};
+
+\node [anchor=north] (n11) at ([xshift=0em,yshift=-1em]n3.south) {$\tilde{{y}}_{j-2}$};
+\node [anchor=north] (n12) at ([xshift=0em,yshift=-1em]n4.south) {$\tilde{{y}}_{j-1}$};
+
+\node [anchor=north] (x1) at ([xshift=0em,yshift=-1em]n1.south) {$\langle$sos$\rangle$};
+
+\node [anchor=south,inner sep=2pt] (st1) at (n6.north) {\scriptsize{\textbf{[step $j-1$]}}};
+\node [anchor=south,inner sep=2pt] (st2) at (n8.north) {\scriptsize{\textbf{[step $j$]}}};
+\node [anchor=south,inner sep=2pt] (st3) at (n14.north) {\scriptsize{\textbf{[step $1$]}}};
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]x1.north)--([xshift=0em,yshift=0em]n1.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.east)--([xshift=0em,yshift=0em]n2.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east)--([xshift=0em,yshift=0em]n3.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.east)--([xshift=0em,yshift=0em]n4.west);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.east)--([xshift=2em,yshift=0em]n4.east);
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.north)--([xshift=0em,yshift=0em]n5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.north)--([xshift=0em,yshift=0em]n6.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n4.north)--([xshift=0em,yshift=0em]n7.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n7.north)--([xshift=0em,yshift=0em]n8.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n1.north)--([xshift=0em,yshift=0em]n13.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n13.north)--([xshift=0em,yshift=0em]n14.south);
+
+
+\draw [->,thick,dotted] ([xshift=-2.5em,yshift=1em]n11.north) .. controls +(south:2em) and +(west:0.1em) .. ([xshift=0.2em,yshift=0em]n11.west);
+\draw [->,thick,dotted] ([xshift=0em,yshift=0em]n14.east) .. controls +(east:0.3em) and +(north:2em) .. ([xshift=2.5em,yshift=-0.5em]n14.south);
+\draw [->,thick,dotted] ([xshift=0em,yshift=0em]n6.east) .. controls ([xshift=2em,yshift=1em]n6.east) and ([xshift=-2em,yshift=-2em]n4.south west) .. ([xshift=0.2em,yshift=-0em]n12.west);
+
+\draw [->,thick] ([xshift=-0em,yshift=0em]n11.north)--([xshift=-0em,yshift=0em]n3.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n12.north)--([xshift=-0em,yshift=-0em]n4.south);
+
+\node [anchor=west] (n10) at ([xshift=4em,yshift=0em]n8.east) {模型输出$\tilde{{y}}$服从的分布：};
+
+\node [anchor=north west] (y1) at ([xshift=0em,yshift=-4em]n10.south west) {$\tilde{y}_{1}$};
+\node [anchor=west] (y2) at ([xshift=-0.25em,yshift=0em]y1.east) {$\tilde{y}_{2}$};
+\node [anchor=west] (y3) at ([xshift=-0.25em,yshift=0em]y2.east) {$\tilde{y}_{3}$};
+\node [anchor=west] (y4) at ([xshift=-0.25em,yshift=0em]y3.east) {$\tilde{y}_{4}$};
+\node [anchor=west] (y5) at ([xshift=-0.25em,yshift=0em]y4.east) {$\tilde{y}_{5}$};
+\node [anchor=west] (y6) at ([xshift=-0.25em,yshift=0em]y5.east) {$\tilde{y}_{6}$};
+\node [anchor=west] (y7) at ([xshift=-0.25em,yshift=0em]y6.east) {$\ldots$};
+\node [anchor=west] (y8) at ([xshift=-0.25em,yshift=0em]y7.east) {$\tilde{y}_{n}$};
+
+
+
+\node [anchor=south,minimum width=0.8em,minimum height=1.5em,fill=ublue!80,inner sep=0pt] (label1) at ([xshift=-0.1em,yshift=0em]y1.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=2.8em,fill=ublue!80,inner sep=0pt] (label2) at ([xshift=-0.1em,yshift=0em]y2.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=0.9em,fill=ublue!80,inner sep=0pt] (label3) at ([xshift=-0.1em,yshift=0em]y3.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=3.6em,fill=ublue!80,inner sep=0pt] (label4) at ([xshift=-0.1em,yshift=0em]y4.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=2.2em,fill=ublue!80,inner sep=0pt] (label5) at ([xshift=-0.1em,yshift=0em]y5.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=0.2em,fill=ublue!80,inner sep=0pt] (label6) at ([xshift=-0.1em,yshift=0em]y6.north) {};
+\node [anchor=south,minimum width=0.8em,minimum height=1.2em,fill=ublue!80,inner sep=0pt] (label8) at ([xshift=-0.1em,yshift=0em]y8.north) {};
+
+\begin{pgfonlayer}{background}
+
+\node [rectangle,inner sep=0.1em,rounded corners=5pt,very thick,dotted,draw=ublue] [fit = (n11) (n12)] (b1) {};
+
+\node [rectangle,inner sep=0.5em,rounded corners=5pt,very thick,dotted,draw=ublue] [fit = (n10) (y1) (y5)] (b2) {};
+
+\draw [->,dotted,very thick,ublue] ([xshift=-0em,yshift=-0em]b1.east) .. controls +(east:1.7) and +(west:1) .. ([xshift=-0.1em]b2.west);
+\node [anchor=east] (inputlabel1) at ([yshift=-0.2em]b1.west) {{\color{red} \footnotesize{系统预测结果}}};
+        
+\end{pgfonlayer}
+
+\end{scope}
+
+
+\end{tikzpicture}

@@ -1,0 +1,62 @@
+\begin{tikzpicture}[scale=0.8]
+\tikzstyle{every node}=[scale=0.8]
+%figure 1
+\coordinate (A1) at (0, 0);
+\coordinate (B1) at ([xshift=1.5em,yshift=-0.4em]A1);
+\coordinate (C1) at ([xshift=0.3em,yshift=-2.6em]A1);
+\coordinate (D1) at ([xshift=2.7em,yshift=-2.6em]A1);
+\coordinate (E1) at ([xshift=2.4em,yshift=-1.5em]A1);
+\coordinate (F1) at ([xshift=0.3em]D1);
+
+
+%figure 2
+\coordinate (A2) at ([yshift=-15em]A1);
+\coordinate (B2) at ([xshift=1.5em,yshift=-0.4em]A2);
+\coordinate (C2) at ([xshift=0.3em,yshift=-2.6em]A2);
+\coordinate (D2) at ([xshift=2.7em,yshift=-2.6em]A2);
+\coordinate (E2) at ([xshift=2.4em,yshift=-1.5em]A2);
+\coordinate (F2) at ([xshift=0.3em]D2);
+
+
+\foreach \x in {1,2}{
+\draw[-,line width=2pt] (A\x) -- ([xshift=3.6em]A\x) -- ([xshift=3.6em,yshift=-3em]A\x) -- ([yshift=-3em]A\x) -- (A\x) -- ([xshift=1em]A\x);
+\draw[-, thick] (B\x) -- (C\x) -- (D\x) -- (B\x);
+\draw[-, thick,fill=black] ([xshift=-0.6em,yshift=-1.2em]B\x)  -- ([xshift=-0.3em,yshift=-1em]B\x) -- ([yshift=-1.2em]B\x) --([xshift=0.3em,yshift=-1em]B\x) -- ([xshift=0.6em,yshift=-1.2em]B\x) -- (D\x) -- (C\x) -- ([xshift=-0.6em,yshift=-1.2em]B\x);
+\draw[-, thick,fill=black] (E\x) -- ([xshift=0.2em,yshift=0.3em]E\x) -- ([xshift=0.33em]F\x) -- (F\x) -- (E\x);
+\node[circle,inner sep=0pt,minimum size=0.4em,fill=black] at ([xshift=-0.7em,yshift=-0.2em]B\x){};
+\node[draw,rounded corners=2pt,fill=yellow!20,minimum height=2.2em,minimum width=4.3em](cnn\x) at ([xshift=9.5em,yshift=-1.5em]A\x){CNN};
+\node[draw,circle,fill=green!20,font=\footnotesize,anchor=west,inner sep=3pt] (h\x_2) at ([xshift=3em,yshift=0.66em]cnn\x.east){$h_2$};
+\node[draw,circle,fill=green!20,font=\footnotesize,anchor=south,inner sep=3pt] (h\x_1) at ([yshift=1em]h\x_2.north){$h_1$};
+\node[font=\footnotesize,anchor=north] (h\x_c) at ([yshift=-0.6em]h\x_2.south){$\cdots$};
+\node[draw,circle,fill=green!20,font=\footnotesize,anchor=north,inner sep=3pt] (h\x_n) at ([yshift=-0.6em]h\x_c.south){$h_n$};
+}
+
+\begin{pgfonlayer}{background}
+\node[draw,thick,rounded corners=2pt,densely dashed,inner ysep=1.2em,inner xsep=0.4em,label={above:图像特征向量}][fit=(h1_1)(h1_2)(h1_n)](box1){};
+\node[draw,thick,rounded corners=2pt,densely dashed,inner ysep=1.2em,inner xsep=0.4em,label={above:图像特征向量}][fit=(h2_1)(h2_2)(h2_n)](box2){};
+\end{pgfonlayer}
+
+\node[anchor=west,draw,rounded corners=2pt,fill=blue!20,minimum height=2.2em,minimum width=4.3em] (decoder1)at ([xshift=6em]box1.east){解码器};
+\node[anchor=west,draw,circle,inner sep=0pt,minimum size=1.4em] (add)at ([xshift=2em,yshift=1.6em]box2.east){};
+\draw[] (add.0) -- (add.180);
+\draw[] (add.90) -- (add.-90);
+\node[anchor=west,draw,rounded corners=2pt,fill=blue!20,minimum height=2.2em,minimum width=4.3em] (decoder2)at ([xshift=6em]box2.east){解码器};
+
+
+\draw[->,thick] ([xshift=-2.7em]cnn1.180) -- ([xshift=-0.1em]cnn1.180);
+\draw[->,thick] ([xshift=-2.7em]cnn2.180) -- ([xshift=-0.1em]cnn2.180);
+\draw[->,thick] ([xshift=0.1em]cnn1.0) -- ([xshift=-0.1em]box1.180);
+\draw[->,thick] ([xshift=0.1em]cnn2.0) -- ([xshift=-0.1em]box2.180);
+\draw[->,thick] ([xshift=0.1em]box1.0) -- ([xshift=-0.1em]decoder1.180);
+\draw[->,thick] ([xshift=0.1em]h2_1.0) -- (add.180);
+\draw[->,thick] ([xshift=0.1em]h2_2.0) -- (add.180);
+\draw[->,thick] ([xshift=0.1em]h2_c.0) -- (add.180);
+\draw[->,thick] ([xshift=0.1em]h2_n.0) -- (add.180);
+\draw[->,thick,out=20,in=130] ([xshift=0.1em]add.45) to ([xshift=-0em,yshift=0.1em]decoder2.north west);
+\draw[->,thick,out=200,in=-45] ([xshift=-0.1em]decoder2.west) to ([yshift=-0.1em]add.-90);
+
+\node [anchor=north](pos1) at ([yshift=-1.0em]box1.south) {（a）未引入注意力机制};
+\node [anchor=north](pos2) at ([yshift=-1.0em]box2.south) {（b）引入注意力机制};
+\end{tikzpicture}
+%------------------------------------------------------------------------------------------------------------
+

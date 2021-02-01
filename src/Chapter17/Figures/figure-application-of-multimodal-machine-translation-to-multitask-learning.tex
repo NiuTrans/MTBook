@@ -1,0 +1,22 @@
+\tikzstyle{coder} = [rectangle,thick,rounded corners,minimum height=2.2em,minimum width=4.3em,text centered,draw=black,fill=red!20]
+\begin{tikzpicture}[node distance = 0,scale = 0.75]
+\tikzstyle{every node}=[scale=0.75]
+\node(x)[]{$x$};
+\node(encoder)[coder, above of = x,yshift=4em]{\large{编码器}};
+\node(decoder_left)[coder, above of = encoder, yshift=6em,fill=blue!20]{\large{解码器}};
+\node(y_hat)[above of = decoder_left, yshift=4em]{{$y$}};
+\node(y)[above of = decoder_left, xshift=-6em]{{$y_{<}$}};
+\node(decoder_right)[coder, above of = encoder, xshift=11em,fill=yellow!20]{\large{解码器}};
+
+\node(figure)[draw=white,above of = decoder_right,yshift=6.5em,scale=0.25] {\includegraphics[width=0.62\textwidth]{./Chapter17/Figures/figure-bank-without-attention.jpg}};
+
+\node [anchor=south,scale=1.2] (node1) at ([xshift=-2.5em,yshift=4.5em]y.north) {{$x$：源语言文本数据}};
+\node [anchor=north,scale=1.2] (node2) at ([xshift=0.57em]node1.south){{$y$：目标语言文本数据}};
+
+\draw[->,thick](x)to(encoder);
+\draw[->,thick](encoder)to(decoder_left)node[right,xshift=-0.1cm,yshift=-1.25cm,scale=1.2]{{翻译}};
+\draw[->,thick](decoder_left)to(y_hat);
+\draw[->,thick](y)to(decoder_left);
+\draw[->,thick](encoder)to(decoder_right)node[left,xshift=-3.1em,yshift=0.25cm,scale=1.2]{{生成图片}};
+\draw[->,thick](decoder_right)to(figure);
+\end{tikzpicture}

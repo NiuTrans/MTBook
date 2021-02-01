@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+
+\tikzstyle{circle} = [draw,black,line width=0.6pt,inner sep=3.5pt,rounded corners=4pt,minimum width=2em]
+\tikzstyle{word} = [inner sep=3.5pt]
+
+\node [anchor=center] (node1-1) at (0,0) {\small{$\seq{x}$}};
+\node [anchor=west] (node1-2) at ([xshift=0.8em]node1-1.east) {\small{$\seq{y}$}};
+\node [anchor=north] (node1-3) at ([xshift=1.0em]node1-1.south) {\small{翻译模型$f$}};
+\draw [->,line width=0.6pt](node1-1.east)--(node1-2.west);
+
+\begin{pgfonlayer}{background}
+{
+\node[fill=blue!20,inner sep=0.1em,draw=black,line width=0.6pt,minimum width=5em,drop shadow,rounded corners=2pt] [fit =(node1-1)(node1-2)(node1-3)]  (remark1) {};
+}
+\end{pgfonlayer}
+
+\node[anchor=north,circle,fill=red!20,minimum width=6.8em](node2) at ([xshift=-6.0em,yshift=-2.0em]remark1.south) {源语言句子$\seq{x}$};
+\node[anchor=north,circle,fill=red!20,minimum width=6.8em](node2-2) at ([yshift=-0.2em]node2.south) {新生成句子$\seq{x'}$};
+\draw [->,thick]([yshift=0.2em]node2.north).. controls (-1.93,-1.5) and (-2.0,-0.2)..([xshift=-0.2em]remark1.west);
+\node[anchor=north,circle,fill=red!20](node3) at ([xshift=6.5em,yshift=-2.0em]remark1.south) {目标语言句子$\seq{y}$};
+\draw [->,thick]([xshift=0.2em]remark1.east).. controls (2.9,-0.25) and (2.9,-0.7) ..([yshift=0.2em]node3.north);
+
+
+\node [anchor=north] (node4-1) at ([xshift=-1.0em,yshift=-7.0em]remark1.south) {\small{$\seq{y}$}};
+\node [anchor=west] (node4-2) at ([xshift=0.8em]node4-1.east) {\small{$\seq{x}$}};
+\node [anchor=north] (node4-3) at ([xshift=1.0em]node4-1.south) {\small{翻译模型$g$}};
+\draw [->,line width=0.6pt](node4-1.east)--(node4-2.west);
+
+\begin{pgfonlayer}{background}
+{
+\node[fill=yellow!20,inner sep=0.1em,draw=black,line width=0.6pt,minimum width=5em,drop shadow,rounded corners=2pt] [fit =(node4-1)(node4-2)(node4-3)]  (remark2) {};
+}
+\end{pgfonlayer}
+
+\draw [->,thick]([xshift=-0.2em]remark2.west).. controls (-0.8,-4.12) and (-1.95,-4.12)..([yshift=-0.2em]node2-2.south);
+\draw [->,thick]([yshift=-0.2em]node3.south).. controls (2.9,-3) and (2.9,-4.1)..([xshift=0.2em]remark2.east);
+
+\end{tikzpicture}

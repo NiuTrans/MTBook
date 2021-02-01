@@ -1,0 +1,86 @@
+\addtolength{\tabcolsep}{-4pt}
+
+\begin{tabular}{c c c}
+
+\begin{tikzpicture}
+\begin{scope}
+% ,minimum height =1em,minimum width=2em
+\tikzstyle{model} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,fill=blue!20,minimum width=4em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{data} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,fill=green!20,minimum width=4em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{data2} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,minimum width=2em,minimum height=1.5em,font=\footnotesize]
+
+\tikzstyle{word} = [inner sep=3.5pt,font=\footnotesize]
+
+\node[data2,fill=green!60] (old) at (0,0) {};
+\node[data2,fill=green!20] (old2) at ([xshift=0.9em]old.east) {};
+\node[word] at (0.1,0.5) {旧数据};
+
+\node[data] (new) at ([xshift=3em]old2.east) {新数据};
+\node[data] (all) at ([xshift=2.55em,yshift=-4em]old.south) {最终数据};
+\node[model] (final_model) at ([xshift=0em,yshift=-4em]all.south) {最终模型};
+
+\draw [->,thick] ([yshift=-0.2em]old2.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([xshift=-0.2em,yshift=0.2em]all.north);
+\draw [->,thick] ([yshift=-0.2em]new.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([xshift=0.2em,yshift=0.2em]all.north);
+\draw [->,thick] ([yshift=-0.2em]all.south) -- ([yshift=0.2em]final_model.north)node[pos=0.5,right,align=center,font=\footnotesize] {训练};
+
+\node[word] at ([yshift=-2em]final_model.south){(a)数据混合};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.5em,rounded corners=1pt,minimum width=4.5em,minimum height=3.2em,draw=red!50,dotted,very thick] at (0.37,0.15) {};
+
+\end{pgfonlayer}
+
+\end{scope}
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{model} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,fill=blue!20,minimum width=4em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{data} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,fill=green!20,minimum width=4em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{word} = [inner sep=3.5pt,font=\footnotesize]
+
+\node[data] (old) at (0,0) {旧数据};
+\node[data] (new) at ([xshift=3em]old.east) {新数据};
+\node[model] (old_model) at ([yshift=-4em]old.south) {旧模型};
+\node[model] (new_model) at ([yshift=-4em]new.south) {新模型};
+
+\node[model] (final_model) at ([xshift=2.55em,yshift=-4em]old_model.south) {最终模型};
+
+\draw [->,thick] ([yshift=-0.2em]old.south) -- ([yshift=0.2em]old_model.north) node[pos=0.5,left,align=center,font=\footnotesize] {训练};
+\draw [->,thick] ([yshift=-0.2em]new.south) -- ([yshift=0.2em]new_model.north) node[pos=0.5,right,align=center,font=\footnotesize] {训练};
+\draw [->,thick] ([yshift=-0.2em]old_model.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([xshift=-0.2em,yshift=0.2em]final_model.north);
+\draw [->,thick] ([yshift=-0.2em]new_model.south) .. controls +(south:2.5em) and +(north:2.5em) .. ([xshift=0.2em,yshift=0.2em]final_model.north);
+
+\node[word] at ([yshift=2em]final_model.north) {插值};
+
+
+\node[word] at ([yshift=-2em]final_model.south){(b)模型插值};
+
+%空白占位
+\node[word] at ([xshift=-3em]old.west) {};
+\node[word] at ([xshift=3em]new.east) {};
+
+\end{scope}
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+\begin{scope}
+\tikzstyle{model} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,fill=blue!20,minimum width=4em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{data} = [draw,black,very thick,inner sep=3.5pt,rounded corners=4pt,fill=green!20,minimum width=4em,minimum height=1.5em,font=\footnotesize]
+\tikzstyle{word} = [inner sep=3.5pt,font=\footnotesize]
+
+\node[data] (old) at (0,0) {旧数据};
+\node[data] (new) at ([xshift=3em]old.east) {新数据};
+\node[model] (final_model) at ([yshift=-8.8em]new.south) {最终模型};
+
+\draw [->,thick] ([yshift=-0.2em]new.south) -- ([xshift=0.2em,yshift=0.2em]final_model.north) node[pos=0.5,right,align=center,font=\footnotesize] {目标\\函数1};
+\draw [->,thick,dashed] ([yshift=-0.2em]old.south) .. controls +(south:4.5em) and +(north:4.5em) .. ([xshift=-0.2em,yshift=0.2em]final_model.north) node[align=center,font=\footnotesize] at ([xshift=-0.1em,yshift=-4em]old.south) {目标\\函数2};
+
+\node[word] at ([yshift=-2em,xshift=-2.55em]final_model.south){(c)多目标训练};
+
+\end{scope}
+\end{tikzpicture}
+
+\end{tabular}
+
+\addtolength{\tabcolsep}{4pt}

@@ -1,0 +1,73 @@
+
+\begin{tikzpicture}
+	
+	\node[font=\scriptsize,align=left] (model) at (0,0) {模型输出:};
+	\node[anchor=north west,font=\scriptsize,align=left] (label_smooth) at ([yshift=-1em]model.south west) {学习目标:\\（使用标\\签平滑）};
+	\node[anchor=south west,font=\scriptsize,align=left] (one-hot) at ([yshift=1em]model.north west) {标准答案:\\（未使用\\标签平滑）};
+	%model out
+	\node [anchor=west,minimum width=1.2em,minimum height=0.2em,fill=ublue!80,inner sep=0pt] (model_label1) at ([xshift=1.5em,yshift=-0.4em]model.east) {};
+    \node [anchor=south,font=\scriptsize] (model_w1) at (model_label1.north) {$p_{1}$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.1em,fill=ublue!80,inner sep=0pt] (model_label2) at (model_label1.south east) {};
+    \node [anchor=south,font=\scriptsize] (model_w2) at (model_label2.north) {$p_{2}$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.7em,fill=ublue!80,inner sep=0pt] (model_label3) at (model_label2.south east) {};
+    \node [anchor=south,font=\scriptsize] (model_w3) at (model_label3.north) {{\color{red} $p_{3}$}};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.4em,fill=ublue!80,inner sep=0pt] (model_label4) at (model_label3.south east) {};
+    \node [anchor=south,font=\scriptsize] (model_w5) at (model_label4.north) {$p_{4}$};
+
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.1em,fill=ublue!80,inner sep=0pt] (model_label5) at (model_label4.south east) {};
+    \node [anchor=south,font=\scriptsize] (model_w6) at (model_label5.north) {$p_{5}$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.3em,fill=ublue!80,inner sep=0pt] (model_label6) at (model_label5.south east) {};
+    \node [anchor=south,font=\scriptsize] (model_w7) at (model_label6.north) {$p_{6}$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.2em,fill=ublue!80,inner sep=0pt] (model_label7) at (model_label6.south east) {};
+    \node [anchor=south,font=\scriptsize] (model_w8) at (model_label7.north) {$p_{7}$};
+    %no label smooth
+    \node [anchor=west,minimum width=1.2em,minimum height=0.05em,fill=orange!50,inner sep=0pt,font=\tiny] (one_hot_label1) at ([xshift=1.5em,yshift=2.5em]model.east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w1) at (one_hot_label1.north) {$0$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.05em,fill=orange!50,inner sep=0pt,font=\tiny] (one_hot_label2) at (one_hot_label1.south east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w2) at (one_hot_label2.north) {$0$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=1.5em,fill=orange!50,inner sep=0pt] (one_hot_label3) at (one_hot_label2.south east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w3) at (one_hot_label3.north) {{\color{red} $1$}};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.05em,fill=orange!50,inner sep=0pt,font=\tiny] (one_hot_label4) at (one_hot_label3.south east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w4) at (one_hot_label4.north) {$0$};
+
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.05em,fill=orange!50,inner sep=0pt,font=\tiny] (one_hot_label5) at (one_hot_label4.south east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w5) at (one_hot_label5.north) {$0$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.05em,fill=orange!50,inner sep=0pt,font=\tiny] (one_hot_label6) at (one_hot_label5.south east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w6) at (one_hot_label6.north) {$0$};
+    \node [anchor=south west,minimum width=1.12em,minimum height=0.05em,fill=orange!50,inner sep=0pt,font=\tiny] (one_hot_label7) at (one_hot_label6.south east) {};
+    \node [anchor=south,font=\scriptsize] (one_hot_w7) at (one_hot_label7.north) {$0$};
+
+    %label smoothing
+	\node [anchor=west,minimum width=1.2em,minimum height=0.2em,fill=orange!50,inner sep=0pt] (label1) at ([xshift=1.5em,yshift=-4.4em]model.east) {};
+    \node [anchor=south,font=\scriptsize] (w1) at (label1.north) {$0.1$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.2em,fill=orange!50,inner sep=0pt] (label2) at (label1.south east) {};
+    \node [anchor=south,font=\scriptsize] (w2) at (label2.north) {$0.1$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.8em,fill=orange!50,inner sep=0pt] (label3) at (label2.south east) {};
+    \node [anchor=south,font=\scriptsize] (w3) at (label3.north) {{\color{red} $0.4$}};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.2em,fill=orange!50,inner sep=0pt] (label4) at (label3.south east) {};
+    \node [anchor=south,font=\scriptsize] (w5) at (label4.north) {$0.1$};
+
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.2em,fill=orange!50,inner sep=0pt] (label5) at (label4.south east) {};
+    \node [anchor=south,font=\scriptsize] (w6) at (label5.north) {$0.1$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.2em,fill=orange!50,inner sep=0pt] (label6) at (label5.south east) {};
+    \node [anchor=south,font=\scriptsize] (w7) at (label6.north) {$0.1$};
+    \node [anchor=south west,minimum width=1.2em,minimum height=0.2em,fill=orange!50,inner sep=0pt] (label7) at (label6.south east) {};
+    \node [anchor=south,font=\scriptsize] (w8) at (label7.north) {$0.1$};
+    
+
+    \node[font=\scriptsize] (line1) at ([xshift=13em,yshift=-1.5em]model_label7.east) {$\textrm{Loss} =-0.3 \log p_{3}-\sum_{i=1}^{7} 0.1 \log p_{i}$};
+    \node[font=\scriptsize] (line2) at ([xshift=9.5em,yshift=3em]model_label7.east) {$\textrm{Loss} =-\log p_{3}$};
+
+    \begin{pgfonlayer}{background}
+        \node [rectangle,inner sep=0.5em,rounded corners=1pt,very thick,dotted,draw=red] [fit =(model_w3) (model_label1) (model_label7) (one_hot_w3)] (box1) {};
+
+        \node [rectangle,thick,inner sep=0.2em,rounded corners=1pt,fill=purple!10,drop shadow,draw=purple] [fit = (line2)] (box3) {}; 
+        \draw [->,dotted,very thick,red] ([yshift=2em]box1.east) .. controls +(east:1.7) and +(west:1.5) .. (box3.west);
+        
+        \node [rectangle,inner sep=0.7em,rounded corners=1pt,very thick,dotted,draw=ugreen] [fit =(w3) (label1) (label7) (model_w3)] (box2) {};
+        \node [rectangle,thick,inner sep=0.2em,rounded corners=1pt,fill=green!10,drop shadow,draw=ugreen] [fit = (line1)] (box4) {};
+        \draw [->,dotted,very thick,ugreen] ([yshift=-2.5em]box2.east) .. controls +(east:1.7) and +(west:1.5) .. (box4.west);
+        
+    \end{pgfonlayer}
+
+\end{tikzpicture}

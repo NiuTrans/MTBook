@@ -1,0 +1,104 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+	\tikzstyle{emb} = [font=\scriptsize,rounded corners=1pt, fill=orange!25, minimum width=1.8em,minimum height=1.5em,draw]
+	\tikzstyle{po} = [font=\scriptsize,rounded corners=1pt, fill=gray!20, minimum width=1.8em,minimum height=1.5em,draw]
+	\tikzstyle{tgt} = [minimum height=1.6em,minimum width=5.2em,fill=black!10!yellow!40,font=\footnotesize,drop shadow={shadow xshift=0.15em,shadow yshift=-0.15em,}]
+	\tikzstyle{p} = [fill=ugreen!25,minimum width=0.4em,inner sep=0pt]
+\node[ rounded corners=3pt, thick,fill=red!25, drop shadow, minimum width=12em,minimum height=4em,draw]  (encoder) at (0,0) {编码器};
+\node[anchor=north,rounded corners=3pt, thick,fill=yellow!30, drop shadow, minimum width=12em,minimum height=2em,draw] (lenpre) at([yshift=3em]encoder.north){长度预测器};
+\node[anchor=north] (lable) at([xshift=3.5em,yshift=2.5em]lenpre.north){译文长度：3};
+\node[anchor=west, rounded corners=3pt, thick,fill=blue!25, drop shadow, minimum width=13em,minimum height=4em,draw] (decoder) at ([xshift=1cm]encoder.east) {解码器};
+
+\node[anchor=north,emb] (en1) at ([yshift=-1.3em,xshift=-4.5em]encoder.south) {${\mathbi e}$(干)};
+\node[anchor=north,emb] (en2) at ([yshift=-1.3em,xshift=-1.5em]encoder.south) {${\mathbi e}$(得)};
+\node[anchor=north,emb] (en3) at ([yshift=-1.3em,xshift=1.5em]encoder.south) {${\mathbi e}$(好)};
+\node[anchor=north,emb] (en4) at ([yshift=-1.3em,xshift=4.5em]encoder.south) {${\mathbi e}$(!)};
+\node[anchor=north,po] (po1) at ([yshift=-1.4em]en1.south) {PE(1)};
+\node[anchor=north,po] (po2) at ([yshift=-1.4em]en2.south) {PE(2)};
+\node[anchor=north,po] (po3) at ([yshift=-1.4em]en3.south) {PE(3)};
+\node[anchor=north,po] (po4) at ([yshift=-1.4em]en4.south) {PE(4)};
+\foreach \x in {1,2,3,4}{
+	\node [anchor=north] (plus\x) at ([yshift=-0.04em]en\x.south) {\large{\textbf{$\oplus$}}};
+}
+
+\node[anchor=north,po] (de1) at ([yshift=-1.3em,xshift=-4.5em]decoder.south) {PE(1)};
+\node[anchor=north,po] (de2) at ([yshift=-1.3em]decoder.south) {PE(2)};
+\node[anchor=north,po] (de3) at ([yshift=-1.3em,xshift=4.5em]decoder.south) {PE(3};
+\node[rounded corners=3pt, minimum width=12em,minimum height=2em,draw,dashed,very thick] (box0) at ([yshift=-2.05em]decoder.south) {};
+
+\node[p,anchor=south, minimum height=0.5em] (w1_1) at ([xshift=-6.5em,yshift=1.5em]decoder.north){};
+\node[p,anchor=south,minimum height=2em] (w1_2) at ([xshift=0.3em]w1_1.south east){};
+\node[p,anchor=south,minimum height=0.7em] (w1_3) at ([xshift=0.3em]w1_2.south east){};
+\node[p,anchor=south,minimum height=0.6em] (w1_4) at ([xshift=0.3em]w1_3.south east){};
+\node[p,anchor=south,minimum height=0.2em] (w1_5) at ([xshift=0.3em]w1_4.south east){};
+\node[p,anchor=south,minimum height=1.9em] (w1_6) at ([xshift=0.3em]w1_5.south east){};
+\node[p,anchor=south,minimum height=0.6em] (w1_7) at ([xshift=0.3em]w1_6.south east){};
+\node[p,anchor=south,minimum height=0.8em] (w1_8) at ([xshift=0.3em]w1_7.south east){};
+
+\node[p,anchor=south, minimum height=0.5em] (w2_1) at ([xshift=-1.9em,yshift=1.5em]decoder.north){};
+\node[p,anchor=south,minimum height=2em] (w2_2) at ([xshift=0.3em]w2_1.south east){};
+\node[p,anchor=south,minimum height=0.7em] (w2_3) at ([xshift=0.3em]w2_2.south east){};
+\node[p,anchor=south,minimum height=0.6em] (w2_4) at ([xshift=0.3em]w2_3.south east){};
+\node[p,anchor=south,minimum height=1.9em] (w2_5) at ([xshift=0.3em]w2_4.south east){};
+\node[p,anchor=south,minimum height=0.3em] (w2_6) at ([xshift=0.3em]w2_5.south east){};
+\node[p,anchor=south,minimum height=0.6em] (w2_7) at ([xshift=0.3em]w2_6.south east){};
+\node[p,anchor=south,minimum height=0.8em] (w2_8) at ([xshift=0.3em]w2_7.south east){};
+
+\node[p,anchor=south, minimum height=0.4em] (w3_1) at ([xshift=2.7em,yshift=1.5em]decoder.north){};
+\node[p,anchor=south,minimum height=0.5em] (w3_2) at ([xshift=0.3em]w3_1.south east){};
+\node[p,anchor=south,minimum height=0.7em] (w3_3) at ([xshift=0.3em]w3_2.south east){};
+\node[p,anchor=south,minimum height=2em] (w3_4) at ([xshift=0.3em]w3_3.south east){};
+\node[p,anchor=south,minimum height=0.8em] (w3_5) at ([xshift=0.3em]w3_4.south east){};
+\node[p,anchor=south,minimum height=0.3em] (w3_6) at ([xshift=0.3em]w3_5.south east){};
+\node[p,anchor=south,minimum height=0.4em] (w3_7) at ([xshift=0.3em]w3_6.south east){};
+\node[p,anchor=south,minimum height=0.6em] (w3_8) at ([xshift=0.3em]w3_7.south east){};
+
+\node[inner sep=0pt,font=\scriptsize] at ([yshift=0.4em]w1_2.north){Good};
+\node[inner sep=0pt,font=\scriptsize] at ([yshift=0.5em]w1_6.north){Well};
+\node[inner sep=0pt,font=\scriptsize] at ([yshift=0.35em]w2_2.north){job};
+\node[inner sep=0pt,font=\scriptsize] at ([yshift=0.55em]w2_5.north){done};
+\node[inner sep=0pt,font=\scriptsize] at ([yshift=0.45em]w3_4.north){!};
+
+
+\draw[->, thick] ([yshift=0.1em]en1.north) -- ([xshift=-4.5em,yshift=-0.1em]encoder.south);
+\draw[->, thick] ([yshift=0.1em]en2.north) -- ([xshift=-1.5em,yshift=-0.1em]encoder.south);
+\draw[->, thick] ([yshift=0.1em]en3.north) -- ([xshift=1.5em,yshift=-0.1em]encoder.south);
+\draw[->, thick] ([yshift=0.1em]en4.north) -- ([xshift=4.5em,yshift=-0.1em]encoder.south);
+
+\draw[->, thick] ([yshift=0.1em]de1.north) -- ([xshift=-4.5em,yshift=-0.1em]decoder.south);
+\draw[->, thick] ([yshift=0.1em]de2.north) -- ([xshift=0em,yshift=-0.1em]decoder.south);
+\draw[->, thick] ([yshift=0.1em]de3.north) -- ([xshift=4.5em,yshift=-0.1em]decoder.south);
+
+\draw[->, line width=1.5pt] (encoder.east) -- (decoder.west);
+
+
+\node[inner sep=2pt] [fit =(w1_1)(w1_2)(w1_8)](box1) {};
+\node[inner sep=2pt] [fit =(w2_1)(w2_2)(w2_8)] (box2){};
+\node[inner sep=2pt] [fit =(w3_1)(w3_2)(w3_8)] (box3){};
+\draw[->, thick] ([yshift=0em]encoder.north) -- ([yshift=0em]lenpre.south);
+\draw[-, thick] ([yshift=0em]lenpre.north) -- ([yshift=1em]lenpre.north) -- ([xshift=7.1em,yshift=1em]lenpre.north);
+\draw[-, thick,dashed] ([xshift=7.1em,yshift=1em]lenpre.north) -- ([xshift=-2em]box0.west);
+\draw[->, thick] ([xshift=-2em]box0.west) -- (box0.west);
+
+\draw[->,thick] ([yshift=-1.2em]box1.south) -- (box1.south);
+\draw[->, thick] ([yshift=-1.2em]box2.south) -- (box2.south);
+\draw[->, thick] ([yshift=-1.2em]box3.south) -- (box3.south);
+
+\node[tgt,anchor=west,align=left] (tgt1) at ([xshift=1.5em]box3.east) {Good job !};
+\node[tgt,,anchor=north,align=left](tgt2) at ([yshift=-1em]tgt1.south) {Well done !};
+\node[tgt,,anchor=north,align=left] (tgt3) at ([yshift=-1em]tgt2.south) {Good done !};
+\node[tgt,,anchor=north,align=left] (tgt4) at ([yshift=-1em]tgt3.south) {Well job !};
+\node[text=ugreen] at ([xshift=1em]tgt1.east){\ding{51}};
+\node[text=ugreen] at ([xshift=1em]tgt2.east){\ding{51}};
+\node[text=red] at ([xshift=1em]tgt3.east){\ding{55}};
+\node[text=red] at ([xshift=1em]tgt4.east){\ding{55}};
+
+\end{tikzpicture}
+
+
+
+

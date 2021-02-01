@@ -1,0 +1,42 @@
+\tikzstyle{process} = [rectangle,very thick,rounded corners,minimum width=4.7cm,minimum height=2.5cm,text centered,draw=black!70,fill=red!20]
+\tikzstyle{cir} = [circle,thick,rounded corners,minimum width=0.7cm,text centered,draw=black,fill=green!25]
+
+\begin{tikzpicture}[node distance = 0,scale = 0.7]
+\tikzstyle{every node}=[scale=0.7]
+\node(voice)[scale=1.0]{声波};
+\node(microphone)[rectangle,right of = voice,xshift=1.4cm,yshift=-1cm,minimum width=0.32cm,minimum height=0.35cm,fill=black!85,draw=black!85]{};
+\draw[black!85,line width=1.8]([yshift=0.38cm,xshift=-0.4cm]microphone.north)arc(180:360:0.4cm);
+\node(microphone_1)[rectangle,minimum width=0.4cm,minimum height=0.8cm,rounded corners=3pt,above of =microphone,yshift=0.75cm,draw=black!85,line width=2.5]{};
+\draw[-,black!85,very thick]([yshift=0.4cm,xshift=-0.2cm]microphone.north)--([yshift=0.4cm,xshift=-0cm]microphone.north);
+\draw[-,black!85,very thick]([yshift=0.5cm,xshift=-0.2cm]microphone.north)--([yshift=0.5cm,xshift=-0cm]microphone.north);
+\draw[-,black!85,very thick]([yshift=0.6cm,xshift=-0.2cm]microphone.north)--([yshift=0.6cm,xshift=-0cm]microphone.north);
+\draw[-,black!85,line width=1.8]([yshift=0.6cm,xshift=-0.4cm]microphone.north)--([yshift=0.37cm,xshift=-0.4cm]microphone.north);
+\draw[-,black!85,line width=1.8]([yshift=0.6cm,xshift=0.4cm]microphone.north)--([yshift=0.37cm,xshift=0.4cm]microphone.north);
+\draw[black!85,line width=1]([yshift=0.8cm,xshift=-0.8cm]microphone.north)arc(-45:45:0.3cm);
+\draw[black!85,line width=1]([yshift=0.75cm,xshift=-0.7cm]microphone.north)arc(-45:45:0.4cm);
+\draw[black!85,line width=1]([yshift=0.7cm,xshift=-0.6cm]microphone.north)arc(-45:45:0.5cm);
+
+\node(process_1)[process,right of = microphone,xshift=4.7cm,yshift=0.5cm]{};
+\node(text_1)[below of = process_1,yshift=-2cm,scale=1.3]{采样};
+\draw [very thick,rounded corners=10pt]([xshift=-2.2cm,yshift=-1cm]process_1.center)--([xshift=-1.8cm,yshift=1cm]process_1.center)--([xshift=-1.4cm,yshift=0cm]process_1.center)--([xshift=-1.1cm,yshift=0.8cm]process_1.center)--([xshift=-0.8cm,yshift=-0.4cm]process_1.center)--([xshift=-0.5cm,yshift=0.4cm]process_1.center);
+\draw [->,very thick]([xshift=-0.3cm]process_1.center)to([xshift=0.3cm]process_1.center);
+\draw [very thick,rounded corners=10pt,densely dotted]([xshift=0.5cm,yshift=-1cm]process_1.center)--([xshift=0.9cm,yshift=1cm]process_1.center)--([xshift=1.3cm,yshift=0cm]process_1.center)--([xshift=1.6cm,yshift=0.8cm]process_1.center)--([xshift=1.9cm,yshift=-0.4cm]process_1.center)--([xshift=2.2cm,yshift=0.4cm]process_1.center);
+\node(process_2)[process,fill=blue!20,right of = process_1,xshift=6.6cm]{};
+\node(text_2)[below of = process_2,yshift=-2cm,scale=1.3]{量化};
+\draw [very thick,rounded corners=10pt,densely dotted]([xshift=-2.2cm,yshift=-1cm]process_2.center)--([xshift=-1.8cm,yshift=1cm]process_2.center)--([xshift=-1.4cm,yshift=0cm]process_2.center)--([xshift=-1.1cm,yshift=0.8cm]process_2.center)--([xshift=-0.8cm,yshift=-0.4cm]process_2.center)--([xshift=-0.5cm,yshift=0.4cm]process_2.center);
+\draw [->,very thick]([xshift=-0.3cm]process_2.center)to([xshift=0.3cm]process_2.center);
+\draw [very thick,]([xshift=0.5cm,yshift=-0.8cm]process_2.center)--([xshift=0.5cm,yshift=0.3cm]process_2.center)--([xshift=0.7cm,yshift=0.3cm]process_2.center)--([xshift=0.7cm,yshift=0.8cm]process_2.center)--([xshift=1cm,yshift=0.8cm]process_2.center)--([xshift=1cm,yshift=0.2cm]process_2.center)--([xshift=1.3cm,yshift=0.2cm]process_2.center)--([xshift=1.3cm,yshift=0.6cm]process_2.center)--([xshift=1.6cm,yshift=0.6cm]process_2.center)--([xshift=1.6cm,yshift=-0.3cm]process_2.center)--([xshift=1.8cm,yshift=-0.3cm]process_2.center)--([xshift=1.8cm,yshift=0.3cm]process_2.center)--([xshift=2cm,yshift=0.3cm]process_2.center);
+
+\node(text1)[left of = process_1,xshift=-3.2cm,yshift=-0.5cm,align=center]{模拟\\语音信号};
+\node(text2)[right of = process_1,xshift=3.3cm,yshift=-0.5cm,align=center]{离散\\时间信号};
+\node(text3)[right of = process_2,xshift=3.2cm,yshift=-0.5cm,align=center]{数字离散\\时间信号};
+
+\draw[->,very thick](process_1.east)to(process_2.west);
+\draw[->,very thick]([xshift=-1.8cm]process_1.west)to(process_1.west);
+\draw[->,very thick](process_2.east)to([xshift=1.8cm]process_2.east);
+%%%%音频
+\node(signal)[right of = process_2,xshift=5.5cm]{};
+\node(text_3)[below of = signal,yshift=-1.98cm,scale=1.3]{语音信号};
+\draw[-,thick,]([xshift=-1.2cm]signal.center)--([xshift=1.2cm]signal.center);
+\draw[-,thick]([xshift=-1cm,yshift=-0.8cm]signal.center)--([xshift=-0.9cm,yshift=0.4cm]signal.center)--([xshift=-0.8cm,yshift=-0.3cm]signal.center)--([xshift=-0.7cm,yshift=0.7cm]signal.center)--([xshift=-0.6cm,yshift=-0.1cm]signal.center)--([xshift=-0.5cm,yshift=0.3cm]signal.center)--([xshift=-0.4cm,yshift=-0.5cm]signal.center)--([xshift=-0.3cm,yshift=0.7cm]signal.center)--([xshift=-0.2cm,yshift=-0.2cm]signal.center)--([xshift=-0.1cm,yshift=0.4cm]signal.center)--([xshift=0cm,yshift=-0.9cm]signal.center)--([xshift=0.1cm,yshift=0.5cm]signal.center)--([xshift=0.2cm,yshift=-0.4cm]signal.center)--([xshift=0.3cm,yshift=0.3cm]signal.center)--([xshift=0.4cm,yshift=-0.2cm]signal.center)--([xshift=0.5cm,yshift=0.1cm]signal.center)--([xshift=0.6cm,yshift=-0.8cm]signal.center)--([xshift=0.7cm,yshift=0.4cm]signal.center)--([xshift=0.8cm,yshift=-0.6cm]signal.center)--([xshift=0.9cm,yshift=0.7cm]signal.center)--([xshift=1cm,yshift=-0.2cm]signal.center);
+\end{tikzpicture}

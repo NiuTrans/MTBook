@@ -1,0 +1,68 @@
+\begin{tikzpicture}
+
+
+\tikzstyle{bignode} = [,inner sep=0.3em,draw=black,line width=0.6pt,rounded corners=2pt,minimum width=3.0em]
+
+
+\node [anchor=center] (node1-1) at (0,0) {\small{汉语}};
+\node [anchor=west] (node1-2) at ([xshift=0.8em]node1-1.east) {\small{英语}};
+\node [anchor=north] (node1-3) at ([xshift=1.75em]node1-1.south) {\small{反向翻译模型}};
+\draw [->,thick](node1-1.east)--(node1-2.west);
+
+\begin{pgfonlayer}{background}
+{
+\node[fill=blue!20,inner sep=0.3em,draw=black,line width=0.6pt,minimum width=6.0em,drop shadow,rounded corners=2pt] [fit =(node1-1)(node1-2)(node1-3)]  (remark1) {};
+}
+\end{pgfonlayer}
+
+
+\node [anchor=north,fill=green!20,bignode](node2-1) at ([yshift=-3em]node1-3.south){\small{汉语}};
+\node [anchor=north,fill=green!20,bignode](node2-2) at (node2-1.south){\small{英语}};
+\draw [->,thick](node2-1.north)--(remark1.south) node [pos=0.5,right] (pos1) {\small{训练}};
+
+
+\node [anchor=west,fill=yellow!20,bignode](node3-1) at ([xshift=6.5em,yshift=0.0em]node1-2.east){\small{汉语}};
+\node [anchor=north,fill=red!20,bignode](node3-2) at ([yshift=-2.5em]node3-1.south){\small{英语}};
+\node [anchor=center](node3-3) at ([xshift=0.4em]node3-2.east){};
+
+\draw [->,thick](node3-1.south)--(node3-2.north) node [pos=0.5,right] (pos2) {\small{翻译}};
+
+\begin{pgfonlayer}{background}
+{
+\node[rounded corners=2pt,inner sep=0.3em,draw=black,line width=0.6pt,dotted] [fit =(node3-1)(node3-2)(node3-3)]  (remark2) {};
+}
+\end{pgfonlayer}
+
+\draw [->,thick](remark1.east)--([xshift=5.5em]remark1.east) node [pos=0.5,above] (pos2) {\small{模型翻译}};
+\node [anchor=south](pos2-2) at ([yshift=-0.5em]pos2.north){\small{使用反向}};
+
+\draw[decorate,thick,decoration={brace,amplitude=5pt}] ([yshift=1.5em,xshift=1.5em]node3-1.east) -- ([yshift=-8.6em,xshift=1.5em]node3-1.east) node [pos=0.1,right,xshift=0.0em,yshift=0.0em] (label1) {\small{{混合}}};
+
+
+\node [anchor=west,fill=red!20,bignode](node4-1) at ([xshift=2.5em,yshift=1.3em]node3-2.east){\small{英语}};
+\node [anchor=north,fill=yellow!20,bignode](node4-2) at (node4-1.south){\small{汉语}};
+\node [anchor=west,fill=green!20,bignode](node4-3) at (node4-1.east){\small{英语}};
+\node [anchor=north,fill=green!20,bignode](node4-4) at (node4-3.south){\small{汉语}};
+
+
+\node [anchor=center] (node5-1) at ([xshift=5em,yshift=0.02em]node4-3.east) {\small{英语}};
+\node [anchor=west] (node5-2) at ([xshift=0.8em]node5-1.east) {\small{汉语}};
+\node [anchor=north] (node5-3) at ([xshift=1.65em]node5-1.south) {\small{正向翻译模型}};
+\draw [->,thick](node5-1.east)--(node5-2.west);
+
+\begin{pgfonlayer}{background}
+{
+\node[fill=blue!20,inner sep=0.3em,draw=black,line width=0.6pt,minimum width=6.0em,drop shadow,rounded corners=2pt] [fit =(node5-1)(node5-2)(node5-3)]  (remark3) {};
+}
+\end{pgfonlayer}
+
+\draw [->,thick]([xshift=-3.2em]remark3.west)--(remark3.west) node [pos=0.5,above] (pos3) {\small{训练}};
+
+\node [anchor=south](d1) at ([xshift=-1.5em,yshift=1em]remark1.north){\small{真实双语数据：}};
+\node [anchor=west](d2) at ([xshift=2.0em]d1.east){\small{伪数据：}};
+\node [anchor=west](d3) at ([xshift=2.0em]d2.east){\small{额外单语数据：}};
+\node [anchor=west,fill=green!20,minimum width=1.5em](d1-1) at ([xshift=-0.0em]d1.east){};
+\node [anchor=west,fill=red!20,minimum width=1.5em](d2-1) at ([xshift=-0.0em]d2.east){};
+\node [anchor=west,fill=yellow!20,minimum width=1.5em](d3-1) at ([xshift=-0.0em]d3.east){};
+
+\end{tikzpicture}

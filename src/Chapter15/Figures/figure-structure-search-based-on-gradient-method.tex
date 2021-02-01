@@ -1,0 +1,18 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\tikzstyle{node}=[minimum height=6em,inner sep=4pt,align=left,draw,font=\footnotesize,rounded corners=4pt,thick,drop shadow]
+
+\node[node,fill=orange!30] (n1) at (0,0){\scriptsize\bfnew{超网络}： \\ [1ex] 模型结构参数 \\[0.4ex] 网络参数};
+\node[anchor=west,node,fill=yellow!30] (n2) at ([xshift=4em]n1.east){\scriptsize\bfnew{优化后的超网络}： \\ [1ex]模型{\color{red}结构参数}（已优化） \\ [0.4ex]网络参数（已优化）};
+\node[anchor=west,node,fill=red!30] (n3) at ([xshift=6em]n2.east){\scriptsize\bfnew{找到的模型结构}};
+
+\draw[-latex,thick] (n1.0) -- node[above,align=center,font=\scriptsize]{优化后的\\超网络}(n2.180);
+\draw[-latex,thick] (n2.0) -- node[above,align=center,font=\scriptsize]{根据结构参数\\离散化结构}(n3.180);
+\draw[-latex,out=90,in=100,thick] ([xshift=-2em]n1.90) to node[above,font=\scriptsize]{参数优化}([xshift=2em]n1.90);
+\end{tikzpicture}
+
+
+
+

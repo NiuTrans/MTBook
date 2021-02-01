@@ -1,0 +1,110 @@
+\begin{tikzpicture}
+
+\tikzstyle{embedding} = [line width=0.6pt,draw=black,minimum width=2.5em,minimum height=1.6em,fill=green!20]
+\tikzstyle{model} = [line width=0.6pt,draw=black,minimum width=3.0em,minimum height=1.6em,fill=blue!20,rounded corners=2pt]
+
+\node [anchor=center,model] (node1-1) at (0,0) {\footnotesize{TRM}};
+\node [anchor=west,model] (node1-2) at ([xshift=1.8em]node1-1.east) {\footnotesize{TRM}};
+\node [anchor=west,scale=1.8] (node1-3) at ([xshift=1.0em]node1-2.east) {...};
+\node [anchor=west,model] (node1-4) at ([xshift=1.0em]node1-3.east) {\footnotesize{TRM}};
+\node [anchor=west,model] (node1-5) at ([xshift=2.0em]node1-4.east) {\footnotesize{TRM}};
+\node [anchor=west,model] (node1-6) at ([xshift=1.8em]node1-5.east) {\footnotesize{TRM}};
+\node [anchor=west,scale=1.8] (node1-7) at ([xshift=1.0em]node1-6.east) {...};
+\node [anchor=west,model] (node1-8) at ([xshift=1.0em]node1-7.east) {\footnotesize{TRM}};
+
+\node [anchor=north,embedding] (node0-1) at ([yshift=-2em]node1-1.south){\footnotesize{$\mathbi{e}_1$}};
+\node [anchor=north,embedding] (node0-2) at ([yshift=-2em]node1-2.south){\footnotesize{$\mathbi{e}_2$}};
+\node [anchor=west,scale=1.8] (node0-3) at ([xshift=1.25em]node0-2.east){...};
+\node [anchor=north,embedding] (node0-4) at ([yshift=-2em]node1-4.south){\footnotesize{$\mathbi{e}_n$}};
+
+\node [anchor=south,model](node2-1) at ([yshift=1.8em]node1-1.north){\footnotesize{TRM}};
+\node [anchor=south,model](node2-2) at ([yshift=1.8em]node1-2.north){\footnotesize{TRM}};
+\node [anchor=west,scale=1.8](node2-3) at ([xshift=1.0em]node2-2.east){...};
+\node [anchor=south,model](node2-4) at ([yshift=1.8em]node1-4.north){\footnotesize{TRM}};
+\node [anchor=south,model](node2-5) at ([yshift=1.8em]node1-5.north){\footnotesize{TRM}};
+\node [anchor=south,model](node2-6) at ([yshift=1.8em]node1-6.north){\footnotesize{TRM}};
+\node [anchor=west,scale=1.8](node2-7) at ([xshift=1.0em]node2-6.east){...};
+\node [anchor=south,model](node2-8) at ([yshift=1.8em]node1-8.north){\footnotesize{TRM}};
+
+\draw [->,thick](node1-1.north)--(node2-1.south);
+\draw [->,thick](node1-2.north)--(node2-2.south);
+\draw [->,thick](node1-4.north)--(node2-4.south);
+
+\begin{pgfonlayer}{background}
+{
+\node[fill=white,inner sep=0.5em,draw=black,line width=0.6pt,minimum width=6.0em,rounded corners=2pt,dashed] [fit =(node1-1)(node1-2)(node1-3)(node1-4)(node2-1)] (remark1) {};
+}
+\end{pgfonlayer}
+
+\begin{pgfonlayer}{background}
+{
+\node[fill=white,inner sep=0.5em,draw=black,line width=0.6pt,minimum width=6.0em,rounded corners=2pt,dashed] [fit =(node1-5)(node1-6)(node1-7)(node1-8)(node2-8)] (remark2) {};
+}
+\end{pgfonlayer}
+
+\draw [->,thick](node0-1.north)--(node1-1.south);
+\draw [->,thick](node0-1.north)--([xshift=-0.15em,yshift=-0.05em]node1-2.south);
+\draw [->,thick](node0-1.north)--([xshift=-0.4em,yshift=-0.05em]node1-4.south);
+\draw [->,thick](node0-2.north)--(node1-2.south);
+\draw [->,thick](node0-2.north)--([xshift=-0.15em,yshift=-0.05em]node1-4.south);
+\draw [->,thick](node0-4.north)--(node1-4.south);
+
+\draw [->,thick](node1-1.north)--(node2-1.south);
+\draw [->,thick](node1-1.north)--([xshift=-0.15em,yshift=-0.05em]node2-2.south);
+\draw [->,thick](node1-1.north)--([xshift=-0.4em,yshift=-0.05em]node2-4.south);
+\draw [->,thick](node1-2.north)--(node2-2.south);
+\draw [->,thick](node1-2.north)--([xshift=-0.15em,yshift=-0.05em]node2-4.south);
+\draw [->,thick](node1-4.north)--(node2-4.south);
+
+\node [anchor=south,embedding,fill=yellow!20](node3-1) at ([yshift=2em]node2-1.north){\footnotesize{$\seq{P}_1$}};
+\node [anchor=south,embedding,fill=yellow!20] (node3-2) at ([yshift=2em]node2-2.north){\footnotesize{$\seq{P}_2$}};
+\node [anchor=west,scale=1.8] (node3-3) at ([xshift=1.25em]node3-2.east){...};
+\node [anchor=south,embedding,fill=yellow!20](node3-4) at ([yshift=2em]node2-4.north){\footnotesize{$\seq{P}_n$}};
+
+\draw [<-,thick](node3-1.south)--(node2-1.north);
+\draw [<-,thick](node3-2.south)--(node2-2.north);
+\draw [<-,thick](node3-4.south)--(node2-4.north);
+
+%%%%%%%%%bert
+\node [anchor=north,embedding] (node0-5) at ([yshift=-2em]node1-5.south){\footnotesize{$\mathbi{e}_1$}};
+\node [anchor=north,embedding] (node0-6) at ([yshift=-2em]node1-6.south){\footnotesize{$\mathbi{e}_2$}};
+\node [anchor=west,scale=1.8] (node0-7) at ([xshift=1.25em]node0-6.east){...};
+\node [anchor=north,embedding] (node0-8) at ([yshift=-2em]node1-8.south){\footnotesize{$\mathbi{e}_n$}};
+
+\node [anchor=south,embedding,fill=yellow!20](node3-5) at ([yshift=2em]node2-5.north){\footnotesize{$\seq{P}_1$}};
+\node [anchor=south,embedding,fill=yellow!20] (node3-6) at ([yshift=2em]node2-6.north){\footnotesize{$\seq{P}_2$}};
+\node [anchor=west,scale=1.8] (node3-7) at ([xshift=1.25em]node3-6.east){...};
+\node [anchor=south,embedding,fill=yellow!20](node3-8) at ([yshift=2em]node2-8.north){\footnotesize{$\seq{P}_n$}};
+
+\draw [->,thick](node0-5.north)--(node1-5.south);
+\draw [->,thick](node0-5.north)--([xshift=-0.15em,yshift=-0.05em]node1-6.south);
+\draw [->,thick](node0-5.north)--([xshift=-0.15em,yshift=-0.05em]node1-8.south);
+\draw [->,thick](node0-6.north)--([xshift=0.15em,yshift=-0.05em]node1-5.south);
+\draw [->,thick](node0-6.north)--(node1-6.south);
+\draw [->,thick](node0-6.north)--([xshift=-0.4em,yshift=-0.05em]node1-8.south);
+\draw [->,thick](node0-8.north)--([xshift=0.4em,yshift=-0.05em]node1-5.south);
+\draw [->,thick](node0-8.north)--([xshift=0.15em,yshift=-0.05em]node1-6.south);
+\draw [->,thick](node0-8.north)--(node1-8.south);
+
+\draw [->,thick](node1-5.north)--(node2-5.south);
+\draw [->,thick](node1-5.north)--([xshift=-0.15em,yshift=-0.05em]node2-6.south);
+\draw [->,thick](node1-5.north)--([xshift=-0.15em,yshift=-0.05em]node2-8.south);
+\draw [->,thick](node1-6.north)--([xshift=0.15em,yshift=-0.05em]node2-5.south);
+\draw [->,thick](node1-6.north)--(node2-6.south);
+\draw [->,thick](node1-6.north)--([xshift=-0.4em,yshift=-0.05em]node2-8.south);
+\draw [->,thick](node1-8.north)--([xshift=0.4em,yshift=-0.05em]node2-5.south);
+\draw [->,thick](node1-8.north)--([xshift=0.15em,yshift=-0.05em]node2-6.south);
+\draw [->,thick](node1-8.north)--(node2-8.south);
+
+\draw [<-,thick](node3-5.south)--(node2-5.north);
+\draw [<-,thick](node3-6.south)--(node2-6.north);
+\draw [<-,thick](node3-8.south)--(node2-8.north);
+
+\node [anchor=north] (pos1) at ([xshift=1.5em,yshift=-1.0em]node0-2.south) {\small{(a) GPT模型结构}};
+\node [anchor=north] (pos2) at ([xshift=1.5em,yshift=-1.0em]node0-6.south) {\small{(b) BERT模型结构}};
+
+\node [anchor=south] (ex) at ([xshift=2.1em,yshift=0.5em]node3-1.north) {\small{TRM：标准Transformer模块}};
+
+
+
+\end{tikzpicture}

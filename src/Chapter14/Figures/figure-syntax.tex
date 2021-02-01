@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+\tikzstyle{encoder} = [rectangle,thick,rounded corners,minimum width=1.9cm,minimum height=1.2cm,text centered,draw=black,fill=red!25,drop shadow]
+\tikzstyle{autodecoder} = [rectangle,thick,rounded corners,minimum width=3cm,minimum height=1.2cm,text centered,draw=black,fill=blue!25,drop shadow]
+\tikzstyle{nonautodecoder} = [rectangle,thick,rounded corners,minimum width=4cm,minimum height=1.2cm,text centered,draw=black!70,fill=blue!25,drop shadow]
+
+\node (encoder)[encoder] at (0,0) {编码器};
+%\node (des)[anchor=north] at ([yshift=2cm]encoder.north) {<Mask>：<Mask>};
+\node (text_left)[anchor=south] at ([yshift=-3em]encoder.south) {\footnotesize{猫/在/熟睡/。}};
+\node (autodecoder)[autodecoder,right of=encoder,xshift=6em ] {自回归解码器};
+\node (text_mid1)[anchor=north] at ([yshift=3em]autodecoder.north) {\scriptsize{NP1\ VP3\ PU1\ <eos>}};
+\node (text_mid2)[anchor=south] at ([yshift=-3em]autodecoder.south) {\scriptsize{<sos>\ NP1\ VP3\ PU1}};
+\node (nonautodecoder)[nonautodecoder,right of=autodecoder,xshift=12.5em] {非自回归解码器};
+\node (text_right1)[anchor=north] at ([yshift=3em]nonautodecoder.north) {\scriptsize{NP1\;Cats\;VP3\;sleep\;a\;lot\;PU1\;.}};
+\node (text_right2)[anchor=south] at ([yshift=-3em]nonautodecoder.south) {\scriptsize{NP1\;<Mask>\;VP3\;<Mask>\;<Mask>\;<Mask>\;PU1\;<Mask>}};
+
+\draw[->,thick] (encoder.east) to (autodecoder.west);
+\draw[->,thick] ([yshift=0.1em]text_left.north) to (encoder.south);
+\draw[->,thick] ([yshift=0.1em]text_mid2.north) to (autodecoder.south);
+\draw[->,thick] (autodecoder.north) to ([yshift=-0.1em]text_mid1.south);
+\draw[->,thick] ([yshift=0.1em]text_right2.north) to (nonautodecoder.south);
+\draw[->,thick] (nonautodecoder.north) to ([yshift=-0.1em]text_right1.south);
+\draw[->,thick] (text_mid1.east) -- ([xshift=1.4em]text_mid1.east) -- ([xshift=-1.2em]text_right2.west)-- (text_right2.west);
+\draw[-,thick] (encoder.north) to ([yshift=0.8em]encoder.north);
+\draw[-,thick,dashed] ([yshift=0.8em]encoder.north) -- ([xshift=-7.7em,yshift=0.8em]nonautodecoder.north) --([xshift=-2.5em]nonautodecoder.west);
+\draw[->,thick] ([xshift=-2.5em]nonautodecoder.west) -- (nonautodecoder.west);
+\end{tikzpicture}

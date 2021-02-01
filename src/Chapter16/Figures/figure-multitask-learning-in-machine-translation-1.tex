@@ -1,0 +1,40 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\tikzstyle{rec} = [line width=0.6pt,draw,rounded corners,minimum height=2.2em,minimum width=4.3em]
+
+
+
+\node [anchor=center] (node1-1) at (0,0) {\small{$y$}};
+\node[anchor=north,rec,fill=blue!20](node1-2) at ([yshift=-2.0em]node1-1.south) {\small{解码器}};
+\node[anchor=north,rec,fill=red!20](node1-3) at ([yshift=-2em]node1-2.south) {\small{编码器}};
+\node[anchor=east](node1-5) at ([xshift=-2em]node1-2.west) {\small{$y_{<}$}};
+\node[anchor=north](node1-4) at ([yshift=-2em]node1-3.south) {\small{$x$}};
+\draw [->,thick](node1-4.north)--(node1-3.south);
+\draw [->,thick](node1-5.east)--(node1-2.west);
+\draw [->,thick](node1-3.north)--(node1-2.south);
+\draw [->,thick](node1-2.north)--(node1-1.south);
+
+\node [anchor=center] (node2-1) at ([xshift=12.0em]node1-1.east) {\small{$y$}};
+\node[anchor=north,rec,fill=blue!20](node2-2) at ([yshift=-2.0em]node2-1.south) {\small{解码器}};
+\node[anchor=north,rec,fill=red!20](node2-3) at ([yshift=-2em]node2-2.south) {\small{编码器}};
+\node[anchor=east](node2-5) at ([xshift=-2em]node2-2.west) {\small{$y_{<}$}};
+\node[anchor=north](node2-4) at ([yshift=-2em]node2-3.south) {\small{$x$}};
+\node[anchor=west,rec,fill=yellow!20](node2-6) at ([xshift=3.0em]node2-3.east) {\small{解码器}};
+\node[anchor=south](node2-7) at ([yshift=2em]node2-6.north) {\small{$\hat{x}$}};
+
+\draw [->,thick](node2-4.north)--(node2-3.south);
+\draw [->,thick](node2-5.east)--(node2-2.west);
+\draw [->,thick](node2-3.north)--(node2-2.south);
+\draw [->,thick](node2-2.north)--(node2-1.south)node[pos=0.5,left,font=\scriptsize]{翻译};
+\draw [->,thick](node2-3.east)--(node2-6.west);
+\draw [->,thick](node2-6.north)--(node2-7.south)node[pos=0.5,left,font=\scriptsize]{调整语序};
+
+\node [anchor=east] (node1) at ([xshift=-2.0em]node1-1.west) {\small{$x,y$：双语数据}};
+\node [anchor=south] (node2) at ([xshift=1.96em]node1.north) {\small{$y_{<}$：目标语言文本数据}};
+
+\node [anchor=north](pos1) at ([yshift=0em]node1-4.south) {\small{(a)单任务学习}};
+\node [anchor=west](pos2) at ([xshift=10.0em]pos1.east) {\small{(b)多任务学习}};
+
+\end{tikzpicture}

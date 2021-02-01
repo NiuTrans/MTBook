@@ -1,0 +1,31 @@
+
+\begin{tikzpicture}
+
+\node [anchor=north west] (part1) at (0,0) {\small{$\begin{bmatrix} \textrm{Have} \; 0.5 \\ \textrm{Has} \ \  \; 0.1 \\ . \\ . \\ . \\ . \\ . \end{bmatrix}$}};
+\node [anchor=north](p1) at ([yshift=-0.3em]part1.south) {$P_1$};
+\node [anchor=west](part2) at ([xshift=0.8em]part1.east){\small{$\begin{bmatrix} \textrm{Have} \; 0.2 \\ \textrm{Has} \ \ \; 0.3 \\ . \\ . \\ . \\ . \\ . \end{bmatrix}$}};
+\node [anchor=north](p2) at ([yshift=-0.3em]part2.south) {$P_2$};
+\node [anchor=west](part3) at ([xshift=0.8em]part2.east){\small{$\begin{bmatrix} \textrm{Have} \; 0.4 \\ \textrm{Has} \ \ \; 0.3 \\ . \\ . \\ . \\ . \\ . \end{bmatrix}$}};
+\node [anchor=north](p3) at ([yshift=-0.3em]part3.south) {$P_3$};
+\node [anchor=west](part4) at ([xshift=0.8em]part3.east){\huge{$\Rightarrow$}};
+\node [anchor=west](part5) at ([xshift=0.8em]part4.east){\small{$\begin{bmatrix} \textrm{Have} \; 0.37 \\ \textrm{Has} \ \ \; 0.23 \\ . \\ . \\ . \\ . \\ . \end{bmatrix}$}};
+\node [anchor=north](p5) at (part5.south) {$P=\sum\limits_{i=1}^{3}{\frac{1}{3}P_{i}}$};
+
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

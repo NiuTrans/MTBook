@@ -1,0 +1,54 @@
+\definecolor{beige}{rgb}{0.96, 0.96, 0.86}
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+\definecolor{brown(traditional)}{rgb}{0.59, 0.29, 0.0}
+\definecolor{taupegray}{rgb}{0.55, 0.52, 0.54}
+\definecolor{bananamania}{rgb}{0.98, 0.91, 0.71}
+\definecolor{beaublue}{rgb}{0.74, 0.83, 0.9}
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+	\tikzstyle{module} = [draw,very thick,rounded corners=2pt,inner ysep=8pt,font=\footnotesize,align=center,fill=yellow!25]
+	\tikzstyle{box} = [draw=taupegray,very thick,rounded corners=4pt,inner ysep=4pt,inner xsep=8pt,fill=ugreen!25,drop shadow];
+	\tikzstyle{line} = [very thick,->];
+	
+	
+	\node[module, minimum width=8em] (encoder) at (0,0) {编码器组件};
+	\node[module,anchor=west, minimum width=8em] (decoder) at ([xshift=4em]encoder.east){解码器组件};
+	\node[module,anchor=west, minimum width=8em] (decoder2) at ([xshift=4em]decoder.east){解码器组件};
+	\node[module,anchor=north, minimum width=6em,font=\scriptsize,inner ysep=4pt] (deinput) at ([yshift=-2em]decoder2.south){解码器输入};
+	\node[anchor=south,font=\footnotesize] (mod1) at ([yshift=0.4em]encoder.north){\small\bfnew{编码器模块}};
+	\node[anchor=south,font=\footnotesize] (mod2) at ([yshift=0.4em]decoder.north){\small\bfnew{调序模块}};
+	\node[anchor=south,font=\footnotesize] (mod3) at ([yshift=0.4em]decoder2.north){\small\bfnew{解码器模块}};
+	
+\begin{pgfonlayer}{background}
+{
+\node[box][fit=(encoder)(mod1)] (box1) {};
+\node[box][fit=(decoder)(mod2)] (box2) {};
+\node[box][fit=(decoder2)(mod3)] (box3) {};
+}
+\end{pgfonlayer}
+	\node[anchor=north,font=\scriptsize,align=center] (w1) at ([yshift=-2em]encoder.south){\scriptsize\bfnew{There exist different} \\ \scriptsize\bfnew{opinions on this question .}};
+	\node[anchor=north,font=\scriptsize,align=center] (w2) at ([yshift=-2em]decoder.south){\scriptsize\bfnew{There exist different} \\ \scriptsize\bfnew{opinions on this question .}};
+	\node[anchor=north,font=\scriptsize,text=gray] (w3) at ([yshift=0.6em]w2.south){\scriptsize\bfnew{（复制源语言句子）}};
+	\node[anchor=south,font=\scriptsize,align=center] (w4) at ([yshift=1.6em]box2.north){\scriptsize\bfnew{on this question} \\ \scriptsize\bfnew{There exist different opinions .}};
+	\node[anchor=south,font=\scriptsize,align=center] (w5) at ([yshift=1.6em]box3.north){\tiny\bfnew{对/这个/问题/存在/不同/的/看法/。}};
+	\node[font=\tiny] at ([xshift=-0.8em,yshift=-0.6em]encoder.east) {$N\times$};
+	\node[font=\tiny] at ([xshift=-0.8em,yshift=-0.6em]decoder.east) {$1\times$};
+	\node[font=\tiny] at ([xshift=-1.2em,yshift=-0.6em]decoder2.east) {$N-1\times$};
+	
+	\draw[line] (w1.north) -- (box1.south);
+	\draw[line] (w2.north) -- (box2.south);
+	\draw[line] (box2.north) -- (w4.south);
+	\draw[line] (box3.north) -- (w5.south);
+	\draw[line] (deinput.north) -- (box3.south);
+	\draw[line] (box1.east) -- (box2.west);
+	\draw[line] (box2.east) -- (box3.west);
+	\draw[line,rounded corners=2pt,dotted,brown(traditional)] (w1.south) -- ([yshift=-1.6em]w1.south) -- ([yshift=-2.3em]deinput.south) -- (deinput.south);
+	\draw[line,rounded corners=2pt,dotted,brown(traditional)] (w4.east) -- ([xshift=0.9em]w4.east) -- ([xshift=-2.7em]deinput.west) -- (deinput.west);
+
+
+\end{tikzpicture}
+
+
+
+

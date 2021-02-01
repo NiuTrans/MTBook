@@ -1,0 +1,48 @@
+\definecolor{cocoabrown}{rgb}{0.82, 0.41, 0.12}
+\begin{tikzpicture}
+
+\tikzstyle{system} = [rectangle,thick,minimum width=1.2cm,minimum height=0.6cm,font=\scriptsize];
+\tikzstyle{output} = [rectangle,thick,rounded corners=3pt,minimum width=1.2cm,align=center,font=\scriptsize];
+
+\begin{scope}[local bounding box=MULTIPLE]
+    \node [system,fill=yellow!30,draw] (engine3) at (0,0) {系统 $n$};
+    \node [system,fill=green!20,draw,anchor=south] (engine2) at ([yshift=0.6cm]engine3.north) {系统 $2$};
+    \node [system,fill=red!20,draw,anchor=south] (engine1) at ([yshift=0.3cm]engine2.north) {系统 $1$};
+
+    \node [output,fill=yellow!30,draw,anchor=west] (output3) at ([xshift=0.5cm]engine3.east) {输出 $n$};
+    \node [output,fill=green!20,draw,anchor=west] (output2) at ([xshift=0.5cm]engine2.east) {输出 $2$};
+    \node [output,fill=red!20,draw,anchor=west] (output1) at ([xshift=0.5cm]engine1.east) {输出 $1$};
+
+    \draw [very thick,decorate,decoration={brace}] ([xshift=3pt]output1.north east) to node [midway,name=final] {} ([xshift=3pt]output3.south east);
+
+    \node [output,fill=cocoabrown!20,draw,minimum width=1cm,right=3pt of final,minimum height=2.5em] () {最终\\输出};
+
+    \draw [->,very thick] (engine1) to (output1);
+    \draw [->,very thick] (engine2) to (output2);
+    \draw [->,very thick] (engine3) to (output3);
+
+    \node [] () at ([yshift=0.4cm]output3.north) {$\vdots$};
+\end{scope}
+
+\begin{scope}[local bounding box=SINGLE]
+    \node [output,fill=green!20,draw,anchor=west] (output3) at ([xshift=5.5cm]output3.east) {输出 $n$};
+    \node [output,fill=green!20,draw,anchor=west] (output2) at ([xshift=5.5cm]output2.east) {输出 $2$};
+    \node [output,fill=green!20,draw,anchor=west] (output1) at ([xshift=5.5cm]output1.east) {输出 $1$};
+
+    \node [system,fill=green!20,draw,anchor=east,align=center,inner sep=1.9pt] (engine) at ([xshift=-0.5cm]output2.west) {单系统};
+
+    \draw [very thick,decorate,decoration={brace}] ([xshift=3pt]output1.north east) to node [midway,name=final] {} ([xshift=3pt]output3.south east);
+
+    \node [output,fill=cocoabrown!20,draw,minimum width=1cm,right=3pt of final,minimum height=2.5em] () {最终\\输出};
+
+    \draw [->,very thick] (engine.east) to (output1.west);
+    \draw [->,very thick] (engine.east) to (output2.west);
+    \draw [->,very thick] (engine.east) to (output3.west);
+
+    \node [] () at ([yshift=0.4cm]output3.north) {$\vdots$};
+\end{scope}
+
+\node [align=center,anchor=north,font=\small] () at ([yshift=-0.3cm]MULTIPLE.south) {\small{(a) 多系统输出结果融合}};
+\node [align=center,anchor=north,font=\small] () at ([yshift=-0.3cm]SINGLE.south) {\small{(b) 单系统多输出结果融合}};
+
+\end{tikzpicture}

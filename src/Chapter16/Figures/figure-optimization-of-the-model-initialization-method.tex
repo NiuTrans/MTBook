@@ -1,0 +1,41 @@
+\begin{tabular}{c c}
+
+\begin{tikzpicture}
+\begin{scope}
+% ,minimum height =1em,minimum width=2em
+\tikzstyle{circle} = [draw,black,line width=0.6pt,inner sep=3.5pt,rounded corners=4pt,minimum width=2em]
+\tikzstyle{word} = [inner sep=3.5pt]
+
+\node[circle,fill=red!20](data) at (0,0) {\small{数据}};
+\node[circle,fill=blue!20](model) at ([xshift=5em]data.east) {\small{模型}};
+\node[word] (init) at ([xshift=-5em]data.west){\small{初始化}};
+
+\draw[->,thick] (init.east) -- ([xshift=-0.2em]data.west);
+\draw [->,thick] ([yshift=1pt]data.north) .. controls +(90:2em) and +(90:2em) .. ([yshift=1pt]model.north) node[above,midway] {\small{参数优化}};
+\draw [->,thick] ([yshift=1pt]model.south) .. controls +(-90:2em) and +(-90:2em) .. ([yshift=1pt]data.south) node[below,midway] {\small{数据优化}};
+
+\node[word] at ([xshift=-0.5em,yshift=-4em]data.south){\small{(a) 基于数据的初始化}};
+
+\end{scope}
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+\begin{scope}
+% ,minimum height =1em,minimum width=2em
+\tikzstyle{circle} = [draw,black,line width=0.6pt,inner sep=3.5pt,rounded corners=4pt,minimum width=2em]
+\tikzstyle{word} = [inner sep=3.5pt]
+
+\node[circle,fill=red!20](data) at (0,0) {\small{数据}};
+\node[circle,fill=blue!20](model) at ([xshift=5em]data.east) {\small{模型}};
+\node[word] (init) at ([xshift=5em]model.east){\small{初始化}};
+
+\draw[->,thick] (init.west) -- ([xshift=0.2em]model.east);
+\draw [->,thick] ([yshift=1pt]data.north) .. controls +(90:2em) and +(90:2em) .. ([yshift=1pt]model.north) node[above,midway] {\small{参数优化}};
+\draw [->,thick] ([yshift=1pt]model.south) .. controls +(-90:2em) and +(-90:2em) .. ([yshift=1pt]data.south) node[below,midway] {\small{数据优化}};
+
+\node[word] at ([xshift=-0.5em,yshift=-4em]model.south){\small{(b) 基于模型的初始化}};
+
+\end{scope}
+\end{tikzpicture}
+
+\end{tabular}

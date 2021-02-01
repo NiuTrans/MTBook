@@ -1,0 +1,46 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\tikzstyle{node}=[minimum height=2em,minimum width=4.6em,rounded corners=2pt,thick,font=\footnotesize]
+
+\node[node,draw,fill=green!20] (n11) at (0,0) {模型结构1};
+\node[anchor=west,draw,node,fill=red!20] (n12) at ([xshift=0.6em]n11.east){模型结构6};
+\node[anchor=north,draw,node,fill=orange!20] (n13) at ([yshift=-1em]n11.south){模型结构2};
+\node[anchor=west,draw,node,fill=blue!15] (n14) at ([xshift=0.6em]n13.east){模型结构5};
+\node[anchor=north,draw,node,fill=cyan!30] (n15) at ([yshift=-1em]n13.south){模型结构1};
+\node[anchor=west,draw,node,fill=yellow!20] (n16) at ([xshift=0.6em]n15.east){模型结构4};
+\node[inner sep=0pt] (kind) at (-0.7,0.8){\small\bfnew{种群}};
+
+\node[node,draw,fill=green!20] (n21) at (5,0){模型结构1};
+\node[anchor=west,draw,node,fill=red!20] (n22) at ([xshift=0.6em]n21.east){模型结构4};
+\node[anchor=north,node] (n23) at ([yshift=-1em]n21.south){};
+\node[anchor=west,node] (n24) at ([xshift=0.6em]n23.east){};
+\node[anchor=north,node] (n25) at ([yshift=-1em]n23.south){};
+\node[anchor=west,node] (n26) at ([xshift=0.6em]n25.east){};
+\node[inner sep=0pt] (choice) at (4.8,0.8){\small\bfnew{选中的亲本}};
+
+\node[node,draw,fill=green!20,dotted] (n31) at (10,0){模型结构1};
+\node[anchor=west,draw,node,fill=red!20,dotted] (n32) at ([xshift=0.6em]n31.east){模型结构4};
+\node[anchor=north,node] (n33) at ([yshift=-1em]n31.south){};
+\node[anchor=west,node] (n34) at ([xshift=0.6em]n33.east){};
+\node[anchor=north,draw,node,fill=green!40] (n35) at ([yshift=-1em]n33.south){模型结构1};
+\node[anchor=west,draw,node,fill=red!40] (n36) at ([xshift=0.6em]n35.east){模型结构1};
+\node[inner sep=0pt] (change) at (9.7,0.8){\small\bfnew{亲本变异}};
+
+\begin{pgfonlayer}{background}
+\node[rounded corners=4pt,draw,thick,fill=yellow!10,inner sep=4pt,drop shadow][fit=(kind)(n16)](box1){};
+\node[rounded corners=4pt,draw,thick,fill=yellow!10,inner sep=4pt,drop shadow][fit=(choice)(n26)](box2){};
+\node[rounded corners=4pt,draw,thick,fill=yellow!10,inner sep=4pt,drop shadow][fit=(change)(n36)](box3){};
+\end{pgfonlayer}
+
+\draw[->,very thick] (box1.0) -- (box2.180);
+\draw[->,very thick] (box2.0) -- (box3.180);
+\draw[->,very thick] (n31.-90) -- (n35.90);
+\draw[->,very thick] (n32.-90) -- (n36.90);
+\draw[->,very thick] (box3.-90) .. controls ([yshift=-2em,xshift=-1em]box3.-90) and ([yshift=-2em,xshift=1em]box1.-90) .. node[font=\scriptsize,below]{对变异后的结构进行性能评估，选择优秀的结构加入原始种群} (box1.-90);
+\end{tikzpicture}
+
+
+
+

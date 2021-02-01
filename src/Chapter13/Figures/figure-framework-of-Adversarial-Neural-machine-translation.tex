@@ -1,0 +1,38 @@
+
+%------------------------------------------------------------
+
+\begin{tikzpicture}
+
+\tikzstyle{rnnnode} = [draw,inner sep=4pt,minimum width=2em,minimum height=2em,rounded corners=1pt,fill=green!15]
+\tikzstyle{snode} = [draw,inner sep=4pt,minimum width=2em,minimum height=2em,rounded corners=1pt,fill=red!15]
+\tikzstyle{wode} = [inner sep=0pt,minimum width=2em,minimum height=2em,rounded corners=0pt]
+
+\node [anchor=west,wode] (n1) at (0,0) {$y$};
+\node [anchor=north west,wode] (n2) at ([xshift=3em,yshift=-2.5em]n1.south east) {$x$};
+\node [anchor=south west,rnnnode,thick] (n3) at ([xshift=8em,yshift=0.5em]n2.north east) {生成模型$G$};
+\node [anchor=south east,wode] (n4) at ([xshift=-2em,yshift=0em]n3.north west) {$\hat{y}$};
+\node [anchor=south,snode,thick] (n5) at ([xshift=0em,yshift=6em]n2.north) {判别网络$D$};
+\node [anchor=west,align=left,font=\small] (n6) at ([xshift=15em,yshift=-3em]n5.east) {根据$(\seq{x},\seq{\hat{y}})$生\\成奖励信号};
+
+
+\draw [->,thick] ([xshift=0em,yshift=-0.3em]n1.north)--([xshift=-0.3em,yshift=-0.1em]n5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.north)--([xshift=0em,yshift=-0.1em]n5.south);
+\draw [->,thick] ([xshift=0em,yshift=-0.5em]n4.north west)--([xshift=0.3em,yshift=-0.1em]n5.south);
+\draw [->,thick] ([xshift=0em,yshift=0em]n3.north)--([xshift=0em,yshift=1em]n3.north)--([xshift=0em,yshift=0em]n4.east);
+
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n5.east) --  ([xshift=12.9em,yshift=0em]n5.east) --  ([xshift=1em,yshift=0em]n3.east) --  ([xshift=0em,yshift=0em]n3.east);
+
+\draw [->,thick] ([xshift=0em,yshift=0em]n2.east) --  ([xshift=0em,yshift=-1.5em]n3.south) --  ([xshift=0em,yshift=0em]n3.south);
+
+\begin{pgfonlayer}{background}
+
+%\node [rectangle,inner sep=0.5em,rounded corners=5pt,very thick,dotted,draw=yellow] [fit = (n3) (n4)] (b1) {};
+%\node [rectangle,inner sep=0.5em,rounded corners=5pt,very thick,dotted,draw=red] [fit = (n5)] (b2) {};
+        
+\end{pgfonlayer}
+
+%\draw [->,thick] ([xshift=0em,yshift=0em]n3.south) .. controls +(south:1em) and +(north:1em) .. ([xshift=0em,yshift=0em]n5.north);
+
+
+\end{tikzpicture}

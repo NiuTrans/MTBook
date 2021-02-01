@@ -1,0 +1,96 @@
+\definecolor{taupegray}{rgb}{0.55, 0.52, 0.54}
+\definecolor{bananamania}{rgb}{0.98, 0.91, 0.71}
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+	\tikzstyle{layer} = [draw,thick, minimum width=7.5em,rounded corners=2pt,inner ysep=6pt,font=\footnotesize,align=center]
+	\tikzstyle{line} = [line width=1pt,->]
+	\tikzstyle{cir} = [draw,circle,minimum size=1em, thick,inner sep=0pt]
+	
+	%encoder
+	\node[layer,fill=red!20] (src_emb) at (0,0){\scriptsize\textbf{Embedding}};
+	\node[anchor=south,layer,fill=yellow!25] (src_sa) at ([yshift=3.7em]src_emb.north){\scriptsize\textbf{Self-attention}};
+	\node[anchor=south,layer,fill=orange!25] (src_ff) at ([yshift=1em]src_sa.north){\scriptsize\textbf{Feed Forward}};
+	\node[anchor=south,layer,fill=blue!25] (src_sf) at ([yshift=2.6em]src_ff.north){\scriptsize\textbf{Softmax}};
+	
+	%decoder
+	\node[anchor=west,layer,fill=red!20] (tgt_emb) at ([xshift=4.4em]src_emb.east){\scriptsize\textbf{Embedding}};
+	\node[anchor=south,layer,fill=yellow!25] (tgt_sa) at ([yshift=3.7em]tgt_emb.north){\scriptsize\textbf{Self-attention}};
+	\node[anchor=south,layer,fill=yellow!25] (tgt_pa) at ([yshift=1.5em]tgt_sa.north){\scriptsize\textbf{Positional Attention}};
+	\node[anchor=south,layer,draw=red,dashed,line width=2pt,minimum height=1.55em] (tgt_paa) at ([yshift=1.5em]tgt_sa.north){};
+	\node[anchor=south,layer,fill=yellow!25] (tgt_eda) at ([yshift=1.5em]tgt_pa.north){\scriptsize\textbf{Encoder-Decoder} \\  \scriptsize\textbf{Attention}};
+	\node[anchor=south,layer,fill=orange!25] (tgt_ff) at ([yshift=1em]tgt_eda.north){\scriptsize\textbf{Feed Forward}};
+	\node[anchor=south,layer,fill=green!25] (tgt_linear) at ([yshift=1.4em]tgt_ff.north){\scriptsize\textbf{Linear}};
+	\node[anchor=south,layer,fill=blue!25] (tgt_sf) at ([yshift=1em]tgt_linear.north){\scriptsize\textbf{Softmax}};
+	
+	\node[font=\footnotesize,anchor=south] (w3) at ([yshift=0.8em]src_sf.north){\scriptsize\textbf{2}};
+	\node[font=\footnotesize,anchor=east] (w2) at ([xshift=-0.5em]w3.west){\scriptsize\textbf{1}};
+	\node[font=\footnotesize,anchor=east] (w1) at ([xshift=-0.5em]w2.west){\scriptsize\textbf{1}};
+	\node[font=\footnotesize,anchor=west] (w4) at ([xshift=0.5em]w3.east){\scriptsize\textbf{0}};
+	\node[font=\footnotesize,anchor=west] (w5) at ([xshift=0.5em]w4.east){\scriptsize\textbf{1}};
+	\node[font=\footnotesize,anchor=south] (output) at ([yshift=1em]tgt_sf.north){\scriptsize\sffamily\bfseries{我们/完全/接受/ 它/ 。}};
+	\node[font=\footnotesize,anchor=north] (src) at ([yshift=-1em]src_emb.south){\scriptsize\textbf{We totally accept it .}};
+	\node[font=\footnotesize,anchor=north] (tgt) at ([yshift=-1em]tgt_emb.south){\scriptsize\textbf{We totally accept accept .}};
+	
+	\node[cir] (src_add) at (0,2.5em) {};
+	\node[cir,fill=orange!12] (src_pos) at (-2.5em,2.5em) {};
+	
+	\node[cir] (tgt_add) at (12em,2.5em) {};
+	\node[cir,fill=orange!12] (tgt_pos) at (14.5em,2.5em) {};
+	\node[cir,fill=orange!12] (tgt_pos2) at ([xshift=4.5em,yshift=-2.45em]tgt_pa.north) {};
+	\draw[line,rounded corners=2pt] (tgt_pos2.180) -- ([yshift=-0.8em]tgt_pa.south) -- (tgt_pa.south);
+	\draw[line,rounded corners=2pt] (tgt_pos2.180) -- ([xshift=1.8em,yshift=-0.8em]tgt_pa.south) -- ([xshift=1.8em]tgt_pa.south);
+	\draw[-,thick,] (tgt_pos2.180) .. controls ([xshift=0.8em,yshift=0.8em]tgt_pos2.180) and ([xshift=-0.8em,yshift=-0.8em]tgt_pos2.0) ..(tgt_pos2.0);
+	\draw[line,rounded corners=2pt] (tgt_sa.north) -- ([yshift=0.5em]tgt_sa.north) -- ([xshift=-1.8em,yshift=0.5em]tgt_sa.north)--([xshift=-1.8em]tgt_pa.south);
+	
+	\draw[-,thick] (src_add.90) -- (src_add.-90);
+	\draw[-,thick] (src_add.0) -- (src_add.180);
+	\draw[-,thick,] (src_pos.180) .. controls ([xshift=0.8em,yshift=0.8em]src_pos.180) and ([xshift=-0.8em,yshift=-0.8em]src_pos.0) ..(src_pos.0);
+	\draw[-,thick] (tgt_add.90) -- (tgt_add.-90);
+	\draw[-,thick] (tgt_add.0) -- (tgt_add.180);
+	\draw[-,thick,] (tgt_pos.180) .. controls ([xshift=0.8em,yshift=0.8em]tgt_pos.180) and ([xshift=-0.8em,yshift=-0.8em]tgt_pos.0) ..(tgt_pos.0);
+	
+	\draw[line] (src_emb.north) -- (src_add.south);
+	\draw[line] (src_add.north) -- (src_sa.south);
+	\draw[line] (src_sa.north) -- (src_ff.south);
+	\draw[line] (src_ff.north) -- (src_sf.south);
+	\draw[line] (tgt_emb.north) -- (tgt_add.south);
+	\draw[line] (tgt_add.north) -- (tgt_sa.south);
+	\draw[line] (tgt_eda.north) -- (tgt_ff.south);
+	\draw[line] (tgt_ff.north) -- (tgt_linear.south);
+	\draw[line] (tgt_linear.north) -- (tgt_sf.south);
+	\draw[line] (src_pos.0) -- (src_add.180);
+	\draw[line] (tgt_pos.180) -- (tgt_add.0);
+	\draw[line] (src_sf.north) -- (w3.south);
+	\draw[line] (tgt_sf.north) -- (output.south);
+	\draw[line] (src.north) -- (src_emb.south);
+	\draw[line] (tgt.north) -- (tgt_emb.south);
+	\draw[line,<->,out=-35,in=-145] ([xshift=-2em]src_sa.south) to ([xshift=2em]src_sa.south);
+	\draw[line, rounded corners=2pt] (src_ff.north) -- ([yshift=1.1em]src_ff.north) -- ([xshift=-2.4em,yshift=-0.8em]tgt_eda.south) -- ([xshift=-2.4em]tgt_eda.south);
+	\draw[line, rounded corners=2pt] (src_ff.north) -- ([yshift=1.1em]src_ff.north) -- ([yshift=-0.8em]tgt_eda.south) -- (tgt_eda.south);
+	\draw[line, rounded corners=2pt] (tgt_pa.north) -- ([yshift=0.5em]tgt_pa.north) -- ([yshift=0.5em,xshift=2.4em]tgt_pa.north) -- ([xshift=2.4em]tgt_eda.south);
+	\draw[line,<->,out=-35,in=-145] ([xshift=-2em]tgt_sa.south) to ([xshift=2em]tgt_sa.south);
+	
+\begin{pgfonlayer}{background}
+{
+\node[draw=taupegray,thick,fill=ugreen!15,inner sep=0pt,minimum height=7em,minimum width=9.5em,rounded corners=4pt,drop shadow] (box1) at (0em,6.9em){};
+\node[draw=taupegray,thick,fill=aliceblue,inner sep=0pt,minimum height=4.5em,minimum width=9.5em,rounded corners=4pt,drop shadow] (box2) at (0em,13.2em){};
+\node[draw=taupegray,thick,fill=blue!12,inner sep=0pt,minimum height=13.3em,minimum width=10.5em,rounded corners=4pt,drop shadow] (box3) at (12em,10.1em){};
+}
+\end{pgfonlayer}
+     \node[] at ([yshift=1.8em]box2.north){\normalsize{译文长度：5}};
+     \node[] at ([xshift=-2em,yshift=0.5em]box2.west){\normalsize{繁衍率}};
+     \node[] at ([xshift=-2em,yshift=-0.5em]box2.west){\normalsize{预测器}};
+     \node[] at ([xshift=-2em]box1.west){\normalsize{编码器}};
+	\node[] at ([xshift=-1em,yshift=-2.7em]box1.west){{$M \times$}};
+\node[] at ([xshift=2em]box3.east){\normalsize{解码器}};
+	\node[] at ([xshift=1em,yshift=-6em]box3.east){{$\times N$}};
+
+	\draw[line,dotted,rounded corners=4pt,violet] (box2.north) -- ([yshift=1em]box2.north) -- ([yshift=1em,xshift=5.8em]box2.north) -- ([xshift=-1.8em]tgt.west) -- (tgt.west);
+	\draw[line,-,dotted,rounded corners=4pt,violet] (src.east) -- ([xshift=-1.8em]tgt.west);
+\end{tikzpicture}
+
+
+
+
