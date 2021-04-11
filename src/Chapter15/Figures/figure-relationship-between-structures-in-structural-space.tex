@@ -1,0 +1,113 @@
+
+\begin{tikzpicture}
+\tikzstyle{node}=[minimum height=2.5em,minimum width=8em,draw,rounded corners=2pt,thick,drop shadow]
+\tikzstyle{labelnode}=[minimum height=1.8em]
+\tikzstyle{word}=[minimum height=1.8em,font=\scriptsize]
+
+\tikzfading[name=fadeouts, inner color=transparent!60,outer color=transparent!100]
+\tikzstyle{wordnodes}=[inner sep=0mm,font=\footnotesize,text=white]
+\tikzstyle{cnodes}=[path fading=fadeouts,minimum size=6em,fill=orange]
+
+\tikzfading[name=fadeoutn, inner color=transparent!30,outer color=transparent!100]
+\tikzstyle{wordnoden}=[inner sep=0mm,text=white]
+\tikzstyle{cnoden}=[path fading=fadeoutn,minimum size=9em,fill=orange]
+
+\tikzfading[name=fadeoutl, inner color=transparent!0,outer color=transparent!100]
+\tikzstyle{wordnodel}=[inner sep=0mm,font=\Large,text=white]
+\tikzstyle{cnodel}=[path fading=fadeoutl,minimum size=12em,fill=orange]
+
+\tikzstyle{attn}=[]
+\tikzstyle{rnn}=[minimum size=7em]
+\tikzstyle{cnn}=[minimum size=5em]
+
+
+
+
+\node[anchor=north west] (label) at (0,0){\small\bfnew{结构空间}};
+
+
+\node[anchor=north west,wordnodes] (w11) at ([xshift=-0em,yshift=-2.5em]label.south){Reformer};
+\node[anchor=north west,wordnodel] (w12) at ([xshift=0.2em,yshift=-1em]w11.south east){Transformer-XL};
+\node[anchor=north,wordnodel] (w13) at ([xshift=-1.5em,yshift=-0.5em]w12.south){Transformer-DLCL};
+\node[anchor=north,wordnodes] (w14) at ([xshift=-1em,yshift=-0.5em]w13.south){Transformer};
+\node[anchor=north west,wordnodel] (w15) at ([xshift=2em,yshift=-0.5em]w14.south east){BERT};
+\node[anchor=north,wordnodes] (w16) at ([xshift=-2em,yshift=-1em]w14.south){Transformer-ANN};
+\node[anchor=north west,wordnodes] (w17) at ([xshift=-0em,yshift=-1em]w16.south east){Transformer-SAN};
+\node[anchor=north,wordnoden] (w18) at ([xshift=-0em,yshift=-1.5em]w16.south){ALBERT};
+\node[anchor=north west,wordnodes] (w19) at ([xshift=-0em,yshift=-0.5em]w18.south east){universal Transformer};
+
+\node[anchor=north west,word] (we1) at ([xshift=-0em,yshift=0.3em]w11.north west){};
+\node[anchor=south east,word] (we2) at ([xshift=-0em,yshift=-0.3em]w19.south east){};
+
+\begin{pgfonlayer}{background}
+\node[anchor=center,cnodes] (b11) at ([xshift=-0em,yshift=-0em]w11.center){};
+\node[anchor=center,cnodel] (b12) at ([xshift=-0em,yshift=-0em]w12.center){};
+\node[anchor=center,cnodel] (b13) at ([xshift=-0em,yshift=-0em]w13.center){};
+\node[anchor=center,cnodes] (b14) at ([xshift=-0em,yshift=-0em]w14.center){};
+\node[anchor=center,cnodel] (b15) at ([xshift=-2em,yshift=-0em]w15.center){};
+\node[anchor=center,cnodes] (b16) at ([xshift=-0em,yshift=-0em]w16.center){};
+\node[anchor=center,cnodes] (b17) at ([xshift=-0em,yshift=-0em]w17.center){};
+\node[anchor=center,cnoden] (b18) at ([xshift=-0em,yshift=-0em]w18.center){};
+\node[anchor=center,cnodes] (b19) at ([xshift=-0em,yshift=-0em]w19.center){};
+\node [rectangle,inner sep=1em,draw=black,dashed,thick,rounded corners=8pt] [fit = (w11) (w15) (w18) (w19) (we1) (we2)] (box1) {};
+
+\node[anchor=center,cnodes] (bb1) at ([xshift=1em,yshift=-0em]w18.east){};
+\node[anchor=center,cnodes] (bb2) at ([xshift=-0.5em,yshift=-0em]w13.west){};
+\node[anchor=center,cnodes] (bb3) at ([xshift=-0.5em,yshift=0.5em]w18.west){};
+\end{pgfonlayer}
+\node[anchor=south,word] (l1) at ([xshift=-0em,yshift=-0.5em]box1.north){基于注意力的结构};
+
+
+
+\node[anchor=south west,wordnoden] (w21) at ([xshift=6.5em,yshift=1em]w12.north east){SRU};
+\node[anchor=north west,wordnodel] (w22) at ([xshift=0.2em,yshift=0.5em]w21.south east){GRU};
+\node[anchor=north west,wordnoden] (w23) at ([xshift=0em,yshift=0em]w22.south east){RNN};
+\node[anchor=north,wordnoden] (w24) at ([xshift=0em,yshift=-1.5em]w22.south){LSTM};
+\node[anchor=north,wordnodel] (w25) at ([xshift=0em,yshift=-0.5em]w24.south){Bi-LSTM};
+
+\begin{pgfonlayer}{background}
+\node[anchor=center,cnoden,rnn] (b21) at ([xshift=-0em,yshift=-0em]w21.center){};
+\node[anchor=center,cnodel,rnn] (b22) at ([xshift=-0em,yshift=-0em]w22.center){};
+\node[anchor=center,cnoden,rnn] (b23) at ([xshift=-0em,yshift=-0em]w23.center){};
+\node[anchor=center,cnoden,rnn] (b24) at ([xshift=-0em,yshift=-0em]w24.center){};
+\node[anchor=center,cnodel,rnn] (b25) at ([xshift=-0em,yshift=-0em]w25.center){};
+\node [rectangle,inner sep=1em,draw=black,dashed,thick,rounded corners=8pt] [fit = (w21) (w25) (w23)] (box2) {};
+
+\node[anchor=center,cnodes] (bb4) at ([xshift=-0.5em,yshift=-0em]w24.west){};
+\node[anchor=center,cnodes] (bb5) at ([xshift=0.5em,yshift=-0em]w24.west){};
+\node[anchor=south east,cnodel,minimum size=4em] (bb6) at ([xshift=0em,yshift=1em]w21.north west){};
+\node[anchor=south west,cnodel,minimum size=4em] (bb7) at ([xshift=-0.5em,yshift=0.5em]w23.north east){};
+\node[anchor=west,cnodel,minimum size=4em] (bb8) at ([xshift=-0em,yshift=0em]w23.east){};
+\node[anchor=south,cnodel,minimum size=4em] (bb9) at ([xshift=0.2em,yshift=0em]bb8.north){};
+\end{pgfonlayer}
+\node[anchor=south,word] (l2) at ([xshift=-0em,yshift=-0.5em]box2.north){基于循环单元的结构};
+
+
+
+\node[anchor= west,wordnoden] (w31) at ([xshift=4em,yshift=-0.2em]w17.east){GoogleNet};
+\node[anchor=north,wordnodes] (w32) at ([xshift=2em,yshift=-0.2em]w31.south){ResNet};
+\node[anchor=north,wordnoden] (w33) at ([xshift=0em,yshift=-1.5em]w31.south){LeNet};
+\node[anchor=east,wordnoden] (w34) at ([xshift=2.5em,yshift=0.4em]w32.east){CNN};
+\node[anchor=south west,wordnoden] (w35) at ([xshift=0.5em,yshift=0.3em]w34.north east){AlexNet};
+\node[anchor=north,wordnodel] (w36) at ([xshift=-1em,yshift=-2em]w35.south){VGG-Net};
+
+\begin{pgfonlayer}{background}
+\node[anchor=center,cnodel,cnn] (b31) at ([xshift=-0.5em,yshift=-0em]w31.center){};
+\node[anchor=center,cnoden,cnn] (b32) at ([xshift=-0em,yshift=-0em]w32.center){};
+\node[anchor=center,cnodel,cnn] (b33) at ([xshift=-0em,yshift=-0em]w33.center){};
+\node[anchor=center,cnodel,cnn] (b34) at ([xshift=-0em,yshift=-0em]w34.center){};
+\node[anchor=center,cnoden,cnn] (b35) at ([xshift=-0em,yshift=-0em]w35.center){};
+\node[anchor=center,cnodel,cnn] (b36) at ([xshift=-0em,yshift=-0em]w36.center){};
+\node [rectangle,inner sep=0.5em,draw=black,dashed,thick,rounded corners=8pt] [fit = (w31) (w33) (w35) (w36)] (box3) {};
+
+\node[anchor=center,cnodes] (bb10) at ([xshift=1em,yshift=-0em]w31.west){};
+\node[anchor=center,cnodes] (bb11) at ([xshift=0.5em,yshift=-0em]w34.west){};
+\node[anchor=center,cnodes] (bb12) at ([xshift=0em,yshift=1em]w34.north){};
+\end{pgfonlayer}
+\node[anchor=south,word] (l3) at ([xshift=-0em,yshift=-0.5em]box3.north){基于卷积单元的结构};
+
+
+\node [rectangle,inner sep=1em,draw=black,very thick,rounded corners=8pt] [fit = (label) (box1) (box2) (box3)] (box4) {};
+\node[anchor=south east,word,text=ublue] (l4) at ([xshift=-0em,yshift=0em]box4.north east){颜色越深，表示模型对当前任务的建模能力越强};
+
+\end{tikzpicture}

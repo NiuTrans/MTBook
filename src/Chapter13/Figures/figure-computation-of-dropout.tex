@@ -14,8 +14,8 @@
 \node [neuronnode] (neuron_z) at (1.2 * \nodespace,-1.5 * \neuronsep) {\scriptsize{$z_{i}^{l+1}$}};
 \node [neuronnode] (neuron_y') at (2.4 * \nodespace,-1.5 * \neuronsep) {\scriptsize{$x_{i}^{l+1}$}};
 
-\node [anchor=north] (standard) at ([yshift=-4em]neuron_z.south) {\scriptsize{标准网络}};
-\node [] (standard) at ([xshift=-1em]neuron_z.west) {\scriptsize{$\mathbi{w}_{i}^{l}$}};
+\node [anchor=north,align=left,font=\scriptsize] (standard) at ([xshift=2em,yshift=-3em]neuron_z.south) {使用Dropout前的\\一层神经网络};
+\node [] (standard) at ([xshift=-1em]neuron_z.west) {\scriptsize{$w_{i}^{l}$}};
 \node [] (standard) at ([xshift=0.6em,yshift=0.3em]neuron_z.east) {\scriptsize{$f$}};
 
 \draw [->,line width=0.3mm] (neuron_b.east) -- (neuron_z.130);
@@ -40,8 +40,8 @@
 \node [neuronnode] (drop_neuron_r2) at (4.4*\nodespace,-1.5*\neuronsep) {\scriptsize{$r_{2}^{l}$}};
 \node [neuronnode] (drop_neuron_r1) at (4.4*\nodespace,-2.5*\neuronsep) {\scriptsize{$r_{1}^{l}$}};
 
-\node [anchor=north] (standard) at ([xshift=2em,yshift=-4em]drop_neuron_z.south) {\scriptsize{应用Dropout后的网络}};
-\node [] (standard) at ([xshift=-1em]drop_neuron_z.west) {\scriptsize{$\mathbi{w}_{i}^{l}$}};
+\node [anchor=north,align=left,font=\scriptsize] (standard) at ([xshift=2em,yshift=-3em]drop_neuron_z.south) {使用Dropout后的\\一层神经网络};
+\node [] (standard) at ([xshift=-1em]drop_neuron_z.west) {\scriptsize{$w_{i}^{l}$}};
 \node [] (standard) at ([xshift=0.6em,yshift=0.3em]drop_neuron_z.east) {\scriptsize{$f$}};
 %structure
 \draw [->,line width=0.3mm] (drop_neuron_b.east) -- (drop_neuron_z.130);
@@ -63,8 +63,8 @@
 \node [anchor=north west,inner sep = 2pt] (line2) at (line1.south west) {$z_{i}^{l+1}=\mathbi{w}^{l} \mathbi{x}^{l} + b^{l}$};
 \node [anchor=north west,inner sep = 2pt] (line3) at (line2.south west) {$x_{i}^{l+1}=f\left(z_{i}^{l+1}\right)$};
 \node [anchor=north west,inner sep = 2pt] (line4) at (line3.south west) {应用Dropout：};
-\node [anchor=north west,inner sep = 2pt] (line5) at (line4.south west) {$r_{j}^{l} \sim$ Bernoulli $(1-p)$};
-\node [anchor=north west,inner sep = 2pt] (line6) at (line5.south west) {$\tilde{\mathbi{x}}=\mathbi{r} * \mathbi{x}$};
+\node [anchor=north west,inner sep = 2pt] (line5) at (line4.south west) {$r_{i}^{l} \sim$ Bernoulli $(1-p)$};
+\node [anchor=north west,inner sep = 2pt] (line6) at (line5.south west) {$\tilde{\mathbi{x}}=\mathbi{r} \mathbi{x}$};
 \node [anchor=north west,inner sep = 2pt] (line7) at (line6.south west) {$z_{i}^{l+1}=\mathbi{w}^{l} \widetilde{\mathbi{x}}^{l} + b^{l}$};
 \node [anchor=north west,inner sep = 2pt] (line8) at (line7.south west) {$x_{i}^{l+1}=f\left(z_{i}^{l+1}\right)$};
 

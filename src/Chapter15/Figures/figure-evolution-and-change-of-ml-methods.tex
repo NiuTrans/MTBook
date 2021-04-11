@@ -41,7 +41,7 @@
 \node[anchor=south,cnode,fill=white] (cl1) at ([xshift=-4em,yshift=1.5em]m1.south){};
 \node[anchor=north,cnode,fill=white] (cl2) at ([xshift=0em,yshift=-1em]m1.north){};
 
-\node[anchor=south west,wnode,align=left,font=\tiny] (wl7) at ([xshift=0.5em,yshift=0em]cl1.east){使用{\color{ugreen}\bfnew{特征}}对{\color{blue}\bfnew{数据}}\\中信息进行提取};
+\node[anchor=south west,wnode,align=right,font=\tiny] (wl7) at ([xshift=0.5em,yshift=-1em]cl1.east){使用{\color{ugreen}\bfnew{特征}}对{\color{blue}\bfnew{数据}}\\中的信息进行\\提取};
 \node[anchor=west,wnode,align=right,font=\tiny] (wl8) at ([xshift=0.5em,yshift=0em]cl2.east){使用提取的信息对\\{\color{red!50}\bfnew{模型}}中的参数\\进行训练};
 
 \draw [-,thick,dashed] ([xshift=0em,yshift=0em]ml1.west) -- ([xshift=0em,yshift=0em]ml1.east);
@@ -65,7 +65,7 @@
 \node[anchor=south,cnode,fill=white] (cc1) at ([xshift=-4em,yshift=1.5em]m2.south){};
 \node[anchor=north,cnode,fill=white] (cc2) at ([xshift=0em,yshift=-1em]m2.north){};
 
-\node[anchor=south west,wnode,align=left,font=\tiny] (wl7) at ([xshift=0.5em,yshift=0em]cc1.east){使用{\color{red!50} \bfnew{模型}}对{\color{blue} \bfnew{数据}}\\中信息进行提取};
+\node[anchor=south west,wnode,align=right,font=\tiny] (wl7) at ([xshift=0.5em,yshift=-0.5em]cc1.east){使用{\color{red!50} \bfnew{模型}}对{\color{blue} \bfnew{数据}}\\中的信息进行\\提取};
 \node[anchor=west,wnode,align=right,font=\tiny] (wl8) at ([xshift=0.5em,yshift=0em]cc2.east){使用提取的信息对\\{\color{red!50} \bfnew{模型}}中的参数\\进行训练};
 
 \draw [-,thick,dashed] ([xshift=0em,yshift=0em]mc1.west) -- ([xshift=0em,yshift=0em]mc1.east);

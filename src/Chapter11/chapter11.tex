@@ -53,14 +53,14 @@
 \end{figure}
 %----------------------------------------------
 
-\parinterval 图\ref{fig:11-2}展示了一个标准的卷积神经网络模块，其中包括了卷积层、激活函数和池化层三个部分。本节将对卷积神经网络中的基本结构进行介绍。
+\parinterval 图\ref{fig:11-2}展示了一个标准的卷积神经网络结构，其中包括了卷积层、激活函数和池化层三个部分。本节将对卷积神经网络中的基本结构进行介绍。
 
 %----------------------------------------------
 % 图2.
 \begin{figure}[htp]
 \centering
 \input{./Chapter11/Figures/figure-standard-convolution-neural-network-module}
-\caption{标准的卷积神经网络模块（卷积、激活函数、池化）}
+\caption{标准的卷积神经网络结构（卷积、激活函数、池化）}
 \label{fig:11-2}
 \end{figure}
 %----------------------------------------------
@@ -201,7 +201,7 @@
 \end{figure}
 %----------------------------------------------
 \vspace{-1em}
-\parinterval 针对不定长序列，一种可行的方法是使用之前介绍过的循环神经网络进行信息提取，其本质也是基于权重共享的想法，在不同的时间步复用相同的循环神经网络单元进行处理。但是，循环神经网络最大的弊端在于每一时刻的计算都依赖于上一时刻的结果，因此只能对序列进行串行处理，无法充分利用硬件设备进行并行计算，导致效率相对较低。此外，在处理较长的序列时，这种串行的方式很难捕捉长距离的依赖关系。相比之下，卷积神经网络采用共享参数的方式处理固定大小窗口内的信息，且不同位置的卷积操作之间没有相互依赖，因此可以对序列进行高效地并行处理。同时，针对序列中距离较长的依赖关系，可以通过堆叠多层卷积层来扩大{\small\bfnew{感受野}}\index{感受野} (Receptive Field)\index{Receptive Field}  ，这里感受野指能够影响神经元输出的原始输入数据区域的大小。图\ref{fig:11-9}对比了这两种结构，可以看出，为了捕捉$\mathbi{e}_2$ 和$\mathbi{e}_8$ 之间的联系，串行结构需要顺序地进行6次操作，和序列长度相关。而该卷积神经网络中，卷积操作每次对三个词进行计算，仅需要4层卷积计算就能得到$\mathbi{e}_2$ 和$\mathbi{e}_8$之间的联系，其操作数和卷积核的大小相关，相比于串行的方式具有更短的路径和更少的非线性计算，更容易进行训练。因此，也有许多研究人员在许多自然语言处理任务上尝试使用卷积神经网络进行序列建模\upcite{Kim2014ConvolutionalNN,Santos2014DeepCN,Kalchbrenner2014ACN,DBLP:conf/naacl/Johnson015,DBLP:conf/naacl/NguyenG15}。
+\parinterval 针对不定长序列，一种可行的方法是使用之前介绍过的循环神经网络进行信息提取，其本质也是基于权重共享的想法，在不同的时间步复用相同的循环神经网络单元进行处理。但是，循环神经网络最大的弊端在于每一时刻的计算都依赖于上一时刻的结果，因此只能对序列进行串行处理，无法充分利用硬件设备进行并行计算，导致效率相对较低。此外，在处理较长的序列时，这种串行的方式很难捕捉长距离的依赖关系。相比之下，卷积神经网络采用共享参数的方式处理固定大小窗口内的信息，且不同位置的卷积操作之间没有相互依赖，因此可以对序列进行高效地并行处理。同时，针对序列中距离较长的依赖关系，可以通过堆叠多层卷积层来扩大{\small\bfnew{感受野}}\index{感受野} (Receptive Field)\index{Receptive Field}  ，这里感受野指能够影响神经元输出的原始输入数据区域的大小。图\ref{fig:11-9}对比了这两种结构，可以看出，为了捕捉$\mathbi{e}_2$ 和$\mathbi{e}_8$ 之间的联系，串行结构需要顺序地进行6次操作，操作次数与序列长度相关。而该卷积神经网络中，卷积操作每次对三个词进行计算，仅需要4层卷积计算就能得到$\mathbi{e}_2$ 和$\mathbi{e}_8$之间的联系，其操作数和卷积核的大小相关，相比于串行的方式具有更短的路径和更少的非线性计算，更容易进行训练。因此，也有许多研究人员在许多自然语言处理任务上尝试使用卷积神经网络进行序列建模\upcite{Kim2014ConvolutionalNN,Santos2014DeepCN,Kalchbrenner2014ACN,DBLP:conf/naacl/Johnson015,DBLP:conf/naacl/NguyenG15}。
 
 \parinterval 区别于传统图像上的卷积操作，在面向序列的卷积操作中，卷积核只在序列这一维度进行移动，用来捕捉连续的多个词之间的特征。需要注意的是，由于单词通常由一个实数向量表示（词嵌入），因此可以将词嵌入的维度看作是卷积操作中的通道数。图\ref{fig:11-10}就是一个基于序列卷积的文本分类模型，模型的输入是维度大小为$m\times O $的句子表示，$m$表示句子长度，$O$表示卷积核通道数，其值等于词嵌入维度，模型使用多个不同（对应图中不同的颜色）的卷积核来对序列进行特征提取，得到了多个不同的特征序列。然后使用池化层降低表示维度，得到了一组和序列长度无关的特征表示。最后模型基于这组压缩过的特征表示，使用全连接网络和Softmax函数进行类别预测。在这过程中卷积层和池化层分别起到了特征提取和特征压缩的作用，将一个不定长的序列转化为一组固定大小的特征表示。
 
@@ -215,7 +215,7 @@
 \end{figure}
 %----------------------------------------------
 \vspace{-1em}
-\parinterval 和其它自然语言处理任务不同的是，机器翻译中需要对序列进行全局表示，换句话说，模型需要捕捉序列中各个位置之间的关系。因此，基于卷积神经网络的神经机器翻译模型需要堆叠多个卷积层进行远距离的依赖关系的建模。同时，为了在多层网络中维持序列的原有长度，需要在卷积操作前对输入序列进行填充。图\ref{fig:11-11}是一个简单的示例，针对一个长度$m=6$的句子，其隐层表示维度即卷积操作的输入通道数是$O=4$，卷积核大小为$K=3$。首先对序列进行填充，得到一个长度为8的序列，然后使用这些卷积核在这之上进行特征提取。一共使用了$N=4$个卷积核，整体的参数量为$K \times O \times N$，最后的卷积结果为$m \times N$的序列表示。
+\parinterval 和其它自然语言处理任务不同的是，机器翻译中需要对序列进行全局表示，换句话说，模型需要捕捉序列中各个位置之间的关系。因此，基于卷积神经网络的神经机器翻译模型需要堆叠多个卷积层进行远距离的依赖关系的建模。同时，为了在多层网络中维持序列的原有长度，需要在卷积操作前对输入序列进行填充。图\ref{fig:11-11}是一个简单的示例，针对一个长度$m=6$的句子，其隐藏层表示维度即卷积操作的输入通道数是$O=4$，卷积核大小为$K=3$。首先对序列进行填充，得到一个长度为8的序列，然后使用这些卷积核在这之上进行特征提取。一共使用了$N=4$个卷积核，整体的参数量为$K \times O \times N$，最后的卷积结果为$m \times N$的序列表示。
 
 %----------------------------------------------
 % 图11.
@@ -250,13 +250,13 @@
 \parinterval 图\ref{fig:11-12}为ConvS2S模型的结构示意图，其内部由若干不同的模块组成，包括：
 
 \begin{itemize}
-\item {\small\bfnew{位置编码}}\index{位置编码}（Position Embedding）\index{Position Embedding}：图中绿色背景框表示源语言端词嵌入部分。相比于基于循环神经网络的翻译模型中的词嵌入，该模型还引入了位置编码，帮助模型获得词位置信息。位置编码具体实现在图\ref{fig:11-12}中没有显示，详见\ref{sec:11.2.1}节。
+\item {\small\bfnew{位置编码}}\index{位置编码}（Position Encoding）\index{Position Encoding}：图中绿色背景框表示源语言端词嵌入部分。相比于基于循环神经网络的翻译模型中的词嵌入，该模型还引入了位置编码，帮助模型获得词位置信息。位置编码具体实现在图\ref{fig:11-12}中没有显示，详见\ref{sec:11.2.1}节。
 
 \item {\small\bfnew{卷积层}}与{\small\bfnew{门控线性单元}}（Gated Linear Units, GLU\index{Gated Linear Units}）：黄色背景框是卷积模块，这里使用门控线性单元作为非线性函数，之前的研究工作\upcite{Dauphin2017LanguageMW} 表明这种非线性函数更适合于序列建模任务。图中为了简化，只展示了一层卷积，但在实际中为了更好地捕获句子信息，通常使用多层卷积的叠加。
 
-\item {\small\bfnew{残差连接}}\index{残差连接}（Residual Connection）\index{Residual Connection}：源语言端和目标语言端的卷积层网络之间，都存在一个从输入到输出的额外连接，即跳接\upcite{DBLP:journals/corr/HeZRS15}。该连接方式确保每个隐层输出都能包含输入序列中的更多信息，同时能够有效提高深层网络的信息传递效率（该部分在图\ref{fig:11-12}中没有显示，具体结构详见\ref{sec:11.2.3}节）。
+\item {\small\bfnew{残差连接}}\index{残差连接}（Residual Connection）\index{Residual Connection}：源语言端和目标语言端的卷积层网络之间，都存在一个从输入到输出的额外连接，即跳接\upcite{DBLP:journals/corr/HeZRS15}。该连接方式确保每个隐藏层输出都能包含输入序列中的更多信息，同时能够有效提高深层网络的信息传递效率（该部分在图\ref{fig:11-12}中没有显示，具体结构详见\ref{sec:11.2.3}节）。
 
-\item {\small\bfnew{多跳注意力机制}}\index{多跳注意力机制}（Multi-step Attention/Multi-hop Attention）\index{Multi-step Attention}\index{Multi-hop Attention}：蓝色框内部展示了基于多跳结构的注意力机制模块\upcite{Sukhbaatar2015EndToEndMN}。ConvS2S模型同样使用注意力机制来捕捉两个序列之间不同位置的对应关系。区别于之前的做法，多跳注意力在解码器端每一个层都会执行注意力操作。下面将以此模型为例对基于卷积神经网络的机器翻译模型进行介绍。
+\item {\small\bfnew{多步注意力机制}}\index{多步注意力机制}（Multi-step Attention）\index{Multi-step Attention}：蓝色框内部展示了基于多步结构的注意力机制模块\upcite{Sukhbaatar2015EndToEndMN}。ConvS2S模型同样使用注意力机制来捕捉两个序列之间不同位置的对应关系。区别于之前的做法，多步注意力在解码器端每一个层都会执行注意力操作。下面将以此模型为例对基于卷积神经网络的机器翻译模型进行介绍。
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
@@ -290,7 +290,7 @@
 \end{figure}
 %----------------------------------------------
 
-\parinterval 门控机制在{\chapterten}中介绍LSTM模型时已经提到过。在LSTM模型中，可以通过引入三个门控单元来控制信息流，使隐层状态能够获得长时间记忆。同时，门控单元的引入简化了不同时间步间状态更新的计算，只包括一些线性计算，缓解了长距离建模中梯度消失的问题。在多层卷积神经网络中，同样可以通过门控机制来起到相同的作用。
+\parinterval 门控机制在{\chapterten}中介绍LSTM模型时已经提到过。在LSTM模型中，可以通过引入三个门控单元来控制信息流，使隐藏层状态能够获得长时间记忆。同时，门控单元的引入简化了不同时间步间状态更新的计算，只包括一些线性计算，缓解了长距离建模中梯度消失的问题。在多层卷积神经网络中，同样可以通过门控机制来起到相同的作用。
 
 \parinterval 图\ref{fig:11-14}是单层门控卷积神经网络的基本结构，$\mathbi{x}\in \mathbb{R}^{m\times d}$为单层网络的输入，$\mathbi{y} \in \mathbb{R}^{m \times d}$为单层网络的输出，网络结构主要包括卷积计算和GLU非线性单元两部分。
 
@@ -319,7 +319,7 @@
 
 \noindent 其中，$\sigma$为Sigmoid函数，$\otimes$为按位乘运算。Sigmoid将$\mathbi{B}$映射为0-1范围内的实数，用来充当门控。可以看到，门控卷积神经网络中核心部分就是$\sigma ( \mathbi{B} )$，通过这个门控单元来对卷积输出进行控制，确定保留哪些信息。同时，在梯度反向传播的过程中，这种机制使得不同层之间存在线性的通道，梯度传导更加简单，利于深层网络的训练。这种思想和\ref{sec:11.2.3}节将要介绍的残差网络也很类似。
 
-\parinterval 在ConvS2S模型中，为了保证卷积操作之后的序列长度不变，需要对输入进行填充，这一点已经在之前的章节中讨论过了。因此，在编码器每一次卷积操作前，需要对序列的头部和尾部分别做相应的填充（如图\ref{fig:11-14}左侧部分）。而在解码器中，由于需要训练和解码的一致性，模型在训练过程中不能使用未来的信息，需要对未来信息进行屏蔽，也就是屏蔽掉当前译文单词右侧的译文信息。从实践角度来看，只需要对解码器输入序列的头部填充$K-1$ 个空元素，其中$K$为卷积核的宽度（图\ref{fig:11-15}展示了卷积核宽度$K$=3时，解码器对输入序列的填充情况，图中三角形表示卷积操作）。
+\parinterval 在ConvS2S模型中，为了保证卷积操作之后的序列长度不变，需要对输入进行填充，这一点已经在之前的章节中讨论过了。因此，在编码器每一次卷积操作前，需要对序列的头部和尾部分别做相应的填充（如图\ref{fig:11-14}左侧部分）。而在解码器中，由于需要训练和解码保持一致，模型在训练过程中不能使用未来的信息，需要对未来信息进行屏蔽，也就是屏蔽掉当前译文单词右侧的译文信息。从实践角度来看，只需要对解码器输入序列的头部填充$K-1$ 个空元素，其中$K$为卷积核的宽度（图\ref{fig:11-15}展示了卷积核宽度$K$=3时，解码器对输入序列的填充情况，图中三角形表示卷积操作）。
 
 %----------------------------------------------
 % 图14-2.
@@ -346,7 +346,7 @@
 
 \noindent 其中，$\mathbi{h}^l$表示$l$层神经网络的输入向量，${F} (\mathbi{h}^l)$是$l$层神经网络的运算。如果$l=2$，那么公式\eqref{eq:11-6}可以解释为：第3层的输入$\mathbi{h}^3$等于第2层的输出${F}(\mathbi{h}^2)$加上第2层的输入$\mathbi{h}^2$。
 
-\parinterval 在ConvS2S中残差连接主要应用于门控卷积神经网络和多跳自注意力机制中，比如在编码器的多层门控卷积神经网络中，在每一层的输入和输出之间增加残差连接，具体的数学描述如下：
+\parinterval 在ConvS2S中残差连接主要应用于门控卷积神经网络和多步注意力机制中，比如在编码器的多层门控卷积神经网络中，在每一层的输入和输出之间增加残差连接，具体的数学描述如下：
 \begin{eqnarray}
 %\mathbi{h}_i^l = \funp{v} (\mathbi{W}^l [\mathbi{h}_{i-\frac{k}{2}}^{l-1},...,\mathbi{h}_{i+\frac{k}{2}}^{l-1}] + b_{\mathbi{W}}^l ) + \mathbi{h}_i^{l-1}
 \mathbi{h}^{l+1} &=& \mathbi{A}^{l} \otimes \sigma ( \mathbi{B}^{l} ) + \mathbi{h}^{l}
@@ -357,9 +357,9 @@
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{多跳注意力机制}
+\subsection{多步注意力机制}
 
-\parinterval ConvS2S模型也采用了注意力机制来获取每个目标语言位置相应的源语言上下文信息。其仍然沿用传统的点乘注意力机制\upcite{DBLP:journals/corr/LuongPM15}，其中图\ref{fig:11-16}蓝色框代表了多跳自注意力机制在模型中的位置。
+\parinterval ConvS2S模型也采用了注意力机制来获取每个目标语言位置相应的源语言上下文信息。其仍然沿用传统的点乘注意力机制\upcite{DBLP:journals/corr/LuongPM15}，其中图\ref{fig:11-16}蓝色框代表了多步注意力机制在模型中的位置。
 
 \parinterval 在基于循环神经网络的翻译模型中，注意力机制已经被广泛使用\upcite{bahdanau2014neural}，并用于避免循环神经网络将源语言序列压缩成一个固定维度的向量表示带来的信息损失。另一方面，注意力同样能够帮助解码器区分源语言中不同位置对当前目标语言位置的贡献度，其具体的计算过程如公式\eqref{eq:11-8}和\eqref{eq:11-9}所示：
 
@@ -368,27 +368,27 @@
 \alpha_{i,j} &=& \frac{ \textrm{exp}(\funp{a} (\mathbi{s}_{j-1},\mathbi{h}_i))  }{\sum_{i'} \textrm{exp}( \funp{a} (\mathbi{s}_{j-1},\mathbi{h}_{i'}))} \label{eq:11-9}
 \end{eqnarray}
 
-\noindent 其中，$\mathbi{h}_i$表示源语言端第$i$个位置的隐层状态，即编码器在第$i$个位置的输出。$\mathbi{s}_j$表示目标端第$j$个位置的隐层状态。给定$\mathbi{s}_j$和$\mathbi{h}_i$，注意力机制通过函数$\funp{a}(\cdot)$计算目标语言表示$\mathbi{s}_j$与源语言表示$\mathbi{h}_i$之间的注意力权重$\alpha_{i,j}$，通过加权平均得到当前目标语言端位置所需的上下文表示$\mathbi{C}_j$。其中$\funp{a}(\cdot)$的具体计算方式在{\chapterten}已经详细讨论。
+\noindent 其中，$\mathbi{h}_i$表示源语言端第$i$个位置的隐藏层状态，即编码器在第$i$个位置的输出。$\mathbi{s}_j$表示目标端第$j$个位置的隐藏层状态。给定$\mathbi{s}_j$和$\mathbi{h}_i$，注意力机制通过函数$\funp{a}(\cdot)$计算目标语言表示$\mathbi{s}_j$与源语言表示$\mathbi{h}_i$之间的注意力权重$\alpha_{i,j}$，通过加权平均得到当前目标语言端位置所需的上下文表示$\mathbi{C}_j$。其中$\funp{a}(\cdot)$的具体计算方式在{\chapterten}已经详细讨论。
 
 %----------------------------------------------
 % 图16.
 \begin{figure}[htp]
 \centering
 \input{./Chapter11/Figures/figure-fairseq-3}
-\caption{多跳自注意力机制在ConvS2S模型中的位置（蓝色背景框部分）}
+\caption{多步注意力机制在ConvS2S模型中的位置（蓝色背景框部分）}
 \label{fig:11-16}
 \end{figure}
 %----------------------------------------------
 
-\parinterval 在ConvS2S模型中，解码器同样采用堆叠的多层门控卷积网络来对目标语言进行序列建模。区别于编码器，解码器在每一层卷积网络之后引入了注意力机制，用来参考源语言信息。ConvS2S选用了点乘注意力，并且通过类似残差连接的方式将注意力操作的输入与输出同时作用于下一层计算，称为多跳注意力。其具体计算方式如下：
+\parinterval 在ConvS2S模型中，解码器同样采用堆叠的多层门控卷积网络来对目标语言进行序列建模。区别于编码器，解码器在每一层卷积网络之后引入了注意力机制，用来参考源语言信息。ConvS2S选用了点乘注意力，并且通过类似残差连接的方式将注意力操作的输入与输出同时作用于下一层计算，称为多步注意力。其具体计算方式如下：
 \begin{eqnarray}
-\alpha_{ij}^l &=& \frac{ \textrm{exp} (\mathbi{d}_{j}^l\mathbi{h}_i) }{\sum_{i^{'}=1}^m \textrm{exp} (\mathbi{d}_{j}^l\mathbi{h}_{i^{'}})}
+\alpha_{ij}^l &=& \frac{ \textrm{exp} (\mathbi{h}_i \mathbi{d}_{j}^l) }{\sum_{i^{'}=1}^m \textrm{exp} (\mathbi{h}_{i^{'}} \mathbi{d}_{j}^l )}
 \label{eq:11-10}
 \end{eqnarray}
 
-\noindent 不同于公式\eqref{eq:11-9}中使用的目标语言端隐层表示$\mathbi{s}_{j-1}$，公式\eqref{eq:11-10}中的$\mathbi{d}_{j}^l$同时结合了$\mathbi{s}_{j}$的卷积计算结果和目标语言端的词嵌入$\mathbi{g}_j$，其具体计算如公式\eqref{eq:11-11}和\eqref{eq:11-12}所示：
+\noindent 不同于公式\eqref{eq:11-9}中使用的目标语言端隐藏层表示$\mathbi{s}_{j-1}$，公式\eqref{eq:11-10}中的$\mathbi{d}_{j}^l$同时结合了$\mathbi{s}_{j}$的卷积计算结果和目标语言端的词嵌入$\mathbi{g}_j$，其具体计算如公式\eqref{eq:11-11}和\eqref{eq:11-12}所示：
 \begin{eqnarray}
-\mathbi{d}_{j}^l &=& \mathbi{W}_{d}^{l} \mathbi{z}_{j}^{l} + \mathbi{b}_{d}^{l} + \mathbi{g}_j \label{eq:11-11} \\
+\mathbi{d}_{j}^l &=& \mathbi{z}_{j}^{l}  \mathbi{W}_{d}^{l} + \mathbi{b}_{d}^{l} + \mathbi{g}_j \label{eq:11-11} \\
 \mathbi{z}_j^l &=& \textrm{Conv}(\mathbi{s}_j^l) \label{eq:11-12}
 \end{eqnarray}
 
@@ -404,7 +404,7 @@
 \label{eq:11-14}
 \end{eqnarray}
 
-\noindent 与循环网络中的注意力机制相比，该机制能够帮助模型甄别已经考虑了哪些先前的输入。也就是说，多跳的注意力机制会考虑模型之前更关注哪些单词，并且之后层中执行多次注意力的“跳跃”。
+\noindent 与循环网络中的注意力机制相比，该机制能够帮助模型甄别已经考虑了哪些先前的输入。也就是说，多步的注意力机制会考虑模型之前更关注哪些单词，并且之后层中执行多次注意力的“跳跃”。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -414,7 +414,7 @@
 
 \parinterval 与基于循环神经网络的翻译模型一致，ConvS2S模型会计算每个目标语言位置上不同单词的概率，并以交叉熵作为损失函数来衡量模型预测分布与标准分布之间的差异。同时，采用基于梯度的方法对网络中的参数进行更新（见{\chapternine}）。
 
-\parinterval ConvS2S模型应用了很多工程方面的调整，主要包括：
+\parinterval ConvS2S模型的训练与基于循环神经网络的翻译模型的训练的主要区别是：
 \begin{itemize}
 \vspace{0.5em}
 \item ConvS2S模型使用了{\small\bfnew{Nesterov加速梯度下降法}} \index{Nesterov加速梯度下降法}（Nesterov Accelerated Gradient，NAG）\index{Nesterov Accelerated Gradient}，动量累计的系数设置为0.99，当梯度范数超过0.1时重新进行规范化\upcite{Sutskever2013OnTI}；
@@ -439,7 +439,7 @@
 \label{eq:11-17}
 \end{eqnarray}
 
-\parinterval Nesterov加速梯度下降法利用了二阶导数的信息，可以做到“向前看”，加速收敛过程\upcite{Bengio2013AdvancesIO}。为了模型的稳定训练。ConvS2S模型也采用了一些网络正则化和参数初始化的策略，使得模型在前向计算和反向计算过程中方差尽可能保持一致。
+\parinterval Nesterov加速梯度下降法利用了二阶导数的信息，可以做到“向前看”，加速收敛过程\upcite{Bengio2013AdvancesIO}。ConvS2S 模型也采用了一些网络正则化和参数初始化的策略，使得模型在前向计算和反向计算的过程中，方差尽可能保持一致，模型训练更稳定。
 
 \parinterval 此外，ConvS2S模型为了进一步提升训练效率及性能，还使用了小批量训练，即每次从样本中选择出一小部分数据进行训练。同时，ConvS2S模型中也使用了Dropout方法\upcite{JMLR:v15:srivastava14a}。除了在词嵌入层和解码器输出层应用Dropout外，ConvS2S模型还对卷积块的输入层应用了Dropout。
 
@@ -460,7 +460,7 @@
 \subsection{深度可分离卷积}
 \label{sec:11.3.1}
 
-\parinterval 根据前面的介绍，可以看到卷积神经网络容易用于局部检测和处理位置不变的特征。对于特定的表达，比如地点、情绪等，使用卷积神经网络能达到不错的识别效果，因此它常被用在文本分类中\upcite{Kalchbrenner2014ACN,Kim2014ConvolutionalNN,DBLP:conf/naacl/Johnson015,DBLP:conf/acl/JohnsonZ17}。不过机器翻译所面临的情况更复杂，除了局部句子片段信息，研究人员还希望模型能够捕获句子结构、语义等信息。虽然单层卷积神经网络在文本分类中已经取得了很好的效果\upcite{Kim2014ConvolutionalNN}，但是神经机器翻译等任务仍然需要有效的卷积神经网络。随着深度可分离卷积在机器翻译中的探索\upcite{Kaiser2018DepthwiseSC}，更高效的网络结构被设计出来，获得了比ConvS2S模型更好的性能。
+\parinterval 根据前面的介绍，可以看到卷积神经网络适用于局部检测和处理位置不变的特征。对于特定的表达，比如地点、情绪等，使用卷积神经网络能达到不错的识别效果，因此它常被用在文本分类中\upcite{Kalchbrenner2014ACN,Kim2014ConvolutionalNN,DBLP:conf/naacl/Johnson015,DBLP:conf/acl/JohnsonZ17}。不过机器翻译所面临的情况更复杂，除了局部句子片段信息，研究人员还希望模型能够捕获句子结构、语义等信息。虽然单层卷积神经网络在文本分类中已经取得了很好的效果\upcite{Kim2014ConvolutionalNN}，但是神经机器翻译等任务仍然需要有效的卷积神经网络。随着深度可分离卷积在机器翻译中的探索\upcite{Kaiser2018DepthwiseSC}，更高效的网络结构被设计出来，获得了比ConvS2S模型更好的性能。
 
 %----------------------------------------------
 % 图17.
@@ -477,7 +477,7 @@
 \parinterval 给定输入序列表示$\seq{x} = \{ \mathbi{x}_1,...,\mathbi{x}_m \}$，其中$m$为序列长度，$\mathbi{x}_i \in \mathbb{R}^{O} $ ，$O$ 即输入序列的通道数。为了获得与输入序列长度相同的卷积输出结果，首先需要进行填充。为了方便描述，这里在输入序列尾部填充 $K-1$ 个元素（$K$为卷积核窗口的长度），其对应的卷积结果为$\seq{z} = \{ \mathbi{z}_1,...,\mathbi{z}_m \}$。
 在标准卷积中，若使用N表示卷积核的个数，也就是标准卷积输出序列的通道数，那么对于第$i$个位置的第$n$个通道$ \mathbi{z}_{i,n}^\textrm{\,std}$，其标准卷积具体计算如下：
 \begin{eqnarray}
-\mathbi{z}_{i,n}^\textrm{\,std} &=& \sum_{o=1}^{O} \sum_{k=0}^{K-1} \mathbi{W}_{k,o,n}^\textrm{\,std} \mathbi{x}_{i+k,o}
+\mathbi{z}_{i,n}^\textrm{\,std} &=& \sum_{o=1}^{O} \sum_{k=0}^{K-1} \mathbi{x}_{i+k,o} \mathbi{W}_{k,o,n}^\textrm{\,std} 
 \label{eq:11-18}
 \end{eqnarray}
 
@@ -487,7 +487,7 @@
 
 \parinterval 相应的，深度卷积只考虑不同词之间的依赖性，而不考虑不同通道之间的关系，相当于使用$O$个卷积核逐个通道对不同的词进行卷积操作。因此深度卷积不改变输出的表示维度，输出序列表示的通道数与输入序列一致，其计算如下：
 \begin{eqnarray}
-\mathbi{z}_{i,o}^\textrm{\,dw} &=& \sum_{k=0}^{K-1} \mathbi{W}_{k,o}^\textrm{\,dw} \mathbi{x}_{i+k,o}
+\mathbi{z}_{i,o}^\textrm{\,dw} &=& \sum_{k=0}^{K-1} \mathbi{x}_{i+k,o} \mathbi{W}_{k,o}^\textrm{\,dw}
 \label{eq:11-19}
 \end{eqnarray}
 
@@ -548,7 +548,7 @@
 
 \parinterval 此外，和标准卷积不同的是，轻量卷积之前需要先对卷积参数进行归一化，具体计算过程为：
 \begin{eqnarray}
-\mathbi{z}_{i,o}^\textrm{\,lw} &=& \sum_{k=0}^{K-1} \textrm{Softmax}(\mathbi{W}^\textrm{\,lw})_{k,[\frac{oa}{d}]} \mathbi{x}_{i+k,o}
+\mathbi{z}_{i,o}^\textrm{\,lw} &=& \sum_{k=0}^{K-1} \mathbi{x}_{i+k,o} \textrm{Softmax}(\mathbi{W}^\textrm{\,lw})_{k,[\frac{oa}{d}]}
 \label{eq:11-21}
 \end{eqnarray}
 
@@ -563,7 +563,7 @@
 
 \parinterval 在轻量卷积中，模型使用的卷积参数是静态的，与序列位置无关， 维度大小为$K\times a$；而在动态卷积中，为了增强模型的表示能力，卷积参数来自于当前位置输入的变换，具体计算为：
 \begin{eqnarray}
-\funp{f} (\mathbi{x}_{i}) &=& \sum_{c=1}^d \mathbi{W}_{:,:,c} \odot \mathbi{x}_{i,c}
+\funp{f} (\mathbi{x}_{i}) &=& \sum_{c=1}^d \mathbi{x}_{i,c} \odot \mathbi{W}_{:,:,c}
 \label{eq:11-22}
 \end{eqnarray}
 

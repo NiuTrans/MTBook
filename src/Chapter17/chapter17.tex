@@ -63,7 +63,7 @@
 
 \subsection{音频处理}
 
-\parinterval 为了保证对相关内容描述的完整性，这里对语音处理的基本知识作简要介绍。不同于文本，音频本质上是经过若干信号处理之后的{\small\bfnew{波形}}（Waveform）\index{Waveform}。具体来说，声音是一种空气的震动，因此可以被转换为模拟信号。模拟信号是一段连续的信号，经过采样变为离散的数字信号。采样是每隔固定的时间记录一下声音的振幅，采样率表示每秒的采样点数，单位是赫兹（Hz）。采样率越高，采样的结果与原始的语音越相像。通常来说，采样的标准是能够通过离散化的数字信号重现原始语音。日常生活中使用的手机和电脑设备的采样率一般为16kHz，表示每秒16000个采样点；而音频CD的采样率可以达到44.1kHz。 经过进一步的量化，将采样点的值转换为整型数值保存，从而减少占用的存储空间，通常采用的是16位量化。将采样率和量化位数相乘，就可以得到{\small\bfnew{比特率}}\index{比特率}（Bits Per Second，BPS）\index{Bits Per Second}，表示音频每秒占用的位数。例如，16kHz采样率和16位量化的音频，比特率为256kb/s。音频处理的整体流程如图\ref{fig:17-2}所示\upcite{洪青阳2020语音识别原理与应用,陈果果2020语音识别实战}。
+\parinterval 为了保证对相关内容描述的完整性，这里对语音处理的基本知识作简要介绍。不同于文本，音频本质上是经过若干信号处理之后的{\small\bfnew{波形}}\index{波形}（Waveform）\index{Waveform}。具体来说，声音是一种空气的震动，因此可以被转换为模拟信号。模拟信号是一段连续的信号，经过采样变为离散的数字信号。采样是每隔固定的时间记录一下声音的振幅，采样率表示每秒的采样点数，单位是赫兹（Hz）。采样率越高，采样的结果与原始的语音越相像。通常来说，采样的标准是能够通过离散化的数字信号重现原始语音。日常生活中使用的手机和电脑设备的采样率一般为16kHz，表示每秒16000个采样点；而音频CD的采样率可以达到44.1kHz。 经过进一步的量化，将采样点的值转换为整型数值保存，从而减少占用的存储空间，通常采用的是16位量化。将采样率和量化位数相乘，就可以得到{\small\bfnew{比特率}}\index{比特率}（Bits Per Second，BPS）\index{Bits Per Second}，表示音频每秒占用的位数。例如，16kHz采样率和16位量化的音频，比特率为256kb/s。音频处理的整体流程如图\ref{fig:17-2}所示\upcite{洪青阳2020语音识别原理与应用,陈果果2020语音识别实战}。
 
 %----------------------------------------------------------------------------------------------------
 \begin{figure}[htp]
@@ -76,7 +76,7 @@
 
 \parinterval 经过上面的描述可以看出，音频的表示实际上是一个非常长的采样点序列，这导致了直接使用现有的深度学习技术处理音频序列较为困难。并且，原始的音频信号中可能包含着较多的噪声、环境声或冗余信息，也会对模型产生干扰。因此，一般会对音频序列进行处理来提取声学特征，具体为将长序列的采样点序列转换为短序列的特征向量序列，再用于下游系统。虽然已有一些工作不依赖特征提取，直接在原始的采样点序列上进行声学建模和模型训练\upcite{DBLP:conf/interspeech/SainathWSWV15}，但目前的主流方法仍然是基于声学特征进行建模\upcite{DBLP:conf/icassp/MohamedHP12}。
 
-\parinterval 声学特征提取的第一步是预处理。其流程主要是对音频进行{\small\bfnew{预加重}}（Pre-emphasis）\index{预加重}\index{Pre-emphasis}、{\small\bfnew{分帧}}\index{分帧}（Framing）\index{Framing}和{\small\bfnew{加窗}}\index{加窗}（Windowing）\index{Windowing}。预加重是通过增强音频信号中的高频部分来减弱语音中对高频信号的抑制，使频谱更加顺滑。分帧（原理如图\ref{fig:17-3}所示）是基于短时平稳假设，即根据生物学特征，语音信号是一个缓慢变化的过程，10ms$\thicksim$30ms的信号片段是相对平稳的。基于这个假设，一般将每25ms作为一帧来提取特征，这个时间称为{\small\bfnew{帧长}}\index{帧长}（Frame Length）\index{Frame Length}。同时，为了保证不同帧之间的信号平滑性，使每两个相邻帧之间存在一定的重合部分。一般每隔10ms取一帧，这个时长称为{\small\bfnew{帧移}}\index{帧移}（Frame Shift）\index{Frame Shift}。为了缓解分帧带来的频谱泄漏问题，需要对每帧的信号进行加窗处理使其幅度在两段渐变到0，一般采用的是{\small\bfnew{汉明窗}}\index{汉明窗}（Hamming）\index{Hamming}\upcite{洪青阳2020语音识别原理与应用}。
+\parinterval 声学特征提取的第一步是预处理。其流程主要是对音频进行{\small\bfnew{预加重}}（Pre-emphasis）\index{预加重}\index{Pre-emphasis}、{\small\bfnew{分帧}}\index{分帧}（Framing）\index{Framing}和{\small\bfnew{加窗}}\index{加窗}（Windowing）\index{Windowing}。预加重是通过增强音频信号中的高频部分来减弱语音中对高频信号的抑制，使频谱更加顺滑。分帧（原理如图\ref{fig:17-3}所示）是基于短时平稳假设，即根据生物学特征，语音信号是一个缓慢变化的过程，10ms$\thicksim$30ms的信号片段是相对平稳的。基于这个假设，一般将每25ms作为一帧来提取特征，这个时间称为{\small\bfnew{帧长}}\index{帧长}（Frame Length）\index{Frame Length}。同时，为了保证不同帧之间的信号平滑性，使每两个相邻帧之间存在一定的重合部分。一般每隔10ms取一帧，这个时长称为{\small\bfnew{帧移}}\index{帧移}（Frame Shift）\index{Frame Shift}。为了缓解分帧带来的频谱泄漏问题，需要对每帧的信号进行加窗处理使其幅度在两端渐变到0，一般采用的是{\small\bfnew{汉明窗}}\index{汉明窗}（Hamming Window）\index{Hamming Window}\upcite{洪青阳2020语音识别原理与应用}。
 %----------------------------------------------------------------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -86,7 +86,7 @@
 \end{figure}
 %----------------------------------------------------------------------------------------------------
 
-\parinterval 经过了上述的预处理操作，可以得到音频对应的帧序列，之后通过不同的操作来提取不同类型的声学特征。在语音翻译中，比较常用的声学特征为{\small\bfnew{滤波器组}}\index{滤波器组}（Filter-bank，Fbank）\index{Filter-bank}和{\small\bfnew{Mel频率倒谱系数}}\index{Mel频率倒谱系数}（Mel-frequency Cepstral Coefficient，MFCC）\upcite{洪青阳2020语音识别原理与应用}。实际上，提取到的声学特征可以类比于计算机视觉中的像素特征，或者自然语言处理中的词嵌入表示。不同之处在于，声学特征更加复杂多变，可能存在着较多的噪声和冗余信息。此外，相比对应的文字序列，音频提取到的特征序列长度要大十倍以上。比如，人类正常交流中每秒钟一般可以说2-3个字，而每秒钟的语音可以提取得到100帧的特征序列。巨大的长度比差异也为声学特征建模带来了挑战。
+\parinterval 经过了上述的预处理操作，可以得到音频对应的帧序列，之后通过不同的操作来提取不同类型的声学特征。在语音翻译中，比较常用的声学特征为{\small\bfnew{滤波器组}}\index{滤波器组}（Filter-bank，Fbank）\index{Filter-bank}和{\small\bfnew{Mel频率倒谱系数}}\index{Mel频率倒谱系数}（Mel-frequency Cepstral Coefficient，MFCC）\index{Mel-frequency Cepstral Coefficient}\upcite{洪青阳2020语音识别原理与应用}。实际上，提取到的声学特征可以类比于计算机视觉中的像素特征，或者自然语言处理中的词嵌入表示。不同之处在于，声学特征更加复杂多变，可能存在着较多的噪声和冗余信息。此外，相比对应的文字序列，音频提取到的特征序列长度要大十倍以上。比如，人类正常交流中每秒钟一般可以说2-3个字，而每秒钟的语音可以提取得到100帧的特征序列。巨大的长度比差异也为声学特征建模带来了挑战。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -108,7 +108,7 @@
 
 \parinterval 由于声学特征提取在上一节中已经进行了描述，而且文本翻译可以直接使用本书介绍的统计机器翻译或者神经机器翻译方法。因此下面简要介绍一下语音识别模型，以便读者对级联式语音翻译系统有一个完整的认识。其中的部分概念在后续介绍的端到端语言翻译中也会有所涉及。
 
-\parinterval 传统的语音识别模型和统计机器翻译相似，需要利用声学模型、语言模型和发音词典联合进行识别，系统较为复杂\upcite{DBLP:journals/ftsig/GalesY07,DBLP:journals/taslp/MohamedDH12,DBLP:journals/spm/X12a}。而近些年来，随着神经网络的发展，基于神经网络的端到端语音识别模型逐渐受到关注，训练流程也大大被简化\upcite{DBLP:conf/nips/ChorowskiBSCB15,DBLP:conf/icassp/ChanJLV16}。目前的端到端语音识别模型主要基于序列到序列结构，编码器根据输入的声学特征进一步提取高级特征，解码器根据编码器提取的特征识别对应的文本。在后文中即将介绍的端到端语音翻译模型也是基于十分相似的结构。因此，从某种意义上说，语音识别和翻译所使用的端到端方法与神经机器翻译是一致的。
+\parinterval 传统的语音识别模型和统计机器翻译相似，需要利用声学模型、语言模型和发音词典联合进行识别，系统较为复杂\upcite{DBLP:journals/ftsig/GalesY07,DBLP:journals/taslp/MohamedDH12,DBLP:journals/spm/X12a}。而近些年来，随着神经网络的发展，基于神经网络的端到端语音识别模型逐渐受到关注，训练流程也大大被简化\upcite{DBLP:conf/nips/ChorowskiBSCB15,DBLP:conf/icassp/ChanJLV16}。目前的端到端语音识别模型主要基于序列到序列结构，编码器根据输入的声学特征进一步提取高级特征，解码器根据编码器提取的特征识别对应的文本。在\ref{end-to-end-speech-translation}小节中介绍的端到端语音翻译模型也是基于十分相似的结构。因此，从某种意义上说，语音识别和翻译所使用的端到端方法与神经机器翻译是一致的。
 %----------------------------------------------------------------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -120,15 +120,15 @@
 %----------------------------------------------------------------------------------------------------
 
 \vspace{-1em}
-\parinterval 语音识别目前广泛使用基于Transformer的模型结构（见{\chaptertwelve}），如图\ref{fig:17-5}所示。可以看出，相比文本翻译，模型结构上唯一的区别在于编码器的输入为声学特征，以及编码器底层会使用额外的卷积层来减小输入序列的长度。这是由于语音对应的特征序列过长，在计算注意力模型的时候，会占用大量的内存/显存，并增加训练时间。因此，一个常用的做法是在语音特征上进行两层步长为2的卷积操作，从而将输入序列的长度缩小为之前的1/4。通过使用大量的语音-标注平行数据对模型进行训练，可以得到高质量的语音识别模型。
+\parinterval 语音识别目前广泛使用基于Transformer的模型结构（见{\chaptertwelve}），如图\ref{fig:17-5}所示。可以看出，相比文本翻译，语音识别模型结构上唯一的区别在于编码器的输入为声学特征，以及编码器底层会使用额外的卷积层来减小输入序列的长度。这是由于语音对应的特征序列过长，在计算注意力模型的时候，会占用大量的内存和显存，并增加训练时间。因此，一个常用的做法是在语音特征上进行两层步长为2的卷积操作，从而将输入序列的长度缩小为之前的1/4。通过使用大量的语音-标注平行数据对模型进行训练，可以得到高质量的语音识别模型。
 
-\parinterval 为了降低语音识别的错误对下游系统的影响，通常也会用词格来取代One-best语音识别结果。另一种思路是通过一个后处理模型修正识别结果中的错误，再送给文本翻译模型进行翻译。也可以进一步对文本做{\small\bfnew{顺滑}}\index{顺滑}（Disfluency Detection\index{Disfluency Detection}）处理，使得送给翻译系统的文本更加干净、流畅，比如除去一些导致停顿的语气词。这一做法在工业界得到了广泛应用，但由于每个模型只能串行地计算，也会带来额外的计算代价以及运算时间。另外一种思路是训练更加健壮的文本翻译模型，使其可以处理输入中存在的噪声或误差\upcite{DBLP:conf/acl/LiuTMCZ18}。
+\parinterval 为了降低语音识别的错误对下游系统的影响，通常也会用词格来取代One-best语音识别结果。除此之外，另一种思路是通过一个后处理模型修正识别结果中的错误，再送给文本翻译模型进行翻译。也可以进一步对文本做{\small\bfnew{顺滑}}\index{顺滑}（Disfluency Detection\index{Disfluency Detection}）处理，使得送给翻译系统的文本更加干净、流畅，比如除去一些导致停顿的语气词。这一做法在工业界得到了广泛应用，但由于每个模型只能串行地计算，也会带来额外的计算代价以及运算时间。第三种思路是训练更加健壮的文本翻译模型，使其可以处理输入中存在的噪声或误差\upcite{DBLP:conf/acl/LiuTMCZ18}。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{端到端语音翻译}
+\subsection{端到端语音翻译}\label{end-to-end-speech-translation}
 
 \parinterval 级联语音翻译模型结构简单、易于实现，但不可避免地存在一些缺陷：
 
@@ -175,7 +175,7 @@
     \vspace{0.5em}
     \item {\small\bfnew{训练数据稀缺}}。虽然语音识别和文本翻译的训练数据都很多，但是直接由源语言语音到目标语言文本的平行数据十分有限，因此端到端语音翻译天然地就是一种低资源翻译任务。
     \vspace{0.5em}
-    \item {\small\bfnew{建模复杂度更高}}。在语音识别中，模型是学习如何生成语音对应的文字序列，输入和输出的对齐比较简单，不涉及到调序的问题。在文本翻译中，模型要学习如何生成源语言序列对应的目标语言序列，仅需要学习不同语言之间的映射，不涉及到模态的转换。而语音翻译模型需要学习从语音到目标语言文本的生成，任务更加复杂。
+    \item {\small\bfnew{建模复杂度更高}}。在语音识别中，模型需要学习如何生成语音对应的文字序列，而输入和输出的对齐比较简单，并不涉及调序的问题。在文本翻译中，模型要学习如何生成源语言序列对应的目标语言序列，仅需要学习不同语言之间的映射，不涉及到模态的转换。而语音翻译模型需要学习从语音到目标语言文本的生成，任务更加复杂。
     \vspace{0.5em}
 \end{itemize}
 %----------------------------------------------------------------------------------------------------
@@ -223,7 +223,7 @@
 \end{figure}
 %----------------------------------------------------------------------------------------------------
 
-\parinterval 另外一种多任务学习的思想是通过两个解码器，分别预测语音对应的源语言句子和目标语言句子，具体有图\ref{fig:17-10}展示的三种方式\upcite{DBLP:conf/naacl/AnastasopoulosC18,DBLP:conf/asru/BaharBN19}。图\ref{fig:17-10}(a)中采用单编码器-双解码器的方式，两个解码器根据编码器的表示，分别预测源语言句子和目标语言句子，从而使编码器训练地更加充分。这种做法的好处在于源语言的文本生成任务可以辅助翻译过程，相当于为源语言语音提供了额外的“模态”信息。图\ref{fig:17-10}(b)则通过使用两个级联的解码器，先利用第一个解码器生成源语言句子，然后再利用第一个解码器的表示，通过第二个解码器生成目标语言句子。这种方法通过增加一个中间输出，降低了模型的训练难度，但同时也会带来额外的解码耗时，因为两个解码器需要串行地进行生成。图\ref{fig:17-10}(c) 中模型更进一步，第二个编码器联合编码器和第一个解码器的表示进行生成，更充分地利用了已有信息。
+\parinterval 另外一种多任务学习的思想是通过两个解码器，分别预测语音对应的源语言句子和目标语言句子，具体有图\ref{fig:17-10}展示的三种方式\upcite{DBLP:conf/naacl/AnastasopoulosC18,DBLP:conf/asru/BaharBN19}。图\ref{fig:17-10}(a)中采用单编码器-双解码器的方式，两个解码器根据编码器的表示，分别预测源语言句子和目标语言句子，从而使编码器训练地更加充分。这种做法的好处在于源语言的文本生成任务可以辅助翻译过程，相当于为源语言语音提供了额外的“模态”信息。图\ref{fig:17-10}(b)则通过使用两个级联的解码器，先利用第一个解码器生成源语言句子，然后再利用它的表示，通过第二个解码器生成目标语言句子。这种方法通过增加一个中间输出，降低了模型的训练难度，但同时也会带来额外的解码耗时，因为两个解码器需要串行地进行生成。图\ref{fig:17-10}(c)中的模型更进一步利用编码器的输出结果，第二个解码器联合编码器和第一个解码器的表示进行生成，更充分地利用了已有信息。
 %----------------------------------------------------------------------------------------------------
 \begin{figure}[htp]
 \centering
@@ -238,14 +238,14 @@
 %----------------------------------------------------------------------------------------
 \subsubsection{2. 迁移学习}
 
-\parinterval 相比语音识别和文本翻译，端到端语音翻译的训练数据量要小很多，因此，如何利用其它数据来增加可用的数据量是语音翻译的一个重要方向。和文本翻译中的方法相似，一种思路是利用迁移学习或预训练，利用其他语言的双语数据预训练模型参数，然后迁移到生成目标语言的任务上\upcite{DBLP:conf/naacl/BansalKLLG19}，或者是利用语音识别数据或文本翻译数据，分别预训练编码器和解码器的参数，用于初始化语音翻译模型的参数\upcite{DBLP:conf/icassp/BerardBKP18}。预训练的编码器对语音翻译模型的学习尤为重要\upcite{DBLP:conf/naacl/BansalKLLG19}，相比文本数据，语音数据的复杂性更高，仅使用小规模语音翻译数据很难学习充分。此外，模型对声学特征的学习与语言并不是强相关的，其他语种预训练的编码器对模型学习也是有帮助的。
+\parinterval 相比语音识别和文本翻译，端到端语音翻译的训练数据量要小很多，因此，如何利用其它数据来增加可用的数据量是语音翻译的一个重要方向。和文本翻译中的方法相似，一种思路是利用迁移学习或预训练，利用其他语言的双语数据预训练模型参数，然后迁移到生成目标语言的任务上\upcite{DBLP:conf/naacl/BansalKLLG19}，或者是利用语音识别数据或文本翻译数据，分别预训练编码器和解码器的参数，用于初始化语音翻译模型的参数\upcite{DBLP:conf/icassp/BerardBKP18}。预训练的编码器对语音翻译模型的学习尤为重要\upcite{DBLP:conf/naacl/BansalKLLG19}，相比文本数据，语音数据的复杂性更高，仅使用小规模语音翻译数据很难学习充分。此外，模型对声学特征的学习与语言并不是强相关的，使用其他语种预训练得到的编码器对模型学习也是有帮助的。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
 %----------------------------------------------------------------------------------------
 \subsubsection{3. 数据增强}
 
-\parinterval 数据增强是增加训练数据最直接的一种方法。不同于文本翻译的回译等方法（见{\chaptersixteen}），语音翻译并不具有简单的“可逆性”。如果要利用回译的思想，需要通过一个模型，将目标语言文本转化为源语言语音，但实际上这种模型是不能简单得到的。因此，一个简单的思路是通过一个反向翻译模型和语音合成模型级联来生成伪数据\upcite{DBLP:conf/icassp/JiaJMWCCALW19}。 另外，正向翻译模型生成的伪数据在文本翻译中也被验证了对模型训练有一定的帮助，因此同样可以利用语音识别和文本翻译模型，将源语言语音翻译成目标语言文本，得到伪平行语料。
+\parinterval 数据增强是增加训练数据最直接的一种方法。不同于文本翻译的回译等方法（见{\chaptersixteen}），语音翻译并不具有直接的“可逆性”。如果要利用回译的思想，需要通过一个模型，将目标语言文本转化为源语言语音，但实际上这种模型是不能直接得到的。因此，一个直接的思路是通过一个反向翻译模型和语音合成模型级联来生成伪数据\upcite{DBLP:conf/icassp/JiaJMWCCALW19}。 另外，正向翻译模型生成的伪数据在文本翻译中也被验证了对模型训练有一定的帮助，因此同样可以利用语音识别和文本翻译模型，将源语言语音翻译成目标语言文本，得到伪平行语料。
 
 %----------------------------------------------------------------------------------------------------
 
@@ -310,7 +310,7 @@
 \centerline{中午/没/吃饭/，/又/刚/打/了/ 一/下午/篮球/，/我/现在/很/饿/ ，/我/想\underline{\quad \quad} 。}
 \vspace{0.8em}
 
-\parinterval 想在横线处填写“吃饭”，“吃东西”的原因是在读句子的过程中，关注到了“没/吃饭”，“很/饿”等关键息。这是在语言生成中注意力机制所解决的问题，即对于要生成的目标语言单词，相关性更高的语言片段应该更加“重要”，而不是将所有单词一视同仁。同样的，注意力机制也应用在多模态机器翻译中，即在生成目标单词时，更应该关注与目标单词相关的图像部分，而弱化对其他部分的关注。另外，注意力机制的引入，也使图像信息更加直接地参与目标语言的生成，解决了在不使用注意力机制的方法中图像信息传递损失的问题。
+\parinterval 想在横线处填写“吃饭”，“吃东西”的原因是在读句子的过程中，关注到了“没/吃饭”，“很/饿”等关键信息。这是在语言生成中注意力机制所解决的问题，即对于要生成的目标语言单词，相关性更高的语言片段应该更加“重要”，而不是将所有单词一视同仁。同样的，注意力机制也应用在多模态机器翻译中，即在生成目标单词时，更应该关注与目标单词相关的图像部分，而弱化对其他部分的关注。另外，注意力机制的引入，也使图像信息更加直接地参与目标语言的生成，解决了在不使用注意力机制的方法中图像信息传递损失的问题。
 
 %----------------------------------------------------------------------------------------------------
 \begin{figure}[htp]
@@ -376,7 +376,7 @@
 
 \subsubsection{1. 基础框架}
 
-\parinterval 在编码器-解码器框架中，编码器将输入的图像转换为一种新的“表示”形式，这种“表示”包含了输入图像的所有信息。之后解码器把这种“表示”转换为自然语言描述。比如，可以通过卷积神经网络提取图像特征为一个向量表示。然后，利用长短时记忆网络（LSTMs）解码生成文字描述，这个过程中与机器翻译的解码过程类似。这种建模方式存在与\ref{sec:image-augmented-translation}描述一样的问题：生成的描述单词不一定需要所有的图像信息，将全局的图像信息送入模型中，可能会引入噪音。这时可以使用注意力机制来缓解该问题\upcite{DBLP:conf/icml/XuBKCCSZB15}。
+\parinterval 在编码器-解码器框架中，编码器将输入的图像转换为一种新的“表示”形式，这种“表示”包含了输入图像的所有信息。之后解码器把这种“表示”转换为自然语言描述。比如，可以通过卷积神经网络提取图像特征为一个向量表示。然后，利用长短时记忆网络（LSTMs）解码生成文字描述，这个过程中与机器翻译的解码过程类似。这种建模方式存在与\ref{sec:image-augmented-translation}小节描述一样的问题：生成的描述单词不一定需要所有的图像信息，将全局的图像信息送入模型中，可能会引入噪音。这时可以使用注意力机制来缓解该问题\upcite{DBLP:conf/icml/XuBKCCSZB15}。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -397,7 +397,7 @@
 \end{figure}
 %----------------------------------------------------------------------------------------------------
 
-\parinterval 以上的方法大都是将图像中的实体、属性、场景等映射到文字上，并把这些信息显式地输入到编码器中。另一种方式，把图像中的语义特征隐式地引入编码中\upcite{DBLP:conf/cvpr/ChenZXNSLC17}。例如，图像数据可以分解为三个通道（红、绿、蓝），简单来说，就是将图像的每一个像素点按照红色、绿色、蓝色分成三个部分，这样就将图像分成了三个通道。在很多图像中，不同通道伴随的特征是不一样的，可以将其作用于编码器。另一种方法是基于位置信息的编码增强。位置信息指的是图像中对象（物体）的位置。利用目标检测技术检测系统获得图中的对象和对应的特征，这样就确定了图中的对象位置。显然，这些信息可以加强编码器的表示能力\upcite{DBLP:conf/eccv/YaoPLM18}。
+\parinterval 以上的方法大都是将图像中的实体、属性、场景等映射到文字上，并把这些信息显式地输入到编码器中。除此之外，一种方法是把图像中的语义特征隐式地引入编码中\upcite{DBLP:conf/cvpr/ChenZXNSLC17}。例如，图像数据可以分解为三个通道（红、绿、蓝），简单来说，就是将图像的每一个像素点按照红色、绿色、蓝色分成三个部分，这样就将图像分成了三个通道。在很多图像中，不同通道伴随的特征是不一样的，可以将其作用于编码器。另外一种方法是基于位置信息的编码增强。位置信息指的是图像中对象（物体）的位置。利用目标检测技术检测系统获得图中的对象和对应的特征，这样就确定了图中的对象位置。显然，这些信息可以加强编码器的表示能力\upcite{DBLP:conf/eccv/YaoPLM18}。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -435,7 +435,7 @@
 
 \subsection{篇章级翻译的挑战}
 
-\parinterval “篇章”在这里是指一系列连续的段落或句子所构成的整体，其中各个句子间从形式和内容上都具有一定的连贯性和一致性\upcite{jurafsky2000speech}。这些联系主要体现在衔接以及连贯两个方面。其中衔接体现在显性的语言成分和结构上，包括篇章中句子间的语法和词汇的联系，而连贯体现在各个句子之间的逻辑和语义的联系上。因此，篇章级翻译就是要将这些上下文之间的联系考虑在内，从而生成比句子级翻译更连贯和准确的翻译结果。实例\ref{eg:17-1}就展示了一个使用篇章信息进行机器翻译的实例。
+\parinterval “篇章”在这里是指一系列连续的段落或句子所构成的整体，从形式和内容上，篇章中的各个句子间都具有一定的连贯性和一致性\upcite{jurafsky2000speech}。这些联系主要体现在衔接以及连贯两个方面。其中衔接体现在显性的语言成分和结构上，包括篇章中句子间的语法和词汇的联系，而连贯体现在各个句子之间的逻辑和语义的联系上。因此，篇章级翻译就是要将这些上下文之间的联系考虑在内，从而生成比句子级翻译更连贯和准确的翻译结果。实例\ref{eg:17-1}就展示了一个使用篇章信息进行机器翻译的实例。
 
 \begin{example}
 上下文句子：我/上周/针对/这个/问题/做出/解释/并/咨询/了/他的/意见/。
@@ -453,7 +453,7 @@
 
 \parinterval 正是这种上下文现象的多样性，使评价篇章级翻译模型的性能变得相对困难。目前篇章级机器翻译主要针对一些常见的上下文现象进行优化，比如代词翻译、省略、连接和词汇衔接等，而{\chapterfour}介绍的BLEU等通用自动评价指标通常对这些上下文依赖现象不敏感，因此篇章级翻译需要采用一些专用方法来对这些具体现象进行评价。
 
-\parinterval 在统计机器翻译时代就已经有大量的研究工作专注于篇章信息的建模，这些工作大多针对某一具体的上下文现象，比如，篇章结构\upcite{DBLP:conf/anlp/MarcuCW00,foster2010translating,DBLP:conf/eacl/LouisW14}、代词回指\upcite{DBLP:conf/iwslt/HardmeierF10,DBLP:conf/wmt/NagardK10,DBLP:conf/eamt/LuongP16,}、词汇衔接\upcite{tiedemann2010context,DBLP:conf/emnlp/GongZZ11,DBLP:conf/ijcai/XiongBZLL13,xiao2011document}和篇章连接词\upcite{DBLP:conf/sigdial/MeyerPZC11,DBLP:conf/hytra/MeyerP12,}等。区别于篇章级统计机器翻译，篇章级神经机器翻译不需要针对某一具体的上下文现象构造相应的特征，而是通过翻译模型本身从上下文句子中抽取和融合的上下文信息。通常情况下，篇章级机器翻译可以采用局部建模的手段将前一句或者周围几句作为上下文送入模型。针对需要长距离上下文的情况，也可以使用全局建模的手段直接从篇章的所有句子中提取上下文信息。近几年多数研究工作都在探索更有效的局部建模或全局建模方法，主要包括改进输入\upcite{DBLP:conf/discomt/TiedemannS17,DBLP:conf/naacl/BawdenSBH18,DBLP:conf/wmt/GonzalesMS17,DBLP:journals/corr/abs-1910-07481}、多编码器结构\upcite{DBLP:journals/corr/JeanLFC17,DBLP:journals/corr/abs-1805-10163,DBLP:conf/emnlp/ZhangLSZXZL18}、层次结构\upcite{DBLP:conf/naacl/MarufMH19,DBLP:conf/acl/HaffariM18,DBLP:conf/emnlp/YangZMGFZ19,DBLP:conf/ijcai/ZhengYHCB20}以及基于缓存的方法\upcite{DBLP:conf/coling/KuangXLZ18,DBLP:journals/tacl/TuLSZ18}等。
+\parinterval 在统计机器翻译时代就已经有大量的研究工作专注于篇章信息的建模，这些工作大多针对某一具体的上下文现象，比如，篇章结构\upcite{DBLP:conf/anlp/MarcuCW00,foster2010translating,DBLP:conf/eacl/LouisW14}、代词回指\upcite{DBLP:conf/iwslt/HardmeierF10,DBLP:conf/wmt/NagardK10,DBLP:conf/eamt/LuongP16,}、词汇衔接\upcite{tiedemann2010context,DBLP:conf/emnlp/GongZZ11,DBLP:conf/ijcai/XiongBZLL13,xiao2011document}和篇章连接词\upcite{DBLP:conf/sigdial/MeyerPZC11,DBLP:conf/hytra/MeyerP12,}等。区别于篇章级统计机器翻译，篇章级神经机器翻译不需要针对某一具体的上下文现象构造相应的特征，而是通过翻译模型从上下文句子中抽取并融合上下文信息。通常情况下，篇章级机器翻译可以采用局部建模的手段将前一句或者周围几句作为上下文送入模型。如果篇章翻译中需要利用长距离的上下文信息，也可以使用全局建模的手段直接从篇章的所有句子中提取上下文信息。近几年多数研究工作都在探索更有效的局部建模或全局建模方法，主要包括改进输入\upcite{DBLP:conf/discomt/TiedemannS17,DBLP:conf/naacl/BawdenSBH18,DBLP:conf/wmt/GonzalesMS17,DBLP:journals/corr/abs-1910-07481}、多编码器结构\upcite{DBLP:journals/corr/JeanLFC17,DBLP:journals/corr/abs-1805-10163,DBLP:conf/emnlp/ZhangLSZXZL18}、层次结构\upcite{DBLP:conf/naacl/MarufMH19,DBLP:conf/acl/HaffariM18,DBLP:conf/emnlp/YangZMGFZ19,DBLP:conf/ijcai/ZhengYHCB20}以及基于缓存的方法\upcite{DBLP:conf/coling/KuangXLZ18,DBLP:journals/tacl/TuLSZ18}等。
 
 \parinterval 此外，篇章级机器翻译面临的另外一个挑战是数据稀缺。篇章级机器翻译所需要的双语数据需要保留篇章边界，数量相比于句子级双语数据要少很多。除了在之前提到的端到端方法中采用预训练或者参数共享的手段（见{\chaptersixteen}），也可以采用新的建模手段来缓解数据稀缺问题。这类方法通常将篇章级翻译流程进行分离：先训练一个句子级的翻译模型，再通过一些额外的模块来引入上下文信息。比如，在句子级翻译模型的推断过程中，通过在目标端结合篇章级语言模型引入上下文信息\upcite{DBLP:conf/discomt/GarciaCE19,DBLP:journals/tacl/YuSSLKBD20,DBLP:journals/corr/abs-2010-12827}，或者基于句子级的翻译结果，使用两阶段解码等手段引入上下文信息，进而对句子级翻译结果进行修正\upcite{DBLP:conf/aaai/XiongH0W19,DBLP:conf/acl/VoitaST19,DBLP:conf/emnlp/VoitaST19}。
 
@@ -463,9 +463,9 @@
 
 \subsection{篇章级翻译的评价}\label{sec:17-3-2}
 
-\parinterval BLEU等自动评价指标能够在一定程度上反映译文的整体质量，但是并不能有效地评估篇章级翻译模型的性能。这是由于很多标准测试集中需要篇章上下文的情况比例相对较少。而且，$n$-gram的匹配很难检测到一些具体的语言现象，这使得研究人员很难通过BLEU得分来判断篇章级翻译模型的效果。
+\parinterval BLEU等自动评价指标能够在一定程度上反映译文的整体质量，但是并不能有效地评估篇章级翻译模型的性能。这是由于很多标准测试集中需要篇章上下文的情况相对较少。而且，$n$-gram的匹配很难检测到一些具体的语言现象，这使得研究人员很难通过BLEU得分来判断篇章级翻译模型的效果。
 
-\parinterval 为此，研究人员总结了机器翻译任务中存在的上下文现象，并基于此设计了相应的自动评价指标。比如针对篇章中代词的翻译问题，首先借助词对齐工具确定源语言中的代词在译文和参考答案中的对应位置，然后通过计算译文中代词的准确率和召回率等指标对代词翻译质量进行评价\upcite{DBLP:conf/iwslt/HardmeierF10,DBLP:conf/discomt/WerlenP17}。针对篇章中的词汇衔接，使用{\small\sffamily\bfseries{词汇链}}\index{词汇链}（Lexical Chain\index{Lexical Chain}）\footnote{词汇链指篇章中语义相关的词所构成的序列。}等来获取能够反映词汇衔接质量的分数，然后通过加权的方式与常规的BLEU或METEOR等指标结合在一起\upcite{DBLP:conf/emnlp/WongK12,DBLP:conf/discomt/GongZZ15}。针对篇章中的连接词，使用候选词典和词对齐工具对源文中连接词的正确翻译结果进行计数，计算其准确率\upcite{DBLP:conf/cicling/HajlaouiP13}。
+\parinterval 为此，研究人员总结了机器翻译任务中存在的上下文现象，并基于此设计了相应的自动评价指标。比如针对篇章中代词的翻译问题，首先借助词对齐工具确定源语言中的代词在译文和参考答案中的对应位置，然后通过计算译文中代词的准确率和召回率等指标对代词翻译质量进行评价\upcite{DBLP:conf/iwslt/HardmeierF10,DBLP:conf/discomt/WerlenP17}。针对篇章中的词汇衔接，使用{\small\sffamily\bfseries{词汇链}}\index{词汇链}（Lexical Chain\index{Lexical Chain}）\footnote{词汇链指篇章中语义相关的词所构成的序列。}来获取能够反映词汇衔接质量的分数，然后通过加权的方式与常规的BLEU或METEOR等指标结合在一起\upcite{DBLP:conf/emnlp/WongK12,DBLP:conf/discomt/GongZZ15}。针对篇章中的连接词，使用候选词典和词对齐工具对源文中连接词的正确翻译结果进行计数，计算其准确率\upcite{DBLP:conf/cicling/HajlaouiP13}。
 
 \parinterval 除了直接对译文打分，也有一些工作针对特有的上下文现象手工构造了相应的测试套件用于评价翻译质量。测试套件中每一个测试样例都包含一个正确翻译的结果，以及多个错误结果，一个理想的翻译模型应该对正确的翻译结果评价最高，排名在所有错误结果之上,此时就可以根据模型是否能挑选出正确翻译结果来评估其性能。这种方法可以很好地衡量翻译模型在某一特定上下文现象上的处理能力，比如词义消歧\upcite{DBLP:conf/wmt/RiosMS18}、代词翻译\upcite{DBLP:conf/naacl/BawdenSBH18,DBLP:conf/wmt/MullerRVS18}和一些衔接问题\upcite{DBLP:conf/acl/VoitaST19}等。但是该方法也存在使用范围受限于测试集的语种和规模的缺点，因此扩展性较差。
 
@@ -484,7 +484,7 @@
 \end{eqnarray}
 其中，$\seq{X}$和$\seq{Y}$分别为源语言篇章和目标语言篇章，$X_i$和$Y_i$分别为源语言篇章和目标语言篇章中的第$i$个句子，$T$表示篇章中句子的数目。为了简化问题，这里假设源语言和目标语言具有相同的句子数目$T$，而且两个篇章间句子是顺序对应的。$D_i$表示翻译第$i$个句子时所对应的上下文句子集合，理想情况下，$D_i$中包含源语言篇章和目标语言篇章中所有除第$i$句之外的句子，但实践中通常仅使用其中的部分句子作为上下文。
 
-\parinterval 上下文范围的选取是篇章级神经机器翻译需要着重考虑的问题，比如上下文句子的多少\upcite{agrawal2018contextual,Werlen2018DocumentLevelNM,DBLP:conf/naacl/MarufMH19}，是否考虑目标端上下文句子\upcite{DBLP:conf/discomt/TiedemannS17,agrawal2018contextual}等。此外，不同的上下文范围也对应着不同的建模方法，接下来将对一些典型的方法进行介绍，包括改进输入\upcite{DBLP:conf/discomt/TiedemannS17,DBLP:conf/naacl/BawdenSBH18,DBLP:conf/wmt/GonzalesMS17,DBLP:journals/corr/abs-1910-07481}、多编码器模型\upcite{DBLP:journals/corr/JeanLFC17,DBLP:journals/corr/abs-1805-10163,DBLP:conf/emnlp/ZhangLSZXZL18}、层次结构模型\upcite{DBLP:conf/emnlp/WangTWL17,DBLP:conf/emnlp/TanZXZ19,Werlen2018DocumentLevelNM}以及基于缓存的方法\upcite{DBLP:conf/coling/KuangXLZ18,DBLP:journals/tacl/TuLSZ18}。
+\parinterval 上下文范围的选取是篇章级神经机器翻译需要着重考虑的问题，比如上下文句子的多少\upcite{agrawal2018contextual,Werlen2018DocumentLevelNM,DBLP:conf/naacl/MarufMH19}，是否考虑目标端上下文句子\upcite{DBLP:conf/discomt/TiedemannS17,agrawal2018contextual}等。此外，不同的上下文范围也对应着不同的建模方法，接下来将对一些典型的方法进行介绍，包括改进输入形式\upcite{DBLP:conf/discomt/TiedemannS17,DBLP:conf/naacl/BawdenSBH18,DBLP:conf/wmt/GonzalesMS17,DBLP:journals/corr/abs-1910-07481}、多编码器结构\upcite{DBLP:journals/corr/JeanLFC17,DBLP:journals/corr/abs-1805-10163,DBLP:conf/emnlp/ZhangLSZXZL18}、层次结构模型\upcite{DBLP:conf/emnlp/WangTWL17,DBLP:conf/emnlp/TanZXZ19,Werlen2018DocumentLevelNM}以及基于缓存的方法\upcite{DBLP:conf/coling/KuangXLZ18,DBLP:journals/tacl/TuLSZ18}。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -492,7 +492,7 @@
 
 \subsubsection{1. 输入形式}
 
-\parinterval 一种简单的方法是直接复用传统的序列到序列模型，将篇章中待翻译句子与其上下文句子拼接后作为模型输入。如实例\ref{eg:17-3-1}所示，这种做法不需要改动模型结构，操作简单，适用于大多数神经机器翻译系统\upcite{DBLP:conf/discomt/TiedemannS17,agrawal2018contextual,DBLP:conf/discomt/ScherrerTL19}。但是由于过长的序列会导致模型难以训练，通常只会选取局部的上下文句子进行拼接，比如只拼接源语言端前一句或者周围几句\upcite{DBLP:conf/discomt/TiedemannS17}。此外，也可以引入目标语言端的上下文\upcite{DBLP:conf/naacl/BawdenSBH18,agrawal2018contextual,DBLP:conf/discomt/ScherrerTL19}，在解码时拼接目标语言端上下文和当前句同样会带来一定的性能提升。但是过大的窗口会造成推断速度的下降\upcite{agrawal2018contextual}，因此通常只考虑前一个目标语言句子。
+\parinterval 一种简单的方法是直接复用传统的序列到序列模型，将篇章中待翻译句子与其上下文句子拼接后作为模型输入。如实例\ref{eg:17-3-1}所示，这种做法不需要改动模型结构，操作简单，适用于大多数神经机器翻译系统\upcite{DBLP:conf/discomt/TiedemannS17,agrawal2018contextual,DBLP:conf/discomt/ScherrerTL19}。但是由于过长的序列会导致模型难以训练，通常只会选取局部的上下文句子进行拼接，比如只拼接源语言端前一句或者周围几句\upcite{DBLP:conf/discomt/TiedemannS17}。此外，也可以引入目标语言端的上下文\upcite{DBLP:conf/naacl/BawdenSBH18,agrawal2018contextual,DBLP:conf/discomt/ScherrerTL19}，在解码时，将目标语言端的当前句与上下文拼接在一起，同样会带来一定的性能提升。但是过大的窗口会造成推断速度的下降\upcite{agrawal2018contextual}，因此通常只考虑前一个目标语言句子。
 
 \begin{example}
 传统模型训练输入：
@@ -525,9 +525,9 @@
 \mathbi{d}&=&\textrm{Attention}(\mathbi{h},\mathbi{h}^{\textrm {pre}},\mathbi{h}^{\textrm {pre}})
 \label{eq:17-3-3}
 \end{eqnarray}
-其中，$\mathbi{h}$作为Query（查询），$\mathbi{h}^{\textrm pre}$作为Key（键）和Value（值）。然后通过门控机制将待翻译句子中每个位置的编码表示和该位置对应的上下文信息进行融合，具体方式如下：
+其中，$\mathbi{h}$为Query（查询），$\mathbi{h}^{\textrm {pre}}$为Key（键）和Value（值）。然后通过门控机制将待翻译句子中每个位置的编码表示和该位置对应的上下文信息进行融合，具体方式如下：
 \begin{eqnarray}
-\lambda_{t}&=&\sigma(\mathbi{W}_{\lambda}[\mathbi{h}_{t};\mathbi{d}_{t}]+\mathbi{b}_{\lambda})
+\lambda_{t}&=&\sigma([\mathbi{h}_{t};\mathbi{d}_{t}]\mathbi{W}_{\lambda}+\mathbi{b}_{\lambda})
 \label{eq:17-3-5}\\
 \widetilde{\mathbi{h}_{t}}&=&\lambda_{t}\mathbi{h}_{t}+(1-\lambda_{t})\mathbi{d}_{t}
 \label{eq:17-3-4}
@@ -568,9 +568,9 @@
 \parinterval 为了增强模型的表示能力，层次注意力中并未直接使用当前句子第$t$个位置的编码表示$\mathbi{h}_{t}$作为注意力操作的Query（查询），而是通过两个线性变换分别获取词级注意力和句子级注意力的查询$\mathbi{q}_{w}$ 和$\mathbi{q}_{s}$，定义如公式\eqref{eq:17-3-6}\eqref{eq:17-3-8}，其中${\mathbi W}_w$、${\mathbi W}_s$、${\mathbi b}_w$、${\mathbi b}_s$分别是两个线性变换的权重和偏置。
 
 \begin{eqnarray}
-\mathbi{q}_{w}&=&{\mathbi W}_w \mathbi{h}_t+{\mathbi b}_w
+\mathbi{q}_{w}&=&\mathbi{h}_t{\mathbi W}_w +{\mathbi b}_w
 \label{eq:17-3-6}\\
-\mathbi{q}_{s}&=&{\mathbi W}_s \mathbi{h}_t+{\mathbi b}_s
+\mathbi{q}_{s}&=&\mathbi{h}_t{\mathbi W}_s +{\mathbi b}_s
 \label{eq:17-3-8}
 \end{eqnarray}
 
@@ -586,7 +586,7 @@
 
 \noindent 其中，$\textrm{WordAttention}(\cdot)$和$\textrm{SentAttention}(\cdot)$都是标准的自注意力模型。在得到最终的上下文信息$\mathbi{d}$后，模型同样采用门控机制（如公式\eqref{eq:17-3-4} 和公式\eqref{eq:17-3-5}）与$\mathbi{h}$进行融合来得到一个上下文相关的当前句子表示$\widetilde{\mathbi{h}}$。
 
-\parinterval 通过层次注意力，模型可以在词级和句子级两个维度从多个句子中提取更充分的上下文信息，除了用于编码器，也可以用于解码器来获取目标语言的上下文信息。基于层次注意力，为了进一步编码整个篇章的上下文信息，研究人员提出选择性注意力来对篇章中整体上下文进行有选择的信息提取\upcite{DBLP:conf/naacl/MarufMH19}。此外，也有研究人员使用循环神经网络\upcite{DBLP:conf/emnlp/WangTWL17}、 记忆网络\upcite{DBLP:conf/acl/HaffariM18}、胶囊网络\upcite{DBLP:conf/emnlp/YangZMGFZ19}和片段级相对注意力\upcite{DBLP:conf/ijcai/ZhengYHCB20}等结构来对多个上下文句子进行上下文信息提取。
+\parinterval 通过层次注意力，模型可以在词级和句子级两个维度从多个句子中提取更充分的上下文信息，除了使用编码器，也可以使用解码器来获取目标语言的上下文信息。为了进一步编码整个篇章的上下文信息，研究人员提出选择性注意力来对篇章的整体上下文有选择地进行信息提取\upcite{DBLP:conf/naacl/MarufMH19}。此外，也有研究人员使用循环神经网络\upcite{DBLP:conf/emnlp/WangTWL17}、 记忆网络\upcite{DBLP:conf/acl/HaffariM18}、胶囊网络\upcite{DBLP:conf/emnlp/YangZMGFZ19}和片段级相对注意力\upcite{DBLP:conf/ijcai/ZhengYHCB20}等结构来对多个上下文句子进行上下文信息提取。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -639,7 +639,7 @@
 \sectionnewpage
 \section{小结及拓展阅读}
 
-\parinterval 使用更大上下文进行机器翻译建模是极具潜力的研究方向，包括多模态翻译在内的多个领域也非常活跃。有许多问题值得进一步思考与讨论：
+\parinterval 使用更多的上下文进行机器翻译建模是极具潜力的研究方向，在包括多模态翻译在内的多个领域中也非常活跃。有许多问题值得进一步思考与讨论：
 
 \begin{itemize}
 \vspace{0.5em}

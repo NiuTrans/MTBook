@@ -37,7 +37,7 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 
 \parinterval 在翻译任务中，我们希望得到一个源语言到目标语言的翻译。对于人类来说这个问题很简单，但是让计算机做这样的工作却很困难。这里面临的第一个问题是：如何对翻译进行建模？从计算机的角度来看，这就需要把自然语言的翻译问题转换为计算机可计算的问题。
 
-\parinterval 那么，基于单词的统计机器翻译模型又是如何描述翻译问题的呢？Peter F. Brown等人提出了一个观点\upcite{DBLP:journals/coling/BrownPPM94}：在翻译一个句子时，可以把其中的每个单词翻译成对应的目标语言单词，然后调整这些目标语言单词的顺序，最后得到整个句子的翻译结果，而这个过程可以用统计模型来描述。尽管在人看来使用两个语言单词之间的对应进行翻译是很自然的事，但是对于计算机来说可是向前迈出了一大步。
+\parinterval 那么，基于单词的统计机器翻译模型又是如何描述翻译问题的呢？Peter F. Brown等人提出了一个观点\upcite{DBLP:journals/coling/BrownPPM94}：在翻译一个句子时，可以把其中的每个单词翻译成对应的目标语言单词，然后调整这些目标语言单词的顺序，最后得到整个句子的翻译结果，而这个过程可以用统计模型来描述。尽管在人看来使用两个语言之间对应的单词进行翻译是很自然的事，但是对于计算机来说可是向前迈出了一大步。
 
 \parinterval 先来看一个例子。图 \ref{fig:5-1}展示了一个汉语翻译到英语的例子。首先，可以把源语言句子中的单词“我”、“对”、“你”、“感到”和“满意”分别翻译为“I”、“with”、“you”、“am”\ 和“satisfied”，然后调整单词的顺序，比如，“am”放在译文的第2个位置，“you”应该放在最后的位置等等，最后得到译文“I am satisfied with you”。
 
@@ -80,7 +80,7 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 \section{一个简单实例}
 \label{sec:simple-mt-example}
 
-\parinterval 本节首先对比人工翻译和机器翻译过程的异同点，从中归纳出实现机器翻译过程的两个主要步骤：训练和解码。之后，会从学习翻译知识和运用翻译知识两个方面描述如何构建一个简单的机器翻译系统。
+\parinterval 本节首先对比人工翻译和机器翻译流程的异同点，从中归纳出实现机器翻译过程的两个主要步骤：训练和解码。之后，会从学习翻译知识和运用翻译知识两个方面描述如何构建一个简单的机器翻译系统。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -162,7 +162,7 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 
 \subsection{统计机器翻译的基本框架}
 
-\parinterval 为了对统计机器翻译有一个直观的认识，下面将介绍如何构建一个非常简单的统计机器翻译系统，其中涉及到的很多思想来自IBM模型。这里，仍然使用数据驱动的统计建模方法。图\ref{fig:5-5}展示了系统的主要流程，包括两个步骤：
+\parinterval 为了对统计机器翻译有一个直观的认识，下面将介绍如何构建一个非常简单的统计机器翻译系统，其中涉及到的很多思想来自IBM模型。这里，仍然使用数据驱动的统计建模方法。图\ref{fig:5-5}展示了统计机器翻译的主要流程，包括两个步骤：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -182,13 +182,13 @@ IBM模型由Peter F. Brown等人于上世纪九十年代初提出\upcite{DBLP:jo
 %----------------------------------------------
 \vspace{-0.5em}
 
-\parinterval 接下来，本节将介绍统计机器翻译模型训练和解码的方法。在模型学习中，会分两小节进行描述\ \dash \ 单词级翻译和句子级翻译。实现单词级翻译是实现句子级翻译的基础。换言之，句子级翻译的统计模型是建立在单词翻译之上的。在解码中，本节将介绍一个高效的搜索算法，其中也使用到了剪枝和启发式搜索的思想。
+\parinterval 接下来，本节将介绍统计机器翻译模型训练和解码的方法。在模型学习中，会分两小节进行描述\ \dash \ 单词级翻译和句子级翻译。实现单词级翻译是实现句子级翻译的基础。换言之，句子级翻译的统计模型是建立在单词翻译之上的。在\ref{sec:simple-decoding}小节将介绍一个高效的搜索算法，其中也使用到了剪枝和启发式搜索的思想。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{单词翻译概率}\label{chapter5.2.3}
+\subsection{单词级翻译模型}\label{chapter5.2.3}
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -323,7 +323,7 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
 
 \subsubsection{1. 基础模型}
 
-\parinterval 计算句子级翻译概率并不简单。因为自然语言非常灵活，任何数据无法覆盖足够多的句子，因此，无法像公式\eqref{eq:5-5}一样直接用简单计数的方式对句子的翻译概率进行估计。这里，采用一个退而求其次的方法：找到一个函数$g(\seq{s},\seq{t})\ge 0$来模拟翻译概率对译文可能性进行估计。可以定义一个新的函数$g(\seq{s},\seq{t})$，令其满足：给定$\seq{s}$，翻译结果$\seq{t}$出现的可能性越大，$g(\seq{s},\seq{t})$的值越大；$\seq{t}$出现的可能性越小，$g(\seq{s},\seq{t})$的值越小。换句话说，$g(\seq{s},\seq{t})$和翻译概率$\funp{P}(\seq{t}|\seq{s})$呈正相关。如果存在这样的函数$g(\seq{s},\seq{t}
+\parinterval 计算句子级翻译概率并不简单。因为自然语言非常灵活，任何数据无法覆盖足够多的句子，因此，无法像公式\eqref{eq:5-5}一样直接用简单计数的方式对句子的翻译概率进行估计。这里，采用一个退而求其次的方法：找到一个函数$g(\seq{s},\seq{t})\ge 0$来模拟翻译概率对译文的可能性进行估计。可以定义一个新的函数$g(\seq{s},\seq{t})$，令其满足：给定$\seq{s}$，翻译结果$\seq{t}$出现的可能性越大，$g(\seq{s},\seq{t})$的值越大；$\seq{t}$出现的可能性越小，$g(\seq{s},\seq{t})$的值越小。换句话说，$g(\seq{s},\seq{t})$和翻译概率$\funp{P}(\seq{t}|\seq{s})$呈正相关。如果存在这样的函数$g(\seq{s},\seq{t}
 )$，可以利用$g(\seq{s},\seq{t})$近似表示$\funp{P}(\seq{t}|\seq{s})$，如下：
 \begin{eqnarray}
 \funp{P}(\seq{t}|\seq{s}) & \equiv & \frac{g(\seq{s},\seq{t})}{\sum_{\seq{t}'}g(\seq{s},\seq{t}')}
@@ -332,7 +332,7 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
 
 \parinterval 公式\eqref{eq:5-7}相当于在函数$g(\cdot)$上做了归一化，这样等式右端的结果具有一些概率的属性，比如，$0 \le \frac{g(\seq{s},\seq{t})}{\sum_{\seq{t'}}g(\seq{s},\seq{t'})} \le 1$。 具体来说，对于源语言句子$\seq{s}$，枚举其所有的翻译结果，并把所对应的函数$g(\cdot)$相加作为分母，而分子是某个翻译结果$\seq{t}$所对应的$g(\cdot)$的值。
 
-\parinterval 上述过程初步建立了句子级翻译模型，并没有直接求$\funp{P}(\seq{t}|\seq{s})$，而是把问题转化为对$g(\cdot)$的设计和计算上。但是，面临着两个新的问题：
+\parinterval 上述过程初步建立了句子级翻译模型，并没有直接求$\funp{P}(\seq{t}|\seq{s})$，而是把问题转化到对$g(\cdot)$的设计和计算上。但是，面临着两个新的问题：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -344,11 +344,11 @@ $\seq{t}^{[2]}$ = So\; ,\; what\; is\; human\; \underline{translation}\; ?
 
 \parinterval  当然，这里最核心的问题还是函数$g(\seq{s},\seq{t})$的定义。而第二个问题其实不需要解决，因为机器翻译只关注于可能性最大的翻译结果，即$g(\seq{s},\seq{t})$的计算结果最大时对应的译文。这个问题会在后面进行讨论。
 
-\parinterval 回到设计$g(\seq{s},\seq{t})$的问题上。这里，采用“大题小作”的方法，这个技巧在{\chaptertwo}已经进行了充分的介绍。具体来说，直接建模句子之间的对应比较困难，但可以利用单词之间的对应来描述句子之间的对应关系。这就用到了\ref{chapter5.2.3}小节所介绍的单词翻译概率。
+\parinterval 回到设计$g(\seq{s},\seq{t})$的问题上。这里，采用“大题小作”的方法，这个方法在{\chaptertwo}已经进行了充分的介绍。具体来说，直接建模句子之间的对应比较困难，但可以利用单词之间的对应来描述句子之间的对应关系。这就用到了\ref{chapter5.2.3}小节所介绍的单词翻译概率。
 
 \parinterval 首先引入一个非常重要的概念\ \dash \ {\small\sffamily\bfseries{词对齐}}\index{词对齐}（Word Alignment）\index{Word Alignment}，它是统计机器翻译中最核心的概念之一。词对齐描述了平行句对中单词之间的对应关系，它体现了一种观点：本质上句子之间的对应是由单词之间的对应表示的。当然，这个观点在神经机器翻译或者其他模型中可能会有不同的理解，但是翻译句子的过程中考虑词级的对应关系是符合人类对语言的认知的。
 
-\parinterval 图\ref{fig:5-7} 展示了一个句对$\seq{s}$和$\seq{t}$，单词的右下标数字表示了该词在句中的位置，而虚线表示的是句子$\seq{s}$和$\seq{t}$中的词对齐关系。比如，“满意”的右下标数字5表示在句子$\seq{s}$中处于第5个位置，“satisfied”的右下标数字3表示在句子$\seq{t}$中处于第3个位置，“满意”和“satisfied”之间的虚线表示两个单词之间是对齐的。为方便描述，用二元组$(j,i)$ 来描述词对齐，它表示源语言句子的第$j$个单词对应目标语言句子的第$i$个单词，即单词$s_j$和$t_i$对应。通常，也会把$(j,i)$称作一条{\small\sffamily\bfseries{词对齐连接}}\index{词对齐连接}（Word Alignment Link\index{Word Alignment Link}）。图\ref{fig:5-7} 中共有5 条虚线，表示有5组单词之间的词对齐连接。可以把这些词对齐连接构成的集合作为词对齐的一种表示，记为$A$，即$A={\{(1,1),(2,4),(3,5),(4,2)(5,3)}\}$。
+\parinterval 图\ref{fig:5-7} 展示了一个汉英互译句对$\seq{s}$和$\seq{t}$及其词对齐关系，单词的右下标数字表示了该词在句中的位置，而虚线表示的是句子$\seq{s}$和$\seq{t}$中的词对齐关系。比如，“满意”的右下标数字5表示在句子$\seq{s}$中处于第5个位置，“satisfied”的右下标数字3表示在句子$\seq{t}$中处于第3个位置，“满意”和“satisfied”之间的虚线表示两个单词之间是对齐的。为方便描述，用二元组$(j,i)$ 来描述词对齐，它表示源语言句子的第$j$个单词对应目标语言句子的第$i$个单词，即单词$s_j$和$t_i$对应。通常，也会把$(j,i)$称作一条{\small\sffamily\bfseries{词对齐连接}}\index{词对齐连接}（Word Alignment Link\index{Word Alignment Link}）。图\ref{fig:5-7} 中共有5 条虚线，表示有5组单词之间的词对齐连接。可以把这些词对齐连接构成的集合作为词对齐的一种表示，记为$A$，即$A={\{(1,1),(2,4),(3,5),(4,2)(5,3)}\}$。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -381,7 +381,7 @@ g(\seq{s},\seq{t}) &= &\prod_{(j,i)\in \widehat{A}}\funp{P}(s_j,t_i)
 
 \subsubsection{2. 生成流畅的译文}
 
-\parinterval 公式\eqref{eq:5-8}定义的$g(\seq{s},\seq{t})$存在的问题是没有考虑词序信息。这里用一个简单的例子说明这个问题。如图\ref{fig:5-8}所示，源语言句子“我 对 你 感到 满意”有两个翻译结果，第一个翻译结果是“I am satisfied with you”，第二个是“I with you am satisfied”。虽然这两个译文包含的目标语单词是一样的，但词序存在很大差异。比如，它们都选择了“satisfied”作为源语单词“满意”的译文，但是在第一个翻译结果中“satisfied”处于第3个位置，而第二个结果中处于最后的位置。显然第一个翻译结果更符合英语的表达习惯，翻译的质量更高。遗憾的是，对于有明显差异的两个译文，公式\eqref{eq:5-8}计算得到的函数$g(\cdot)$的值却是一样的。
+\parinterval 公式\eqref{eq:5-8}定义的$g(\seq{s},\seq{t})$存在的问题是没有考虑词序信息。这里用一个简单的例子说明这个问题。如图\ref{fig:5-8}所示，源语言句子“我 对 你 感到 满意”有两个翻译结果，第一个翻译结果是“I am satisfied with you”，第二个是“I with you am satisfied”。虽然这两个译文包含的目标语单词是一样的，但词序存在很大差异。比如，它们都选择了“satisfied”作为源语单词“满意”的译文，但是在第一个翻译结果中“satisfied”处于第3个位置，而第二个结果中处于最后的位置。显然第一个翻译结果更符合英语的表达习惯，翻译的质量更高。遗憾的是，对于有明显差异的两个译文，公式\eqref{eq:5-8}计算得到的函数$g(\cdot)$的得分却是一样的。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -409,7 +409,7 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 \label{eq:5-11}
 \end{eqnarray}
 
-\parinterval 如图\ref{fig:5-9}所示，语言模型$\funp{P}_{\textrm{lm}}(\seq{t})$分别给$\seq{t}^{'}$和$\seq{t}^{”}$赋予0.0107和0.0009的概率，这表明句子$\seq{t}^{'}$更符合英文的表达，这与期望是相吻合的。它们再分别乘以$\prod_{j,i \in \widehat{A}}{\funp{P}(s_j},t_i)$的值，就得到公式\eqref{eq:5-11}定义的函数$g(\cdot)$的值。显然句子$\seq{t}^{'}$的分数更高。至此，完成了对函数$g(\seq{s},\seq{t})$的一个简单定义，把它带入公式\eqref{eq:5-7}就得到了同时考虑准确性和流畅性的句子级统计翻译模型。
+\parinterval 如图\ref{fig:5-9}所示，语言模型$\funp{P}_{\textrm{lm}}(\seq{t})$分别给$\seq{t}^{'}$和$\seq{t}^{”}$赋予0.0107和0.0009的概率，这表明句子$\seq{t}^{'}$更符合英文的表达，这与期望是相吻合的。它们再分别乘以$\prod_{j,i \in \widehat{A}}{\funp{P}(s_j},t_i)$的值，就得到公式\eqref{eq:5-11}定义的函数$g(\cdot)$的得分。显然句子$\seq{t}^{'}$的分数更高。至此，完成了对函数$g(\seq{s},\seq{t})$的一个简单定义，把它带入公式\eqref{eq:5-7}就得到了同时考虑准确性和流畅性的句子级统计翻译模型。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -496,7 +496,7 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-
+\sectionnewpage
 \section{噪声信道模型}
 
 \vspace{0.5em}
@@ -517,7 +517,7 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 \vspace{-0.5em}
 \parinterval IBM模型也是建立在如上统计模型之上。具体来说，IBM模型的基础是{\small\sffamily\bfseries{噪声信道模型}}\index{噪声信道模型}（Noise Channel Model）\index{Noise Channel Model}，它是由Shannon在上世纪40年代末提出来的\upcite{shannon1949communication}，并于上世纪80年代应用在语言识别领域，后来又被Brown等人用于统计机器翻译中\upcite{brown1990statistical,DBLP:journals/coling/BrownPPM94}。
 
-\parinterval 在噪声信道模型中，源语言句子$\seq{s}$（信宿）被看作是由目标语言句子$\seq{t}$（信源）经过一个有噪声的信道得到的。如果知道了$\seq{s}$和信道的性质，可以通过$\funp{P}(\seq{t}|\seq{s})$得到信源的信息，这个过程如图\ref{fig:5-13}所示。
+\parinterval 在噪声信道模型中，目标语言句子$\seq{t}$（信源）被看作是由源语言句子$\seq{s}$（信宿）经过一个有噪声的信道得到的。如果知道了$\seq{s}$和信道的性质，可以通过$\funp{P}(\seq{t}|\seq{s})$得到信源的信息，这个过程如图\ref{fig:5-13}所示。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -571,18 +571,18 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-
+\sectionnewpage
 \section{统计机器翻译的三个基本问题}
 
 \parinterval 公式\eqref{eq:5-17}给出了统计机器翻译的数学描述。为了实现这个过程，面临着三个基本问题：
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{建模}}（Modeling）：如何建立$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$的数学模型。换句话说，需要用可计算的方式对翻译问题和语言建模问题进行描述，这也是最核心的问题。
+\item {\small\sffamily\bfseries{建模}}\index{建模}（Modeling）\index{Modeling}：如何建立$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$的数学模型。换句话说，需要用可计算的方式对翻译问题和语言建模问题进行描述，这也是最核心的问题。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{训练}}（Training）：如何获得$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$所需的参数。即从数据中得到模型的最优参数。
+\item {\small\sffamily\bfseries{训练}}\index{训练}（Training）\index{Training}：如何获得$\funp{P}(\seq{s}|\seq{t})$和$\funp{P}(\seq{t})$所需的参数。即从数据中得到模型的最优参数。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{解码}}（Decoding）：如何完成搜索最优解的过程。即完成$\argmax$。
+\item {\small\sffamily\bfseries{解码}}\index{解码}（Decoding）\index{Decoding}：如何完成搜索最优解的过程。即完成$\argmax$。
 \vspace{0.5em}
 \end{itemize}
 
@@ -616,7 +616,7 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
     \centering
 \input{./Chapter5/Figures/figure-different-alignment-comparison}
 \setlength{\belowcaptionskip}{-0.5em}
-    \caption{不同词对齐对比}
+    \caption{不同词对齐的对比}
     \label{fig:5-15}
 \end{figure}
 %----------------------------------------------
@@ -649,7 +649,7 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 \label{eq:5-18}
 \end{eqnarray}
 
-\parinterval 公式\eqref{eq:5-18}使用了简单的全概率公式把$\funp{P}(\seq{s}|\seq{t})$进行展开。通过访问$\seq{s}$和$\seq{t}$之间所有可能的词对齐$\seq{a}$，并把对应的对齐概率进行求和，得到了$\seq{t}$到$\seq{s}$的翻译概率。这里，可以把词对齐看作翻译的隐含变量，这样从$\seq{t}$到$\seq{s}$的生成就变为从$\seq{t}$同时生成$\seq{s}$和隐含变量$\seq{a}$的问题。引入隐含变量是生成式模型常用的手段，通过使用隐含变量，可以把较为困难的端到端学习问题转化为分步学习问题。
+\parinterval 公式\eqref{eq:5-18}使用了简单的全概率公式把$\funp{P}(\seq{s}|\seq{t})$进行展开。通过访问$\seq{s}$和$\seq{t}$之间所有可能的词对齐$\seq{a}$，并把对应的对齐概率进行求和，得到了$\seq{t}$到$\seq{s}$的翻译概率。这里，可以把词对齐看作翻译的隐含变量，这样从$\seq{t}$到$\seq{s}$的生成就变为从$\seq{t}$同时生成$\seq{s}$和隐含变量$\seq{a}$的问题。引入隐含变量是生成模型常用的手段，通过使用隐含变量，可以把较为困难的端到端学习问题转化为分步学习问题。
 
 \parinterval 举个例子说明公式\eqref{eq:5-18}的实际意义。如图\ref{fig:5-17}所示，可以把从“谢谢\ 你”到“thank you”的翻译分解为9种可能的词对齐。因为源语言句子$\seq{s}$有2个词，目标语言句子$\seq{t}$加上空标记$t_0$共3个词，因此每个源语言单词有3个可能对齐的位置，整个句子共有$3\times3=9$种可能的词对齐。
 
@@ -753,13 +753,13 @@ g(\seq{s},\seq{t}) & \equiv & \prod_{j,i \in \widehat{A}}{\funp{P}(s_j,t_i)} \ti
 \label{eq:5-22}
 \end{eqnarray}
 
-\item 源语单词$s_j$的生成概率$\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})$仅依赖与其对齐的译文单词$t_{a_j}$，即词汇翻译概率$f(s_j|t_{a_j})$。此时词汇翻译概率满足$\sum_{s_j}{f(s_j|t_{a_j})}=1$。比如在图\ref{fig:5-18}表示的例子中，源语单词“上”出现的概率只和与它对齐的单词“on”有关系，与其他单词没有关系。
+\item 源语单词$s_j$的生成概率$\funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})$仅依赖与其对齐的译文单词$t_{a_j}$，即单词翻译概率$f(s_j|t_{a_j})$。此时单词翻译概率满足$\sum_{s_j}{f(s_j|t_{a_j})}=1$。比如在图\ref{fig:5-18}表示的例子中，源语单词“上”出现的概率只和与它对齐的单词“on”有关系，与其他单词没有关系。
 \begin{eqnarray}
 \funp{P}(s_j|a_1^{j},s_1^{j-1},m,\seq{t})& \equiv &  f(s_j|t_{a_j})
 \label{eq:5-23}
 \end{eqnarray}
 
-用一个简单的例子对公式\eqref{eq:5-23}进行说明。比如，在图\ref{fig:5-18}中，“桌子”对齐到“table”，可被描述为$f(s_2 |t_{a_2})=f(\textrm{“桌子”}|\textrm{“table”})$，表示给定“table”翻译为“桌子”的概率。通常，$f(s_2 |t_{a_2})$被认为是一种概率词典，它反应了两种语言词汇一级的对应关系。
+用一个简单的例子对公式\eqref{eq:5-23}进行说明。比如，在图\ref{fig:5-18}中，“桌子”对齐到“table”，可被描述为$f(s_2 |t_{a_2})=f(\textrm{“桌子”}|\textrm{“table”})$，表示给定“table”翻译为“桌子”的概率。通常，$f(s_2 |t_{a_2})$被认为是一种概率词典，它反应了两种语言单词一级的对应关系。
 \end{itemize}
 
 \parinterval 将上述三个假设和公式\eqref{eq:5-19}代入公式\eqref{eq:5-18}中，得到$\funp{P}(\seq{s}|\seq{t})$的表达式：
@@ -1093,10 +1093,10 @@ c_{\mathbb{E}}(s_u|t_v)&=&\sum\limits_{k=1}^{K}  c_{\mathbb{E}}(s_u|t_v;s^{[k]},
 \vspace{0.5em}
 \item 在IBM基础模型之上，有很多改进的工作。例如，对空对齐、低频词进行额外处理\upcite{DBLP:conf/acl/Moore04}；考虑源语言-目标语言和目标语言-源语言双向词对齐进行更好地词对齐对称化\upcite{肖桐1991面向统计机器翻译的重对齐方法研究}；使用词典、命名实体等多种信息对模型进行改进\upcite{2005Improvin}；通过引入短语增强IBM基础模型\upcite{1998Grammar}；引入相邻单词对齐之间的依赖关系增加模型健壮性\upcite{DBLP:conf/acl-vlc/DaganCG93}等；也可以对IBM模型的正向和反向结果进行对称化处理，以得到更加准确词对齐结果\upcite{och2003systematic}。
 
-\item 随着词对齐概念的不断深入，也有很多词对齐方面的工作并不依赖IBM模型。比如，可以直接使用判别式模型利用分类器解决词对齐问题\upcite{ittycheriah2005maximum}；使用带参数控制的动态规划方法来提高词对齐准确率\upcite{DBLP:conf/naacl/GaleC91}；甚至可以把对齐的思想用于短语和句法结构的双语对应\upcite{xiao2013unsupervised}；无监督的对称词对齐方法，正向和反向模型联合训练，结合数据的相似性\upcite{DBLP:conf/naacl/LiangTK06}；除了GIZA++，研究人员也开发了很多优秀的自动对齐工具，比如，FastAlign\upcite{DBLP:conf/naacl/DyerCS13}、Berkeley Word Aligner\upcite{taskar2005a}等，这些工具现在也有很广泛的应用。
+\item 随着词对齐概念的不断深入，也有很多词对齐方面的工作并不依赖IBM模型。比如，可以直接使用判别模型利用分类器解决词对齐问题\upcite{ittycheriah2005maximum}；使用带参数控制的动态规划方法来提高词对齐准确率\upcite{DBLP:conf/naacl/GaleC91}；甚至可以把对齐的思想用于短语和句法结构的双语对应\upcite{xiao2013unsupervised}；无监督的对称词对齐方法，正向和反向模型联合训练，结合数据的相似性\upcite{DBLP:conf/naacl/LiangTK06}；除了GIZA++，研究人员也开发了很多优秀的自动对齐工具，比如，FastAlign\upcite{DBLP:conf/naacl/DyerCS13}、Berkeley Word Aligner\upcite{taskar2005a}等，这些工具现在也有很广泛的应用。
 
 \vspace{0.5em}
-\item 一种较为通用的词对齐评价标准是{\bfnew{对齐错误率}}（Alignment Error Rate, AER）\upcite{DBLP:journals/coling/FraserM07}。在此基础之上也可以对词对齐评价方法进行改进，以提高对齐质量与机器翻译评价得分BLEU的相关性\upcite{DBLP:conf/acl/DeNeroK07,paul2007all,黄书剑2009一种错误敏感的词对齐评价方法}。也有工作通过统计机器翻译系统性能的提升来评价对齐质量\upcite{DBLP:journals/coling/FraserM07}。不过，在相当长的时间内，词对齐质量对机器翻译系统的影响究竟如何并没有统一的结论。有些时候，词对齐的错误率下降了，但是机器翻译系统的译文品质没有带来性能提升。但是，这个问题比较复杂，需要进一步的论证。不过，可以肯定的是，词对齐可以帮助人们分析机器翻译的行为。甚至在最新的神经机器翻译中，如何在神经网络模型中寻求两种语言单词之间的对应关系也是对模型进行解释的有效手段之一\upcite{DBLP:journals/corr/FengLLZ16}。
+\item 一种较为通用的词对齐评价标准是{\bfnew{对齐错误率}}（Alignment Error Rate, AER）\upcite{DBLP:journals/coling/FraserM07}。在此基础之上也可以对词对齐评价方法进行改进，以提高对齐质量与机器翻译评价得分BLEU的相关性\upcite{DBLP:conf/acl/DeNeroK07,paul2007all,黄书剑2009一种错误敏感的词对齐评价方法}。也有工作通过统计机器翻译系统性能的提升来评价对齐质量\upcite{DBLP:journals/coling/FraserM07}。不过，在相当长的时间内，词对齐质量对机器翻译系统的影响究竟如何并没有统一的结论。有些时候，词对齐的错误率下降了，但是机器翻译系统的译文品质却没有得到提升。但是，这个问题比较复杂，需要进一步的论证。不过，可以肯定的是，词对齐可以帮助人们分析机器翻译的行为。甚至在最新的神经机器翻译中，如何在神经网络模型中寻求两种语言单词之间的对应关系也是对模型进行解释的有效手段之一\upcite{DBLP:journals/corr/FengLLZ16}。
 
 \vspace{0.5em}
 \item 基于单词的翻译模型的解码问题也是早期研究者所关注的。比较经典的方法的是贪婪方法\upcite{germann2003greedy}。也有研究者对不同的解码方法进行了对比\upcite{germann2001fast}，并给出了一些加速解码的思路。随后，也有工作进一步对这些方法进行改进\upcite{DBLP:conf/coling/UdupaFM04,DBLP:conf/naacl/RiedelC09}。实际上，基于单词的模型的解码是一个NP完全问题\upcite{knight1999decoding}，这也是为什么机器翻译的解码十分困难的原因。关于翻译模型解码算法的时间复杂度也有很多讨论\upcite{DBLP:conf/eacl/UdupaM06,DBLP:conf/emnlp/LeuschMN08,DBLP:journals/mt/FlemingKN15}。

@@ -25,7 +25,7 @@
 
 \parinterval 模型结构的设计是机器翻译系统研发中最重要的工作之一。在神经机器翻译时代，虽然系统研发人员脱离了繁琐的特征工程，但是神经网络结构的设计仍然耗时耗力。无论是像循环神经网络、Transformer 这样的整体架构的设计，还是注意力机制等局部结构的设计，都对机器翻译性能有着很大的影响。
 
-\parinterval 本章主要讨论神经机器翻译中结构优化的若干研究方向，包括：注意力机制的改进、网络连接优化及深层网络建模、基于树结构的模型、神经网络结构自动搜索等。这些内容可以指导神经机器翻译系统的深入优化，其中涉及的一些模型和方法也可以应用于其他自然语言处理任务。
+\parinterval 本章主要讨论神经机器翻译中结构优化的若干研究方向，包括：注意力机制的改进、神经网络连接优化及深层模型、基于句法的神经机器翻译模型、基于结构搜索的翻译模型优化。这些内容可以指导神经机器翻译系统的深入优化，其中涉及的一些模型和方法也可以应用于其他自然语言处理任务。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -46,13 +46,13 @@
 
 \parinterval 但是，Transformer模型中的自注意力机制本身并不具有这种性质，而且它直接忽略了输入单元之间的位置关系。虽然，Transformer中引入了基于正余弦函数的绝对位置编码（见{\chaptertwelve}），但是该方法仍然无法显性区分局部依赖与长距离依赖\footnote[1]{局部依赖指当前位置与局部的相邻位置之间的联系。}。
 
-\parinterval 针对上述问题，研究人员尝试引入“相对位置”信息，对原有的“绝对位置”信息进行补充，强化了局部依赖\upcite{Dai2019TransformerXLAL,Shaw2018SelfAttentionWR}。此外，由于模型中每一层均存在自注意力机制计算，因此模型捕获位置信息的能力也逐渐减弱，这种现象在深层模型中尤为明显。而利用相对位置编码能够把位置信息显性加入到每一层的注意力机制的计算中，进而强化深层模型的位置表示能力\upcite{li2020shallow}。图\ref{fig:15-1}对比了Transformer中绝对位置编码和相对位置编码方法。
+\parinterval 针对上述问题，研究人员尝试引入“相对位置”信息，对原有的“绝对位置”信息进行补充，强化了局部依赖\upcite{Dai2019TransformerXLAL,Shaw2018SelfAttentionWR}。此外，由于模型中每一层均存在自注意力机制计算，因此模型捕获位置信息的能力也逐渐减弱，这种现象在深层模型中尤为明显。而利用相对位置表示能够把位置信息显性加入到每一层的注意力机制的计算中，进而强化深层模型的位置表示能力\upcite{li2020shallow}。图\ref{fig:15-1}对比了Transformer中绝对位置编码和相对位置表示方法。
 
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter15/Figures/figure-relative-position-coding-and-absolute-position-coding}
-\caption{绝对位置编码和相对位置编码}
+\caption{绝对位置编码和相对位置表示}
 \label{fig:15-1}
 \end{figure}
 %-------------------------------------------
@@ -63,7 +63,7 @@
 
 \subsubsection{1. 位置编码}\label{subsubsec-15.1.1}
 
-\parinterval 在介绍相对位置编码之前，首先简要回顾一下自注意力机制的计算流程（见{\chaptertwelve}）。对于Transformer模型中的某一层神经网络，可以定义：
+\parinterval 在介绍相对位置表示之前，首先简要回顾一下自注意力机制的计算流程（见{\chaptertwelve}）。对于Transformer模型中的某一层神经网络，可以定义：
 \begin{eqnarray}
 \mathbi{Q} & = & \mathbi{x} \mathbi{W}_Q \\
 \mathbi{K} & = & \mathbi{x} \mathbi{W}_K \\
@@ -79,23 +79,23 @@
 
 \noindent 这里，$\mathbi{z}_{i}$可以被看做是输入序列的线性加权表示结果。权重$\alpha_{ij}$通过Softmax函数得到：
 \begin{eqnarray}
-\alpha_{ij} &=& \frac{\exp (\mathbi{e}_{ij})}{\sum_{k=1}^{m}\exp (\mathbi{e}_{ik})}
+\alpha_{ij} &=& \frac{\exp ({e}_{ij})}{\sum_{k=1}^{m}\exp ({e}_{ik})}
 \label{eq:15-5}
 \end{eqnarray}
 
-\noindent 进一步，$\mathbi{e}_{ij}$被定义为：
+\noindent 进一步，${e}_{ij}$被定义为：
 \begin{eqnarray}
-\mathbi{e}_{ij} &=& \frac{(\mathbi{x}_i \mathbi{W}_Q){(\mathbi{x}_j \mathbi{W}_K)}^{T}}{\sqrt{d_k}}
+{e}_{ij} &=& \frac{(\mathbi{x}_i \mathbi{W}_Q){(\mathbi{x}_j \mathbi{W}_K)}^{\textrm{T}}}{\sqrt{d_k}}
 \label{eq:15-6}
 \end{eqnarray}
 
-\noindent 其中，$d_k$为模型中隐层的维度\footnote[3]{在多头注意力中，$d_k$为经过多头分割后每个头的维度。}。$\mathbi{e}_{ij}$实际上就是$\mathbi{Q}$和$\mathbi{K}$的向量积缩放后的一个结果。
+\noindent 其中，$d_k$为模型中隐藏层的维度\footnote[3]{在多头注意力中，$d_k$为经过多头分割后每个头的维度。}。${e}_{ij}$实际上就是$\mathbi{Q}$和$\mathbi{K}$的向量积缩放后的一个结果。
 
 \parinterval 基于上述描述，相对位置模型可以按如下方式实现：
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\bfnew{相对位置编码}}\index{相对位置编码}（Relative Positional Representation）\index{Relative Positional Representation}\upcite{Shaw2018SelfAttentionWR}。核心思想是在能够捕获全局依赖的自注意力机制中引入相对位置信息。该方法可以有效补充绝对位置编码的不足，甚至完全取代绝对位置编码。对于Transformer模型中的任意一层，假设$\mathbi{x}_i$和$\mathbi{x}_j$是位置$i$和$j$的输入向量（也就是来自上一层位置$i$和$j$的输出向量），二者的位置关系可以通过向量$\mathbi{a}_{ij}^V$ 和$\mathbi{a}_{ij}^K$来表示，定义如下：
+\item {\small\bfnew{相对位置表示}}\index{相对位置表示}（Relative Positional Representation）\index{Relative Positional Representation}\upcite{Shaw2018SelfAttentionWR}。核心思想是在能够捕获全局依赖的自注意力机制中引入相对位置信息。该方法可以有效补充绝对位置编码的不足，甚至完全取代绝对位置编码。对于Transformer模型中的任意一层，假设$\mathbi{x}_i$和$\mathbi{x}_j$是位置$i$和$j$的输入向量（也就是来自上一层位置$i$和$j$的输出向量），二者的位置关系可以通过向量$\mathbi{a}_{ij}^V$ 和$\mathbi{a}_{ij}^K$来表示，定义如下：
 \begin{eqnarray}
 \mathbi{a}_{ij}^K &=& \mathbi{w}^K_{\textrm{clip}(j-i,k)} \label{eq:15-7} \\
 \mathbi{a}_{ij}^V &=& \mathbi{w}^V_{\textrm{clip}(j-i,k)} \label{eq:15-8} \\
@@ -122,41 +122,41 @@
 
 \noindent 相比于公式\eqref{eq:15-4}，公式\eqref{eq:15-10}在计算$\mathbi{z}_i$时引入了额外的向量$\mathbi{a}_{ij}^V$，用它来表示位置$i$与位置$j$之间的相对位置信息。同时在计算注意力权重时对$\mathbi{K}$进行修改，同样引入了$\mathbi{a}_{ij}^K$向量表示位置$i$与位置$j$之间的相对位置。在公式\eqref{eq:15-6}的基础上，注意力权重的计算方式调整为：
 \begin{eqnarray}
-\mathbi{e}_{ij} &=& \frac{\mathbi{x}_i \mathbi{W}_Q{(\mathbi{x}_j \mathbi{W}_K + \mathbi{a}_{ij}^K )}^{T}}{\sqrt{d_k}} \nonumber \\
-&=& \frac{\mathbi{x}_i \mathbi{W}_Q{(\mathbi{x}_j \mathbi{W}_K)}^{T} + \mathbi{x}_i \mathbi{W}_Q{(\mathbi{a}_{ij}^K )}^{T}}{\sqrt{d_k}}
+\mathbi{e}_{ij} &=& \frac{\mathbi{x}_i \mathbi{W}_Q{(\mathbi{x}_j \mathbi{W}_K + \mathbi{a}_{ij}^K )}^{\textrm{T}}}{\sqrt{d_k}} \nonumber \\
+&=& \frac{\mathbi{x}_i \mathbi{W}_Q{(\mathbi{x}_j \mathbi{W}_K)}^{\textrm{T}} + \mathbi{x}_i \mathbi{W}_Q{(\mathbi{a}_{ij}^K )}^{T}}{\sqrt{d_k}}
 \label{eq:15-11}
 \end{eqnarray}
 
-\noindent 可以注意到，公式\eqref{eq:15-10}和公式\eqref{eq:15-11}将位置编码信息直接暴露给每一层注意力机制的计算，而不是像标准Transformer中只将其作为整个模型的输入。
+\noindent 可以注意到，与标准Transformer只将位置编码信息作为模型的输入不同，公式\eqref{eq:15-10}和公式\eqref{eq:15-11}将位置编码信息直接融入到了每一层注意力机制的计算中。
 
 \vspace{0.5em}
 \item {\small\bfnew{Transformer-XL}}\upcite{Dai2019TransformerXLAL}。在Transformer中，模型的输入由词嵌入表示与绝对位置编码组成，例如，对于输入层有，$\mathbi{x}_i = \mathbi{E}_{x_i} + \mathbi{U}_i$，$\mathbi{x}_j=\mathbi{E}_{x_j} + \mathbi{U}_j$，其中$\mathbi{E}_{x_i} $和$\mathbi{E}_{x_j} $表示词嵌入，$\mathbi{U}_i$和$\mathbi{U}_j$表示绝对位置编码（正余弦函数）。将$\mathbi{x}_i$与$\mathbi{x}_j$代入公式\eqref{eq:15-6}中可以得到：
 \begin{eqnarray}
-\mathbi{e}_{ij} &=& \frac{(\mathbi{E}_{x_i} + \mathbi{U}_i)\mathbi{W}_Q{((\mathbi{E}_{x_j} + \mathbi{U}_j)\mathbi{W}_K)}^{T}}{\sqrt{d_k}}
+\mathbi{e}_{ij} &=& \frac{(\mathbi{E}_{x_i} + \mathbi{U}_i)\mathbi{W}_Q{((\mathbi{E}_{x_j} + \mathbi{U}_j)\mathbi{W}_K)}^{\textrm{T}}}{\sqrt{d_k}}
 \label{eq:15-12}
 \end{eqnarray}
 
 \noindent 这里使用$A_{ij}^{\rm abs}$表示公式\eqref{eq:15-12}中等式右侧的分子部分，并对其进行展开：
 \begin{eqnarray}
-A_{ij}^{\rm abs} &=& \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{T}\mathbi{E}_{x_j}^{T}}_{\textrm{(a)}} + \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{T}\mathbi{U}_{j}^{T}}_{\textrm{(b)}} + \nonumber \\
-& & \underbrace{\mathbi{U}_i\mathbi{W}_Q\mathbi{W}_{K}^{T}\mathbi{E}_{x_j}^{T}}_{\textrm{(c)}} + \underbrace{\mathbi{U}_i\mathbi{W}_Q\mathbi{W}_{K}^{T}\mathbi{U}_{j}^{T}}_{\textrm{(d)}}
+A_{ij}^{\rm abs} &=& \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{\textrm{T}}\mathbi{E}_{x_j}^{\textrm{T}}}_{\textrm{(a)}} + \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{\textrm{T}}\mathbi{U}_{j}^{\textrm{T}}}_{\textrm{(b)}} + \nonumber \\
+& & \underbrace{\mathbi{U}_i\mathbi{W}_Q\mathbi{W}_{K}^{\textrm{T}}\mathbi{E}_{x_j}^{\textrm{T}}}_{\textrm{(c)}} + \underbrace{\mathbi{U}_i\mathbi{W}_Q\mathbi{W}_{K}^{\textrm{T}}\mathbi{U}_{j}^{\textrm{T}}}_{\textrm{(d)}}
 \label{eq:15-13}
 \end{eqnarray}
 
 \noindent 其中，${\rm abs}$代表使用绝对位置编码计算得到的$A_{ij}$，$\mathbi{W}_Q$与$\mathbi{W}_K$表示线性变换矩阵。为了引入相对位置信息，可以将公式\eqref{eq:15-13}修改为如下形式：
 \begin{eqnarray}
-A_{ij}^{\rm rel} &=& \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{T}\mathbi{E}_{x_j}^{T}}_{\textrm{(a)}} + \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{T}\mathbi{R}_{i-j}^{T}}_{\textrm{(b)}} + \nonumber \\
-& & \underbrace{\mathbi{u}\mathbi{W}_{K,E}^{T}\mathbi{E}_{x_j}^{T}}_{\textrm{(c)}} + \underbrace{\mathbi{v}\mathbi{W}_{K,R}^{T}\mathbi{R}_{i-j}^{T}}_{\textrm{(d)}}
+A_{ij}^{\rm rel} &=& \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{\textrm{T}}\mathbi{E}_{x_j}^{\textrm{T}}}_{\textrm{(a)}} + \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{\textrm{T}}\mathbi{R}_{i-j}^{\textrm{T}}}_{\textrm{(b)}} + \nonumber \\
+& & \underbrace{\mathbi{u}\mathbi{W}_{K,E}^{\textrm{T}}\mathbi{E}_{x_j}^{\textrm{T}}}_{\textrm{(c)}} + \underbrace{\mathbi{v}\mathbi{W}_{K,R}^{\textrm{T}}\mathbi{R}_{i-j}^{\textrm{T}}}_{\textrm{(d)}}
 \label{eq:15-14}
 \end{eqnarray}
 
-\noindent 其中，$A_{ij}^{\rm rel}$为使用相对位置编码后位置$i$与$j$关系的表示结果，$\mathbi{R}$是一个固定的正弦矩阵。不同于公式\eqref{eq:15-13}，公式\eqref{eq:15-14}对(c)中的$\mathbi{E}_{x_j}^{T}$与(d)中的$\mathbi{R}_{i-j}^{T}$采用了不同的映射矩阵，分别为$\mathbi{W}_{K,E}^{T}$和$\mathbi{W}_{K,R}^{T}$，这两项分别代表了键$\mathbi{K}$中的词嵌入表示和相对位置编码表示，并且由于此时只采用了相对位置编码，因此公式\eqref{eq:15-14}在(c)与(d)部分使用了$\mathbi{u}$和$\mathbi{v}$两个可学习的矩阵代替$\mathbi{U}_i\mathbi{W}_Q$与$\mathbi{U}_i\mathbi{W}_Q$，即查询$\mathbi{Q}$中的绝对位置编码部分。此时公式中各项的含义为：(a)表示位置$i$与位置$j$之间词嵌入的相关性，可以看作是基于内容的表示，(b)表示基于内容的位置偏置，(c)表示全局内容的偏置，(d)表示全局位置的偏置。公式\eqref{eq:15-13}中的(a)、(b)两项与前面介绍的绝对位置编码一致\upcite{Shaw2018SelfAttentionWR}，并针对相对位置编码引入了额外的线性变换矩阵。同时，这种方法兼顾了全局内容偏置和全局位置偏置，可以更好地利用正余弦函数的归纳偏置特性。
+\noindent 其中，$A_{ij}^{\rm rel}$为使用相对位置表示后位置$i$与$j$关系的表示结果，$\mathbi{R}$是一个固定的正弦矩阵。不同于公式\eqref{eq:15-13}，公式\eqref{eq:15-14}对(c)中的$\mathbi{E}_{x_j}^{\textrm{T}}$与(d)中的$\mathbi{R}_{i-j}^{\textrm{T}}$采用了不同的映射矩阵，分别为$\mathbi{W}_{K,E}^{\textrm{T}}$和$\mathbi{W}_{K,R}^{\textrm{T}}$，这两项分别代表了键$\mathbi{K}$中的词嵌入表示和相对位置表示，并且由于此时只采用了相对位置表示，因此公式\eqref{eq:15-14}在(c)与(d)部分使用了$\mathbi{u}$和$\mathbi{v}$两个可学习的矩阵代替$\mathbi{U}_i\mathbi{W}_Q$与$\mathbi{U}_i\mathbi{W}_Q$，即查询$\mathbi{Q}$中的绝对位置编码部分。此时公式中各项的含义为：(a)表示位置$i$与位置$j$之间词嵌入的相关性，可以看作是基于内容的表示，(b)表示基于内容的位置偏置，(c)表示全局内容的偏置，(d)表示全局位置的偏置。公式\eqref{eq:15-13}中的(a)、(b)两项与前面介绍的绝对位置编码一致\upcite{Shaw2018SelfAttentionWR}，并针对相对位置表示引入了额外的线性变换矩阵。同时，这种方法兼顾了全局内容偏置和全局位置偏置，可以更好地利用正余弦函数的归纳偏置特性。
 
 \vspace{0.5em}
-\item {\small\bfnew{结构化位置编码}}\index{基于结构化位置编码}（Structural Position Representations）\index{Structural Position Representations}\upcite{DBLP:conf/emnlp/WangTWS19a}。 例如，可以通过对输入句子进行依存句法分析得到句法树，根据叶子结点在句法树中的深度来表示其绝对位置，并在此基础上利用相对位置编码的思想计算节点之间的相对位置信息。
+\item {\small\bfnew{结构化位置表示}}\index{结构化位置表示}（Structural Position Representations）\index{Structural Position Representations}\upcite{DBLP:conf/emnlp/WangTWS19a}。 通过对输入句子进行依存句法分析得到句法树，根据叶子结点在句法树中的深度来表示其绝对位置，并在此基础上利用相对位置表示的思想计算节点之间的相对位置信息。
 
 \vspace{0.5em}
-\item {\small\bfnew{基于连续动态系统}}\index{基于连续动态系统}（Continuous Dynamic Model）\index{Continuous Dynamic Model}{\small\bfnew{的位置编码}}\upcite{Liu2020LearningTE}。使用神经常微分方程{\small\bfnew{求解器}}\index{求解器}（Solver）\index{Solver}来建模位置信息\upcite{DBLP:conf/nips/ChenRBD18}，模型具有更好的归纳偏置能力，可以处理变长的输入序列，同时能够从不同的数据中进行自适应学习。
+\item {\small\bfnew{基于连续动态系统}}\index{连续动态系统}（Continuous Dynamic Model）\index{Continuous Dynamic Model}{\small\bfnew{的位置编码}}\upcite{Liu2020LearningTE}。使用神经常微分方程{\small\bfnew{求解器}}\index{求解器}（Solver）\index{Solver}来建模位置信息\upcite{DBLP:conf/nips/ChenRBD18}，模型具有更好的归纳偏置能力，可以处理变长的输入序列，同时能够从不同的数据中进行自适应学习。
 \vspace{0.5em}
 \end{itemize}
 
@@ -183,7 +183,7 @@ A_{ij}^{\rm rel} &=& \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{T}\
 
 \noindent 具体的形式如下：
 \begin{eqnarray}
-\mathbi{e}_{ij} &=& \frac{(\mathbi{x}_i \mathbi{W}_Q){(\mathbi{x}_j \mathbi{W}_K)}^{T}}{\sqrt{d_k}} + G_{ij}
+\mathbi{e}_{ij} &=& \frac{(\mathbi{x}_i \mathbi{W}_Q){(\mathbi{x}_j \mathbi{W}_K)}^{\textrm{T}}}{\sqrt{d_k}} + G_{ij}
 \label{eq:15-15}
 \end{eqnarray}
 
@@ -201,8 +201,8 @@ G_{ij} &=& - \frac{{(j - P_i)}^2}{2\sigma_i^2}
 
 \noindent 其中，$m$表示序列长度，$p_i$和$v_i$为计算的中间结果，被定义为：
 \begin{eqnarray}
-p_i &=& \mathbi{I}_p^T\textrm{Tanh}(\mathbi{W}_p\mathbi{Q}_i) \\
-v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
+p_i &=& \mathbi{I}_p^{\textrm{T}}\textrm{Tanh}(\mathbi{W}_p\mathbi{Q}_i) \\
+v_i &=& \mathbi{I}_d^{\textrm{T}}\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \label{eq:15-19}
 \end{eqnarray}
 
@@ -273,7 +273,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \parinterval 在神经网络模型中，可以使用多个平行的组件从不同角度捕捉输入的特征，这种结构被称为{\small\bfnew{多分支}}\index{多分支}（Multi-branch）\index{Multi-branch}结构。多分支结构在图像处理领域被广泛应用\upcite{DBLP:conf/cvpr/XieGDTH17}，在许多人工设计或者自动搜索获得的神经网络结构中也有它的身影\upcite{DBLP:conf/icml/SoLL19,DBLP:conf/emnlp/YanMZ20,DBLP:journals/corr/abs-2006-10270}。
 
-\parinterval 在自然语言处理领域，多分支结构同样也有很多应用。比如，{\chapterten}介绍过，为了更好地对源语言进行表示，编码器可以采用双向循环神经网络。这种模型就可以被看作一个两分支的结构，分别用来建模正向序列和反向序列的表示，之后将这两种表示进行拼接得到更丰富的序列表示结果。另一个典型的例子是{\chaptertwelve}介绍的多头注意力机制。在Transformer 模型中，多头注意力将输入向量分割成多个子向量，然后分别进行点乘注意力的计算，最后再将多个输出的子向量拼接后通过线性变换进行不同子空间信息的融合。在这个过程中，多个不同的头对应着不同的特征空间，可以捕捉到不同的特征信息。
+\parinterval 在自然语言处理领域，多分支结构同样也有很多应用。一个典型的例子是，{\chapterten}介绍过为了更好地对源语言进行表示，编码器可以采用双向循环神经网络。这种模型就可以被看作一个两分支的结构，分别用来建模正向序列和反向序列的表示，之后将这两种表示进行拼接得到更丰富的序列表示结果。另一个典型的例子是{\chaptertwelve}介绍的多头注意力机制。在Transformer 模型中，多头注意力将输入向量分割成多个子向量，然后分别进行点乘注意力的计算，最后再将多个输出的子向量拼接后通过线性变换进行不同子空间信息的融合。在这个过程中，多个不同的头对应着不同的特征空间，可以捕捉到不同的特征信息。
 
 \parinterval 近几年，在Transformer的结构基础上，研究人员探索了更为丰富的多分支结构。下面介绍几种在Transformer模型中引入多分支结构的方法：
 
@@ -314,7 +314,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \subsection{引入循环机制}
 
-\parinterval 虽然Transformer模型完全摒弃了循环单元与卷积单元，仅通过位置编码来区分序列中的不同位置。但是，循环神经网络也非常适用于处理序列结构，且其结构成熟、易于优化。因此，有研究人员尝试将其与Transformer模型融合。这种方式一方面能够发挥循环神经网络简单高效的特点，另一方面也能够发挥Transformer模型在特征提取方面的优势，是一种非常值得探索的思路\upcite{Chen2018TheBO}。
+\parinterval 虽然Transformer模型完全摒弃了循环单元与卷积单元，仅通过位置编码来区分序列中的不同位置。但是，循环神经网络并非没有其存在的价值，这种网络也非常适用于处理序列结构，且其结构成熟、易于优化。因此，有研究人员尝试将其与Transformer模型融合。这种方式一方面能够发挥循环神经网络简单高效的特点，另一方面也能够发挥Transformer模型在特征提取方面的优势，是一种非常值得探索的思路\upcite{Chen2018TheBO}。
 
 \parinterval 在Transformer模型中引入循环神经网络的一种方法是，对深层网络的不同层使用循环机制。早在残差网络提出时，研究人员已经开始尝试探讨残差网络成功背后的原因\upcite{DBLP:conf/nips/VeitWB16,DBLP:journals/corr/GreffSS16,DBLP:conf/iclr/ChangMHTB18}。本质上，在卷积神经网络中引入残差连接后，神经网络从深度上隐性地利用了循环的特性。也就是，多层Transformer的不同层本身也可以被看作是一个处理序列，只是序列中不同位置（对应不同层）的模型参数独立，而非共享。Transformer编码器与解码器分别由$N$个结构相同但参数独立的层堆叠而成，其中编码器包含2个子层，解码器包含3个子层。同时，子层之间引入了残差连接保证了网络信息传递的高效性。因此，一个自然的想法是通过共享不同层之间的参数，引入循环神经网络中的归纳偏置\upcite{DBLP:conf/iclr/DehghaniGVUK19}。其中每层的权重是共享的，并引入了基于时序的编码向量用于显著区分不同深度下的时序信息，如图\ref{fig:15-8}所示。在训练大容量预训练模型时同样也采取了共享层间参数的方式\upcite{Lan2020ALBERTAL}。
 
@@ -337,15 +337,15 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \parinterval 除了机器翻译，Transformer模型同样被广泛应用于自然语言理解、图像处理、语音处理等任务。但是，自注意力机制的时间复杂度是序列长度$N$的平方项，同时其对内存（显存）的消耗巨大，尤其当处理较长序列的文本时，这种问题尤为严重。因此如何提高Transformer模型的效率也受到了广泛的关注。{\chapterfourteen}已经从模型推断的角度介绍了Transformer系统加速的方法，这里重点讨论一些高效的Transformer变种模型。
 
-\parinterval 自注意力机制的时间复杂度较高，正是因为其需要对序列中的每一个位置计算与其他所有位置的相关性。因此一个自然的想法就是限制自注意力机制的作用范围，大体上可以分为如下几种方式：
+\parinterval 由于自注意力机制需要对计算序列中的每一个位置与其他所有位置的相关性，因此其时间复杂度较高。一个自然的想法就是限制自注意力机制的作用范围，大体上可以分为如下几种方式：
 
 \begin{itemize}
 \vspace{0.5em}
 \item {\small\bfnew{分块注意力}}：顾名思义，就是将序列划分为固定大小的片段，注意力模型只在对应的片段内执行。这样，每一个片段内的注意力计算成本是固定的，可以大大降低处理长序列时的总体计算时间\upcite{DBLP:conf/emnlp/QiuMLYW020,DBLP:conf/iclr/LiuSPGSKS18}。
 \vspace{0.5em}
-\item {\small\bfnew{跨步注意力}}：该模型是一种稀疏的注意力机制，通常会设置一个固定的间隔，也就是说在计算注意力表示时，每隔固定数量的词后将下一个词纳入所需考虑的范围内，参与注意力的计算\upcite{DBLP:journals/corr/abs-2004-05150}。和分片段进行注意力计算类似，假设最终参与注意力计算的间隔长度为$N/B$，每次参与注意力计算的单词数为$B$，那么注意力的计算复杂度将从$O(N^2)$缩减为$O(N/B \times B^2)$，即$O(NB)$。
+\item {\small\bfnew{跨步注意力}}：该模型是一种稀疏的注意力机制，通常会设置一个固定的间隔，也就是说在计算注意力表示时，每次跳过固定数量的词，并将下一个词纳入注意力计算的考虑范围内\upcite{DBLP:journals/corr/abs-2004-05150}。和分片段进行注意力计算类似，假设最终参与注意力计算的间隔长度为$N/B$，每次参与注意力计算的单词数为$B$，那么注意力的计算复杂度将从$O(N^2)$缩减为$O(N/B \times B^2)$，即$O(NB)$。
 \vspace{0.5em}
-\item {\small\bfnew{内存压缩注意力}}：这种方式的主要的思想是使用一些操作，如卷积、池化等对序列进行下采样，来缩短序列长度。例如，使用{\small\bfnew{跨步卷积}}\index{跨步卷积}（Stride Convolution）\index{Stride Convolution}来减少Key和Value的数量，即减少表示序列长度的维度的大小，Query的数量保持不变，从而减少了注意力权重计算时的复杂度\upcite{DBLP:conf/iclr/LiuSPGSKS18}。其具体的计算复杂度取决于跨步卷积时步幅的大小$K$，形式上可以理解为每$K$个单元做一次特征融合后，将关注的目标缩减为$N/K$，整体的计算复杂度为$N^2/K$。相比于使用前两种方式对局部进行注意力计算，该方式仍是对全局的建模。
+\item {\small\bfnew{内存压缩注意力}}：这种方式的主要的思想是使用一些操作，如卷积、池化等对序列进行{\small\bfnew{下采样}}\index{下采样}（subsampled）\index{subsampled}，来缩短序列长度。例如，使用{\small\bfnew{跨步卷积}}\index{跨步卷积}（Stride Convolution）\index{Stride Convolution}来减少Key和Value的数量，即减少表示序列长度的维度的大小，Query的数量保持不变，从而减少了注意力权重计算时的复杂度\upcite{DBLP:conf/iclr/LiuSPGSKS18}。其计算复杂度取决于跨步卷积时步幅的大小$K$，形式上可以理解为每$K$个单元做一次特征融合后，将关注的目标缩减为$N/K$，整体的计算复杂度为$N^2/K$。相比于使用前两种方式对局部进行注意力计算，该方式仍是对全局的建模。
 \vspace{0.5em}
 \end{itemize}
 
@@ -355,16 +355,16 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \begin{itemize}
 \vspace{0.5em}
-\item Reformer模型在计算Key和Value时使用相同的线性映射，共享Key和Value的值\upcite{Kitaev2020ReformerTE}，降低了自注意力机制的复杂度。进一步，Reformer引入了一种{\small\bfnew{局部哈希敏感注意力机制}}\index{局部哈希敏感注意力机制}（LSH Attention）\index{LSH Attention}，其提高效率的方式和固定模式中的局部建模一致，减少注意力机制的计算范围。对于每一个Query，通过局部哈希敏感机制找出和其较为相关的Key，并进行注意力的计算。其基本思路就是距离相近的向量以较大的概率被哈希分配到一个桶内，距离较远的向量被分配到一个桶内的概率则较低。此外，Reformer中还采用了一种{\small\bfnew{可逆残差网络结构}}\index{可逆残差网络结构}（The Reversible Residual Network）\index{The Reversible Residual Network}和分块计算前馈神经网络层的机制，即将前馈层的隐层维度拆分为多个块并独立的进行计算，最后进行拼接操作，得到前馈层的输出，这种方式大幅度减少了内存（显存）占用。
+\item Reformer模型在计算Key和Value时使用相同的线性映射，共享Key和Value的值\upcite{Kitaev2020ReformerTE}，降低了自注意力机制的复杂度。进一步，Reformer引入了一种{\small\bfnew{局部敏感哈希注意力机制}}\index{局部敏感哈希注意力机制}（Locality Sensitive Hashing Attention\index{Locality Sensitive Hashing Attention}，LSH Attention），其提高效率的方式和固定模式中的局部建模一致，减少注意力机制的计算范围。对于每一个Query，通过局部哈希敏感机制找出和其较为相关的Key，并进行注意力的计算。其基本思路就是距离相近的向量以较大的概率被哈希分配到一个桶内，距离较远的向量被分配到一个桶内的概率则较低。此外，Reformer中还采用了一种{\small\bfnew{可逆残差网络结构}}\index{可逆残差网络结构}（The Reversible Residual Network）\index{The Reversible Residual Network}和分块计算前馈神经网络层的机制，即将前馈层的隐藏层维度拆分为多个块并独立的进行计算，最后进行拼接操作，得到前馈层的输出，这种方式大幅度减少了内存（显存）占用。
 
 \vspace{0.5em}
-\item Routing Transformer通过聚类算法对序列中的不同单元进行分组，分别在组内进行自注意力机制的计算\upcite{DBLP:journals/corr/abs-2003-05997}。首先是将Query和Key映射到聚类矩阵$\mathbi{S}$：
+\item Routing Transformer通过聚类算法对序列中的不同单元进行分组，分别在组内进行自注意力机制的计算\upcite{DBLP:journals/corr/abs-2003-05997}。该方法是将Query和Key映射到聚类矩阵$\mathbi{S}$：
 \begin{eqnarray}
 \mathbi{S} &=& \mathbi{Q} \mathbi{W} + \mathbi{K} \mathbi{W}
 \label{eq:15-24}
 \end{eqnarray}
 
-\noindent 其中，$\mathbi{W}$为映射矩阵。为了保证每个簇内的单词数量一致，利用聚类算法将$\mathbi{S}$中的向量分配到$\sqrt{N}$个簇中，其中$N$为序列长度，即分别计算$\mathbi{S}$中每个向量与质心的距离，并对每个质心取距离最近的若干个节点。
+\noindent 其中，$\mathbi{W}$为映射矩阵。为了保证每个簇内的单词数量一致，利用聚类算法将$\mathbi{S}$中的向量分配到$\sqrt{N}$个簇中，其中$N$为序列长度，即分别计算$\mathbi{S}$中每个向量与质心（聚类中心）的距离，并对每个质心取距离最近的若干个节点。
 
 \vspace{0.5em}
 \end{itemize}
@@ -398,7 +398,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \subsection{Post-Norm vs Pre-Norm}
 \label{sec:post-pre-norm}
 
-\parinterval 为了探究为何深层Transformer模型很难直接训练，首先对Transformer的模型结构进行简单的回顾，详细内容可以参考{\chaptertwelve}。以Transformer的编码器为例，在多头自注意力和前馈神经网络中间，Transformer模型利用残差连接\upcite{DBLP:journals/corr/HeZRS15}和层标准化操作\upcite{Ba2016LayerN}来提高信息的传递效率。Transformer模型大致分为图\ref{fig:15-9}中的两种结构\ \dash \ 后作方式的残差单元（Post-Norm）和前作方式的残差单元（Pre-Norm）。
+\parinterval 为了探究为何深层Transformer模型很难直接训练，首先对Transformer的模型结构进行简单的回顾，详细内容可以参考{\chaptertwelve}。以Transformer的编码器为例，在多头自注意力和前馈神经网络中间，Transformer模型利用残差连接\upcite{DBLP:journals/corr/HeZRS15}和层标准化操作\upcite{Ba2016LayerN}来提高信息的传递效率。Transformer模型大致分为图\ref{fig:15-9}中的两种结构\ \dash \ 后作方式（Post-Norm）的残差单元和前作方式（Pre-Norm）的残差单元。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -427,7 +427,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \end{eqnarray}
 \end{itemize}
 
-\parinterval 从上述公式中可以发现，在前向传播过程中，Pre-Norm结构可以通过残差路径将底层神经网络的输出直接暴露给上层神经网络。此外，在反向传播过程中，使用Pre-Norm结构也可以使得顶层网络的梯度更容易地反馈到底层网络。这里以一个含有$L$个子层的结构为例，令$\textrm{Loss}$表示整个神经网络输出上的损失，$\mathbi{x}_L$为顶层的输出。对于Post-Norm结构，根据链式法则，损失$\textrm{Loss}$相对于$\mathbi{x}_l$ 的梯度可以表示为：
+\parinterval 从公式\eqref{eq:15-26}与\eqref{eq:15-27}公式中可以发现，在前向传播过程中，Pre-Norm结构可以通过残差路径将底层神经网络的输出直接暴露给上层神经网络。此外，在反向传播过程中，使用Pre-Norm结构也可以使得顶层网络的梯度更容易地反馈到底层网络。这里以一个含有$L$个子层的结构为例，令$\textrm{Loss}$表示整个神经网络输出上的损失，$\mathbi{x}_L$为顶层的输出。对于Post-Norm结构，根据链式法则，损失$\textrm{Loss}$相对于$\mathbi{x}_l$ 的梯度可以表示为：
 \begin{eqnarray}
 \frac{\partial \textrm{Loss}}{\partial \mathbi{x}_l} &=& \frac{\partial \textrm{Loss}}{\partial \mathbi{x}_L} \times \prod_{k=l}^{L-1}\frac{\partial \textrm{LN}(\mathbi{y}_k)}{\partial \mathbi{y}_k} \times \prod_{k=l}^{L-1}\big(1+\frac{\partial F(\mathbi{x}_k;{\bm \theta_k})}{\partial \mathbi{x}_k} \big)
 \label{eq:15-28}
@@ -453,9 +453,9 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \subsection{高效信息传递}
 
-\parinterval 尽管使用Pre-Norm结构可以很容易地训练深层Transformer模型，但从信息传递的角度看，Transformer模型中第$l$层的输入仅仅依赖于前一层的输出。虽然残差连接可以跨层传递信息，但是对于很深的模型，整个模型的输入和输出之间仍需要经过很多次残差连接。
+\parinterval 尽管使用Pre-Norm结构可以很容易地训练深层Transformer模型，但从信息传递的角度看，Transformer模型中第$l$层的输入仅仅依赖于前一层的输出。虽然残差连接可以跨层传递信息，但是对于很深（模型层数多）的模型，整个模型的输入和输出之间仍需要经过很多次残差连接。
 
-\parinterval 为了使上层的神经网络可以更加方便地访问下层神经网络的信息，最简单的方法是引入更多的跨层连接。一种方法是直接将所有层的输出都连接到最上层，达到聚合多层信息的目的\upcite{Bapna2018TrainingDN,Wang2018MultilayerRF,Dou2018ExploitingDR}。另一种更加有效的方式是在网络前向计算的过程中建立当前层表示与之前层表示之间的关系，例如{\small\bfnew{动态线性聚合网络}}\upcite{WangLearning}\index{动态线性聚合网络}（Dynamic Linear Combination of Layers，DLCL）\index{Dynamic Linear Combination of Layers}和动态层聚合方法\upcite{Dou2019DynamicLA}。这些方法的共性在于，在每一层的输入中不仅考虑前一层的输出，同时将前面所有层的中间结果（包括词嵌入表示）进行聚合，本质上利用稠密的层间连接提高了网络中信息传递的效率（前向计算和反向梯度计算）。而DLCL利用线性的层融合手段来保证计算的时效性，主要应用于深层神经网络的训练，理论上等价于常微分方程中的高阶求解方法\upcite{WangLearning}。此外，为了进一步增强上层神经网络对底层表示的利用，研究人员从多尺度的角度对深层的编码器进行分块，并使用GRU来捕获不同块之间的联系，得到更高层次的表示。该方法可以看作是对动态线性聚合网络的延伸。接下来分别对上述几种改进方法展开讨论。
+\parinterval 为了使上层的神经网络可以更加方便地访问下层神经网络的信息，最简单的方法是引入更多的跨层连接。其中，引入跨层连接的一种方式是直接将所有层的输出都连接到最上层，达到聚合多层信息的目的\upcite{Bapna2018TrainingDN,Wang2018MultilayerRF,Dou2018ExploitingDR}。另一种更加有效的方式是在网络前向计算的过程中建立当前层表示与之前层表示之间的关系，例如{\small\bfnew{动态线性聚合方法}}\upcite{WangLearning}\index{动态线性聚合方法}（Dynamic Linear Combination of Layers，DLCL）\index{Dynamic Linear Combination of Layers}和动态层聚合方法\upcite{Dou2019DynamicLA}。这些方法的共性在于，在每一层的输入中不仅考虑前一层的输出，同时将前面所有层的中间结果（包括词嵌入表示）进行聚合，本质上利用稠密的层间连接提高了网络中信息传递的效率（前向计算和反向梯度计算）。而DLCL利用线性的层融合手段来保证计算的时效性，主要应用于深层神经网络的训练，理论上等价于常微分方程中的高阶求解方法\upcite{WangLearning}。此外，为了进一步增强上层神经网络对底层表示的利用，研究人员从多尺度的角度对深层的编码器进行分块，并使用GRU来捕获不同块之间的联系，得到更高层次的表示。该方法可以看作是对动态线性聚合网络的延伸。接下来分别对上述几种改进方法展开讨论。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -463,7 +463,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \subsubsection{1. 使用更多的跨层连接}
 
-\parinterval 图\ref{fig:15-10}描述了引入更多跨层连接的结构的方法。在模型的前向计算过程中，假设编码器总层数为$L$，当完成编码器$L$层的逐层计算后，通过线性平均、加权平均等机制对模型的中间层表示进行融合，得到蕴含所有层信息的表示\mathbi{g}，作为编码-解码注意力机制的输入，与总共有$M$层的解码器共同处理解码信息。
+\parinterval 图\ref{fig:15-10}描述了一种引入更多跨层连接的结构的方法，即层融合方法。在模型的前向计算过程中，假设编码器总层数为$L$，当完成编码器$L$层的逐层计算后，通过线性平均、加权平均等机制对模型的中间层表示进行融合，得到蕴含所有层信息的表示\mathbi{g}，作为编码-解码注意力机制的输入，与总共有$M$层的解码器共同处理解码信息。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -500,13 +500,13 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \noindent 其中，$[\cdot]$表示级联操作。这种方式具有比权重平均更强的拟合能力。
 \vspace{0.5em}
-\item {\small\bfnew{基于多跳的自注意力机制}}。如图\ref{fig:15-11}所示，其做法与前馈神经网络类似，首先将不同层的表示拼接成2维的句子级矩阵表示\upcite{DBLP:journals/corr/LinFSYXZB17}。之后利用类似于前馈神经网络的思想将维度为$\mathbb{R}^{d_{\textrm{model}} \times L}$的矩阵映射到维度为$\mathbb{R}^{d_{\textrm{model}} \times n_{\rm hop}}$的矩阵，如下：
+\item {\small\bfnew{基于多跳注意力}}\index{多跳注意力}（Multi-hop Attention）\index{Multi-hop Self-attention}{\small\bfnew{机制}}。如图\ref{fig:15-11}所示，其做法与前馈神经网络类似，首先将不同层的表示拼接成2维的句子级矩阵表示\upcite{DBLP:journals/corr/LinFSYXZB17}。之后利用类似于前馈神经网络的思想将维度为$\mathbb{R}^{d_{\textrm{model}} \times L}$的矩阵映射到维度为$\mathbb{R}^{d_{\textrm{model}} \times n_{\rm hop}}$的矩阵，如下：
 \begin{eqnarray}
-\mathbi{o} &=& \sigma ([\mathbi{h}^1,\ldots,\mathbi{h}^L]^{T} \cdot \mathbi{W}_1)\mathbi{W}_2
+\mathbi{o} &=& \sigma ([\mathbi{h}^1,\ldots,\mathbi{h}^L]^{\textrm{T}} \cdot \mathbi{W}_1)\mathbi{W}_2
 \label{eq:15-33}
 \end{eqnarray}
 
-\noindent 其中，$[\mathbi{h}^1,\ldots,\mathbi{h}^L]$是输入矩阵，$\mathbi{o}$是输出矩阵，$\mathbi{W}_1 \in \mathbb{R}^{d_{\textrm{model}} \times d_{\rm a}}$，$\mathbi{W}_2 \in \mathbb{R}^{d_{\rm a}\times n_{\rm hop}}$，$d_{\rm a}$表示前馈神经网络隐层大小，$n_{\rm hop}$表示跳数。 之后使用Softmax 函数计算不同层沿相同维度上的归一化结果$\mathbi{u}_l$：
+\noindent 其中，$[\mathbi{h}^1,\ldots,\mathbi{h}^L]$是输入矩阵，$\mathbi{o}$是输出矩阵，$\mathbi{W}_1 \in \mathbb{R}^{d_{\textrm{model}} \times d_{\rm a}}$，$\mathbi{W}_2 \in \mathbb{R}^{d_{\rm a}\times n_{\rm hop}}$，$d_{\rm a}$表示前馈神经网络隐藏层大小，$n_{\rm hop}$表示跳数。 之后使用Softmax 函数计算不同层沿相同维度上的归一化结果$\mathbi{u}_l$：
 \begin{eqnarray}
 \mathbi{u}_l &=& \frac{\textrm{exp}(\mathbi{o}_l)}{\sum_{i=1}^L{\textrm{exp}(\mathbi{o}_i)}}
 \label{eq:15-34}
@@ -578,7 +578,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \parinterval 根据上述描述可以发现，权值矩阵$\mathbi{W}$每个位置的值由先前层对应的位置的值计算得到，因此该矩阵是一个下三角矩阵。开始时，对权值矩阵的每行进行平均初始化，即初始化矩阵$\mathbi{W}_0$的每一行各个位置的值为$\frac{1}{\lambda}$，$\lambda \in (1,2,\ldots,l+1)$。伴随着神经网络的训练，不断更新$\mathbi{W}$中每一行不同位置权重的大小。
 
-\parinterval 动态线性层聚合的一个好处是，系统可以自动学习不同层对当前层的贡献度。在实验中也发现，离当前层更近的部分的贡献度（权重）会更大，如图\ref{fig:15-14}所示，在每一行中颜色越深代表对当前层的贡献度越大。
+\parinterval 动态线性层聚合的一个好处是，系统可以自动学习不同层对当前层的贡献度。在实验中也发现，离当前层更近的部分的贡献度（权重）会更大，图\ref{fig:15-14}展示了对收敛的DLCL网络进行权重可视化的结果，在每一行中颜色越深代表对当前层的贡献度越大。
 
 \parinterval 除了动态层线性聚合方法，也可以利用更为复杂的胶囊网络\upcite{Dou2019DynamicLA}、树状层次结构\upcite{Dou2018ExploitingDR}、多尺度协同框架\upcite{DBLP:conf/acl/WeiYHZWL20}等作为层间的融合方式。然而，也有研究发现进一步增加模型编码器的深度并不能取得更优的翻译性能。因此如何进一步突破神经网络深度的限制是值得关注的研究方向，类似的话题在图像处理领域也引起了广泛的讨论\upcite{DBLP:conf/nips/SrivastavaGS15,DBLP:conf/icml/BalduzziFLLMM17,DBLP:conf/icml/Allen-ZhuLS19,DBLP:conf/icml/DuLL0Z19}。
 
@@ -614,22 +614,22 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \label{eq:15-40}
 \end{eqnarray}
 
-\noindent 其中，$u(-\gamma,\gamma)$表示$-\gamma$与$\gamma$间的均匀分布，$n_i$和$n_o$分别为线性变换$\mathbi{W}$中输入和输出的维度，也就是上一层神经元的数量和下一层神经元的数量。通过这种方式可以维持在前向与反向计算过程中输入与输出方差的一致性\upcite{DBLP:conf/iccv/HeZRS15}。
+\noindent 其中，$u(-\gamma,\gamma)$表示$-\gamma$与$\gamma$间的均匀分布，$n_i$和$n_o$分别为线性变换$\mathbi{W}$中输入和输出的维度，也就是上一层神经元的数量和下一层神经元的数量。通过使用这种初始化方式，即可维持神经网络在前向与反向计算过程中，每一层的输入与输出方差的一致性\upcite{DBLP:conf/iccv/HeZRS15}。
 
-\parinterval 令模型中某层神经元的输出表示为$\mathbi{Z}=\sum_{j=1}^{n_i}{w_j x_j}$。可以看出，$\mathbi{Z}$的核心是计算两个变量$w_j$和$x_j$乘积。两个变量乘积的方差的展开式为：
+\parinterval 令模型中某层神经元的输出表示为$Z=\sum_{j=1}^{n_i}{w_j x_j}$。可以看出，$Z$的核心是计算两个变量$w_j$和$x_j$乘积。两个变量乘积的方差的展开式为：
 \begin{eqnarray}
 \textrm{Var}(w_j x_j) &=& E[w_j]^2 \textrm{Var}(x_j) + E[x_j]^2 \textrm{Var}(w_j) + \textrm{Var}(w_j)\textrm{Var}(x_j)
 \label{eq:15-41}
 \end{eqnarray}
 
-\parinterval 其中$\textrm{Var}(\cdot)$表示求方差操作，由于在大多数情况下，现有模型中的各种标准化方法可以维持$E[w_j]^2$和$E[x_j]^2$等于或者近似为0。因此，模型中一层神经元输出的方差可以表示为：
+\parinterval 其中$\textrm{Var}(\cdot)$表示求方差操作，由于在大多数情况下，现有模型中的各种标准化方法可以维持$E[w_j]^2$和$E[x_j]^2$等于或者近似为0。由于输入$x_j(1<j<n_i)$独立同分布，此处可以使用$x$表示输入服从的分布，对于参数$w_j$也可以有同样的表示$w$。因此，模型中一层神经元输出的方差可以表示为：
 \begin{eqnarray}
-\textrm{Var}(\mathbi{Z}) &=& \sum_{j=1}^{n_i}{\textrm{Var}(x_j) \textrm{Var}(w_j)} \nonumber \\
-&=& {n_i}\textrm{Var}(\mathbi{W})\textrm{Var}(\mathbi{X})
+\textrm{Var}(Z) &=& \sum_{j=1}^{n_i}{\textrm{Var}(x_j) \textrm{Var}(w_j)} \nonumber \\
+&=& {n_i}\textrm{Var}({w})\textrm{Var}({x})
 \label{eq:15-42}
 \end{eqnarray}
 
-\parinterval 通过观察公式\eqref{eq:15-42}可以发现，在前向传播的过程中，当$\textrm{Var}(\mathbi{W})=\frac{1}{n_i}$时，可以保证每层的输入和输出的方差一致。类似的，通过相关计算可以得知，为了保证模型中每一层的输入和输出的方差一致，反向传播时应有$\textrm{Var}(\mathbi{W})=\frac{1}{n_o}$，通过对两种情况取平均值，控制参数$\mathbi{W}$的方差为$\frac{2}{n_i+n_o}$，则可以维持在前向与反向过程中输入与输出方差的一致性。若将参数初始化为一个服从边界为$[-a,b]$的均匀分布，那么其方差为$\frac{{(b+a)}^2}{12}$，为了达到$\mathbi{W}$的取值要求，初始化时应有$a=b=\sqrt{\frac{6}{n_i+n_o}}$。
+\parinterval 通过观察公式\eqref{eq:15-42}可以发现，在前向传播的过程中，当$\textrm{Var}(w)=\frac{1}{n_i}$时，可以保证每层的输入和输出的方差一致。类似的，通过相关计算可以得知，为了保证模型中每一层的输入和输出的方差一致，反向传播时应有$\textrm{Var}(w)=\frac{1}{n_o}$，通过对两种情况取平均值，控制参数$w$的方差为$\frac{2}{n_i+n_o}$，则可以维持神经网络在前向与反向计算过程中，每一层的输入与输出方差的一致性。若将参数初始化为一个服从边界为$[-a,b]$的均匀分布，那么其方差为$\frac{{(b+a)}^2}{12}$，为了达到$w$的取值要求，初始化时应有$a=b=\sqrt{\frac{6}{n_i+n_o}}$。
 
 \parinterval 但是随着神经网络层数的增加，上述初始化方法已经不能很好地约束基于Post-Norm的Transformer模型的输出方差。当神经网络堆叠很多层时，模型顶层输出的方差较大，同时反向传播时顶层的梯度范数也要大于底层。因此，一个自然的想法是根据网络的深度对不同层的参数矩阵采取不同的初始化方式，进而强化对各层输出方差的约束，可以描述为：
 \begin{eqnarray}
@@ -688,13 +688,13 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \vspace{0.5em}
 \item 类似于标准的Transformer初始化方式，使用Xavier初始化方式来初始化除了词嵌入以外的所有参数矩阵。词嵌入矩阵服从$\mathbb{N}(0,d^{-\frac{1}{2}})$的高斯分布，其中$d$代表词嵌入的维度。
 \vspace{0.5em}
-\item 对编码器中自注意力机制的参数矩阵以及前馈神经网络中所有参数矩阵进行缩放因子为$0.67 {L}^{-\frac{1}{4}}$的缩放，$L$为编码器层数。
+\item 对编码器中部分自注意力机制的参数矩阵以及前馈神经网络的参数矩阵进行缩放因子为$0.67 {L}^{-\frac{1}{4}}$的缩放，$L$为编码器层数。
 \vspace{0.5em}
-\item 对解码器中全部注意力机制的参数矩阵以及前馈神经网络中所有参数矩阵进行缩放因子为$(9 {M})^{-\frac{1}{4}}$的缩放，其中$M$为解码器层数。
+\item 对解码器中部分注意力机制的参数矩阵、前馈神经网络的参数矩阵以及前馈神经网络的嵌入式输入进行缩放因子为$(9 {M})^{-\frac{1}{4}}$的缩放，其中$M$为解码器层数。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 这种初始化方法由于没有Warmup策略，学习率会直接从峰值根据参数的更新次数进行退火，大幅度增大了模型收敛的时间。因此，如何进一步解决该初始化方法下的模型收敛速度是比较关键的问题。
+\parinterval 这种初始化方法由于没有Warmup策略，学习率会直接从峰值根据参数的更新次数进行退火，大幅度增大了模型收敛的时间。因此，如何进一步加快该初始化方法下模型的收敛速度是比较关键的问题。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -737,7 +737,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \subsubsection{1. 渐进式训练}
 
-\parinterval 所谓渐进式训练是指从浅层神经网络开始，在训练过程中逐渐增加模型的深度。一种比较简单的方法是将模型分为浅层部分和深层部分，之后分别进行训练，最终达到提高模型翻译性能的目的\upcite{DBLP:conf/acl/WuWXTGQLL19}。
+\parinterval 所谓渐进式训练是指从浅层神经网络开始，在训练过程中逐渐增加模型的深度。一种比较简单的方式是将模型分为浅层部分和深层部分，之后分别进行训练，最终达到提高模型翻译性能的目的\upcite{DBLP:conf/acl/WuWXTGQLL19}。
 
 \parinterval 另一种方式是动态构建深层模型，并尽可能复用浅层部分的训练结果\upcite{li2020shallow}。假设开始的时候模型包含$l$层神经网络，然后训练这个模型至收敛。之后，直接拷贝这$l$层神经网络（包括参数），并堆叠出一个$2l$ 层的模型。之后继续训练，重复这个过程。进行$n$次之后就得到了$(n+1) \times l$层的模型。图\ref{fig:15-15}给出了在编码器上使用渐进式训练的示意图。
 
@@ -750,7 +750,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \end{figure}
 %-------------------------------------------
 
-\parinterval 渐进式训练的好处在于深层模型并不是从头开始训练。每一次堆叠，都相当于利用“浅”模型给“深”模型提供了一个很好的初始点，这样深层模型的训练会更加容易。
+\parinterval 渐进式训练的好处在于深层模型并不是从头开始训练。每一次堆叠，都相当于利用“浅”模型给“深”模型提供了一个很好的初始状态，这样深层模型的训练会更加容易。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -769,7 +769,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \end{figure}
 %-------------------------------------------
 
-\parinterval 缓解这个问题的一种方法是使用更稀疏的层间连接方式。其核心思想与动态线性层聚合是类似的，不同点在于可以通过调整层之间连接的稠密程度来降低训练代价。比如，可以将每$p$层分为一组，之后动态线性层聚合只在不同组之间进行。这样，通过调节$p$值的大小可以控制神经网络中连接的稠密程度，作为一种训练代价与翻译性能之间的权衡。显然，标准的Transformer模型\upcite{vaswani2017attention} 和DLCL模型\upcite{WangLearning}都可以看作是该方法的一种特例。如图\ref{fig:15-16}所示：当$p=1$时，每一个单独的块被看作一个独立的组，它等价于基于动态层聚合的DLCL模型；当$p=\infty$时，它等价于正常的Transformer模型。值得注意的是，如果配合渐进式训练。在分组稠密连接中可以设置$p$等于模型层数。
+\parinterval 缓解这个问题的一种方法是使用更稀疏的层间连接方式。其核心思想与DLCL是类似的，不同点在于可以通过调整层之间连接的稠密程度来降低训练代价。比如，可以将每$p$层分为一组，之后DLCL只在不同组之间进行。这样，通过调节$p$值的大小可以控制神经网络中连接的稠密程度，作为一种训练代价与翻译性能之间的权衡。显然，标准的Transformer模型\upcite{vaswani2017attention} 和DLCL模型\upcite{WangLearning}都可以看作是该方法的一种特例。如图\ref{fig:15-16}所示：当$p=1$时，每一个单独的块被看作一个独立的组，它等价于基于动态层聚合的DLCL模型；当$p=\infty$时，它等价于正常的Transformer模型。值得注意的是，如果配合渐进式训练，则在分组稠密连接中可以设置$p$等于模型层数。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -779,18 +779,18 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \parinterval 尽管渐进式训练策略与分组稠密连接结构都可以加速深层模型的训练，但使用传统的学习率衰减策略会导致训练深层模型时的学习率较小，因此模型无法快速地达到收敛状态，同时也影响最终的模型性能。
 
-\parinterval  图\ref{fig:15-17}中的红色曲线描绘了在WMT英德翻译任务上标准Transformer模型的学习率曲线，可以看到当模型训练到40k步时，学习率对比峰值有明显的差距，而此时刚开始训练最终的深层模型，过小的学习率并不利于后期深层网络的充分训练。
+\parinterval  图\ref{fig:15-17}对比了使用学习率重置与不使用学习率重置的学习率曲线，其中的红色曲线描绘了在WMT英德翻译任务上标准Transformer模型的学习率曲线，可以看到当模型训练到40k步时，学习率对比峰值有明显的差距，而此时刚开始训练最终的深层模型，过小的学习率并不利于后期深层网络的充分训练。
 
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter15/Figures/figure-learning-rate}
-\caption{学习率重置vs从头训练的学习率曲线}
+\caption{学习率重置vs不使用学习率重置的学习率曲线}
 \label{fig:15-17}
 \end{figure}
 %-------------------------------------------
 
-\parinterval 针对该问题的一个解决方案是修改学习率曲线的衰减策略，如图\ref{fig:15-17}所示。图中蓝色的曲线是修改后的学习率曲线。首先在训练的初期让模型快速地达到学习率的峰值（线性递增），之后的每一次增加$l$层神经网络时，都会将当前的学习率值重置到峰值点。之后，根据训练的步数对其进行相应的衰减。具体的步骤如下：
+\parinterval 针对该问题的一个解决方案是修改学习率曲线的衰减策略，如图\ref{fig:15-17}所示。图中蓝色的曲线是修改后的学习率曲线。首先在训练的初期让模型快速地达到学习率的峰值（线性递增），之后神经网络的深度每增加$l$层时，都会将当前的学习率值重置到峰值点。之后，根据训练的步数对其进行相应的衰减。具体的步骤如下：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -799,7 +799,7 @@ v_i &=& \mathbi{I}_d^T\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num \cdot warmup\_steps^{-0.5}
 \label{eq:15-49}
 \end{eqnarray}
-\noindent 这里，$step\_num$表示参数更新的次数，$warmup\_step$表示预热的更新次数，$d_{\textrm{model}}$表示Transformer模型的隐层大小，$lr$是学习率。
+\noindent 这里，$step\_num$表示参数更新的次数，$warmup\_step$表示预热的更新次数，$d_{\textrm{model}}$表示Transformer模型的隐藏层大小，$lr$是学习率。
 \vspace{0.5em}
 \item 	在之后的训练过程中，每当增加模型深度时，学习率都会重置到峰值，之后进行相应的衰减：
 \begin{eqnarray}
@@ -810,7 +810,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 综合使用渐进式训练、分组稠密连接、学习率重置策略可以保证在翻译品质不变的前提下，缩减近$40\%$的训练时间\upcite{li2020shallow}。同时，伴随着模型的加深与数据集的增大加速比也会进一步地增大。
+\parinterval 综合使用渐进式训练、分组稠密连接、学习率重置策略可以在翻译品质不变的前提下，缩减近$40\%$的训练时间\upcite{li2020shallow}。同时，伴随着模型的加深与数据集的增大，由上述方法带来的加速比也会进一步地增大。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -821,13 +821,13 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 
 \parinterval 伴随着网络的加深，模型的训练还会面临另外一个比较严峻的问题\ \dash \ 过拟合。由于参数量的增大，深层模型的输入与输出分布之间的差异也会越来越大，然而不同子层之间的相互适应也会更加的明显，这将导致任意子层网络对其他子层的依赖过大。这种现象在训练阶段是有帮助的，因为不同子层可以协同工作从而更好地拟合训练数据。然而这种方式也降低了模型的泛化能力，即深层模型更容易陷入过拟合问题。
 
-\parinterval 通常，可以使用Dropout手段用来缓解过拟合问题（见{\chapterthirteen}）。不幸的是,尽管目前Transformer模型使用了多种Dropout手段（如Residual Dropout、Attention Dropout、 ReLU Dropout等），过拟合问题在深层模型中仍然存在。从图\ref{fig:15-18}中可以看到，深层模型比浅层模型在训练集和校验集的困惑度上都有明显的优势，然而模型在训练一段时间后出现校验集困惑度上涨的现象，说明模型已经过拟合于训练数据。
+\parinterval 通常，可以使用Dropout手段用来缓解过拟合问题（见{\chapterthirteen}）。不幸的是,尽管目前Transformer模型使用了多种Dropout手段（如Residual Dropout、Attention Dropout、 ReLU Dropout等），过拟合问题在深层模型中仍然存在。图\ref{fig:15-18}展示了WMT16英德翻译任务的校验集与训练集的困惑度，从中可以看到，图\ref{fig:15-18}(a)所示的深层模型相比于图\ref{fig:15-18}(b)所示的浅层模型来说，深层模型在训练集和校验集的困惑度上都有明显的优势，然而模型在训练一段时间后出现校验集困惑度上涨的现象，说明模型已经过拟合于训练数据。
 
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter15/Figures/figure-wmt16}
-\caption{浅层模型（左）与深层模型（右）在WMT16英德翻译任务的校验集与训练集的困惑度}
+\caption{模型在WMT16英德翻译任务上的校验集与训练集的困惑度}
 \label{fig:15-18}
 \end{figure}
 %-------------------------------------------
@@ -914,7 +914,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 \label{eq:15-53}
 \end{eqnarray}
 
-\noindent 其中，$\mathbi{h}_l$和$\mathbi{h}_r$分别代表了左孩子节点和右孩子节点的神经网络输出（隐层状态），通过一个非线性函数$f_\textrm{tree}(\cdot,\cdot)$得到父节点的状态$\mathbi{h}_p$。 图\ref{fig:15-20} 展示了一个基于树结构的循环神经网络编码器\upcite{DBLP:conf/acl/EriguchiHT16}。这些编码器由下自上组成了一个树型结构，这种树结构的具体连接形式由句法分析决定。其中$\{\mathbi{h}_1,\ldots,\mathbi{h}_m\}$是输入序列所对应的循环神经单元（绿色部分），$\{\mathbi{h}_{m+1},\ldots,\mathbi{h}_{2m-1}\}$对应着树中的节点（红色部分），它的输出由其左右子节点通过公式\eqref{eq:15-53}计算得到。对于注意力模型，图中所有的节点都会参与上下文向量的计算，因此仅需要对{\chapterten}所描述的计算方式稍加修改，如下：
+\noindent 其中，$\mathbi{h}_l$和$\mathbi{h}_r$分别代表了左孩子节点和右孩子节点的神经网络输出（隐藏层状态），通过一个非线性函数$f_\textrm{tree}(\cdot,\cdot)$得到父节点的状态$\mathbi{h}_p$。 图\ref{fig:15-20} 展示了一个基于树结构的循环神经网络编码器\upcite{DBLP:conf/acl/EriguchiHT16}。这些编码器由下自上组成了一个树型结构，这种树结构的具体连接形式由句法分析决定。其中$\{\mathbi{h}_1,\ldots,\mathbi{h}_m\}$是输入序列所对应的循环神经单元（绿色部分），$\{\mathbi{h}_{m+1},\ldots,\mathbi{h}_{2m-1}\}$对应着树中的节点（红色部分），它的输出由其左右子节点通过公式\eqref{eq:15-53}计算得到。对于注意力模型，图中所有的节点都会参与上下文向量的计算，因此仅需要对{\chapterten}所描述的计算方式稍加修改，如下：
 \begin{eqnarray}
 \mathbi{C}_j &=& \sum_{i=1}^{m}\alpha_{i,j}\mathbi{h}_i + \sum_{i=m+1}^{2m-1}\alpha_{i,j}\mathbi{h}_i
 \label{eq:15-54}
@@ -939,9 +939,9 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 \textrm{“私/は/緑茶/を/飲んでいます。”} \nonumber
 \end{equation}
 
-\parinterval 在标准的英语到日语的翻译中，英语短语“a cup of green tea”只会被翻译为“緑茶”一词。在加入句法树后，“a cup of green tea”会作为树中一个节点，这样可以更容易把英语短语作为一个整体进行翻译。
+\parinterval 在标准的英语到日语的翻译中，英语短语“a cup of green tea”只会被翻译为“緑茶”一词。在加入句法树后，“a cup of green tea”会作为树中一个节点，这样可以更容易地把这个英语短语作为一个整体进行翻译。
 
-\parinterval 只是，这种自底向上的树结构表示方法也存在问题：每个树节点的状态并不能包含树中其它位置的信息。也就是说，从每个节点上看，其表示结果没有很好地利用句法树中的上下文信息。因此，可以同时使用自下而上和自上而下的信息传递方式进行句法树的表示\upcite{Yang2017TowardsBH,DBLP:conf/acl/ChenHCC17}，这样增加了树中每个节点对其覆盖的子树以及周围上下文的建模能力。如图\ref{fig:15-21} 所示，$\mathbi{h}^\textrm{up}$和$\mathbi{h}^\textrm{down}$分别代表向上传输节点和向下传输节点的状态，虚线框代表了$\mathbi{h}^\textrm{up}$和$\mathbi{h}^\textrm{down}$会拼接到一起，并作为这个节点的整体表示参与注意力模型的计算。显然，自下而上的传递，可以保证句子的浅层信息（如短距离词汇搭配）被传递给上层节点，而自上而下的传递，可以保证句子上层结构的抽象被有效地传递给下层节点。这样，每个节点就同时含有浅层和深层句子表示的信息。
+\parinterval 只是，这种自底向上的树结构表示方法也存在问题：每个树节点的状态并不能包含树中其它位置的信息。也就是说，从每个节点上看，其表示结果没有很好地利用句法树中的上下文信息。因此，可以同时使用自下而上和自上而下的信息传递方式进行句法树的表示\upcite{Yang2017TowardsBH,DBLP:conf/acl/ChenHCC17}，这样增加了树中每个节点对其覆盖的子树以及周围上下文的建模能力。如图\ref{fig:15-21} 所示，$\mathbi{h}^\textrm{up}$和$\mathbi{h}^\textrm{down}$分别代表向上传输节点和向下传输节点的状态，虚线框代表了$\mathbi{h}^\textrm{up}$和$\mathbi{h}^\textrm{down}$会拼接到一起，并作为这个节点的整体表示参与注意力模型的计算。显然，自下而上的传递，可以保证句子的浅层信息（如短距离词语搭配）被传递给上层节点，而自上而下的传递，可以保证句子上层结构的抽象被有效地传递给下层节点。这样，每个节点就同时含有浅层和深层句子表示的信息。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -958,7 +958,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 
 \subsubsection{2. 基于句法特征的编码}
 
-\parinterval 不同于直接对树结构进行编码，另一种方法是将单词、句法信息等直接转换为特征向量拼接到一起，作为机器翻译系统的输入\upcite{DBLP:conf/wmt/SennrichH16}。这种方法的优点在于，句法信息可以无缝融入到现有神经机器翻译框架，对系统结构的修改很小。以基于循环神经网络的翻译模型为例，可以用如下方式计算输入序列第$i$个位置的表示结果：
+\parinterval 除了直接对树结构进行编码以外，将单词、句法信息等直接转换为特征向量拼接到一起，作为机器翻译系统的输入也是一种在编码器中使用句法信息的方法\upcite{DBLP:conf/wmt/SennrichH16}。这种方法的优点在于，句法信息可以无缝融入到现有神经机器翻译框架，对系统结构的修改很小。以基于循环神经网络的翻译模型为例，可以用如下方式计算输入序列第$i$个位置的表示结果：
 \begin{eqnarray}
 \mathbi{h}_i &=& \textrm{tanh}(\mathbi{W}(\|_{k=1}^{F}\mathbi{E}_k x_{ik}) + \mathbi{U}\mathbi{h}_{i-1})
 \label{eq:15-55}
@@ -966,7 +966,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 
 \noindent 其中，$\mathbi{W}$和$\mathbi{U}$是线性变换矩阵，$F$代表了特征的数量；而$\mathbi{E}_k$是一个特征嵌入矩阵，它记录了第$k$个特征不同取值对应的分布式表示；$x_{ik}$ 代表了第$i$ 个词在第$k$ 个特征上的取值，于是$\mathbi{E}_k x_{ik}$就得到所激活特征的嵌入结果。$\|$操作为拼接操作，它将所有特征的嵌入结果拼接为一个向量。这种方法十分灵活，可以很容易地融合不同句法特征，例如，词根、子词、形态、词性以及依存关系等。
 
-\parinterval 另一种方式是将句法信息的表示转化为基于序列的编码，之后与原始的词串融合。这样做的好处在于，并不需要使用基于树结构的编码器，而是直接复用基于序列的编码器即可。而句法信息可以在对句法树的序列化表示中学习得到。如图\ref{fig:15-22}(a) 所示，对于英语句子“I love dogs”，可以得到如图\ref{fig:15-22}(a) 所示的句法树。这里，使用$w_i$ 表示第$i$ 个单词，如图\ref{fig:15-22}(b) 所示。通过对句法树进行先序遍历，可以得到句法树节点的序列$\{l_1,...,l_T\}$，其中$T$表示句法树中节点的个数，$l_j$表示树中的第$j$个节点，如图\ref{fig:15-22}(c)所示。
+\parinterval 此外，还可以将句法信息的表示转化为基于序列的编码，之后与原始的词串融合。这样做的好处在于，并不需要使用基于树结构的编码器，而是直接复用基于序列的编码器即可。而句法信息可以在对句法树的序列化表示中学习得到。如图\ref{fig:15-22}(a) 所示，对于英语句子“I love dogs”，可以得到如图\ref{fig:15-22}(a) 所示的句法树。这里，使用$w_i$ 表示第$i$ 个单词，如图\ref{fig:15-22}(b) 所示。通过对句法树进行先序遍历，可以得到句法树节点的序列$\{l_1,...,l_T\}$，其中$T$表示句法树中节点的个数，$l_j$表示树中的第$j$个节点，如图\ref{fig:15-22}(c)所示。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1015,7 +1015,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 
 \subsection{解码器使用句法信息}\label{subsec-15.3.2}
 
-\parinterval 在解码器中使用句法信息，一种最直接的方式是将目标语言句法树结构进行线性化，然后目标语言句子就变成了一个含有句法标记和单词的混合序列。这样，神经机器翻译系统不需要进行修改，可以直接使用句法树序列化的结果进行训练和推断\upcite{Aharoni2017TowardsSN}。图\ref{fig:15-24}展示了一个目标语言句法树经过线性化后的结果。
+\parinterval 为了在解码器中使用句法信息，一种最直接的方式是将目标语言句法树结构进行线性化，线性化后的目标语言句子就变成了一个含有句法标记和单词的混合序列。这样，神经机器翻译系统不需要进行修改，可以直接使用句法树序列化的结果进行训练和推断\upcite{Aharoni2017TowardsSN}。图\ref{fig:15-24}展示了一个目标语言句法树经过线性化后的结果。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1041,7 +1041,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 \end{figure}
 %-------------------------------------------
 
-\parinterval 不过，融合树结构和目标语言词串的方法也存在问题：它会导致目标语言端的序列过长，使得模型难以训练。为了缓解这个问题，可以使用两个模型，一个生成句子，另一个生成树结构\upcite{DBLP:conf/acl/WuZYLZ17,DBLP:journals/corr/abs-1808-09374}。以生成目标语言依存树为例，生成依存树的模型仍然是一个移进-规约序列的生成模型，称为动作模型。另一个模型负责预测目标语言词序列，称为词预测模型，它只有在第一个模型进行移位操作的时候才会预测一下词，同时会将当前词的状态送入到第一个模型中。整个过程如图\ref{fig:15-26}所示，这里使用循环神经网络构建了动作模型和词预测模型。$\mathbi{h}_i^\textrm{action}$ 表示动作模型的隐藏层状态，$\mathbi{h}_i^\textrm{word}$表示词预测模型的隐藏层状态。动作模型会结合词预测模型的状态预测出“移位”，“左规约”，“右规约”三种动作，只有当动作模型预测出“移位”操作时，词预测模型才会预测下一时刻的词语；而动作模型预测“左规约”和“右规约”相当于完成了依存关系的预测（依存树见图\ref{fig:15-26}右侧）。最后词预测模型预测出结束符号<eos> 时，整个过程结束。
+\parinterval 不过，融合树结构和目标语言词串的方法也存在问题：它会导致目标语言端的序列过长，使得模型难以训练。为了缓解这个问题，可以使用两个模型，一个生成句子，另一个生成树结构\upcite{DBLP:conf/acl/WuZYLZ17,DBLP:journals/corr/abs-1808-09374}。以生成目标语言依存树为例，生成依存树的模型是一个生成移进-规约序列的生成模型，称为动作模型。另一个模型负责预测目标语言词序列，称为词预测模型，它只有在第一个模型进行移位操作的时候才会预测下一个词，同时会将当前词的状态送入到第一个模型中。整个过程如图\ref{fig:15-26}所示，这里使用循环神经网络构建了动作模型和词预测模型。$\mathbi{h}_i^\textrm{action}$ 表示动作模型的隐藏层状态，$\mathbi{h}_i^\textrm{word}$表示词预测模型的隐藏层状态。动作模型会结合词预测模型的状态预测出“移位”，“左规约”，“右规约”三种动作，只有当动作模型预测出“移位”操作时，词预测模型才会预测下一时刻的词语；而动作模型预测“左规约”和“右规约”相当于完成了依存关系的预测（依存树见图\ref{fig:15-26}右侧）。最后词预测模型预测出结束符号<eos> 时，整个过程结束。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1068,7 +1068,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{神经网络结构搜索}
+\subsection{网络结构搜索}
 
 \parinterval 网络结构搜索属于{\small\bfnew{自动机器学习}}\index{自动机器学习}（Automated Machine Learning）\index{Automated Machine Learning}的范畴，其目的是根据对应任务上的数据找到最合适的模型结构。在这个过程中，模型结构就像神经网络中的参数一样被自动地学习出来。图\ref{fig:15-27}(a) 展示了人工设计的Transformer编码器的局部结构，图\ref{fig:15-27}(b) 给出对该结构使用进化算法优化后得到的结构\upcite{DBLP:conf/icml/SoLL19}。可以看到，使用网络结构搜索方法得到的模型中，出现了与人工设计的结构不同的跨层连接，同时还搜索到了全新的多分支结构，这种结构也是人工不易设计出来的。
 
@@ -1098,7 +1098,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{结构搜索的基本方法}
+\subsection{网络结构搜索的基本方法}
 
 \parinterval 对于网络结构搜索任务来说，目标是通过数据驱动的方式自动地找到最合适的模型结构。以有监督学习为例，给定训练集合$\{(\mathbi{x}_{1},\mathbi{y}_{1}),\ldots,(\mathbi{x}_{n},\mathbi{y}_{n})\}$（其中$\mathbi{x}_{i}$表示的是第$i$个样本的输入，$\mathbi{y}_{i}$表示该样本的答案，并假设$\mathbi{x}_{i}$和$\mathbi{y}_{i}$均为向量表示），网络结构搜索过程可以被建模为根据数据找到最佳模型结构$\hat{a}$的过程，如下所示：
 \begin{eqnarray}
@@ -1106,13 +1106,13 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 \label{eq:15-57}
 \end{eqnarray}
 
-\noindent 其中，$\funp{P}(\mathbi{y}_{i}|\mathbi{x}_{i};a)$为模型$a$观察到数据$\mathbi{x}_{i}$后预测$\mathbi{y}_{i}$的概率，而模型结构$a$本身可以看作是输入$\mathbi{x}$到输出$\mathbi{y}$ 的映射函数。图\ref{fig:15-29}展示了神经网络结构搜索方法的主要流程，其中包括三个部分：设计搜索空间、选择搜索策略以及进行性能评估，下面将对上述各个部分进行简要介绍。
+\noindent 其中，$\funp{P}(\mathbi{y}_{i}|\mathbi{x}_{i};a)$为模型$a$观察到数据$\mathbi{x}_{i}$后预测$\mathbi{y}_{i}$的概率，而模型结构$a$本身可以看作是输入$\mathbi{x}$到输出$\mathbi{y}$ 的映射函数。图\ref{fig:15-29}展示了网络结构搜索方法的主要流程，其中包括三个部分：设计搜索空间、选择搜索策略以及进行性能评估，下面将对上述各个部分进行简要介绍。
 
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
 \input{./Chapter15/Figures/figure-main-flow-of-neural-network-structure-search}
-\caption{神经网络结构搜索的主要流程}
+\caption{网络结构搜索的主要流程}
 \label{fig:15-29}
 \end{figure}
 %-------------------------------------------
@@ -1128,7 +1128,8 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 %----------------------------------------------
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.5]{./Chapter15/Figures/figure-relationship-between-structures-in-structural-space.jpg}
+\vspace{-5em}
+\input{./Chapter15/Figures/figure-relationship-between-structures-in-structural-space}
 \caption{结构空间内结构之间的关系}
 \label{fig:15-30}
 \end{figure}
@@ -1154,7 +1155,7 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\bfnew{进化算法}}。进化算法最初被用来对神经网络模型结构、以及其中的权重参数进行优化\upcite{DBLP:conf/icga/MillerTH89,DBLP:journals/tnn/AngelineSP94,stanley2002evolving}。随着最优化算法的发展，近年来，对于网络参数的学习开始更多地采用梯度下降的方式，但是进化算法依旧被用于对模型结构进行优化\upcite{DBLP:conf/icml/RealMSSSTLK17,DBLP:conf/iclr/ElskenMH19,DBLP:conf/iclr/LiuSVFK18}。从结构优化的角度来说，一般是将模型结构看做遗传算法中种群的个体，使用轮盘赌或锦标赛等抽取方式，对种群中的结构进行取样作为亲本，之后通过亲本模型的突变产生新的模型结构，最终对这些新的模型结构进行适应度评估。根据模型结构在校验集上的性能确定是否将其加入种群。
+\item {\small\bfnew{进化算法}}。进化算法最初被用来对神经网络模型结构、以及其中的权重参数进行优化\upcite{DBLP:conf/icga/MillerTH89,DBLP:journals/tnn/AngelineSP94,stanley2002evolving}。随着最优化算法的发展，近年来，对于网络参数的学习开始更多地采用梯度下降的方式，但是进化算法依旧被用于对模型结构进行优化\upcite{DBLP:conf/icml/RealMSSSTLK17,DBLP:conf/iclr/ElskenMH19,DBLP:conf/iclr/LiuSVFK18}。从结构优化的角度来说，一般是将模型结构看做遗传算法中种群的个体，使用轮盘赌或锦标赛等抽取方式，对种群中的结构进行取样并将取样得到的结构作为亲本，之后通过亲本模型的突变产生新的模型结构，最终对这些新的模型结构进行适应度评估。根据模型结构在校验集上的性能确定是否将其加入种群。
 \vspace{0.5em}
 \item 	{\small\bfnew{强化学习}}。强化学习方法在{\chapterthirteen}已经进行了介绍，这里可以将神经网络结构的设计看做是一种序列生成任务，使用字符序列对网络结构进行表述\upcite{DBLP:conf/iclr/ZophL17}。这种方法的执行过程如图\ref{fig:15-33}所示。其执行过程为由智能体对模型结构进行生成，之后将生成的结构应用于对应的任务（如机器翻译、语言建模等），根据模型在对应任务中的输出以及表现水平来进一步对智能体进行反馈，促使智能体生成更适用于当前任务的模型结构。
 
@@ -1204,9 +1205,9 @@ lr &=& d_{\textrm{model}}^{-0.5}\cdot step\_num^{-0.5}
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{机器翻译任务下的结构搜索}
+\subsection{机器翻译任务下的网络结构搜索}
 
-\parinterval 对于自然语言处理任务来说，网络结构搜索方法更多是在语言建模、命名实体识别等任务上进行尝试\upcite{DBLP:conf/acl/LiHZXJXZLL20,DBLP:conf/emnlp/JiangHXZZ19}。其中，大多数工作是在基于循环神经网络的模型结构上进行探索的，相较于目前在机器翻译领域中广泛使用的Transformer模型结构来说，这些搜索到的结构在性能上并没有体现出绝对的优势。此外，由于机器翻译任务的复杂性，针对基于Transformer的机器翻译模型的结构搜索方法会更少一些。不过仍有部分工作在机器翻译任务上取得了很好的表现。例如，在WMT19机器翻译比赛中，神经网络结构优化方法在多个任务上取得了很好的成绩\upcite{DBLP:conf/nips/LuoTQCL18,DBLP:conf/wmt/XiaTTGHCFGLLWWZ19}。对于结构搜索在机器翻译领域的应用，目前主要包括两个方面：分别是对模型性能的改进以及模型效率的优化。
+\parinterval 对于自然语言处理任务来说，大多数网络结构搜索方法选择在语言建模、命名实体识别等任务上进行尝试\upcite{DBLP:conf/acl/LiHZXJXZLL20,DBLP:conf/emnlp/JiangHXZZ19}。其中，大多数工作是在基于循环神经网络的模型结构上进行探索的，相较于目前在机器翻译领域中广泛使用的Transformer模型结构来说，这些搜索到的结构在性能上并没有体现出绝对的优势。此外，由于机器翻译任务的复杂性，针对基于Transformer的机器翻译模型的结构搜索方法会更少一些。不过仍有部分工作在机器翻译任务上取得了很好的表现。例如，在WMT19机器翻译比赛中，神经网络结构优化方法在多个任务上取得了很好的成绩\upcite{DBLP:conf/nips/LuoTQCL18,DBLP:conf/wmt/XiaTTGHCFGLLWWZ19}。对于结构搜索在机器翻译领域的应用，目前主要包括两个方面：分别是对模型性能的改进以及模型效率的优化。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -1227,7 +1228,7 @@ f(x) &=& x \cdot \delta(\beta x) \\
 
 \noindent 相比于人工设计的激活函数ReLU而言，Swish函数在多个机器翻译任务取得了不错的效果。
 \vspace{0.5em}
-\item {\small\bfnew{搜索模型中局部结构的组合}}。在基于Transformer模型的网络结构搜索任务中，对于局部结构的组合方式的学习也受到了很多关注，其中包括基于进化算法的方法和基于梯度对现有Transformer模型结构的改良\upcite{DBLP:conf/icml/SoLL19,DBLP:journals/taslp/FanTXQLL20}。与前文所述的对局部结构的改良不同，此处更多地是对现有经验性的局部结构进行组合，找到最佳的整体结构。在模型结构的表示方法上，这些方法会根据先验知识为搜索单元设定一个部分框架，如每当信息传递过来之后先进行层标准化，之后再对候选位置上的操作使用对应的搜索策略进行搜索。另外这类方法也会在Transformer结构中引入多分支结构，一个搜索单元的输出可以被多个后续单元所使用，这种方式有效扩大了结构搜索过程中的搜索空间，能够在现有Transformer结构的基础上找到更优的模型结构。
+\item {\small\bfnew{搜索模型中局部结构的组合}}。在基于Transformer模型的网络结构搜索任务中，对于局部结构的组合方式的学习也受到了很多关注，其中包括基于进化算法的方法和基于梯度对现有Transformer模型结构的改良\upcite{DBLP:conf/icml/SoLL19,DBLP:journals/taslp/FanTXQLL20}。与前文所述的对局部结构的改良不同，此处更多地是对现有的人工设计出来的局部结构进行组合，找到最佳的整体结构。在模型结构的表示方法上，这些方法会根据先验知识为搜索单元设定一个部分框架，如每当信息传递过来之后先进行层标准化，之后再对候选位置上的操作使用对应的搜索策略进行搜索。另外这类方法也会在Transformer结构中引入多分支结构，一个搜索单元的输出可以被多个后续单元所使用，这种方式有效扩大了结构搜索过程中的搜索空间，能够在现有Transformer结构的基础上找到更优的模型结构。
 \vspace{0.5em}
 \end{itemize}
 
@@ -1251,7 +1252,7 @@ f(x) &=& x \cdot \delta(\beta x) \\
 
 \parinterval 虽然由于算力等条件的限制，目前很多网络结构搜索方法并没有直接在机器翻译任务中进行实验，但是这些方法并没有被限制在特定任务上。例如，可微分结构搜索方法被成功地用于学习更好的循环单元结构，这类方法完全可以应用在机器翻译任务上。
 
-\parinterval 此外，受到预训练模型的启发，网络结构预搜索可能是一个极具潜力的方向。例如，有研究人员在大规模语言模型上进行网络结构搜索\upcite{DBLP:conf/acl/LiHZXJXZLL20}，然后将搜索到的模型结构应用于更多的自然语言处理任务中，这种方式有效提升了模型结构的可复用性。同时，相较于使用特定任务下受限的数据，从大规模单语数据中可以更充分地学习语言的规律，进而更好地指导模型结构的设计。此外，对于机器翻译任务而言，结构的预搜索同样是一个值得关注的研究方向。
+\parinterval 此外，受到预训练模型的启发，网络结构预搜索可能是一个极具潜力的方向。例如，有研究人员在大规模语言模型上进行网络结构搜索\upcite{DBLP:conf/acl/LiHZXJXZLL20}，然后将搜索到的模型结构应用于更多的自然语言处理任务中，这种方式有效提升了模型结构的可复用性。同时，相较于使用受到特定任务限制的数据，使用大规模的单语数据可以更充分地学习语言的规律，进而更好地指导模型结构的设计。此外，对于机器翻译任务而言，结构的预搜索同样是一个值得关注的研究方向。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION

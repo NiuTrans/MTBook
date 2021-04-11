@@ -10,10 +10,10 @@
 \begin{scope}[]
 
 \node [anchor=east,circle,fill=black,inner sep = 2pt] (n1) at (-0, 0) {};
-\node [anchor=west,draw,circle,inner sep=5pt] (n2) at ([xshift=13em,yshift=0em]n1.east){};
+\node [anchor=west,draw,circle,inner sep=5pt,thick] (n2) at ([xshift=13em,yshift=0em]n1.east){};
 \node [anchor=west,lnnode] (n3) at ([xshift=1.5em,yshift=0em]n2.east){LN};
 \node [anchor=west,circle,fill=black,inner sep=2pt] (n4) at ([xshift=1.5em,yshift=0em]n3.east){};
-\node [anchor=west,draw,circle,inner sep=5pt] (n5) at ([xshift=5em,yshift=0em]n4.east){};
+\node [anchor=west,draw,circle,inner sep=5pt,thick] (n5) at ([xshift=5em,yshift=0em]n4.east){};
 \node [anchor=west,lnnode] (n6) at ([xshift=1.5em,yshift=0em]n5.east){LN};
 
 \node [anchor=west,manode] (a1) at ([xshift=1.5em,yshift=2em]n1.east){Multi-Head Attention};
