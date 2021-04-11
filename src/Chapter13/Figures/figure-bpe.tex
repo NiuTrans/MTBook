@@ -43,7 +43,7 @@
 \node [anchor=west,mnode] (n8) at ([xshift=5em,yshift=0em]n7.east) {};
 \node [anchor=north,align=center,font=\footnotesize] (n81) at ([xshift=0em,yshift=-0.2em]n8.north) {{\small 符号合并表}\\(e,s)};
 
-\node [anchor=west,align=left,font=\footnotesize] (nt3) at ([xshift=0.1em,yshift=0em]n6.east) {统计二元组\\[0.5ex]的频次};
+\node [anchor=west,align=left,font=\footnotesize] (nt3) at ([xshift=0.1em,yshift=0em]n6.east) {统计二元组\\[0.5ex]出现的频次};
 \node [anchor=west,align=left,font=\footnotesize] (nt4) at ([xshift=0em,yshift=-0.4em]n7.east) {频次最高的\\[0.5ex](e,s)加入表\\中};
 \draw [->,thick,ublue] ([xshift=0em,yshift=0em]n6.east)--([xshift=0em,yshift=0em]n7.west);
 \draw [->,thick,ublue] ([xshift=0em,yshift=0em]n7.east)--([xshift=0em,yshift=0em]n8.west);
@@ -63,7 +63,7 @@
 \node [anchor=west,mnode] (n11) at ([xshift=5em,yshift=0em]n10.east) {};
 \node [anchor=north,align=center,font=\footnotesize] (n111) at ([xshift=0em,yshift=-0.2em]n11.north) {{\small 符号合并表}\\(e,s)\\(es,t)};
 
-\node [anchor=west,align=left,font=\footnotesize] (nt5) at ([xshift=0.1em,yshift=0em]n9.east) {统计二元组\\[0.5ex]的频次};
+\node [anchor=west,align=left,font=\footnotesize] (nt5) at ([xshift=0.1em,yshift=0em]n9.east) {统计二元组\\[0.5ex]出现的频次};
 \node [anchor=west,align=left,font=\footnotesize] (nt6) at ([xshift=0em,yshift=-0.4em]n10.east) {频次最高的\\[0.5ex](es,t)加入表\\中};
 \draw [->,thick,ublue] ([xshift=0em,yshift=0em]n9.east)--([xshift=0em,yshift=0em]n10.west);
 \draw [->,thick,ublue] ([xshift=0em,yshift=0em]n10.east)--([xshift=0em,yshift=0em]n11.west);
@@ -72,7 +72,7 @@
 \node [anchor=north,ublue] (cd) at ([xshift=0em,yshift=-2.0em]n10.south) {$\cdots$};
 \draw [->,thick,ublue] ([xshift=-0em,yshift=-0em]n11.south) .. controls +(south:2em) and +(north:2em) .. ([xshift=-0em,yshift=-0em]cd.north);
 \node [anchor=north west,ublue,font=\footnotesize,align=left] (l2) at ([xshift=1em,yshift=-1.0em]n10.south east) {在词表中\\[0.8ex]合并(es,t)};
-\node [anchor=east,ublue,align=left,font=\footnotesize] (l3) at ([xshift=-0.5em,yshift=0em]cd.west) {直至达到设定的符号合\\并表大小或无法合并};
+\node [anchor=east,ublue,align=left,font=\footnotesize] (l3) at ([xshift=-0.5em,yshift=0em]cd.west) {直至达到预设的符号合并表\\大小，或没有二元组可以被\\合并};
 
 \begin{pgfonlayer}{background}
 \node [rectangle,inner sep=0.7em,draw,orange!40,dashed,thick,rounded corners=7pt] [fit = (n5) (n8) (l3) (cd)] (box2) {};

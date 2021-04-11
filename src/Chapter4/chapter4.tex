@@ -23,7 +23,7 @@
 
 \chapter{翻译质量评价}
 
-\parinterval 人们在使用机器翻译系统时需要评估系统输出结果的质量。这个过程也被称作机器翻译译文质量评价，简称为{\small\sffamily\bfseries{译文质量评价}}\index{译文质量评价}（Quality Evaluation of Translation）\index{Quality Evaluation of Translation}。在机器翻译的发展进程中，译文质量评价有着非常重要的作用。不论在系统研发的反复迭代中，还是在诸多的机器翻译应用场景中，都存在大量的译文质量评价环节。从某种意义上说，没有译文质量评价，机器翻译也不会发展成今天的样子。比如，本世纪初研究人员提出了译文质量自动评价方法BLEU\upcite{DBLP:conf/acl/PapineniRWZ02}。该方法使得机器系统的评价变得自动、快速、便捷，而且评价过程可以重复。正是由于BLEU等自动评价方法的提出，机器翻译研究人员可以在更短的时间内得到译文质量的评价结果，加速系统研发的进程。
+\parinterval 人们在使用机器翻译系统时需要评估系统输出结果的质量。这个过程也被称作机器翻译译文质量评价，简称为{\small\sffamily\bfseries{译文质量评价}}\index{译文质量评价}（Quality Evaluation of Translation）\index{Quality Evaluation of Translation}。在机器翻译的发展进程中，译文质量评价有着非常重要的作用。不论在系统研发的反复迭代中，还是在诸多的机器翻译应用场景中，都存在大量的译文质量评价环节。从某种意义上说，没有译文质量评价，机器翻译也不会发展成今天的样子。比如，本世纪初研究人员提出了译文质量自动评价方法{\small\sffamily\bfseries{BLEU}}\index{BLEU}（Bilingual Evaluation Understudy）\index{Bilingual Evaluation Understudy}\upcite{DBLP:conf/acl/PapineniRWZ02}。该方法使得机器系统的评价变得自动、快速、便捷，而且评价过程可以重复。正是由于BLEU等自动评价方法的提出，机器翻译研究人员可以在更短的时间内得到译文质量的评价结果，加速系统研发的进程。
 
 \parinterval 时至今日，译文质量评价方法已经非常丰富，针对不同的使用场景研究人员陆续提出了不同的方法。本章将会对其中的典型方法进行介绍，包括：人工评价、有参考答案自动评价、无参考答案自动评价等。相关方法及概念也会在本章的后续章节中被广泛使用。
 
@@ -109,7 +109,7 @@
 
 \subsection{评价策略}
 
-\parinterval 合理的评价指标是人工评价得以顺利进行的基础。机器译文质量的人工评价可以追溯到1966年，自然语言处理咨询委员会提出{\small\sffamily\bfseries{可理解度}}\index{可理解度}（Intelligibility）\index{Intelligibility}和忠诚度作为机器译文质量人工评价指标\upcite{DBLP:journals/mtcl/Carroll66}。1994 年，{\small\sffamily\bfseries{充分性}}\index{充分性}（Adequacy）\index{Adequacy}、流畅度和{\small\sffamily\bfseries{信息性}}\index{信息性}（Informativeness）\index{Informativeness}成为ARPA MT\footnote{ARPA MT计划是美国高级研究计划局软件和智能系统技术处人类语言技术计划的一部分。}的人工评价标准\upcite{DBLP:conf/amta/WhiteOO94}。此后，有不少研究者提出了更多的机器译文质量人工评估指标，例如将{\small\sffamily\bfseries{清晰度}}\index{清晰度}（Clarity）\index{Clarity}和{\small\sffamily\bfseries{连贯性}}\index{连贯性}（Coherence）\index{Coherence}加入人工评价指标中\upcite{Miller:2005:MTS}。甚至有人将各种人工评价指标集中在一起，组成了尽可能全面的机器翻译评估框架\upcite{king2003femti}。
+\parinterval 合理的评价指标是人工评价得以顺利进行的基础。机器译文质量的人工评价可以追溯到1966年，自然语言处理咨询委员会提出{\small\sffamily\bfseries{可理解度}}\index{可理解度}（Intelligibility）\index{Intelligibility}和忠诚度作为机器译文质量人工评价指标\upcite{DBLP:journals/mtcl/Carroll66}。1994 年，{\small\sffamily\bfseries{充分性}}\index{充分性}（Adequacy）\index{Adequacy}、流畅度和{\small\sffamily\bfseries{信息量}}\index{信息量}（Informativeness）\index{Informativeness}成为ARPA MT\footnote{ARPA MT计划是美国高级研究计划局软件和智能系统技术处人类语言技术计划的一部分。}的人工评价标准\upcite{DBLP:conf/amta/WhiteOO94}。此后，有不少研究者提出了更多的机器译文质量人工评估指标，例如将{\small\sffamily\bfseries{清晰度}}\index{清晰度}（Clarity）\index{Clarity}和{\small\sffamily\bfseries{连贯性}}\index{连贯性}（Coherence）\index{Coherence}加入人工评价指标中\upcite{Miller:2005:MTS}。甚至有人将各种人工评价指标集中在一起，组成了尽可能全面的机器翻译评估框架\upcite{king2003femti}。
 
 \parinterval 人工评价的策略非常多。考虑不同的因素，往往会使用不同的评价方案，比如：
 
@@ -159,7 +159,7 @@
 \label{eq:4-2}
 \end{eqnarray}
 
-根据公式\eqref{eq:4-2}可以看出，该策略去除了平局的影响。
+根据公式\eqref{eq:4-2}可以看出，该策略消除了平局的影响。
     \end{itemize}
 \vspace{0.5em}
 \end{itemize}
@@ -176,7 +176,7 @@
 
 \parinterval 人工评价费事费力，同时具有一定的主观性，甚至不同人在不同时刻面对同一篇文章的理解都会不同。为了克服这些问题，另一种思路是将人类专家翻译的结果看作是参考答案，将译文与答案的近似程度作为评价结果。即译文与答案越接近，评价结果越好；反之，评价结果较差。这种评价方式叫做{\small\bfnew{自动评价}}\index{自动评价}（Automatic Evaluation）。自动评价具有速度快，成本低、一致性高的优点，因此自动评价是也是机器翻译系统研发人员所青睐的方法。
 
-\parinterval 随着评价技术的不断发展，自动评价结果已经具有了比较好的指导性，可以帮助使用者快速了解当前译文的质量。在机器翻译领域，自动评价已经成为了一个重要的研究分支。至今，已经有不下几十种自动评价方法被提出。这里无法对这些方法一一列举，为了便于后续章节中对自动评价方法的使用，这里仅对一些代表性的方法进行简要介绍。
+\parinterval 随着评价技术的不断发展，自动评价结果已经具有了比较好的指导性，可以帮助使用者快速了解当前译文的质量。在机器翻译领域，自动评价已经成为了一个重要的研究分支。至今，已经有不下几十种自动评价方法被提出。这里无法对这些方法一一列举，为了便于读者理解后续章节中涉及到的自动评价方法，这里仅对一些代表性的方法进行简要介绍。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -211,7 +211,7 @@
 
 \parinterval 在这个实例中，将机器译文序列转换为参考答案序列，需要进行两次替换操作，将“A” 替换为“The”，将“in” 替换为“on”。所以$\textrm{edit}(c,r)$ = 2，归一化因子$l$为参考答案的长度8（包括标点符号），所以该机器译文的TER 结果为2/8。
 
-\parinterval PER与WER的基本思想与TER相同，这三种方法的主要区别在于对“错误” 的定义和考虑的操作类型略有不同。WER使用的编辑操作包括：增加、删除、替换，由于没有移位操作，当机器译文出现词序问题时，会发生多次替代，因而一般会低估译文质量；而PER只考虑增加和删除两个动作，在不考虑词序的情况下，PER计算两个句子中出现相同单词的次数，根据机器译文与参考答案的长度差距，其余操作无非是插入词或删除词，这样往往会高估译文质量。
+\parinterval PER与WER的基本思想与TER相同，这三种方法的主要区别在于对“错误” 的定义和考虑的操作类型略有不同。WER使用的编辑操作包括：增加、删除、替换，由于没有移位操作，当机器译文出现词序问题时，会发生多次替代，因而一般会低估译文质量；而PER只考虑增加和删除两个动作，计算两个句子中出现相同单词的次数，根据机器译文与参考答案的长度差距，其余操作无非是插入词或删除词，而忽略了词序的错误，因此这样往往会高估译文质量。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -238,7 +238,7 @@
 
 \parinterval 在引入截断方式之前，该机器译文的1-gram准确率为4/4 = 1，这显然是不合理的。在引入截断的方式之后，“the” 在译文中出现4 次，在参考答案中出现2 次，截断操作则是取二者的最小值，即$\textrm{count}_{\textrm{hit}}$= 2，$\textrm{count}_{\textrm{output}}$= 4，该译文的1-gram准确率为2/4。
 
-\parinterval 令$N$表示考虑的最大$n$-gram的大小，则译文整体的准确率等于各$n$-gram的加权平均：
+\parinterval 令$N$表示最大$n$-gram的大小，则译文整体的准确率等于各$n$-gram的加权平均：
 \begin{eqnarray}
 {\funp{P}_{{\textrm{avg}}}} &=& \exp (\sum\limits_{n = 1}^N {{w_n} \cdot {{{\mathop{\log\funp{P}}\nolimits} }_n}} )
 \label{eq:4-5}
@@ -275,7 +275,7 @@
 
 \parinterval 基于词对齐的方法，顾名思义就是根据参考答案中的单词与译文中的单词之间的对齐关系对机器翻译译文进行评价。词对齐的概念也被用于统计机器翻译的建模（\chapterfive），这里借用了相同的思想来度量机器译文与参考答案之间的匹配程度。在基于$n$-gram匹配的评价方法中（如BLEU），BP可以起到一些度量召回率的作用，但是这类方法并没有对召回率进行准确的定义。与其不同的是，基于词对齐的方法在机器译文和参考答案的单词之间建立一对一的对应关系，这种评价方法在引入准确率的同时还能显性引入召回率作为评价所考虑的因素。
 
-\parinterval 在基于词对齐的自动评价方法中，一种典型的方法是Meteor。该方法通过计算精确的{\small\bfnew{单词到单词}}\index{单词到单词}（Word-to-Word\index{Word-to-Word}）的匹配来度量一个译文的质量\upcite{DBLP:conf/acl/BanerjeeL05}，并且在“ 绝对”匹配之外，还引入了“ 波特词干匹配”和“同义词”匹配。在下面的内容中，将利用实例对Meteor方法进行介绍。
+\parinterval 在基于词对齐的自动评价方法中，一种典型的方法是Meteor。该方法通过计算精确的{\small\bfnew{单词到单词}}\index{单词到单词}（Word-to-Word\index{Word-to-Word}）的匹配来度量一个译文的质量\upcite{DBLP:conf/acl/BanerjeeL05}，并且在精确匹配之外，还引入了“波特词干”匹配和“同义词”匹配。在下面的内容中，将利用实例对Meteor方法进行介绍。
 
 \begin{example}
 机器译文：Can I have it like he ?
@@ -284,24 +284,24 @@
 \label{eg:4-2}
 \end{example}
 
-\parinterval 在Meteor方法中，首先在机器译文与参考答案之间建立单词之间的对应关系，再根据其对应关系计算准确率和召回率。
+\parinterval 在Meteor方法中，首先在机器译文与参考答案之间建立单词的对应关系，再根据其对应关系计算准确率和召回率。
 
 \begin{itemize}
 \vspace{0.5em}
 \item 在机器译文与参考答案之间建立单词之间的对应关系。单词之间的对应关系在建立过程中主要涉及三个模型，在对齐过程中依次使用这三个模型进行匹配：
     \begin{itemize}
-    \item {\small\sffamily\bfseries{“绝对”匹配模型}}\index{“绝对”匹配模型}（Exact Model）\index{Exact Model}。绝对匹配模型在建立单词对应关系时，要求机器译文端的单词与参考答案端的单词完全一致，并且在参考答案端至多有1个单词与机器译文端的单词对应，否则会将其视为多种对应情况。对于实例\ref{eg:4-2}，使用“绝对”匹配模型，共有两种匹配结果，如图\ref{fig:4-3}所示。
+    \item {\small\sffamily\bfseries{精确模型}}\index{精确模型}（Exact Model）\index{Exact Model}。精确模型在建立单词对应关系时，要求机器译文端的单词与参考答案端的单词完全一致，并且在参考答案端至多有1个单词与机器译文端的单词对应，否则会将其视为多种对应情况。对于实例\ref{eg:4-2}，使用精确模型，共有两种匹配结果，如图\ref{fig:4-3}所示。
 
 %----------------------------------------------
 \begin{figure}[htp]
     \centering
-	\subfigure[\small{“绝对”匹配词对齐-1}]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-1}}
-	\subfigure[\small{“绝对”匹配词对齐-2}]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-2}}
-   \caption{“绝对”匹配模型}
+	\subfigure[\small{精确匹配词对齐-1}]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-1}}
+	\subfigure[\small{精确匹配词对齐-2}]{\input{./Chapter4/Figures/figure-absolute-match-word-alignment-2}}
+   \caption{精确匹配词对齐}
    \label{fig:4-3}
 \end{figure}
 %----------------------------------------------
-    \item  {\small\sffamily\bfseries{“波特词干”匹配模型}}\index{“波特词干”匹配模型}（Porter Stem Model）\index{Porter Stem Model}。该模型在“绝对”匹配结果的基础上，对尚未对齐的单词进行基于词干的匹配，只需机器译文端单词与参考答案端单词的词干相同即可，如上文中的“do”和“did”。对于图\ref{fig:4-3}中显示的词对齐结果，再使用“波特词干” 匹配模型，得到如图\ref{fig:4-4}所示的结果。
+    \item  {\small\sffamily\bfseries{“波特词干”模型}}\index{“波特词干”模型}（Porter Stem Model）\index{Porter Stem Model}。该模型在精确匹配结果的基础上，对尚未对齐的单词进行基于词干的匹配，只需机器译文端单词与参考答案端单词的词干相同即可，如上文中的“he”和“him”。对于图\ref{fig:4-3}中显示的词对齐结果，再使用“波特词干” 模型，得到如图\ref{fig:4-4}所示的结果。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -311,7 +311,7 @@
     \label{fig:4-4}
 \end{figure}
 %----------------------------------------------
-    \item {\small\sffamily\bfseries{“同义词”匹配模型}}\index{“同义词”匹配模型}（WN Synonymy Model）\index{WN Synonymy Model}。该模型在前两个模型匹配结果的基础上，对尚未对齐的单词进行同义词的匹配，即基于WordNet词典匹配机器译文与参考答案中的同义词。如实例\ref{eg:4-2}中的“eat”和“have”。图\ref{fig:4-5}给出了一个真实的例子。
+    \item {\small\sffamily\bfseries{“同义词”模型}}\index{“同义词”模型}（WN Synonymy Model）\index{WN Synonymy Model}。该模型在前两个模型匹配结果的基础上，对尚未对齐的单词进行同义词的匹配，即基于WordNet词典匹配机器译文与参考答案中的同义词。如实例\ref{eg:4-2}中的“eat”和“have”。图\ref{fig:4-5}给出了一个真实的例子。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -367,7 +367,7 @@
 \label{eq:4-12}
 \end{eqnarray}
 
-\parinterval Meteor方法是经典的自动评价方法之一。它的创新点在于引入了词干匹配和同义词匹配，扩大了词汇匹配的范围。Meteor方法被提出后，很多人尝试对其进行了改进，使其评价结果与人工评价结果更相近。例如Meteor-next在Meteor的基础上增加{\small\sffamily\bfseries{释义匹配器}}\index{释义匹配器}（Paraphrase Matcher）\index{Paraphrase Matcher}，利用该匹配器能够捕获机器译文中与参考答案意思相近的短语，从而在短语层面进行匹配。此外这种方法还引入了{\small\sffamily\bfseries{可调权值向量}}\index{可调权值向量}（Tunable Weight Vector）\index{Tunable Weight Vector}，用于调节每个匹配类型的相应贡献\upcite{DBLP:conf/wmt/DenkowskiL10}；Meteor 1.3在Meteor的基础上增加了改进的{\small\sffamily\bfseries{文本规范器}}\index{文本规范器}（Meteor Normalizer）\index{Meteor Normalizer}、更高精度的释义匹配以及区分内容词和功能词等指标，其中文本规范器能够根据一些规范化规则，将机器译文中意义等价的标点减少到通用的形式。而区分内容词和功能词则能够得到更为准确的词汇对应关系\upcite{DBLP:conf/wmt/DenkowskiL11}；Meteor Universial则通过机器学习方法学习不同语言的可调权值，在对低资源语言进行评价时可对其进行复用，从而实现对低资源语言的译文更准确的评价\upcite{DBLP:conf/wmt/DenkowskiL14}。
+\parinterval Meteor方法是经典的自动评价方法之一。它的创新点在于引入了词干匹配和同义词匹配，扩大了词汇匹配的范围。Meteor方法被提出后，很多人尝试对其进行了改进，使其评价结果与人工评价结果更相近。例如Meteor-next在Meteor的基础上增加{\small\sffamily\bfseries{释义匹配器}}\index{释义匹配器}（Paraphrase Matcher）\index{Paraphrase Matcher}，利用该匹配器能够捕获机器译文中与参考答案意思相近的短语，从而在短语层面进行匹配。此外这种方法还引入了{\small\sffamily\bfseries{可调权值向量}}\index{可调权值向量}（Tunable Weight Vector）\index{Tunable Weight Vector}，用于调节每个匹配类型的相应贡献\upcite{DBLP:conf/wmt/DenkowskiL10}；Meteor 1.3在Meteor的基础上增加了改进的{\small\sffamily\bfseries{文本规范器}}\index{文本规范器}（Text Normalizer）\index{Text Normalizer}、更高精度的释义匹配以及区分内容词和功能词等指标，其中文本规范器能够根据一些规范化规则，将机器译文中意义等价的标点减少到通用的形式。而区分内容词和功能词则能够得到更为准确的词汇对应关系\upcite{DBLP:conf/wmt/DenkowskiL11}；Meteor Universial则通过机器学习方法学习不同语言的可调权值，在对低资源语言进行评价时可对其进行复用，从而实现对低资源语言的译文更准确的评价\upcite{DBLP:conf/wmt/DenkowskiL14}。
 
 \parinterval 由于召回率反映参考答案在何种程度上覆盖目标译文的全部内容，而Meteor在评价过程中显式引入召回率，所以Meteor的评价与人工评价更为接近。但Meteor方法需要借助同义词表、功能词表等外部数据，当外部数据中的目标词对应不正确或缺失相应的目标词时，评价水准就会降低。特别是，针对汉语等与英语差异较大的语言，使用Meteor方法也会面临很多挑战。不仅如此，超参数的设置和使用，对于评分也有较大影响。
 
@@ -428,7 +428,7 @@ His house is on the south bank of the river .
 
 \parinterval 参数化组合方法的实现主要有两种方式：一种方式是广泛使用不同的译文质量评价作为特征，借助回归算法实现多种评价策略的融合\upcite{DBLP:conf/acl/AlbrechtH07a,DBLP:conf/acl/AlbrechtH07}；另一种方式则是对各种译文质量评价方法的结果进行加权求和，并借助机器学习算法更新内部的权重参数，从而实现多种评价策略的融合\upcite{DBLP:conf/naacl/LiuG07}。
 
-\parinterval 非参数化组合方法的思想与贪心算法异曲同工：将多个自动评价方法以与人工评价的相关度为标准进行降序排列，依次尝试将其加入最优策略集合中，如果能提高最优策略集合的“性能”，则将该自动评价方法加入最优策略集合中，否则不加入。其中最优策略集合的“性能”用QUEEN定义\upcite{DBLP:conf/ijcnlp/GimenezM08}。该方法是首次尝试使用非参数的组合方式将多种自动评价方法进行融合，也不可避免地存在一些瑕疵。一方面在评价最优策略集合性能时，对于一个源文需要至少三个参考答案；另一方面，这种“贪心”的组合策略很有可能会得到局部最优的组合。
+\parinterval 非参数化组合方法的思想与贪心算法异曲同工：以与人工评价的相关度为标准，将多个自动评价方法降序排列，依次尝试将其加入最优策略集合中，如果能提高最优策略集合的“性能”，则将该自动评价方法加入最优策略集合中，否则不加入。其中最优策略集合的“性能”用QUEEN定义\upcite{DBLP:conf/ijcnlp/GimenezM08}。该方法是首次尝试使用非参数的组合方式将多种自动评价方法进行融合，也不可避免地存在一些瑕疵。一方面在评价最优策略集合性能时，对于一个源文需要至少三个参考答案；另一方面，这种“贪心”的组合策略很有可能会得到局部最优的组合。
 
 \parinterval 与单一的译文评价方法相比，多策略融合的评价方法能够对机器译文从多角度进行综合评价，这显然是一个模拟人工评价的过程，因而多策略融合的评价结果也与人工评价结果更加接近。但是对于不同的语言，多策略融合的评价方法需要不断调整最优策略集合或是调整组合方法内部的参数才能达到最佳的评价效果，这个过程势必要比单一的自动评价方法更繁琐些。
 
@@ -593,7 +593,7 @@ His house is on the south bank of the river .
 
 \parinterval 在机器译文质量评价工作中，相比人工评价，有参考答案的自动评价具有效率高、成本低的优点，因而广受机器翻译系统研发人员青睐。在这种情况下，自动评价结果的可信度一般取决于它们与可靠的人工评价之间的相关性。随着越来越多有参考答案的自动评价方法的提出，“与人工评价之间的相关性”也被视为衡量一种新的自动评价方法是否可靠的衡量标准。
 
-\parinterval 很多研究工作中都曾对BLEU、NIST等有参考答案的自动评价与人工评价的相关性进行研究和讨论，其中也有很多工作对“相关性”的统计过程作过比较详细的阐述。在“相关性”的统计过程中，一般是分别利用人工评价方法和某种有参考答案的自动评价方法对若干个机器翻译系统的输出进行等级评价\upcite{coughlin2003correlating}或是相对排序\upcite{popescu2003experiment}，从而对比两种评价手段的评价结果是否一致。该过程中的几个关键问题会可能会对最终结果产生影响。
+\parinterval 很多研究工作中都曾对BLEU、NIST等有参考答案的自动评价与人工评价的相关性进行研究和讨论，其中也有很多工作对“相关性”的统计过程作过比较详细的阐述。在“相关性”的统计过程中，一般是分别利用人工评价方法和某种有参考答案的自动评价方法对若干个机器翻译系统的输出进行等级评价\upcite{coughlin2003correlating}或是相对排序\upcite{popescu2003experiment}，从而对比两种评价手段的评价结果是否一致。该过程中的几个关键问题可能会对最终结果产生影响。
 
 \begin{itemize}
 \vspace{0.5em}
@@ -783,7 +783,7 @@ d&=&t \frac{s}{\sqrt{n}}
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{预测译文句子的相对排名}}。当相对排序（详见\ref{sec:human-eval-scoring}节）的译文评价方法被引入后，给出机器译文的相对排名成为句子级质量评估的任务目标。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{预测译文句子的后编辑工作量}}。在最近的研究中，句子级的质量评估一直在探索各种类型的离散或连续的后编辑标签。例如，通过测量以秒为单位的后编辑时间对译文句子进行评分；通过测量预测后编辑过程所需的击键数对译文句子进行评分；通过计算{\small\sffamily\bfseries{人工译后编辑距离}}\index{人工译后编辑距离}（Human Translation Error Rate，HTER）\index{Human Translation Error Rate}，即在后编辑过程中编辑（插入/删除/替换）数量与参考翻译长度的占比率对译文句子进行评分。HTER的计算公式为：
+\item {\small\sffamily\bfseries{预测译文句子的后编辑工作量}}。在最近的研究中，句子级的质量评估一直在尝试各种类型的离散或连续的后编辑标签。例如，通过测量以秒为单位的后编辑时间对译文句子进行评分；通过测量预测后编辑过程所需的击键数对译文句子进行评分；通过计算{\small\sffamily\bfseries{人工译后错误率}}\index{人工译后错误率}（Human Translation Error Rate，HTER）\index{Human Translation Error Rate}，即在后编辑过程中编辑（插入/删除/替换）数量与参考翻译长度的占比率对译文句子进行评分。HTER的计算公式为：
 \vspace{0.5em}
 \begin{eqnarray}
 \textrm{HTER}&=& \frac{\mbox{编辑操作数目}}{\mbox{翻译后编辑结果长度}}
@@ -888,7 +888,7 @@ d&=&t \frac{s}{\sqrt{n}}
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{判断人工后编辑的工作量}}。人工后编辑工作中有两个不可避免的问题：1）待编辑的机器译文是否值得改？2）待编辑的机器译文需要修改哪里？对于一些质量较差的机器译文来说，人工重译远远比修改译文的效率高，后编辑人员可以借助质量评估系统提供的指标筛选出值得进行后编辑的机器译文，另一方面，质量评估模型可以为每条机器译文提供{错误内容、错误类型、错误严重程度}的注释，这些内容将帮助后编辑人员准确定位到需要修改的位置，同时在一定程度上提示后编辑人员采取何种修改策略，势必能大大减少后编辑的工作内容。
+\item {\small\sffamily\bfseries{判断人工后编辑工作量}}。人工后编辑工作中有两个不可避免的问题：1）待编辑的机器译文是否值得改？2）待编辑的机器译文需要修改哪里？对于一些质量较差的机器译文来说，人工重译远远比修改译文的效率高，后编辑人员可以借助质量评估系统提供的指标筛选出值得进行后编辑的机器译文，另一方面，质量评估模型可以为每条机器译文提供{错误内容、错误类型、错误严重程度}的注释，这些内容将帮助后编辑人员准确定位到需要修改的位置，同时在一定程度上提示后编辑人员采取何种修改策略，势必能大大减少后编辑的工作内容。
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{自动识别并更正翻译错误}}。质量评估和{\small\sffamily\bfseries{自动后编辑}}\index{自动后编辑}（Automatic Post-editing，APE）\index{Automatic Post-editing}也是很有潜力的应用方向。因为质量评估可以预测出错的位置，进而可以使用自动方法修正这些错误。但是，在这种应用模式中，质量评估的精度是非常关键的，因为如果预测错误可能会产生错误的修改，甚至带来整体译文质量的下降。
 \vspace{0.5em}
@@ -911,7 +911,7 @@ d&=&t \frac{s}{\sqrt{n}}
 \vspace{0.5em}
 \item 基于句法和语义的机器译文质量自动评价方法。本章内容中介绍的自动评价多是基于表面字符串形式判定机器翻译结果和参考译文之间的相似度，而忽略了更抽象的语言层次的信息。基于句法和语义的机器译文质量自动评价方法在评价度量标准中加入能反映句法信息\upcite{DBLP:conf/acl/LiuG05}和语义信息\upcite{DBLP:conf/wmt/GimenezM07a}的相关内容，通过比较机器译文与参考答案之间的句法相似度和语义等价性\upcite{DBLP:journals/mt/PadoCGJM09}，能够大大提高自动评价与人工评价之间的相关性。其中句法信息往往能够对机器译文流利度方面的评价起到促进作用\upcite{DBLP:conf/acl/LiuG05}，常见的句法信息包括语法成分\upcite{DBLP:conf/acl/LiuG05}、依存关系\upcite{DBLP:conf/ssst/OwczarzakGW07,DBLP:conf/wmt/OwczarzakGW07,DBLP:conf/coling/YuWXJLL14}等。语义信息则对机器翻译的充分性评价更有帮助\upcite{DBLP:conf/acl/BanchsL11,reeder2006measuring}，近年来也有很多用于机器译文质量评估的语义框架被提出，如AM-FM\upcite{DBLP:conf/acl/BanchsL11}、XMEANT\upcite{DBLP:conf/acl/LoBSW14}等。
 \vspace{0.5em}
-\item 对机器译文中的错误分析和错误分类。无论是人工评价还是自动评价手段，其评价结果只能反映机器翻译系统性能，而无法确切表明机器翻译系统的优点和弱点是什么、系统最常犯什么类型的错误、一个特定的修改是否改善了系统的某一方面、排名较差的系统是否在任何方面都优于排名较好的系统等等。对机器译文进行错误分析和错误分类有助于找出机器翻译系统中存在的主要问题，以便集中精力进行研究改进\upcite{DBLP:conf/lrec/VilarXDN06}。相关的研究工作中，一些致力于错误分类方法的设计，如手动的机器译文错误分类框架\upcite{DBLP:conf/lrec/VilarXDN06}、自动的机器译文错误分类框架\upcite{popovic2011human}、基于语言学的错误分类方法\upcite{DBLP:journals/mt/CostaLLCC15}以及目前被用作篇章级质量评估注释标准的MQM错误分类框架\upcite{lommel2014using}；其他的研究工作则致力于对机器译文进行错误分析，如引入形态句法信息的自动错误分析框架\upcite{DBLP:conf/wmt/PopovicGGLNMFB06}、引入词错误率（WER）和位置无关词错误率（PER）的错误分析框架\upcite{DBLP:conf/wmt/PopovicN07}、基于检索的错误分析工具tSEARCH\upcite{DBLP:conf/acl/GonzalezMM13}等等。
+\item 对机器译文中的错误分析和错误分类。无论是人工评价还是自动评价手段，其评价结果只能反映机器翻译系统性能，而无法确切表明机器翻译系统的优点和弱点是什么、系统最常犯什么类型的错误、一个特定的修改是否改善了系统的某一方面、排名较好的系统是否在任何方面都优于排名较差的系统等等。对机器译文进行错误分析和错误分类有助于找出机器翻译系统中存在的主要问题，以便集中精力进行研究改进\upcite{DBLP:conf/lrec/VilarXDN06}。相关的研究工作中，一些致力于错误分类方法的设计，如手动的机器译文错误分类框架\upcite{DBLP:conf/lrec/VilarXDN06}、自动的机器译文错误分类框架\upcite{popovic2011human}、基于语言学的错误分类方法\upcite{DBLP:journals/mt/CostaLLCC15}以及目前被用作篇章级质量评估注释标准的MQM错误分类框架\upcite{lommel2014using}；其他的研究工作则致力于对机器译文进行错误分析，如引入形态句法信息的自动错误分析框架\upcite{DBLP:conf/wmt/PopovicGGLNMFB06}、引入词错误率（WER）和位置无关词错误率（PER）的错误分析框架\upcite{DBLP:conf/wmt/PopovicN07}、基于检索的错误分析工具tSEARCH\upcite{DBLP:conf/acl/GonzalezMM13}等等。
 \vspace{0.5em}
 \item 译文质量的多角度评价。章节内主要介绍的几种经典方法如BLEU、TER、METEOR等，大都是从某个单一的角度计算机器译文和参考答案的相似性，如何对译文从多个角度进行综合评价是需要进一步思考的问题，\ref{Evaluation method of Multi Strategy fusion}节中介绍的多策略融合评价方法就可以看作是一种多角度评价方法，其思想是将各种评价方法下的译文得分通过某种方式进行组合，从而实现对译文的综合评价。译文质量多角度评价的另一种思路则是直接将BLEU、TER、Meteor等多种指标看做是某种特征，使用分类\upcite{kulesza2004learning,corston2001machine}、回归\upcite{albrecht2008regression}、排序\upcite{duh2008ranking}等机器学习手段形成一种综合度量。此外，也有相关工作专注于多等级的译文质量评价，使用聚类算法将大致译文按其质量分为不同等级，并对不同质量等级的译文按照不同权重组合几种不同的评价方法\upcite{chen2015multi}。
 \vspace{0.5em}

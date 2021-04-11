@@ -30,7 +30,7 @@
 \draw[->,thick](encoder-2.north)to(decoder_1-2.south);
 \draw[->,thick](decoder_1-2.north)to(decoder_2-2.south);
 \draw[->,thick](decoder_2-2.north)to(y-2.south);
-\node [anchor=north,scale = 1.2](pos2) at (s-2.south) {(b) 级联编码器};
+\node [anchor=north,scale = 1.2](pos2) at (s-2.south) {(b) 级联解码器};
 %%%%%%%%%%%%%%%%%%%%%%%%联合
 \node(encoder-3)[coder]at([xshift=10.0em]encoder-2.east){\large{编码器}};
 \node(decoder_1-3)[coder,above of =encoder-3,xshift=-1.6cm,yshift=2.8cm,fill=blue!20]{\large{解码器}};
@@ -43,5 +43,5 @@
 \draw[->,thick](decoder_2-3.north)to(y-3.south);
 \draw[->,thick](encoder-3.north)--([yshift=0.7cm]encoder-3.north)--([xshift=-4.16em,yshift=0.7cm]encoder-3.north)--(decoder_1-3.south);
 \draw[->,thick](encoder-3.north)--([yshift=0.7cm]encoder-3.north)--([xshift=4.16em,yshift=0.7cm]encoder-3.north)--(decoder_2-3.south);
-\node [anchor=north,scale = 1.2](pos3) at (s-3.south) {(c) 联合编码器};
+\node [anchor=north,scale = 1.2](pos3) at (s-3.south) {(c) 联合编解码器};
 \end{tikzpicture}

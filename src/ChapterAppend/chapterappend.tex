@@ -46,7 +46,7 @@
 \vspace{0.5em}
 \item SilkRoad。SilkRoad是由五个国内机构（中科院计算所、中科院软件所、中科院自动化所、厦门大学和哈尔滨工业大学）联合开发的基于短语的统计机器翻译系统。该系统是中国乃至亚洲地区第一个开源的统计机器翻译系统。SilkRoad支持多种解码器和规则提取模块，这样可以组合成不同的系统，提供多样的选择。
 \vspace{0.5em}
-\item SAMT。SAMT\upcite{zollmann2007the}是由卡内基梅隆大学机器翻译团队开发的语法增强的统计机器翻译系统。SAMT在解码的时候使用目标树来生成翻译规则，而不严格遵守目标语言的语法。SAMT 的一个亮点是它提供了简单但高效的方式在机器翻译中使用句法信息。由于SAMT在hadoop中实现，它可受益于大数据集的分布式处理。
+\item SAMT。SAMT\upcite{zollmann2007the}是由卡内基梅隆大学机器翻译团队开发的基于语法增强的统计机器翻译系统。SAMT在解码的时候使用目标树来生成翻译规则，而不严格遵守目标语言的语法。SAMT 的一个亮点是它提供了简单但高效的方式在机器翻译中使用句法信息。由于SAMT在hadoop中实现，所以具备hadoop处理大数据集的优势。
 \vspace{0.5em}
 \item HiFST。HiFST\upcite{iglesias2009hierarchical}是剑桥大学开发的统计机器翻译系统。该系统完全基于有限状态自动机实现，因此非常适合对搜索空间进行有效的表示。
 \vspace{0.5em}
@@ -54,7 +54,7 @@
 \vspace{0.5em}
 \item Phrasal。Phrasal\upcite{Cer2010Phrasal}是由斯坦福大学自然语言处理小组开发的系统。除了传统的基于短语的模型，Phrasal还支持基于非层次短语的模型，这种模型将基于短语的翻译延伸到非连续的短语翻译，增加了模型的泛化能力。
 \vspace{0.5em}
-\item Jane。Jane\upcite{vilar2012jane}是一个基于短语和基于层次短语的机器翻译系统，由亚琛工业大学的人类语言技术与模式识别小组开发。Jane提供了系统融合模块，因此可以非常方便的对多个系统进行融合。
+\item Jane。Jane\upcite{vilar2012jane}是一个基于层次短语的机器翻译系统，由亚琛工业大学的人类语言技术与模式识别小组开发。Jane提供了系统融合模块，因此可以非常方便的对多个系统进行融合。
 \vspace{0.5em}
 \item GIZA++。GIZA++\upcite{och2003systematic}是Franz Och研发的用于训练IBM模型1-5和HMM单词对齐模型的工具包。在早期，GIZA++是所有统计机器翻译系统中词对齐的标配工具。
 \vspace{0.5em}
@@ -77,25 +77,25 @@
 \vspace{0.5em}
 \item Fairseq。Fairseq\upcite{Ottfairseq}是由Facebook开发的，基于PyTorch框架的用以解决序列到序列问题的工具包，其中包括基于卷积神经网络、基于循环神经网络、基于Transformer的模型等。Fairseq是当今使用最广泛的神经机器翻译开源系统之一。
 \vspace{0.5em}
-\item Tensor2Tensor。Tensor2Tensor\upcite{Vaswani2018Tensor2TensorFN}是由谷歌推出的，基于TensorFlow框架的开源系统。该系统基于Transformer模型，因此可以支持大多数序列到序列任务。得益于Transformer 的网络结构，系统的训练速度较快。现在，Tensor2Tensor也是机器翻译领域广泛使用的开源系统之一。
+\item Tensor2Tensor。Tensor2Tensor\upcite{Vaswani2018Tensor2TensorFN}是由谷歌推出的，基于TensorFlow框架的开源系统。该系统基于Transformer模型，因此可以支持大多数序列到序列任务。得益于Transformer 特殊的网络结构，系统的训练速度较快。现在，Tensor2Tensor也是机器翻译领域广泛使用的开源系统之一。
 \vspace{0.5em}
-\item OpenNMT。OpenNMT\upcite{KleinOpenNMT}系统是由哈佛大学自然语言处理研究组开源的，基于Torch框架的神经机器翻译系统。OpenNMT系统的早期版本使用Lua 语言编写，现在也扩展到了TensorFlow和PyTorch，设计简单易用，易于扩展，同时保持效率和翻译精度。
+\item OpenNMT。OpenNMT\upcite{KleinOpenNMT}系统是由哈佛大学自然语言处理研究组开源的，基于Torch框架的神经机器翻译系统。OpenNMT系统的早期版本使用Lua 语言编写，现在也扩展到了基于python的TensorFlow和PyTorch，设计简单易用，易于扩展，同时保持效率和翻译精度。
 \vspace{0.5em}
 \item 斯坦福神经机器翻译开源代码库。斯坦福大学自然语言处理组（Stanford NLP）发布了一篇教程，介绍了该研究组在神经机器翻译上的研究信息，同时实现了多种翻译模型\upcite{luong2016acl_hybrid}。 
 \vspace{0.5em}
 \item THUMT。清华大学NLP团队实现的神经机器翻译系统，支持Transformer等模型\upcite{ZhangTHUMT}。该系统主要基于TensorFlow和Theano实现，其中Theano版本包含了RNNsearch模型，训练方式包括MLE （Maximum Likelihood Estimate）, MRT（Minimum Risk Training）, SST（Semi-Supervised Training）。TensorFlow 版本实现了Seq2Seq, RNNsearch, Transformer三种基本模型。
 \vspace{0.5em}
-\item NiuTrans.NMT。由小牛翻译团队基于NiuTensor实现的神经机器翻译系统。支持循环神经网络、Transformer等结构，并支持语言建模、序列标注、机器翻译等任务。支持机器翻译GPU与CPU 训练及解码。其小巧易用，为开发人员提供快速二次开发基础。此外，NiuTrans.NMT已经得到了大规模应用，形成了支持304种语言翻译的小牛翻译系统。
+\item NiuTrans.NMT。由小牛翻译团队基于NiuTensor实现的神经机器翻译系统。该系统支持循环神经网络、Transformer等结构，并支持语言建模、序列标注、机器翻译等任务，为开发人员提供快速二次开发基础，支持GPU与CPU 训练及解码，小巧易用。此外，NiuTrans.NMT已经得到了大规模应用，形成了可用于304种语言翻译的小牛翻译系统。
 \vspace{0.5em}
-\item MARIAN。主要由微软翻译团队搭建\upcite{JunczysMarian}，其使用C++实现的用于GPU/CPU训练和解码的引擎，支持多GPU训练和批量解码，最小限度依赖第三方库，静态编译一次之后，复制其二进制文件就能在其他平台使用。
+\item MARIAN。主要由微软翻译团队搭建\upcite{JunczysMarian}，其使用C++实现的可用于GPU/CPU训练和解码的引擎，支持多GPU训练和批量解码，最小限度依赖第三方库，静态编译一次之后，复制其二进制文件就能在其他平台使用。
 \vspace{0.5em}
 \item Sockeye。由Awslabs开发的神经机器翻译框架\upcite{hieber2017sockeye}。其中支持RNNsearch、Transformer、CNN等翻译模型，同时提供了从图片翻译到文字的模块以及WMT 德英新闻翻译、领域适应任务、多语言零资源翻译任务的教程。
 \vspace{0.5em}
 \item CytonMT。由NICT开发的一种用C++实现的神经机器翻译开源工具包\upcite{WangCytonMT}。主要支持Transformer模型，并支持一些常用的训练方法以及解码方法。
 \vspace{0.5em}
-\item OpenSeq2Seq。由NVIDIA团队开发的\upcite{DBLP:journals/corr/abs-1805-10387}基于TensorFlow的模块化架构，用于序列到序列的模型，允许从可用组件中组装新模型，支持混合精度训练，利用NVIDIA Volta Turing GPU中的Tensor核心，基于Horovod的快速分布式训练，支持多GPU，多节点多模式。
+\item OpenSeq2Seq。由NVIDIA团队开发的\upcite{DBLP:journals/corr/abs-1805-10387}基于TensorFlow的模块化架构，用于序列到序列的模型，允许从可用组件中组装新模型，支持利用NVIDIA Volta Turing GPU中的Tensor核心进行混合精度训练，基于Horovod的快速分布式训练，支持多GPU，多节点多模式。
 \vspace{0.5em}
-\item NMTPyTorch。由勒芒大学语言实验室发布的基于序列到序列框架的神经网络翻译系统\upcite{nmtpy2017}，NMTPyTorch的核心部分依赖于Numpy，PyTorch和tqdm。其允许训练各种端到端神经体系结构，包括但不限于神经机器翻译、图像字幕和自动语音识别系统。
+\item NMTPyTorch。由勒芒大学语言实验室发布的基于序列到序列框架的神经网络翻译系统\upcite{nmtpy2017}，NMTPyTorch的核心部分依赖于Numpy，PyTorch和tqdm。可以训练各种端到端神经体系结构，包括但不限于神经机器翻译、图像字幕和自动语音识别系统。
 \vspace{0.5em}
 \end{itemize}
 
@@ -107,9 +107,9 @@
 \begin{appendices}
 \chapter{附录B}
 \label{appendix-B}
-\parinterval 除了开源系统，机器翻译的发展还离不开评测比赛。评测比赛使得各个研究组织的成果可以进行科学的对比，共同推动机器翻译的发展与进步。另外在构建机器翻译系统的过程中，数据是必不可少的，尤其是现在主流的神经机器翻译系统，系统的性能往往受限于语料库规模和质量。所幸的是，随着语料库语言学的发展，一些主流语种的相关语料资源已经十分丰富。
+\parinterval 除了开源系统，机器翻译的发展还离不开评测比赛。在评测比赛中，各个研究组织的成果可以进行科学的对比，且各个研究组织可以互相学习，共同推动机器翻译的发展与进步。另外在构建机器翻译系统的过程中，数据是必不可少的，尤其是现在主流的神经机器翻译系统，系统的性能往往受限于语料库规模和质量。所幸的是，随着语料库语言学的发展，一些主流语种的相关语料资源已经十分丰富。
 
-\parinterval 为了方便读者进行相关研究，本书汇总了几个常见的评测比赛、一些常用的基准数据集和常用的平行语料。
+\parinterval 为了方便读者进行相关研究，本书汇总了几个常见的公开评测任务、一些常用的基准数据集和常用的平行语料。
 
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
@@ -119,16 +119,16 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item CCMT。CCMT（全国机器翻译大会），前身为CWMT（全国机器翻译研讨会）是国内机器翻译领域的旗舰会议，自2005年起已经组织多次机器翻译评测，对国内机器翻译相关技术的发展产生了深远影响。该评测主要针对汉语、英语以及国内的少数民族语言（蒙古语、藏语、维吾尔语等）进行评测，领域包括新闻、口语、政府文件等，不同语言方向对应的领域也有所不同。评价方式不同届略有不同，主要采用自动评价的方式，自CWMT\ 2013起则针对某些领域增设人工评价。自动评价的指标一般包括BLEU-SBP、BLEU-NIST、TER、METEOR、NIST、GTM、mWER、mPER 以及ICT 等，其中以BLEU-SBP 为主，汉语为目标语言的翻译采用基于字符的评价方式，面向英语的翻译采用基于词的评价方式。每年该评测吸引国内外近数十家企业及科研机构参赛，业内认可度极高。关于CCMT的更多信息可参考中文信息学会机器翻译专业委员会相关页面。
+\item CCMT。CCMT（全国机器翻译大会）前身为CWMT，是国内机器翻译领域的旗舰会议，自2005年起已经组织多次机器翻译评测，对国内机器翻译相关技术的发展产生了深远影响。该评测主要针对汉语、英语以及国内的少数民族语言（蒙古语、藏语、维吾尔语等）进行评测，领域包括新闻、口语、政府文件等，不同语言方向对应的领域也有所不同。评价方式不同届略有不同，主要采用自动评价的方式，自CWMT\ 2013起则针对某些领域增设人工评价。自动评价的指标一般包括BLEU-SBP、BLEU-NIST、TER、METEOR、NIST、GTM、mWER、mPER 以及ICT 等，其中以BLEU-SBP 为主，汉语为目标语言的翻译采用基于字符的评价方式，面向英语的翻译采用基于词的评价方式。每年该评测吸引国内外近数十家企业及科研机构参赛，业内认可度极高。关于CCMT的更多信息可参考中文信息学会机器翻译专业委员会相关页面。
 
 \vspace{0.5em}
-\item WMT。WMT由Special Interest Group for Machine Translation（SIGMT）主办，会议自2006年起每年召开一次，是一个涉及机器翻译多种任务的综合性会议，包括多领域翻译评测任务、质量评价任务以及其他与机器翻译的相关任务（如文档对齐评测等）。现在WMT已经成为机器翻译领域的旗舰评测会议，很多研究工作都以WMT评测结果作为基准。WMT评测涉及的语言范围较广，包括英语、德语、芬兰语、捷克语、罗马尼亚语等十多种语言，翻译方向一般以英语为核心，探索英语与其他语言之间的翻译性能，领域包括新闻、信息技术、生物医学。最近，也增加了无指导机器翻译等热门问题。WMT在评价方面类似于CCMT，也采用人工评价与自动评价相结合的方式，自动评价的指标一般为BLEU、TER 等。此外，WMT公开了所有评测数据，因此也经常被机器翻译相关人员所使用。更多WMT的机器翻译评测相关信息可参考SIGMT官网。
+\item WMT。WMT由Special Interest Group for Machine Translation（SIGMT）主办，会议自2006年起每年召开一次，是一个机器翻译领域的综合性会议，WMT公开评测任务包括多领域翻译评测任务、质量评价任务以及其他与机器翻译的相关任务（如文档对齐评测等）。现在WMT已经成为机器翻译领域的旗舰评测会议，很多研究工作都以WMT评测结果作为基准。WMT评测涉及的语言范围较广，包括英语、德语、芬兰语、捷克语、罗马尼亚语等十多种语言，翻译方向一般以英语为核心，探索英语与其他语言之间的翻译性能，领域包括新闻、信息技术、生物医学。如今，也增加了无指导机器翻译等热门问题。WMT在评价方面类似于CCMT，也采用人工评价与自动评价相结合的方式，自动评价的指标一般为BLEU、TER 等。此外，WMT公开了所有评测数据，因此也经常被机器翻译相关人员所使用。更多WMT的机器翻译评测相关信息可参考SIGMT官网。
 
 \vspace{0.5em}
 \item NIST。NIST机器翻译评测开始于2001年，是早期机器翻译公开评测中颇具代表性的任务，现在WMT和CCMT很多任务的设置也大量参考了当年NIST评测的内容。NIST评测由美国国家标准技术研究所主办，作为美国国防高级计划署（DARPA）中TIDES计划的重要组成部分。早期，NIST评测主要评价阿拉伯语和汉语等语言到英语的翻译效果，评价方法一般采用人工评价与自动评价相结合的方式。人工评价采用5分制评价。自动评价使用多种方式，包括BLEU，METEOR，TER以及HyTER。此外NIST从2016 年起开始对稀缺语言资源技术进行评估，其中机器翻译作为其重要组成部分共同参与评测，评测指标主要为BLEU。除对机器翻译系统进行评测之外，NIST在2008 和2010年对于机器翻译的自动评价方法（MetricsMaTr）也进行了评估，以鼓励更多研究人员对现有评价方法进行改进或提出更加贴合人工评价的方法。同时NIST评测所提供的数据集由于数据质量较高受到众多科研人员喜爱，如MT04，MT06等（汉英）平行语料经常被科研人员在实验中使用。不过，近几年NIST评测已经停止。更多NIST的机器翻译评测相关信息可参考官网。
 
 \vspace{0.5em}
-\item IWSLT。从2004年开始举办的IWSLT也是颇具特色的机器翻译评测，它主要关注口语相关的机器翻译任务，测试数据包括TED talks的多语言字幕以及QED 教育讲座影片字幕等，语言涉及英语、法语、德语、捷克语、汉语、阿拉伯语等众多语言。此外在IWSLT 2016 中还加入了对于日常对话的翻译评测，尝试将微软Skype中一种语言的对话翻译成其他语言。评价方式采用自动评价的模式，评价标准和WMT类似，一般为BLEU 等指标。另外，IWSLT除了对文本到文本的翻译评测外，还有自动语音识别以及语音转另一种语言的文本的评测。更多IWSLT的机器翻译评测相关信息可参考IWSLT\ 官网。
+\item IWSLT。从2004年开始举办的IWSLT也是颇具特色的机器翻译评测，它主要关注口语相关的机器翻译任务，测试数据包括TED talks的多语言字幕以及QED 教育讲座影片的字幕等，语言涉及英语、法语、德语、捷克语、汉语、阿拉伯语等众多语言。此外在IWSLT 2016 中还加入了对于日常对话的翻译评测，尝试将微软Skype中一种语言的对话翻译成其他语言。评价方式采用自动评价的模式，评价标准和WMT类似，一般为BLEU 等指标。另外，IWSLT除了包含文本到文本的翻译评测外，还有自动语音识别以及语音转另一种语言的文本的评测。更多IWSLT的机器翻译评测相关信息可参考IWSLT\ 官网。
 
 \vspace{0.5em}
 \item WAT。日本举办的机器翻译评测WAT是亚洲范围内的重要评测之一，由日本科学振兴机构（JST）、情报通信研究机构（NICT）等多家机构共同组织，旨在为亚洲各国之间交流融合提供便宜之处。语言方向主要包括亚洲主流语言（汉语、韩语、印地语等）以及英语对日语的翻译，领域丰富多样，包括学术论文、专利、新闻、食谱等。评价方式包括自动评价（BLEU、RIBES以及AMFM 等）以及人工评价，其特点在于对于测试语料以段落为单位进行评价，考察其上下文关联的翻译效果。更多WAT的机器翻译评测相关信息可参考官网。
@@ -144,7 +144,7 @@
 %----------------------------------------------------------------------------------------
 
 \section{基准数据集}
-\parinterval 表\ref{tab:Reference-data-set}所展示的数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作可以进行复现和对比。
+\parinterval 表\ref{tab:Reference-data-set}所展示的数据集已经在机器翻译领域中被广泛使用，有很多之前的相关工作使用这些数据集进行实验，读者可以复现这些工作，或者将其在数据集上的结果与自己的工作进行比较。
 
 %----------------------------------------------
 \begin{table}[htp]{
@@ -191,7 +191,7 @@
 \vspace{0.5em}
 \item TED Corpus：TED大会演讲在其网站公布了自2007年以来的演讲字幕，以及超过100种语言的翻译版本。WIT收集整理了这些数据，以方便科研工作者使用，同时，会为每年的IWSLT评测比赛提供评测数据集。
 \vspace{0.5em}
-\item OpenSubtile：由P. Lison和J. Tiedemann收集自opensubtiles电影字幕网站，包含62种语言、1782个语种对的平行语料，资源相对比较丰富。
+\item OpenSubtitle：由P. Lison和J. Tiedemann收集自opensubtitles电影字幕网站，包含62种语言、1782个语种对的平行语料，资源相对比较丰富。
 \vspace{0.5em}
 \item Wikititles Corpus：包括古吉拉特语等14个语种，11个语言对的双语数据，数据来源自维基百科的标题。
 \vspace{0.5em}
@@ -203,9 +203,9 @@
 \vspace{0.5em}
 \item Setimes Corpus：包括克罗地亚语、阿尔巴尼亚等9种巴尔干语言，72个语言对的双语数据，来源于东南欧时报的新闻报道。
 \vspace{0.5em}
-\item TVsub：收集自电视剧集字幕的中英文对话语料库，包含超过200万的句对，可用于对话领域和长距离上下文信息的研究。
+\item TVsub：收集来自电视剧集字幕的中英文对话语料，包含超过200万的句对，可用于对话领域和长距离上下文信息的研究。
 \vspace{0.5em}
-\item Recipe Corpus：由Cookpad公司创建的日英食谱语料库，包含10万多的句对。
+\item Recipe Corpus：由Cookpad公司创建的日英食谱语料库，包含10万多个句对。
 \end{itemize}
 
 
@@ -223,9 +223,9 @@
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\section{IBM模型2训练方法}
+\section{IBM模型2的训练方法}
 
-\parinterval IBM模型2与模型1的训练过程完全一样，本质上都是EM方法，因此可以直接复用{\chapterfive}中训练模型1的流程。对于源语言句子$\seq{s}=\{s_1,\dots,s_m\}$和目标语言句子$\seq{t}=\{t_1,\dots,t_l\}$，E-Step的计算公式如下：
+\parinterval IBM模型2与模型1的训练过程完全一样，本质上都是基于EM的方法，因此可以直接复用{\chapterfive}中训练模型1的流程。对于源语言句子$\seq{s}=\{s_1,\dots,s_m\}$和目标语言句子$\seq{t}=\{t_1,\dots,t_l\}$，E-Step的计算公式如下：
 
 \begin{eqnarray}
 c(s_u|t_v;\seq{s},\seq{t}) &=&\sum\limits_{j=1}^{m} \sum\limits_{i=0}^{l} \frac{f(s_u|t_v)a(i|j,m,l) \delta(s_j,s_u)\delta (t_i,t_v) }   {\sum_{k=0}^{l} f(s_u|t_k)a(k|j,m,l)} \\
@@ -257,8 +257,8 @@ a(i|j,m,l) &=&\frac{\sum_{k=1}^{K}c(i|j,m^{[k]},l^{[k]};\seq{s}^{[k]},\seq{t}^{[
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\section{IBM模型3训练方法}
-\parinterval IBM模型3的参数估计与模型1和模型2采用相同的方法，辅助函数被定义如下：
+\section{IBM模型3的训练方法}
+\parinterval IBM模型3采用与模型1和模型2相同的参数估计方法，辅助函数被定义如下：
 \begin{eqnarray}
 h(t,d,n,p, \lambda,\mu, \nu, \zeta) & = &  \funp{P}_{\theta}(\seq{s}|\seq{t})-\sum_{t_v}\lambda_{t_v}\big(\sum_{s_u}t(s_u|t_v)-1\big)  \nonumber \\
 & & -\sum_{i}\mu_{iml}\big(\sum_{j}d(j|i,m,l)-1\big) \nonumber \\
@@ -283,7 +283,7 @@ n(\varphi|t_v) & = & \nu_{t_v}^{-1} \times \sum_{k=1}^{K}c(\varphi |t_v;\seq{s}^
 p_x & = & \zeta^{-1} \sum_{k=1}^{K}c(x;\seq{s}^{[k]},\seq{t}^{[k]}) \label{eq:1.10}
 \end{eqnarray}
 
-\parinterval 在模型3中，因为繁衍率的引入，并不能像模型1那样，通过简单的数学技巧加速参数估计的过程（见{\chapterfive}）。因此在计算公式\eqref{eq:1.2}-\eqref{eq:1.6}时，我们不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单的方法是仅使用Viterbi对齐来进行参数估计，这里Viterbi 词对齐可以被简单的看作搜索到的最好词对齐。遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\funp{P}_{\theta}(\seq{s},\seq{a}|\seq{t})$ 达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。以公式\eqref{eq:1.2}为例，它可以被修改为：
+\parinterval 在模型3中，因为繁衍率的引入，并不能像模型1那样，通过简单的数学技巧加速参数估计的过程（见{\chapterfive}）。因此在计算公式\eqref{eq:1.2}-\eqref{eq:1.6}时，我们不得不面对大小为$(l+1)^m$的词对齐空间。遍历所有$(l+1)^m$个词对齐所带来的高时间复杂度显然是不能被接受的。因此就要考虑能否仅利用词对齐空间中的部分词对齐对这些参数进行估计。比较简单的方法是仅使用Viterbi词对齐来进行参数估计，这里Viterbi 词对齐可以被简单的看作搜索到的最好词对齐。遗憾的是，在模型3中并没有方法直接获得Viterbi对齐。这样只能采用一种折中的策略，即仅考虑那些使得$\funp{P}_{\theta}(\seq{s},\seq{a}|\seq{t})$ 达到较高值的词对齐。这里把这部分词对齐组成的集合记为$S$。以公式\eqref{eq:1.2}为例，它可以被修改为：
 \begin{eqnarray}
 c(s_u|t_v,\seq{s},\seq{t}) &\approx & \sum_{\seq{a} \in S}\big[\funp{P}_{\theta}(\seq{s},\seq{a}|\seq{t}) \times \sum_{j=1}^{m}(\delta(s_j,s_u) \cdot \delta(t_{a_{j}},t_v)) \big]
 \label{eq:1.11}
@@ -303,7 +303,7 @@ S &=& N(b^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(b_{i
 \end{itemize}
 
 \vspace{0.5em}
-\parinterval 公式\eqref{eq:1.12}中，应该使用 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t};3)$进行计算，但其复杂度较高，因此使用 $b^{\infty}(V(\seq{s}|\seq{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t};2))$ 分别对 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t};3)$ 进行估计。在计算$S$的过程中，需要知道一个对齐$\seq{a}$的邻居$\seq{a}'$的概率，即通过$\funp{P}_{\theta}(\seq{a},\seq{s}|\seq{t})$计算$\funp{P}_{\theta}(\seq{a}',\seq{s}|\seq{t})$。在模型3中，如果$\seq{a}$和$\seq{a}'$仅区别于某个源语言单词$s_j$对齐从$a_j$变到$a_{j}'$，且$a_j$和$a'_j$均不为零，令$a_j=i$，$a'_{j}=i'$，那么
+\parinterval 公式\eqref{eq:1.12}中，应该使用 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t};3)$进行计算，但其复杂度较高，因此使用 $b^{\infty}(V(\seq{s}|\seq{t};2))$ 和 $b_{i \leftrightarrow j}^{\infty}(V_{i \leftrightarrow j}(\seq{s}|\seq{t};2))$ 分别对 $V(\seq{s}|\seq{t};3)$ 和 $V_{i \leftrightarrow j}(\seq{s}|\seq{t};3)$ 进行估计。在计算$S$的过程中，需要知道一个对齐$\seq{a}$的邻居$\seq{a}'$的概率，即通过$\funp{P}_{\theta}(\seq{a},\seq{s}|\seq{t})$计算$\funp{P}_{\theta}(\seq{a}',\seq{s}|\seq{t})$。在模型3中，如果$\seq{a}$和$\seq{a}'$仅区别于某个源语言单词$s_j$，对齐从$a_j$变到$a_{j}'$，且$a_j$和$a'_j$均不为零，令$a_j=i$，$a'_{j}=i'$，那么
 
 \begin{eqnarray}
 \funp{P}_{\theta}(\seq{a}',\seq{s}|\seq{t}) & = & \funp{P}_{\theta}(\seq{a},\seq{s}|\seq{t}) \cdot  \nonumber \\
@@ -326,15 +326,15 @@ S &=& N(b^{\infty}(V(\seq{s}|\seq{t};2))) \cup (\mathop{\cup}\limits_{ij} N(b_{i
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\section{IBM模型4训练方法}
+\section{IBM模型4的训练方法}
 
-\parinterval 模型4的参数估计基本与模型3一致。需要修改的是扭曲度的估计公式，对于目标语言的第$i$个cept.生成的第一单词，可以得到（假设有$K$个训练样本）：
+\parinterval 模型4的参数估计基本与模型3一致。需要修改的是扭曲度的估计公式，目标语言的第$i$个cept.生成的第一个单词为（假设有$K$个训练样本）：
 \begin{eqnarray}
 d_1(\Delta_j|ca,cb) &=& \mu_{1cacb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|ca,cb;\seq{s}^{[k]},\seq{t}^{[k]})
 \label{eq:1.15}
 \end{eqnarray}
 
-其中，
+\noindent 其中，
 
 \begin{eqnarray}
 c_1(\Delta_j|ca,cb;\seq{s},\seq{t})           & = & \sum_{\seq{a}}\big[\funp{P}_{\theta}(\seq{s},\seq{a}|\seq{t}) \times z_1(\Delta_j|ca,cb;\seq{a},\seq{s},\seq{t})\big] \label{eq:1.16} \\
@@ -342,7 +342,7 @@ z_1(\Delta_j|ca,cb;\rm{a},\seq{s},\seq{t}) & = & \sum_{i=1}^l \big[\varepsilon(\
                                                                            &     & \delta(A(t_{i-1}),ca) \cdot \delta(B(\tau_{i1}),cb) \big] \label{eq:1.17}
 \end{eqnarray}
 
-且
+\noindent 且
 
 \begin{eqnarray}
 \varepsilon(x) &=& \begin{cases}
@@ -352,14 +352,14 @@ z_1(\Delta_j|ca,cb;\rm{a},\seq{s},\seq{t}) & = & \sum_{i=1}^l \big[\varepsilon(\
 \label{eq:1.21}
 \end{eqnarray}
 
-对于目标语言的第$i$个cept.生成的其他单词（非第一个单词），可以得到：
+\noindent 目标语言的第$i$个cept.生成的其他单词（非第一个单词）为：
 
 \begin{eqnarray}
 d_{>1}(\Delta_j|cb) &=& \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb;\seq{s}^{[k]},\seq{t}^{[k]})
 \label{eq:1.18}
 \end{eqnarray}
 
-其中，
+\noindent 其中，
 
 \begin{eqnarray}
 c_{>1}(\Delta_j|cb;\seq{s},\seq{t})                  & = & \sum_{\seq{a}}\big[\funp{P}_{\theta}(\seq{s},\seq{a}|\seq{t}) \times z_{>1}(\Delta_j|cb;\seq{a},\seq{s},\seq{t}) \big] \label{eq:1.19} \\
@@ -391,7 +391,7 @@ d_1(\Delta_j|cb) &=& \mu_{1cb}^{-1} \times \sum_{k=1}^{K}c_1(\Delta_j|cb;\seq{s}
 \label{eq:1.23}
 \end{eqnarray}
 
-其中，
+\noindent 其中，
 
 \begin{eqnarray}
 c_1(\Delta_j|cb,v_x,v_y;\seq{s},\seq{t})                   & = & \sum_{\seq{a}}\Big[ \funp{P}(\seq{s},\seq{a}|\seq{t}) \times z_1(\Delta_j|cb,v_x,v_y;\seq{a},\seq{s},\seq{t}) \Big] \label{eq:1.24} \\
@@ -400,14 +400,14 @@ z_1(\Delta_j|cb,v_x,v_y;\seq{a},\seq{s},\seq{t}) & = & \sum_{i=1}^l \Big [ \vare
 \end{eqnarray}
 
 
-对于目标语言的第$i$个cept.生成的其他单词（非第一个单词），可以得到：
+\noindent 目标语言的第$i$个cept.生成的其他单词（非第一个单词）为：
 
 \begin{eqnarray}
 d_{>1}(\Delta_j|cb,v) &=& \mu_{>1cb}^{-1} \times \sum_{k=1}^{K}c_{>1}(\Delta_j|cb,v;\seq{s}^{[k]},\seq{t}^{[k]})
 \label{eq:1.26}
 \end{eqnarray}
 
-其中，
+\noindent 其中，
 
 \begin{eqnarray}
 c_{>1}(\Delta_j|cb,v;\seq{s},\seq{t})                   & =  & \sum_{\seq{a}}\Big[\funp{P}(\seq{a},\seq{s}|\seq{t}) \times z_{>1}(\Delta_j|cb,v;\seq{a},\seq{s},\seq{t}) \Big] \label{eq:1.27} \\

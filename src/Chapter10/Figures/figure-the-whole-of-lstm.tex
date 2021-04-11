@@ -170,11 +170,11 @@
 \begin{scope}
 {
 % forget gate formula
-\node[formulanode,anchor=south east,text width=10em] () at ([shift={(4\base,1.5\base)}]aux51) {遗忘门\\$\mathbi{f}_t=\sigma(\mathbi{W}_f[\mathbi{h}_{t-1},\mathbi{x}_t]+\mathbi{b}_f)$};
+\node[formulanode,anchor=south east,text width=10em] () at ([shift={(4\base,1.5\base)}]aux51) {遗忘门\\$\mathbi{f}_t=\sigma([\mathbi{h}_{t-1},\mathbi{x}_t] \mathbi{W}_f +\mathbi{b}_f)$};
 }
 {
 % input gate formula
-\node[formulanode,anchor=north east,text width=10em] () at ([shift={(4\base,-1.5\base)}]aux21) {输入门\\$\mathbi{i}_t=\sigma(\mathbi{W}_i[\mathbi{h}_{t-1},\mathbi{x}_t]+\mathbi{b}_i)$\\$\hat{\mathbi{c}}_t=\mathrm{Tanh}(\mathbi{W}_c[\mathbi{h}_{t-1},\mathbi{x}_t]+\mathbi{b}_c)$};
+\node[formulanode,anchor=north east,text width=10em] () at ([shift={(4\base,-1.5\base)}]aux21) {输入门\\$\mathbi{i}_t=\sigma([\mathbi{h}_{t-1},\mathbi{x}_t] \mathbi{W}_i +\mathbi{b}_i)$\\$\hat{\mathbi{c}}_t=\mathrm{Tanh}([\mathbi{h}_{t-1},\mathbi{x}_t] \mathbi{W}_c +\mathbi{b}_c)$};
 }
 {
 % cell update formula
@@ -182,7 +182,7 @@
 }
 {
 % output gate formula
-\node[formulanode,anchor=north west,text width=10em] () at ([shift={(-4\base,-1.5\base)}]aux29) {输出门\\$\mathbi{o}_t=\sigma(\mathbi{W}_o[\mathbi{h}_{t-1},\mathbi{x}_t]+\mathbi{b}_o)$\\$\mathbi{h}_{t}=\mathbi{o}_t\cdot \mathrm{Tanh}(\mathbi{c}_{t})$};
+\node[formulanode,anchor=north west,text width=10em] () at ([shift={(-4\base,-1.5\base)}]aux29) {输出门\\$\mathbi{o}_t=\sigma([\mathbi{h}_{t-1},\mathbi{x}_t] \mathbi{W}_o +\mathbi{b}_o)$\\$\mathbi{h}_{t}=\mathbi{o}_t\cdot \mathrm{Tanh}(\mathbi{c}_{t})$};
 }
 \end{scope}
 \end{tikzpicture}

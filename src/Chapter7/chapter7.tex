@@ -30,7 +30,7 @@
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-\sectionnewpage
+
 \section{翻译中的短语信息}
 
 不难发现，基于单词的模型并不能很好地捕捉单词间的搭配关系。相比之下，使用更大颗粒度的翻译单元是一种对搭配进行处理的方法。下面来一起看看，基于单词的模型所产生的问题以及如何使用基于短语的模型来缓解该问题。
@@ -147,7 +147,7 @@
 \end{definition}
 %-------------------------------------------
 
-\parinterval 根据这个定义，对于一个由$n$个单词构成的句子，可以包含$\frac{n(n-1)}{2}$个短语（子串）。进一步，可以把每个句子看作是由一系列短语构成的序列。组成这个句子的短语序列也可以被看作是句子的一个{\small\bfnew{短语切分}}\index{短语切分}（Phrasal Segmentation）\index{Phrasal Segmentation}。
+\parinterval 根据这个定义，对于一个由$n$个单词构成的句子，可以包含$\frac{n(n-1)}{2}$个短语（子串）。进一步，可以把每个句子看作是由一系列短语构成的序列。组成这个句子的短语序列也可以被看作是句子的一个{\small\bfnew{短语切分}}\index{短语切分}（Phrase Segmentation）\index{Phrase Segmentation}。
 
 %-------------------------------------------
 \vspace{0.5em}
@@ -313,7 +313,7 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 
 \subsection{对数线性模型}
 
-\parinterval 对于如何定义$\funp{P}(d,\seq{t}|\seq{s})$有很多种思路，比如，可以把$d$拆解为若干步骤，然后对这些步骤分别建模，最后形成描述$d$的生成式模型。这种方法在{\chapterfive}和{\chaptersix}的IBM模型中也大量使用。但是，生成式模型的每一步推导需要有严格的概率解释，这也限制了研究人员从更多的角度对$d$进行描述。这里，可以使用另外一种方法\ \dash \ 判别式模型来对$\funp{P}(d,\seq{t}|\seq{s})$进行描述\upcite{DBLP:conf/acl/OchN02}。其模型形式如下：
+\parinterval 对于如何定义$\funp{P}(d,\seq{t}|\seq{s})$有很多种思路，比如，可以把$d$拆解为若干步骤，然后对这些步骤分别建模，最后形成描述$d$的生成模型。这种方法在{\chapterfive}和{\chaptersix}的IBM模型中也大量使用。但是，生成模型的每一步推导需要有严格的概率解释，这也限制了研究人员从更多的角度对$d$进行描述。这里，可以使用另外一种方法\ \dash \ 判别模型来对$\funp{P}(d,\seq{t}|\seq{s})$进行描述\upcite{DBLP:conf/acl/OchN02}。其模型形式如下：
 
 \begin{eqnarray}
 \funp{P}(d,\seq{t}|\seq{s}) &=& \frac{\textrm{exp}(\textrm{score}(d,\seq{t},\seq{s}))}{\sum_{d',\seq{t}'} \textrm{exp}(\textrm{score}(d',\seq{t}',\seq{s}))} \label{eqa4.10}
@@ -339,14 +339,14 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{判别式模型中的特征}
+\subsection{判别模型中的特征}
 
 
-\parinterval 判别式模型最大的好处在于它可以更灵活地引入特征。某种意义上，每个特征都是在描述翻译的某方面属性。在各种统计分类模型中，也大量使用了“特征”这个概念（见{\chapterthree}）。比如，要判别一篇新闻是体育方面的还是文化方面的，可以设计一个分类器，用词作为特征。这个分类器就会有能力区分“体育”和“文化”两个类别的特征，最终决定这篇文章属于哪个类别。统计机器翻译也在做类似的事情。系统研发者可以通过设计翻译相关的特征，来区分不同翻译结果的好坏。翻译模型会综合这些特征对所有可能的译文进行打分和排序，并选择得分最高的译文输出。
+\parinterval 判别模型最大的好处在于它可以更灵活地引入特征。某种意义上，每个特征都是在描述翻译的某方面属性。在各种统计分类模型中，也大量使用了“特征”这个概念（见{\chapterthree}）。比如，要判别一篇新闻是体育方面的还是文化方面的，可以设计一个分类器，用词作为特征。这个分类器就会有能力区分“体育”和“文化”两个类别的特征，最终决定这篇文章属于哪个类别。统计机器翻译也在做类似的事情。系统研发者可以通过设计翻译相关的特征，来区分不同翻译结果的好坏。翻译模型会综合这些特征对所有可能的译文进行打分和排序，并选择得分最高的译文输出。
 
-\parinterval 在判别式模型中，系统开发者可以设计任意的特征来描述翻译，特征的设计甚至都不需要统计上的解释，包括0-1特征、计数特征等。比如，可以设计特征来回答“you这个单词是否出现在译文中？”。如果答案为真，这个特征的值为1，否则为0。再比如，可以设计特征来回答“译文里有多少个单词？”。这个特征相当于一个统计目标语单词数的函数，它的值即为译文的长度。此外，还可以设计更加复杂的实数特征，甚至具有概率意义的特征。在随后的内容中还将看到，翻译的调序、译文流畅度等都会被建模为特征，而机器翻译系统会融合这些特征，综合得到最优的输出译文。
+\parinterval 在判别模型中，系统开发者可以设计任意的特征来描述翻译，特征的设计甚至都不需要统计上的解释，包括0-1特征、计数特征等。比如，可以设计特征来回答“you这个单词是否出现在译文中？”。如果答案为真，这个特征的值为1，否则为0。再比如，可以设计特征来回答“译文里有多少个单词？”。这个特征相当于一个统计目标语单词数的函数，它的值即为译文的长度。此外，还可以设计更加复杂的实数特征，甚至具有概率意义的特征。在随后的内容中还将看到，翻译的调序、译文流畅度等都会被建模为特征，而机器翻译系统会融合这些特征，综合得到最优的输出译文。
 
-\parinterval 此外，判别式模型并不需要像生成式模型那样对问题进行具有统计学意义的“分解”，更不需要对每个步骤进行严格的数学推导。相反，它直接对问题的后验概率进行建模。由于不像生成式模型那样需要引入假设来对每个生成步骤进行化简，判别式模型对问题的刻画更加直接，因此也受到自然语言处理研究者的青睐。
+\parinterval 此外，判别模型并不需要像生成模型那样对问题进行具有统计学意义的“分解”，更不需要对每个步骤进行严格的数学推导。相反，它直接对问题的后验概率进行建模。由于不像生成模型那样需要引入假设来对每个生成步骤进行化简，判别模型对问题的刻画更加直接，因此也受到自然语言处理研究者的青睐。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -354,7 +354,7 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 
 \subsection{搭建模型的基本流程}
 
-\parinterval 对于翻译的判别式建模，需要回答两个问题：
+\parinterval 对于翻译的判别建模，需要回答两个问题：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -366,7 +366,7 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 
 在基于短语的翻译模型中，通常包含三类特征：短语翻译特征、调序特征、语言模型相关的特征。这些特征都需要从训练数据中学习。
 
-\parinterval 图\ref{fig:7-8}展示了一个基于短语的机器翻译模型的搭建流程。其中的训练数据包括双语平行语料和目标语言单语语料。首先，需要从双语平行数据中学习短语的翻译，并形成一个短语翻译表；然后，再从双语平行数据中学习调序模型；最后，从目标语单语数据中学习语言模型。短语翻译表、调序模型、语言模型都会作为特征被送入判别式模型，由解码器完成对新句子的翻译。而这些特征的权重可以在额外的开发集上进行调优。关于短语抽取、调序模型和翻译特征的学习，会在本章的\ref{section-7.3}-\ref{section-7.6}节进行介绍。
+\parinterval 图\ref{fig:7-8}展示了一个基于短语的机器翻译模型的搭建流程。其中的训练数据包括双语平行语料和目标语言单语语料。首先，需要从双语平行数据中学习短语的翻译，并形成一个短语翻译表；然后，再从双语平行数据中学习调序模型；最后，从目标语单语数据中学习语言模型。短语翻译表、调序模型、语言模型都会作为特征被送入判别模型，由解码器完成对新句子的翻译。而这些特征的权重可以在额外的开发集上进行调优。关于短语抽取、调序模型和翻译特征的学习，会在本章的\ref{section-7.3}-\ref{section-7.6}节进行介绍。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -481,7 +481,7 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 
 \parinterval 给定一个双语句对$(\seq{s},\seq{t})$，$c(\bar{s})$表示短语$\bar{s}$在$\seq{s}$中出现的次数，$c(\bar{s},\bar{t})$表示双语短语$(\bar{s},\bar{t})$在$(\seq{s},\seq{t})$中被抽取出来的次数。对于一个包含多个句子的语料库，$c(\bar{s})$和$c(\bar{s},\bar{t})$可以按句子进行累加。类似的，也可以用同样的方法，计算$\bar{t}$到$\bar{s}$的翻译概率，即$\funp{P}(\bar{s}|\bar{t})$。一般会同时使用$\funp{P}(\bar{t}|\bar{s})$和$\funp{P}(\bar{s}|\bar{t})$度量一个双语短语的好与坏。
 
-\parinterval 当遇到低频短语时，短语翻译概率的估计可能会不准确。例如，短语$\bar{s}$和$\bar{t}$在语料中只出现了一次，且在一个句子中共现，那么$\bar{s}$到$\bar{t}$的翻译概率为$\funp{P}(\bar{t}|\bar{s})=1$，这显然是不合理的，因为$\bar{s}$和$\bar{t}$的出现完全可能是偶然事件。既然直接度量双语短语的好坏会面临数据稀疏问题，一个自然的想法就是把短语拆解成单词，利用双语短语中单词翻译的好坏间接度量双语短语的好坏。为了达到这个目的，可以使用{\small\bfnew{词汇化翻译概率}}\index{词汇化翻译概率}（Lexical Translation Probability）\index{Lexical Translation Probability}。前面借助词对齐信息完成了双语短语的抽取，因此，词对齐信息本身就包含了短语内部单词之间的对应关系。因此同样可以借助词对齐来计算词汇翻译概率，公式如下：
+\parinterval 当遇到低频短语时，短语翻译概率的估计可能会不准确。例如，短语$\bar{s}$和$\bar{t}$在语料中只出现了一次，且在一个句子中共现，那么$\bar{s}$到$\bar{t}$的翻译概率为$\funp{P}(\bar{t}|\bar{s})=1$，这显然是不合理的，因为$\bar{s}$和$\bar{t}$的出现完全可能是偶然事件。既然直接度量双语短语的好坏会面临数据稀疏问题，一个自然的想法就是把短语拆解成单词，利用双语短语中单词翻译的好坏间接度量双语短语的好坏。为了达到这个目的，可以使用{\small\bfnew{词汇化翻译概率}}\index{单词化翻译概率}（Lexical Translation Probability）\index{Lexical Translation Probability}。前面借助词对齐信息完成了双语短语的抽取，可以看出，词对齐信息本身就包含了短语内部单词之间的对应关系。因此同样可以借助词对齐来计算词汇翻译概率，公式如下：
 \begin{eqnarray}
 \funp{P}_{\textrm{lex}}(\bar{t}|\bar{s}) & = & \prod_{j=1}^{|\bar{s}|} \frac{1}{|\{j|a(j,i) = 1\}|} \sum_{\forall(j,i):a(j,i) = 1} \sigma (t_i|s_j)
 \label{eq:7-14}
@@ -493,14 +493,14 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 \begin{figure}[htp]
 \centering
 \input{./Chapter7/Figures/figure-example-of-vocabulary-translation-probability}
-\caption{词汇翻译概率实例}
+\caption{单词翻译概率实例}
 \label{fig:7-14}
 \end{figure}
 %-------------------------------------------
 
-\parinterval 来看一个具体的例子，如图\ref{fig:7-14}所示。对于一个双语短语，将它们的词对齐关系代入到公式\eqref{eq:7-14}就会得到短语的词汇翻译概率。对于词汇翻译概率，可以使用IBM 模型中的单词翻译表，也可以通过统计获得\upcite{koehn2002learning}。如果一个单词的词对齐为空，则用$N$表示它翻译为空的概率。和短语翻译概率一样，可以使用双向的词汇化翻译概率来评价双语短语的好坏。
+\parinterval 来看一个具体的例子，如图\ref{fig:7-14}所示。对于一个双语短语，将它们的词对齐关系代入到公式\eqref{eq:7-14}就会得到短语的单词翻译概率。对于单词翻译概率，可以使用IBM 模型中的单词翻译表，也可以通过统计获得\upcite{koehn2002learning}。如果一个单词的词对齐为空，则用$N$表示它翻译为空的概率。和短语翻译概率一样，可以使用双向的单词化翻译概率来评价双语短语的好坏。
 
-\parinterval 经过上面的介绍，可以从双语平行语料中把双语短语抽取出来，同时得到相应的翻译概率（即特征），组成{\small\bfnew{短语表}}\index{短语表}（Phrase Table）\index{Phrase Table}。图\ref{fig:7-15}展示了一个真实短语表的片段。其中包括源语言短语和目标语言短语，用|||进行分割。每个双语对应的得分，包括正向和反向的词汇翻译概率以及短语翻译概率，还包括词对齐信息（0-0、1-1）等其他信息。
+\parinterval 经过上面的介绍，可以从双语平行语料中把双语短语抽取出来，同时得到相应的翻译概率（即特征），组成{\small\bfnew{短语表}}\index{短语表}（Phrase Table）\index{Phrase Table}。图\ref{fig:7-15}展示了一个真实短语表的片段。其中包括源语言短语和目标语言短语，用|||进行分割。每个双语对应的得分，包括正向和反向的单词翻译概率以及短语翻译概率，还包括词对齐信息（0-0、1-1）等其他信息。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -519,7 +519,7 @@ d & = & {(\bar{s}_{\bar{a}_1},\bar{t}_1)} \circ {(\bar{s}_{\bar{a}_2},\bar{t}_2)
 
 \parinterval 尽管已经知道了如何将一个源语言短语翻译成目标语言短语，但是想要获得一个高质量的译文，仅有互译的双语短语是远远不够的。
 
-\parinterval 如图\ref{fig:7-16}所示，按照从左到右的顺序对一个句子“在/桌子/上/的/苹果”进行翻译，得到的译文“on the table the apple”的语序是不对的。虽然可以使用$n$-gram语言模型对语序进行建模，但是此处仍然需要用更加准确的方式描述目标语短语间的次序。一般，把这个问题称为短语调序，或者简称{\small\bfnew{调序}}\index{调序}（Reordering）\index{Reordering}。通常，基于短语的调序模型会作为判别式模型的特征参与到翻译过程中来。接下来，会介绍3 种不同的调序方法，分别是基于距离的调序、基于方向的调序（MSD模型）以及基于分类的调序。
+\parinterval 如图\ref{fig:7-16}所示，按照从左到右的顺序对一个句子“在/桌子/上/的/苹果”进行翻译，得到的译文“on the table the apple”的语序是不对的。虽然可以使用$n$-gram语言模型对语序进行建模，但是此处仍然需要用更加准确的方式描述目标语短语间的次序。一般，把这个问题称为短语调序，或者简称{\small\bfnew{调序}}\index{调序}（Reordering）\index{Reordering}。通常，基于短语的调序模型会作为判别模型的特征参与到翻译过程中来。接下来，会介绍3 种不同的调序方法，分别是基于距离的调序、基于方向的调序（MSD模型）以及基于分类的调序。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -565,7 +565,7 @@ dr & = & {\rm{start}}_i-{\rm{end}}_{i-1}-1
 
 \subsection{基于方向的调序}
 
-\parinterval 基于方向的调序模型是另一种常用的调序模型。该模型是一种典型的词汇化调序模型，因此调序的结果会根据不同短语有所不同。简单来说，在两个短语目标语言端连续的情况下，该模型会判断两个双语短语在源语言端的调序情况，包含三种调序类型：顺序的单调翻译（M）、与前一个短语交换位置（S）、非连续翻译（D）。因此，这个模型也被称作MSD调序模型，也是Moses等经典的机器翻译系统所采用的调序模型\upcite{Koehn2007Moses}。
+\parinterval 基于方向的调序模型是另一种常用的调序模型。该模型是一种典型的单词化调序模型，因此调序的结果会根据不同短语有所不同。简单来说，在两个短语目标语言端连续的情况下，该模型会判断两个双语短语在源语言端的调序情况，包含三种调序类型：顺序的单调翻译（M）、与前一个短语交换位置（S）、非连续翻译（D）。因此，这个模型也被称作MSD调序模型，也是Moses等经典的机器翻译系统所采用的调序模型\upcite{Koehn2007Moses}。
 
 \parinterval 图\ref{fig:7-18}展示了这三种调序类型，当两个短语对在源语言和目标语言中都是按顺序排列时，它们就是单调的（如：从左边数前两个短语）；如果对应的短语顺序在目标语中是反过来的，属于交换调序（如：从左边数第三和第四个短语）；如果两个短语之间还有其他的短语，就是非连续调序（如：从右边数的前两个短语）。
 
@@ -573,7 +573,7 @@ dr & = & {\rm{start}}_i-{\rm{end}}_{i-1}-1
 \begin{figure}[htp]
 \centering
 \input{./Chapter7/Figures/figure-three-types-of-reorder-method-in-msd}
-\caption{词汇化调序模型的三种调序类型}
+\caption{单词化调序模型的三种调序类型}
 \label{fig:7-18}
 \end{figure}
 %-------------------------------------------
@@ -621,13 +621,13 @@ dr & = & {\rm{start}}_i-{\rm{end}}_{i-1}-1
 \sectionnewpage
 \section{翻译特征}
 
-\parinterval 基于短语的模型使用判别式模型对翻译推导进行建模，给定双语句对$(\seq{s},\seq{t})$，每个翻译推导$d$都有一个模型得分，由$M$个特征线性加权得到，记为$\textrm{score}(d,\seq{t},\seq{s}) = \sum_{i=1}^{M} \lambda_i \cdot h_i (d,\seq{t},\seq{s})$，其中$\lambda_i$表示特征权重，$h_i (d,\seq{t},\seq{s})$表示特征函数（简记为$h_i (d)$）。这些特征包含刚刚介绍过的短语翻译概率、调序模型得分等，除此之外，还包含语言模型等其他特征，它们共同组成了特征集合。这里列出了基于短语的模型中的一些基础特征：
+\parinterval 基于短语的模型使用判别模型对翻译推导进行建模，给定双语句对$(\seq{s},\seq{t})$，每个翻译推导$d$都有一个模型得分，由$M$个特征线性加权得到，记为$\textrm{score}(d,\seq{t},\seq{s}) = \sum_{i=1}^{M} \lambda_i \cdot h_i (d,\seq{t},\seq{s})$，其中$\lambda_i$表示特征权重，$h_i (d,\seq{t},\seq{s})$表示特征函数（简记为$h_i (d)$）。这些特征包含刚刚介绍过的短语翻译概率、调序模型得分等，除此之外，还包含语言模型等其他特征，它们共同组成了特征集合。这里列出了基于短语的模型中的一些基础特征：
 
 \begin{itemize}
 \vspace{0.5em}
 \item 短语翻译概率（取对数），包含正向翻译概率$\textrm{log}(\funp{P}(\bar{t}|\bar{s}))$和反向翻译概率$\textrm{log}(\funp{P}(\bar{s}$\\$|\bar{t}))$，它们是基于短语的模型中最主要的特征。
 \vspace{0.5em}
-\item 词汇化翻译概率（取对数），同样包含正向词汇化翻译概率$\textrm{log}(\funp{P}_{\textrm{lex}}(\bar{t}|\bar{s}))$和反向词汇化翻译概率$\textrm{log}(\funp{P}_{\textrm{lex}}(\bar{s}|\bar{t}))$，它们用来描述双语短语中单词间对应的好坏。
+\item 单词化翻译概率（取对数），同样包含正向单词化翻译概率$\textrm{log}(\funp{P}_{\textrm{lex}}(\bar{t}|\bar{s}))$和反向单词化翻译概率$\textrm{log}(\funp{P}_{\textrm{lex}}(\bar{s}|\bar{t}))$，它们用来描述双语短语中单词间对应的好坏。
 \item $n$-gram语言模型，用来度量译文的流畅程度，可以通过大规模目标端单语数据得到。
 \vspace{0.5em}
 \item 译文长度，避免模型倾向于短译文，同时让系统自动学习对译文长度的偏好。
@@ -902,17 +902,17 @@ dr & = & {\rm{start}}_i-{\rm{end}}_{i-1}-1
 
 \parinterval 统计机器翻译模型是近三十年内自然语言处理的重要里程碑之一。其统计建模的思想长期影响着自然语言处理的研究。无论是前面介绍的基于单词的模型，还是本章介绍的基于短语的模型，甚至后面即将介绍的基于句法的模型，大家都在尝试回答：究竟应该用什么样的知识对机器翻译进行统计建模？不过，这个问题至今还没有确定的答案。但是，显而易见，统计机器翻译为机器翻译的研究提供了一种范式，即让计算机用概率化的 “知识” 描述翻译问题。这些 “ 知识” 体现在统计模型的结构和参数中，并且可以从大量的双语和单语数据中自动学习。这种建模思想在今天的机器翻译研究中仍然随处可见。
 
-\parinterval 本章对统计机器翻译中的基于短语的模型进行了介绍。可以说，基于短语的模型是机器翻译中最成功的机器翻译模型之一。其结构简单，而且翻译速度快，因此也被大量应用于机器翻译产品及服务中。此外，包括判别式模型、最小错误率训练、短语抽取等经典问题都是源自基于短语的模型。可是，基于短语的模型所涉及的非常丰富，很难通过一章的内容进行面面俱到的介绍。还有很多方向值得读者进一步了解：
+\parinterval 本章对统计机器翻译中的基于短语的模型进行了介绍。可以说，基于短语的模型是机器翻译中最成功的机器翻译模型之一。其结构简单，而且翻译速度快，因此也被大量应用于机器翻译产品及服务中。此外，包括判别模型、最小错误率训练、短语抽取等经典问题都是源自基于短语的模型。可是，基于短语的模型所涉及的非常丰富，很难通过一章的内容进行面面俱到的介绍。还有很多方向值得读者进一步了解：
 
 \begin{itemize}
 \vspace{0.5em}
 \item 基于短语的机器翻译的想法很早就出现了，比如直接对把机器翻译看作基于短语的生成问题\upcite{DBLP:conf/acl/OchW98,DBLP:phd/dnb/Och02,och2004alignment}，或者单独对短语翻译进行建模，之后集成到基于单词的模型中\upcite{DBLP:conf/acl/WangW98,DBLP:conf/acl/WatanabeSO03,DBLP:conf/acl/Marcu01}。现在，最通用的框架是Koehn等人提出的模型\upcite{koehn2003statistical}，与其类似的还有Zens等人的工作\upcite{DBLP:conf/ki/ZensON02,DBLP:conf/naacl/ZensN04}。这类模型把短语翻译分解为短语学习问题和解码问题。因此，在随后相当长一段时间里，如何获取双语短语也是机器翻译领域的热点。比如，一些团队研究如何直接从双语句对中学习短语翻译，而不是通过简单的启发性规则进行短语抽取\upcite{DBLP:conf/emnlp/MarcuW02,DBLP:conf/wmt/DeNeroGZK06}。也有研究者对短语边界的建模进行研究，以获得更高质量的短语，同时减小模型大小\upcite{german2011bilingual,DBLP:conf/coling/BlackwoodGB08,DBLP:conf/naacl/XiongZL10}。
 \vspace{0.5em}
-\item 调序是基于短语的模型中经典的问题之一。早期的模型都是词汇化的调序模型，这类模型把调序定义为短语之间的相对位置建模问题\upcite{DBLP:conf/naacl/Tillman04,DBLP:conf/naacl/KumarB05,DBLP:conf/acl/NagataSYO06}。后来，也有一些工作使用判别式模型来集成更多的调序特征\upcite{xiong2006maximum,DBLP:conf/wmt/ZensN06,DBLP:conf/naacl/GreenGM10,DBLP:conf/naacl/Cherry13}。实际上，除了基于短语的模型，调序也在基于句法的模型中被广泛讨论。因此，一些工作尝试将基于短语的调序模型集成到基于句法的机器翻译系统中\upcite{DBLP:conf/wmt/HuckWRN13,matthias2012discriminative,vinh2009improving,xiong2006maximum}。此外，也有研究者对不同的调序模型进行了系统化的对比和分析，可以作为相关研究的参考\upcite{DBLP:journals/coling/BisazzaF16}。与在机器翻译系统中集成调序模型不同，预调序（Pre-ordering）也是一种解决调序问题的思路\upcite{DBLP:conf/coling/XiaM04,DBLP:conf/acl/CollinsKK05,DBLP:conf/emnlp/WangCK07,DBLP:conf/ijcnlp/WuSDTN11}。机器翻译中的预调序是指将输入的源语言句子按目标语言的顺序进行排列，这样在翻译中就尽可能减少调序操作。这种方法大多依赖源语言的句法树进行调序的建模，不过它与机器翻译系统的耦合很小，因此很容易进行系统集成。
+\item 调序是基于短语的模型中经典的问题之一。早期的模型都是单词化的调序模型，这类模型把调序定义为短语之间的相对位置建模问题\upcite{DBLP:conf/naacl/Tillman04,DBLP:conf/naacl/KumarB05,DBLP:conf/acl/NagataSYO06}。后来，也有一些工作使用判别模型来集成更多的调序特征\upcite{xiong2006maximum,DBLP:conf/wmt/ZensN06,DBLP:conf/naacl/GreenGM10,DBLP:conf/naacl/Cherry13}。实际上，除了基于短语的模型，调序也在基于句法的模型中被广泛讨论。因此，一些工作尝试将基于短语的调序模型集成到基于句法的机器翻译系统中\upcite{DBLP:conf/wmt/HuckWRN13,matthias2012discriminative,vinh2009improving,xiong2006maximum}。此外，也有研究者对不同的调序模型进行了系统化的对比和分析，可以作为相关研究的参考\upcite{DBLP:journals/coling/BisazzaF16}。与在机器翻译系统中集成调序模型不同，预调序（Pre-ordering）也是一种解决调序问题的思路\upcite{DBLP:conf/coling/XiaM04,DBLP:conf/acl/CollinsKK05,DBLP:conf/emnlp/WangCK07,DBLP:conf/ijcnlp/WuSDTN11}。机器翻译中的预调序是指将输入的源语言句子按目标语言的顺序进行排列，这样在翻译中就尽可能减少调序操作。这种方法大多依赖源语言的句法树进行调序的建模，不过它与机器翻译系统的耦合很小，因此很容易进行系统集成。
 \vspace{0.5em}
 \item 统计机器翻译中使用的栈解码方法源自Tillmann等人的工作\upcite{tillmann1997a}。这种方法在Pharaoh\upcite{DBLP:conf/amta/Koehn04}、Moses\upcite{Koehn2007Moses}等开源系统中被成功的应用，在机器翻译领域产生了很大的影响力。特别是，这种解码方法效率很高，因此在许多工业系统里也大量使用。对于栈解码也有很多改进工作，比如，早期的工作考虑剪枝或者限制调序范围以加快解码速度\upcite{DBLP:conf/acl/WangW97,DBLP:conf/coling/TillmannN00,DBLP:conf/iwslt/ShenDA06a,robert2007faster}。随后，也有研究工作从解码算法和语言模型集成方式的角度对这类方法进行改进\upcite{DBLP:conf/acl/HeafieldKM14,DBLP:conf/acl/WuebkerNZ12,DBLP:conf/iwslt/ZensN08}。
 \vspace{0.5em}
-\item 统计机器翻译的成功很大程度上来自判别式模型引入任意特征的能力。因此，在统计机器翻译时代，很多工作都集中在新特征的设计上。比如，可以基于不同的统计特征和先验知识设计翻译特征\upcite{och2004smorgasbord,Chiang200911,gildea2003loosely}，也可以模仿分类任务设计大规模的稀疏特征\upcite{DBLP:conf/emnlp/ChiangMR08}。模型训练和特征权重调优也是统计机器翻译中的重要问题，除了最小错误率训练，还有很多方法，比如，最大似然估计\upcite{koehn2003statistical,DBLP:journals/coling/BrownPPM94}、判别式方法\upcite{Blunsom2008A}、贝叶斯方法\upcite{Blunsom2009A,Cohn2009A}、最小风险训练\upcite{smith2006minimum,li2009first}、基于Margin的方法\upcite{watanabe2007online,Chiang200911}以及基于排序模型的方法（PRO）\upcite{Hopkins2011Tuning,dreyer2015apro}。实际上，统计机器翻译的训练和解码也存在不一致的问题，比如，特征值由双语数据上的极大似然估计得到（没有剪枝），而解码时却使用束剪枝，而且模型的目标是最大化机器翻译评价指标。对于这个问题也可以通过调整训练的目标函数进行缓解\upcite{XiaoA,marcu2006practical}。
+\item 统计机器翻译的成功很大程度上来自判别模型引入任意特征的能力。因此，在统计机器翻译时代，很多工作都集中在新特征的设计上。比如，可以基于不同的统计特征和先验知识设计翻译特征\upcite{och2004smorgasbord,Chiang200911,gildea2003loosely}，也可以模仿分类任务设计大规模的稀疏特征\upcite{DBLP:conf/emnlp/ChiangMR08}。模型训练和特征权重调优也是统计机器翻译中的重要问题，除了最小错误率训练，还有很多方法，比如，最大似然估计\upcite{koehn2003statistical,DBLP:journals/coling/BrownPPM94}、判别式方法\upcite{Blunsom2008A}、贝叶斯方法\upcite{Blunsom2009A,Cohn2009A}、最小风险训练\upcite{smith2006minimum,li2009first}、基于Margin的方法\upcite{watanabe2007online,Chiang200911}以及基于排序模型的方法（PRO）\upcite{Hopkins2011Tuning,dreyer2015apro}。实际上，统计机器翻译的训练和解码也存在不一致的问题，比如，特征值由双语数据上的极大似然估计得到（没有剪枝），而解码时却使用束剪枝，而且模型的目标是最大化机器翻译评价指标。对于这个问题也可以通过调整训练的目标函数进行缓解\upcite{XiaoA,marcu2006practical}。
 \vspace{0.5em}
 \item 短语表是基于短语的系统中的重要模块。但是，简单地利用基于频次的方法估计得到的翻译概率无法很好地处理低频短语。这时就需要对短语表进行平滑\upcite{DBLP:conf/iwslt/ZensN08,DBLP:conf/emnlp/SchwenkCF07,boxing2011unpacking,DBLP:conf/coling/DuanSZ10}。另一方面，随着数据量的增长和抽取短语长度的增大，短语表的体积会急剧膨胀，这也大大增加了系统的存储消耗，同时过大的短语表也会带来短语查询效率的下降。针对这个问题，很多工作尝试对短语表进行压缩。一种思路是限制短语的长度\upcite{DBLP:conf/naacl/QuirkM06,DBLP:journals/coling/MarinoBCGLFC06}；另一种广泛使用的思路是使用一些指标或者分类器来对短语进行剪枝，其核心思想是判断每个短语的质量\upcite{DBLP:conf/emnlp/ZensSX12}，并过滤掉低质量的短语。代表性的方法有：基于假设检验的剪枝\upcite{DBLP:conf/emnlp/JohnsonMFK07}、基于熵的剪枝\upcite{DBLP:conf/emnlp/LingGTB12}、两阶段短语抽取方法\upcite{DBLP:conf/naacl/ZettlemoyerM07}、基于解码中短语使用频率的方法\upcite{DBLP:conf/naacl/EckVW07}等。此外，短语表的存储方式也是在实际使用中需要考虑的问题。因此，也有研究者尝试使用更加紧凑、高效的结构保存短语表。其中最具代表性的结构是后缀数组（Suffix Arrays），这种结构可以充分利用短语之间有重叠的性质，减少了重复存储\upcite{DBLP:conf/acl/Callison-BurchBS05,DBLP:conf/acl/Callison-BurchBS05,DBLP:conf/naacl/ZensN07,2014Dynamic}。
 \vspace{0.5em}

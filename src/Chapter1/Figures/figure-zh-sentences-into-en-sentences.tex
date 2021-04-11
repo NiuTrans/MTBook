@@ -12,10 +12,11 @@
 {\footnotesize
 \node [anchor=north west] (example1) at (0,0) {\textbf{1:} 源=什么\ 时候\ 开始};
 \node [anchor=north west] (example1part2) at ([yshift=0.5em]example1.south west) {\hspace{1em} 译=\ When will it start};
-\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=我\ 对\ 他\ 感到\ 高兴};
-\node [anchor=north west] (example2part2) at ([yshift=0.5em]example2.south west) {\hspace{1em} 译=\ I am happy with him};
+\node [anchor=north west] (example2) at ([yshift=0.1em]example1part2.south west) {\textbf{2:} 源=我\ 对\ 他\ 感到\ 失望};
+\node [anchor=north west] (example2part2) at ([yshift=0.5em]example2.south west) {\hspace{1em} 译=\ I am disappointed with him};
 \node [anchor=north west] (example3) at ([yshift=0.1em]example2part2.south west) {\hspace{1em} ...};
 \node [anchor=south west] (examplebaselabel) at (example1.north west) {{\color{ublue} 资源1：翻译实例库}};
+\node [anchor=north east,opacity=0] (empty) at ([yshift=-5em]example2part2.south east) {examplebaselab};
 }
 }
 
@@ -40,7 +41,7 @@
 
 \begin{pgfonlayer}{background}
 {
-\node[rectangle,draw=ublue, thick,inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (dictionarylabel)] {};
+\node[rectangle,draw=ublue, thick,inner sep=0mm] [fit = (entry1) (entry2) (entry3) (entry4) (dictionarylabel) (empty)] {};
 }
 \end{pgfonlayer}
 
@@ -49,20 +50,20 @@
 \begin{scope}[xshift=2.3in]
 {\footnotesize
 \node [anchor=north west,inner sep=1mm] (w1) at (0,1.7em) {我};
-\node [anchor=north west,inner sep=1mm] (w2) at ([xshift=0.3em]w1.north east) {对};
-\node [anchor=north west,inner sep=1mm] (w3) at ([xshift=0.3em]w2.north east) {你};
-\node [anchor=north west,inner sep=1mm] (w4) at ([xshift=0.3em]w3.north east) {感到};
-\node [anchor=north west,inner sep=1mm] (w5) at ([xshift=0.3em]w4.north east) {满意};
+\node [anchor=north west,inner sep=1mm] (w2) at ([xshift=1.05em]w1.north east) {对};
+\node [anchor=north west,inner sep=1mm] (w3) at ([xshift=1.05em]w2.north east) {你};
+\node [anchor=north west,inner sep=1mm] (w4) at ([xshift=1.05em]w3.north east) {感到};
+\node [anchor=north west,inner sep=1mm] (w5) at ([xshift=1.05em]w4.north east) {满意};
 }
 \end{scope}
 
 \begin{scope}[xshift=2.3in,yshift=-0.2in]
 {\footnotesize
 \node [anchor=north west,inner sep=1mm] (c1) at (0,0) {我};
-\node [anchor=north west,inner sep=1mm] (c2) at ([xshift=0.3em]c1.north east) {对};
-\node [anchor=north west,inner sep=1mm] (c3) at ([xshift=0.3em]c2.north east) {他};
-\node [anchor=north west,inner sep=1mm] (c4) at ([xshift=0.3em]c3.north east) {感到};
-\node [anchor=north west,inner sep=1mm] (c5) at ([xshift=0.3em]c4.north east) {高兴};
+\node [anchor=north west,inner sep=1mm] (c2) at ([xshift=1.05em]c1.north east) {对};
+\node [anchor=north west,inner sep=1mm] (c3) at ([xshift=1.05em]c2.north east) {他};
+\node [anchor=north west,inner sep=1mm] (c4) at ([xshift=1.05em]c3.north east) {感到};
+\node [anchor=north west,inner sep=1mm] (c5) at ([xshift=1.05em]c4.north east) {失望};
 }
 \end{scope}
 
@@ -70,7 +71,7 @@
 {\footnotesize
 \node [anchor=west,inner sep=1mm] (e1) at (0,0) {I};
 \node [anchor=west,inner sep=1mm] (e2) at ([xshift=0.3em]e1.east) {am};
-\node [anchor=west,inner sep=1mm] (e3) at ([xshift=0.3em]e2.east) {happy};
+\node [anchor=west,inner sep=1mm] (e3) at ([xshift=0.3em]e2.east) {disappointed};
 \node [anchor=west,inner sep=1mm] (e4) at ([xshift=0.3em]e3.east) {with};
 \node [anchor=west,inner sep=1mm] (e5) at ([xshift=0.3em]e4.east) {him};
 }
@@ -94,16 +95,16 @@
 {
 \draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用“你”替换“他”}}};
 
-\draw[->,dotted,thick,red] ([xshift=-0.1em]entry2.east)..controls +(east:4) and +(west:4)..([yshift=-0.6em,xshift=-0.5em]e3.south) ;
+\draw[->,dotted,thick,red] ([xshift=0.2em]entry2.east)..controls +(east:4) and +(west:4)..([yshift=-0.6em,xshift=-0.5em]e3.south) ;
 }
 
 \begin{scope}[xshift=2.3in,yshift=-0.9in]
 {\footnotesize
 \node [anchor=north west,inner sep=1mm] (c1) at (0,0) {我};
-\node [anchor=north west,inner sep=1mm] (c2) at ([xshift=0.3em]c1.north east) {对};
-\node [anchor=north west,inner sep=1mm] (c3) at ([xshift=0.3em]c2.north east) {\footnotesize{{\color{ublue} 你}}};
-\node [anchor=north west,inner sep=1mm] (c4) at ([xshift=0.3em]c3.north east) {感到};
-\node [anchor=north west,inner sep=1mm] (c5) at ([xshift=0.3em]c4.north east) {高兴};
+\node [anchor=north west,inner sep=1mm] (c2) at ([xshift=1.05em]c1.north east) {对};
+\node [anchor=north west,inner sep=1mm] (c3) at ([xshift=1.05em]c2.north east) {\footnotesize{{\color{ublue} 你}}};
+\node [anchor=north west,inner sep=1mm] (c4) at ([xshift=1.05em]c3.north east) {感到};
+\node [anchor=north west,inner sep=1mm] (c5) at ([xshift=1.05em]c4.north east) {失望};
 }
 \end{scope}
 
@@ -111,7 +112,7 @@
 {\footnotesize
 \node [anchor=west,inner sep=1mm] (e1) at (0,0) {I};
 \node [anchor=west,inner sep=1mm] (e2) at ([xshift=0.3em]e1.east) {am};
-\node [anchor=west,inner sep=1mm] (e3) at ([xshift=0.3em]e2.east) {happy};
+\node [anchor=west,inner sep=1mm] (e3) at ([xshift=0.3em]e2.east) {disappointed};
 \node [anchor=west,inner sep=1mm] (e4) at ([xshift=0.3em]e3.east) {with};
 \node [anchor=west,inner sep=1mm] (e5) at ([xshift=0.3em,yshift=-0.2em]e4.east) {\textbf{{\color{ublue} you}}};
 }
@@ -122,28 +123,28 @@
 }
 
 {
-\draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用“满意”替换“高兴”}}};
+\draw[double,->,thick,ublue] (e3.south)--([yshift=-1.2em]e3.south) node[pos=0.5,right,xshift=0.2em,yshift=0.2em] (step1) {\color{red}{\tiny{用“满意”替换“失望”}}};
 
-\draw[->,dotted,thick,red] ([xshift=-1.2em,yshift=-0.6em]entry3.north east)..controls +(east:2) and +(west:3)..([yshift=-0.6em,xshift=-0.5em]e3.south) ;
+\draw[->,dotted,thick,red] ([xshift=0.2em,yshift=-0em]entry3.east)..controls +(east:2) and +(west:3)..([yshift=-0.6em,xshift=-0.5em]e3.south) ;
 }
 
 \begin{scope}[xshift=2.3in,yshift=-1.6in]
 {\footnotesize
 \node [anchor=north west,inner sep=1mm] (c1) at (0,0) {我};
-\node [anchor=north west,inner sep=1mm] (c2) at ([xshift=0.3em]c1.north east) {对};
-\node [anchor=north west,inner sep=1mm] (c3) at ([xshift=0.3em]c2.north east) {你};
-\node [anchor=north west,inner sep=1mm] (c4) at ([xshift=0.3em]c3.north east) {感到};
-\node [anchor=north west,inner sep=1mm] (c5) at ([xshift=0.3em]c4.north east) {\footnotesize{{\color{ublue} 满意}}};
+\node [anchor=north west,inner sep=1mm] (c2) at ([xshift=1.05em]c1.north east) {对};
+\node [anchor=north west,inner sep=1mm] (c3) at ([xshift=1.05em]c2.north east) {你};
+\node [anchor=north west,inner sep=1mm] (c4) at ([xshift=1.05em]c3.north east) {感到};
+\node [anchor=north west,inner sep=1mm] (c5) at ([xshift=1.05em]c4.north east) {\footnotesize{{\color{ublue} 满意}}};
 }
 \end{scope}
 
 \begin{scope}[xshift=2.3in,yshift=-2.0in]
 {\footnotesize
 \node [anchor=west,inner sep=1mm] (e1) at (0,0) {I};
-\node [anchor=west,inner sep=1mm] (e2) at ([xshift=0.3em]e1.east) {am};
-\node [anchor=west,inner sep=1mm] (e3) at ([xshift=0.3em]e2.east) {\textbf{{\color{ublue} satisfied}}};
-\node [anchor=west,inner sep=1mm] (e4) at ([xshift=0.3em]e3.east) {with};
-\node [anchor=west,inner sep=1mm] (e5) at ([xshift=0.3em,yshift=-0.2em]e4.east) {you};
+\node [anchor=west,inner sep=1mm] (e2) at ([xshift=0.7em]e1.east) {am};
+\node [anchor=west,inner sep=1mm] (e3) at ([xshift=0.7em]e2.east) {\textbf{{\color{ublue} satisfied}}};
+\node [anchor=west,inner sep=1mm] (e4) at ([xshift=0.7em]e3.east) {with};
+\node [anchor=west,inner sep=1mm] (e5) at ([xshift=0.7em,yshift=-0.2em]e4.east) {you};
 }
 \end{scope}
 

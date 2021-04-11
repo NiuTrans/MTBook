@@ -109,7 +109,7 @@
 
 \parinterval 字节对编码或双字节编码（BPE）是一种常用的子词词表构建方法。BPE方法最早用于数据压缩，该方法将数据中常见的连续字符串替换为一个不存在的字符，之后通过构建一个替换关系的对应表，对压缩后的数据进行还原\upcite{Gage1994ANA}。机器翻译借用了这种思想，把子词切分看作是学习对自然语言句子进行压缩编码表示的问题\upcite{DBLP:conf/acl/SennrichHB16a}。其目的是，保证编码（即子词切分）后的结果占用的字节尽可能少。这样，子词单元会尽可能被不同单词复用，同时又不会因为使用过小的单元造成子词切分后的序列过长。
 
-\parinterval 使用BPE算法进行子词切分包含两个步骤。首先，通过统计的方法构造符号合并表（见图\ref{fig:13-2}），具体的方式为：先对分过词的文本进行统计，得到词表和词频，同时将词表中的单词分割为字符表示；其次统计词表中所有出现的二元组的频次，选择当前频次最高的二元组加入符号合并表，并将所有词表中出现的该二元组合并为一个单元；不断地重复上述过程，直到合并表的大小达到预先设定的大小，或者无法继续合并。图\ref{fig:13-3}给出了一个使用字符合并表对单词进行子词切分的实例。红色单元为每次合并后得到的新符号，直至无法合并，或遍历结束，得到最终的合并结果。其中每一个单元为一个子词。
+\parinterval 使用BPE算法进行子词切分包含两个步骤。首先，通过统计的方法构造符号合并表（见图\ref{fig:13-2}），具体的方式为：先对分过词的文本进行统计，得到词表和词频，同时将词表中的单词分割为字符表示；其次统计词表中所有出现的二元组的频次，选择当前频次最高的二元组加入符号合并表，并将所有词表中出现的该二元组合并为一个单元；不断地重复上述过程，直到合并表的大小达到预先设定的大小，或没有二元组可以被合并。图\ref{fig:13-3}给出了一个使用字符合并表对单词进行子词切分的实例。红色单元为每次合并后得到的新符号，直至无法合并，或遍历结束，得到最终的合并结果。其中每一个单元为一个子词。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -149,11 +149,11 @@
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\bfnew{子词规范化方法}}\upcite{DBLP:conf/acl/Kudo18}。其做法是根据1-gram语言模型采样出多种子词切分候选。之后，最大化整个句子的概率为目标来构建词表。
+\item {\small\bfnew{子词规范化方法}}\upcite{DBLP:conf/acl/Kudo18}。其做法是根据1-gram语言模型采样出多种子词切分候选。之后，以最大化整个句子的概率为目标来构建词表。
 \vspace{0.5em}
 \item {\small\bfnew{BPE-Dropout}}\upcite{provilkov2020bpe}。在训练时，按照一定概率$p$随机丢弃一些可行的合并操作，从而产生不同的子词切分结果。而在推断阶段，将$p$设置为0，等同于标准的BPE。总的来说，上述方法相当于在子词的粒度上对输入的序列进行扰动，进而达到增加训练健壮性的目的。
 \vspace{0.5em}
-\item {\small\bfnew{动态规划编码}}\index{动态规划编码}（Dynamic Programming Encoding，DPE\index{Dynamic Programming Encoding，DPE}）\upcite{he2020dynamic}。引入了混合字符-子词的切分方式，将句子的子词切分看作一种隐含变量。机器翻译解码端的输入是基于字符表示的目标语言序列，推断时将每个时间步的输出映射到预先设定好的子词词表之上，得到当前最可能的子词结果。
+\item {\small\bfnew{动态规划编码}}\index{动态规划编码}（Dynamic Programming Encoding，DPE\index{Dynamic Programming Encoding}）\upcite{he2020dynamic}。引入了混合字符-子词的切分方式，将句子的子词切分看作一种隐含变量。机器翻译解码端的输入是基于字符表示的目标语言序列，推断时将每个时间步的输出映射到预先设定好的子词词表之上，得到当前最可能的子词结果。
 \vspace{0.5em}
 \end{itemize}
 
@@ -164,7 +164,7 @@
 \sectionnewpage
 \section{正则化}\label{subsection-13.2}
 
-\parinterval 正则化是机器学习中的经典技术，通常用于缓解过拟合问题。正则化的概念源自线性代数和代数几何。在实践中，它更多的是指对{\small\bfnew{反问题}}\index{反问题}（The Inverse Problem）\index{Inverse Problem}的一种求解方式。假设输入$x$和输出$y$之间存在一种映射$f$：
+\parinterval 正则化是机器学习中的经典技术，通常用于缓解过拟合问题。正则化的概念源自线性代数和代数几何。在实践中，它更多的是指对{\small\bfnew{反问题}}\index{反问题}（The Inverse Problem）\index{The Inverse Problem}的一种求解方式。假设输入$x$和输出$y$之间存在一种映射$f$：
 \begin{eqnarray}
 y &=& f(x)
 \label{eq:13-1}
@@ -182,7 +182,7 @@ y &=& f(x)
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 以上问题体现出来的现象就是过拟合。因为训练数据有限且存在噪声，因此模型参数会过分拟合噪声数据。而且，这样的模型参数又与真实（理想）的模型参数相差很远。正则化正是针对这个问题。有时候，正则化也被称作{\small\bfnew{降噪}}\index{降噪}（Denoising）\index{Denoising}，虽然它的出发点并不只是去除噪声的影响。图\ref{fig:13-4}对比了不同函数对二维空间中一些数据点的拟合情况。在过拟合现象中，函数可以完美的拟合所有的数据点，即使有些数据点是噪声。
+\parinterval 以上问题带来的现象就是过拟合。因为训练数据有限且存在噪声，因此模型参数会过分拟合噪声数据。而且，这样的模型参数又与真实（理想）的模型参数相差很远。正则化正是一种解决过拟合现象的方法。有时候，正则化也被称作{\small\bfnew{降噪}}\index{降噪}（Denoising）\index{Denoising}，虽然它的出发点并不只是去除噪声的影响。图\ref{fig:13-4}对比了不同函数对二维空间中一些数据点的拟合情况。在过拟合现象中，函数可以完美的拟合所有的数据点，即使有些数据点是噪声。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -223,7 +223,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \label{eq:13-4}
 \end{eqnarray}
 
-\parinterval {\chapternine}已经介绍了L1和L2正则化方法，这里做一些展开。从几何的角度看，L1和L2正则项都是有物理意义的。二者都可以被看作是空间上的一个区域，比如，在二维平面上，$l_1$范数表示一个以0点为中心的菱形，$l_2$范数表示一个以0点为中心的圆。此时，$L(\mathbi{w})$和$R(\mathbi{w})$叠加在一起构成了一个新的区域，优化问题可以被看作是在这个新的区域上进行优化。由于L1和L2正则项都是在0点（坐标原点）附近形成的区域，因此优化的过程可以确保参数不会偏离0点太多。也就是说，L1和L2正则项引入了一个先验：模型的解不应该离0点太远。而L1和L2正则项实际上是在度量这个距离。
+\parinterval {\chapternine}已经介绍了L1和L2正则化方法，这里做一些展开。从几何的角度看，L1和L2正则项都是有物理意义的。二者都可以被看作是空间上的一个区域，比如，在二维平面上，$l_1$范数表示一个以0点为中心的菱形，$l_2$范数表示一个以0点为中心的圆。此时，$L(\mathbi{w})$和$R(\mathbi{w})$叠加在一起构成了一个新的区域，优化问题可以被看作是在这个新的区域上进行优化。由于L1和L2正则项在解空间中形成的区域都在0点（坐标原点）附近，因此优化的过程可以确保参数不会偏离0点太多。也就是说，L1和L2正则项引入了一个先验：模型的解不应该离0点太远。而L1和L2正则项实际上是在度量这个距离。
 
 \parinterval 那为什么要用L1和L2正则项惩罚离0点远的解呢？这还要从模型复杂度谈起。实际上，对于神经机器翻译这样的模型来说，模型的容量是足够的。所谓容量可以被简单的理解为独立参数的个数 \footnote{另一种定义是把容量看作神经网络所能表示的假设空间大小\upcite{DBLP:journals/nature/LeCunBH15}，也就是神经网络能表示的不同函数所构成的空间。}。也就是说，理论上存在一种模型可以完美的描述问题。但是，从目标函数拟合的角度来看，如果一个模型可以拟合很复杂的目标函数，那模型所表示的函数形态也会很复杂。这往往体现在模型中参数的值“偏大”。比如，用一个多项式函数拟合一些空间中的点，如果希望拟合得很好，各个项的系数往往是非零的。而且为了对每个点进行拟合，通常需要多项式中的某些项具有较大的系数，以期望函数在局部有较大的斜率。显然，这样的模型是很复杂的。模型的复杂度可以用函数中参数（比如多项式中各项的系数）的“值”进行度量，这也体现在模型参数的范数上。
 
@@ -235,7 +235,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \subsection{标签平滑}
 
-\parinterval 神经机器翻译在每个目标语言位置$j$会输出一个分布$\hat{\mathbi{y}}_j$，这个分布描述了每个目标语言单词出现的可能性。在训练时，每个目标语言位置上的答案是一个单词，也就对应了One-hot 分布${\mathbi{y}}_j$，它仅仅在正确答案那一维为1，其它维均为0。模型训练可以被看作是一个调整模型参数让$\hat{\mathbi{y}}_j$逼近${\mathbi{y}}_j$的过程。但是，${\mathbi{y}}_j$的每一个维度是一个非0即1的目标，这样也就无法考虑类别之间的相关性。具体来说，除非模型在答案那一维输出1，否则都会得到惩罚。即使模型把一部分概率分配给与答案相近的单词（比如同义词），这个相近的单词仍被视为完全错误的预测。
+\parinterval 神经机器翻译在每个目标语言位置$j$会输出一个分布$\hat{\mathbi{y}}_j$，这个分布描述了每个目标语言单词出现的可能性。在训练时，每个目标语言位置上的答案是一个单词，也就对应了One-hot分布${\mathbi{y}}_j$，它仅仅在正确答案那一维为1，其它维均为0。模型训练可以被看作是一个调整模型参数让$\hat{\mathbi{y}}_j$逼近${\mathbi{y}}_j$的过程。但是，${\mathbi{y}}_j$的每一个维度是一个非0即1的目标，这样也就无法考虑类别之间的相关性。具体来说，除非模型在答案那一维输出1，否则都会得到惩罚。即使模型把一部分概率分配给与答案相近的单词（比如同义词），这个相近的单词仍被视为完全错误的预测。
 
 \parinterval 标签平滑的思想很简单\upcite{Szegedy_2016_CVPR}：答案所对应的单词不应该“独享”所有的概率，其它单词应该有机会作为答案。这个观点与{\chaptertwo}中语言模型的平滑非常类似。在复杂模型的参数估计中，往往需要给未见或者低频事件分配一些概率，以保证模型具有更好的泛化能力。具体实现时，标签平滑使用了一个额外的分布$\mathbi{q}$，它是在词汇表$V$ 上的一个均匀分布，即$\mathbi{q}_k=\frac{1}{|V|}$，其中$\mathbi{q}_k$表示分布的第$k$维。然后，标准答案的分布被重新定义为${\mathbi{y}}_j$和$\mathbi{q}$的线性插值：
 \begin{eqnarray}
@@ -266,9 +266,9 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \parinterval 神经机器翻译模型是一种典型的多层神经网络模型。每一层都包含若干神经元，负责接收前一层所有神经元的输出，之后进行诸如乘法、加法等变换操作，并有选择地使用非线性的激活函数，最终得到当前层每个神经元的输出。从模型最终预测的角度看，每个神经元都在参与最终的预测。理想的情况下，研究人员希望每个神经元都能相互独立的做出“贡献”。这样的模型会更加健壮，因为即使一部分神经元不能正常工作，其它神经元仍然可以独立做出合理的预测。但是，随着每一层神经元数量的增加以及网络结构的复杂化，神经元之间会出现{\small\bfnew{相互适应}}\index{相互适应}（Co-adaptation）\index{Co-adaptation}的现象。所谓相互适应是指，一个神经元对输出的贡献与同一层其它神经元的行为是相关的，也就是说这个神经元已经适应到它周围的“环境”中。
 
-\parinterval 相互适应的好处在于神经网络可以处理更加复杂的问题，因为联合使用两个神经元要比单独使用每个神经元的表示能力强。这也类似于传统机器学习任务中往往会设计一些高阶特征，比如自然语言序列标注中对2-gram和3-gram的使用。不过另一方面，相互适应会导致模型变得更加“脆弱”。因为相互适应的神经元可以更好的描述训练数据中的现象，但是在测试数据上，由于很多现象是未见的，细微的扰动会导致神经元无法适应。具体体现出来就是过拟合问题。
+\parinterval 一方面来说，相互适应的好处在于神经网络可以处理更加复杂的问题，因为联合使用两个神经元要比单独使用每个神经元的表示能力强。这也类似于传统机器学习任务中往往会设计一些高阶特征，比如自然语言序列标注中对2-gram和3-gram的使用。不过另一方面，相互适应会导致模型变得更加“脆弱”。因为相互适应的神经元可以更好的描述训练数据中的现象，但是在测试数据上，由于很多现象是未见的，细微的扰动会导致神经元无法适应。具体体现出来就是过拟合问题。
 
-\parinterval Dropout也是解决过拟合问题的一种常用方法\upcite{DBLP:journals/corr/abs-1207-0580}。该方法很简单，在训练时随机让一部分神经元停止工作，这样每次参数更新中每个神经元周围的环境都在变化，它就不会过分适应到环境中。图\ref{fig:13-6}中给出了某一次参数更新中使用Dropout之前和之后神经网络的状态对比。
+\parinterval Dropout也是解决过拟合问题的一种常用方法\upcite{DBLP:journals/corr/abs-1207-0580}。该方法很简单，在训练时随机让一部分神经元停止工作，这样在每次进行参数更新时，神经网络中每个神经元周围的环境都在变化，因此它就不会过分适应到环境中。图\ref{fig:13-6}中给出了某一次参数更新中使用Dropout之前和之后神经网络的状态对比。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -279,7 +279,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \end{figure}
 %----------------------------------------------
 
-\parinterval 具体实现时，可以设置一个参数$p \in (0,1)$。在每次参数更新所使用的前向和反向计算中，每个神经元都以概率$p$停止工作。相当于每层神经网络会有以$p$为概率的神经元被“屏蔽”掉。每一次参数更新中会随机屏蔽不同的神经元，图\ref{fig:13-7}给出了Dropout方法和传统方法计算方式的对比。其中，$x_{i}^{l}$代表第$l$层神经网络的第$i$个输入，$w_{i}^{l}$为输入所对应的权重，$b^{l}$表示第$l$层神经网络输入的偏置，$z_{i}^{l+1}$表示第$l$层神经网络的线性运算的结果，$f(\cdot)$表示激活函数，$r_{i}^{l}$的值服从于参数为$1-p$的伯努利分布。
+\parinterval 具体实现时，可以设置一个参数$p \in (0,1)$。在每次参数更新所使用的前向和反向计算中，每个神经元都以概率$p$停止工作。相当于每层神经网络会有以$p$为概率的神经元被“屏蔽”掉，每一次参数更新中会随机屏蔽不同的神经元。图\ref{fig:13-7}展示了使用Dropout方法之前和使用该方法之后的一层神经网络在计算方式上的不同。其中，$x_{i}^{l}$代表第$l$层神经网络的第$i$个输入，$w_{i}^{l}$为输入所对应的权重，$b^{l}$表示第$l$层神经网络输入的偏置，$z_{i}^{l+1}$表示第$l$层神经网络的线性运算的结果，$f(\cdot)$表示激活函数，$r_{i}^{l}$的值服从于参数为$1-p$的伯努利分布。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -304,7 +304,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \section{对抗样本训练}
 \label{sec:adversarial-examples}
 
-\parinterval 同其它基于神经网络的方法一样，提高{\small\bfnew{健壮性}}\index{健壮性}（Robustness）\index{Robustness}也是神经机器翻译研发中需要关注的。比如，大容量模型可以很好地拟合训练数据，但是当测试样本与训练样本差异较大时，会导致很糟糕的翻译结果\upcite{JMLR:v15:srivastava14a,DBLP:conf/amta/MullerRS20}。另一方面，实践中也发现，有些情况下即使输入中有微小的扰动，神经网络模型的输出也会产生巨大变化。或者说，神经网络模型在输入样本上容易受到攻击（Attack）\upcite{DBLP:conf/sp/Carlini017,DBLP:conf/cvpr/Moosavi-Dezfooli16,DBLP:conf/acl/ChengJM19}。表\ref{tab:13-1}展示了一个神经机器翻译系统的翻译结果，可以看到，把输入句子中的单词“jumped”换成“sunk”会得到完全不同的译文。这时神经机器翻译系统就存在健壮性问题。
+\parinterval 同其它基于神经网络的方法一样，提高{\small\bfnew{健壮性}}\index{健壮性}（Robustness）\index{Robustness}也是神经机器翻译研发中需要关注的。虽然大容量模型可以很好地拟合训练数据，但是当测试样本与训练样本差异较大时，翻译结果可能会很糟糕\upcite{JMLR:v15:srivastava14a,DBLP:conf/amta/MullerRS20}。甚至有时输入只受到微小的扰动，神经网络模型的输出也会产生巨大变化。或者说，神经网络模型在输入样本上容易受到攻击（Attack）\upcite{DBLP:conf/sp/Carlini017,DBLP:conf/cvpr/Moosavi-Dezfooli16,DBLP:conf/acl/ChengJM19}。表\ref{tab:13-1}展示了一个神经机器翻译系统的翻译结果，可以看到，把输入句子中的单词“jumped”换成“sunk”会得到完全不同的译文。这时神经机器翻译系统就存在健壮性问题。
 
 %----------------------------------------------
 \begin{table}[htp]{
@@ -329,11 +329,11 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
 
-\subsection{对抗样本及对抗攻击}
+\subsection{对抗样本与对抗攻击}
 
-\parinterval 在图像识别领域，研究人员就发现，对于输入图像的细小扰动，如像素变化等，会使模型以高置信度给出错误的预测\upcite{DBLP:conf/cvpr/NguyenYC15,DBLP:journals/corr/SzegedyZSBEGF13,DBLP:journals/corr/GoodfellowSS14}，但是这种扰动并不会造成人类的错误判断。也就是说，样本中的微小变化“欺骗”了图像识别系统，但是“欺骗”不了人类。这种现象背后的原因有很多，一种可能的原因是：系统并没有理解图像，而是在拟合数据，因此拟合能力越强，反而对数据中的微小变化更加敏感。从统计学习的角度看，既然新的数据中可能会有扰动，那更好的学习方式就是在训练中显性地把这种扰动建模出来，让模型对输入的细微变化表现得更加健壮。
+\parinterval 在图像识别领域，研究人员就发现，对于输入图像的细小扰动，如像素变化等，会使模型以高置信度给出错误的预测\upcite{DBLP:conf/cvpr/NguyenYC15,DBLP:journals/corr/SzegedyZSBEGF13,DBLP:journals/corr/GoodfellowSS14}，但是这种扰动并不会造成人类的错误判断。也就是说，样本中的微小变化“欺骗”了图像识别系统，但是“欺骗”不了人类。这种现象背后的原因有很多，一种可能的原因是：系统并没有理解图像，而是在拟合数据，因此拟合能力越强，反而对数据中的微小变化更加敏感。从统计学习的角度看，既然新的数据中可能会有扰动，那更好的学习方式就是在训练中显性地把这种扰动建模出来，让模型对输入样本中包含的细微变化表现得更加健壮。
 
-\parinterval 这种通过在原样本上增加一些难以察觉的扰动，从而使模型得到错误判断的样本被称为对抗样本。对于模型的输入$\mathbi{x}$和输出$\mathbi{y}$，对抗样本形式上可以被描述为：
+\parinterval 这种通过在原样本上增加一些难以察觉的扰动，从而使模型得到错误输出的样本被称为对抗样本。对于模型的输入$\mathbi{x}$和输出$\mathbi{y}$，对抗样本形式上可以被描述为：
 \begin{eqnarray}
 \funp{C}(\mathbi{x}) &=& \mathbi{y}
 \label{eq:13-6}\\
@@ -343,7 +343,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \label{eq:13-8}
 \end{eqnarray}
 
-\noindent 其中，$(\mathbi{x}',\mathbi{y})$为输入中含有扰动的对抗样本，函数$\funp{C}(\cdot)$为模型。公式\eqref{eq:13-8}中$\Psi(\mathbi{x},\mathbi{x}')$表示扰动后的输入$\mathbi{x}'$和原输入$\mathbi{x}$之间的距离，$\varepsilon$表示扰动的受限范围。当模型对包含噪声的数据容易给出较差的结果时，往往意味着该模型的抗干扰能力差，因此可以利用对抗样本检测现有模型的健壮性\upcite{DBLP:conf/emnlp/JiaL17}。同时，采用类似数据增强的方式将对抗样本混合至训练数据中，能够使模型得到稳定的预测能力，这种方式也被称为对抗训练\upcite{DBLP:journals/corr/GoodfellowSS14,DBLP:conf/emnlp/BekoulisDDD18,DBLP:conf/naacl/YasunagaKR18}。
+\noindent 其中，$(\mathbi{x}',\mathbi{y})$为输入中含有扰动的对抗样本，函数$\funp{C}(\cdot)$为模型。公式\eqref{eq:13-8}中$\Psi(\mathbi{x},\mathbi{x}')$表示扰动后的输入$\mathbi{x}'$和原输入$\mathbi{x}$之间的距离，$\varepsilon$表示扰动的受限范围。当模型无法对包含噪声的输入给出正确的输出时，往往意味着该模型的抗干扰能力差，因此可以利用对抗样本检测现有模型的健壮性\upcite{DBLP:conf/emnlp/JiaL17}。同时，采用类似数据增强的方式将对抗样本混合至训练数据中，能够使模型得到稳定的预测能力，这种方式也被称为对抗训练\upcite{DBLP:journals/corr/GoodfellowSS14,DBLP:conf/emnlp/BekoulisDDD18,DBLP:conf/naacl/YasunagaKR18}。
 
 \parinterval 通过对抗样本训练来提升模型健壮性的首要问题是：如何生成对抗样本。通过当前模型$\funp{C}$和样本$(\mathbi{x},\mathbi{y})$，生成对抗样本的过程被称为{\small\bfnew{对抗攻击}}\index{对抗攻击}（Adversarial Attack）\index{Adversarial Attack}。对抗攻击可以被分为黑盒攻击和白盒攻击。在白盒攻击中，攻击算法可以访问模型的完整信息，包括模型结构、网络参数、损失函数、激活函数、输入和输出数据等。黑盒攻击通常依赖启发式方法来生成对抗样本\upcite{DBLP:conf/emnlp/JiaL17}，由于这种攻击方式不需要知道神经网络的详细信息，仅仅通过访问模型的输入和输出就可以达到攻击的目的。并且由于神经网络其本身便是一个黑盒模型，因此在神经网络的相关应用中黑盒攻击方法更加实用。
 
@@ -388,7 +388,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \subsection{基于白盒攻击的方法}
 
-\parinterval 除了在单词级别增加扰动以外，还可以在模型内部增加扰动。一种简单的方法是在每一个词的词嵌入上，累加一个正态分布的变量，之后将其作为模型的最终输入。同时，可以在训练阶段增加额外的训练目标。比如，迫使模型在接收到被扰动的输入后，编码器能够生成与正常输入类似的表示，解码器输出正确的翻译结果\upcite{DBLP:conf/acl/LiuTMCZ18}。
+\parinterval 除了在单词级别增加扰动以外，还可以在模型内部增加扰动。一种简单的方法是在每一个词的词嵌入上，累加一个正态分布的变量，之后将其作为模型的最终输入。同时，可以在训练阶段增加额外的训练目标。比如，迫使模型在接收到被扰动的输入后，编码器能够生成与正常输入类似的表示，同时解码器也能够输出正确的翻译结果\upcite{DBLP:conf/acl/LiuTMCZ18}。
 
 \parinterval 还可以根据机器翻译的具体问题增加扰动。例如，针对同音字错误问题，可以将单词的发音转换为一个包含$n$个发音单元的发音序列，如音素，音节等，并训练相应的嵌入矩阵将每一个发音单元转换为对应的向量表示。对发音序列中发音单元的嵌入表示进行平均后，得到当前单词的发音表示。最后将词嵌入与单词的发音表示进行加权求和，并将结果作为模型的输入\upcite{DBLP:conf/acl/LiuMHXH19}。通过这种方式可以提高模型对同音异形词的处理能力。除了在词嵌入层增加扰动，也可以在编码器输出中引入额外的噪声，能起到与在层输入中增加扰动相类似的效果\upcite{DBLP:conf/acl/LiLWJXZLL20}。
 
@@ -409,7 +409,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \label{eq:13-11}
 \end{eqnarray}
 
-\noindent 其中，$\textrm{Loss}_{\textrm{clean}}(\theta_{\textrm{mt}})$为正常情况下的损失，$\textrm{Loss}_{\textrm{lm}}(\theta_{\textrm{lm}}^{\mathbi{x}})$和$\textrm{Loss}_{\textrm{lm}}(\theta_{\textrm{lm}}^{\mathbi{y}})$为生成对抗样本所用到的源语言与目标语言的模型的损失，$\textrm{Loss}_{\textrm{robust}}(\theta_{\textrm{mt}})$是使用修改后得到的对抗样本作为输入，并以原始的译文$\mathbi{y}$作为答案时计算得到的损失。假设有$N$个样本，则损失函数的具体形式如下：
+\noindent 其中，$\textrm{Loss}_{\textrm{clean}}(\theta_{\textrm{mt}})$为正常情况下的损失，$\textrm{Loss}_{\textrm{lm}}(\theta_{\textrm{lm}}^{\mathbi{x}})$和$\textrm{Loss}_{\textrm{lm}}(\theta_{\textrm{lm}}^{\mathbi{y}})$为生成对抗样本所用到的源语言与目标语言的模型的损失，$\textrm{Loss}_{\textrm{robust}}(\theta_{\textrm{mt}})$是以修改后的源语言$\mathbi{x}'$为输入，以原始的译文$\mathbi{y}$作为答案时计算得到的损失。假设有$N$个样本，则损失函数的具体形式如下：
 \begin{eqnarray}
 \textrm{Loss}_{\textrm{robust}}(\theta_{\textrm{mt}}) &=&  \frac{1}{N}\sum_{(\mathbi{x},\mathbi{y})}-\log \funp{P}(\mathbi{y}|\mathbi{x}',\mathbi{y}';\theta_{\textrm{mt}})
 \label{eq:13-12}
@@ -432,11 +432,11 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \subsection{极大似然估计的问题}\label{subsec-13.3.1}
 
-\parinterval 极大似然估计已成为机器翻译乃至整个自然语言处理领域中使用最广泛的训练用目标函数。但是，使用极大似然估存在{\small\bfnew{曝光偏置}}\index{曝光偏置}（Exposure Bias\index{Exposure Bias}）问题和训练-推断评价指标不一致问题，具体体现在如下两个方面。
+\parinterval 极大似然估计已成为机器翻译乃至整个自然语言处理领域中使用最广泛的训练用目标函数。但是，使用极大似然估计存在{\small\bfnew{曝光偏置}}\index{曝光偏置}（Exposure Bias\index{Exposure Bias}）问题和训练目标函数与任务评价指标不一致问题，具体体现在如下两个方面。
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\bfnew{曝光偏置问题}}。在训练过程中，模型使用标注数据进行训练，因此模型在预测下一个单词时，解码器的输入是正确的译文片段。也就是，预测第$j$个单词时，系统使用了标准答案$\{{y}_1,...,{y}_{j-1}\}$作为历史信息。但是对新的句子进行翻译时，预测第$j$个单词时使用的是模型自己生成的前$j-1$个单词，即$\{\hat{{y}}_1,...,\hat{{y}}_{j-1}\}$。这意味着，训练时使用的输入数据（目标语言端）与真实翻译时的情况不符，如图\ref{fig:13-8}所示。由于在训练过程中暴露于标注数据，因此模型也适应了标注数据，在推断阶段无法很好地适应模型自动生成的数据，这就是曝光偏置问题\upcite{Bengio2015ScheduledSF,Ranzato2016SequenceLT}。
+\item {\small\bfnew{曝光偏置问题}}。在训练过程中，模型使用标注数据进行训练，因此模型在预测下一个单词时，解码器的输入是正确的译文片段。也就是，预测第$j$个单词时，系统使用了标准答案$\{{y}_1,...,{y}_{j-1}\}$作为历史信息。但是对新的句子进行翻译时，预测第$j$个单词时使用的是模型自己生成的前$j-1$个单词，即$\{\hat{{y}}_1,...,\hat{{y}}_{j-1}\}$。这意味着，训练时使用的输入数据（目标语言端）与真实翻译时的情况不符，如图\ref{fig:13-8}所示。由于模型在训练过程中一直使用标注数据作为解码器的输入，使得模型逐渐适应了标注数据。因此在推断阶段，模型无法很好地适应模型本身生成的数据，这就是曝光偏置问题\upcite{Bengio2015ScheduledSF,Ranzato2016SequenceLT}。
 \vspace{0.5em}
 
 %----------------------------------------------
@@ -448,7 +448,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \end{figure}
 %----------------------------------------------
 
-\item {\small\bfnew{训练目标函数与任务评价指标不一致问题}}。在训练数据上使用极大似然估计，而在新数据上进行推断的时候，通常使用BLEU等外部评价指标来评价模型的性能。在机器翻译任务中，这个问题的一种体现是，训练数据上更低的困惑度不一定能带来BLEU的提升。更加理想的情况是，模型应该直接最大化性能评价指标，而不是训练集数据上的似然函数\upcite{DBLP:conf/acl/ShenCHHWSL16}。但是很多模型性能评价指标不可微分，这使得研究人员无法直接利用基于梯度的方法来优化这些指标。
+\item {\small\bfnew{训练目标函数与任务评价指标不一致问题}}。通常，在训练过程中，模型采用极大似然估计对训练数据进行学习，而在推断过程中，通常使用BLEU等外部评价指标来评价模型的性能。在机器翻译任务中，这个问题的一种体现是，训练数据上更低的困惑度不一定能带来BLEU的提升。更加理想的情况是，模型应该直接使性能评价指标最大化，而不是训练集数据上的似然函数\upcite{DBLP:conf/acl/ShenCHHWSL16}。但是很多模型性能评价指标不可微分，这使得研究人员无法直接利用基于梯度的方法来优化这些指标。
 \vspace{0.5em}
 \end{itemize}
 
@@ -466,7 +466,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \subsubsection{1. 调度采样}
 
-\parinterval 对于一个目标语言序列$\seq{y}=\{{y}_1,\ldots,{y}_n\}$，在预测第$j$个单词时，训练过程与推断过程之间的主要区别在于：训练过程中使用标准答案$\{{y}_{1},...,{y}_{j-1}\}$，而推断过程使用的是来自模型本身的预测结果$\{\hat{{y}}_{1},...,\hat{{y}}_{j-1}\}$。此时可以采取一种{\small\bfnew{调度采样}}\index{调度采样}（Scheduled Sampling\index{Scheduled Sampling}）机制\upcite{Bengio2015ScheduledSF}。以基于循环神经网络的模型为例，在训练中预测第$j$个单词时，随机决定使用${y}_{j-1}$还是$\hat{{y}}_{j-1}$作为输入。 假设训练时使用的是基于小批量的随机梯度下降方法，在第$i$ 个批次中，对序列每一个位置进行预测时以概率$\epsilon_i$使用标准答案${y}_{j-1}$，或以概率${1-\epsilon_i}$使用来自模型本身的预测$\hat{{y}}_{j-1}$。具体到序列中的一个位置$j$，可以根据模型单词预测的概率进行采样，在$\epsilon_i$控制的调度策略下，同${y}_{j-1}$一起作为输入。此过程如图\ref{fig:13-9}所示，并且这个过程可以很好地与束搜索融合。
+\parinterval 对于一个目标语言序列$\seq{y}=\{{y}_1,\ldots,{y}_n\}$，在预测第$j$个单词时，训练过程与推断过程之间的主要区别在于：训练过程中使用标准答案$\{{y}_{1},...,{y}_{j-1}\}$，而推断过程使用的是来自模型本身的预测结果$\{\hat{{y}}_{1},...,\hat{{y}}_{j-1}\}$。此时可以采取一种{\small\bfnew{调度采样}}\index{调度采样}（Scheduled Sampling\index{Scheduled Sampling}）机制\upcite{Bengio2015ScheduledSF}。以基于循环神经网络的模型为例，在训练中预测第$j$个单词时，随机决定使用${y}_{j-1}$还是$\hat{{y}}_{j-1}$作为输入。 假设训练时使用的是基于小批量的随机梯度下降方法，在第$i$ 个批次中对序列每一个位置进行预测时，会以概率$\epsilon_i$使用标准答案${y}_{j-1}$，或以概率${1-\epsilon_i}$使用来自模型本身的预测$\hat{{y}}_{j-1}$。具体到序列中的一个位置$j$，可以根据模型单词预测的概率进行采样，在$\epsilon_i$控制的调度策略下，同${y}_{j-1}$一起作为输入。此过程如图\ref{fig:13-9}所示，并且这个过程可以很好地与束搜索融合。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -477,7 +477,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \end{figure}
 %----------------------------------------------
 
-\parinterval 当$\epsilon_i=1$时，模型的训练与原始的训练策略完全相同，而当$\epsilon_i=0$时，模型的训练则与推断时使用的策略完全一样。在这里使用到了一种{\small\bfnew{课程学习}}\index{课程学习}（Curriculum Learning）\index{curriculum learning}策略\upcite{DBLP:conf/coling/XuHJFWHJXZ20}，该策略认为学习应该循序渐进，从一种状态逐渐过渡到另一种状态。在训练开始时，由于模型训练不充分，因此如果使用模型预测结果作为输入，会导致收敛速度非常慢。因此，在模型训练的前期，通常会选择使用标准答案$\{{y}_{1},...,{y}_{j-1}\}$。在模型训练的后期，应该更倾向于使用自模型本身的预测$\{\hat{{y}}_{1},...,\hat{{y}}_{j-1}\}$。关于课程学习的内容在\ref{sec:curriculum-learning}节还会有详细介绍。
+\parinterval 当$\epsilon_i=1$时，模型的训练与原始的训练策略完全相同，而当$\epsilon_i=0$时，模型的训练则与推断时使用的策略完全一样。在这里使用到了一种{\small\bfnew{课程学习}}\index{课程学习}（Curriculum Learning\index{Curriculum learning}）策略\upcite{DBLP:conf/coling/XuHJFWHJXZ20}，该策略认为学习应该循序渐进，从一种状态逐渐过渡到另一种状态。在训练开始时，由于模型训练不充分，因此如果使用模型预测结果作为输入，会导致收敛速度非常慢。因此，在模型训练的前期，通常会选择使用标准答案$\{{y}_{1},...,{y}_{j-1}\}$。在模型训练的后期，应该更倾向于使用自模型本身的预测$\{\hat{{y}}_{1},...,\hat{{y}}_{j-1}\}$。关于课程学习的内容在\ref{sec:curriculum-learning}节还会有详细介绍。
 
 \parinterval 在使用调度策略时，需要调整关于训练批次$i$的函数来降低$\epsilon_i$，与梯度下降方法中降低学习率的方式相似。调度策略可以采用如下几种方式：
 
@@ -499,7 +499,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \parinterval 调度采样解决曝光偏置的方法是，把模型前$j-1$步的预测结果作为输入，来预测第$j$步的输出。但是，如果模型预测的结果中有错误，再使用错误的结果预测未来的序列也会产生问题。解决这个问题就需要知道模型预测的好与坏，并在训练中有效的使用它们。如果生成好的结果，那么可以使用它进行模型训练，否则就不使用。生成对抗网络就是这样一种技术，它引入了一个额外的模型（判别器）来对原有模型（生成器）的生成结果进行评价，并根据评价结果同时训练两个模型。
 
-\parinterval 在\ref{sec:adversarial-examples}小节已经提到了生成对抗网络，这里稍微进行一些展开。 在机器翻译中，基于对抗神经网络的架构被命名为{\small\bfnew{对抗神经机器翻译}}\index{对抗神经机器翻译}（Adversarial-NMT）\index{Adversarial-NMT}\upcite{DBLP:conf/acml/WuXTZQLL18}。这里，令$(\seq{x},\seq{y})$表示一个训练样本，令$\hat{\seq{y}}$ 表示神经机器翻译系统对源语言句子$\seq{x}$ 的翻译结果。此时，对抗神经机器翻译的总体框架可以表示为图\ref{fig:13-10}，其中。绿色部分表示神经机器翻译模型$G$，该模型将源语言句子$\seq{x}$翻译为目标语言句子$\hat{\seq{y}}$。红色部分是对抗网络$D$，它的作用是判断目标语言句子是否是源语言句子$\seq{x}$ 的真实翻译。$G$和$D$相互对抗，用$G$生成的翻译结果$\hat{\seq{y}}$来训练$D$，并生成奖励信号，再使用奖励信号通过策略梯度训练$G$。
+\parinterval 在\ref{sec:adversarial-examples}小节已经提到了生成对抗网络，这里稍微进行一些展开。 在机器翻译中，基于对抗神经网络的架构被命名为{\small\bfnew{对抗神经机器翻译}}\index{对抗神经机器翻译}（Adversarial-NMT\index{Adversarial-NMT}）\upcite{DBLP:conf/acml/WuXTZQLL18}。这里，令$(\seq{x},\seq{y})$表示一个训练样本，令$\hat{\seq{y}}$ 表示神经机器翻译系统对源语言句子$\seq{x}$ 的翻译结果。此时，对抗神经机器翻译的总体框架可以表示为图\ref{fig:13-10}，其中。绿色部分表示神经机器翻译模型$G$，该模型将源语言句子$\seq{x}$翻译为目标语言句子$\hat{\seq{y}}$。红色部分是对抗网络$D$，它的作用是判断目标语言句子是否是源语言句子$\seq{x}$ 的真实翻译。$G$和$D$相互对抗，用$G$生成的翻译结果$\hat{\seq{y}}$来训练$D$，并生成奖励信号，再使用奖励信号通过策略梯度训练$G$。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -518,7 +518,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \subsection{强化学习方法}
 
-\parinterval {\small\bfnew{强化学习}}\index{强化学习}（Reinforcement Learning\index{Reinforcement Learning}，RL）方法是机器学习中的经典方法，它可以同时解决\ref{subsec-13.3.1}节提到的曝光偏置问题和训练-推断评价指标不一致问题。本节主要介绍基于策略的方法和基于演员-评论家的方法\upcite{DBLP:conf/iclr/BahdanauBXGLPCB17}。
+\parinterval {\small\bfnew{强化学习}}\index{强化学习}（Reinforcement Learning\index{Reinforcement Learning}，RL）方法是机器学习中的经典方法，它可以同时解决\ref{subsec-13.3.1}节提到的曝光偏置问题和训练目标函数与任务评价指标不一致问题。本节主要介绍基于策略的方法和基于演员-评论家的方法\upcite{DBLP:conf/iclr/BahdanauBXGLPCB17}。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -540,7 +540,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \label{eq:13-14}
 \end{eqnarray}
 
-\noindent 这里，$\hat{\seq{y}}$是模型预测的译文，$\chi(\seq{x}^{[k]})$是$\seq{x}^{[k]}$所对应的所有候选翻译的集合。损失函数$\vartriangle(\hat{\seq{y}},\seq{y}^{[k]})$用来衡量模型预测$\hat{\seq{y}}$与标准答案$\seq{y}^{[k]}$间的差异，损失函数一般用翻译质量评价指标定义，例如，BLEU，TER等\footnote{对于BLEU，损失函数可以被定义为$1-$BLEU。}。在最小风险训练中，对模型参数$\theta$的偏导数为：
+\noindent 这里，$\hat{\seq{y}}$是模型预测的译文，$\chi(\seq{x}^{[k]})$是$\seq{x}^{[k]}$所对应的所有候选翻译的集合。损失函数$\vartriangle(\hat{\seq{y}},\seq{y}^{[k]})$用来衡量模型预测$\hat{\seq{y}}$与标准答案$\seq{y}^{[k]}$间的差异，损失函数一般用翻译质量评价指标定义，例如，BLEU，TER等\footnote{当选择BLEU作为损失函数时，损失函数可以被定义为$1-$BLEU。}。在最小风险训练中，对模型参数$\theta$的偏导数为：
 \begin{eqnarray}
 \frac{\partial \funp{R}(\theta)}{\partial \theta} & = & \sum_{k=1}^N \mathbb{E}_{\hat{\seq{y}}|\seq{x}^{[k]};\theta}[\vartriangle(\hat{\seq{y}},\seq{y}^{[k]}) \times \frac{\partial \funp{P}(\hat{\seq{y}}|\seq{x}^{[k]};\theta)/\partial \theta}{\funp{P}(\hat{\seq{y}}|\seq{x}^{[k]};\theta)}] \nonumber \\
 & = & \sum_{k=1}^N \mathbb{E}_{\hat{\seq{y}}|\seq{x}^{[k]};\theta}[\vartriangle(\hat{\seq{y}},\seq{y}^{[k]}) \times \frac{\partial \log{\funp{P}(\hat{\seq{y}}|\seq{x}^{[k]};\theta)}}{\partial \theta}]
@@ -557,7 +557,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \vspace{0.5em}
 \item 最小风险训练使用模型自身产生的数据进行训练，从而避免了曝光偏置问题。
 \vspace{0.5em}
-\item 最小风险训练直接优化BLEU等评价指标，从而解决了训练-推断评价指标不一致问题。
+\item 最小风险训练直接优化BLEU等评价指标，从而解决了训练目标函数与任务评价指标不一致问题。
 \vspace{0.5em}
 \item 最小风险训练方法不涉及具体的模型结构，可以应用于任意的机器翻译模型。
 \vspace{0.5em}
@@ -576,7 +576,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \label{eq:13-16}
 \end{eqnarray}
 
-\noindent 其中，$\funp{r}_j(a;\hat{{y}}_{1 \ldots j-1},\seq{y})$是$j$时刻做出行动$a$获得的奖励，$\funp{r}_i(\hat{{y}}_i;\hat{{y}}_{1 \ldots j-1}a\hat{{y}}_{j+1 \ldots i},\seq{y})$是在$j$时刻的行动为$a$的前提下，$i$时刻的做出行动$\hat{{y}}_i$获得的奖励，$\hat{y}_{j+1 \ldots J} \sim \funp{p}(\cdot|\hat{y}_{1 \ldots j-1} a,\seq{x})$表示序列$\hat{y}_{j+1 \ldots J}$是根据$\funp{p}(\cdot|\hat{y}_{1 \ldots j-1} a,\seq{x})$得到的采样结果，概率函数$\funp{p}$中的$\cdot$表示序列$\hat{y}_{j+1 \ldots J}$服从的随机变量，$\seq{x}$是源语言句子，$\seq{y}$是正确译文，$\hat{{y}}_{1 \ldots j-1}$是策略$\funp{p}$产生的译文的前$j-1$个词，$J$是生成译文的长度。特别的，对于公式\ref{eq:13-16}中$\hat{{y}}_{j+1 \ldots i}$来说，如果$i<j+1$，则$\hat{{y}}_{j+1 \ldots i}$不存在，对于源语句子$x$，最优策略$\hat{p}$可以被定义为：
+\noindent 其中，$\funp{r}_j(a;\hat{{y}}_{1 \ldots j-1},\seq{y})$是$j$时刻做出行动$a$获得的奖励，$\funp{r}_i(\hat{{y}}_i;\hat{{y}}_{1 \ldots j-1}a\hat{{y}}_{j+1 \ldots i},\seq{y})$是在$j$时刻的行动为$a$的前提下，$i$时刻的做出行动$\hat{{y}}_i$获得的奖励，$\hat{y}_{j+1 \ldots J} \sim \funp{p}(\cdot|\hat{y}_{1 \ldots j-1} a,\seq{x})$表示序列$\hat{y}_{j+1 \ldots J}$是根据$\funp{p}(\cdot|\hat{y}_{1 \ldots j-1} a,\seq{x})$得到的采样结果，概率函数$\funp{p}$中的$\cdot$表示序列$\hat{y}_{j+1 \ldots J}$服从的随机变量，$\seq{x}$是源语言句子，$\seq{y}$是正确译文，$\hat{{y}}_{1 \ldots j-1}$是策略$\funp{p}$产生的译文的前$j-1$个词，$J$是生成译文的长度。特别的，对于公式\ref{eq:13-16}中$\hat{{y}}_{j+1 \ldots i}$来说，如果$i<j+1$，则$\hat{{y}}_{j+1 \ldots i}$不存在，对于源语言句子$x$，最优策略$\hat{p}$可以被定义为：
 \begin{eqnarray}
 \hat{p} & = & \argmax_{\funp{p}}\mathbb{E}_{\hat{\seq{y}} \sim \funp{p}(\hat{\seq{y}} | \seq{x})}\sum_{j=1}^J\sum_{a \in A}\funp{p}(a|\hat{{y}}_{1 \ldots j},\seq{x})\funp{Q}(a;\hat{{y}}_{1 \ldots j},\seq{y})
 \label{eq:13-17}
@@ -649,10 +649,9 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 \sectionnewpage
 \section{知识蒸馏}\label{subsection-7.5.3}
 
-\parinterval 理想的机器翻译系统应该是品质好、速度快、存储占用少。不过，为了追求更好的翻译品质，往往需要更大的模型，但是相应的翻译速度会降低，模型的体积会变大。在很多场景下，这样的模型无法直接使用。比如，Transformer-Big等“大”模型通常在专用GPU服务器上运行，在手机等受限环境下仍很难应用。
+\parinterval 理想的机器翻译系统应该是品质好、速度快、存储占用少。不过，为了追求更好的翻译品质，往往需要更大的模型，但是相应的翻译速度会降低，模型的体积会变大。在很多场景下，这样的模型无法直接使用。比如，Transformer-Big等“大”模型通常在专用服务器上运行，在手机等受限环境下仍很难应用。
 
-\parinterval 另一方面，直接训练“小”模型的效果往往并不理想，其翻译品质与“大”模型相比仍有比较明显的差距。既然直接训练小模型无法达到很好的效果，一种有趣的想法是把“大”模型的知识传递给“小”模型。这类似于，教小孩子学习数学，是请一个权威数学家（数据中的标准答案）进行教学，而是会请一个小学数
-学教师（“大”模型）来教小孩子。这就是知识蒸馏的基本思想。
+\parinterval 但是，直接训练“小”模型的效果往往并不理想，其翻译品质与“大”模型相比仍有比较明显的差距。既然直接训练小模型无法达到很好的效果，一种有趣的想法是把“大”模型的知识传递给“小”模型。这类似于，教小孩子学习数学，是请一个权威数学家（即数据中的标准答案）进行教学，而是会请一个小学数学教师（即“大”模型）来教小孩子。这就是知识蒸馏的基本思想。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -666,13 +665,13 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \begin{itemize}
 \vspace{0.5em}
-\item “知识”在模型间是可迁移的。也就是说，一个模型中蕴含的规律可以被另一个模型使用。最典型的例子就是预训练语言模型（见{\chapternine}）。使用单语数据学习到的表示模型，在双语的翻译任务中仍然可以发挥很好的作用。也就是，把单语语言模型学习到的知识迁移到双语翻译中对句子表示的任务中。
+\item “知识”在模型间是可迁移的。也就是说，一个模型中蕴含的规律可以被另一个模型使用。最典型的例子就是预训练语言模型（见{\chapternine}）。使用单语数据学习到的表示模型，在双语的翻译任务中仍然可以发挥很好的作用。也就是，把在单语语言模型学习到的知识迁移到双语翻译过程中对句子的表示任务上。
 \vspace{0.5em}
 \item 模型所蕴含的“知识”比原始数据中的“知识”更容易被学习到。比如，机器翻译中大量使用的回译（伪数据）方法，就把模型的输出作为数据让系统进行学习。
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 这里所说的第二个假设对应了机器学习中的一大类问题\ \dash \ {\small\bfnew{学习难度}}\index{学习难度}（Learning Difficulty）\index{Learning Difficulty}。所谓难度是指：在给定一个模型的情况下，需要花费多少代价对目标任务进行学习。如果目标任务很简单，同时模型与任务很匹配，那学习难度就会降低。如果目标任务很复杂，同时模型与其匹配程度很低，那学习难度就会很大。在自然语言处理任务中，这个问题的一种表现是：在很好的数据中学习的模型的翻译质量可能仍然很差。即使训练数据是完美的，但是模型仍然无法做到完美的学习。这可能是因为建模的不合理，导致模型无法描述目标任务中复杂的规律。在机器翻译中这个问题体现的尤为明显。比如，在机器翻译系统$n$-best结果中挑选最好的译文（称为Oracle）作为训练样本让系统重新学习，系统仍然达不到Oracle的水平。
+\parinterval 这里所说的第二个假设对应了机器学习中的一大类问题\ \dash \ {\small\bfnew{学习难度}}\index{学习难度}（Learning Difficulty）\index{Learning Difficulty}。所谓难度是指：在给定一个模型的情况下，需要花费多少代价对目标任务进行学习。如果目标任务很简单，同时模型与任务很匹配，那学习难度就会降低。如果目标任务很复杂，同时模型与其匹配程度很低，那学习难度就会很大。在自然语言处理任务中，这个问题的一种表现是：在质量很高的数据中学习的模型的翻译质量可能仍然很差。即使训练数据是完美的，但是模型仍然无法做到完美的学习。这可能是因为建模的不合理，导致模型无法描述目标任务中复杂的规律。在机器翻译中这个问题体现的尤为明显。比如，在机器翻译系统输出的$n$-best结果中挑选最好的译文（称为Oracle）作为训练样本让系统重新学习，系统仍然达不到Oracle的水平。
 
 \parinterval 知识蒸馏本身也体现了一种“自学习”的思想。即利用模型（自己）的预测来教模型（自己）。这样既保证了知识可以向更轻量的模型迁移，同时也避免了模型从原始数据中学习难度大的问题。虽然“大”模型的预测中也会有错误，但是这种预测是更符合建模的假设的，因此“小”模型反倒更容易从不完美的信息中学习到更多的知识\footnote[15]{很多时候，“大”模型和“小”模型都是基于同一种架构，因此二者对问题的假设和模型结构都是相似的。}。类似于，刚开始学习围棋的人从职业九段身上可能什么也学不到，但是向一个业余初段的选手学习可能更容易入门。另外，也有研究表明：在机器翻译中，相比于“小”模型，“大”模型更容易进行优化，也更容易找到更好的模型收敛状态\upcite{li2020train}。因此在需要一个性能优越，存储较小的模型时，也会考虑将大模型压缩得到更轻量模型\upcite{DBLP:journals/corr/abs-2002-11794}。
 
@@ -688,7 +687,7 @@ R(\mathbi{w}) & = & ({\Vert{\mathbi{w}}\Vert}_2)^2 \\
 
 \begin{itemize}
 \vspace{0.5em}
-\item {\small\bfnew{基于单词的知识蒸馏}}\index{基于单词的知识蒸馏}（Word-level Knowledge Distillation）\index{Word-level Knowledge Distillation}。该方法的目标是使得学生模型的预测（分布）尽可能逼近教师模型的预测（分布）。令$\seq{x}=\{x_1,\ldots,x_m\}$和$\seq{y}=\{y_1,\ldots,y_n\}$分别表示输入和输出（数据中的答案）序列，$V$表示目标语言词表，则基于单词的知识蒸馏的损失函数被定义为：
+\item {\small\bfnew{单词级的知识蒸馏}}\index{单词级的知识蒸馏}（Word-level Knowledge Distillation）\index{Word-level Knowledge Distillation}。该方法的目标是使得学生模型的预测（分布）尽可能逼近教师模型的预测（分布）。令$\seq{x}=\{x_1,\ldots,x_m\}$和$\seq{y}=\{y_1,\ldots,y_n\}$分别表示输入和输出（数据中的答案）序列，$V$表示目标语言词表，则单词级的知识蒸馏的损失函数被定义为：
 \begin{eqnarray}
 L_{\textrm{word}} = - \sum_{j=1}^n \sum_{y_j \in V} \textrm{P}_{\textrm{t}} (y_{\textrm{j}}|\seq{x})\textrm{logP}_{\textrm{s}}(y_j|\seq{x})
 \label{eq:13-22}
@@ -696,7 +695,7 @@ L_{\textrm{word}} = - \sum_{j=1}^n \sum_{y_j \in V} \textrm{P}_{\textrm{t}} (y_{
 
 这里， $\textrm{P}_{\textrm{s}}(y_j|\seq{x})$和$\textrm{P}_{\textrm{t}} (y_j|\seq{x})$分别表示学生模型和教师模型在$j$位置输出的概率。公式\eqref{eq:13-22}实际上在最小化教师模型和学生模型输出分布之间的交叉熵。
 \vspace{0.5em}
-\item {\small\bfnew{基于序列的知识蒸馏}}\index{基于序列的知识蒸馏}（Sequence-level Knowledge Distillation）\index{Sequence-level Knowledge Distillation}。除了单词一级输出的拟合，基于序列的知识蒸馏希望在序列整体上进行拟合。其损失函数被定义为：
+\item {\small\bfnew{序列级的知识蒸馏}}\index{序列级的知识蒸馏}（Sequence-level Knowledge Distillation）\index{Sequence-level Knowledge Distillation}。除了单词一级输出的拟合，序列级的知识蒸馏希望在序列整体上进行拟合。其损失函数被定义为：
 \begin{eqnarray}
 L_{\textrm{seq}} = - \sum_{\seq{y}}\textrm{P}_{\textrm{t}} (\seq{y}|\seq{x})\textrm{logP}_{\textrm{s}}(\seq{y}|\seq{x})
 \label{eq:13-23}
@@ -721,7 +720,7 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 \end{figure}
 %-------------------------------------------
 
-\parinterval 本质上，基于单词的知识蒸馏与语言建模等问题的建模方式是一致的。在传统方法中，训练数据中的答案会被看作是一个One-hot分布，之后让模型去尽可能拟合这种分布。而这里，答案不再是一个One-hot分布，而是由教师模型生成的真实分布，但是损失函数的形式是一模一样的。在具体实现时，一个容易出现的问题是在词级别的知识蒸馏中，教师模型的Softmax可能会生成非常尖锐的分布。这时需要考虑对分布进行平滑，提高模型的泛化能力，比如，可以在Softmax函数中加入一个参数$\alpha$，如$\textrm{Softmax}(s_i)=\frac{\exp(s_i/\alpha)}{\sum_{i'} \exp(s_{i'}/\alpha)}$。这样可以通过$\alpha$ 控制分布的平滑程度。
+\parinterval 本质上，单词级的知识蒸馏与语言建模等问题的建模方式是一致的。在传统方法中，训练数据中的答案会被看作是一个One-hot分布，之后让模型去尽可能拟合这种分布。而这里，答案不再是一个One-hot分布，而是由教师模型生成的真实分布，但是损失函数的形式是一模一样的。在具体实现时，一个容易出现的问题是在词级别的知识蒸馏中，教师模型的Softmax可能会生成非常尖锐的分布。这时需要考虑对分布进行平滑，提高模型的泛化能力，比如，可以在Softmax函数中加入一个参数$\alpha$，如$\textrm{Softmax}(s_i)=\frac{\exp(s_i/\alpha)}{\sum_{i'} \exp(s_{i'}/\alpha)}$。这样可以通过$\alpha$ 控制分布的平滑程度。
 
 \parinterval 除了在模型最后输出的分布上进行知识蒸馏，同样可以使用教师模型对学生模型的中间层输出和注意力分布进行约束。这种方法在{\chapterfourteen}中会有具体应用。
 
@@ -733,13 +732,13 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 
 \parinterval 在神经机器翻译中，通常使用公式\eqref{eq:13-24}的方法进行知识蒸馏，即通过教师模型构造伪数据，之后让学生模型从伪数据中学习。这样做的好处在于，系统研发人员不需要对系统进行任何修改，整个过程只需要调用教师模型和学生模型标准的训练和推断模块即可。
 
-\parinterval 另一个问题是如何构造教师模型和学生模型。以Transformer为例，通常有两种思路：
+\parinterval 那么如何构造教师模型和学生模型呢？以Transformer为例，通常有两种思路：
 
 \begin{itemize}
 \vspace{0.5em}
 \item 固定教师模型，通过减少模型容量的方式设计学生模型。比如，可以使用容量较大的模型作为教师模型（如：Transformer-Big或Transformer-Deep），然后通过将神经网络变“窄”、变“浅”的方式得到学生模型。例如，可以用Transformer-Big做教师模型，然后把Transformer-Big的解码器变为一层网络，作为学生模型。
 \vspace{0.5em}
-\item 固定学生模型，通过模型集成的方式设计教师模型。可以组合多个模型生成更高质量的译文。比如，融合多个Transformer-Big模型（不同参数初始化方式），之后学习一个Transformer-Base模型。
+\item 固定学生模型，通过模型集成的方式设计教师模型。可以组合多个模型生成更高质量的译文。比如，融合多个Transformer-Big模型（由不同参数初始化方式训练的），之后学习一个Transformer-Base模型。
 \vspace{0.5em}
 \end{itemize}
 
@@ -763,7 +762,7 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 \sectionnewpage
 \section{基于样本价值的学习}
 
-\parinterval 当人在学习知识时，通常会遵循序渐进、由易到难的原则，这是一种很自然的学习策略。但是，当训练机器翻译模型时，通常是将全部的样本以随机的方式输入模型中进行学习，换句话说，就是让模型来平等地对待所有的训练样本。这种方式忽略了样本对于模型训练的“价值”，显然，更加理想的方式是优先使用价值高的样本对模型进行训练。围绕训练样本的价值差异产生了诸如数据选择、主动学习、课程学习等一系列的样本使用方法，这些学习策略本质上是在不同任务、不同背景、不同假设下，对如何高效地利用训练样本这一问题进行求解，本节即对这些技术进行介绍。
+\parinterval 当人在学习知识时，通常会遵循循序渐进、由易到难的原则，这是一种很自然的学习策略。但是，当训练机器翻译模型时，通常是将全部的样本以随机的方式输入模型中进行学习，换句话说，就是让模型来平等地对待所有的训练样本。这种方式忽略了样本对于模型训练的“价值”，显然，更加理想的方式是优先使用价值高的样本对模型进行训练。围绕训练样本的价值差异产生了诸如数据选择、主动学习、课程学习等一系列的样本使用方法，这些学习策略本质上是在不同任务、不同背景、不同假设下，对如何高效地利用训练样本这一问题进行求解，本节即对这些技术进行介绍。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
@@ -785,7 +784,7 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 
 \parinterval 当机器翻译系统应用于不同领域时，训练语料与所应用领域的相关性就显得非常重要\upcite{DBLP:journals/mt/EetemadiLTR15,britz2017effective}。不同领域往往具有自己独特的属性，比如语言风格、句子结构、专业术语等，例如，“bank”这个英语单词，在金融领域通常被翻译为“银行”，而在计算机领域，一般被解释为“库”、“存储体”等。这也会导致，使用通用领域数据训练出来的模型在特定领域上的翻译效果往往不理想，这本质上是训练数据和测试数据的领域属性不匹配造成的。
 
-\parinterval 一种解决办法是只使用特定领域的数据进行模型训练，然而这种数据往往比较稀缺。那能不能利用通用领域数据来帮助数据稀少的领域呢？这个研究方向被称为机器翻译的{\small\bfnew{领域适应}}\index{领域适应}（Domain Adaptation\index{Domain Adaptation}），即从资源丰富的领域（称为{\small\bfnew{源领域}}\index{源领域}， Source Domain\index{Source Domain}）向资源稀缺的领域（称为{\small\bfnew{目标领域}}\index{目标领域}，Target Domain\index{Target Domain}）迁移。这本身也对应着资源稀缺场景下的机器翻译问题，这类问题会在{\chaptersixteen}进行详细讨论。本章更加关注如何有效地利用训练样本以更好地适应目标领域。具体来说，可以使用{\small\bfnew{数据选择}}\index{数据选择}（Data Selection\index{Selection}）从源领域训练数据中选择与目标领域更加相关的样本进行模型训练。这样做的一个好处是，源领域中混有大量与目标领域不相关的样本，数据选择可以有效降低这部分数据的比例，这样可以更加突出与领域相关样本的作用。
+\parinterval 一种解决办法是只使用特定领域的数据进行模型训练，然而这种数据往往比较稀缺。那能不能利用通用领域数据来帮助数据稀少的领域呢？这个研究方向被称为机器翻译的{\small\bfnew{领域适应}}\index{领域适应}（Domain Adaptation\index{Domain Adaptation}），即把数据从资源丰富的领域（称为{\small\bfnew{源领域}}\index{源领域}，Source Domain\index{Source Domain}）向资源稀缺的领域（称为{\small\bfnew{目标领域}}\index{目标领域}，Target Domain\index{Target Domain}）迁移。这本身也对应着资源稀缺场景下的机器翻译问题，这类问题会在{\chaptersixteen}进行详细讨论。本章更加关注如何有效地利用训练样本以更好地适应目标领域。具体来说，可以使用{\small\bfnew{数据选择}}\index{数据选择}（Data Selection\index{Data Selection}）从源领域训练数据中选择与目标领域更加相关的样本进行模型训练。这样做的一个好处是，源领域中混有大量与目标领域不相关的样本，数据选择可以有效降低这部分数据的比例，这样可以更加突出与领域相关样本的作用。
 
 \parinterval 数据选择所要解决的核心问题是：给定一个目标领域/任务数据集（如，目标任务的开发集），如何衡量原始训练样本与目标领域/任务的相关性？主要方法可以分为以下几类：
 
@@ -799,7 +798,7 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 \vspace{0.5em}
 \end{itemize}
 
-\parinterval 上述方法实际上描述了一种静态的学习策略，即首先利用评分函数对源领域的数据进行打分排序，然后选取一定数量的数据合并到目标领域数据集中，并共同训练模型\upcite{DBLP:conf/emnlp/AxelrodHG11,DBLP:conf/wmt/AxelrodRHO15,chen2016bilingual,DBLP:conf/conll/ChenH16}。这个过程其实是扩大了目标领域的数据规模，模型的收益主要来自于数据的增加。但是研究人员也发现静态方法会存在两方面的缺陷：
+\parinterval 上述方法实际上描述了一种静态的学习策略，即首先利用评分函数对源领域的数据进行打分排序，然后选取一定数量的数据合并到目标领域数据集中，再用目标领域数据集训练模型\upcite{DBLP:conf/emnlp/AxelrodHG11,DBLP:conf/wmt/AxelrodRHO15,chen2016bilingual,DBLP:conf/conll/ChenH16}。这个过程其实是扩大了目标领域的数据规模，此时，对于使用目标领域数据集训练出的模型来说，其性能的增加主要来自于数据量的增加。但是研究人员也发现静态方法会存在两方面的缺陷：
 
 \begin{itemize}
 \vspace{0.5em}
@@ -821,7 +820,7 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 
 \parinterval 含有噪声的数据通常都具有较为明显的特征，因此可以用诸如句子长度比、词对齐率、最长连续未对齐序列长度等一些特征来对句子进行综合评分\upcite{rarrick2011mt,taghipour2011parallel,Xu2017ZipporahAF}；也可以将该问题转化为分类任务来对句子进行筛选\upcite{DBLP:conf/aclnmt/CarpuatVN17,DBLP:conf/naacl/VyasNC18}；此外，从某种意义上来说，数据降噪其实也可以算是一种领域数据选择，因为它的目标是选择可信度高的样本，因此也可以人工构建一个可信度高的小数据集，然后利用该数据集和通用数据集之间的差异性进行选择\upcite{DBLP:conf/wmt/WangWHNC18}。
 
-\parinterval 早期的工作大多在关注过滤噪声样本，但对如何利用噪声样本探讨较少。事实上，噪声是有强度的，有些噪声样本对于模型可能是有价值的，而且它们的价值可能会随着模型的状态而改变\upcite{DBLP:conf/wmt/WangWHNC18}。对于一个双语句对“我/喜欢/那个/地方/。 $\leftrightarrow$ I love that place. It's very beautiful”。一方面来说，虽然这两个句子都很流畅，但是由于汉语句子中缺少了一部分翻译，因此简单的基于长度或双语词典的方法可以很容易将其过滤掉。从另一方面来说，这个样本对于训练机器翻译模型仍然有用，特别是在数据稀缺的情况下，因为汉语句子和英语句子的前半部分仍然是正确的互译结果。这表明了噪声数据的微妙之处，它不是对应着简单的二元分类问题：一些训练样本可能部分有用。因此简单的过滤并不一种很好的办法，一种更加理想的学习策略应该是既可以合理的利用这些数据，又不让其对模型产生负面影响。例如，在训练过程中对批量数据的噪声水平进行{\small\bfnew{退火}}\index{退火}（Anneal）\index{Anneal}，使得模型在越来越干净的数据上进行训练\upcite{DBLP:conf/wmt/WangWHNC18,DBLP:conf/acl/WangCC19}。从宏观上看，整个训练过程其实是一个持续微调的过程，这和微调的思想基本一致。这种学习策略一方面充分利用了训练数据，一方面又避免了噪声数据对模型的负面影响，因此取得了不错的效果。
+\parinterval 早期的工作大多在关注过滤噪声样本，但对如何利用噪声样本探讨较少。事实上，噪声是有强度的，有些噪声样本对于模型可能是有价值的，而且它们的价值可能会随着模型的状态而改变\upcite{DBLP:conf/wmt/WangWHNC18}。对于一个双语句对“我/喜欢/那个/地方/。 $\leftrightarrow$ I love that place. It's very beautiful”。一方面来说，虽然这两个句子都很流畅，但是由于汉语句子中缺少了一部分翻译，因此简单的基于长度或双语词典的方法可以很容易将其过滤掉。从另一方面来说，这个样本对于训练机器翻译模型仍然有用，特别是在数据稀缺的情况下，因为汉语句子和英语句子的前半部分仍然是正确的互译结果。这表明了噪声数据的微妙之处，它不是对应着简单的二元分类问题（一个训练样本有用或没有用）：一些训练样本可能部分有用。因此简单的过滤并不一种很好的办法，一种更加理想的学习策略应该是既可以合理的利用这些数据，又不让其对模型产生负面影响。例如，在训练过程中对批量数据的噪声水平进行{\small\bfnew{退火}}\index{退火}（Anneal）\index{Anneal}，使得模型在越来越干净的数据上进行训练\upcite{DBLP:conf/wmt/WangWHNC18,DBLP:conf/acl/WangCC19}。从宏观上看，整个训练过程其实是一个持续微调的过程，这和微调的思想基本一致。这种学习策略一方面充分利用了训练数据，一方面又避免了噪声数据对模型的负面影响，因此取得了不错的效果。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -875,7 +874,7 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 \end{figure}
 %-------------------------------------------
 
-\parinterval 评估样本的难度和具体的任务相关，在神经机器翻译中，有很多种评估方法，可以利用语言学上的困难准则，比如句子长度、句子平均词频、句法树深度等\upcite{DBLP:conf/naacl/PlataniosSNPM19,DBLP:conf/ranlp/KocmiB17}。这些准则本质上属于人类的先验知识，符合人类的直觉，但不一定和模型相匹配。对人类来说简单的句子对模型来说可能并不简单，所以研究人员也提出了基于模型的方法，比如：语言模型\upcite{DBLP:conf/acl/WangCC19,DBLP:conf/naacl/ZhangSKMCD19}，或者神经机器翻译模型\upcite{zhang2018empirical,DBLP:conf/coling/XuHJFWHJXZ20}都可以用于评价样本的难度。值得注意的是，利用神经机器翻译来打分的方法分为静态和动态两种。静态的方法是利用在小数据集上训练的、更小的翻译模型来打分\upcite{zhang2018empirical}。动态的方法则是利用当前模型的状态来打分，这在广义上也叫作{\small\bfnew{自步学习}}\index{自步学习}（Self-paced Learning\index{Self-paced Learning}），通常可以利用模型的训练误差或变化率等指标进行样本难度的估计\upcite{DBLP:conf/coling/XuHJFWHJXZ20}。
+\parinterval 实际上，评估样本的难度的方式和具体的任务相关，在神经机器翻译中，有很多种评估方法，可以利用语言学上的困难准则，比如句子长度、句子平均词频、句法树深度等\upcite{DBLP:conf/naacl/PlataniosSNPM19,DBLP:conf/ranlp/KocmiB17}。这些准则本质上属于人类的先验知识，符合人类的直觉，但不一定和模型相匹配。对人类来说简单的句子对模型来说可能并不简单，所以研究人员也提出了基于模型的方法，比如：语言模型\upcite{DBLP:conf/acl/WangCC19,DBLP:conf/naacl/ZhangSKMCD19}，或者神经机器翻译模型\upcite{zhang2018empirical,DBLP:conf/coling/XuHJFWHJXZ20}都可以用于评价样本的难度。值得注意的是，利用神经机器翻译来打分的方法分为静态和动态两种。静态的方法是利用在小数据集上训练的、更小的翻译模型来打分\upcite{zhang2018empirical}。动态的方法则是利用当前模型的状态来打分，这在广义上也叫作{\small\bfnew{自步学习}}\index{自步学习}（Self-paced Learning\index{Self-paced Learning}），通常可以利用模型的训练误差或变化率等指标进行样本难度的估计\upcite{DBLP:conf/coling/XuHJFWHJXZ20}。
 
 \parinterval 虽然样本难度的度量在不同任务中有所不同，但课程规划通常与数据和任务无关。在各种场景中，大多数课程学习都利用了类似的调度策略。具体而言，调度策略可以分为预定义的和自动的两种。预定义的调度策略通常将按照难易程度排序好的样本划分为块，每个块中包含一定数量的难度相似的样本。然后按照“先易后难”的原则人工定义一个调度策略，比如，一种较为流行的方法是：在训练早期，模型只在简单块中进行采样，随着训练过程的进行，将下一个块的样本合并到当前训练子集中，继续训练，直到合并了整个数据块，即整个训练集可见为止，之后再继续训练直到收敛。这个过程如图\ref{fig:13-15}所示。类似的还有一些其他变体，比如，训练到模型可见整个数据集之后，将最难的样本块复制并添加到训练集中，或者是将最容易的数据块逐渐删除，然后再添加回来等，这些方法的基本想法都是想让模型在具备一定的能力之后更多关注于困难样本。
 
@@ -896,15 +895,15 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 
 \subsection{持续学习}
 
-\parinterval 人类具有不断学习、调整和转移知识的能力，这种能力被称为{\small\bfnew{持续学习}}\index{持续学习}（Continual Learning\index{Continual Learning}），也叫{\small\bfnew{终生学习}}（Lifelong Learning\index{Lifelong Learning}）或{\small\bfnew{增量式学习}}\index{增量式学习}（Incremental Learning\index{Incremental Learning}）。人类学习的新任务时，会很自然的利用以前的知识并将新学习的知识整合到以前的知识中。然而对于机器学习系统来说，尤其在连接主义的范式下（如深度神经网络模型），这是一个很大的挑战，这是由神经网络的特性所决定的。当前的神经网络模型依赖于标注的训练样本，通过反向传播算法对模型参数进行训练更新，最终达到拟合数据分布的目的。当把模型切换到新的任务时，本质上是数据的分布发生了变化，从这种分布差异过大的数据中不断增量获取可用信息很容易导致{\small\bfnew{灾难性遗忘}}\index{灾难性遗忘}（Catastrophic Forgetting\index{Catastrophic Forgetting}）问题，即用新数据训练模型的时候会干扰先前学习的知识。甚至，这在最坏的情况下会导致旧知识被新知识完全重写。在机器翻译领域，类似的问题经常发生在不断增加数据的场景中，因为当用户使用少量数据对模型进行更新之后，发现在旧数据上的性能下降了（见{\chaptereighteen}）。
+\parinterval 人类具有不断学习、调整和转移知识的能力，这种能力被称为{\small\bfnew{持续学习}}\index{持续学习}（Continual Learning\index{Continual Learning}），也叫{\small\bfnew{终生学习}}\index{终生学习}（Lifelong Learning\index{Lifelong Learning}）或{\small\bfnew{增量式学习}}\index{增量式学习}（Incremental Learning\index{Incremental Learning}）。人类学习的新任务时，会很自然的利用以前的知识并将新学习的知识整合到以前的知识中。然而对于机器学习系统来说，尤其在连接主义的范式下（如深度神经网络模型），这是一个很大的挑战，这是由神经网络的特性所决定的。当前的神经网络模型依赖于标注的训练样本，通过反向传播算法对模型参数进行训练更新，最终达到拟合数据分布的目的。当把模型切换到新的任务时，本质上是数据的分布发生了变化，从这种分布差异过大的数据中不断增量获取可用信息很容易导致{\small\bfnew{灾难性遗忘}}\index{灾难性遗忘}（Catastrophic Forgetting\index{Catastrophic Forgetting}）问题，即用新数据训练模型的时候会干扰先前学习的知识。甚至，这在最坏的情况下会导致旧知识被新知识完全重写。在机器翻译领域，类似的问题经常发生在不断增加数据的场景中，因为当用户使用少量数据对模型进行更新之后，发现在旧数据上的性能下降了（见{\chaptereighteen}）。
 
-\parinterval 为克服灾难性遗忘问题，学习系统一方面必须能连续获取新知识和完善现有知识，另一方面，还应防止新数据输入明显干扰现有的知识，这个问题称作{\small\bfnew{稳定性-可塑性}}\index{稳定性- 可塑性}（Stability-Plasticity\index{Stability-Plasticity}）问题。可塑性指整合新知识的能力，稳定性指保留先前的知识不至于遗忘。要解决这些问题，就需要模型在保留先前任务的知识与学习当前任务的新知识之间取得平衡。目前的解决方法可以分为以下几类：
+\parinterval 为克服灾难性遗忘问题，学习系统一方面必须能连续获取新知识和完善现有知识，另一方面，还应防止新数据输入明显干扰现有的知识，这个问题称作{\small\bfnew{稳定性-可塑性}}\index{稳定性-可塑性}（Stability-Plasticity\index{Stability-Plasticity}）问题。可塑性指整合新知识的能力，稳定性指保留先前的知识不至于遗忘。要解决这些问题，就需要模型在保留先前任务的知识与学习当前任务的新知识之间取得平衡。目前的解决方法可以分为以下几类：
 
 \begin{itemize}
 \vspace{0.5em}
 \item {\small\bfnew{基于正则化的方法}}。通过对模型参数的更新施加约束来减轻灾难性的遗忘，通常是在损失函数中引入了一个额外的正则化项，使得模型在学习新数据时巩固先前的知识\upcite{DBLP:journals/pami/LiH18a,DBLP:conf/iccv/TrikiABT17}。
 \vspace{0.5em}
-\item {\small\bfnew{基于实例的方法}}。基于实例的方法。在学习新任务的同时混合训练先前的任务样本以减轻遗忘，这些样本可以是从先前任务的训练数据中精心挑选出的子集，或者利用生成模型生成的伪样本\upcite{DBLP:conf/cvpr/RebuffiKSL17,DBLP:conf/eccv/CastroMGSA18}。
+\item {\small\bfnew{基于实例的方法}}。在学习新任务的同时混合训练先前的任务样本以减轻遗忘，这些样本可以是从先前任务的训练数据中精心挑选出的子集，或者利用生成模型生成的伪样本\upcite{DBLP:conf/cvpr/RebuffiKSL17,DBLP:conf/eccv/CastroMGSA18}。
 \vspace{0.5em}
 \item {\small\bfnew{基于动态模型架构的方法}}。例如，增加神经元或新的神经网络层进行重新训练，或者是在新任务训练时只更新部分参数\upcite{rusu2016progressive,DBLP:journals/corr/FernandoBBZHRPW17}。
 \vspace{0.5em}
@@ -926,10 +925,10 @@ L_{\textrm{seq}} = - \textrm{logP}_{\textrm{s}}(\hat{\seq{y}} | \seq{x})
 \item 对抗样本除了用于提高模型的健壮性之外，还有很多其他的应用场景，比如评估模型。通过构建由对抗样本构造的数据集，可以验证模型对于不同类型噪声的健壮性\upcite{DBLP:conf/emnlp/MichelN18}。 但是在生成对抗样本时常常要考虑很多问题，比如扰动是否足够细微\upcite{DBLP:conf/cvpr/Moosavi-Dezfooli16,DBLP:conf/cvpr/NguyenYC15}，在人类难以察觉的同时做到欺骗模型的目的；对抗样本在不同的模型结构或数据集上是否具有足够的泛化能力\upcite{DBLP:conf/iclr/LiuCLS17,DBLP:journals/tnn/YuanHZL19}；生成的方法是否足够高效等等\upcite{DBLP:conf/emnlp/JiaL17,DBLP:conf/infocom/YuanHL020}。
 
 \vspace{0.5em}
-\item 此外，在机器翻译中，强化学习的应用也有很多，比如，MIXER算法用混合策略梯度和极大似然估计的目标函数来更新模型\upcite{Ranzato2016SequenceLT}，DAgger\upcite{DBLP:journals/jmlr/RossGB11}以及DAD\upcite{DBLP:conf/aaai/VenkatramanHB15}等算法在训练过程之中逐渐让模型适应推断阶段的模式。此外，强化学习的效果目前还相当不稳定，研究人员提出了大量的方法来进行改善，比如降对动作价值函数$\funp{Q}$的估计的方差\upcite{DBLP:conf/iclr/BahdanauBXGLPCB17,DBLP:conf/emnlp/NguyenDB17}、使用单语语料\upcite{Sennrich2016ImprovingNM,DBLP:conf/emnlp/WuTQLL18}等等。
+\item 此外，在机器翻译中，强化学习的应用也有很多，比如，MIXER算法用混合策略梯度和极大似然估计的目标函数来更新模型\upcite{Ranzato2016SequenceLT}，DAgger\upcite{DBLP:journals/jmlr/RossGB11}以及DAD\upcite{DBLP:conf/aaai/VenkatramanHB15}等算法在训练过程之中逐渐让模型适应推断阶段的模式。此外，强化学习的效果目前还相当不稳定，研究人员提出了大量的方法来进行改善，比如降低对动作价值函数$\funp{Q}$的估计的方差\upcite{DBLP:conf/iclr/BahdanauBXGLPCB17,DBLP:conf/emnlp/NguyenDB17}、使用单语语料\upcite{Sennrich2016ImprovingNM,DBLP:conf/emnlp/WuTQLL18}等等。
 
 \vspace{0.5em}
-\item 从广义上说，大多数课程学习方法都是遵循由易到难的原则，然而在实践过程中人们逐渐赋予了课程学习更多的内涵，课程学习的含义早已超越了最原始的定义。一方面，课程学习可以与许多任务相结合，此时，评估准则并不一定总是样本的困难度，这取决于具体的任务。或者说，我们更关心的是样本带给模型的“价值”，而非简单的难易标准。另一方面，在一些任务或数据中，由易到难并不总是有效，有时困难优先反而会取得更好的效果\upcite{DBLP:conf/medprai/SurendranathJ18,zhang2018empirical}。实际上这和人类的直觉不太符合，一种合理的解释是课程学习更适合标签噪声、离群值较多或者是目标任务困难的场景，能提高模型的健壮性和收敛速度，而困难优先的策略则更适合数据集干净的场景\upcite{DBLP:conf/nips/ChangLM17}。
+\item 从广义上说，大多数课程学习方法都是遵循由易到难的原则，然而在实践过程中人们逐渐赋予了课程学习更多的内涵，课程学习的含义早已超越了最原始的定义。一方面，课程学习可以与许多任务相结合，此时，评估准则并不一定总是样本的困难度，这取决于具体的任务。或者说，我们更关心的是样本带给模型的“价值”，而非简单的难易标准。另一方面，在一些任务或数据中，由易到难并不总是有效，有时困难优先反而会取得更好的效果\upcite{DBLP:conf/medprai/SurendranathJ18,zhang2018empirical}。实际上这和人类的直觉不太符合，一种合理的解释是课程学习更适合标签噪声、离群值较多或者是目标任务困难的场景，该方法能够提高模型的健壮性和收敛速度，而困难优先的策略则更适合数据集干净的场景\upcite{DBLP:conf/nips/ChangLM17}。
 
 \vspace{0.5em}
 \end{itemize}

@@ -14,7 +14,7 @@
 \node [anchor=south west,manode] (a1) at ([xshift=0em,yshift=1em]e1.north west){Attention};
 \node [anchor=south east,manode] (c1) at ([xshift=0em,yshift=1em]e1.north east){Conv};
 \node [anchor=south west,ebnode] (e2) at ([xshift=0em,yshift=1em]a1.north west){Embedding};
-\node [anchor=south,draw,circle,inner sep=4pt] (add1) at ([xshift=0em,yshift=0.5em]e2.north){};
+\node [anchor=south,draw,circle,inner sep=4pt,thick] (add1) at ([xshift=0em,yshift=0.5em]e2.north){};
 \node [anchor=south,ffnnode] (f2) at ([xshift=0em,yshift=0.5em]add1.north){FFN};
 \node [anchor=south,inner sep=0mm,minimum height=1.8em] (op) at ([xshift=0em,yshift=0.5em]f2.north){output};
 
@@ -29,8 +29,8 @@
 \draw[->,thick] ([xshift=0em,yshift=0em]f2.north)--([xshift=0em,yshift=0.3em]op.south);
 
 
-\draw[-] ([xshift=0em,yshift=0em]add1.west)--([xshift=-0em,yshift=0em]add1.east);
-\draw[-] ([xshift=0em,yshift=0em]add1.south)--([xshift=-0em,yshift=-0em]add1.north);
+\draw[-,thick] ([xshift=0em,yshift=0em]add1.west)--([xshift=-0em,yshift=0em]add1.east);
+\draw[-,thick] ([xshift=0em,yshift=0em]add1.south)--([xshift=-0em,yshift=-0em]add1.north);
 
 
 \draw[->,thick,rectangle,rounded corners=5pt] ([xshift=0em,yshift=0.5em]f1.north)--([xshift=-6em,yshift=0.5em]f1.north)--([xshift=-5.45em,yshift=0em]add1.west)--([xshift=0em,yshift=0em]add1.west);
