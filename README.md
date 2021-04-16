@@ -224,16 +224,19 @@ xelatex mt-book-xelatex
 
 ## 课件
 
-本教程部分章节的课件已开放。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
+本教程部分章节的课件已开放（我们对有些章节进行了合并）。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
+
 ## 开源协议
 
 本书的开源内容基于The Creative Commons Attribution-NonCommercial 4.0 Unported License（[link](https://creativecommons.org/licenses/by-nc/4.0)）
 
 ## 更新历史
 
-2021年2月1日   《机器翻译：模型与基础》，完整版 V0.3
+2021年2月1日   修复大量的文字错误 V0.31
 
-2020年12月1日  《机器翻译：模型与基础》（更名后），基础篇 V0.2
+2021年2月1日   《机器翻译：基础与模型》，完整版 V0.3
+
+2020年12月1日  《机器翻译：基础与模型》（更名后），基础篇 V0.2
 
 2020年5月21日  《机器翻译：统计建模与深度学习方法》，第一版 V0.1
 
