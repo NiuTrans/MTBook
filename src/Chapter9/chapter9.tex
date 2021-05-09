@@ -465,7 +465,7 @@ l_p({\mathbi{x}}) & = & {\Vert{\mathbi{x}}\Vert}_p \nonumber \\
 
 \parinterval $ l_{\infty} $范数为向量的各个元素的最大绝对值：
 \begin{eqnarray}
-{\Vert{\mathbi{x}}\Vert}_{\infty}&=&{\textrm{max}}\{x_1,x_2,\dots,x_n\}
+{\Vert{\mathbi{x}}\Vert}_{\infty}&=&{\textrm{max}}\{\vert x_1\vert,\vert x_2\vert,\dots,\vert x_n\vert\}
 \label{eq:9-17}
 \end{eqnarray}
 
@@ -912,7 +912,7 @@ x_1\cdot w_1+x_2\cdot w_2+x_3\cdot w_3 & = & 0\cdot 1+0\cdot 1+1\cdot 1 \nonumbe
 
 \parinterval 简单来说，张量是一种通用的工具，用于描述由多个数据构成的量。比如，输入的量有三个维度在变化，用矩阵不容易描述，但是用张量却很容易。
 
-\parinterval 从计算机实现的角度来看，现在所有深度学习框架都把张量定义为“多维数组”。张量有一个非常重要的属性\ \dash \ {\small\bfnew{阶}}\index{阶}（Rank）\index{Rank}。可以将多维数组中“维”的属性与张量的“阶”的属性作类比，这两个属性都表示多维数组（张量）有多少个独立的方向。例如，3是一个标量，相当于一个0维数组或0阶张量；$ {(\begin{array}{cccc} 2 & -3 & 0.8 & 0.2\end{array})}^{\textrm T} $ 是一个向量，相当于一个1维数组或1阶张量；$ \begin{pmatrix} -1 & 3 & 7\\ 0.2 & 2 & 9\end{pmatrix} $是一个矩阵，相当于一个2维数组或2阶张量；如图\ref{fig:9-25}所示，这是一个3 维数组或3阶张量，其中，每个$4 \times 4$的方形代表一个2阶张量，这样的方形有4个，最终形成3阶张量。
+\parinterval 从计算机实现的角度来看，现在所有深度学习框架都把张量定义为“多维数组”。张量有一个非常重要的属性\ \dash \ {\small\bfnew{阶}}\index{阶}（Rank）\index{Rank}。可以将多维数组中“维”的属性与张量的“阶”的属性作类比，这两个属性都表示多维数组（张量）有多少个独立的方向。例如，3是一个标量，相当于一个0维数组或0阶张量；$ {(\begin{array}{cccc} 2 & -3 & 0.8 & 0.2\end{array})}^{\textrm T} $ 是一个向量，相当于一个1维数组或1阶张量；$ \begin{pmatrix} -1 & 3 & 7\\ 0.2 & 2 & 9\end{pmatrix} $是一个矩阵，相当于一个2维数组或2阶张量；如图\ref{fig:9-25}所示，这是一个4维数组或4阶张量，其中，每个$3 \times 3$的方形代表一个2阶张量，这样的方形有4个，最终形成4阶张量。
 
 %----------------------------------------------
 \begin{figure}[htp]
@@ -1924,7 +1924,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 
 \subsubsection{3. 隐藏层和输出层}
 
-\parinterval  把得到的$ {\mathbi{e}}_0 $、$ {\mathbi{e}}_1 $、$ {\mathbi{e}}_2 $三个向量级联在一起，经过两层网络，最后通过Softmax函数（橙色方框）得到输出，具体过程为：
+\parinterval  把得到的$ {\mathbi{e}}_1 $、$ {\mathbi{e}}_2 $、$ {\mathbi{e}}_3 $三个向量级联在一起，经过两层网络，最后通过Softmax函数（橙色方框）得到输出，具体过程为：
 \begin{eqnarray}
 {\mathbi{y}}&=&{\textrm{Softmax}}({\mathbi{h}}_0{\mathbi{U}})\label{eq:9-61}\\
 {\mathbi{h}}_0&=&{\textrm{Tanh}}([{\mathbi{e}}_{i-3},{\mathbi{e}}_{i-2},{\mathbi{e}}_{i-1}]{\mathbi{H}}+{\mathbi{d}})
