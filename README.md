@@ -248,4 +248,4 @@ xelatex mt-book-xelatex
 
 ## 联系我们
 
-有任何问题请联系xiaotong [at] mail.neu.edu.cn （肖桐） 或 854581319 [at] qq.com（曹润柘）
+有任何问题请联系xiaotong [at] mail.neu.edu.cn （肖桐） 或 caorz0628 [at] qq.com（曹润柘）
