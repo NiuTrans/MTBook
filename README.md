@@ -204,6 +204,7 @@ xelatex mt-book-xelatex
 biber mt-book-xelatex
 makeindex mt-book-xelatex
 xelatex mt-book-xelatex
+xelatex mt-book-xelatex
 ```
 
 在编译中可能会遇到内存不足的问题，可以通过以下方式解决：
