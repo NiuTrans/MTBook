@@ -178,11 +178,11 @@
 }
 {
 % cell update formula
-\node[formulanode,anchor=south west,text width=10em] () at ([shift={(-4\base,1.5\base)}]aux59) {记忆更新\\$\mathbi{c}_{t}=\mathbi{f}_t\cdot \mathbi{c}_{t-1}+\mathbi{i}_t\cdot \hat{\mathbi{c}}_t$};
+\node[formulanode,anchor=south west,text width=10em] () at ([shift={(-4\base,1.5\base)}]aux59) {记忆更新\\$\mathbi{c}_{t}=\mathbi{f}_t\odot \mathbi{c}_{t-1}+\mathbi{i}_t\odot \hat{\mathbi{c}}_t$};
 }
 {
 % output gate formula
-\node[formulanode,anchor=north west,text width=10em] () at ([shift={(-4\base,-1.5\base)}]aux29) {输出门\\$\mathbi{o}_t=\sigma([\mathbi{h}_{t-1},\mathbi{x}_t] \mathbi{W}_o +\mathbi{b}_o)$\\$\mathbi{h}_{t}=\mathbi{o}_t\cdot \mathrm{Tanh}(\mathbi{c}_{t})$};
+\node[formulanode,anchor=north west,text width=10em] () at ([shift={(-4\base,-1.5\base)}]aux29) {输出门\\$\mathbi{o}_t=\sigma([\mathbi{h}_{t-1},\mathbi{x}_t] \mathbi{W}_o +\mathbi{b}_o)$\\$\mathbi{h}_{t}=\mathbi{o}_t\odot \mathrm{Tanh}(\mathbi{c}_{t})$};
 }
 \end{scope}
 \end{tikzpicture}
