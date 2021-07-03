@@ -314,7 +314,7 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 %----------------------------------------------------------------------------------------
 \subsection{简单的运行实例}
 
-\parinterval 为了对编码器-解码器框架和神经机器翻译的运行过程有一个直观的认识，这里采用标准的循环神经网络作为编码器和解码器的结构演示一个简单的翻译实例。假设系统的输入和输出为：
+\parinterval 为了对编码器-解码器框架和神经机器翻译的运行过程有一个直观的认识，这里采用标准的循环神经网络作为编码器和解码器的结构，演示一个简单的翻译实例。假设系统的输入和输出为：
 
 \vspace{0.5em}
 \parinterval  \hspace{5em} 输入（汉语）：我\ \ 很\ \  好\ \ <eos>
@@ -336,7 +336,7 @@ NMT                     & 21.7          & 18.7           & -13.7      \\
 
 \parinterval 翻译过程的神经网络结构如图\ref{fig:10-7}所示，其中左边是编码器，右边是解码器。编码器会顺序处理源语言单词，将每个单词都表示成一个实数向量，也就是每个单词的词嵌入结果（绿色方框）。在词嵌入的基础上运行循环神经网络（蓝色方框）。在编码下一个时间步状态的时候，上一个时间步的隐藏状态会作为历史信息传入循环神经网络。这样，句子中每个位置的信息都被向后传递，最后一个时间步的隐藏状态（红色方框）就包含了整个源语言句子的信息，也就得到了编码器的编码结果$\ \dash\ $源语言句子的分布式表示。
 
-\parinterval 解码器直接把源语言句子的分布式表示作为输入的隐藏层状态，之后像编码器一样依次读入目标语言单词，这是一个标准的循环神经网络的执行过程。与编码器不同的是，解码器会有一个输出层，用于根据当前时间步的隐藏层状态生成目标语言单词及其概率分布。可以看到，解码器当前时刻的输出单词与下一个时刻的输入单词是一样的。从这个角度说，解码器也是一种神经语言模型，只不过它会从另外一种语言（源语言）获得一些信息，而不是仅仅做单语句子的生成。具体来说，当生成第一个单词“I”时，解码器利用了源语言句子表示（红色方框）和目标语言的起始词“<sos>”。在生成第二个单词“am”时，解码器利用了上一个时间步的隐藏状态和已经生成的“I”的信息。这个过程会循环执行，直到生成完整的目标语言句子。
+\parinterval 解码器直接把源语言句子的分布式表示作为输入的隐藏层状态，之后像编码器一样依次读入目标语言单词，这是一个标准的循环神经网络的执行过程。与编码器不同的是，解码器会有一个输出层，用于根据当前时间步的隐藏层状态生成目标语言单词及其概率分布。可以看到，解码器当前时刻的输出单词与下一个时刻的输入单词是一样的。从这个角度说，解码器也是一种神经语言模型，只不过它会从另外一种语言（源语言）获得一些信息，而不是仅仅生成单语句子。具体来说，当生成第一个单词“I”时，解码器利用了源语言句子表示（红色方框）和目标语言的起始词“<sos>”。在生成第二个单词“am”时，解码器利用了上一个时间步的隐藏状态和已经生成的“I”的信息。这个过程会循环执行，直到生成完整的目标语言句子。
 
 \parinterval 从这个例子可以看出，神经机器翻译的流程其实并不复杂：首先通过编码器神经网络将源语言句子编码成实数向量，然后解码器神经网络利用这个向量逐词生成译文。现在几乎所有的神经机器翻译系统都采用类似的架构。
 
@@ -542,16 +542,16 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 \hat{\mathbi{c}}_t & = & \textrm{Tanh} ([\mathbi{h}_{t-1},\mathbi{x}_{t}] \mathbi{W}_c + \mathbi{b}_c ) \label{eq:10-8}
 \end{eqnarray}
 
-之后，用$\mathbi{i}_t$点乘$\hat{\mathbi{c}}_t$，得到当前需要记忆的信息，记为$\mathbi{i}_t \cdot  \hat{\mathbi{c}}_t$。接下来需要更新旧的信息$\mathbi{c}_{t-1}$，得到新的记忆信息$\mathbi{c}_t$，更新的操作如图\ref{fig:10-11}(c)红色线部分所示，“$\bigoplus$”表示相加。具体规则是通过遗忘门选择忘记一部分上文信息$\mathbi{f}_t$，通过输入门计算新增的信息$\mathbi{i}_t \cdot  \hat{\mathbi{c}}_t$，然后根据“$\bigotimes$”门与“$\bigoplus$”门进行相应的乘法和加法计算，如公式\eqref{eq:10-9}：
+之后，用$\mathbi{i}_t$点乘$\hat{\mathbi{c}}_t$，得到当前需要记忆的信息，记为$\mathbi{i}_t \odot  \hat{\mathbi{c}}_t$。接下来需要更新旧的信息$\mathbi{c}_{t-1}$，得到新的记忆信息$\mathbi{c}_t$，更新的操作如图\ref{fig:10-11}(c)红色线部分所示，“$\bigoplus$”表示相加。具体规则是通过遗忘门选择忘记一部分上文信息$\mathbi{f}_t$，通过输入门计算新增的信息$\mathbi{i}_t \odot  \hat{\mathbi{c}}_t$，然后根据“$\bigotimes$”门与“$\bigoplus$”门进行相应的乘法和加法计算，如公式\eqref{eq:10-9}：
 \begin{eqnarray}
-\mathbi{c}_t &=& \mathbi{f}_t \cdot \mathbi{c}_{t-1} + \mathbi{i}_t  \cdot \hat{\mathbi{c}_t}
+\mathbi{c}_t &=& \mathbi{f}_t \odot \mathbi{c}_{t-1} + \mathbi{i}_t  \odot \hat{\mathbi{c}_t}
 \label{eq:10-9}
 \end{eqnarray}
 \vspace{-1.0em}
 \item {\small\bfnew{输出}}\index{输出}。该部分使用输出门计算最终的输出信息$\mathbi{h}_t$，其结构如图\ref{fig:10-11}(d)红色线部分所示。在输出门中，首先将$\mathbi{x}_t$和$\mathbi{h}_{t-1}$通过$\sigma$函数变换得到$\mathbi{o}_t$，如公式\eqref{eq:10-10}。其次，将上一步得到的新记忆信息$\mathbi{c}_t$通过Tanh函数进行变换，得到值在[-1，1]范围的向量。最后将这两部分进行点乘，具体如公式\eqref{eq:10-11}：
 \begin{eqnarray}
 \mathbi{o}_t & = & \sigma ([\mathbi{h}_{t-1},\mathbi{x}_{t}] \mathbi{W}_o + \mathbi{b}_o ) \label{eq:10-10} \\
-\mathbi{h}_t & = & \mathbi{o}_t \cdot \textrm{Tanh} (\mathbi{c}_t) \label{eq:10-11}
+\mathbi{h}_t & = & \mathbi{o}_t \odot \textrm{Tanh} (\mathbi{c}_t) \label{eq:10-11}
 \end{eqnarray}
 \vspace{0.5em}
 \end{itemize}
@@ -593,15 +593,15 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 \mathbi{u}_t & = & \sigma ([\mathbi{h}_{t-1},\mathbi{x}_{t}] \mathbi{W}_u ) \label{eq:10-13}
 \end{eqnarray}
 
-\parinterval 当完成了重置门和更新门计算后，就需要更新当前隐藏状态，如图\ref{fig:10-13}(c)所示。在计算得到了重置门的权重$\mathbi{r}_t$后，使用其对前一时刻的状态$\mathbi{h}_{t-1}$进行重置($\mathbi{r}_t \cdot \mathbi{h}_{t-1}$)，将重置后的结果与$\mathbi{x}_t$拼接，通过Tanh激活函数将数据变换到[-1,1]范围内，具体计算为：
+\parinterval 当完成了重置门和更新门计算后，就需要更新当前隐藏状态，如图\ref{fig:10-13}(c)所示。在计算得到了重置门的权重$\mathbi{r}_t$后，使用其对前一时刻的状态$\mathbi{h}_{t-1}$进行重置($\mathbi{r}_t \odot \mathbi{h}_{t-1}$)，将重置后的结果与$\mathbi{x}_t$拼接，通过Tanh激活函数将数据变换到[-1,1]范围内，具体计算为：
 \begin{eqnarray}
-\hat{\mathbi{h}}_t &=& \textrm{Tanh} ([\mathbi{r}_t \cdot \mathbi{h}_{t-1},\mathbi{x}_{t}] \mathbi{W}_h )
+\hat{\mathbi{h}}_t &=& \textrm{Tanh} ([\mathbi{r}_t \odot \mathbi{h}_{t-1},\mathbi{x}_{t}] \mathbi{W}_h )
 \label{eq:10-14}
 \end{eqnarray}
 
 \parinterval $\hat{\mathbi{h}}_t$在包含了输入信息$\mathbi{x}_t$的同时，引入了$\mathbi{h}_{t-1}$的信息，可以理解为，记忆了当前时刻的状态。下一步是计算更新后的隐藏状态也就是更新记忆，如下：
 \begin{eqnarray}
-\mathbi{h}_t &=& \mathbi{h}_{t-1} \cdot (1-\mathbi{u}_t)  + \hat{\mathbi{h}}_t \cdot \mathbi{u}_t 
+\mathbi{h}_t &=& \mathbi{h}_{t-1} \odot (1-\mathbi{u}_t)  + \hat{\mathbi{h}}_t \odot \mathbi{u}_t 
 \label{eq:10-15}
 \end{eqnarray}
 
