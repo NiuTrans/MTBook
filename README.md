@@ -11,7 +11,7 @@
 
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
-*百度网盘：* [https://pan.baidu.com/s/160IC_87Hhg_ZNGv65Rutow](https://pan.baidu.com/s/160IC_87Hhg_ZNGv65Rutow) 提取码：MTBK 
+*百度网盘：* [https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g](https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g) 提取码：MTBK 
 </div>
 
 :sunny: **谢谢大家的关注，完整版来了！** :grin:
