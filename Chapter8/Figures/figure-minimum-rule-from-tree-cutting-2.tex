@@ -1,0 +1,87 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  最小规则
+\begin{minipage}[t]{0.47\textwidth}
+\begin{tikzpicture}
+
+{\scriptsize
+\begin{scope}
+
+{
+\begin{scope}[level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,draw] (cfrag1) at
+   (0,0.25) {\Tree[.\node(sn1){NP}; [.\node(sn2){PN}; 他 ]]};
+\end{scope}
+
+\begin{scope}[level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag2) at
+   ([xshift=1.2em]cfrag1.south east) {\Tree[.\node(sn3){P}; 对 ]};
+\end{scope}
+
+\begin{scope}[level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag3) at
+   ([xshift=1.2em]cfrag2.south east) {\Tree[.\node(sn4){NP}; [.NN 回答 ]]};
+   \end{scope}
+
+\begin{scope}[sibling distance=15pt,level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag4) at
+   ([xshift=1.4em]cfrag3.south east) {\Tree[.\node(sn5){VP}; [.\node(sn6){VV}; 表示 ] [.\node(sn7){NN}; 满意 ]]};
+\end{scope}
+
+\begin{scope}[sibling distance=20pt,,level distance=25pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag5) at
+   ([xshift=0.3em,yshift=2.5em]cfrag2.north west) {\Tree[.\node(sn8){PP}; [.\node(sn9){P}; ] [.\node(sn10){NP}; ]]};
+\end{scope}
+
+\begin{scope}[sibling distance=60pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag6) at
+   ([xshift=1.6em,yshift=0.8em]cfrag5.north west) {\Tree[.\node(sn11){VP}; [.\node(sn12){PP}; ] [.\node(sn13){VP}; ]]};
+\end{scope}
+
+\begin{scope}[sibling distance=80pt,level distance=18pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south east,draw] (cfrag7) at
+   ([xshift=-3.6em,yshift=0.8em]cfrag6.north east) {\Tree[.\node(sn14){IP}; [.\node(sn15){NP}; ] [.\node(sn16){VP}; ]]};
+\end{scope}
+
+\node[scale=0.9,anchor=north,minimum size=18pt] (tw11) at ([xshift=-0.3em,yshift=-1.2em]cfrag1.south){he};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw12) at ([yshift=-0.1em,xshift=0.5em]tw11.east){was};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw13) at ([yshift=0.1em,xshift=0.5em]tw12.east){satisfied};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw14) at ([xshift=0.5em]tw13.east){with};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw15) at ([xshift=0.5em]tw14.east){the};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw16) at ([yshift=-0.1em,xshift=0.5em]tw15.east){answer};
+
+\draw[dashed] ([xshift=-0.3em]cfrag1.south) -- ([yshift=-0.3em]tw11.north);
+\draw[dashed] (cfrag2.south) -- ([yshift=-0.4em]tw14.north);
+\draw[dashed] (cfrag3.south) -- ([yshift=-0.4em]tw15.north);
+\draw[dashed] (cfrag3.south) -- ([yshift=-0.4em]tw16.north);
+\draw[dashed] (cfrag4.south) .. controls +(south:0.6) and +(north:0.6) .. ([yshift=-0.4em]tw13.north);
+
+\draw[*-*] ([xshift=0.0em,yshift=-0.2em]cfrag1.north) -- ([xshift=0.0em,yshift=11.3em]cfrag1.north);
+\draw[*-*] ([xshift=0.1em,yshift=-0.2em]cfrag2.north) -- ([xshift=0.1em,yshift=2.9em]cfrag2.north);
+\draw[*-*] ([xshift=0.1em,yshift=-0.4em]cfrag3.north) -- ([xshift=0.1em,yshift=0.9em]cfrag3.north);
+\draw[*-*] ([xshift=0.0em,yshift=-0.2em]cfrag4.north) -- ([xshift=0.0em,yshift=5.7em]cfrag4.north);
+\draw[*-*] ([xshift=0.1em,yshift=-0.2em]cfrag5.north) -- ([xshift=0.1em,yshift=1em]cfrag5.north);
+\draw[*-*] ([xshift=0.0em,yshift=-0.2em]cfrag6.north) -- ([xshift=0.0em,yshift=1em]cfrag6.north);
+
+{
+\node [fill=blue,circle,inner sep=2pt] (rlabel1) at (cfrag1.south east) {{\color{white} \tiny{1}}};
+}
+{
+\node [fill=blue,circle,inner sep=2pt] (rlabel2) at (cfrag2.south east) {{\color{white} \tiny{2}}};
+}
+{
+\node [fill=blue,circle,inner sep=2pt] (rlabel3) at (cfrag3.south east) {{\color{white} \tiny{3}}};
+}
+{
+\node [fill=blue,circle,inner sep=2pt] (rlabel4) at (cfrag4.south east) {{\color{white} \tiny{4}}};
+}
+{
+\node [fill=blue,circle,inner sep=2pt] (rlabel5) at (cfrag5.north west) {{\color{white} \tiny{5}}};
+\node [fill=blue,circle,inner sep=2pt] (rlabel6) at (cfrag6.north east) {{\color{white} \tiny{6}}};
+\node [fill=blue,circle,inner sep=2pt] (rlabel7) at (cfrag7.south west) {{\color{white} \tiny{7}}};
+}
+
+}
+\end{scope}
+}
+\end{tikzpicture}
+\end{minipage}

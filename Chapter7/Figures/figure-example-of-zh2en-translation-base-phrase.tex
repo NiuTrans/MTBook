@@ -1,0 +1,27 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 什么是短语
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}[minimum height = 18pt]
+{\small
+
+\node[anchor=north,fill=green!20,draw,thick,rounded corners=0.3em] (s1) at (0,0) {进口};
+\node [anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em,yshift=0em]s1.east) {大幅度};
+\node[anchor=west,fill=blue!20,draw,thick,rounded corners=0.3em] (s3) at ([xshift=1em,yshift=0em]s2.east) {下降\ \ \ 了};
+
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (t1) at ([xshift=0em,yshift=-4em]s1.west) {The imports have};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (t2) at ([xshift=1em,yshift=0em]t1.east) {drastically};
+\node[anchor=west,fill=blue!20,draw,thick,rounded corners=0.3em] (t3) at ([xshift=1em,yshift=0em]t2.east) {fallen};
+
+\path[<->, thick] ([yshift=-0.1em]s1.south) edge ([yshift=0.1em]t1.north);
+\path[<->, thick] ([yshift=-0.1em]s2.south) edge ([yshift=0.1em]t2.north);
+\path[<->, thick] ([yshift=-0.1em]s3.south) edge ([yshift=0.1em]t3.north);
+}
+
+\node[anchor=south] (s0) at ([xshift=-3.5em,yshift=0em]s1.south) {源语言：};
+\node[anchor=east] (t0) at ([xshift=0em,yshift=-3.5em]s0.east) {目标语言：};
+\end{scope}
+
+\end{tikzpicture}
+\end{center}

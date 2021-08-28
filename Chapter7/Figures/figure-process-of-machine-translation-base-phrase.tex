@@ -1,0 +1,36 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  短语系统的架构
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{datanode} = [minimum width=7em,minimum height=1.7em,fill=red!20,rounded corners=0.3em,draw,thick];
+\tikzstyle{modelnode} = [minimum width=7em,minimum height=1.7em,fill=blue!20,rounded corners=0.3em,draw,thick];
+\tikzstyle{decodingnode} = [minimum width=7em,minimum height=1.7em,fill=green!20,rounded corners=0.3em,draw,thick];
+
+\node [datanode,anchor=north west,minimum height=1.7em,minimum width=8em] (bitext) at (0,0) {{ \small{训练用双语数据}}};
+\node [modelnode,anchor=north,minimum height=1.7em,minimum width=8em] (phrase) at ([yshift=-1.5em]bitext.south) {{ \small{短语抽取及打分}}};
+\node [modelnode,anchor=west,minimum height=1.7em,minimum width=8em] (reorder) at ([xshift=1.5em]phrase.east) {{ \small{调序建模}}};
+\node [modelnode,anchor=west,minimum height=1.7em,minimum width=8em] (lm) at ([xshift=1.5em]reorder.east) {{ \small{语言建模}}};
+\node [datanode,anchor=south,minimum height=1.7em,minimum width=8em] (monotext) at ([yshift=1.5em]lm.north) {{ \small{目标语单语数据}}};
+
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (phrasetable) at ([yshift=-1.5em]phrase.south) {{ \small{短语表}}};
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (reordertable) at ([yshift=-1.5em]reorder.south) {{ \small{调序模型}}};
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (lmtable) at ([yshift=-1.5em]lm.south) {{ \small{语言模型}}};
+
+\node [decodingnode,anchor=north,minimum height=1.7em,minimum width=8em] (decoding) at ([yshift=-2em]reordertable.south) {{ \small{解码器}}};
+
+\draw [->,thick] ([yshift=-0.1em]bitext.south) -- ([yshift=0.1em]phrase.north);
+\draw [->,thick] (bitext.south east) -- ([yshift=0.1em]reorder.north west);
+\draw [->,thick] ([yshift=-0.1em]monotext.south) -- ([yshift=0.1em]lm.north);
+\draw [->,thick] ([yshift=-0.1em]phrase.south) -- ([yshift=0.1em]phrasetable.north);
+\draw [->,thick] ([yshift=-0.1em]reorder.south) -- ([yshift=0.1em]reordertable.north);
+\draw [->,thick] ([yshift=-0.1em]lm.south) -- ([yshift=0.1em]lmtable.north);
+
+\draw [->,thick] ([yshift=-0.1em]phrasetable.south east) -- ([yshift=0.1em,xshift=-3em]decoding.north);
+\draw [->,thick] ([yshift=-0.1em]reordertable.south) -- ([yshift=0.1em,xshift=0em]decoding.north);
+\draw [->,thick] ([yshift=-0.1em]lmtable.south west) -- ([yshift=0.1em,xshift=3em]decoding.north);
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

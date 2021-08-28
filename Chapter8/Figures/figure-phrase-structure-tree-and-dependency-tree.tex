@@ -1,0 +1,32 @@
+%------------------------------------------------------------------------------------------------------------
+%%% 使用句法信息的一些思考
+\begin{tikzpicture}
+{\small
+\begin{scope}[xshift = -0.3in, sibling distance=3pt, level distance = 18pt]
+\Tree[.S
+        [.NP
+            [.NNP \node(w1){Messi}; ]
+        ]
+        [.VP
+            [.VBD \node(w2){hit}; ]
+            [.NP
+                [.DT \node(w3){the}; ]
+                [.NN \node(w4){ball}; ]
+            ]
+        ]
+     ]
+\node [anchor=north west] (cap1) at ([yshift=-2.0em,xshift=2.0em]w1.south west) {\small{(a) 短语结构树}};
+
+\node [anchor=west] (t1) at ([xshift=4em,]w4.east) {Messi};
+\node [anchor=west] (t2) at ([xshift=0.5em,]t1.east) {hit};
+\node [anchor=west] (t3) at ([xshift=0.5em,]t2.east) {the};
+\node [anchor=west] (t4) at ([xshift=0.5em,]t3.east) {ball};
+
+\draw [->] ([xshift=0em]t3.north) .. controls +(north:1em) and +(north:1em) .. ([xshift=-0.2em]t4.north);
+\draw [<-] ([xshift=0.2em]t4.north) .. controls +(north:2.5em) and +(north:2.5em) .. ([xshift=0.2em]t2.north);
+\draw [<-] ([xshift=0.0em]t1.north) .. controls +(north:2.5em) and +(north:2.5em) .. ([xshift=-0.2em]t2.north);
+
+\node [anchor=north west] (cap2) at ([yshift=-0.2em,xshift=-0.5em]t2.south west) {\small{(b) 依存树}};
+\end{scope}
+}
+\end{tikzpicture}

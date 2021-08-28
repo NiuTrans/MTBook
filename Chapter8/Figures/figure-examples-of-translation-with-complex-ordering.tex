@@ -1,0 +1,58 @@
+%------------------------------------------------------------------------------------------------------------
+%%% 在MT中使用句法带来的好处
+
+\begin{tikzpicture}
+
+\begin{scope}[yshift=-0in]
+
+{\scriptsize
+
+\node[anchor=west] (ref) at (0,0) {{\sffamily\bfseries{参考答案：}} The Xiyanghong star performance troupe presented a wonderful Peking opera as well as singing and dancing };
+
+\node[anchor=north west] (ref2) at (ref.south west) {{\color{white} \sffamily\bfseries{Reference:}} performance to the national audience .};
+
+\node[anchor=north west] (hifst) at (ref2.south west) {{\sffamily\bfseries{层次短语系统：}} Star troupe of Xiyanghong, highlights of Peking opera and dance show to the audience of the national .};
+
+\node[anchor=north west] (synhifst) at (hifst.south west) {{\sffamily\bfseries{句法系统：}} The XYH star troupe};
+
+\node[anchor=west, fill=green!20!white, inner sep=0.25em] (synhifstpart2) at (synhifst.east) {presented};
+
+\node[anchor=west, fill=blue!20!white, inner sep=0.25em] (synhifstpart3) at ([xshift=0.2em]synhifstpart2.east) {a wonderful Peking opera singing and dancing};
+
+\node[anchor=west, fill=red!20!white, inner sep=0.40em] (synhifstpart4) at ([xshift=0.2em]synhifstpart3.east) {to};
+
+\node[anchor=west, fill=purple!20!white, inner sep=0.25em] (synhifstpart5) at ([xshift=0.2em]synhifstpart4.east) {the national audience};
+
+\node[anchor=west] (synhifstpart6) at (synhifstpart5.east) {.};
+
+\node[anchor=north west] (input) at ([yshift=-6.5em]synhifst.south west) {\sffamily\bfseries{源语言句法树：}};
+
+\begin{scope}[scale = 0.9, grow'=up, sibling distance=5pt, level distance=30pt, xshift=3.49in, yshift=-3.1in]
+
+\Tree[.\node(tn1){IP};
+        [.\node(tn2){NP}; \edge[roof]; \node[](seg1){夕阳红$_1$ 明星$_2$ 艺术团$_3$}; ]
+        [.\node(tn3){VP};
+            [.\node(tn4){BA}; \node[fill=red!20!white](seg2){将$_4$}; ]
+            [.\node(tn5){NP}; \edge[roof]; \node[fill=blue!20!white](seg3){一$_5$ 台$_6$ 精彩$_7$ 的$_8$ 京剧$_9$ 歌舞$_{10}$}; ]
+            [.\node(tn6){VP};
+                [.\node(tn7){VV}; \node[fill=green!20!white](seg4){呈现$_{11}$}; ]
+            ]
+            [.\node(tn8){PP};
+                [.\node(tn9){P}; \node[fill=red!20!white](seg5){给$_{12}$}; ]
+                [.\node(tn10){NP}; \edge[roof]; \node[fill=purple!20!white](seg6){全国$_{13}$ 观众$_{14}$}; ]
+            ]
+        ]
+        [.\node(tn11){.}; ]
+     ]
+
+\end{scope}
+
+\path [draw,->,dashed] (seg2.north) .. controls +(north:1.0) and +(south:1.5) ..  (synhifstpart4.south);
+\path [draw,->,dashed] (seg3.north) --  (synhifstpart3.south);
+\path [draw,->,dashed] (seg4.north) --  (synhifstpart2.south);
+\path [draw,->,dashed] (seg5.north) .. controls +(north:0.5) ..  (synhifstpart4.south);
+\path [draw,->,dashed] (seg6.north) --  (synhifstpart5.south);
+
+}
+\end{scope}
+\end{tikzpicture}

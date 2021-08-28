@@ -1,0 +1,359 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  CYK解码
+\begin{tikzpicture}\scriptsize
+\tikzstyle{alignmentnode} = [rectangle,fill=blue!20,minimum size=0.5em,text=white,inner sep=0.1pt]
+\tikzstyle{selectnode} = [rectangle,fill=green!20,minimum height=1.5em,minimum width=1.5em,inner sep=1.2pt]
+\tikzstyle{srcnode} = [anchor=south west]
+\tikzstyle{chartnode}=[rectangle,minimum size=1.3em,draw]
+%图1
+\begin{scope}[scale=0.5]
+
+\node [anchor=east] (s1) at (0,0) {a};
+\node [anchor=north west] (s2) at ([yshift=-2.5em]s1.south west) {a};
+\node [anchor=north west] (s3) at ([yshift=-2.4em]s2.south west) {b};
+\node [anchor=north west] (s4) at ([yshift=-2.3em]s3.south west) {b};
+\node [anchor=north west] (s5) at ([yshift=-2.2em]s4.south west) {c};
+
+\node [alignmentnode,anchor=west] (cell11) at ([xshift=1.9em]s1.east) {};
+\node [alignmentnode,anchor=west] (cell21) at ([xshift=1.9em]s2.east) {};
+\node [alignmentnode,anchor=west] (cell22) at ([xshift=3.5em]cell21.east) {};
+\node [alignmentnode,anchor=west] (cell31) at ([xshift=2em]s3.east) {};
+\node [alignmentnode,anchor=west] (cell32) at ([xshift=3.5em]cell31.east) {};
+\node [alignmentnode,anchor=west] (cell33) at ([xshift=3.5em]cell32.east) {};
+\node [alignmentnode,anchor=west] (cell41) at ([xshift=1.9em]s4.east) {};
+\node [alignmentnode,anchor=west] (cell42) at ([xshift=3.5em]cell41.east) {};
+\node [alignmentnode,anchor=west] (cell43) at ([xshift=3.5em]cell42.east) {};
+\node [alignmentnode,anchor=west] (cell44) at ([xshift=3.5em]cell43.east) {};
+\node [alignmentnode,anchor=west] (cell51) at ([xshift=1.9em]s5.east) {};
+\node [alignmentnode,anchor=west] (cell52) at ([xshift=3.5em]cell51.east) {};
+\node [alignmentnode,anchor=west] (cell53) at ([xshift=3.5em]cell52.east) {};
+\node [alignmentnode,anchor=west] (cell54) at ([xshift=3.5em]cell53.east) {};
+\node [alignmentnode,anchor=west] (cell55) at ([xshift=3.5em]cell54.east) {};
+
+\node [anchor=north] (l1) at ([yshift=-1em]cell51.south) {\tiny{$l$=1}};
+\node [anchor=north] (l2) at ([yshift=-1em]cell52.south) {\tiny{$l$=2}};
+\node [anchor=north] (l3) at ([yshift=-1em]cell53.south) {\tiny{$l$=3}};
+\node [anchor=north] (l4) at ([yshift=-1em]cell54.south) {\tiny{$l$=4}};
+\node [anchor=north] (l5) at ([yshift=-1em]cell55.south) {\tiny{$l$=5}};
+\node [anchor=north] (caption1) at ([xshift=0.0em,yshift=0.0em]l5.south) {\small{(a)}};
+
+\node [anchor=center] (y1) at ([xshift=-2.1em,yshift=2em]cell11.center) {\tiny{\blue 0}};
+\node [anchor=center] (y2) at ([xshift=-2.1em,yshift=2em]cell21.center) {\tiny{\blue 1}};
+\node [anchor=center] (y3) at ([xshift=-2.1em,yshift=2em]cell31.center) {\tiny{\blue 2}};
+\node [anchor=center] (y4) at ([xshift=-2.1em,yshift=2em]cell41.center) {\tiny{\blue 3}};
+\node [anchor=center] (y5) at ([xshift=-2.1em,yshift=2em]cell51.center) {\tiny{\blue 4}};
+\node [anchor=center] (y6) at ([xshift=-2.1em,yshift=-2em]cell51.center) {\tiny{\blue 5}};
+
+\node [anchor=west] (num) at ([xshift=22.3em,yshift=2em]s1.east) {\scriptsize{序号}};
+\node [anchor=west] (kua) at ([xshift=0em]num.east) {\scriptsize{跨度}};
+\node [anchor=west] (tui) at ([xshift=0.4em]kua.east) {\scriptsize{推导}};
+
+\draw[-] ([yshift=-0.1em]num.south west)--([xshift=17em,yshift=-0.1em]num.south west);
+
+{
+\node [anchor=west] (n1) at ([xshift=1.4em,yshift=-1.5em]num.south west) {\scriptsize{1}};
+\node [anchor=west] (k1) at ([yshift=-1.8em]kua.south west) {\scriptsize{[{\blue 0},{\blue 1}]}};
+\node [anchor=west] (t1) at ([xshift=-0.8em,yshift=-1.5em]tui.south west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig11) at (cell11.center) {\tiny{C}};
+}
+\end{scope}
+
+%图2
+\begin{scope}[xshift=22.5em,scale=0.5]
+
+\node [anchor=east] (s1) at (0,0) {a};
+\node [anchor=north west] (s2) at ([yshift=-2.5em]s1.south west) {a};
+\node [anchor=north west] (s3) at ([yshift=-2.4em]s2.south west) {b};
+\node [anchor=north west] (s4) at ([yshift=-2.3em]s3.south west) {b};
+\node [anchor=north west] (s5) at ([yshift=-2.2em]s4.south west) {c};
+
+\node [alignmentnode,anchor=west] (cell11) at ([xshift=1.9em]s1.east) {};
+\node [alignmentnode,anchor=west] (cell21) at ([xshift=1.9em]s2.east) {};
+\node [alignmentnode,anchor=west] (cell22) at ([xshift=3.5em]cell21.east) {};
+\node [alignmentnode,anchor=west] (cell31) at ([xshift=2em]s3.east) {};
+\node [alignmentnode,anchor=west] (cell32) at ([xshift=3.5em]cell31.east) {};
+\node [alignmentnode,anchor=west] (cell33) at ([xshift=3.5em]cell32.east) {};
+\node [alignmentnode,anchor=west] (cell41) at ([xshift=1.9em]s4.east) {};
+\node [alignmentnode,anchor=west] (cell42) at ([xshift=3.5em]cell41.east) {};
+\node [alignmentnode,anchor=west] (cell43) at ([xshift=3.5em]cell42.east) {};
+\node [alignmentnode,anchor=west] (cell44) at ([xshift=3.5em]cell43.east) {};
+\node [alignmentnode,anchor=west] (cell51) at ([xshift=1.9em]s5.east) {};
+\node [alignmentnode,anchor=west] (cell52) at ([xshift=3.5em]cell51.east) {};
+\node [alignmentnode,anchor=west] (cell53) at ([xshift=3.5em]cell52.east) {};
+\node [alignmentnode,anchor=west] (cell54) at ([xshift=3.5em]cell53.east) {};
+\node [alignmentnode,anchor=west] (cell55) at ([xshift=3.5em]cell54.east) {};
+
+\node [anchor=north] (l1) at ([yshift=-1em]cell51.south) {\tiny{$l$=1}};
+\node [anchor=north] (l2) at ([yshift=-1em]cell52.south) {\tiny{$l$=2}};
+\node [anchor=north] (l3) at ([yshift=-1em]cell53.south) {\tiny{$l$=3}};
+\node [anchor=north] (l4) at ([yshift=-1em]cell54.south) {\tiny{$l$=4}};
+\node [anchor=north] (l5) at ([yshift=-1em]cell55.south) {\tiny{$l$=5}};
+\node [anchor=north] (caption2) at ([xshift=0.0em,yshift=0.0em]l5.south) {\small{(b)}};
+
+\node [anchor=center] (y1) at ([xshift=-2.1em,yshift=2em]cell11.center) {\tiny{\blue 0}};
+\node [anchor=center] (y2) at ([xshift=-2.1em,yshift=2em]cell21.center) {\tiny{\blue 1}};
+\node [anchor=center] (y3) at ([xshift=-2.1em,yshift=2em]cell31.center) {\tiny{\blue 2}};
+\node [anchor=center] (y4) at ([xshift=-2.1em,yshift=2em]cell41.center) {\tiny{\blue 3}};
+\node [anchor=center] (y5) at ([xshift=-2.1em,yshift=2em]cell51.center) {\tiny{\blue 4}};
+\node [anchor=center] (y6) at ([xshift=-2.1em,yshift=-2em]cell51.center) {\tiny{\blue 5}};
+
+\node [anchor=west] (num) at ([xshift=22.3em,yshift=2em]s1.east) {\scriptsize{序号}};
+\node [anchor=west] (kua) at ([xshift=0em]num.east) {\scriptsize{跨度}};
+\node [anchor=west] (tui) at ([xshift=0.4em]kua.east) {\scriptsize{推导}};
+
+\draw[-] ([yshift=-0.1em]num.south west)--([xshift=17em,yshift=-0.1em]num.south west);
+
+{
+\node [anchor=west] (n1) at ([xshift=1.4em,yshift=-1.5em]num.south west) {\scriptsize{1}};
+\node [anchor=west] (k1) at ([yshift=-1.8em]kua.south west) {\scriptsize{[{\blue 0},{\blue 1}]}};
+\node [anchor=west] (t1) at ([xshift=-0.8em,yshift=-1.5em]tui.south west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig11) at (cell11.center) {\tiny{C}};
+}
+
+{
+\node [anchor=center] (n2) at ([yshift=-2.2em]n1.center) {\scriptsize{2}};
+\node [anchor=center] (k2) at ([yshift=-2.2em]k1.center) {\scriptsize{[{\blue 1},{\blue 2}]}};
+\node [anchor=west] (t2) at ([yshift=-2.2em]t1.west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig21) at (cell21.center) {\tiny{C}};
+}
+
+{
+\node [anchor=center] (n3) at ([yshift=-2.2em]n2.center) {\scriptsize{3}};
+\node [anchor=center] (k3) at ([yshift=-2.2em]k2.center) {\scriptsize{[{\blue 2},{\blue 3}]}};
+\node [anchor=west] (t3) at ([yshift=-2.2em]t2.west) {\scriptsize{D $\to$ b}};
+\node [anchor=center,selectnode,fill=red!20] (alig31) at (cell31.center) {\tiny{D}};
+}
+
+{
+\node [anchor=center] (n4) at ([yshift=-2.2em]n3.center) {\scriptsize{4}};
+\node [anchor=center] (k4) at ([yshift=-2.2em]k3.center) {\scriptsize{[{\blue 3},{\blue 4}]}};
+\node [anchor=west] (t4) at ([yshift=-2.2em]t3.west) {\scriptsize{D $\to$ b}};
+\node [anchor=center,selectnode,fill=red!20] (alig41) at (cell41.center) {\tiny{D}};
+}
+
+{
+\node [anchor=center] (n5) at ([yshift=-2.2em]n4.center) {\scriptsize{5}};
+\node [anchor=center] (k5) at ([yshift=-2.2em]k4.center) {\scriptsize{[{\blue 4},{\blue 5}]}};
+\node [anchor=west] (t5) at ([yshift=-2.2em]t4.west) {\scriptsize{B $\to$ c , }};
+\node [anchor=east] (t52) at ([xshift=-1em,yshift=-2em]t5.east) {\scriptsize{E $\to$ c}};
+\node [anchor=center,selectnode,fill=red!20] (alig51) at (cell51.center) {\tiny{B,E}};
+}
+\end{scope}
+
+%图3
+\begin{scope}[yshift=-16.0em,scale=0.5]
+
+\node [anchor=east] (s1) at (0,0) {a};
+\node [anchor=north west] (s2) at ([yshift=-2.5em]s1.south west) {a};
+\node [anchor=north west] (s3) at ([yshift=-2.4em]s2.south west) {b};
+\node [anchor=north west] (s4) at ([yshift=-2.3em]s3.south west) {b};
+\node [anchor=north west] (s5) at ([yshift=-2.2em]s4.south west) {c};
+
+\node [alignmentnode,anchor=west] (cell11) at ([xshift=1.9em]s1.east) {};
+\node [alignmentnode,anchor=west] (cell21) at ([xshift=1.9em]s2.east) {};
+\node [alignmentnode,anchor=west] (cell22) at ([xshift=3.5em]cell21.east) {};
+\node [alignmentnode,anchor=west] (cell31) at ([xshift=2em]s3.east) {};
+\node [alignmentnode,anchor=west] (cell32) at ([xshift=3.5em]cell31.east) {};
+\node [alignmentnode,anchor=west] (cell33) at ([xshift=3.5em]cell32.east) {};
+\node [alignmentnode,anchor=west] (cell41) at ([xshift=1.9em]s4.east) {};
+\node [alignmentnode,anchor=west] (cell42) at ([xshift=3.5em]cell41.east) {};
+\node [alignmentnode,anchor=west] (cell43) at ([xshift=3.5em]cell42.east) {};
+\node [alignmentnode,anchor=west] (cell44) at ([xshift=3.5em]cell43.east) {};
+\node [alignmentnode,anchor=west] (cell51) at ([xshift=1.9em]s5.east) {};
+\node [alignmentnode,anchor=west] (cell52) at ([xshift=3.5em]cell51.east) {};
+\node [alignmentnode,anchor=west] (cell53) at ([xshift=3.5em]cell52.east) {};
+\node [alignmentnode,anchor=west] (cell54) at ([xshift=3.5em]cell53.east) {};
+\node [alignmentnode,anchor=west] (cell55) at ([xshift=3.5em]cell54.east) {};
+
+\node [anchor=north] (l1) at ([yshift=-1em]cell51.south) {\tiny{$l$=1}};
+\node [anchor=north] (l2) at ([yshift=-1em]cell52.south) {\tiny{$l$=2}};
+\node [anchor=north] (l3) at ([yshift=-1em]cell53.south) {\tiny{$l$=3}};
+\node [anchor=north] (l4) at ([yshift=-1em]cell54.south) {\tiny{$l$=4}};
+\node [anchor=north] (l5) at ([yshift=-1em]cell55.south) {\tiny{$l$=5}};
+\node [anchor=north] (caption3) at ([xshift=0.0em,yshift=0.0em]l5.south) {\small{(c)}};
+
+\node [anchor=center] (y1) at ([xshift=-2.1em,yshift=2em]cell11.center) {\tiny{\blue 0}};
+\node [anchor=center] (y2) at ([xshift=-2.1em,yshift=2em]cell21.center) {\tiny{\blue 1}};
+\node [anchor=center] (y3) at ([xshift=-2.1em,yshift=2em]cell31.center) {\tiny{\blue 2}};
+\node [anchor=center] (y4) at ([xshift=-2.1em,yshift=2em]cell41.center) {\tiny{\blue 3}};
+\node [anchor=center] (y5) at ([xshift=-2.1em,yshift=2em]cell51.center) {\tiny{\blue 4}};
+\node [anchor=center] (y6) at ([xshift=-2.1em,yshift=-2em]cell51.center) {\tiny{\blue 5}};
+
+\node [anchor=west] (num) at ([xshift=22.3em,yshift=2em]s1.east) {\scriptsize{序号}};
+\node [anchor=west] (kua) at ([xshift=0em]num.east) {\scriptsize{跨度}};
+\node [anchor=west] (tui) at ([xshift=0.4em]kua.east) {\scriptsize{推导}};
+
+\draw[-] ([yshift=-0.1em]num.south west)--([xshift=17em,yshift=-0.1em]num.south west);
+
+{
+\node [anchor=west] (n1) at ([xshift=1.4em,yshift=-1.5em]num.south west) {\scriptsize{1}};
+\node [anchor=west] (k1) at ([yshift=-1.8em]kua.south west) {\scriptsize{[{\blue 0},{\blue 1}]}};
+\node [anchor=west] (t1) at ([xshift=-0.8em,yshift=-1.5em]tui.south west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig11) at (cell11.center) {\tiny{C}};
+}
+
+{
+\node [anchor=center] (n2) at ([yshift=-2.2em]n1.center) {\scriptsize{2}};
+\node [anchor=center] (k2) at ([yshift=-2.2em]k1.center) {\scriptsize{[{\blue 1},{\blue 2}]}};
+\node [anchor=west] (t2) at ([yshift=-2.2em]t1.west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig21) at (cell21.center) {\tiny{C}};
+}
+
+{
+\node [anchor=center] (n3) at ([yshift=-2.2em]n2.center) {\scriptsize{3}};
+\node [anchor=center] (k3) at ([yshift=-2.2em]k2.center) {\scriptsize{[{\blue 2},{\blue 3}]}};
+\node [anchor=west] (t3) at ([yshift=-2.2em]t2.west) {\scriptsize{D $\to$ b}};
+\node [anchor=center,selectnode,fill=red!20] (alig31) at (cell31.center) {\tiny{D}};
+}
+
+{
+\node [anchor=center] (n4) at ([yshift=-2.2em]n3.center) {\scriptsize{4}};
+\node [anchor=center] (k4) at ([yshift=-2.2em]k3.center) {\scriptsize{[{\blue 3},{\blue 4}]}};
+\node [anchor=west] (t4) at ([yshift=-2.2em]t3.west) {\scriptsize{D $\to$ b}};
+\node [anchor=center,selectnode,fill=red!20] (alig41) at (cell41.center) {\tiny{D}};
+}
+
+{
+\node [anchor=center] (n5) at ([yshift=-2.2em]n4.center) {\scriptsize{5}};
+\node [anchor=center] (k5) at ([yshift=-2.2em]k4.center) {\scriptsize{[{\blue 4},{\blue 5}]}};
+\node [anchor=west] (t5) at ([yshift=-2.2em]t4.west) {\scriptsize{B $\to$ c , }};
+\node [anchor=east] (t52) at ([xshift=-1em,yshift=-2em]t5.east) {\scriptsize{E $\to$ c}};
+\node [anchor=center,selectnode,fill=red!20] (alig51) at (cell51.center) {\tiny{B,E}};
+}
+
+{
+\node [anchor=center] (n6) at ([yshift=-4em]n5.center) {\scriptsize{6}};
+\node [anchor=center] (k6) at ([yshift=-4em]k5.center) {\scriptsize{[{\blue 0},{\blue 2}]}};
+\node [anchor=west] (t6) at ([xshift=0.2em,yshift=-4.2em]t5.west) {\scriptsize{none}};
+\node [anchor=center,selectnode,fill=red!20] (alig22) at (cell22.center) {\tiny{}};
+}
+
+{
+\node [anchor=center] (n7) at ([yshift=-2.2em]n6.center) {\scriptsize{7}};
+\node [anchor=center] (k7) at ([yshift=-2.2em]k6.center) {\scriptsize{[{\blue 1},{\blue 3}]}};
+\node [anchor=west] (t7) at ([yshift=-2.2em]t6.west) {\scriptsize{A $\to$ CD}};
+\node [anchor=center,selectnode,fill=red!20] (alig32) at (cell32.center) {\tiny{A}};
+}
+\end{scope}
+
+
+%图4
+\begin{scope}[xshift=22.5em,yshift=-16.0em,scale=0.5]
+
+\node [anchor=east] (s1) at (0,0) {a};
+\node [anchor=north west] (s2) at ([yshift=-2.5em]s1.south west) {a};
+\node [anchor=north west] (s3) at ([yshift=-2.4em]s2.south west) {b};
+\node [anchor=north west] (s4) at ([yshift=-2.3em]s3.south west) {b};
+\node [anchor=north west] (s5) at ([yshift=-2.2em]s4.south west) {c};
+
+\node [alignmentnode,anchor=west] (cell11) at ([xshift=1.9em]s1.east) {};
+\node [alignmentnode,anchor=west] (cell21) at ([xshift=1.9em]s2.east) {};
+\node [alignmentnode,anchor=west] (cell22) at ([xshift=3.5em]cell21.east) {};
+\node [alignmentnode,anchor=west] (cell31) at ([xshift=2em]s3.east) {};
+\node [alignmentnode,anchor=west] (cell32) at ([xshift=3.5em]cell31.east) {};
+\node [alignmentnode,anchor=west] (cell33) at ([xshift=3.5em]cell32.east) {};
+\node [alignmentnode,anchor=west] (cell41) at ([xshift=1.9em]s4.east) {};
+\node [alignmentnode,anchor=west] (cell42) at ([xshift=3.5em]cell41.east) {};
+\node [alignmentnode,anchor=west] (cell43) at ([xshift=3.5em]cell42.east) {};
+\node [alignmentnode,anchor=west] (cell44) at ([xshift=3.5em]cell43.east) {};
+\node [alignmentnode,anchor=west] (cell51) at ([xshift=1.9em]s5.east) {};
+\node [alignmentnode,anchor=west] (cell52) at ([xshift=3.5em]cell51.east) {};
+\node [alignmentnode,anchor=west] (cell53) at ([xshift=3.5em]cell52.east) {};
+\node [alignmentnode,anchor=west] (cell54) at ([xshift=3.5em]cell53.east) {};
+\node [alignmentnode,anchor=west] (cell55) at ([xshift=3.5em]cell54.east) {};
+
+\node [anchor=north] (l1) at ([yshift=-1em]cell51.south) {\tiny{$l$=1}};
+\node [anchor=north] (l2) at ([yshift=-1em]cell52.south) {\tiny{$l$=2}};
+\node [anchor=north] (l3) at ([yshift=-1em]cell53.south) {\tiny{$l$=3}};
+\node [anchor=north] (l4) at ([yshift=-1em]cell54.south) {\tiny{$l$=4}};
+\node [anchor=north] (l5) at ([yshift=-1em]cell55.south) {\tiny{$l$=5}};
+\node [anchor=north] (caption4) at ([xshift=0.0em,yshift=0.0em]l5.south) {\small{(d)}};
+
+\node [anchor=center] (y1) at ([xshift=-2.1em,yshift=2em]cell11.center) {\tiny{\blue 0}};
+\node [anchor=center] (y2) at ([xshift=-2.1em,yshift=2em]cell21.center) {\tiny{\blue 1}};
+\node [anchor=center] (y3) at ([xshift=-2.1em,yshift=2em]cell31.center) {\tiny{\blue 2}};
+\node [anchor=center] (y4) at ([xshift=-2.1em,yshift=2em]cell41.center) {\tiny{\blue 3}};
+\node [anchor=center] (y5) at ([xshift=-2.1em,yshift=2em]cell51.center) {\tiny{\blue 4}};
+\node [anchor=center] (y6) at ([xshift=-2.1em,yshift=-2em]cell51.center) {\tiny{\blue 5}};
+
+\node [anchor=west] (num) at ([xshift=22.3em,yshift=2em]s1.east) {\scriptsize{序号}};
+\node [anchor=west] (kua) at ([xshift=0em]num.east) {\scriptsize{跨度}};
+\node [anchor=west] (tui) at ([xshift=0.4em]kua.east) {\scriptsize{推导}};
+
+\draw[-] ([yshift=-0.1em]num.south west)--([xshift=17em,yshift=-0.1em]num.south west);
+
+{
+\node [anchor=west] (n1) at ([xshift=1.4em,yshift=-1.5em]num.south west) {\scriptsize{1}};
+\node [anchor=west] (k1) at ([yshift=-1.8em]kua.south west) {\scriptsize{[{\blue 0},{\blue 1}]}};
+\node [anchor=west] (t1) at ([xshift=-0.8em,yshift=-1.5em]tui.south west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig11) at (cell11.center) {\tiny{C}};
+}
+
+{
+\node [anchor=center] (n2) at ([yshift=-2.2em]n1.center) {\scriptsize{2}};
+\node [anchor=center] (k2) at ([yshift=-2.2em]k1.center) {\scriptsize{[{\blue 1},{\blue 2}]}};
+\node [anchor=west] (t2) at ([yshift=-2.2em]t1.west) {\scriptsize{C $\to$ a}};
+\node [anchor=center,selectnode,fill=red!20] (alig21) at (cell21.center) {\tiny{C}};
+}
+
+{
+\node [anchor=center] (n3) at ([yshift=-2.2em]n2.center) {\scriptsize{3}};
+\node [anchor=center] (k3) at ([yshift=-2.2em]k2.center) {\scriptsize{[{\blue 2},{\blue 3}]}};
+\node [anchor=west] (t3) at ([yshift=-2.2em]t2.west) {\scriptsize{D $\to$ b}};
+\node [anchor=center,selectnode,fill=red!20] (alig31) at (cell31.center) {\tiny{D}};
+}
+
+{
+\node [anchor=center] (n4) at ([yshift=-2.2em]n3.center) {\scriptsize{4}};
+\node [anchor=center] (k4) at ([yshift=-2.2em]k3.center) {\scriptsize{[{\blue 3},{\blue 4}]}};
+\node [anchor=west] (t4) at ([yshift=-2.2em]t3.west) {\scriptsize{D $\to$ b}};
+\node [anchor=center,selectnode,fill=red!20] (alig41) at (cell41.center) {\tiny{D}};
+}
+
+{
+\node [anchor=center] (n5) at ([yshift=-2.2em]n4.center) {\scriptsize{5}};
+\node [anchor=center] (k5) at ([yshift=-2.2em]k4.center) {\scriptsize{[{\blue 4},{\blue 5}]}};
+\node [anchor=west] (t5) at ([yshift=-2.2em]t4.west) {\scriptsize{B $\to$ c , }};
+\node [anchor=east] (t52) at ([xshift=-1em,yshift=-2em]t5.east) {\scriptsize{E $\to$ c}};
+\node [anchor=center,selectnode,fill=red!20] (alig51) at (cell51.center) {\tiny{B,E}};
+}
+
+{
+\node [anchor=center] (n6) at ([yshift=-4em]n5.center) {\scriptsize{6}};
+\node [anchor=center] (k6) at ([yshift=-4em]k5.center) {\scriptsize{[{\blue 0},{\blue 2}]}};
+\node [anchor=west] (t6) at ([xshift=0.2em,yshift=-4.2em]t5.west) {\scriptsize{none}};
+\node [anchor=center,selectnode,fill=red!20] (alig22) at (cell22.center) {\tiny{}};
+}
+
+{
+\node [anchor=center] (n7) at ([yshift=-2.2em]n6.center) {\scriptsize{7}};
+\node [anchor=center] (k7) at ([yshift=-2.2em]k6.center) {\scriptsize{[{\blue 1},{\blue 3}]}};
+\node [anchor=west] (t7) at ([yshift=-2.2em]t6.west) {\scriptsize{A $\to$ CD}};
+\node [anchor=center,selectnode,fill=red!20] (alig32) at (cell32.center) {\tiny{A}};
+}
+
+
+{
+\node [anchor=center] (sep1) at ([yshift=-1.7em]n7.center) {\scriptsize{...}};
+\node [anchor=center] (n8) at ([yshift=-3.4em]n7.center) {\scriptsize{15}};
+\node [anchor=center] (k8) at ([yshift=-3.4em]k7.center) {\scriptsize{[{\blue 0},{\blue 5}]}};
+\node [anchor=west] (t8) at ([yshift=-3.4em]t7.west) {\scriptsize{S $\to$ AB}};
+
+\node [anchor=center,selectnode,fill=red!20] (alig33) at (cell33.center) {\tiny{}};
+\node [anchor=center,selectnode,fill=red!20] (alig42) at (cell42.center) {\tiny{}};
+\node [anchor=center,selectnode,fill=red!20] (alig43) at (cell43.center) {\tiny{F}};
+\node [anchor=center,selectnode,fill=red!20] (alig44) at (cell44.center) {\tiny{A}};
+\node [anchor=center,selectnode,fill=red!20] (alig52) at (cell52.center) {\tiny{}};
+\node [anchor=center,selectnode,fill=red!20] (alig53) at (cell53.center) {\tiny{}};
+\node [anchor=center,selectnode,fill=red!20] (alig54) at (cell54.center) {\tiny{}};
+\node [anchor=center,selectnode,fill=red!20] (alig55) at (cell55.center) {\tiny{S}};
+}
+\end{scope}
+
+
+
+
+
+\end{tikzpicture}
+
+

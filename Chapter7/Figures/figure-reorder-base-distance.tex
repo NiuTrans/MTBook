@@ -1,0 +1,54 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 调序模型1：基于距离的调序
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}[minimum height = 20pt]
+
+\node[anchor=east] (s0) at (-0.5em, 0) {$\seq{s}$：};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s1) at (0, 0) {\small{在\ \ 桌子\ \ 上\ \ \;的}};
+\node[anchor=south] (n1) at ([xshift=-2.5em,yshift=-0.5em]s1.north) {\small{1}};
+\node[anchor=south] (n2) at ([xshift=-0.7em,yshift=-0.5em]s1.north) {\small{2}};
+\node[anchor=south] (n3) at ([xshift=1.2em,yshift=-0.5em]s1.north) {\small{3}};
+\node[anchor=south] (n4) at ([xshift=2.7em,yshift=-0.5em]s1.north) {\small{4}};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em]s1.east) {\small{苹果}};
+\node[anchor=south] (n5) at ([yshift=-0.5em]s2.north) {\small{5}};
+
+\node[anchor=east] (t0) at (-0.5em, -1.5) {$\seq{t}$：};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (t1) at (0, -1.5) {\small{the apple}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (t2) at ([xshift=1.3em]t1.east) {\small{on the table}};
+
+\path[<->, thick] (s1.south) edge (t2.north);
+\path[<->, thick] (s2.south) edge (t1.north);
+
+\node[anchor=west] (target) at ([xshift=2em,yshift=2.3em]n5.east) {\small{目标短语位置}};
+\node[anchor=west] (source) at ([xshift=0.3em]target.east) {\small{源短语位置}};
+\node[anchor=west] (distance) at ([xshift=1.5em]source.east) {\small{距离}};
+
+\node[anchor=north] (t1) at ([xshift=0em,yshift=-0.1em]target.south) {1};
+\node[anchor=north] (t2) at ([yshift=-1.8em]t1.south) {2};
+
+\node[anchor=north] (so1) at ([yshift=-0.1em]source.south) {5};
+\node[anchor=north] (so2) at ([yshift=-1.8em]so1.south) {1-4};
+
+\node[anchor=north] (d1) at ([xshift=-0.1em,yshift=-0.1em]distance.south) {+4};
+\node[anchor=north] (d2) at ([yshift=-1.8em]d1.south) {-5};
+
+\node[anchor=north west,fill=blue!20,draw,thick,rounded corners=0.3em] (m1) at ([xshift=-1em,yshift=-0.0em]t1.south west) {\small{$\rm{start}_1\ \ -\ \ \rm{end}_{0}\ \ -\ \ 1$\quad =\quad 5\ -\ 0\ -\ 1}};
+\node[anchor=north west,fill=blue!20,draw,thick,rounded corners=0.3em] (m2) at ([xshift=-1em,yshift=-0.0em]t2.south west) {\small{$\rm{start}_2\ \ -\ \  \rm{end}_{1}\ \ -\ \ 1$\quad =\quad 1\ -\ 5\ -\ 1}};
+
+\draw[-] ([xshift=0.08in]target.south west)--([xshift=2.4in]target.south west);
+
+\draw[-,thick] (s1.north west)--([yshift=0.3in]s1.north west);
+\draw[->,densely dotted,thick] ([yshift=0.3in]s1.north west)--([xshift=0.3in,yshift=0.3in]s1.north west);
+
+\draw[-,thick] (s2.north west)--([yshift=0.3in]s2.north west);
+\draw[->,densely dotted,thick] ([yshift=0.3in]s2.north west)--([xshift=-0.3in,yshift=0.3in]s2.north west);
+
+\node[anchor=south] (ld1) at ([xshift=-0.5em,yshift=0.4em]n1.north) {\small{$dr= -5$}};
+\node[anchor=south] (ld2) at ([xshift=6.5em,yshift=0.4em]n1.north) {\small{$dr= +4$}};
+
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

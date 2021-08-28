@@ -1,0 +1,64 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  翻译规则抽取本质上是要完成对树结构的切割
+\begin{center}
+\begin{tikzpicture}
+
+{\small
+\begin{scope}[sibling distance=25pt, level distance=20pt]
+
+\Tree[.\node(n1){IP};
+     	[.\node(n2){NP}; [.\node(n3){PN}; \node(cw1){他}; ]]
+     	[.\node(n4){VP};
+     		[.\node(n5){PP};
+     			[.\node(n6){P}; \node(cw2){对}; ]
+     			[.\node(n7){NP};
+                    [.\node(n8){NN}; \node(cw3){回答}; ]
+                ]
+     		]
+     		[.\node(n9){VP};
+     			[.\node(n10){VV}; \node(cw4){表示}; ]
+     			[.\node(n11){NN}; \node(cw5){满意}; ]
+     		]
+     	]
+     ]
+
+\node[anchor=north,minimum size=18pt] (tw1) at ([yshift=-6.0em]cw1.south){he};
+\node[anchor=west,minimum size=18pt] (tw2) at ([yshift=-0.1em,xshift=1.1em]tw1.east){was};
+\node[anchor=west,minimum size=18pt] (tw3) at ([yshift=0.1em,xshift=1.1em]tw2.east){satisfied};
+\node[anchor=west,minimum size=18pt] (tw4) at ([xshift=1.1em]tw3.east){with};
+\node[anchor=west,minimum size=18pt] (tw5) at ([xshift=1.1em]tw4.east){the};
+\node[anchor=west,minimum size=18pt] (tw6) at ([yshift=-0.1em,xshift=1.1em]tw5.east){answer};
+
+\node[anchor=north,minimum size=18pt] (empty) at ([xshift=-2.0em]cw1.south){};
+
+\draw[dashed] (cw1.south) -- ([yshift=-0.4em]tw1.north);
+\draw[dashed] (cw2.south) .. controls +(south:1.6) and +(north:0.6) .. ([yshift=-0.4em]tw4.north);
+\draw[dashed] (cw3.south) -- ([yshift=-0.4em]tw5.north);
+\draw[dashed] (cw3.south) -- ([yshift=-0.4em]tw6.north);
+\draw[dashed] (cw4.south) .. controls +(south:2.0) and +(north:0.6) .. ([yshift=-0.4em]tw3.north);
+\draw[dashed] (cw5.south) .. controls +(south:2.0) and +(north:0.6) .. ([yshift=-0.4em]tw3.north);
+
+
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,inner sep=0em,fill=red!20] [fit = (cw2) (cw3) (n5)] (rule1s) {};
+\node [rectangle,inner sep=0em,fill=red!20] [fit = (tw4) (tw5) (tw6)] (rule1t) {};
+}
+{
+\node [rectangle,inner sep=0em,fill=blue!20] [fit = (cw5) (n11)] (rule2s) {};
+\node [rectangle,inner sep=0em,fill=blue!20] [fit = (tw3)] (rule2t) {};
+}
+\end{pgfonlayer}
+
+{
+\node [anchor=south] (rule1label) at ([xshift=1em]rule1s.north west) {{\footnotesize\red{正确的规则}}};
+}
+{
+\node [anchor=north west,align=left] (rule2label) at (rule2s.north east) {\footnotesize{{\color{blue} 错误的规则}}\\\footnotesize{因为``satisfied''会}\\\footnotesize{对齐到规则外，}\\\footnotesize{也就是这条规则}\\\footnotesize{与词对齐不相容}};
+}
+
+\end{scope}
+}
+
+\end{tikzpicture}
+\end{center}

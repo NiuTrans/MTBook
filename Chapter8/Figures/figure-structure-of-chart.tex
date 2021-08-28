@@ -1,0 +1,31 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  基于树的解码方法 - chart-based decoding
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\node [anchor=south west,draw,fill=green!20,minimum width=2.8em,minimum height=2.8em,inner sep=1pt] (cell11) at (0,0) {\scriptsize{cell[1,2]}};
+\node [anchor=south west,draw,fill=red!20,minimum width=2.8em,minimum height=2.8em,inner sep=1pt] (cell12) at (cell11.south east) {\scriptsize{cell[0,2]}};
+\node [anchor=south west,draw,fill=orange!30,minimum width=2.8em,minimum height=2.8em,inner sep=1pt] (cell21) at (cell11.north west) {\scriptsize{cell[0,1]}};
+\node [anchor=south west,draw,fill=gray!20,minimum width=2.8em,minimum height=2.8em,inner sep=1pt] (cell22) at (cell21.south east) {\scriptsize{N/A}};
+\draw [->,thick] ([xshift=-1em,yshift=1em]cell21.north west)--([xshift=-1em,yshift=-1em]cell11.south west);
+\draw [->,thick] ([xshift=-1em,yshift=1em]cell21.north west)--([xshift=1em,yshift=1em]cell22.north east);
+
+\node [anchor=north west,fill=orange!30,draw,drop shadow,align=left,minimum width=4em] (cell11label) at ([xshift=4em,yshift=1em]cell22.north east) {\footnotesize{VV[0,1]}};
+\node [anchor=north west,fill=green!20,draw,drop shadow,align=left,minimum width=4em] (cell12label) at ([yshift=-1em]cell11label.south west) {\footnotesize{NN[1,2]}\\\footnotesize{NP[1,2]}};
+\node [anchor=north west,fill=red!20,draw,drop shadow,align=left,minimum width=4em] (cell21label) at ([yshift=-1em]cell12label.south west) {\footnotesize{VP[0,2]}\\\footnotesize{NP[0,2]}};
+
+\draw [->,very thick,dotted] ([yshift=0.3em]cell11label.west) .. controls +(west:2em)  and +(north:1.5em) .. ([xshift=1em,yshift=-0.5em]cell21.north);
+\draw [->,very thick,dotted] ([yshift=-0.5em]cell12label.west) -- ([yshift=-0.5em,xshift=-7.5em]cell12label.west);
+\draw [->,very thick,dotted] ([yshift=-0.3em]cell21label.west) .. controls +(west:2em)  and +(south:1.5em) .. ([xshift=1em,yshift=0.5em]cell12.south);
+
+\node [anchor=south] (label1) at ([yshift=1em]cell21.north east) {\footnotesize{跨度大小}};
+\node [anchor=north] (l21) at ([xshift=-2.0em,yshift=1em]cell21.west) {\footnotesize{起}};
+\node [anchor=north] (l22) at ([xshift=0em,yshift=0.5em]l21.south) {\footnotesize{始}};
+\node [anchor=north] (l23) at ([xshift=0em,yshift=0.5em]l22.south) {\footnotesize{位}};
+\node [anchor=north] (l24) at ([xshift=0em,yshift=0.5em]l23.south) {\footnotesize{置}};
+\node [anchor=north] (labelchart) at (cell11.south east) {\small{Chart（表格）}};
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

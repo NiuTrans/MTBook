@@ -1,0 +1,203 @@
+\begin{tikzpicture}
+\tikzstyle{alignmentnode} = [rectangle,fill=blue!30,minimum size=0.4em,text=white,inner sep=0.1pt]
+\tikzstyle{selectnode} = [rectangle,fill=green!20,minimum height=1.5em,minimum width=1.5em,inner sep=1.2pt]
+\tikzstyle{srcnode} = [rotate=45,anchor=south west]
+\begin{scope}[scale=0.85]
+\node [anchor=west] (s1) at (0,0) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from}\ \seq{X}_1>$}};
+\node [anchor=east] (s2) at ([yshift=-2em]s1.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{since}\ \seq{X}_1>$}};
+\node [anchor=east] (s3) at ([yshift=-2em]s2.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from the}\ \seq{X}_1>$}};
+\node [anchor=east] (s4) at ([yshift=-2em]s3.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{through}\ \seq{X}_1>$}};
+
+\node [anchor=center,alignmentnode] (alig1) at ([xshift=12.0em,yshift=0em]s1.west) {};
+\node [anchor=center,alignmentnode] (alig11) at ([xshift=2.2em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig12) at ([xshift=2.2em]alig11.center) {};
+\node [anchor=center,alignmentnode] (alig13) at ([xshift=2.2em]alig12.center) {};
+
+\node [anchor=center,alignmentnode] (alig2) at ([yshift=-2.0em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig21) at ([xshift=2.2em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig22) at ([xshift=2.2em]alig21.center) {};
+\node [anchor=center,alignmentnode] (alig23) at ([xshift=2.2em]alig22.center) {};
+
+\node [anchor=center,alignmentnode] (alig3) at ([yshift=-2.0em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig31) at ([xshift=2.2em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig32) at ([xshift=2.2em]alig31.center) {};
+\node [anchor=center,alignmentnode] (alig33) at ([xshift=2.2em]alig32.center) {};
+
+\node [anchor=center,alignmentnode] (alig4) at ([yshift=-2.0em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig41) at ([xshift=2.2em]alig4.center) {};
+\node [anchor=center,alignmentnode] (alig42) at ([xshift=2.2em]alig41.center) {};
+\node [anchor=center,alignmentnode] (alig43) at ([xshift=2.2em]alig42.center) {};
+
+\node[srcnode] (c1) at ([yshift=1em]alig1.north) {\footnotesize{plan}};
+\node[srcnode] (c2) at ([yshift=1em]alig11.north) {\footnotesize{scheme}};
+\node[srcnode] (c3) at ([yshift=1em]alig12.north) {\footnotesize{project}};
+\node[srcnode] (c4) at ([yshift=1em]alig13.north) {\footnotesize{times}};
+
+{
+\node [anchor=center,selectnode] (c1) at (alig1.center) {\footnotesize{2.1}};
+}
+
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=-1.0em,yshift=-0.7em]alig4.south west);
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=0.8em,yshift=1.0em]alig13.north east);
+
+\node[anchor=north] (l) at ([xshift=-2em,yshift=-1.5em]alig4.south) {\small{(a) \ 当前最好结果为2.1}};
+\end{scope}
+
+%图2
+\begin{scope}[xshift=18.0em,scale=0.85]
+\node [anchor=west] (s1) at (0,0) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from}\ \seq{X}_1>$}};
+\node [anchor=east] (s2) at ([yshift=-2em]s1.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{since}\ \seq{X}_1>$}};
+\node [anchor=east] (s3) at ([yshift=-2em]s2.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from the}\ \seq{X}_1>$}};
+\node [anchor=east] (s4) at ([yshift=-2em]s3.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{through}\ \seq{X}_1>$}};
+
+\node [anchor=center,alignmentnode] (alig1) at ([xshift=12.0em,yshift=0em]s1.west) {};
+\node [anchor=center,alignmentnode] (alig11) at ([xshift=2.2em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig12) at ([xshift=2.2em]alig11.center) {};
+\node [anchor=center,alignmentnode] (alig13) at ([xshift=2.2em]alig12.center) {};
+
+\node [anchor=center,alignmentnode] (alig2) at ([yshift=-2.0em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig21) at ([xshift=2.2em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig22) at ([xshift=2.2em]alig21.center) {};
+\node [anchor=center,alignmentnode] (alig23) at ([xshift=2.2em]alig22.center) {};
+
+\node [anchor=center,alignmentnode] (alig3) at ([yshift=-2.0em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig31) at ([xshift=2.2em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig32) at ([xshift=2.2em]alig31.center) {};
+\node [anchor=center,alignmentnode] (alig33) at ([xshift=2.2em]alig32.center) {};
+
+\node [anchor=center,alignmentnode] (alig4) at ([yshift=-2.0em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig41) at ([xshift=2.2em]alig4.center) {};
+\node [anchor=center,alignmentnode] (alig42) at ([xshift=2.2em]alig41.center) {};
+\node [anchor=center,alignmentnode] (alig43) at ([xshift=2.2em]alig42.center) {};
+
+\node[srcnode] (c1) at ([yshift=1em]alig1.north) {\footnotesize{plan}};
+\node[srcnode] (c2) at ([yshift=1em]alig11.north) {\footnotesize{scheme}};
+\node[srcnode] (c3) at ([yshift=1em]alig12.north) {\footnotesize{project}};
+\node[srcnode] (c4) at ([yshift=1em]alig13.north) {\footnotesize{times}};
+
+{
+\node [anchor=center,selectnode] (c1) at (alig1.center) {\footnotesize{2.1}};
+}
+
+{
+\node [anchor=center,selectnode,fill=red!20] (c2) at (alig11.center) {\footnotesize{5.1}};
+\node [anchor=center,selectnode,fill=red!20] (c3) at (alig2.center) {\footnotesize{5.5}};
+}
+
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=-1.0em,yshift=-0.7em]alig4.south west);
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=0.8em,yshift=1.0em]alig13.north east);
+
+\node[anchor=north] (l) at ([xshift=-2em,yshift=-1.5em]alig4.south) {\small{(b)\ 当前最好结果为5.5}};
+\end{scope}
+
+%图3
+\begin{scope}[yshift=-13.0em,scale=0.85]
+\node [anchor=west] (s1) at (0,0) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from}\ \seq{X}_1>$}};
+\node [anchor=east] (s2) at ([yshift=-2em]s1.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{since}\ \seq{X}_1>$}};
+\node [anchor=east] (s3) at ([yshift=-2em]s2.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from the}\ \seq{X}_1>$}};
+\node [anchor=east] (s4) at ([yshift=-2em]s3.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{through}\ \seq{X}_1>$}};
+
+\node [anchor=center,alignmentnode] (alig1) at ([xshift=12.0em,yshift=0em]s1.west) {};
+\node [anchor=center,alignmentnode] (alig11) at ([xshift=2.2em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig12) at ([xshift=2.2em]alig11.center) {};
+\node [anchor=center,alignmentnode] (alig13) at ([xshift=2.2em]alig12.center) {};
+
+\node [anchor=center,alignmentnode] (alig2) at ([yshift=-2.0em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig21) at ([xshift=2.2em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig22) at ([xshift=2.2em]alig21.center) {};
+\node [anchor=center,alignmentnode] (alig23) at ([xshift=2.2em]alig22.center) {};
+
+\node [anchor=center,alignmentnode] (alig3) at ([yshift=-2.0em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig31) at ([xshift=2.2em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig32) at ([xshift=2.2em]alig31.center) {};
+\node [anchor=center,alignmentnode] (alig33) at ([xshift=2.2em]alig32.center) {};
+
+\node [anchor=center,alignmentnode] (alig4) at ([yshift=-2.0em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig41) at ([xshift=2.2em]alig4.center) {};
+\node [anchor=center,alignmentnode] (alig42) at ([xshift=2.2em]alig41.center) {};
+\node [anchor=center,alignmentnode] (alig43) at ([xshift=2.2em]alig42.center) {};
+
+\node[srcnode] (c1) at ([yshift=1em]alig1.north) {\footnotesize{plan}};
+\node[srcnode] (c2) at ([yshift=1em]alig11.north) {\footnotesize{scheme}};
+\node[srcnode] (c3) at ([yshift=1em]alig12.north) {\footnotesize{project}};
+\node[srcnode] (c4) at ([yshift=1em]alig13.north) {\footnotesize{times}};
+
+{
+\node [anchor=center,selectnode] (c1) at (alig1.center) {\footnotesize{2.1}};
+}
+
+{
+\node [anchor=center,selectnode] (c2) at (alig11.center) {\footnotesize{5.1}};
+\node [anchor=center,selectnode] (c3) at (alig2.center) {\footnotesize{5.5}};
+\node [anchor=center,selectnode,fill=red!20] (c5) at (alig21.center) {\footnotesize{8.5}};
+\node [anchor=center,selectnode,fill=red!20] (c6) at (alig3.center) {\footnotesize{7.7}};
+}
+
+
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=-1.0em,yshift=-0.7em]alig4.south west);
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=0.8em,yshift=1.0em]alig13.north east);
+
+\node[anchor=north] (l) at ([xshift=-2em,yshift=-1.5em]alig4.south) {\small{(c)\ 当前最好结果为8.5}};
+\end{scope}
+
+
+%图4
+\begin{scope}[xshift=18.0em,yshift=-13.0em,scale=0.85]
+\node [anchor=west] (s1) at (0,0) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from}\ \seq{X}_1>$}};
+\node [anchor=east] (s2) at ([yshift=-2em]s1.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{since}\ \seq{X}_1>$}};
+\node [anchor=east] (s3) at ([yshift=-2em]s2.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{from the}\ \seq{X}_1>$}};
+\node [anchor=east] (s4) at ([yshift=-2em]s3.east) {\scriptsize{$\seq{X} \to <\textrm{从}\ \seq{X}_1,\ \textrm{through}\ \seq{X}_1>$}};
+
+\node [anchor=center,alignmentnode] (alig1) at ([xshift=12.0em,yshift=0em]s1.west) {};
+\node [anchor=center,alignmentnode] (alig11) at ([xshift=2.2em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig12) at ([xshift=2.2em]alig11.center) {};
+\node [anchor=center,alignmentnode] (alig13) at ([xshift=2.2em]alig12.center) {};
+
+\node [anchor=center,alignmentnode] (alig2) at ([yshift=-2.0em]alig1.center) {};
+\node [anchor=center,alignmentnode] (alig21) at ([xshift=2.2em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig22) at ([xshift=2.2em]alig21.center) {};
+\node [anchor=center,alignmentnode] (alig23) at ([xshift=2.2em]alig22.center) {};
+
+\node [anchor=center,alignmentnode] (alig3) at ([yshift=-2.0em]alig2.center) {};
+\node [anchor=center,alignmentnode] (alig31) at ([xshift=2.2em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig32) at ([xshift=2.2em]alig31.center) {};
+\node [anchor=center,alignmentnode] (alig33) at ([xshift=2.2em]alig32.center) {};
+
+\node [anchor=center,alignmentnode] (alig4) at ([yshift=-2.0em]alig3.center) {};
+\node [anchor=center,alignmentnode] (alig41) at ([xshift=2.2em]alig4.center) {};
+\node [anchor=center,alignmentnode] (alig42) at ([xshift=2.2em]alig41.center) {};
+\node [anchor=center,alignmentnode] (alig43) at ([xshift=2.2em]alig42.center) {};
+
+\node[srcnode] (c1) at ([yshift=1em]alig1.north) {\footnotesize{plan}};
+\node[srcnode] (c2) at ([yshift=1em]alig11.north) {\footnotesize{scheme}};
+\node[srcnode] (c3) at ([yshift=1em]alig12.north) {\footnotesize{project}};
+\node[srcnode] (c4) at ([yshift=1em]alig13.north) {\footnotesize{times}};
+
+{
+\node [anchor=center,selectnode] (c1) at (alig1.center) {\footnotesize{2.1}};
+}
+
+{
+\node [anchor=center,selectnode] (c2) at (alig11.center) {\footnotesize{5.1}};
+\node [anchor=center,selectnode] (c3) at (alig2.center) {\footnotesize{5.5}};
+\node [anchor=center,selectnode,fill=red!20] (c5) at (alig21.center) {\footnotesize{8.5}};
+\node [anchor=center,selectnode,fill=red!20] (c6) at (alig3.center) {\footnotesize{7.7}};
+}
+
+{
+\node [anchor=center,selectnode] (c5) at (alig21.center) {\footnotesize{8.5}};
+\node [anchor=center,selectnode] (c6) at (alig3.center) {\footnotesize{7.7}};
+\node [anchor=center,selectnode,fill=red!20] (c7) at (alig22.center) {\footnotesize{4.2}};
+\node [anchor=center,selectnode,fill=red!20] (c8) at (alig31.center) {\footnotesize{8.2}};
+}
+
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=-1.0em,yshift=-0.7em]alig4.south west);
+\draw [->,thick] ([xshift=-1.0em,yshift=1.0em]alig1.north west)--([xshift=0.8em,yshift=1.0em]alig13.north east);
+
+\node[anchor=north] (l) at ([xshift=-2em,yshift=-1.5em]alig4.south) {\small{(d)\ 当前最好结果为8.2}};
+\end{scope}
+
+
+
+
+\end{tikzpicture}

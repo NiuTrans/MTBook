@@ -1,0 +1,42 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 基于单词的模型的问题
+\begin{minipage}[c]{0.35\linewidth}
+\vspace{1em}
+\begin{tikzpicture}
+
+\begin{scope}
+{\small
+\node [anchor=west] (s1) at (0,0) {我};
+\node [anchor=west] (s2) at ([xshift=1.0em]s1.east) {喜欢};
+\node [anchor=west] (s3) at ([xshift=1.0em]s2.east) {\red{红}};
+\node [anchor=west] (s4) at ([xshift=1.0em]s3.east) {茶};
+\node [anchor=east] (s) at (s1.west) {$\seq{s}=$};
+}
+\end{scope}
+
+{
+\begin{scope}[yshift=-2.0em]
+{\small
+\node [anchor=west] (t1) at (0.35em,0) {I};
+\node [anchor=west] (t2) at ([xshift=0.8em,yshift=-0.0em]t1.east) {like};
+\node [anchor=west] (t3) at ([xshift=1.0em,yshift=-0.0em]t2.east) {red};
+\node [anchor=west] (t4) at ([xshift=1.0em,yshift=-0.1em]t3.east) {tea};
+\node [anchor=east] (t) at ([xshift=-0.3em]t1.west) {$\seq{t}=$};
+}
+\end{scope}
+
+\draw [-] (s1.south) -- (t1.north);
+\draw [-] (s2.south) ..controls +(south:0.5em) and +(north:0.5em).. (t2.north);
+\draw [-] (s3.south) ..controls +(south:0.5em) and +(north:0.5em).. (t3.north);
+\draw [-] (s4.south) ..controls +(south:0.5em) and +(north:0.5em).. (t4.north);
+}%visible<4->
+
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,draw,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (t3) (t4)] (problemphrase) {};
+\node [anchor=north,text width=8em,align=left] (problemlabel) at (problemphrase.south) {\begin{spacing}{0.8}\scriptsize{“红 茶”为一种搭配，应该翻译为“black tea”}\end{spacing}};
+}
+\end{pgfonlayer}
+
+\end{tikzpicture}
+\end{minipage}

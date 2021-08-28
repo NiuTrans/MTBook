@@ -1,0 +1,131 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  规则抽取
+\begin{center}
+\begin{tikzpicture}
+
+{\scriptsize
+\begin{scope}[scale = 0.9, sibling distance=20pt, level distance=30pt]
+
+{\footnotesize
+\Tree[.\node(n1){IP};
+     	[.\node(n2){NP}; [.\node(n3){PN}; \node(cw1){他}; ]]
+     	[.\node(n4){VP};
+     		[.\node(n5){PP};
+     			[.\node(n6){P}; \node(cw2){对}; ]
+     			[.\node(n7){NP};
+                    [.\node(n8){NN}; \node(cw3){回答}; ]
+                ]
+     		]
+     		[.\node(n9){VP};
+     			[.\node(n10){VV}; \node(cw4){表示}; ]
+     			[.\node(n11){NN}; \node(cw5){满意}; ]
+     		]
+     	]
+     ]
+}
+
+\begin{pgfonlayer}{background}
+
+{
+\node [rectangle,fill=red!20,inner sep=0] [fit = (n11)] (n11box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n4)] (n4box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n1)] (n1box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n2)] (n2box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n3)] (n3box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n5)] (n5box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n6)] (n6box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n7)] (n7box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n8)] (n8box) {};
+\node [rectangle,fill=blue!20,inner sep=0] [fit = (n9)] (n9box) {};
+\node [rectangle,fill=red!20,inner sep=0] [fit = (n10)] (n10box) {};
+
+\node [anchor=north west, minimum size=1.2em, fill=blue!20] (land1) at ([xshift=7.0em,yshift=0em]n1.north east) {};
+\node [anchor=west] (land1label) at (land1.east) {\scriptsize{可信}};
+\node [anchor=north west, minimum size=1.2em, fill=red!20] (land2) at ([yshift=-0.3em]land1.south west) {};
+\node [anchor=west] (land2label) at (land2.east) {\scriptsize{不可信}};
+}
+
+\end{pgfonlayer}
+
+\node[anchor=north,minimum size=18pt] (tw1) at ([yshift=-10.0em]cw1.south){he};
+\node[anchor=west,minimum size=18pt] (tw2) at ([yshift=-0.1em,xshift=0.3em]tw1.east){was};
+\node[anchor=west,minimum size=18pt] (tw3) at ([yshift=0.1em,xshift=0.3em]tw2.east){satisfied};
+\node[anchor=west,minimum size=18pt] (tw4) at ([xshift=0.3em]tw3.east){with};
+\node[anchor=west,minimum size=18pt] (tw5) at ([xshift=0.3em]tw4.east){the};
+\node[anchor=west,minimum size=18pt] (tw6) at ([yshift=-0.1em,xshift=0.3em]tw5.east){answer};
+
+\node[anchor=north](pos1) at ([xshift=-1.0em,yshift=-1.0em]tw4.south){\small{（a）标有可信节点信息的句法树}};
+
+\draw[dashed] (cw1.south) -- ([yshift=-0.4em]tw1.north);
+\draw[dashed] (cw2.south) .. controls +(south:2.0) and +(north:0.6) .. ([yshift=-0.4em]tw4.north);
+\draw[dashed] (cw3.south) -- ([yshift=-0.4em]tw5.north);
+\draw[dashed] (cw3.south) -- ([yshift=-0.4em]tw6.north);
+\draw[dashed] (cw4.south) .. controls +(south:2.5) and +(north:0.6) .. ([yshift=-0.4em]tw3.north);
+\draw[dashed] (cw5.south) .. controls +(south:2.5) and +(north:0.6) .. ([yshift=-0.4em]tw3.north);
+
+\end{scope}
+
+\begin{scope} [yshift = -1.87in, xshift = 2.2in]
+{
+\begin{scope}[level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,draw] (cfrag1) at
+   (0,0.25) {\Tree[.\node(sn1){NP}; [.\node(sn2){PN}; 他 ]]};
+\end{scope}
+
+\begin{scope}[level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag2) at
+   ([xshift=1.2em]cfrag1.south east) {\Tree[.\node(sn3){P}; 对 ]};
+\end{scope}
+
+\begin{scope}[level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag3) at
+   ([xshift=1.2em]cfrag2.south east) {\Tree[.\node(sn4){NP}; [.NN 回答 ]]};
+   \end{scope}
+
+\begin{scope}[sibling distance=15pt,level distance=20pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag4) at
+   ([xshift=1.4em]cfrag3.south east) {\Tree[.\node(sn5){VP}; [.\node(sn6){VV}; 表示 ] [.\node(sn7){NN}; 满意 ]]};
+\end{scope}
+
+\begin{scope}[sibling distance=20pt,,level distance=25pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag5) at
+   ([xshift=0.3em,yshift=2.5em]cfrag2.north west) {\Tree[.\node(sn8){PP}; [.\node(sn9){P}; ] [.\node(sn10){NP}; ]]};
+\end{scope}
+
+\begin{scope}[sibling distance=60pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south west,draw] (cfrag6) at
+   ([xshift=1.6em,yshift=0.8em]cfrag5.north west) {\Tree[.\node(sn11){VP}; [.\node(sn12){PP}; ] [.\node(sn13){VP}; ]]};
+\end{scope}
+
+\begin{scope}[sibling distance=80pt,level distance=18pt]
+\node[scale=0.8, inner sep=0.1cm,align=center,anchor=south east,draw] (cfrag7) at
+   ([xshift=-3.6em,yshift=0.8em]cfrag6.north east) {\Tree[.\node(sn14){IP}; [.\node(sn15){NP}; ] [.\node(sn16){VP}; ]]};
+\end{scope}
+
+\node[scale=0.9,anchor=north,minimum size=18pt] (tw11) at ([xshift=-0.3em,yshift=-1.2em]cfrag1.south){he};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw12) at ([yshift=-0.1em,xshift=0.5em]tw11.east){was};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw13) at ([yshift=0.1em,xshift=0.5em]tw12.east){satisfied};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw14) at ([xshift=0.5em]tw13.east){with};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw15) at ([xshift=0.5em]tw14.east){the};
+\node[scale=0.9,anchor=west,minimum size=18pt] (tw16) at ([yshift=-0.1em,xshift=0.5em]tw15.east){answer};
+
+\node[anchor=north](pos1) at ([xshift=-1.0em,yshift=-0.6em]tw14.south){\small{（b）通过边缘集合定义切割得到的句法树}};
+
+\draw[dashed] ([xshift=-0.3em]cfrag1.south) -- ([yshift=-0.3em]tw11.north);
+\draw[dashed] (cfrag2.south) -- ([yshift=-0.4em]tw14.north);
+\draw[dashed] (cfrag3.south) -- ([yshift=-0.4em]tw15.north);
+\draw[dashed] (cfrag3.south) -- ([yshift=-0.4em]tw16.north);
+\draw[dashed] (cfrag4.south) .. controls +(south:0.6) and +(north:0.6) .. ([yshift=-0.4em]tw13.north);
+
+\draw[*-*] ([xshift=0.0em,yshift=-0.2em]cfrag1.north) -- ([xshift=0.0em,yshift=11.3em]cfrag1.north);
+\draw[*-*] ([xshift=0.1em,yshift=-0.2em]cfrag2.north) -- ([xshift=0.1em,yshift=2.9em]cfrag2.north);
+\draw[*-*] ([xshift=0.1em,yshift=-0.4em]cfrag3.north) -- ([xshift=0.1em,yshift=0.9em]cfrag3.north);
+\draw[*-*] ([xshift=0.0em,yshift=-0.2em]cfrag4.north) -- ([xshift=0.0em,yshift=5.7em]cfrag4.north);
+\draw[*-*] ([xshift=0.1em,yshift=-0.2em]cfrag5.north) -- ([xshift=0.1em,yshift=1em]cfrag5.north);
+\draw[*-*] ([xshift=0.0em,yshift=-0.2em]cfrag6.north) -- ([xshift=0.0em,yshift=1em]cfrag6.north);
+}
+\end{scope}
+}
+
+\end{tikzpicture}
+\end{center}

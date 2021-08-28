@@ -1,0 +1,41 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  tree binarization
+\begin{center}
+\begin{tikzpicture}
+
+{
+{\small
+\begin{scope}[sibling distance=4pt, level distance=25pt]
+
+{\footnotesize
+\Tree[.\node(n1){NP};
+     	[.NNP \node(sw1){美国}; ]
+     	[.NN \node(sw2){总统}; ]
+        [.NN \node(sw3){乔治}; ]
+        [.NN \node(sw4){华盛顿}; ]
+     ]
+}
+
+\node [anchor=north] (tw1) at ([yshift=-2em]sw1.south) {U.S.};
+\node [anchor=north] (tw2) at ([yshift=-2em]sw2.south) {President};
+\node [anchor=north] (tw3) at ([yshift=-2em,xshift=1.5em]sw3.south) {Washington};
+
+\draw [-,dashed] (sw1.south) -- (tw1.north);
+\draw [-,dashed] (sw2.south) -- (tw2.north);
+\draw [-,dashed] (sw3.south) -- (tw3.north);
+\draw [-,dashed] (sw4.south) -- (tw3.north);
+
+\node [anchor=west] (rulelabel1) at ([xshift=1in,yshift=0.3em]n1.east) {{抽取到的规则：}};
+\node [anchor=north west] (rule1) at (rulelabel1.south west) {NP(NNP$_1$ NN$_2$ NN(乔治) NN(华盛顿))};
+\node [anchor=north west] (rule1t) at ([yshift=0.2em]rule1.south west) {$\to$ NNP$_1$ NN$_2$ Trump};
+\node [anchor=north west] (rule2) at (rule1t.south west) {NP(NNP$_1$ NN(总统) NN(乔治) NN(华盛顿))};
+\node [anchor=north west] (rule2t) at ([yshift=0.2em]rule2.south west) {$\to$ NNP$_1$ President Trump};
+\node [anchor=north west] (rulelabel2) at ([yshift=-0.3em]rule2t.south west) {{{\red{不能}}抽取到的规则：}};
+\node [anchor=north west] (rule3) at (rulelabel2.south west) {NP(NN(乔治) NN(华盛顿)) $\to$ Washington};
+
+\end{scope}
+}
+}
+
+\end{tikzpicture}
+\end{center}

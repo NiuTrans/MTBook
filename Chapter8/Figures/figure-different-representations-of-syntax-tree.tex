@@ -1,0 +1,21 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  树结构的表示
+\begin{tikzpicture}
+{\small
+\begin{scope}[sibling distance=3pt, level distance = 22pt]
+\Tree[.S [.NN ] [.VP [.AD ] [.VP [.VV ] [.AS ] ] ] ]
+\end{scope}
+	
+\begin{scope}[xshift=1.5in,yshift=0.25in]
+\node [anchor=north west,align=left] (string1) at (0,0) {[S \\\hspace{1em}NN\\\hspace{1em}VP[\\\hspace{2.5em}AD \\\hspace{2.5em}VP[\\\hspace{4em}VV \\\hspace{4em}AS]]]};
+\end{scope}
+	
+\begin{scope}[xshift=3.3in,yshift=-0.80in]
+\node [anchor=west,align=left] (string2) at (0,0) {(S NN VP(AD \\ VP(VV AS)))};
+\end{scope}
+	
+\node [anchor=north west] (cap1) at (-1.5em,-1in) {{(a) 树状表示}};
+\node [anchor=west] (cap2) at ([xshift=0.7in]cap1.east) {{(b) 序列表示（缩进）}};
+\node [anchor=west] (cap3) at ([xshift=0.7in]cap2.east) {{(c) 序列表示}};
+}
+\end{tikzpicture}

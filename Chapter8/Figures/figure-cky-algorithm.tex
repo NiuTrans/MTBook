@@ -1,0 +1,38 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  CKY解码
+% 看NiuTrans Manual
+\begin{center}
+\begin{tikzpicture}
+\tikzstyle{alignmentnode} = [rectangle,fill=blue!30,minimum size=0.45em,text=white,inner sep=0.1pt]
+\tikzstyle{selectnode} = [rectangle,fill=green!20,minimum height=1.5em,minimum width=1.5em,inner sep=1.2pt]
+\tikzstyle{srcnode} = [anchor=south west]
+\begin{scope}[scale=0.85]
+
+\node[srcnode] (c1) at (0,0) {\normalsize{\textbf{Function} CKY-Algorithm($\seq{s},G$)}};
+\node[srcnode,anchor=north west] (c21) at ([xshift=1.5em,yshift=0.4em]c1.south west) {\normalsize{\textbf{for} $j=0$ to $ J - 1$}};
+\node[srcnode,anchor=north west] (c22) at ([xshift=1.5em,yshift=0.4em]c21.south west) {\normalsize{$span[j,j+1 ]$.Add($A \to a \in G$)}};
+\node[srcnode,anchor=north west] (c3) at ([xshift=-1.5em,yshift=0.4em]c22.south west) {\normalsize{\textbf{for} $l$ = 1 to $J$}};
+\node[srcnode,anchor=west] (c31) at ([xshift=6em]c3.east) {\normalsize{// 跨度长度}};
+\node[srcnode,anchor=north west] (c4) at ([xshift=1.5em,yshift=0.4em]c3.south west) {\normalsize{\textbf{for} $j$ = 0 to $J-l$}};
+\node[srcnode,anchor=north west] (c41) at ([yshift=0.4em]c31.south west) {\normalsize{// 跨度起始位置}};
+\node[srcnode,anchor=north west] (c5) at ([xshift=1.5em,yshift=0.4em]c4.south west) {\normalsize{\textbf{for} $k$ = $j$ to $j+l$}};
+\node[srcnode,anchor=north west] (c51) at ([yshift=0.4em]c41.south west) {\normalsize{// 跨度结束位置}};
+\node[srcnode,anchor=north west] (c6) at ([xshift=1.5em,yshift=0.4em]c5.south west) {\normalsize{$hypos$ = Compose($span[j, k], span[k, j+l]$)}};
+\node[srcnode,anchor=north west] (c7) at ([yshift=0.4em]c6.south west) {\normalsize{$span[j, j+l]$.Update($hypos$)}};
+\node[srcnode,anchor=north west] (c8) at ([xshift=-4.5em,yshift=0.4em]c7.south west) {\normalsize{\textbf{return} $span[0, J]$}};
+
+\node[anchor=west] (c9) at ([xshift=-3.2em,yshift=1.7em]c1.west) {\small{\textrm{参数：}\seq{s}为输入字符串。$G$为输入CFG。$J$为待分析字符串长度。}};
+\node[anchor=west] (c10) at ([xshift=0em,yshift=1.3em]c9.west) {\small{\textrm{输出：全部可能的字符串语法分析结果}}};
+\node[anchor=west] (c11) at ([xshift=0em,yshift=1.3em]c10.west) {\small{\textrm{输入：符合乔姆斯基范式的待分析字符串和一个上下文无关文法（CFG）}}};
+
+
+
+\begin{pgfonlayer}{background}
+\node [rectangle,draw=ublue,thick,inner sep=0.2em,fill=white,drop shadow] [fit = (c1) (c21) (c3) (c6) (c7) (c8) (c11)] (gl1) {};
+\end{pgfonlayer}
+
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+

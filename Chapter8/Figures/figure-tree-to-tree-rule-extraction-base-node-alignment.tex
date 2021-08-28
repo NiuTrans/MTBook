@@ -1,0 +1,78 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  方法2：直接进行节点对齐然后归纳句法映射
+\begin{tikzpicture}
+
+
+\begin{scope}
+
+{
+\begin{scope}[scale=0.65, level distance=27pt]
+\Tree[.\node[draw](en1){S};
+        [.\node[draw](en2){NP};
+            [.DT the ]
+            [.NNS imports ]
+        ]
+        [.\node[draw](en3){VP};
+            [.\node[draw](en4){VBZ}; have ]
+            [.ADVP
+                [.\node[draw](en5){RB}; drastically ]
+                [.\node[draw](en6){VBN}; fallen ]
+            ]
+        ]
+     ]
+\end{scope}
+
+\begin{scope}[scale=0.65, level distance=27pt, grow'=up, xshift=-13pt, yshift=-3.5in, sibling distance=22pt]
+\Tree[.\node[draw](cn1){\ \ IP\ \ };
+        [.\node[draw](cn2){NN}; 进口 ]
+        [.\node[draw](cn3){VP};
+            [.\node[draw](cn4){AD}; 大幅度 ]
+            [.VP
+                [.\node[draw](cn5){VV}; 下降 ]
+                [.\node[draw](cn6){AS}; 了 ]
+            ]
+        ]
+     ]
+\end{scope}
+}
+
+{
+\draw[latex-latex, dotted, thick, red] (cn4.east) .. controls +(east:0.5) and +(west:0.5) .. (en5.west);
+\draw[latex-latex, dotted, thick, red] (cn5.east) .. controls +(east:0.5) and +(south:0.5) .. (en6.south west);
+\draw[latex-latex, dotted, thick, red] (cn6.north west) .. controls +(north:1.5) and +(south:2.5) .. (en4.south west);
+\draw[latex-latex, dotted, thick, red] (cn3.north west) -- (en3.south west);
+\draw[latex-latex, dotted, thick, red] (cn2.west) .. controls +(west:0.6) and +(west:0.6) .. (en2.west);
+\draw[latex-latex, dotted, thick, red] (cn1.north west) .. controls +(north:4) and +(south:5.5) .. (en1.south west);
+}
+
+\end{scope}
+
+
+\node[anchor=north](t1) at (5.8,0.3){{\small{抽取得到的规则(子树对齐)}}};
+\node[anchor=north](t2) at ([xshift=2.9em,yshift=0.5em]t1.south){\underline{\qquad \qquad \qquad \quad  \qquad \qquad \qquad \qquad \qquad}};
+\node[anchor=north](t3) at ([xshift=-7.7em,yshift=0.0em]t2.south){\color{gray!70}\small{$r_1$}};
+\node[anchor=west](t3-1) at ([xshift=0.0em,yshift=0.0em]t3.east){\color{gray!70}\small{AS(了) $\rightarrow$ DT(the)}};
+\node[anchor=north](t4) at ([xshift=0.0em,yshift=0.0em]t3.south){\color{gray!70}\small{$r_2$}};
+\node[anchor=west](t4-1) at ([xshift=0.0em,yshift=0.0em]t4.east){\color{gray!70}\small{NN(进口) $\rightarrow$ NNS(imports)}};
+\node[anchor=north](t5) at ([xshift=0.0em,yshift=0.0em]t4.south){\small{$r_3$}};
+\node[anchor=west](t5-1) at ([xshift=0.0em,yshift=0.0em]t5.east){\small{AD(大幅度) $\rightarrow$ RB(drastically)}};
+\node[anchor=north](t6) at ([xshift=0.0em,yshift=0.0em]t5.south){\small{$r_4$}};
+\node[anchor=west](t6-1) at ([xshift=0.0em,yshift=0.0em]t6.east){\small{VV(下降) $\rightarrow$ VBN(fallen)}};
+\node[anchor=north](t7) at ([xshift=0.0em,yshift=0.0em]t6.south){\color{gray!70}\small{$r_5$}};
+\node[anchor=west](t7-1) at ([xshift=0.0em,yshift=0.0em]t7.east){\color{gray!70}\small{IP(NN$_1$ VP(AD$_2$ VP(VV$_3$ AS$_4$)) $\rightarrow$}};
+\node[anchor=north](t8) at ([xshift=9.4em,yshift=0.0em]t7.south){\color{gray!70}\scriptsize{S(NP(DT$_4$ NNS$_1$) VP(VBZ(have) ADVP(RB$_2$ VBN$_3$))}};
+
+\node[anchor=north](s3) at ([xshift=0.0em,yshift=-1.3em]t7.south){\red{\small{$r_{6}$}}};
+\node[anchor=west](s3-1) at ([xshift=0.0em,yshift=0.0em]s3.east){\red{\small{AS(了) $\rightarrow$ VBZ(have)}}};
+\node[anchor=north](s4) at ([xshift=0.0em,yshift=0.0em]s3.south){\red{\small{$r_{7}$}}};
+\node[anchor=west](s4-1) at ([xshift=0.0em,yshift=0.0em]s4.east){\red{\small{NN(进口) $\rightarrow$}}};
+\node[anchor=north](s5) at ([xshift=0.0em,yshift=0.0em]s4.south){\small{\color{white}{$r_{?}$}}};
+\node[anchor=west](s5-1) at ([xshift=0.0em,yshift=0.0em]s5.east){\red{\small{NP(DT(the) NNS(imports))}}};
+\node[anchor=north](s6) at ([xshift=0.0em,yshift=0.0em]s5.south){\red{\small{$r_{8}$}}};
+\node[anchor=west](s6-1) at ([xshift=0.0em,yshift=0.0em]s6.east){\red{\small{VP(AD$_1$ VP(VV$_2$ AS$_3$)) $\rightarrow$}}};
+\node[anchor=north](s7) at ([xshift=0.0em,yshift=0.0em]s6.south){\red{\small{\color{white}{$r_{?}$}}}};
+\node[anchor=west](s7-1) at ([xshift=0.0em,yshift=0.0em]s7.east){\red{\small{VP(VBZ$_3$ ADVP(RB$_1$ VBN$_2$)}}};
+\node[anchor=north](s8) at ([xshift=0.0em,yshift=0.0em]s7.south){\red{\small{$r_{9}$}}};
+\node[anchor=west](s8-1) at ([xshift=0.0em,yshift=0.0em]s8.east){\red{\small{IP(NN$_1$ VP$_2$) $\rightarrow$ S(NP$_1$ VP$_2$)}}};
+
+\end{tikzpicture}

@@ -1,0 +1,46 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  基于树的解码方法 - chart-based decoding
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}%[scale=0.2]
+
+\node[anchor=north] (q1) at (0,0) {\scriptsize\sffamily\bfseries{输入字符串：}};
+\node[anchor=west] (q2) at ([xshift=0em,yshift=-1.5em]q1.west) {\footnotesize{进口$\quad$和$\quad$出口$\quad$大幅度$\quad$下降$\quad$了}};
+
+\node[anchor=north,fill=blue!20,minimum height=1em,minimum width=1em] (f1) at ([xshift=-4.2em,yshift=-0.8em]q2.south) {};
+
+\node[anchor=east] (n1) at ([xshift=1em,yshift=-2em]q2.west) {\scriptsize\sffamily\bfseries{匹配规则：}};
+
+\node[anchor=west] (n2) at ([xshift=0em,yshift=0em]n1.east) {\scriptsize{$$\seq{X}$ \to  \langle\ $\seq{X}$_1\ \text{大幅度}\ \text{下降}\ \text{了},\ $\seq{X}$_1\ \textrm{have}\ \textrm{drastically}\ \textrm{fallen}\ \rangle$}};
+
+\draw[decorate,decoration={mirror,brace}]([xshift=0.5em,yshift=-1em]q2.west) --([xshift=7em,yshift=-1em]q2.west) node [xshift=0em,yshift=-1em,align=center](label1) {};	
+
+{\scriptsize
+\node[anchor=west] (h1) at ([xshift=1em,yshift=-7em]q2.west) {{Span[0,3]下的翻译假设：}};
+\node[anchor=west] (h2) at ([xshift=0em,yshift=-1.3em]h1.west) {{$\seq{X}$：the imports and exports}};
+\node[anchor=west] (h3) at ([xshift=0em,yshift=-1.3em]h2.west) {{$\seq{X}$：imports and exports}};
+\node[anchor=west] (h4) at ([xshift=0em,yshift=-1.3em]h3.west) {{$\seq{X}$：exports and imports}};
+\node[anchor=west] (h5) at ([xshift=0em,yshift=-1.3em]h4.west) {{$\seq{X}$：the imports and the exports}};
+\node[anchor=west] (h6) at ([xshift=0em,yshift=-1.3em]h5.west) {{$\seq{S}$：the import and export}};
+}
+
+{\scriptsize
+\node[anchor=west] (h21) at ([xshift=9em,yshift=0em]h1.east) {{替换$$\seq{X}$_1$后生成的翻译假设：}};
+\node[anchor=west] (h22) at ([xshift=0em,yshift=-1.3em]h21.west) {{$\seq{X}$：the imports and exports have drastically fallen}};
+\node[anchor=west] (h23) at ([xshift=0em,yshift=-1.3em]h22.west) {{$\seq{X}$：imports and exports have drastically fallen}};
+\node[anchor=west] (h24) at ([xshift=0em,yshift=-1.3em]h23.west) {{$\seq{X}$：exports and imports have drastically fallen}};
+\node[anchor=west] (h25) at ([xshift=0em,yshift=-1.3em]h24.west) {{$\seq{X}$：the imports and the exports have drastically fallen}};
+}
+
+\node [rectangle,inner sep=0.1em,rounded corners=1pt,draw] [fit = (h1) (h5) (h6)] (gl1) {};
+\node [rectangle,inner sep=0.1em,rounded corners=1pt,draw] [fit = (h21) (h25)] (gl2) {};
+
+\node [anchor=east,circle,inner sep=2pt,drop shadow,thick,draw=ublue,fill=white] (join) at ([xshift=3em,yshift=-2em]gl1.north east) {\tiny{组合}};
+
+\draw [->,ublue,thick] ([xshift=0.6em,yshift=0.2em]n2.south) .. controls +(south:2em) and +(north:2em) ..   (join.90);
+\draw [->,ublue,thick] ([xshift=0em,yshift=1em]gl1.south east) .. controls +(east:2em) and +(south:2em) ..   (join.-90);
+\draw [->,ublue,thick] (join.0) -- ([xshift=1.7em]join.0);
+
+\end{scope}
+\end{tikzpicture}
+\end{center}
