@@ -1,0 +1,30 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=center,inner sep=2pt] (e) at (0,0) {\small{$\mathbi{e}=\mathbi{o}$}};
+\node [anchor=west,inner sep=2pt] (c) at (e.east) {\small{$\mathbi{C}$}};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,inner sep=0.4em,draw,fill=blue!30!white] [fit = (e) (c)] (box) {};
+\end{pgfonlayer}
+
+\draw [->,thick] ([yshift=-1em]box.south)--([yshift=-0.1em]box.south) node [pos=0,below] (bottom1) {\small{单词$w$的One-hot表示}};
+\draw [->,thick] ([yshift=0.1em]box.north)--([yshift=1em]box.north) node [pos=1,above] (top1) {\scriptsize{$\mathbi{e}$=(8,0.2,-1,0.9,...,1)}};
+\node [anchor=north] (bottom2) at ([yshift=0.3em]bottom1.south) {\scriptsize{$\mathbi{o}$=(0,0,1,0,...,0)}};
+\node [anchor=south] (top2) at ([yshift=-0.3em]top1.north) {\small{单词$w$的分布式表示}};
+
+{
+\node [anchor=north west,fill=red!30!white] (cmatrix) at ([xshift=6em,yshift=1.0em]c.north east) {\scriptsize{$\begin{pmatrix} 1 & 0.2 & -0.2 & 8 & ... & 0 \\ 0.6 & 0.8 & -2 & 1 & ... & -0.2 \\ 8 & 0.2 & -1 & 0.9 & ... & 2.3 \\ 1 & 1.2 & -0.9 & 3 & ... & 0.2 \\ ... & ... & ... & ... & ... & ... \\ 1 & 0.3 & 3 & 0.9 & ... & 5.1 \end{pmatrix}$}};
+\node [anchor=west,inner sep=2pt,fill=red!35!white] (c) at (e.east) {\small{$\mathbi{C}$}};
+\draw [<-,thick] (c.east) -- ([xshift=6em]c.east);
+}
+
+{
+\node [anchor=south,draw,fill=green!30!white] (e2) at ([yshift=1.5em]cmatrix.north) {\scriptsize{外部词嵌入系统得到的$\mathbi{C}$}};
+\draw [->,very thick,dashed] (e2.south) -- (cmatrix.north);
+}
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

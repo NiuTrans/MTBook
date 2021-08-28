@@ -1,0 +1,40 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+
+\begin{scope}
+
+\node [anchor=west,draw,thick,minimum width=4em,minimum height=1.7em,fill=blue!30] (encoder) at (0,0) {模块};
+\node [anchor=south,minimum width=4em,minimum height=1.7em] (space) at ([yshift=0.3em]encoder.north) {\footnotesize{目标系统}};
+
+\begin{pgfonlayer}{background}
+\node [rectangle,draw,thick,fill=red!30] [fit = (encoder) (space)] (system) {};
+\end{pgfonlayer}
+
+\node [anchor=north] (data) at ([yshift=-1em]system.south) {\scriptsize{\textbf{目标任务有标注数据}}};
+\draw [->,thick] (data.north) -- ([yshift=-0.1em]system.south);
+\node [anchor=north] (label) at ([yshift=-0em]data.south) {\scriptsize{(a) 标准方法}};
+
+\end{scope}
+
+\begin{scope}[xshift=2.8in]
+
+\node [anchor=west,draw,dashed,thick,minimum width=4em,minimum height=1.7em,fill=blue!30] (encoder) at (0,0) {模块};
+\node [anchor=south,minimum width=4em,minimum height=1.7em] (space) at ([yshift=0.3em]encoder.north) {\footnotesize{目标系统}};
+\node [anchor=center,draw,thick,minimum width=4em,minimum height=1.7em,fill=green!30] (encoderpre) at ([xshift=-7em]encoder.center) {\footnotesize{语言模型}};
+\draw [->,thick] (encoderpre.east) -- (encoder.west);
+
+\begin{pgfonlayer}{background}
+\node [rectangle,draw,thick,fill=red!30] [fit = (encoder) (space)] (system) {};
+\end{pgfonlayer}
+
+\node [anchor=north] (data) at ([yshift=-1em]system.south) {\scriptsize{\textbf{目标任务有标注数据}}};
+\draw [->,thick] (data.north) -- ([yshift=-0.1em]system.south);
+\node [anchor=north] (data2) at ([yshift=-1em,xshift=-7em]system.south) {\scriptsize{\textbf{大规模无标注数据}}};
+\draw [->,thick] (data2.north) -- ([yshift=-0.1em]encoderpre.south);
+\node [anchor=north] (label) at ([yshift=-0em,xshift=-4em]data.south) {\scriptsize{(b) 预训练 + 微调}};
+
+\end{scope}
+
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,51 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\tikzstyle{neuronnode} = [minimum size=2.2em,circle,draw,ublue,very thick,inner sep=1pt, fill=white,align=center,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}]
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (bias10) at (0,0.05)  {\footnotesize{${\mathbi{b}}^{[1]}$}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (bias11) at ([xshift=-1.5em,yshift=-0.3em]bias10.south)  {\footnotesize{偏置1}};
+\node [anchor=center,rotate=13,fill=white,inner sep=1pt] (b11) at ([yshift=1.2em,xshift=4.2em]bias10.north) {\scriptsize{$b_{11}$}};
+
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (input10) at (3,0) {\footnotesize {$x_1$}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (input11) at ([xshift=-2.1em,yshift=-0.3em]input10.south) {\footnotesize {天空状况}};
+
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (input20) at (6,0) {\footnotesize {$x_2$}};
+\node [anchor=center,rotate=32,fill=white,inner sep=1pt] (w12) at ([yshift=1.25em,xshift=1.4em]input20.north) {\scriptsize{$w_{22}$}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (input21) at ([xshift=-2.1em,yshift=-0.3em]input20.south) {\footnotesize {低空气温}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (input30) at (9,0) {\footnotesize {$x_3$}};
+\node [anchor=center,rotate=-20,fill=white,inner sep=1pt] (w13) at ([yshift=1.2em,xshift=-1.4em]input30.north) {\scriptsize{$w_{32}$}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (input31) at ([xshift=-2.1em,yshift=-0.3em]input30.south) {\footnotesize {水平气压}};
+
+\node [neuronnode] (n10) at ([xshift=3em,yshift=4em]input10.east) {\tiny{Tanh}\\[-1ex] \tiny{$\sum$}};
+\node [anchor=east,minimum width=2.0em,minimum height=1.5em] (a1) at ([xshift=2.3em,yshift=0em]n10.east) {\footnotesize {温度}};
+\node [anchor=center,rotate=0,fill=white,inner sep=1pt] (w21) at ([xshift=0.8em,yshift=0.8em]n10.north) {\scriptsize{$w'_{11}$}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (bias20) at ([xshift=-7.2em,yshift=0.3em]n10.west)  {\footnotesize {$b^{[2]}$}};
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (bias21) at ([xshift=-1.5em,yshift=-0.3em]bias20.south)  {\footnotesize {偏置2}};
+\node [anchor=center,rotate=25,fill=white,inner sep=1pt] (b21) at ([yshift=1.1em,xshift=1.9em]bias20.north) {\scriptsize{$b'_{11}$}};
+\node [neuronnode] (n11) at ([xshift=2.8em,yshift=4em]input20.east){\tiny{Tanh}\\[-1ex] \tiny{$\sum$}};
+\node [anchor=east,minimum width=2.0em,minimum height=1.5em] (a1) at ([xshift=2.3em,yshift=0em]n11.east) {\footnotesize {风速}};
+\node [anchor=center,rotate=-15,fill=white,inner sep=1pt] (w22) at ([yshift=1.05em,xshift=-1.8em]n11.north) {\scriptsize{$w'_{21}$}};
+\draw [-,ublue] (n10.west) -- (n10.east);
+\draw [-,ublue] (n11.west) -- (n11.east);
+\node [neuronnode] (n20) at ([xshift=3em,yshift=8em]input10.east) {\tiny{Sigmoid}\\[-1ex] \tiny{$\sum$}};
+\node [anchor=east,minimum width=2.0em,minimum height=1.5em] (a1) at ([xshift=3.9em,yshift=0em]n20.east) {\footnotesize {穿衣指数}};
+\draw [-,ublue] (n20.west) -- (n20.east);
+\node [anchor=west,minimum width=2.0em,minimum height=1.5em] (output) at ([xshift=2em,yshift=12em]input10.east)  {\footnotesize {$y$}};
+
+\draw [->,thick,ublue!70,line width=0.33mm] (input10.north) -- (n10.south);
+\draw [->,thick,ugreen,line width=0.33mm] (input20.north) -- (n10.south);
+\draw [->,thick,blue!80,line width=0.33mm] (input20.north) -- (n11.south);
+\draw [->,thick,red!40,line width=0.33mm] (input30.north) -- (n11.south);
+\draw [->,thick,brown,line width=0.33mm] (n10.north) -- (n20.south);
+\draw [->,thick,ugreen!40,line width=0.33mm] (n11.north) -- (n20.south);
+\draw [->,thick,purple,line width=0.33mm] (bias20.north) -- (n20.south);
+\draw [->,thick,line width=0.33mm] (n20.north) -- (output.south);
+\draw [->,thick,red!80,line width=0.33mm] (bias10.north) -- (n10.south);
+\draw [->,thick,orange,line width=0.33mm] (bias10.north) -- (n11.south);
+\node [anchor=center,rotate=10,fill=white,inner sep=1pt] (b12) at ([yshift=0.6em,xshift=7em]bias10.north) {\scriptsize{$b_{12}$}};
+\node [anchor=center,rotate=30,fill=white,inner sep=1pt] (w11) at ([yshift=0.4em,xshift=1.7em]input10.north) {\scriptsize{$w_{11}$}};
+\node [anchor=center,rotate=-25,fill=white,inner sep=1pt] (w12) at ([yshift=0.4em,xshift=-1.7em]input20.north) {\scriptsize{$w_{21}$}};
+
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+%%------------------------------------------------------------------------------------------------------------
+

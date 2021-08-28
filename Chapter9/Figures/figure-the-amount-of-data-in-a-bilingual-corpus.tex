@@ -1,0 +1,35 @@
+%%%------------------------------------------------------------------------------------------------------------
+ \begin{tikzpicture}
+      \scriptsize{
+\begin{semilogyaxis}[
+    width=.8\textwidth,
+    height=.30\textwidth,
+    yticklabel style={/pgf/number format/precision=1,/pgf/number format/fixed zerofill},
+    xticklabel style={/pgf/number format/1000 sep=},
+    xlabel style={yshift=0.5em},
+    xlabel={\footnotesize{年份}},ylabel={\footnotesize{句子数量(个)}},
+    ymin=1,ymax=1000000000000,
+    xmin=1999,xmax=2020,xtick={2000,2005,2010,2015,2020},
+    legend style={yshift=-5em,xshift=0em,legend cell align=left,legend plot pos=right}
+]
+
+\addplot[purple,mark=square,mark=star,very thick] coordinates {(2001,10000) (2005,2000000) (2008,8000000) (2009,9000000) (2011,10000000) (2012,12000000) (2014,20000000) (2016,30000000) (2018,40000000) };
+\addlegendentry{\tiny{机器翻译论文中使用的双语数据量}\ \ \ \ \ \ \ \ \ \ }
+{
+\addplot[ublue,mark=otimes*,very thick] coordinates {(2005,10000000) (2008,100000000) (2012,3000000000) (2016,5000000000) (2019,10000000000) };
+\addlegendentry{\tiny{实用系统中使用的双语数据量}}
+}
+
+\end{semilogyaxis}
+}
+ \end{tikzpicture}
+
+
+
+
+
+
+
+
+
+%%%------------------------------------------------------------------------------------------------------------

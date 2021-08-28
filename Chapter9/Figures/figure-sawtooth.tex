@@ -1,0 +1,89 @@
+
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+
+
+\node [anchor=center,color=red] (node1) at (0,0) {};
+\node [anchor=north,color=red] (node4) at ([xshift=9.0em,yshift=0.88em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node5) at ([xshift=6.35em,yshift=-2.5em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node6) at ([xshift=3.8em,yshift=-0.5em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node7) at ([xshift=2.6em,yshift=-2.0em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node8) at ([xshift=1.22em,yshift=-0.91em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node9) at ([xshift=0.6em,yshift=-1.7em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node10) at ([xshift=0.0em,yshift=-1.2em]node1.south) {\large{$\bullet$}};
+
+\draw[-,ublue,line width=0.3mm]([xshift=0.5em,yshift=0.46em]node4.south west)--([xshift=-0.5em,yshift=-0.4em]node5.north east);
+\draw[-,ublue,line width=0.3mm]([xshift=-0.45em,yshift=0.52em]node6.south east)--([xshift=0.47em,yshift=-0.43em]node5.north west);
+\draw[-,ublue,line width=0.3mm]([xshift=0.5em,yshift=0.46em]node6.south west)--([xshift=-0.5em,yshift=-0.4em]node7.north east);
+\draw[-,ublue,line width=0.3mm]([xshift=-0.45em,yshift=0.52em]node8.south east)--([xshift=0.47em,yshift=-0.43em]node7.north west);
+\draw[-,ublue]([xshift=0.5em,yshift=0.46em]node8.south west)--([xshift=-0.5em,yshift=-0.4em]node9.north east);
+\draw[-,ublue,line width=0.3mm]([xshift=-0.78em,yshift=0.77em]node9.south east)--([xshift=0.78em,yshift=-0.68em]node10.north west);
+
+
+
+
+\draw [-,ublue,thick] (0,0) .. controls (2,0) and (3,-1.0)..(3,-1.5) .. controls (3,-2.2) and (2,-1.75)..(1.5,-1.65)..controls (1.5,-1.65) and (0.5,-1.45)..(0,-1.45)..controls (-0.5,-1.45) and (-1.5,-1.65)..(-1.5,-1.65)..controls (-2,-1.75)and (-3,-2.2).. (-3,-1.5)..controls (-3,-1.0) and (-2,0)..(0,0);
+
+\draw [-,ublue,thick] (0,0.5)..controls (2,0.5) and (4,-1.0).. (4,-1.7)..controls(4,-2.6)and (3,-2.3)..(2,-2.05)..controls (2,-2.05) and (1,-1.80)..(0,-1.80)..controls (-1,-1.80)and (-2,-2.05)..(-2,-2.05)..controls(-3,-2.3)and(-4,-2.6)..(-4,-1.7)..controls(-4,-1.0)and (-2,0.5)..(0,0.5);
+
+\draw[-,ublue,thick](0,1.0)..controls(3,1.0) and (5,-1.0)..(5,-1.9)..controls (5,-3.2)and (4,-2.7)..(3,-2.5)..controls (3,-2.5) and (2,-2.20)..(0,-2.15)..controls (-2,-2.20)and (-3,-2.5)..(-3,-2.5)..controls (-4,-2.7) and (-5,-3.2) ..(-5,-1.9)..controls (-5,-1.0) and (-3,1.0)..(0,1.0);
+
+\draw[-,ublue,thick] (0,-0.3)..controls (1.5,-0.3)and (2.5,-1.0)..(2.5,-1.4)..controls(2.5,-1.8)and (2,-1.55)..(1.5,-1.45) ..controls (1.5,-1.45) and (0.5,-1.25)..(0,-1.25) .. controls(-0.5,-1.25)and (-1.5,-1.45)..(-1.5,-1.45)..controls(-2,-1.55)and (-2.5,-1.8) ..(-2.5,-1.4)..controls(-2.5,-1.0) and (-1.5,-0.3)..(0,-0.3);
+
+\draw[-,ublue,thick](0,-0.5)..controls (1.0,-0.5) and (1.9,-0.8)..(1.9,-1.3)..controls(1.9,-1.5)and (1.5,-1.3)..(1.0,-1.2) ..controls(1.0,-1.2) and (0.5,-1.1)..(0,-1.1)..controls(-0.5,-1.1) and (-1.0,-1.2)..(-1.0,-1.2)..controls (-1.5,-1.3)and (-1.9,-1.5)..(-1.9,-1.3) ..controls(-1.9,-0.8)and (-1.0,-0.5) ..(0,-0.5);
+
+\draw[-,ublue,thick](0,-0.7)..controls(1.0,-0.7) and (1.4,-0.9)..(1.4,-1.1) .. controls(1.4,-1.25) and (1.2,-1.15)..(1.0,-1.1)..controls(1.0,-1.1) and (0.5,-0.95)..(0,-0.95)..controls(-0.5,-0.95)and (-1.0,-1.1) ..(-1.0,-1.1)..controls(-1.2,-1.15) and (-1.4,-1.25)..(-1.4,-1.1)..controls(-1.4,-0.9) and (-1.0,-0.7)..(0,-0.7);
+
+\draw[-,ublue,thick](0,-0.75)..controls(0.7,-0.75)and (1.0,-0.9)..(1.0,-1.0)..controls(1.0,-1.05) and (0.9,-1.05)..(0.7,-1.0)..controls(0.5,-0.95)and (0.3,-0.9)..(0,-0.9)..controls(-0.3,-0.9)and (-0.5,-0.95)..(-0.7,-1.0)..controls(-0.9,-1.05)and (-1.0,-1.05)..(-1.0,-1.0) ..controls(-1.0,-0.9)and (-0.7,-0.75)..(0,-0.75);
+
+\draw[-,ublue,thick](0,-0.8)..controls(0.5,-0.8) and (0.6,-0.85)..(0.6,-0.9)..controls(0.6,-0.93)and (0.5,-0.91)..(0.3,-0.88)..controls(0.2,-0.87)and (0.1,-0.86)..(0,-0.86)..controls(-0.1,-0.86)and(-0.2,-0.87)..(-0.3,-0.88)..controls(-0.5,-0.91) and(-0.6,-0.93) ..(-0.6,-0.9)..controls(-0.6,-0.85)and (-0.5,-0.8)..(0,-0.8);
+
+
+\node [anchor=north] (labela) at (0,-2.7) {\small{(a)梯度下降算法中的``锯齿''现象}};
+
+\end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{scope}[yshift=-1.8in]
+
+
+\node [anchor=center,color=red] (node1) at (0,0) {};
+
+\node [anchor=north,color=red] (node2) at ([xshift=0.0em,yshift=-1.2em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node3) at ([xshift=3.55em,yshift=-0.981em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node4) at ([xshift=7.75em,yshift=-2.91em]node1.south) {\large{$\bullet$}};
+\node [anchor=north,color=red] (node5) at ([xshift=11.38em,yshift=-1.11em]node1.south) {\large{$\bullet$}};
+
+\draw[-,ublue,line width=0.3mm]([xshift=0.79em,yshift=-0.59em]node2.north west)--([xshift=-0.75em,yshift=0.6em]node3.south east);
+\draw[-,ublue,line width=0.3mm]([xshift=0.79em,yshift=0.66em]node3.south west)--([xshift=-0.76em,yshift=-0.5em]node4.north east);
+\draw[-,ublue,line width=0.3mm]([xshift=0.79em,yshift=-0.59em]node4.north west)--([xshift=-0.75em,yshift=0.6em]node5.south east);
+
+
+
+
+\draw [-,ublue,thick] (0,0) .. controls (2,0) and (3,-1.0)..(3,-1.5) .. controls (3,-2.2) and (2,-1.75)..(1.5,-1.65)..controls (1.5,-1.65) and (0.5,-1.45)..(0,-1.45)..controls (-0.5,-1.45) and (-1.5,-1.65)..(-1.5,-1.65)..controls (-2,-1.75)and (-3,-2.2).. (-3,-1.5)..controls (-3,-1.0) and (-2,0)..(0,0);
+
+\draw [-,ublue,thick] (0,0.5)..controls (2,0.5) and (4,-1.0).. (4,-1.7)..controls(4,-2.6)and (3,-2.3)..(2,-2.05)..controls (2,-2.05) and (1,-1.80)..(0,-1.80)..controls (-1,-1.80)and (-2,-2.05)..(-2,-2.05)..controls(-3,-2.3)and(-4,-2.6)..(-4,-1.7)..controls(-4,-1.0)and (-2,0.5)..(0,0.5);
+
+\draw[-,ublue,thick](0,1.0)..controls(3,1.0) and (5,-1.0)..(5,-1.9)..controls (5,-3.2)and (4,-2.7)..(3,-2.5)..controls (3,-2.5) and (2,-2.20)..(0,-2.15)..controls (-2,-2.20)and (-3,-2.5)..(-3,-2.5)..controls (-4,-2.7) and (-5,-3.2) ..(-5,-1.9)..controls (-5,-1.0) and (-3,1.0)..(0,1.0);
+
+\draw[-,ublue,thick] (0,-0.3)..controls (1.5,-0.3)and (2.5,-1.0)..(2.5,-1.4)..controls(2.5,-1.8)and (2,-1.55)..(1.5,-1.45) ..controls (1.5,-1.45) and (0.5,-1.25)..(0,-1.25) .. controls(-0.5,-1.25)and (-1.5,-1.45)..(-1.5,-1.45)..controls(-2,-1.55)and (-2.5,-1.8) ..(-2.5,-1.4)..controls(-2.5,-1.0) and (-1.5,-0.3)..(0,-0.3);
+
+\draw[-,ublue,thick](0,-0.5)..controls (1.0,-0.5) and (1.9,-0.8)..(1.9,-1.3)..controls(1.9,-1.5)and (1.5,-1.3)..(1.0,-1.2) ..controls(1.0,-1.2) and (0.5,-1.1)..(0,-1.1)..controls(-0.5,-1.1) and (-1.0,-1.2)..(-1.0,-1.2)..controls (-1.5,-1.3)and (-1.9,-1.5)..(-1.9,-1.3) ..controls(-1.9,-0.8)and (-1.0,-0.5) ..(0,-0.5);
+
+\draw[-,ublue,thick](0,-0.7)..controls(1.0,-0.7) and (1.4,-0.9)..(1.4,-1.1) .. controls(1.4,-1.25) and (1.2,-1.15)..(1.0,-1.1)..controls(1.0,-1.1) and (0.5,-0.95)..(0,-0.95)..controls(-0.5,-0.95)and (-1.0,-1.1) ..(-1.0,-1.1)..controls(-1.2,-1.15) and (-1.4,-1.25)..(-1.4,-1.1)..controls(-1.4,-0.9) and (-1.0,-0.7)..(0,-0.7);
+
+\draw[-,ublue,thick](0,-0.75)..controls(0.7,-0.75)and (1.0,-0.9)..(1.0,-1.0)..controls(1.0,-1.05) and (0.9,-1.05)..(0.7,-1.0)..controls(0.5,-0.95)and (0.3,-0.9)..(0,-0.9)..controls(-0.3,-0.9)and (-0.5,-0.95)..(-0.7,-1.0)..controls(-0.9,-1.05)and (-1.0,-1.05)..(-1.0,-1.0) ..controls(-1.0,-0.9)and (-0.7,-0.75)..(0,-0.75);
+
+\draw[-,ublue,thick](0,-0.8)..controls(0.5,-0.8) and (0.6,-0.85)..(0.6,-0.9)..controls(0.6,-0.93)and (0.5,-0.91)..(0.3,-0.88)..controls(0.2,-0.87)and (0.1,-0.86)..(0,-0.86)..controls(-0.1,-0.86)and(-0.2,-0.87)..(-0.3,-0.88)..controls(-0.5,-0.91) and(-0.6,-0.93) ..(-0.6,-0.9)..controls(-0.6,-0.85)and (-0.5,-0.8)..(0,-0.8);
+
+\node [anchor=north] (labelb) at (0,-3) {\small{(b)Momentum梯度下降算法更加``平滑''地更新}};
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+
+
+
+

@@ -1,0 +1,34 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+
+\begin{scope}
+\draw [->,thick] (0,0) -- (3.1,0);
+\draw [->,thick] (0,0) -- (0, 2.1);
+\draw [-,very thick,ublue,domain=0.55:2.6,samples=100] plot (\x,{ 1/\x - 0.2});
+\node [anchor=east] (ylabel) at (0, 4.4em) {\footnotesize{$x_1$}};
+\node [anchor=north] (xlabel) at (6.5em, 0em) {\scriptsize{距离(km)}};
+\end{scope}
+
+\begin{scope}[xshift=12em]
+\draw [->,thick] (0,0) -- (3.1,0);
+\draw [->,thick] (0,0) -- (0, 2.1);
+\draw [-,very thick,ublue,domain=0.3:2.6,samples=100] plot (\x,{ 0.5/\x});
+\node [anchor=east] (ylabel) at (0, 4.4em) {\footnotesize{$x_2$}};
+\node [anchor=north] (xlabel) at (6.5em, 0em) {\scriptsize{票价(元)}};
+\end{scope}
+
+\begin{scope}[xshift=24em]
+\draw [->,thick] (0,0) -- (3.1,0);
+\draw [->,thick] (0,0) -- (0, 2.1);
+\node [anchor=east] (ylabel) at (0, 4.4em) {\footnotesize{$x_3$}};
+\node [anchor=south, fill=ublue, minimum width=1.5em, minimum height=0.1em, inner sep=0] (histogram1) at (1.5em, 0) {};
+\node [anchor=south, fill=ublue, minimum width=1.5em, minimum height=3em, inner sep=0] (histogram2) at (4.0em, 0) {};
+\node [anchor=north] (hlabel1) at (histogram1.south) {\tiny{不喜欢}};
+\node [anchor=north] (hlabel2) at (histogram2.south) {\tiny{喜欢}};
+\node [anchor=north] (xlabel) at (6.5em, 0em) {\scriptsize{是否喜欢}};
+\end{scope}
+
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+
+

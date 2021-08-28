@@ -1,0 +1,17 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+{
+\begin{scope}[xshift=2in]
+\node [anchor=north west] (o1) at (0,0) {\footnotesize{$\begin{bmatrix} 0.1 \\ -1 \\ 2 \\ ... \\ 0 \end{bmatrix}$}};
+\node [anchor=north west] (o2) at ([xshift=2em]o1.north east) {\footnotesize{$\begin{bmatrix} 1 \\ 2 \\ 0.2 \\ ... \\ -1 \end{bmatrix}$}};
+\node [anchor=north east] (v) at ([xshift=-2em]o1.north west) {\footnotesize{$\begin{matrix} \textrm{\ \ \ 属性}_1 \\ \textrm{\ \ \ 属性}_2 \\ \textrm{\ \ \ 属性}_3 \\ ... \\ \textrm{属性}_{512} \end{matrix}$}};
+\node [anchor=south] (w1) at (o1.north) {\footnotesize{桌子}};
+\node [anchor=south] (w2) at (o2.north) {\footnotesize{椅子}};
+{
+\node [anchor=south,fill=red!30!white,minimum width=12em] (cosine) at (w1.north) {\footnotesize{$\textrm{cos}(\textrm{‘桌子’},\textrm{‘椅子’})=0.5$}};
+}
+\end{scope}
+}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

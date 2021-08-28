@@ -1,0 +1,57 @@
+%%%------------------------------------------------------------------------------------------------------------
+\pgfplotsset{
+  colormap={whitered}{color(-1cm)=(orange!85!red);color(1cm)=(white)}
+}
+\begin{tikzpicture}[
+  declare function = {mu1=1;},
+  declare function = {mu2=2;},
+  declare function = {sigma1=0.5;},
+  declare function = {sigma2=1;},
+  declare function = {normal(\m,\s)=1/(2*\s*sqrt(pi))*exp(-(x-\m)^2/(2*\s^2));},
+  declare function = {bivar(\ma,\sa,\mb,\sb)=1/(2*pi*\sa*\sb) * exp(-((x-\ma)^2/\sa^2 + (y-\mb)^2/\sb^2))/2;}]
+  \footnotesize{
+  {
+  \begin{scope}
+  \begin{axis}[
+    colormap name  = whitered,
+    width          = 10cm,
+    height         = 5cm,
+    view           = {20}{45},
+    enlargelimits  = false,
+    grid           = major,
+    domain         = -1:3,
+    y domain       = 0:4,
+    samples        = 30,
+    xlabel         = ${\bm \theta}^{[1]}$,
+    ylabel         = ${\bm \theta}^{[2]}$,
+    xlabel style   = {xshift=0em,yshift=0.8em},
+    ylabel style   = {xshift=0.2em,yshift=0.8em},
+    zlabel         = {$J({\bm \theta})$},
+    ztick          = {-0.1},
+    colorbar,
+    colorbar style = {
+      at     = {(1.2,0.5)},
+      anchor = north west,
+      ytick  = {0,-0.1},
+      height = 0.25*\pgfkeysvalueof{/pgfplots/parent axis height},
+      title  = {}
+    }
+  ]
+
+    \addplot3 [surf] {-bivar(mu1,sigma1,mu2,sigma2)};
+
+    \node [circle,fill=red,minimum size=3pt,inner sep=1.5pt] () at (axis cs:0.5,2,-0.01) {};
+
+    \draw [->,very thick,ublue] (axis cs:0.5,2,-0.01) -- (axis cs:0.8,1.6,-0.03) node [pos=1,right,inner sep=2pt] {\tiny{-$\frac{\partial J({\bm \theta})}{\partial {\bm \theta}}$}};
+    \draw [->,very thick,dotted] (axis cs:0.5,2,-0.01) -- (axis cs:0.2,1.5,-0.03);
+    \draw [->,very thick,dotted] (axis cs:0.5,2,-0.01) -- (axis cs:0.2,3.5,-0.03);
+    %\draw [black!50] (axis cs:0,-1,0) -- (axis cs:0,4,0);
+
+  \end{axis}
+  \end{scope}
+  }
+  }
+\end{tikzpicture}
+
+%%%------------------------------------------------------------------------------------------------------------
+

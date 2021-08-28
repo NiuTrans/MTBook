@@ -1,0 +1,48 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=west] (w0) at (0,0) {\small{${\mathbi{o}}_{i-3}$}};
+\node [anchor=west] (w1) at ([xshift=3.5em]w0.east) {\small{${\mathbi{o}}_{i-2}$}};
+\node [anchor=west] (w2) at ([xshift=3.5em]w1.east) {\small{${\mathbi{o}}_{i-1}$}};
+\node [anchor=north] (index0) at ([yshift=0.5em]w0.south) {\footnotesize(index)};
+\node [anchor=north] (index1) at ([yshift=0.5em]w1.south) {\footnotesize(index)};
+\node [anchor=north] (index2) at ([yshift=0.5em]w2.south) {\footnotesize(index)};
+
+\node [anchor=south,draw,inner sep=3pt,fill=blue!30!white] (e0) at ([yshift=1em]w0.north) {\footnotesize{${\mathbi{e}}_1={\mathbi{o}}_{i-3} {\mathbi{C}}$}};
+\node [anchor=south,draw,inner sep=3pt,fill=blue!30!white] (e1) at ([yshift=1em]w1.north) {\footnotesize{${\mathbi{e}}_2={\mathbi{o}}_{i-2} {\mathbi{C}}$}};
+\node [anchor=south,draw,inner sep=3pt,fill=blue!30!white] (e2) at ([yshift=1em]w2.north) {\footnotesize{${\mathbi{e}}_3={\mathbi{o}}_{i-1} {\mathbi{C}}$}};
+
+\node [anchor=south,draw,minimum width=11em,inner sep=3pt,fill=orange!40!white] (h0) at ([yshift=1.5em]e1.north) {\footnotesize{${\mathbi{h}}_0=\textrm{Tanh}([{\mathbi{e}}_1,{\mathbi{e}}_2,{\mathbi{e}}_3]{\mathbi{H}} + {\mathbi{d}})$}};
+\node [anchor=south,draw,minimum width=9em,inner sep=3pt,fill=orange!40!white] (h1) at ([yshift=1.5em]h0.north) {\footnotesize{${\mathbi{y}}=\textrm{Softmax}({\mathbi{h}}_0 {\mathbi{U}})$}};
+\node [anchor=south] (ylabel) at ([yshift=1em]h1.north) {\small{$\funp{P}(w_i|w_{i-3}w_{i-2}w_{i-1})$}};
+
+\draw [->,line width=1pt] ([yshift=0.1em]w0.north) -- ([yshift=-0.1em]e0.south);
+\draw [->,line width=1pt] ([yshift=0.1em]w1.north) -- ([yshift=-0.1em]e1.south);
+\draw [->,line width=1pt] ([yshift=0.1em]w2.north) -- ([yshift=-0.1em]e2.south);
+\draw [->,line width=1pt] ([yshift=0.1em]e0.north) -- ([xshift=-2em,yshift=-0.1em]h0.south);
+\draw [->,line width=1pt] ([yshift=0.1em]e1.north) -- ([yshift=-0.1em]h0.south);
+\draw [->,line width=1pt] ([yshift=0.1em]e2.north) -- ([xshift=2em,yshift=-0.1em]h0.south);
+\draw [->,line width=1pt] ([yshift=0.1em]h0.north) -- ([yshift=-0.1em]h1.south);
+\draw [->,line width=1pt] ([yshift=0.1em]h1.north) -- ([yshift=-0.1em]ylabel.south);
+
+{
+\begin{pgfonlayer}{background}
+\draw [->,dashed,red,line width=1pt] ([xshift=1em,yshift=0.1em]e1.north) -- ([xshift=1em,yshift=-0.1em]h1.south);
+\draw [->,dashed,red,line width=1pt] ([xshift=-1em,yshift=0.1em]e0.north) .. controls +(north:2) and +(south:1) .. ([xshift=-3em,yshift=-0.1em]h1.south);
+\draw [->,dashed,red,line width=1pt] ([xshift=1em,yshift=0.1em]e2.north) .. controls +(north:2) and +(south:1) .. ([xshift=3em,yshift=-0.1em]h1.south);
+\end{pgfonlayer}
+}
+
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,draw,inner sep=0.1em,fill=green!20!white] [fit = (w0) (index0)] (wordbox0) {};
+\node [rectangle,draw,inner sep=0.1em,fill=green!20!white] [fit = (w1) (index1)] (wordbox1) {};
+\node [rectangle,draw,inner sep=0.1em,fill=green!20!white] [fit = (w2) (index2)] (wordbox2) {};
+}
+\end{pgfonlayer}
+
+
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------

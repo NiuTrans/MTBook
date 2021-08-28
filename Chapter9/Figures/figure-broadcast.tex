@@ -1,0 +1,71 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}[xshift=0.6in]
+\setcounter{mycount1}{1}
+\draw[step=0.5cm,thick] (-1,-0.5) grid (1,0.5);
+\foreach \y in {+0.25,-0.25}
+  \foreach \x in {-0.75,-0.25,0.25,0.75}{
+    \node [fill=orange!30,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
+    \addtocounter{mycount1}{1};
+  }
+\node [anchor=south] (varlabel) at (0,0.6) {$\mathbi{s}$};
+\node [anchor=north] (labelc) at (0,-0.7) {\small{(a)张量$\mathbi{s}$}};
+\end{scope}
+
+\begin{scope}[xshift=2.1in]
+\setcounter{mycount1}{1}
+\draw[step=0.5cm,thick] (-1,-0.5) grid (1,0);
+\foreach \y in {-0.25}
+  \foreach \x in {-0.75,-0.25,0.25,0.75}{
+    \node [fill=green!30,inner sep=0pt,minimum height=0.48cm,minimum width=0.48cm] at (\x,\y) {$1$};
+    \addtocounter{mycount1}{1};
+  }
+\node [anchor=south] (varlabel) at (0,0.1) {$\mathbi{b}$};
+\node [anchor=north] (labelc) at (0,-0.7) {\small{(b)张量$\mathbi{b}$}};
+\end{scope}
+
+
+
+\begin{scope}[yshift=-1in]
+\setcounter{mycount1}{1}
+\draw[step=0.5cm,thick] (-1,-0.5) grid (1,0.5);
+\foreach \y in {+0.25,-0.25}
+  \foreach \x in {-0.75,-0.25,0.25,0.75}{
+    \node [fill=orange!30,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
+    \addtocounter{mycount1}{1};
+  }
+\node [anchor=south] (varlabel) at (0,0.6) {$\mathbi{s}$};
+\end{scope}
+\begin{scope}[yshift=-1in,xshift=1.5in]
+\setcounter{mycount1}{1}
+\draw[step=0.5cm,thick] (-1,-0.5) grid (1,0.5);
+\foreach \y in {+0.25}
+  \foreach \x in {-0.75,-0.25,0.25,0.75}{
+    \node [fill=green!30,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$1$};
+    \addtocounter{mycount1}{1};
+  }
+  \foreach \y in {-0.25}
+  \foreach \x in {-0.75,-0.25,0.25,0.75}{
+    \node [fill=purple!30,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$1$};
+    \addtocounter{mycount1}{1};
+  }
+\node [anchor=center] (plabel) at (-4.8em,0) {\huge{$\mathbf{+}$}};
+\node [anchor=south] (varlabel) at (0,0.6) {$\mathbi{b}$};
+\node [anchor=north] (labelc) at (0,-0.7) {\small{(c)张量的单元加运算}};
+\end{scope}
+\begin{scope}[yshift=-1in,xshift=3in]
+\setcounter{mycount1}{2}
+\draw[step=0.5cm,thick] (-1,-0.5) grid (1,0.5);
+\foreach \y in {+0.25,-0.25}
+  \foreach \x in {-0.75,-0.25,0.25,0.75}{
+    \node [fill=orange!30,inner sep=0pt,minimum height=0.49cm,minimum width=0.49cm] at (\x,\y) {$\number\value{mycount1}$};
+    \addtocounter{mycount1}{1};
+  }
+\node [anchor=center] (plabel) at (-4.8em,0) {\huge{$\mathbf{=}$}};
+\node [anchor=south] (varlabel) at (0,0.6) {$\mathbi{s}+\mathbi{b}$};
+\end{scope}
+
+
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

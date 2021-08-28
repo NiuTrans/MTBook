@@ -1,0 +1,20 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=west,minimum height=1.7em,fill=blue!30,draw] (s) at (0,0) {$\mathbi{s}^{K}$};
+\node [anchor=west,minimum height=1.7em,fill=green!30,draw] (h2) at ([xshift=5.5em]s.east) {$\mathbi{h}^{K}$};
+\node [anchor=west,minimum height=1.7em,fill=orange!30,draw] (l) at ([xshift=5.5em]h2.east) {$L$};
+\draw [->] (s.east) -- (h2.west);
+\draw [->] (h2.east) -- (l.west);
+
+\draw [->,very thick,red] ([yshift=1em,xshift=-0.1em]l.north) -- ([yshift=1em,xshift=0.1em]h2.north) node [pos=0.5,above] {\scriptsize{求梯度{$\frac{\partial L}{\partial {\mathbi{h}}^K} = ?$}}};
+\draw [->,very thick,red] ([yshift=1em,xshift=-0.1em]h2.north) -- ([yshift=1em,xshift=0.1em]s.north) node [pos=0.5,above] {\scriptsize{求梯度{$\frac{\partial f^K({\mathbi{s}}^K)}{\partial {\mathbi{s}}^K} = ?$}}};
+\draw [-,very thick,red] ([yshift=0.5em]l.north) -- ([yshift=1.5em]l.north);
+\draw [-,very thick,red] ([yshift=0.5em]h2.north) -- ([yshift=1.5em]h2.north);
+\draw [-,very thick,red] ([yshift=0.5em]s.north) -- ([yshift=1.5em]s.north);
+
+\end{scope}
+
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

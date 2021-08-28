@@ -1,0 +1,46 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=center,draw,fill=red!30,minimum height=1.8em,minimum width=2.5em] (h) at (0,0) {${\mathbi{h}}^{k-1}$};
+\node [anchor=west,draw,fill=blue!30,minimum height=1.8em,minimum width=2.5em] (s) at ([xshift=6em]h.east) {${\mathbi{s}}^{k}$};
+\node [anchor=west,draw,fill=green!30,minimum height=1.8em,minimum width=2.5em] (h2) at ([xshift=6em]s.east) {${\mathbi{h}}^{k}$};
+\node [anchor=east] (prev) at ([xshift=-2em]h.west) {...};
+\node [anchor=west] (next) at ([xshift=2em]h2.east) {...};
+\draw [->,thick] ([xshift=0.1em]prev.east) -- ([xshift=-0.1em]h.west);
+\draw [->,thick] ([xshift=0.1em]h.east) -- ([xshift=-0.1em]s.west) node [pos=0.5,below] {\scriptsize{${\mathbi{s}}^k = {\mathbi{h}}^{k-1}{\mathbi{W}}^k$}};
+\draw [->,thick] ([xshift=0.1em]s.east) -- ([xshift=-0.1em]h2.west) node [pos=0.5,below] {\scriptsize{${\mathbi{h}}^k = f^k({\mathbi{s}}^{k})$}};
+\draw [->,thick] ([xshift=0.1em]h2.east) -- ([xshift=-0.1em]next.west);
+
+{
+\draw [<-,thick,red] ([xshift=0.1em,yshift=0.4em]h2.east) -- ([xshift=-0.1em,yshift=0.4em]next.west) node [pos=0.8,above] {\scriptsize{反向传播}};
+}
+
+{
+\draw [<-,thick,red] ([xshift=0.1em,yshift=0.4em]s.east) -- ([xshift=-0.1em,yshift=0.4em]h2.west) node [pos=0.5,above] {\scriptsize{反向传播}};
+}
+
+{
+\draw [<-,thick,red] ([xshift=0.1em,yshift=0.4em]h.east) -- ([xshift=-0.1em,yshift=0.4em]s.west) node [pos=0.5,above] {\scriptsize{反向传播}};
+}
+
+{
+\draw [->,thick,red,dashed] ([yshift=-0.1em]h.south) -- ([yshift=-1em]h.south) -- ([yshift=-1em]h2.south) -- ([yshift=-0.1em]h2.south);
+\node [anchor=north,red] (recur) at ([yshift=-1em]s.south) {\scriptsize{$k=k-1$重复上述过程}};
+}
+
+{
+\node [anchor=south] (h2label) at (h2.north) {$\frac{\partial L}{\partial {\mathbi{h}}^{k}}$};
+}
+
+{
+\node [anchor=south] (slabel) at (s.north) {$\frac{\partial L}{\partial {\mathbi{s}}^{k}}$};
+}
+
+{
+\node [anchor=south] (hlabel) at (h.north) {$\frac{\partial L}{\partial {\mathbi{h}}^{k-1}}$, $\frac{\partial L}{\partial {\mathbi{W}}^{k}}$};
+}
+
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,48 @@
+%%%------------------------------------------------------------------------------------------------------------
+\newcounter{mycount1}
+\newcounter{mycount2}
+\newcounter{mycount3}
+\newcounter{mycount4}
+
+\begin{tikzpicture}
+\begin{scope}[yshift=6.5em,xshift=1em]
+\setcounter{mycount1}{1}
+\draw[step=0.5cm,color=orange!70,line width=0.4mm] (-2,-2) grid (1,1);
+\foreach \y in {+0.5,-0.5,-1.5}
+  \foreach \x in {-1.5,-0.5,0.5}{
+    \node [fill=orange!25,inner sep=0pt,minimum height=0.98cm,minimum width=0.98cm] at (\x,\y) {\number\value{mycount1}};
+    \addtocounter{mycount1}{1};
+  }
+\end{scope}
+
+\begin{scope}[yshift=5em,xshift=-0.5em]
+\setcounter{mycount2}{2}
+\draw[step=0.5cm,color=blue!70,line width=0.4mm] (-2,-2) grid (1,1);
+\foreach \y in {+0.5,-0.5,-1.5}
+  \foreach \x in {-1.5,-0.5,0.5}{
+    \node [fill=blue!25,inner sep=0pt,minimum height=0.98cm,minimum width=0.98cm] at (\x,\y) {\number\value{mycount2}};
+    \addtocounter{mycount2}{1};
+  }
+\end{scope}
+
+\begin{scope}[yshift=3.5em,xshift=-2em]
+\setcounter{mycount3}{3}
+\draw[step=0.5cm,color=ugreen!70,line width=0.4mm] (-2,-2) grid (1,1);
+\foreach \y in {+0.5,-0.5,-1.5}
+  \foreach \x in {-1.5,-0.5,0.5}{
+    \node [fill=ugreen!25,inner sep=0pt,minimum height=0.98cm,minimum width=0.98cm] at (\x,\y) {\number\value{mycount3}};
+    \addtocounter{mycount3}{1};
+  }
+\end{scope}
+
+\begin{scope}[yshift=2em,xshift=-3.5em]
+\setcounter{mycount4}{4}
+\draw[step=0.5cm,color=red!70,line width=0.4mm] (-2,-2) grid (1,1);
+\foreach \y in {+0.5,-0.5,-1.5}
+  \foreach \x in {-1.5,-0.5,0.5}{
+    \node [fill=red!25,inner sep=0pt,minimum height=0.98cm,minimum width=0.98cm] at (\x,\y) {\number\value{mycount4}};
+    \addtocounter{mycount4}{1};
+  }
+\end{scope}
+\end{tikzpicture}
+%%%------------------------------------------------------------------------------------------------------------

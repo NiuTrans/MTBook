@@ -1,0 +1,202 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tikzpicture}
+%% a two-layer neural network
+\begin{scope}
+\tikzstyle{neuronnode} = [minimum size=1.7em,circle,draw,ublue,very thick,inner sep=1pt, fill=white,align=center,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}]
+
+%% input and hidden layers
+\node [neuronnode] (n10) at (0,0) {\tiny{$f$}\\[-1ex] \tiny{$\sum$}};
+\node [neuronnode] (n11) at (1.4,0) {\tiny{$f$}\\[-1ex] \tiny{$\sum$}};
+\draw [-,ublue] (n10.west) -- (n10.east);
+\draw [-,ublue] (n11.west) -- (n11.east);
+\node [anchor=north] (x1) at ([yshift=-6em]n11.south) {$x_1$};
+\node [anchor=north] (labela) at ([xshift=3.5em,yshift=-0.5em]x1.south) {\small{(a) 拟合一小段函数}};
+\node [anchor=north] (b) at ([yshift=-6em]n10.south) {$\mathbi{b}$};
+{
+\draw [->,thick,red] (b.north) -- ([yshift=-0.1em]n10.south);
+\draw [->,thick,ugreen] (x1.north) -- ([yshift=-0.1em]n10.290);
+}
+{
+\draw [->,thick,blue] (b.north) -- ([yshift=-0.1em]n11.250);
+\draw [->,thick,purple] (x1.north) -- ([yshift=-0.1em]n11.south);
+}
+
+
+
+
+%% output layers
+\node [neuronnode] (n20) at (0.7,5em) {\scriptsize{$\sum$}};
+{\draw [->,thick,brown] ([yshift=0.1em]n10.north) -- ([yshift=-0.1em]n20.250);}
+{\draw [->,thick,orange] ([yshift=0.1em]n11.north) -- ([yshift=-0.1em]n20.290);}
+\node [] (y) at ([yshift=3em]n20.north) {$y$};
+\draw [->,thick] ([yshift=0.1em]n20.north) -- (y.south);
+
+%% weight and bias
+{\node [anchor=center,rotate=90,fill=white,inner sep=1pt] (b0) at ([yshift=3em,xshift=-0.5em]b.north) {\tiny{$b_1=-6$}};}
+{\node [anchor=center,rotate=-59,fill=white,inner sep=1pt] (w2) at ([yshift=1.2em,xshift=-1.2em]x1.north) {\tiny{$w_{11}=100$}};}
+{\node [anchor=center,rotate=59,fill=white,inner sep=1pt] (b1) at ([yshift=5.1em,xshift=2.3em]b.north) {\tiny{$b_2=-4$}};}
+{\node [anchor=center,rotate=90,fill=white,inner sep=1pt] (w1) at ([yshift=3em,xshift=0.5em]x1.north) {\tiny{$w_{12}=100$}};}
+{\node [anchor=center,rotate=62,fill=white,inner sep=1pt] (w21) at ([yshift=1.8em,xshift=0.2em]n10.north) {\tiny{$w'_{11}=-0.7$}};}
+{\node [anchor=center,rotate=-62,fill=white,inner sep=1pt] (w22) at ([yshift=1.8em,xshift=-0.2em]n11.north) {\tiny{$w'_{21}=0.7$}};}
+
+%% sigmoid box
+\begin{scope}
+{
+\node [anchor=west] (flabel) at ([xshift=0.5in]y.east) {\scriptsize{Sigmoid:}};
+\node [anchor=north east] (slabel) at ([xshift=0]flabel.south east) {\scriptsize{Sum:}};
+\node [anchor=west,inner sep=2pt] (flabel2) at (flabel.east) {\scriptsize{$f(s_2)=1/(1+{\textrm e}^{-s_2})$}};
+\node [anchor=west,inner sep=2pt] (flabel3) at (slabel.east) {\scriptsize{$s_2=x_1 \cdot w_{12} + b$}};
+\draw [->,thick,dotted] ([yshift=-0.3em,xshift=-0.1em]n11.60)  .. controls +(east:1) and +(west:2) ..  ([xshift=-0.2em]flabel.west) ;
+
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,inner sep=0.2em,fill=blue!30,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}] [fit = (flabel) (flabel2) (flabel3)] (funcbox) {};
+}
+\end{pgfonlayer}
+}
+\end{scope}
+
+%% output illustration
+\begin{scope}[xshift=1.6in,yshift=0.1in]
+{
+\draw [->,thick] (-1.6,0) -- (1.6,0);
+\draw [->,thick] (0,0) -- (0,2);
+\node [anchor=south] (heng1) at (1.45,-0.35) {\scriptsize{$x$}};
+\node [anchor=south] (zong1) at (-0.2,1.6) {\scriptsize{$y$}};
+\draw [-] (-0.05,1) -- (0.05,1);
+\node [anchor=east,inner sep=1pt] (label1) at (0,1) {\tiny{1}};
+\node [anchor=south east,inner sep=1pt] (label2) at (0,0) {\tiny{0}};
+}
+{\draw [->,dashed] (0.6,-0.05) -- (0.6,-0.75in);}
+{\draw [-,very thick,ublue,rounded corners=0.1em] (-1.5,0) -- (0.5,0) -- (0.5,0.7) -- (0.7,0.7) -- (0.7,0) -- (1.5,0);}
+\end{scope}
+\begin{scope}[xshift=1.6in,yshift=-1.0in]
+{
+\draw [->,thick] (-1.6,0) -- (1.6,0);
+\draw [->,thick] (0,0) -- (0,2);
+\node [anchor=south] (heng1) at (1.45,-0.35) {\scriptsize{$x$}};
+\node [anchor=south] (zong1) at (-0.2,1.6) {\scriptsize{$y$}};
+\node [anchor=east,inner sep=1pt] (label1) at (0,0.85) {\tiny{1}};
+\node [anchor=south east,inner sep=1pt] (label2) at (0,0) {\tiny{0}};
+\draw [-,very thick,red,domain=-1.5:1.5,samples=100] plot (\x,{0.2 * (\x +0.4)^3 + 1.2 - 0.3 *(\x + 0.8)^2});
+}
+{
+\foreach \n in {0.5}{
+    \pgfmathsetmacro{\result}{0.2 * (\n + 0.1 + 0.4)^3 + 1.2 - 0.3 *(\n + 0.1 + 0.8)^2};
+    \draw [-,ublue,thick] (\n,0) -- (\n, \result) -- (\n + 0.2, \result) -- (\n + 0.2, 0);
+}
+}
+\end{scope}
+\end{scope}
+%----------------------------------------------------------------------------------------
+\begin{scope}[xshift=2.6in]
+\tikzstyle{neuronnode} = [minimum size=1.7em,circle,draw,ublue,very thick,inner sep=1pt, fill=white,align=center,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}]
+
+%% input and hidden layers
+\node [neuronnode] (n10) at (0,0) {\tiny{$f$}\\[-1ex] \tiny{$\sum$}};
+\node [neuronnode] (n11) at (1.4,0) {\tiny{$f$}\\[-1ex] \tiny{$\sum$}};
+\draw [-,ublue] (n10.west) -- (n10.east);
+\draw [-,ublue] (n11.west) -- (n11.east);
+\node [anchor=north] (x1) at ([yshift=-6em]n11.south) {$x_1$};
+\node [anchor=north] (labelb) at ([xshift=6em,yshift=-0.5em]x1.south) {\small{(b) 拟合更大一段函数}};
+\node [anchor=north] (b) at ([yshift=-6em]n10.south) {$\mathbi{b}$};
+{
+\draw [->,thick,red] (b.north) -- ([yshift=-0.1em]n10.south);
+\draw [->,thick,ugreen] (x1.north) -- ([yshift=-0.1em]n10.290);
+}
+{
+\draw [->,thick,blue] (b.north) -- ([yshift=-0.1em]n11.250);
+\draw [->,thick,purple] (x1.north) -- ([yshift=-0.1em]n11.south);
+}
+{
+\node [neuronnode] (n12) at (2.5,0) {\tiny{$f$}\\[-1ex] \tiny{$\sum$}};
+\node [neuronnode] (n13) at (3.4,0) {\tiny{$f$}\\[-1ex] \tiny{$\sum$}};
+\draw [-,ublue] (n12.west) -- (n12.east);
+\draw [-,ublue] (n13.west) -- (n13.east);
+\draw [->,thick] (b.north) -- ([yshift=-0.1em]n12.250);
+\draw [->,thick] (x1.north) -- ([yshift=-0.1em]n12.270);
+\draw [->,thick] (b.north) -- ([yshift=-0.1em]n13.230);
+\draw [->,thick] (x1.north) -- ([yshift=-0.1em]n13.250);
+}
+
+%% output layers
+\node [neuronnode] (n20) at (0.7,5em) {\scriptsize{$\sum$}};
+{\draw [->,thick,brown] ([yshift=0.1em]n10.north) -- ([yshift=-0.1em]n20.250);}
+{\draw [->,thick,orange] ([yshift=0.1em]n11.north) -- ([yshift=-0.1em]n20.290);}
+\node [] (y) at ([yshift=3em]n20.north) {$y$};
+\draw [->,thick] ([yshift=0.1em]n20.north) -- (y.south);
+{
+\draw [->,thick] ([yshift=0.1em]n12.north) -- ([yshift=-0.1em]n20.330);
+\draw [->,thick] ([yshift=0.1em]n13.north) -- ([yshift=-0.1em]n20.340);
+}
+
+
+%% weight and bias
+{\node [anchor=center,rotate=90,fill=white,inner sep=1pt] (b0) at ([yshift=3em,xshift=-0.5em]b.north) {\tiny{$b_1=-6$}};}
+{\node [anchor=center,rotate=-59,fill=white,inner sep=1pt] (w2) at ([yshift=1.2em,xshift=-1.2em]x1.north) {\tiny{$w_{11}=100$}};}
+{\node [anchor=center,rotate=59,fill=white,inner sep=1pt] (b1) at ([yshift=5.1em,xshift=2.3em]b.north) {\tiny{$b_2=-4$}};}
+{\node [anchor=center,rotate=90,fill=white,inner sep=1pt] (w1) at ([yshift=3em,xshift=0.5em]x1.north) {\tiny{$w_{12}=100$}};}
+{\node [anchor=center,rotate=62,fill=white,inner sep=1pt] (w21) at ([yshift=1.8em,xshift=0.2em]n10.north) {\tiny{$w'_{11}=-0.7$}};}
+{\node [anchor=center,rotate=-62,fill=white,inner sep=1pt] (w22) at ([yshift=1.8em,xshift=-0.2em]n11.north) {\tiny{$w'_{21}=0.7$}};}
+
+%% sigmoid box
+\begin{scope}
+{
+\node [anchor=west] (flabel) at ([xshift=0.8in]y.east) {\scriptsize{Sigmoid:}};
+\node [anchor=north east] (slabel) at ([xshift=0]flabel.south east) {\scriptsize{Sum:}};
+\node [anchor=west,inner sep=2pt] (flabel2) at (flabel.east) {\scriptsize{$f(s_2)=1/(1+{\textrm e}^{-s_2})$}};
+\node [anchor=west,inner sep=2pt] (flabel3) at (slabel.east) {\scriptsize{$s_2=x_1 \cdot w_{12} + b$}};
+\draw [->,thick,dotted] ([yshift=-0.3em,xshift=-0.1em]n11.60)  .. controls +(east:1) and +(west:2) ..  ([xshift=-0.2em]flabel.west) ;
+\begin{pgfonlayer}{background}
+{
+\node [rectangle,inner sep=0.2em,fill=blue!30,drop shadow={shadow xshift=0.1em,shadow yshift=-0.1em}] [fit = (flabel) (flabel2) (flabel3)] (funcbox) {};
+}
+\end{pgfonlayer}
+}
+\end{scope}
+
+%% output illustration
+\begin{scope}[xshift=2.1in,yshift=0.1in]
+\draw [->,thick] (-1.6,0) -- (1.6,0);
+\draw [->,thick] (0,0) -- (0,2);
+\node [anchor=south] (heng1) at (1.45,-0.35) {\scriptsize{$x$}};
+\node [anchor=south] (zong1) at (-0.2,1.6) {\scriptsize{$y$}};
+\node [anchor=east,inner sep=1pt] (label1) at (0,1) {\tiny{1}};
+\node [anchor=south east,inner sep=1pt] (label2) at (0,0) {\tiny{0}};
+\draw [-] (-0.05,1) -- (0.05,1);
+{\draw [-,very thick,ublue,rounded corners=0.1em] (-1.5,0) -- (0.5,0) -- (0.5,0.7) -- (0.7,0.7) -- (0.7,0) -- (1.5,0);}
+{\draw [-,very thick,ublue,rounded corners=0.1em] (-1.5,0) -- (0.7,0) -- (0.7,0.6) -- (0.9,0.6) -- (0.9,0) -- (1.5,0);}
+{\draw [->,dashed] (0.8,-0.05) -- (0.8,-0.78in);}
+\end{scope}
+
+\begin{scope}[xshift=2.1in,yshift=-1.0in]
+{
+\draw [->,thick] (-1.6,0) -- (1.6,0);
+\draw [->,thick] (0,0) -- (0,2);
+\node [anchor=south] (heng1) at (1.45,-0.35) {\scriptsize{$x$}};
+\node [anchor=south] (zong1) at (-0.2,1.6) {\scriptsize{$y$}};
+\node [anchor=east,inner sep=1pt] (label1) at (0,0.85) {\tiny{1}};
+\node [anchor=south east,inner sep=1pt] (label2) at (0,0) {\tiny{0}};
+\draw [-,very thick,red,domain=-1.5:1.5,samples=100] plot (\x,{0.2 * (\x +0.4)^3 + 1.2 - 0.3 *(\x + 0.8)^2});
+}
+\foreach \n in {0.5}{
+    \pgfmathsetmacro{\result}{0.2 * (\n + 0.1 + 0.4)^3 + 1.2 - 0.3 *(\n + 0.1 + 0.8)^2};
+    \draw [-,ublue,thick] (\n,0) -- (\n, \result) -- (\n + 0.2, \result) -- (\n + 0.2, 0);
+}
+{
+\foreach \n in {0.7}{
+    \pgfmathsetmacro{\result}{0.2 * (\n + 0.1 + 0.4)^3 + 1.2 - 0.3 *(\n + 0.1 + 0.8)^2};
+    \draw [-,ublue,thick] (\n,0) -- (\n, \result) -- (\n + 0.2, \result) -- (\n + 0.2, 0);
+}
+}
+\end{scope}
+
+\end{scope}
+\end{tikzpicture}
+
+
+%%%------------------------------------------------------------------------------------------------------------
+
+
+
+

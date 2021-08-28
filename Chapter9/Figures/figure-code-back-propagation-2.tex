@@ -1,0 +1,51 @@
+%%%------------------------------------------------------------------------------------------------------------
+\begin{tcolorbox}
+[bicolor,sidebyside,width=13cm,righthand width=4cm,size=title,frame engine=empty,
+ colback=blue!10!white,colbacklower=black!5!white]
+ {\scriptsize
+\begin{tabbing}
+\texttt{XTensor x, loss, gold, h[5], w[5], b[5];} \\
+\texttt{...} \\
+
+\texttt{} \\
+\texttt{h[1] = Relu(MMul(x, w[1]) + b[1]);} \\
+\texttt{h[2] = Relu(MMul(h[1], w[2]) + b[2]);} \\
+\texttt{h[3] = HardTanH(h[2]);} \\
+\texttt{h[4] = Softmax(MMul(h[3], w[3]));} \\
+\texttt{loss = CrossEntropy(h[4], gold);} \\
+
+\texttt{} \\
+\texttt{XNet net;}\\
+{\texttt{net.Backward(loss);} //一行代码实现自动微分}\\
+
+\texttt{} \\
+\texttt{for(unsigned i = 0; i < 5; i++)\{} \\
+\texttt{} \ \ \ \ ... // 通过{\texttt{w[i].grad}}访问参数的梯度\\
+\texttt{\}}
+
+\end{tabbing}
+}
+\tcblower
+\begin{center}
+\begin{tikzpicture}
+
+
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=8em,minimum height=1.0em,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h1) at (0,0) {\tiny{x (input)}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=8em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h2) at ([yshift=1.0em]h1.north) {\tiny{h1 = Relu(x * w1 + b1)}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=8em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h3) at ([yshift=1.0em]h2.north) {\tiny{h2 = Relu(h1 * w2 + b2)}};
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=8em,minimum height=1.0em,fill=green!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (h4) at ([yshift=1.0em]h3.north) {\tiny{h3 = HardTanh(h2)}};
+
+\draw [->,very thick] (h1.north) -- (h2.south);
+\draw [->,very thick] (h2.north) -- (h3.south);
+\draw [->,very thick] (h3.north) -- (h4.south);
+
+\node [anchor=south,draw,rounded corners,inner sep=2pt,minimum width=8.0em,minimum height=1.0em,fill=red!30!white,blur shadow={shadow xshift=1pt,shadow yshift=-1pt}] (slayer) at ([yshift=1.0em]h4.north) {\tiny{h4 = Softmax(h3 * w4) (output)}};
+\node [anchor=south] (losslabel) at (slayer.north) {\scriptsize{\textbf{Cross Entropy Loss}}};
+
+\draw [->,very thick] (h4.north) -- (slayer.south);
+
+\end{tikzpicture}
+\end{center}
+\end{tcolorbox}
+%%%------------------------------------------------------------------------------------------------------------
+
