@@ -27,7 +27,7 @@
 \node [anchor=north west,inner sep=1pt,fill=black] (tl13) at (t13.north west) {\tiny{{\color{white} \textbf{1}}}};
 
 {
-\node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.6em,minimum width=6.55em] (t14) at ([yshift=-0.8em]t13.south west) {I'm \quad \quad};
+\node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.6em,minimum width=6.55em] (t14) at ([yshift=-1.0em]t13.south west) {I'm \quad \quad};
 \node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.6em,minimum width=6.55em] (t15) at ([yshift=-0.8em]t14.south west) {I \quad \quad};
 \node [anchor=north west,inner sep=1pt,fill=black] (tl14) at (t14.north west) {\tiny{{\color{white} \textbf{1-2}}}};
 \node [anchor=north west,inner sep=1pt,fill=black] (tl15) at (t15.north west) {\tiny{{\color{white} \textbf{1-2}}}};
@@ -45,6 +45,7 @@
 \node [anchor=north west,inner sep=2pt,fill=green!20,minimum height=1.6em,minimum width=6.55em] (t25) at ([yshift=-0.8em]t24.south west) {with you};
 \node [anchor=north west,inner sep=1pt,fill=black] (tl24) at (t24.north west) {\tiny{{\color{white} \textbf{2-3}}}};
 \node [anchor=north west,inner sep=1pt,fill=black] (tl25) at (t25.north west) {\tiny{{\color{white} \textbf{2-3}}}};
+\node [anchor=north](tb25) at ([yshift=-0.6em]t25.south){...};
 }
 
 \node [anchor=north,inner sep=2pt,fill=blue!20,minimum height=1.6em,minimum width=2.5em] (t31) at ([yshift=-1em]s3.south) {you};
@@ -67,6 +68,7 @@
 \node [anchor=north west,inner sep=2pt,fill=red!20,minimum height=1.6em,minimum width=9.00em] (t44) at ([yshift=-0.8em]t43.south west) {satisfactory};
 \node [anchor=north west,inner sep=1pt,fill=black] (tl43) at (t43.north west) {\tiny{{\color{white} \textbf{4-5}}}};
 \node [anchor=north west,inner sep=1pt,fill=black] (tl44) at (t44.north west) {\tiny{{\color{white} \textbf{4-5}}}};
+\node [anchor=north](tb44) at ([yshift=-0.6em]t44.south){...};
 }
 
 \node [anchor=north,inner sep=2pt,fill=purple!20,minimum height=1.6em,minimum width=4.5em] (t51) at ([yshift=-1em]s5.south) {satisfy};
@@ -126,7 +128,7 @@
 \begin{scope}
 
 
-\draw[decorate,thick,decoration={brace,amplitude=5pt,mirror}] ([yshift=0em,xshift=-0.5em]t11.north west) -- ([xshift=-0.5em]t13.south west) node [pos=0.5,left,xshift=1.0em,yshift=0.0em,text width=5em,align=left] (label2) {\footnotesize{\textbf{单词翻译}}};
+\draw[decorate,thick,decoration={brace,amplitude=5pt,mirror}] ([yshift=0em,xshift=-0.5em]t11.north west) -- ([yshift=-0.6em,xshift=-0.5em]t13.south west) node [pos=0.5,left,xshift=1.0em,yshift=0.0em,text width=5em,align=left] (label2) {\footnotesize{\textbf{单词翻译}}};
 
 {
 \draw [->,ultra thick,red,line width=2pt,opacity=0.7] ([xshift=-0.5em,yshift=-0.62em]t13.west) -- ([xshift=0.8em,yshift=-0.62em]t13.east) -- ([xshift=-0.2em,yshift=-0.62em]t22.west) -- ([xshift=0.8em,yshift=-0.62em]t22.east) -- ([xshift=-0.2em,yshift=-0.62em]t31.west) -- ([xshift=0.8em,yshift=-0.62em]t31.east) -- ([xshift=-0.2em,yshift=-0.62em]t41.west) -- ([xshift=0.8em,yshift=-0.62em]t41.east) -- ([xshift=-0.2em,yshift=-0.62em]t52.west) -- ([xshift=1.2em,yshift=-0.62em]t52.east);
@@ -139,16 +141,16 @@
 }
 
 {
-\draw[decorate,thick,decoration={brace,amplitude=5pt,mirror}] ([yshift=-0.2em,xshift=-0.5em]t13.south west) -- ([yshift=-6.3em,xshift=-0.5em]t13.south west) node [pos=0.5,left,xshift=1.0em,yshift=0.0em,text width=5em,align=left] (label3) {\footnotesize{\textbf{短语翻译}}};
+\draw[decorate,thick,decoration={brace,amplitude=5pt,mirror}] ([yshift=0em,xshift=-0.5em]t14.north west) -- ([yshift=-8.8em,xshift=-0.5em]t14.north west) node [pos=0.5,left,xshift=1.0em,yshift=0.0em,text width=5em,align=left] (label3) {\footnotesize{\textbf{短语翻译}}};
 }
 
 {
-\node [anchor=north west] (wtranslabel) at ([yshift=-5em]t15.south west) {\scriptsize{翻译路径（仅包含单词）}};
+\node [anchor=north west] (wtranslabel) at ([xshift=-0.3em,yshift=-5.5em]t15.south west) {\scriptsize{翻译路径（仅包含单词）}};
 \draw [->,ultra thick,red,line width=1.5pt,opacity=0.7] ([xshift=0.2em]wtranslabel.east) -- ([xshift=1.2em]wtranslabel.east);
 }
 
 {
-\node [anchor=north west] (ptranslabel) at ([yshift=-6.5em]t15.south west) {\scriptsize{翻译路径（含有短语）}};
+\node [anchor=north west] (ptranslabel) at ([xshift=-0.3em,yshift=-7.0em]t15.south west) {\scriptsize{翻译路径（含有短语）}};
 \draw [->,ultra thick,ublue,line width=1.5pt,opacity=0.7] ([xshift=0.95em]ptranslabel.east) -- ([xshift=1.95em]ptranslabel.east);
 }
 

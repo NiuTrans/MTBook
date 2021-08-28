@@ -105,15 +105,15 @@
 	\node [rectangle,inner sep=0.3em,rounded corners=5pt,very thick,dotted,draw=ublue,minimum height=1.4em,minimum width=7em] [fit = (l2) (sa2) (res4) (l5) (set2)] (b3) {};	
 \end{pgfonlayer}
 
-\node [inputnode,anchor=north west] (input1) at ([yshift=-1.6em,xshift=-0.5em]sa1.south west) {\tiny{Embedding}};
+\node [inputnode,anchor=north west] (input1) at ([yshift=-1.6em,xshift=-0.5em]sa1.south west) {\tiny{$\textbf{Embedding}$}};
 \node [] (add) at ([yshift=-2.2em,xshift=3.5em]sa1.south west) {$+$};
-\node [posnode,anchor=north east] (pos1) at ([yshift=-1.6em,xshift=1.5em]sa1.south east) {\tiny{Absolute Position}};
+\node [posnode,anchor=north east] (pos1) at ([yshift=-1.6em,xshift=1.5em]sa1.south east) {\tiny{$\textbf{Absolute Position}$}};
 
 \node [anchor=north] (wi) at ([yshift=-0.5em]pos1.south) {\scriptsize{词序信息}};
 
-\node [posnode,anchor=west,font=\tiny,align=center] (pos2) at ([yshift=0em,xshift=1em]pos1.east) {Relative \\ Position 1};
+\node [posnode,anchor=west,font=\tiny,align=center] (pos2) at ([yshift=0em,xshift=1em]pos1.east) {$\textbf{Relative}$ \\ $\textbf{Position 1}$};
 \node [posnode,anchor=west,font=\tiny,align=center,minimum width=1em] (pos3) at ([yshift=0em,xshift=1em]pos2.east) {$\cdots$};
-\node [posnode,anchor=west,font=\tiny,align=center] (pos4) at ([yshift=0em,xshift=1em]pos3.east) {Relative \\ Position $n$};
+\node [posnode,anchor=west,font=\tiny,align=center] (pos4) at ([yshift=0em,xshift=1em]pos3.east) {$\textbf{Relative}$ \\ $\textbf{Position n}$};
 
 \draw [->] (wi.north) -- (pos1.south);
 \draw [->] (add.north) -- (sa1.south);

@@ -23,7 +23,7 @@
 
 \chapter{翻译质量评价}
 
-\parinterval 人们在使用机器翻译系统时需要评估系统输出结果的质量。这个过程也被称作机器翻译译文质量评价，简称为{\small\sffamily\bfseries{译文质量评价}}\index{译文质量评价}（Quality Evaluation of Translation）\index{Quality Evaluation of Translation}。在机器翻译的发展进程中，译文质量评价有着非常重要的作用。不论在系统研发的反复迭代中，还是在诸多的机器翻译应用场景中，都存在大量的译文质量评价环节。从某种意义上说，没有译文质量评价，机器翻译也不会发展成今天的样子。比如，本世纪初研究人员提出了译文质量自动评价方法{\small\sffamily\bfseries{BLEU}}\index{BLEU}（Bilingual Evaluation Understudy）\index{Bilingual Evaluation Understudy}\upcite{DBLP:conf/acl/PapineniRWZ02}。该方法使得机器系统的评价变得自动、快速、便捷，而且评价过程可以重复。正是由于BLEU等自动评价方法的提出，机器翻译研究人员可以在更短的时间内得到译文质量的评价结果，加速系统研发的进程。
+\parinterval 人们在使用机器翻译系统时需要评估系统输出结果的质量。这个过程也被称作机器翻译译文质量评价，简称为{\small\sffamily\bfseries{译文质量评价}}\index{译文质量评价}（Quality Evaluation of Translation）\index{Quality Evaluation of Translation}。在机器翻译的发展进程中，译文质量评价有着非常重要的作用。不论在系统研发的反复迭代中，还是在诸多的机器翻译应用场景中，都存在大量的译文质量评价环节。从某种意义上说，没有译文质量评价，机器翻译也不会发展成今天的样子。比如，本世纪初研究人员提出了译文质量自动评价方法{\small\sffamily\bfseries{BLEU}}\index{BLEU}（Bilingual Evaluation Understudy）\index{Bilingual Evaluation Understudy}\upcite{DBLP:conf/acl/PapineniRWZ02}。该方法使得机器翻译系统的评价变得自动、快速、便捷，而且评价过程可以重复。正是由于BLEU等自动评价方法的提出，机器翻译研究人员可以在更短的时间内得到译文质量的评价结果，加速系统研发的进程。
 
 \parinterval 时至今日，译文质量评价方法已经非常丰富，针对不同的使用场景研究人员陆续提出了不同的方法。本章将会对其中的典型方法进行介绍，包括：人工评价、有参考答案自动评价、无参考答案自动评价等。相关方法及概念也会在本章的后续章节中被广泛使用。
 
@@ -477,7 +477,7 @@ His house is on the south bank of the river .
 \end{figure}
 %----------------------------------------------
 
-\parinterval 从图\ref{fig:4-7}中可以看出，HyTER方法通过构造同义单元的方式，可以列举出译文中每个片段的所有可能的表达方式，从而增大参考答案的数量，图\ref{fig:4-7}中的每一条路径都代表一个参考答案。但是这种对参考答案集的编码方式存在问题，同义单元之间的组合往往存在一定的限制关系\upcite{DBLP:conf/tsd/BojarMTZ13}，使用HyTER方法会导致参考答案集中包含有错误的参考答案。
+\parinterval 从图\ref{fig:4-7}中可以看出，HyTER方法通过构造同义单元的方式，可以列举出译文中每个片段的所有可能的表示方式，从而增大参考答案的数量，图\ref{fig:4-7}中的每一条路径都代表一个参考答案。但是这种对参考答案集的编码方式存在问题，同义单元之间的组合往往存在一定的限制关系\upcite{DBLP:conf/tsd/BojarMTZ13}，使用HyTER方法会导致参考答案集中包含有错误的参考答案。
 
 \begin{example}
 将中文“市政府批准了一项新规定”分别翻译为英语和捷克语，使用HyTER构造的参考答案集分别如图\ref{fig:4-8}(a)和(b)所示\upcite{DBLP:conf/tsd/BojarMTZ13}：
@@ -773,7 +773,7 @@ d&=&t \frac{s}{\sqrt{n}}
 
 \parinterval 句子级质量评估的目标是生成能够反映译文句子整体质量的标签\ \dash \ 可以是离散型的表示某种质量等级的标签，也可以是连续型的基于评分的标签。虽然以不同的标准进行评估，同一个译文句子的质量标签可能有所不同，但可以肯定的是句子的最终质量绝不是句子中单词质量的简单累加。因为与词级的质量评估相比，句子级质量评估也会关注是否保留源句的语义、译文的语义是否连贯、译文中的单词顺序是否合理等因素。
 
-\parinterval 句子级质量系统需要根据某种评价标准，通过建立预测模型来生成一个反映句子质量的标签。人们可以根据句子翻译的目的、后编辑的工作难度、是否达到发表要求或是是否能让非母语者读懂等各个角度、各个标准去设定句子级质量评估的标准。句子级质量评估任务有多种形式：
+\parinterval 句子级质量评估系统需要根据某种评价标准，通过建立预测模型来生成一个反映句子质量的标签。人们可以根据句子翻译的目的、后编辑的工作难度、是否达到发表要求或是是否能让非母语者读懂等各个角度、各个标准去设定句子级质量评估的标准。句子级质量评估任务有多种形式：
 
 \begin{itemize}
 \vspace{0.5em}

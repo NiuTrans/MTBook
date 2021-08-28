@@ -30,7 +30,6 @@
 %----------------------------------------------------------------------------------------
 %    NEW SECTION  10.1
 %----------------------------------------------------------------------------------------
-\sectionnewpage
 \section{神经机器翻译的发展简史}
 
 \parinterval 纵观机器翻译的发展历程，神经机器翻译诞生较晚。无论是早期的基于规则的方法，还是逐渐发展起来的基于实例的方法，再或是上世纪末的统计方法，每次机器翻译框架级的创新都需要很长时间的酝酿，而技术走向成熟甚至需要更长的时间。但是，神经机器翻译的出现和后来的发展速度多少有些“出人意料”。神经机器翻译的概念出现在2013-2014年间，当时机器翻译领域的主流方法仍然是统计机器翻译。虽然那个时期深度学习已经在图像、语音等领域取得令人瞩目的效果，但是对于自然语言处理来说深度学习仍然不是主流。
@@ -542,7 +541,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 \hat{\mathbi{c}}_t & = & \textrm{Tanh} ([\mathbi{h}_{t-1},\mathbi{x}_{t}] \mathbi{W}_c + \mathbi{b}_c ) \label{eq:10-8}
 \end{eqnarray}
 
-之后，用$\mathbi{i}_t$点乘$\hat{\mathbi{c}}_t$，得到当前需要记忆的信息，记为$\mathbi{i}_t \odot  \hat{\mathbi{c}}_t$。接下来需要更新旧的信息$\mathbi{c}_{t-1}$，得到新的记忆信息$\mathbi{c}_t$，更新的操作如图\ref{fig:10-11}(c)红色线部分所示，“$\bigoplus$”表示相加。具体规则是通过遗忘门选择忘记一部分上文信息$\mathbi{f}_t$，通过输入门计算新增的信息$\mathbi{i}_t \odot  \hat{\mathbi{c}}_t$，然后根据“$\bigotimes$”门与“$\bigoplus$”门进行相应的乘法和加法计算，如公式\eqref{eq:10-9}：
+之后，用$\mathbi{i}_t$点乘$\hat{\mathbi{c}}_t$，得到当前需要记忆的信息，记为$\mathbi{i}_t \odot  \hat{\mathbi{c}}_t$。接下来需要更新旧的信息$\mathbi{c}_{t-1}$，得到新的记忆信息$\mathbi{c}_t$，更新的操作如图\ref{fig:10-11}(c)红色线部分所示，“$\bigoplus$”表示相加。具体规则是通过遗忘门选择忘记一部分上文信息$\mathbi{f}_t \odot \mathbi{c}_{t-1} $，通过输入门计算新增的信息$\mathbi{i}_t \odot  \hat{\mathbi{c}}_t$，然后根据“$\bigotimes$”门与“$\bigoplus$”门进行相应的乘法和加法计算，如公式\eqref{eq:10-9}：
 \begin{eqnarray}
 \mathbi{c}_t &=& \mathbi{f}_t \odot \mathbi{c}_{t-1} + \mathbi{i}_t  \odot \hat{\mathbi{c}_t}
 \label{eq:10-9}
@@ -574,7 +573,7 @@ $\funp{P}({y_j | \mathbi{s}_{j-1} ,y_{j-1},\mathbi{C}})$由Softmax实现，Softm
 
 \subsection{门控循环单元}
 
-\parinterval LSTM 通过门控单元控制传递状态，忘记不重要的信息，记住必要的历史信息，在长序列上取得了很好的效果，但是其进行了许多门信号的计算，较为繁琐。{\small\bfnew{门循环单元}}\index{门循环单元}（Gated Recurrent Unit，GRU）\index{Gated Recurrent Unit}作为一个LSTM的变种，继承了LSTM中利用门控单元控制信息传递的思想，并对LSTM进行了简化\upcite{Cho2014Learning}。它把循环单元状态$\mathbi{h}_t$和记忆$\mathbi{c}_t$合并成一个状态$\mathbi{h}_t$，同时使用了更少的门控单元，大大提升了计算效率。
+\parinterval LSTM 通过门控单元控制传递状态，忘记不重要的信息，记住必要的历史信息，在长序列上取得了很好的效果，但是其进行了许多门信号的计算，较为繁琐。{\small\bfnew{门控循环单元}}\index{门控循环单元}（Gated Recurrent Unit，GRU）\index{Gated Recurrent Unit}作为一个LSTM的变种，继承了LSTM中利用门控单元控制信息传递的思想，并对LSTM进行了简化\upcite{Cho2014Learning}。它把循环单元状态$\mathbi{h}_t$和记忆$\mathbi{c}_t$合并成一个状态$\mathbi{h}_t$，同时使用了更少的门控单元，大大提升了计算效率。
 
 %----------------------------------------------
 \begin{figure}[htp]
