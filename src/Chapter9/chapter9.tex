@@ -88,7 +88,7 @@
 
 \subsubsection{3. 深度学习和神经网络方法的崛起}
 
-\parinterval 21世纪初，随着深度学习浪潮席卷世界，人工神经网络又一次出现在人们的视野中。深度学习的流行源于2006年Hinton等人成功训练了一个深度信念网络（Deep Belief Network），在深度神经网络方法完全不受重视的情况下，大家突然发现深度神经网络完全是一个魔鬼般的存在，可以解决很多当时其他方法无法解决的问题。神经网络方法终于在一次又一次的被否定后，迎来了它的春天。随之针对神经网络和深度学习的一系列研究前赴后继地展开了，延续至今。
+\parinterval 21世纪初，随着深度学习浪潮席卷世界，人工神经网络又一次出现在人们的视野中。深度学习的流行源于2006年Hinton等人成功训练了一个{\small\bfnew{深度信念网络}}\index{深度信念网络}（Deep Belief Network）\index{Deep Belief Network}，在深度神经网络方法完全不受重视的情况下，大家突然发现深度神经网络完全是一个魔鬼般的存在，可以解决很多当时其他方法无法解决的问题。神经网络方法终于在一次又一次的被否定后，迎来了它的春天。随之针对神经网络和深度学习的一系列研究前赴后继地展开了，延续至今。
 
 \parinterval 回过头来看，现代深度学习的成功主要有三方面的原因：
 
@@ -119,7 +119,7 @@
 
 \subsection{为什么需要深度学习}
 
-\parinterval 深度神经网络提供了一种简单的学习机制，即直接学习输入与输出的关系，通常把这种机制称为{\small\bfnew{端到端学习}}\index{端到端学习}（End-to-End Learning）\index{End-to-End Learning}。与传统方法不同，端到端学习并不需要人工定义特征或者进行过多的先验性假设，所有的学习过程都是由一个模型完成。从外面看这个模型只是建立了一种输入到输出的映射，而这种映射具体是如何形成的完全由模型的结构和参数决定。这样做的最大好处是，模型可以更加“自由”的进行学习。此外，端到端学习也引发了一个新的思考\ \dash \ 如何表示问题？这也就是所谓的{\small\bfnew{表示学习}}\index{表示学习}（Representation Learning）\index{Representation Learning}问题。在深度学习时代，问题输入和输出的表示已经不再是人类通过简单地总结得到的规律，而是可以让计算机自己进行描述的一种可计算“量”，比如一个实数向量。由于这种表示可以被自动学习，因此也大大促进了计算机对语言文字等复杂现象的处理能力。
+\parinterval 深度神经网络提供了一种简单的学习机制，即直接学习输入与输出的关系，通常把这种机制称为{\small\bfnew{端到端学习}}\index{端到端学习}（End-to-End Learning）\index{End-to-End Learning}。与传统方法不同，端到端学习并不需要人工定义特征或者进行过多的先验性假设，所有的学习过程都是由一个模型完成。从外面看这个模型只是建立了一种输入到输出的映射，而这种映射具体是如何形成的完全由模型的结构和参数决定。这样做的最大好处是，模型可以更加“自由”的进行学习。此外，端到端学习也引发了一个新的思考\ \dash \ 如何表示问题？这也就是所谓的{\small\bfnew{表示学习}}\index{表示学习}（Representation Learning）\index{Representation Learning}问题。在深度学习时代，问题输入和输出的表示已经不再是人类通过简单地总结得到的规律，而是可以让计算机自己进行描述的一种可计算“量”，比如一个实数向量。由于这种表示可以被自动学习，因此也大大提升了计算机对语言文字等复杂现象的处理能力。
 
 %----------------------------------------------------------------------------------------
 %    NEW SUBSUB-SECTION
@@ -1109,7 +1109,7 @@ y&=&{\textrm{Sigmoid}}({\textrm{Tanh}}({\mathbi{x}}{\mathbi{W}}^{[1]}+{\mathbi{b
 \sectionnewpage
 \section{神经网络的参数训练}
 
-\parinterval 简单来说，神经网络可以被看作是由变量和函数组成的表达式，例如：$ {\mathbi{y}}={\mathbi{x}}+{\mathbi{b}} $、$ {\mathbi{y}}={\textrm{ReLU}}({\mathbi{x}} {\mathbi{W}}+{\mathbi{b}}) $、$ {\mathbi{y}}={\textrm{Sigmoid}}({\textrm{ReLU}}({\mathbi{x}}{\mathbi{W}}^{[1]}+{\mathbi{b}}^{[1]}){\mathbi{W}}^{[2]}+{\mathbi{b}}^{[2]}) $等等，其中的$ {\mathbi{x}} $和$ {\mathbi{y}} $作为输入和输出向量， ${\mathbi{W}}$、${\mathbi{b}}$等其他变量作为{\small\sffamily\bfseries{模型参数}}\index{模型参数}（Model Parameters）\index{Model Parameters}。确定了函数表达式和模型参数，也就确定了神经网络模型。通常，表达式的形式需要系统开发者设计，而模型参数的数量有时会非常巨大，因此需要自动学习，这个过程也被称为模型学习或训练。为了实现这个目标，通常会准备一定量的带有标准答案的数据，称之为有标注数据。这些数据会用于对模型参数的学习，这也对应了统计模型中的参数估计过程。在机器学习中，一般把这种使用有标注数据进行统计模型参数训练的过程称为{\small\sffamily\bfseries{有指导的训练}}\index{有指导的训练}或{\small\sffamily\bfseries{有监督的训练}}\index{有监督的训练}（Supervised Training）\index{Supervised Training}。在本章中，如果没有特殊说明，模型训练都是指有监督的训练。那么神经网络内部是怎样利用有标注数据对参数进行训练的呢？
+\parinterval 简单来说，神经网络可以被看作是由变量和函数组成的表达式，例如：$ {\mathbi{y}}={\mathbi{x}}+{\mathbi{b}} $、$ {\mathbi{y}}={\textrm{ReLU}}({\mathbi{x}} {\mathbi{W}}+{\mathbi{b}}) $、$ {\mathbi{y}}={\textrm{Sigmoid}}({\textrm{ReLU}}({\mathbi{x}}{\mathbi{W}}^{[1]}+{\mathbi{b}}^{[1]}){\mathbi{W}}^{[2]}+{\mathbi{b}}^{[2]}) $等等，其中的$ {\mathbi{x}} $和$ {\mathbi{y}} $作为输入和输出向量， ${\mathbi{W}}$、${\mathbi{b}}$等其他变量作为{\small\sffamily\bfseries{模型参数}}\index{模型参数}（Model Parameters）\index{Model Parameters}。确定了函数表达式和模型参数，也就确定了神经网络模型。通常，表达式的形式需要开发人员设计，而模型参数的数量有时会非常巨大，因此需要自动学习，这个过程也被称为模型学习或训练。为了实现这个目标，通常会准备一定量的带有标准答案的数据，称之为有标注数据。这些数据会用于对模型参数的学习，这也对应了统计模型中的参数估计过程。在机器学习中，一般把这种使用有标注数据进行统计模型参数训练的过程称为{\small\sffamily\bfseries{有指导的训练}}\index{有指导的训练}或{\small\sffamily\bfseries{有监督的训练}}\index{有监督的训练}（Supervised Training）\index{Supervised Training}。在本章中，如果没有特殊说明，模型训练都是指有监督的训练。那么神经网络内部是怎样利用有标注数据对参数进行训练的呢？
 
 \parinterval 为了回答这个问题，可以把模型参数的学习过程看作是一个优化问题，即找到一组参数，使得模型达到某种最优的状态。这个问题又可以被转化为两个新的问题：
 
@@ -1513,7 +1513,7 @@ z_t&=&\gamma z_{t-1}+(1-\gamma) \frac{\partial J}{\partial {\theta}_t} \cdot  \f
 \vspace{0.5em}
 \item {\small\sffamily\bfseries{同步更新}}\index{同步更新}（Synchronous Update）\index{Synchronous Update}是指所有计算设备完成计算后，统一汇总并更新参数。当所有设备的反向传播算法完成之后同步更新参数，不会出现单个设备单独对参数进行更新的情况。这种方法效果稳定，但是效率比较低，在同步更新时，每一次参数更新都需要所有设备统一开始、统一结束，如果设备的运行速度不一致，那么每一次参数更新都需要等待最慢的设备结束才能开始。
 \vspace{0.5em}
-\item {\small\sffamily\bfseries{异步更新}}\index{异步更新}（Asynchronous Update）\index{Asynchronous Update}是指每个计算设备可以随时更新参数。不同设备可以随时读取参数的最新值，然后根据当前参数值和分配的训练样本，各自执行反向传播过程并独立更新参数。由于设备间不需要相互等待，这种方法并行度高。但是不同设备读取参数的时间可能不同，会造成不同设备上的参数不同步，导致这种方法不十分稳定，有可能无法达到较好的训练结果。
+\item {\small\sffamily\bfseries{异步更新}}\index{异步更新}（Asynchronous Update）\index{Asynchronous Update}是指每个计算设备可以随时更新参数。不同设备可以随时读取参数的最新值，然后根据当前参数值和分配的训练样本，各自执行反向传播过程并独立更新参数。由于设备间不需要相互等待，这种方法并行度高。但是不同设备读取参数的时间可能不同，会造成不同设备上的参数不同步，导致这种方法不太稳定，有可能无法达到较好的训练结果。
 \vspace{0.5em}
 \end{itemize}
 

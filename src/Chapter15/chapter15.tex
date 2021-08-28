@@ -31,7 +31,6 @@
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
 
-\sectionnewpage
 \section{注意力机制的改进}
 
 \parinterval 注意力机制是神经机器翻译成功的关键。以Transformer模型为例，由于使用了自注意力机制，该模型展现出较高的训练并行性，同时在机器翻译、语言建模等任务上，该模型也取得了很好的表现。但是Transformer模型仍存在许多亟待解决的问题，例如，在处理长文本序列时（假设文本长度为$N$），自注意力机制的时间复杂度为$O(N^2)$，当$N$过大时翻译速度很低。此外，尽管Transformer模型的输入中包含了绝对位置编码表示，但是现有的自注意力机制仍然无法显性捕获局部窗口下不同位置之间的关系。而且注意力机制也需要更多样的手段进行特征提取，例如，采用多头或者多分支结构对不同空间特征进行提取。针对以上问题，本节将介绍注意力机制的优化策略，并重点讨论Transformer模型的若干改进方法。
@@ -183,7 +182,7 @@ A_{ij}^{\rm rel} &=& \underbrace{\mathbi{E}_{x_i}\mathbi{W}_Q\mathbi{W}_{K}^{\te
 
 \noindent 具体的形式如下：
 \begin{eqnarray}
-\mathbi{e}_{ij} &=& \frac{(\mathbi{x}_i \mathbi{W}_Q){(\mathbi{x}_j \mathbi{W}_K)}^{\textrm{T}}}{\sqrt{d_k}} + G_{ij}
+e_{ij} &=& \frac{(\mathbi{x}_i \mathbi{W}_Q){(\mathbi{x}_j \mathbi{W}_K)}^{\textrm{T}}}{\sqrt{d_k}} + G_{ij}
 \label{eq:15-15}
 \end{eqnarray}
 
@@ -222,7 +221,7 @@ v_i &=& \mathbi{I}_d^{\textrm{T}}\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \noindent 于是，在计算第$i$个词对第$j$个词的相关系数时，通过超参数$\omega$控制实际的感受野为$j-\omega,\ldots,j+\omega$，注意力计算中$\mathbi{e}_{ij}$的计算方式与公式\eqref{eq:15-6}相同，权重$\alpha_{ij}$的具体计算公式为：
 \begin{eqnarray}
-\alpha_{ij} &=& \frac{\exp (\mathbi{e}_{ij})}{\sum_{k=j-\omega}^{j+\omega}\exp (\mathbi{e}_{ik})}
+\alpha_{ij} &=& \frac{\exp (e_{ij})}{\sum_{k=j-\omega}^{j+\omega}\exp (e_{ik})}
 \label{eq:15-20}
 \end{eqnarray}
 
@@ -688,9 +687,9 @@ v_i &=& \mathbi{I}_d^{\textrm{T}}\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 \vspace{0.5em}
 \item 类似于标准的Transformer初始化方式，使用Xavier初始化方式来初始化除了词嵌入以外的所有参数矩阵。词嵌入矩阵服从$\mathbb{N}(0,d^{-\frac{1}{2}})$的高斯分布，其中$d$代表词嵌入的维度。
 \vspace{0.5em}
-\item 对编码器中部分自注意力机制的参数矩阵以及前馈神经网络的参数矩阵进行缩放因子为$0.67 {L}^{-\frac{1}{4}}$的缩放，$L$为编码器层数。
+\item 对编码器中部分自注意力机制的参数矩阵以及前馈神经网络的参数矩阵进行缩放因子为$0.67 {L}^{-\frac{1}{4}}$的缩放，对编码器中词嵌入的参数矩阵进行缩放因子为$(9 {L})^{-\frac{1}{4}}$的缩放，其中$L$为编码器的层数。
 \vspace{0.5em}
-\item 对解码器中部分注意力机制的参数矩阵、前馈神经网络的参数矩阵以及前馈神经网络的嵌入式输入进行缩放因子为$(9 {M})^{-\frac{1}{4}}$的缩放，其中$M$为解码器层数。
+\item 对解码器中部分注意力机制的参数矩阵、前馈神经网络的参数矩阵以及解码器词嵌入的参数矩阵进行缩放因子为$(9 {M})^{-\frac{1}{4}}$的缩放，其中$M$为解码器的层数。
 \vspace{0.5em}
 \end{itemize}
 
@@ -704,7 +703,7 @@ v_i &=& \mathbi{I}_d^{\textrm{T}}\textrm{Tanh}(\mathbi{W}_d\mathbi{Q}_i)
 
 \parinterval 也有研究发现Post-Norm结构在训练过程中过度依赖残差支路，在训练初期很容易发生参数梯度方差过大的现象\upcite{DBLP:conf/emnlp/LiuLGCH20}。经过分析发现，虽然底层神经网络发生梯度消失是导致训练不稳定的重要因素，但并不是唯一因素。例如，标准Transformer模型中梯度消失的原因在于使用了Post-Norm结构的解码器。尽管通过调整模型结构解决了梯度消失问题，但是模型训练不稳定的问题仍然没有被很好地解决。研究人员观测到Post-Norm结构在训练过程中过于依赖残差支路，而Pre-Norm结构在训练过程中逐渐呈现出对残差支路的依赖性，这更易于网络的训练。进一步，从参数更新的角度出发，Pre-Norm由于参数的改变导致网络输出变化的方差经推导后可以表示为$O(\log L)$，而Post-Norm对应的方差为$O(L)$。因此，可以尝试减小Post-Norm中由于参数更新导致的输出的方差值，从而达到稳定训练的目的。针对该问题，可以采用两阶段的初始化方法。这里，可以重新定义子层之间的残差连接如下：
 \begin{eqnarray}
-\mathbi{x}_{l+1} &=& \mathbi{x}_l \cdot {\bm  \omega_{l+1}} + F_{l+1}(\mathbi{x}_l)
+\mathbi{x}_{l+1} &=& \mathbi{x}_l \odot {\bm  \omega_{l+1}} + F_{l+1}(\mathbi{x}_l)
 \label{eq:15-47}
 \end{eqnarray}
 

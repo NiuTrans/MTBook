@@ -87,7 +87,7 @@
 
 \parinterval 在卷积计算中，不同深度下卷积核不同但是执行操作相同，这里以二维卷积核为例展示具体卷积计算。若设输入矩阵为$\mathbi{x}$，输出矩阵为$\mathbi{y}$，卷积滑动步幅为$\textrm{stride}$，卷积核为$\mathbi{w}$，且$\mathbi{w} \in \mathbb{R}^{Q \times U} $，那么卷积计算过程如下：
 \begin{eqnarray}
-\mathbi{y}_{i,j} &=& \sum \sum ( \mathbi{x}_{[j\times \textrm{stride}:j\times \textrm{stride}+U-1,i\times \textrm{stride}:i\times \textrm{stride}+Q-1]} \odot \mathbi{w} )
+\mathbi{y}_{i,j} &=& \sum \sum ( \mathbi{x}_{[i\times \textrm{stride}:i\times \textrm{stride}+Q-1,j\times \textrm{stride}:j\times \textrm{stride}+U-1]} \odot \mathbi{w} )
 \label{eq:11-1}
 \end{eqnarray}
 
@@ -230,7 +230,7 @@
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-
+\sectionnewpage
 \section{基于卷积神经网络的翻译建模}
 
 \parinterval 正如之前所讲，卷积神经网络可以用于序列建模，同时具有并行性高和易于学习的特点，一个很自然的想法就是将其用作神经机器翻译模型中的特征提取器。因此，在神经机器翻译被提出之初，研究人员就已经开始利用卷积神经网络对句子进行特征提取。比较经典的模型是使用卷积神经网络作为源语言句子的编码器，使用循环神经网络作为目标语言译文生成的解码器\upcite{kalchbrenner-blunsom-2013-recurrent,Gehring2017ACE}。之后也有研究人员提出完全基于卷积神经网络的翻译模型（ConvS2S）\upcite{DBLP:journals/corr/GehringAGYD17}，或者针对卷积层进行改进，提出效率更高、性能更好的模型\upcite{Kaiser2018DepthwiseSC,Wu2019PayLA}。本节将基于ConvS2S模型，阐述如何使用卷积神经网络搭建端到端神经机器翻译模型。
@@ -448,7 +448,7 @@
 %----------------------------------------------------------------------------------------
 %    NEW SECTION
 %----------------------------------------------------------------------------------------
-
+\sectionnewpage
 \section{局部模型的改进}
 
 \parinterval 在序列建模中，卷积神经网络可以通过参数共享，高效地捕捉局部上下文特征，如图\ref{fig:11-11}所示。但是通过进一步分析可以发现，在标准卷积操作中包括了不同词和不同通道之间两种信息的交互，每个卷积核都是对相邻词的不同通道进行卷积操作，参数量为$K \times O$，其中，$K$为卷积核大小，$O$为输入的通道数，即单词表示的维度大小。如果使用$N$个卷积核，得到$N$个特征（即输出通道数），总共的参数量为$K \times O \times N$。 这里涉及卷积核大小、输入通道数和输出通道数三个维度，因此计算复杂度较高。为了进一步提升计算效率，降低参数量，一些研究人员提出{\small\bfnew{深度可分离卷积}}\index{深度可分离卷积}（Depthwise Separable Convolution）\index{Depthwise Separable Convolution}，将空间维度和通道间的信息交互分离成{\small\bfnew{深度卷积}}（Depthwise Convolution，也叫逐通道卷积）\index{逐通道卷积}\index{Depthwise Convolution} 和{\small\bfnew{逐点卷积}} \index{逐点卷积}（Pointwise Convolution）\index{Pointwise Convolution} 两部分\upcite{Chollet2017XceptionDL,Howard2017MobileNetsEC}。 除了直接将深度可分离卷积应用到神经机器翻译中\upcite{Kaiser2018DepthwiseSC}，研究人员提出使用更高效的{\small\bfnew{轻量卷积}}\index{轻量卷积}（Lightweight Convolution）\index{Lightweight Convolution}和{\small\bfnew{动态卷积}}\index{动态卷积}（Dynamic Convolution）\index{Dynamic convolution}来进行不同词之间的特征提取\upcite{Wu2019PayLA}。本节将主要介绍这些改进的卷积操作。在后续章节中也会看到这些模型在神经机器翻译中的应用。
@@ -572,7 +572,7 @@
 %----------------------------------------------------------------------------------------
 %    NEW SUB-SECTION
 %----------------------------------------------------------------------------------------
-
+\sectionnewpage
 \section{小结及拓展阅读}
 
 \parinterval 卷积是一种高效的神经网络结构，在图像、语音处理等领域取得了令人瞩目的成绩。本章介绍了卷积的概念及其特性，并对池化、填充等操作进行了讨论。本章介绍了具有高并行计算能力的机器翻译范式，即基于卷积神经网络的编码器-解码器框架。其在机器翻译任务上表现出色，并大幅度缩短了模型的训练周期。除了基础部分，本章还针对卷积计算进行了延伸，内容涉及逐通道卷积、逐点卷积、轻量卷积和动态卷积等。除了上述提及的内容，卷积神经网络及其变种在文本分类、命名实体识别、关系分类、事件抽取等其他自然语言处理任务上也有许多应用\upcite{Kim2014ConvolutionalNN,2011Natural,DBLP:conf/cncl/ZhouZXQBX17,DBLP:conf/acl/ChenXLZ015,DBLP:conf/coling/ZengLLZZ14}。
