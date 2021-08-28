@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+	\tikzstyle{unit} = [draw,minimum size=1em,circle,thick]
+		
+		\node[unit,fill=green!30] (g1) at (0,0){};
+		\node[anchor=west,unit,fill=green!30]	(g2)at([xshift=1.8em]g1.east){};
+		\node[anchor=west,unit,fill=green!30]	(g3)at([xshift=1.8em]g2.east){};
+		\node[anchor=west,unit,fill=green!30]	(g4)at([xshift=1.8em]g3.east){};
+		
+		\node[anchor=north,unit,fill=red!30]	(r1)at([yshift=-1.8em]g1.south){};
+		\node[anchor=north,unit,fill=red!30]	(r2)at([yshift=-1.8em]g2.south){};
+		\node[anchor=north,unit,fill=red!30]	(r3)at([yshift=-1.8em]g3.south){};
+		\node[anchor=north,unit,fill=red!30]	(r4)at([yshift=-1.8em]g4.south){};
+		
+		\node[anchor=south,font=\scriptsize] at ([yshift=0.4em,xshift=1.4em]g2.north){待预测标签序列};
+		\node[anchor=north,font=\scriptsize] at ([yshift=-0.4em,xshift=1.4em]r2.south){观测序列};
+		
+		\draw[->,thick] (g1.east) -- (g2.west);
+		\draw[->,thick] (g2.east) -- (g3.west);
+		\draw[->,thick] (g3.east) -- (g4.west);
+		
+		\draw[->,thick] (g1.south) -- (r1.north);
+		\draw[->,thick] (g2.south) -- (r2.north);
+		\draw[->,thick] (g3.south) -- (r3.north);
+		\draw[->,thick] (g4.south) -- (r4.north);
+\end{tikzpicture}

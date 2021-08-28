@@ -1,0 +1,42 @@
+\begin{tikzpicture}	
+	\tikzstyle{unit} = [inner sep=1pt,align=center,minimum width=3.5em,minimum height=2em]
+	\tikzstyle{word} = [inner sep=1pt,align=center,minimum width=3.5em,minimum height=2em]
+				%,text=red,orange!20
+	\node[anchor=west,unit] (w1) at (0,0){{$w_1$}};
+	\node[anchor=north,unit,fill=orange!20] (n11) at ([yshift=-0.8em]w1.south){$<$sos$>$};
+	\node[anchor=north,unit,fill=orange!20] (n12) at ([yshift=-1.5em]n11.south){$<$sos$>$};
+	\node[anchor=north,unit,fill=orange!20] (n13) at ([yshift=-1.5em]n12.south){$<$sos$>$};
+	\node[anchor=north,unit,fill=orange!20] (n14) at ([yshift=-1.5em]n13.south){$<$sos$>$};
+
+	\node[anchor=east,unit] (step1) at ([xshift=-1em]n11.west){Step1:};
+	\node[anchor=east,unit] (step2) at ([xshift=-1em]n12.west){Step2:};
+	\node[anchor=east,unit] (step3) at ([xshift=-1em]n13.west){Step3:};
+	\node[anchor=east,unit] (step4) at ([xshift=-1em]n14.west){Step4:};
+		
+	\node[anchor=west,unit] (w2) at ([xshift=1.5em]w1.east){$w_2$};
+	\node[anchor=north,unit] (n21) at ([yshift=-0.8em]w2.south){};
+	\node[anchor=north,word,fill=orange!20] (n22) at ([yshift=-1.5em]n21.south){I};
+	\node[anchor=north,word,fill=orange!20] (n23) at ([yshift=-1.5em]n22.south){I};
+	\node[anchor=north,word,fill=orange!20] (n24) at ([yshift=-1.5em]n23.south){I};
+		
+	\node[anchor=west,unit] (w3) at ([xshift=1.5em]w2.east){$w_3$};
+	\node[anchor=north,unit] (n31) at ([yshift=-0.8em]w3.south){};
+	\node[anchor=north,unit] (n32) at ([yshift=-1.5em]n31.south){};
+	\node[anchor=north,word,fill=orange!20] (n33) at ([yshift=-1.5em]n32.south){agree};
+	\node[anchor=north,word,fill=orange!20] (n34) at ([yshift=-1.5em]n33.south){agree};
+		
+	\node[anchor=west,unit] (w4) at ([xshift=1.5em]w3.east){$w_4$};
+	\node[anchor=north,unit] (n41) at ([yshift=-0.8em]w4.south){};
+	\node[anchor=north,unit] (n42) at ([yshift=-1.5em]n41.south){};
+	\node[anchor=north,unit] (n43) at ([yshift=-1.5em]n42.south){};
+	\node[anchor=north,unit,fill=orange!20] (n44) at ([yshift=-1.5em]n43.south){$<$eos$>$};
+		
+	\begin{pgfonlayer}{background}
+       	\node [draw=red,very thick,rectangle,inner sep=2.5pt,rounded corners=2pt,dashed] [fit = (n12)] (box1) {};
+       	\node [draw=red,very thick,rectangle,inner sep=2.5pt,rounded corners=2pt,dashed] [fit = (n13)(n23)] (box2) {};
+       	\node [draw=red,very thick,rectangle,inner sep=2.5pt,rounded corners=2pt,dashed] [fit = (n14)(n24)(n34)] (box3) {};
+   	\end{pgfonlayer}
+   	 \draw[-latex,red,thick] (box1.south).. controls +(300:0.45) and +(240:0.45) .. (n22.south);
+   	 \draw[-latex,red,thick] (box2.south).. controls +(290:0.45) and +(250:0.45) .. (n33.south);
+   	 \draw[-latex,red,thick] (box3.south).. controls +(280:0.5) and +(260:0.5) .. (n44.south);
+\end{tikzpicture}

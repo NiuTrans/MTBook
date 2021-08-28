@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\tikzstyle{unit} = [draw,inner sep=2pt,thick,align=center,drop shadow,fill=red!35,font=\footnotesize,minimum height=1.2em,minimum width=1.8em]
+	\tikzstyle{lab} = [inner sep=0pt,align=center,rotate=-90,font=\scriptsize]
+		
+		\node[unit] (n11) at (0,0){北京};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n11.east){\Large{/}};
+		\node[unit,anchor=west] (n12) at ([xshift=1.6em]n11.east){是};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n12.east){\Large{/}};
+		\node[unit,anchor=west] (n13) at ([xshift=1.6em]n12.east){中华};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n13.east){\Large{/}};
+		\node[unit,anchor=west] (n14) at ([xshift=1.6em]n13.east){人民};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n14.east){\Large{/}};
+		\node[unit,anchor=west] (n15) at ([xshift=1.6em]n14.east){共和};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n15.east){\Large{/}};
+		\node[unit,anchor=west] (n16) at ([xshift=1.6em]n15.east){国};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n16.east){\Large{/}};
+		\node[unit,anchor=west] (n17) at ([xshift=1.6em]n16.east){的};
+		\node[anchor=west,inner sep=0pt,font=\footnotesize] at ([xshift=0.6em]n17.east){\Large{/}};
+		\node[unit,anchor=west] (n18) at ([xshift=1.6em]n17.east){首都};
+		
+		\node[lab,anchor=north] at ([yshift=-1.4em,xshift=0.2em]n11.south){S-CIT};
+		\node[lab,anchor=north] at ([yshift=-0.8em,xshift=0.2em]n12.south){O};
+		\node[lab,anchor=north] at ([yshift=-1.4em,xshift=0.2em]n13.south){B-CNT};
+		\node[lab,anchor=north] at ([yshift=-1.4em,xshift=0.2em]n14.south){I-CNT};
+		\node[lab,anchor=north] at ([yshift=-1.4em,xshift=0.2em]n15.south){I-CNT};
+		\node[lab,anchor=north] at ([yshift=-1.4em,xshift=0.2em]n16.south){E-CNT};
+		\node[lab,anchor=north] at ([yshift=-0.8em,xshift=0.2em]n17.south){O};
+		\node[lab,anchor=north] at ([yshift=-0.8em,xshift=0.2em]n18.south){O};
+\end{tikzpicture}

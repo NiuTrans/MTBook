@@ -1,0 +1,67 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{minipage}[t]{0.38\linewidth}
+{\small
+\begin{eqnarray}
+& &\textrm{IP} \nonumber \\
+& \overset{r_8}{\Rightarrow} & \textrm{NP VP} \nonumber \\
+& \overset{r_5}{\Rightarrow} & \textrm{NN VP} \nonumber \\
+& \overset{r_1}{\Rightarrow} & \textrm{猫 VP} \nonumber \\
+& \overset{r_7}{\Rightarrow} & \textrm{猫 VV VP} \nonumber \\
+& \overset{r_2}{\Rightarrow} & \textrm{猫 喜欢 VP} \nonumber \\
+& \overset{r_6}{\Rightarrow} & \textrm{猫 喜欢 VV NN} \nonumber \\
+& \overset{r_3}{\Rightarrow} & \textrm{猫 喜欢 吃 NN} \nonumber \\
+& \overset{r_4}{\Rightarrow} & \textrm{猫 喜欢 吃 鱼} \nonumber 
+\end{eqnarray}
+}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.55\linewidth}
+\vspace{1.0em}
+\begin{center}
+\begin{tikzpicture}
+
+\begin{scope}
+{\scriptsize
+\node [anchor=west,inner sep=2pt] (r1) at (0,0) {$r_1$: NN $\to$ 猫};
+\node [anchor=west,inner sep=2pt] (r2) at ([xshift=3em]r1.east) {$r_2$: VV $\to$ 喜欢};
+\node [anchor=north west,inner sep=2pt] (r3) at ([yshift=-0.2em]r1.south west) {$r_3$: VV $\to$ 吃};
+\node [anchor=north west,inner sep=2pt] (r4) at ([yshift=-0.2em]r2.south west) {$r_4$: NN $\to$ 鱼};
+\node [anchor=north west,inner sep=2pt] (r5) at ([yshift=-0.2em]r3.south west) {$r_5$: NP $\to$ NN};
+\node [anchor=north west,inner sep=2pt] (r6) at ([yshift=-0.2em]r4.south west) {$r_6$: VP $\to$ VV NN};
+\node [anchor=north west,inner sep=2pt] (r7) at ([yshift=-0.2em]r5.south west) {$r_7$: VP $\to$ VV VP};
+\node [anchor=north west,inner sep=2pt] (r8) at ([yshift=-0.2em]r6.south west) {$r_8$: IP $\to$ NP VP};
+
+}
+\end{scope}
+
+\begin{scope}[xshift=4.5em,yshift=-5.5em,level distance=20pt,sibling distance=13pt]
+
+
+
+\Tree[.IP
+          [.NP
+               [.NN \node(sw1){猫}; ]
+          ]
+          [.VP
+               [.VV \node(sw2){喜欢}; ]
+               [.VP
+                     [.VV \node(sw1){吃}; ]
+                     [.NN \node(sw1){鱼}; ]
+               ]
+          ]
+     ]
+
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+\end{minipage}
+%---------------------------------------------------------------------
+
+

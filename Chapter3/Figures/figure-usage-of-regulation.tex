@@ -1,0 +1,48 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\begin{scope}
+\node [anchor=west] (arule) at (0,0) {\large{$u \overset{r}{\Rightarrow} v$}};
+
+\node [anchor=west,inner sep=2pt] (u) at ([xshift=-4em,yshift=-4em]arule.west) {VV};
+
+\node [anchor=west,inner sep=2pt,fill=orange!40,draw] (u) at ([xshift=-4em,yshift=-4em]arule.west) {VV};
+
+\node [anchor=west] (upart2) at (u.east) {NN};
+\node [anchor=east] (unumber) at (u.west) {$u:$};
+
+\node [anchor=west,inner sep=2pt] (r) at ([xshift=-3em,yshift=2.5em]u.west) {VV};
+
+\node [anchor=west,inner sep=2pt,fill=orange!40,draw] (r) at ([xshift=-3em,yshift=2.5em]u.west) {VV};
+
+\node [anchor=west] (rpart2) at (r.east) {$\to$};
+\node [anchor=west,inner sep=2pt] (rpart3) at (rpart2.east) {吃};
+\node [anchor=east] (rnumber) at (r.west) {$r:$};
+
+\node [anchor=west,inner sep=2pt,fill=red!30,draw] (rpart3) at (rpart2.east) {吃};
+
+\node [anchor=west] (v) at ([xshift=5.5em]u.east) {$v$:};
+\node [anchor=west,inner sep=2pt,fill=red!30,draw] (vpart2) at (v.east) {吃};
+\node [anchor=west] (vpart3) at (vpart2.east) {NN};
+\node [anchor=west] (arrow) at ([xshift=3em]u.east) {$\Rightarrow$};
+
+\draw [<-,dotted,thick] ([xshift=0.6em]arule.south west) ..controls +(south:0.7) and +(north:0.7).. ([xshift=-1.0em]upart2.north east);
+
+\draw [<-,dotted,thick] ([xshift=-0.6em]arule.south east) ..controls +(south:0.7) and +(north:0.7).. ([xshift=1.0em]v.north west);
+
+\draw [<-,dotted,thick] ([xshift=-0.4em,yshift=-0.5em]arule.north) ..controls +(180:0.7) and +(50:0.7) .. ([xshift=1em]rpart2.north west);
+
+\draw [->,dotted,thick,ublue] (r.south) ..controls +(south:0.5) and +(north:0.5).. ([yshift=0]u.north);
+
+\end{scope}
+\end{tikzpicture}
+%---------------------------------------------------------------------
+
+
+

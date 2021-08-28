@@ -1,0 +1,99 @@
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+\begin{tikzpicture}[scale=0.6]
+	\tikzstyle{unit} = [draw,inner sep=3pt,font=\footnotesize,minimum height=1.2em,drop shadow={shadow xshift=0.1em,shadow yshift=-0.15em}]
+	\tikzstyle{bad_tag} = [fill=red!15,inner sep=1pt,align=center,font=\scriptsize,text=red!80]
+	\tikzstyle{ok_tag} = [fill=ugreen!15,inner sep=1pt,align=center,font=\scriptsize,text=ugreen!80]
+	
+	\coordinate (o) at (0, 0);
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] (n1_1) at ([yshift=5.5em]o.east){\textbf{Source}};
+	\node[unit,anchor=west,fill=green!30](n1_2) at ([xshift=8.4em]n1_1.east){Draw};
+	\node[unit,anchor=west,fill=green!30](n1_3) at ([xshift=0.8em]n1_2.east){or};
+	\node[unit,anchor=west,fill=green!30](n1_4) at ([xshift=0.8em]n1_3.east){select};
+	\node[unit,anchor=west,fill=green!30](n1_5) at ([xshift=0.8em]n1_4.east){a};
+	\node[unit,anchor=west,fill=green!30](n1_6) at ([xshift=0.8em]n1_5.east){line};
+	\node[unit,anchor=west,fill=green!30](n1_7) at ([xshift=0.8em]n1_6.east){.};
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] (n2_1) at (o.east){\textbf{PE}};
+	\node[unit,anchor=west,fill=red!30](n2_2) at ([xshift=1.8em]n2_1.east){Zeichnen};
+	\node[unit,anchor=west,fill=red!30](n2_3) at ([xshift=0.8em]n2_2.east){oder};
+	\node[unit,anchor=west,fill=red!30](n2_4) at ([xshift=0.8em]n2_3.east){Sie};
+	\node[unit,anchor=west,fill=red!30](n2_5) at ([xshift=0.8em]n2_4.east){eine};
+	\node[unit,anchor=west,fill=red!30](n2_6) at ([xshift=0.8em]n2_5.east){linie};
+	\node[unit,anchor=west,fill=red!30](n2_7) at ([xshift=0.8em]n2_6.east){,};
+	\node[unit,anchor=west,fill=red!30](n2_8) at ([xshift=0.8em]n2_7.east){order};
+	\node[unit,anchor=west,fill=red!30](n2_9) at ([xshift=0.8em]n2_8.east){wählen};
+	\node[unit,anchor=west,fill=red!30](n2_10) at ([xshift=0.8em]n2_9.east){Sie};
+	\node[unit,anchor=west,fill=red!30](n2_11) at ([xshift=0.8em]n2_10.east){eine};
+	\node[unit,anchor=west,fill=red!30](n2_12) at ([xshift=0.8em]n2_11.east){aus};
+	\node[unit,anchor=west,fill=red!30](n2_13) at ([xshift=0.8em]n2_12.east){.};
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] (n3_1) at ([yshift=-5.5em]o.east){\textbf{MT}};
+	\node[unit,anchor=west,fill=blue!30](n3_2) at ([xshift=5.5em]n3_1.east){Zeichnen};
+	\node[unit,anchor=west,fill=blue!30](n3_3) at ([xshift=0.8em]n3_2.east){oder};
+	\node[unit,anchor=west,fill=blue!30](n3_4) at ([xshift=0.8em]n3_3.east){wählen};
+	\node[unit,anchor=west,fill=blue!30](n3_5) at ([xshift=0.8em]n3_4.east){Sie};
+	\node[unit,anchor=west,fill=blue!30](n3_6) at ([xshift=0.8em]n3_5.east){eine};
+	\node[unit,anchor=west,fill=blue!30](n3_7) at ([xshift=0.8em]n3_6.east){Linie};
+	\node[unit,anchor=west,fill=blue!30](n3_8) at ([xshift=0.8em]n3_7.east){aus};
+	\node[unit,anchor=west,fill=blue!30](n3_9) at ([xshift=0.8em]n3_8.east){.};
+	
+	\node[bad_tag,anchor=south] at ([yshift=2pt]n1_2.north){BAD};
+	\node[bad_tag,anchor=south] at ([yshift=2pt]n1_3.north){BAD};
+	\node[ok_tag,anchor=south] at ([yshift=2pt]n1_4.north){OK};
+	\node[bad_tag,anchor=south] at ([yshift=2pt]n1_5.north){BAD};
+	\node[bad_tag,anchor=south] at ([yshift=2pt]n1_6.north){BAD};
+	\node[ok_tag,anchor=south] (tag1) at ([yshift=2pt]n1_7.north){OK};
+	
+	
+	\node[ok_tag,anchor=north] at ([yshift=-3pt]n3_2.south){OK};
+	\node[ok_tag,anchor=north] at ([yshift=-3pt]n3_3.south){OK};
+	\node[ok_tag,anchor=north] at ([yshift=-3pt]n3_4.south){OK};
+	\node[ok_tag,anchor=north] at ([yshift=-3pt]n3_5.south){OK};
+	\node[ok_tag,anchor=north] at ([yshift=-3pt]n3_6.south){OK};
+	\node[bad_tag,anchor=north] at ([yshift=-3pt]n3_7.south){BAD};
+	\node[ok_tag,anchor=north] at ([yshift=-3pt]n3_8.south){OK};
+	\node[ok_tag,anchor=north] (tag2) at ([yshift=-3pt]n3_9.south){OK};
+		
+	\node[ok_tag,anchor=north] (gap_1)at ([xshift=-3.2em,yshift=-2em]n3_2.south){OK};
+	\node[bad_tag,anchor=north] (gap_2)at ([xshift=3.5em,yshift=-2em]n3_2.south){BAD};
+	\node[ok_tag,anchor=north] (gap_3)at ([xshift=2.1em,yshift=-2em]n3_3.south){OK};
+	\node[ok_tag,anchor=north] (gap_4)at ([xshift=3em,yshift=-2em]n3_4.south){OK};
+	\node[ok_tag,anchor=north] (gap_5)at ([xshift=1.85em,yshift=-2em]n3_5.south){OK};
+	\node[ok_tag,anchor=north] (gap_6)at ([xshift=2em,yshift=-2em]n3_6.south){OK};
+	\node[ok_tag,anchor=north] (gap_7)at ([xshift=2.25em,yshift=-2em]n3_7.south){OK};
+	\node[ok_tag,anchor=north] (gap_8)at ([xshift=1.75em,yshift=-2em]n3_8.south){OK};
+	\node[ok_tag,anchor=north] (tag3) at ([xshift=1.7em,yshift=-2em]n3_9.south){OK};
+
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_1.north) -- ([yshift=2em]gap_1.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_2.north) -- ([yshift=2em]gap_2.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_3.north) -- ([yshift=2em]gap_3.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_4.north) -- ([yshift=2em]gap_4.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_5.north) -- ([yshift=2em]gap_5.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_6.north) -- ([yshift=2em]gap_6.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_7.north) -- ([yshift=2em]gap_7.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](gap_8.north) -- ([yshift=2em]gap_8.north);
+	\draw[dash pattern=on 2pt off 1pt,gray,line width=1pt](tag3.north) -- ([yshift=2em]tag3.north);
+	
+	\draw [line width=1pt,blue!30](n1_2.south) -- (n2_2.north);
+	\draw [line width=1pt,blue!30](n1_3.south) -- (n2_3.north);
+	\draw [line width=1pt,blue!30](n1_4.south) -- (n2_4.north);
+	\draw [line width=1pt,blue!30](n1_4.south) -- (n2_9.north);
+	\draw [line width=1pt,blue!30](n1_5.south) -- (n2_5.north);
+	\draw [line width=1pt,blue!30](n1_6.south) -- (n2_6.north);
+	\draw [line width=1pt,blue!30](n1_7.south) -- (n2_13.north);
+
+	\draw[line width=1pt,ugreen!60] (n2_2.south) -- (n3_2.north);
+	\draw[line width=1pt,ugreen!60] (n2_3.south) -- (n3_3.north);
+	\draw[line width=1pt,ugreen!60] (n2_4.south) -- (n3_5.north);
+	\draw[line width=1pt,ugreen!60] (n2_5.south) -- (n3_6.north);
+	\draw[line width=1pt,red!60] (n2_6.south) -- (n3_7.north);
+	\draw[line width=1pt,ugreen!60] (n2_9.south) -- (n3_4.north);
+	\draw[line width=1pt,ugreen!60] (n2_12.south) -- (n3_8.north);
+	\draw[line width=1pt,ugreen!60] (n2_13.south) -- (n3_9.north);
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize](st)  at ([xshift=14.4em]tag1.east){\textbf{Source tags}};
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize]  at ([xshift=6.6em]tag2.east){\textbf{MT tags}};
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] (gt) at ([xshift=4.6em]tag3.east){\textbf{Gap tags}};
+\end{tikzpicture}

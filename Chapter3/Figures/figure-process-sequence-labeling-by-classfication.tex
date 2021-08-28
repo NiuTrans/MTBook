@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+	\tikzstyle{unit} = [draw,minimum size=1em,circle,thick]
+		
+		\node[unit,fill=green!20] (g1) at (0,0){};
+		\node[anchor=west,unit,fill=green!30]	(g2)at([xshift=1.8em]g1.east){};
+		\node[anchor=west,unit,fill=green!30]	(g3)at([xshift=1.8em]g2.east){};
+		\node[anchor=west,unit,fill=green!30]	(g4)at([xshift=1.8em]g3.east){};
+		
+		\node[anchor=north,unit,fill=red!30]	(r1)at([yshift=-4em]g1.south){};
+		\node[anchor=north,unit,fill=red!30]	(r2)at([yshift=-4em]g2.south){};
+		\node[anchor=north,unit,fill=red!30]	(r3)at([yshift=-4em]g3.south){};
+		\node[anchor=north,unit,fill=red!30]	(r4)at([yshift=-4em]g4.south){};
+		
+		\begin{pgfonlayer}{background}
+        	\node [draw=ugreen!70,rectangle,inner sep=2pt,rounded corners=4pt,dashed,line width=1.0pt] [fit = (g1)(g2)(g3)(g4)] (box1) {};
+        	\node [draw=red!70,rectangle,inner sep=2pt,rounded corners=4pt,dashed,line width=1.0pt] [fit = (r1)(r2)(r3)(r4)] (box2) {};
+    	\end{pgfonlayer}
+		
+		\node[anchor=north,draw,inner sep=2pt,rounded corners=2pt,fill=blue!30,minimum width=6em](cla) at ([yshift=-1em]box1.south){分类器};
+		
+		
+		\node[anchor=south,font=\scriptsize] at ([yshift=0.4em,xshift=1.4em]g2.north){待预测标签序列};
+		\node[anchor=north,font=\scriptsize] at ([yshift=-0.4em,xshift=1.4em]r2.south){观测序列};
+		
+		\draw[->,thick] (cla.north) -- (box1.south);
+		\draw[->,thick] (box2.north) -- (cla.south);
+\end{tikzpicture}

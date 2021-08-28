@@ -1,0 +1,25 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\vspace{0.3em}
+\begin{tikzpicture}
+
+
+\begin{scope}[scale=1.0,level distance=30pt,sibling distance=15pt,grow'=up]
+{
+\Tree[.\node(sn0){IP};
+          [.\node(sn1){NP};
+               [.\node(sn2){NN}; \node(sw1){猫}; ]
+          ]
+          [.\node(sn3){VP};
+               [.\node(sn4){VV}; \node(sw2){喜欢}; ]
+               [.\node(sn5){VP}; \edge[roof]; \node(sw3){吃 \ 鱼}; ]
+          ]
+     ]
+}
+\end{scope}
+
+\end{tikzpicture}
+
+%---------------------------------------------------------------------

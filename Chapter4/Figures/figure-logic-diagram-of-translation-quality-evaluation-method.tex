@@ -1,0 +1,77 @@
+%\documentclass[tikz]{standalone}
+%\usepackage{tikz}
+%\usepackage[UTF8]{ctex}
+%\usepackage{setspace}
+%\usetikzlibrary{shapes}
+%\usetikzlibrary{decorations.pathreplacing}
+%\begin{document}
+\begin{tikzpicture}[scale=0.8]
+
+\begin{scope}
+
+\tikzstyle{every node}=[scale=0.8]
+
+% big circle at center
+\node [anchor=center,circle,draw,minimum width=10em,line width=0.2em,ublue] (base) at (0,0) {};
+\draw [-,very thick,line width=0.15em,ublue] (0,0) -- (base.90);
+\draw [-,very thick,line width=0.15em,ublue] (0,0) -- (base.-30);
+\draw [-,very thick,line width=0.15em,ublue] (0,0) -- (base.210);
+
+\node [anchor=south east,align=left] (autoevallabel) at ([xshift=-0.5em,yshift=0.5em]base.-10) {{\small\bfnew\footnotesize{人工构造}}\\{\small\bfnew\footnotesize{参考答案}}};
+\node [anchor=south west,align=left] (qualityestlabel) at ([xshift=0.5em,yshift=0.5em]base.190) {{\small\bfnew\footnotesize{人不参与}}\\{\small\bfnew\footnotesize{评价}}};
+\node [anchor=south,align=left] (humanevallabel) at ([yshift=1.0em]base.-90) {{\small\bfnew\footnotesize{人直接}}\\{\small\bfnew\footnotesize{进行评价}}};
+
+% quality estimation
+\node [anchor=north east,minimum width=10em,minimum height=10em,draw=black!60,very thick,fill=ugreen!30,drop shadow] (qebox) at ([xshift=-8em]base.90) {};
+\node [draw,anchor=south,minimum width=10em,align=center,draw=black!60,very thick,fill=ugreen!30,drop shadow] (qelabel) at ([yshift=0.5em]qebox.north) {\small\footnotesize{需要较为复杂的建模，}\\\small\footnotesize{开发难度同机器翻译系统}};
+\node [anchor=north,minimum width=10em] (qetitle) at ([yshift=-0.2em]qebox.north) {{\small\bfnew\large{无参考答案的评价}}};
+\draw [-] ([yshift=-2em]qebox.north west) -- ([yshift=-2em]qebox.north east);
+\node [anchor=north] (qemethod1) at ([yshift=-0.3em]qetitle.south) {单词级评价};
+\node [anchor=north] (qemethod2) at ([yshift=-0.3em]qemethod1.south) {短语级评价};
+\node [anchor=north] (qemethod3) at ([yshift=-0.3em]qemethod2.south) {句子级评价};
+\node [anchor=north] (qemethod4) at ([yshift=-0.3em]qemethod3.south) {篇章级评价};
+
+% auto evaluation
+\node [anchor=north west,minimum width=10em,minimum height=10em,draw=black!60,very thick,fill=red!30,drop shadow] (aebox) at ([xshift=8em]base.90) {};
+\node [draw,anchor=south,minimum width=10em,align=center,draw=black!60,very thick,fill=red!30,drop shadow] (aelabel) at ([yshift=0.5em]aebox.north) {\small\footnotesize{基于指标性公式和}\\\small\footnotesize{简单的建模}};
+\node [anchor=north,minimum width=10em] (aetitle) at ([yshift=-0.2em]aebox.north) {{\small\bfnew\large{有参考答案的评价}}};
+\draw [-] ([yshift=-2em]aebox.north west) -- ([yshift=-2em]aebox.north east);
+\node [anchor=north] (aemethod1) at ([yshift=-0.5em]aetitle.south) {BLEU、NIST、};
+\node [anchor=north] (aemethod2) at ([yshift=-0.3em]aemethod1.south) {GTM、Meteor、};
+\node [anchor=north] (aemethod3) at ([yshift=-0.3em]aemethod2.south) {WER、PER、TER、};
+\node [anchor=north] (aemethod4) at ([yshift=-0.3em]aemethod3.south) {HTER ...};
+
+% human evaluation
+\node [anchor=north,minimum width=10em,minimum height=6em,draw=black!60,very thick,fill=yellow!30,drop shadow] (hebox) at ([yshift=-4em]base.-90) {};
+\node [anchor=north,minimum width=10em] (hetitle) at ([yshift=-0.2em]hebox.north) {{\small\bfnew\large{人工评价}}};
+\draw [-] ([yshift=-2em]hebox.north west) -- ([yshift=-2em]hebox.north east);
+\node [anchor=north] (hemethod1) at ([yshift=-0.5em]hetitle.south) {流畅度、忠实度、};
+\node [anchor=north west] (hemethod2) at ([yshift=-0.0em]hemethod1.south west) {一致性\ \ ...};
+
+% confidence estimation
+\node [anchor=east,align=left] (conf) at ([xshift=-6em,yshift=0.6em]hebox.west) {\small\bfnew{用于估计同一个}\\\small\bfnew{系统不同输出的}\\\small\bfnew{可信度}};
+\node [anchor=north,single arrow,minimum height=4.0em,fill=blue!35,rotate=-90] (arrow1) at ([yshift=-2.4em]qebox.south) {};
+
+% comparing different systems
+\node [anchor=west,align=left] (com) at ([xshift=8em,yshift=0.6em]hebox.east) {\small\bfnew{用于对比}\\\small\bfnew{不同系统}\\\small\bfnew{性能差异}};
+\node [anchor=west,single arrow,minimum height=7.5em,fill=blue!35] (arrow2) at ([yshift=-1.4em,xshift=0.5em]hebox.north east) {};
+\node [anchor=north,fill=white] (arrow2label) at ([xshift=-0.5em]arrow2.south) {\footnotesize{{\color{blue} 成本高但精度高}}};
+\node [anchor=north,single arrow,minimum height=4.0em,fill=blue!35,rotate=-90] (arrow3) at ([yshift=-2.4em,xshift=2.2em]aebox.south) {};
+\node [anchor=west,fill=white,font=\footnotesize,align=left,text=blue,inner sep=0pt] (arrow3label) at ([yshift=2.6em,xshift=0.6em]arrow3.east) {成本低\\无人工\\有偏差};
+
+% system optimization
+\node [anchor=west,align=left] (optimization) at ([xshift=2em]aebox.east) {\small\bfnew{用于机器}\\\small\bfnew{翻译系统}\\\small\bfnew{调优}};
+\node [anchor=west,single arrow,minimum height=1.8em,fill=blue!35] (arrow4) at ([xshift=0.4em]aebox.east) {};
+
+\begin{pgfonlayer}{background}
+\draw [->,line width=0.3em,dotted,red] ([yshift=1em,xshift=0em]hebox.south east) -- ([yshift=1em,xshift=4em]hebox.south east) -- ([yshift=10em,xshift=4em]hebox.south east) node [pos=0.8,left] {\small{{\color{red} 评价标准}}};
+\end{pgfonlayer}
+
+% more arrows
+\draw [->,line width=0.3em,ublue] ([yshift=-0.2em]base.-90) -- ([yshift=0.2em]hebox.north);
+\draw [->,line width=0.3em,ublue] ([xshift=0.2em]base.0) -- ([xshift=2.7em]base.0);
+\draw [->,line width=0.3em,ublue] ([xshift=-0.2em]base.180) -- ([xshift=-2.7em]base.180);
+
+\end{scope}
+
+\end{tikzpicture}

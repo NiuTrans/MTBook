@@ -1,0 +1,58 @@
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+\begin{tikzpicture}[scale=0.5]
+	\tikzstyle{cand} = [draw,thick,align=center,minimum width=2.6em,minimum height=1.6em,drop shadow={shadow xshift=0.15em},fill=green!30]
+	\tikzstyle{ref} = [draw,thick,align=center,minimum width=2.6em,minimum height=1.6em,drop shadow={shadow xshift=0.15em},fill=red!30]
+		
+		\node[align=center,minimum width=2.4em,minimum height=1.6em,minimum width=6em] (n11) at (0,0){\small{机器译文：}};
+		\node[cand,anchor=west] (n12) at ([xshift=0.0em]n11.east){Can};
+		\node[cand,anchor=west] (n13) at ([xshift=1em]n12.east){I};
+		\node[cand,anchor=west] (n14) at ([xshift=1em]n13.east){have};
+		\node[cand,anchor=west] (n15) at ([xshift=1em]n14.east){it};
+		\node[cand,anchor=west] (n16) at ([xshift=1em]n15.east){like};
+		\node[cand,anchor=west] (n17) at ([xshift=1em]n16.east){he};
+		\node[cand,anchor=west] (n18) at ([xshift=1em]n17.east){?};
+
+		\node[align=center,minimum width=2.4em,minimum height=1.6em,anchor=north,minimum width=6em] (n21) at ([yshift=-6em]n11.south){\small{参考答案：}};
+		\node[ref,anchor=west] (n22) at ([xshift=0.0em]n21.east){Can};
+		\node[ref,anchor=west] (n23) at ([xshift=1em]n22.east){I};
+		\node[ref,anchor=west] (n24) at ([xshift=1em]n23.east){eat};
+		\node[ref,anchor=west] (n25) at ([xshift=1em]n24.east){this};
+		\node[ref,anchor=west] (n26) at ([xshift=1em]n25.east){can};
+		\node[ref,anchor=west] (n27) at ([xshift=1em]n26.east){like};
+		\node[ref,anchor=west] (n28) at ([xshift=1em]n27.east){him};
+		\node[ref,anchor=west] (n29) at ([xshift=1em]n28.east){?};
+		
+		\node[align=center,minimum width=2.4em,minimum height=1.6em,anchor=north,minimum width=6em] (n31) at ([yshift=-5em]n21.south){\small{机器译文：}};
+		\node[cand,anchor=west] (n32) at ([xshift=0.0em]n31.east){Can};
+		\node[cand,anchor=west] (n33) at ([xshift=1em]n32.east){I};
+		\node[cand,anchor=west] (n34) at ([xshift=1em]n33.east){have};
+		\node[cand,anchor=west] (n35) at ([xshift=1em]n34.east){it};
+		\node[cand,anchor=west] (n36) at ([xshift=1em]n35.east){like};
+		\node[cand,anchor=west] (n37) at ([xshift=1em]n36.east){he};
+		\node[cand,anchor=west] (n38) at ([xshift=1em]n37.east){?};
+
+		\node[align=center,minimum width=2.4em,minimum height=1.6em,anchor=north,minimum width=6em] (n41) at ([yshift=-6em]n31.south){\small{参考答案：}};
+		\node[ref,anchor=west] (n42) at ([xshift=0.0em]n41.east){Can};
+		\node[ref,anchor=west] (n43) at ([xshift=1em]n42.east){I};
+		\node[ref,anchor=west] (n44) at ([xshift=1em]n43.east){eat};
+		\node[ref,anchor=west] (n45) at ([xshift=1em]n44.east){this};
+		\node[ref,anchor=west] (n46) at ([xshift=1em]n45.east){can};
+		\node[ref,anchor=west] (n47) at ([xshift=1em]n46.east){like};
+		\node[ref,anchor=west] (n48) at ([xshift=1em]n47.east){him};
+		\node[ref,anchor=west] (n49) at ([xshift=1em]n48.east){?};
+
+		\draw[line width=1.6pt,blue!40] (n12.south) -- (n22.north);
+		\draw[line width=1.6pt,blue!40] (n13.south) -- (n23.north);
+		\draw[line width=1.6pt,blue!40] (n16.south) -- (n27.north);
+		\draw[line width=1.6pt,blue!40] (n18.south) -- (n29.north);
+		\draw[line width=1.6pt,orange!40] (n17.south) -- (n28.north);
+		\draw[line width=2pt,ugreen!40](n14.south) -- (n24.north);
+		
+		\draw[line width=1.6pt,blue!40] (n32.south) -- (n46.north);
+		\draw[line width=1.6pt,blue!40] (n33.south) -- (n43.north);
+		\draw[line width=1.6pt,blue!40] (n36.south) -- (n47.north);
+		\draw[line width=1.6pt,blue!40] (n38.south) -- (n49.north);
+		\draw[line width=1.6pt,orange!40] (n37.south) -- (n48.north);
+		\draw[line width=2pt,ugreen!40](n34.south) -- (n44.north);
+\end{tikzpicture}

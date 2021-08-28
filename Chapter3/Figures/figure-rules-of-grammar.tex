@@ -1,0 +1,45 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+\small
+\node [anchor=west,inner sep=2pt] (r1) at (0,0) {$r_1$: NN $\to$ 猫};
+\node [anchor=west,inner sep=2pt] (r2) at ([xshift=9em]r1.east) {$r_2$: VV $\to$ 喜欢};
+\node [anchor=north west,inner sep=2pt] (r3) at ([yshift=-0.2em]r1.south west) {$r_3$: VV $\to$ 吃};
+\node [anchor=north west,inner sep=2pt] (r4) at ([yshift=-0.2em]r2.south west) {$r_4$: NN $\to$ 鱼};
+
+\node [anchor=north west,inner sep=2pt] (r5) at ([yshift=-0.2em]r3.south west) {$r_5$: NP $\to$ NN};
+
+\node [anchor=north west,inner sep=2pt] (r6) at ([yshift=-0.2em]r4.south west) {$r_6$: VP $\to$ VV NN};
+\node [anchor=north west,inner sep=2pt] (r7) at ([yshift=-0.2em]r5.south west) {$r_7$: VP $\to$ VV VP};
+\node [anchor=north west,inner sep=2pt] (r8) at ([yshift=-0.2em]r6.south west) {$r_8$: IP $\to$ NP VP};
+
+
+\node [anchor=west,inner sep=2pt,fill=blue!30] (r1) at (0,0) {$r_1$: NN $\to$ 猫};
+\node [anchor=west,inner sep=2pt,fill=blue!30] (r2) at ([xshift=6em]r1.east) {$r_2$: VV $\to$ 喜欢};
+\node [anchor=north west,inner sep=2pt,fill=blue!30] (r3) at ([yshift=-0.2em]r1.south west) {$r_3$: VV $\to$ 吃};
+\node [anchor=north west,inner sep=2pt,fill=blue!30] (r4) at ([yshift=-0.2em]r2.south west) {$r_4$: NN $\to$ 鱼};
+
+\node [anchor=north west,inner sep=2pt,fill=red!30] (r5) at ([yshift=-0.2em]r3.south west) {$r_5$: NP $\to$ NN};
+
+\node [anchor=north west,inner sep=2pt,fill=green!30] (r6) at ([yshift=-0.2em]r4.south west) {$r_6$: VP $\to$ VV NN};
+\node [anchor=north west,inner sep=2pt,fill=green!30] (r7) at ([yshift=-0.2em]r5.south west) {$r_7$: VP $\to$ VV VP};
+\node [anchor=north west,inner sep=2pt,fill=green!30] (r8) at ([yshift=-0.2em]r6.south west) {$r_8$: IP $\to$ NP VP};
+
+\node [anchor=north west,fill=blue!30] (sent1) at ([yshift=-0.4em]r7.south west) {$r_1,r_2,r_3,r_4$};
+\node [anchor=west] (sent1part2) at (sent1.east) {为生成单词词性的规则};
+
+\node [anchor=north west,fill=red!30] (sent2) at ([yshift=-0.2em]sent1.south west) {$r_5$};
+\node [anchor=west] (sent2part2) at (sent2.east) {为单变量规则，它将词性NN进一步抽象为名词短语NP};
+
+\node [anchor=north west,fill=green!30] (sent3) at ([yshift=-0.2em]sent2.south west){$r_6,r_7,r_8$};
+\node [anchor=west] (sent3part2) at (sent3.east) {为句法结构规则，比如$r_8$表示了主(NP)+谓(VP)结构};
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+

@@ -1,0 +1,41 @@
+%%% outline
+%-------------------------------------------------------------------------
+
+
+
+\begin{tikzpicture}
+
+\begin{scope}
+
+\node [anchor=west] (s1) at (0,0) {$\mathbf{s}$ = 在\ \ 桌子\ \ 上};
+\node [anchor=west] (t1) at ([yshift=-2em]s1.west) {$\mathbf{t}$ = on\ \ the\ \ table};
+\draw [->,double,thick,ublue] ([yshift=0.2em]s1.south) -- ([yshift=-0.8em]s1.south);
+
+\end{scope}
+
+\begin{scope}[xshift=1.5in]
+
+\node [anchor=west] (s2) at (0,0) {$\mathbf{s}$ = 在\ \ 桌子\ \ 上};
+\node [anchor=west] (t2) at ([yshift=-2em]s2.west) {$\mathbf{t}'$ = table \ on\ \ the};
+\draw [->,double,thick,ublue] ([yshift=0.2em]s2.south) -- ([yshift=-0.8em]s2.south);
+
+\end{scope}
+
+\node [anchor=north] (score11) at ([yshift=-2.0em]s1.south) {$\textrm{P}(\mathbf{s}|\mathbf{t})$};
+\node [anchor=north] (score12) at ([yshift=-2.0em]s2.south) {$\textrm{P}(\mathbf{s}|\mathbf{t}')$};
+\node [anchor=west] (comp1) at ([xshift=2.3em]score11.east) {\large{$\mathbf{=}$}};
+\node [anchor=east] (label1) at ([xshift=-1em,yshift=0.1em]score11.west) {{IBM模型1:}};
+
+{
+\node [anchor=north] (score21) at ([yshift=0.2em]score11.south) {$\textrm{P}(\mathbf{s}|\mathbf{t})$};
+\node [anchor=north] (score22) at ([yshift=0.2em]score12.south) {$\textrm{P}(\mathbf{s}|\mathbf{t}')$};
+\node [anchor=west] (comp2) at ([xshift=2.3em]score21.east) {\large{$\mathbf{>}$}};
+\node [anchor=east] (label2) at ([xshift=-1em,yshift=0.1em]score21.west) {{理想:}};
+}
+
+\end{tikzpicture}
+
+%---------------------------------------------------------------------
+
+
+

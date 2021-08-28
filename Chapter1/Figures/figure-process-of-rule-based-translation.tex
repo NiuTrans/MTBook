@@ -1,0 +1,39 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  短语系统的架构
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{datanode} = [minimum width=7em,minimum height=1.7em,thick,draw,fill=red!20,rounded corners=0.3em];
+\tikzstyle{modelnode} = [minimum width=7em,minimum height=1.7em,thick,draw,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{decodingnode} = [minimum width=7em,minimum height=1.7em,thick,draw,fill=green!20,rounded corners=0.3em];
+
+\node [datanode,anchor=north west,minimum height=1.7em,minimum width=8em] (s1) at (0,0) {{ \small{源文句子}}};
+\node [modelnode,anchor=north,minimum height=1.7em,minimum width=8em] (s2) at ([yshift=-1.5em]s1.south) {{ \small{源语词法分析}}};
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (s3) at ([yshift=-1.5em]s2.south) {{ \small{源文词串}}};
+\node [modelnode,anchor=north,minimum height=1.7em,minimum width=8em] (s4) at ([yshift=-1.5em]s3.south) {{ \small{源语句法分析}}};
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (s5) at ([yshift=-1.5em]s4.south) {{ \small{源文结构}}};
+
+\node [datanode,anchor=west,minimum height=1.7em,minimum width=8em] (t1) at ([xshift=20em]s1.east) {{ \small{译文句子}}};
+\node [modelnode,anchor=north,minimum height=1.7em,minimum width=8em] (t2) at ([yshift=-1.5em]t1.south) {{ \small{目标语词法生成}}};
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (t3) at ([yshift=-1.5em]t2.south) {{ \small{译文词串}}};
+\node [modelnode,anchor=north,minimum height=1.7em,minimum width=8em] (t4) at ([yshift=-1.5em]t3.south) {{ \small{目标语句法生成}}};
+\node [datanode,anchor=north,minimum height=1.7em,minimum width=8em] (t5) at ([yshift=-1.5em]t4.south) {{ \small{译文结构}}};
+
+\node [decodingnode,anchor=west,minimum height=1.7em,minimum width=13em,inner sep=3pt] (st1) at ([xshift=3.5em,yshift=0.85em]s5.east) {{ \small{源语-目标语单词转换}}};
+\node [decodingnode,anchor=north,minimum height=1.7em,minimum width=13em,inner sep=3pt] (st2) at ([yshift=0.05em]st1.south) {{ \small{源语-目标语结构转换}}};
+
+\draw [->,very thick] (s1.south) -- (s2.north);
+\draw [->,very thick] (s2.south) -- (s3.north);
+\draw [->,very thick] (s3.south) -- (s4.north);
+\draw [->,very thick] (s4.south) -- (s5.north);
+\draw [->,very thick] (s5.east) -- (st1.south west);
+\draw [->,very thick] (st1.south east) -- (t5.west);
+\draw [->,very thick] (t5.north) -- (t4.south);
+\draw [->,very thick] (t4.north) -- (t3.south);
+\draw [->,very thick] (t3.north) -- (t2.south);
+\draw [->,very thick] (t2.north) -- (t1.south);
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

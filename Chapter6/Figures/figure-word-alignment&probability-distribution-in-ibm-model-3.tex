@@ -1,0 +1,100 @@
+
+%%% outline
+%-------------------------------------------------------------------------
+
+
+%%% 简易机器翻译系统 - step 3 decoding - example
+
+
+\begin{tikzpicture}
+
+
+\begin{scope}[scale=0.6]
+\node [anchor=west] (eq1) at (0,0) {吃};
+\node [anchor=west] (eq2) at ([xshift=3.0em,yshift=0.0em]eq1.east) {早饭};
+\node [anchor=north] (eq3) at ([xshift=0.0em,yshift=-2.0em]eq1.south) {have};
+\node [anchor=north] (eq4) at ([xshift=0.0em,yshift=-2.0em]eq2.south) {breakfast};
+\node [anchor=east] (eq5) at ([xshift=-1.0em,yshift=-1.8em]eq1.west) {$\seq{a}_{1}$};
+\node [anchor=west] (eq6) at ([xshift=1.0em,yshift=-1.8em]eq2.east) {$\funp{P}(\seq{s},\seq{a}_{1}|\seq{t})=0.5$};
+\draw [-,very thick](eq1.south) -- (eq3.north);
+\draw [-,very thick](eq2.south) -- (eq4.north);
+\node [anchor=west] (eq7) at ([xshift=13.1em,yshift=1.4em]eq2.east) {};
+\node [anchor=west] (eq8) at ([xshift=13.1em,yshift=-25.6em]eq2.east) {};
+\node [anchor=south] (eq9) at ([xshift=0.0em,yshift=0.0em]eq7.north) {吃早饭 $\Leftrightarrow $ have breakfast};
+
+
+\draw [-,very thick,dotted](eq7.south) -- (eq8.north);
+
+
+\end{scope}
+
+\begin{scope}[scale=0.6,xshift=0.0,yshift=-10.0em]
+\node [anchor=west] (eq1) at (0,0) {吃};
+\node [anchor=west] (eq2) at ([xshift=3.0em,yshift=0.0em]eq1.east) {早饭};
+\node [anchor=north] (eq3) at ([xshift=0.0em,yshift=-2.0em]eq1.south) {have};
+\node [anchor=north] (eq4) at ([xshift=0.0em,yshift=-2.0em]eq2.south) {breakfast};
+\node [anchor=east] (eq5) at ([xshift=-1.0em,yshift=-1.8em]eq1.west) {$\seq{a}_{2}$};
+\node [anchor=west] (eq6) at ([xshift=1.0em,yshift=-1.8em]eq2.east) {$\funp{P}(\seq{s},\seq{a}_{2}|\seq{t})=0.1$};
+\draw [-,very thick](eq1.south) -- (eq4.north);
+\draw [-,very thick](eq2.south) -- (eq3.north);
+\end{scope}
+
+\begin{scope}[scale=0.6,xshift=0.0,yshift=-20.0em]
+\node [anchor=west] (eq1) at (0,0) {吃};
+\node [anchor=west] (eq2) at ([xshift=3.0em,yshift=0.0em]eq1.east) {早饭};
+\node [anchor=north] (eq3) at ([xshift=0.0em,yshift=-2.0em]eq1.south) {have};
+\node [anchor=north] (eq4) at ([xshift=0.0em,yshift=-2.0em]eq2.south) {breakfast};
+\node [anchor=east] (eq5) at ([xshift=-1.0em,yshift=-1.8em]eq1.west) {$\seq{a}_{3}$};
+\node [anchor=west] (eq6) at ([xshift=1.0em,yshift=-1.8em]eq2.east) {$\funp{P}(\seq{s},\seq{a}_{3}|\seq{t})=0.1$};
+\draw [-,very thick](eq1.south) -- (eq3.north);
+\draw [-,very thick](eq2.south) -- (eq3.north);
+\end{scope}
+
+\begin{scope}[scale=0.6,xshift=29.0em,yshift=0.0em]
+\node [anchor=west] (eq1) at (0,0) {吃};
+\node [anchor=west] (eq2) at ([xshift=3.0em,yshift=0.0em]eq1.east) {早饭};
+\node [anchor=north] (eq3) at ([xshift=0.0em,yshift=-2.0em]eq1.south) {have};
+\node [anchor=north] (eq4) at ([xshift=0.0em,yshift=-2.0em]eq2.south) {breakfast};
+\node [anchor=east] (eq5) at ([xshift=-1.0em,yshift=-1.8em]eq1.west) {$\seq{a}_{4}$};
+\node [anchor=west] (eq6) at ([xshift=1.0em,yshift=-1.8em]eq2.east) {$\funp{P}(\seq{s},\seq{a}_{4}|\seq{t})=0.1$};
+\draw [-,very thick](eq1.south) -- (eq4.north);
+\draw [-,very thick](eq2.south) -- (eq4.north);
+\end{scope}
+
+\begin{scope}[scale=0.6,xshift=29.0em,yshift=-10.0em]
+\node [anchor=west] (eq1) at (0,0) {吃};
+\node [anchor=west] (eq2) at ([xshift=3.0em,yshift=0.0em]eq1.east) {早饭};
+\node [anchor=north] (eq3) at ([xshift=0.0em,yshift=-2.0em]eq1.south) {have};
+\node [anchor=north] (eq4) at ([xshift=0.0em,yshift=-2.0em]eq2.south) {breakfast};
+\node [anchor=east] (eq5) at ([xshift=-1.0em,yshift=-1.8em]eq1.west) {$\seq{a}_{5}$};
+\node [anchor=west] (eq6) at ([xshift=1.0em,yshift=-1.8em]eq2.east) {$\funp{P}(\seq{s},\seq{a}_{5}|\seq{t})=0.05$};
+\draw [-,very thick](eq1.south) -- (eq3.north);
+\draw [-,very thick](eq1.south) -- (eq4.north);
+\draw [-,very thick](eq2.south) -- (eq3.north);
+\node [anchor=west,very thick,draw=red,minimum width=1.5em,minimum height=1.5em] (w1) at (eq5.west){};
+\node [anchor=west,very thick,draw=red,minimum width=7.7em,minimum height=1.5em] (w2) at (eq6.west){};
+
+\end{scope}
+
+\begin{scope}[scale=0.6,xshift=29.0em,yshift=-20.0em]
+\node [anchor=west] (eq1) at (0,0) {吃};
+\node [anchor=west] (eq2) at ([xshift=3.0em,yshift=0.0em]eq1.east) {早饭};
+\node [anchor=north] (eq3) at ([xshift=0.0em,yshift=-2.0em]eq1.south) {have};
+\node [anchor=north] (eq4) at ([xshift=0.0em,yshift=-2.0em]eq2.south) {breakfast};
+\node [anchor=east] (eq5) at ([xshift=-1.0em,yshift=-1.8em]eq1.west) {$\seq{a}_{6}$};
+\node [anchor=west] (eq6) at ([xshift=1.0em,yshift=-1.8em]eq2.east) {$\funp{P}(\seq{s},\seq{a}_{6}|\seq{t})=0.05$};
+\draw [-,very thick](eq1.south) -- (eq3.north);
+\draw [-,very thick](eq2.south) -- (eq4.north);
+\draw [-,very thick](eq2.south) -- (eq3.north);
+\node [anchor=west,very thick,draw=red,minimum width=1.5em,minimum height=1.5em] (w1) at (eq5.west){};
+\node [anchor=west,very thick,draw=red,minimum width=7.7em,minimum height=1.5em] (w2) at (eq6.west){};
+\end{scope}
+
+
+
+
+\end{tikzpicture}
+
+
+
+

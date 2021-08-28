@@ -1,0 +1,21 @@
+\usetikzlibrary{shapes.geometric}
+
+\begin{tikzpicture}
+	\node[font=\footnotesize] (overall) at (0,0){\small\bfnew{总 \ \ \ \ 体}};
+	\node[anchor=north,font=\footnotesize] (hypo) at ([yshift=-3em]overall.south){某种假设};
+	\coordinate (A) at ([yshift=-3.5em,xshift=-1.6em]overall);
+	\coordinate (B) at ([yshift=0.3em,xshift=0.3em]A);
+	\draw[] (B)  .. controls +(east:1.3em) and +(west:0.3em) .. ([xshift=1.5em,yshift=2em]B) .. controls +(east:0.3em) and +(west:1.3em) .. ([xshift=3em]B);
+	\draw[<->] ([yshift=2.4em]A) -- (A) -- ([xshift=3.7em]A);
+	\begin{pgfonlayer}{background}
+        	\node [draw,thick,rectangle,inner sep=0.5em,rounded corners=2pt,fill=red!30,drop shadow] [fit = (overall)(hypo)] (box1) {};
+    \end{pgfonlayer}
+	\node[draw,fill=yellow!30,thick,anchor=west,font=\footnotesize,align=center,drop shadow](sample) at ([xshift=4em]box1.east){样本\\观察结果};
+	\node[anchor=west,draw,diamond,fill=green!30!white,drop shadow,aspect=2,font=\scriptsize,align=center,inner sep=1pt,thick] (judge) at ([xshift=3em]sample.east){小概率事件\\发生？};
+	\node[draw,fill=blue!30,thick,drop shadow,anchor=west,font=\footnotesize,align=center,thick](refuse) at ([xshift=6em]judge.north){拒绝原假设};
+	\node[draw,fill=blue!30,thick,drop shadow,anchor=west,font=\footnotesize,align=center,thick](accept) at ([xshift=6em]judge.south){接受原假设};
+	\draw[->,thick] (box1.east) -- node[above,font=\scriptsize]{抽样}(sample.west);
+	\draw[->,thick] (sample.east) -- node[above,font=\scriptsize]{检验}(judge.west);
+	\draw[->,thick] (judge.north) -- node[above,font=\scriptsize]{是}(refuse.west);
+	\draw[->,thick] (judge.south) -- node[below,font=\scriptsize]{否}(accept.west);
+\end{tikzpicture}

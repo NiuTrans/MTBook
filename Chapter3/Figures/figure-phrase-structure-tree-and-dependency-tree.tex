@@ -1,0 +1,45 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+
+%%% outline
+%-------------------------------------------------------------------------
+\begin{tikzpicture}
+
+\begin{scope}[sibling distance=7pt,level distance=28pt]
+
+
+\Tree[.\node[inner sep=1pt,fill=red!30](sn0){IP\scriptsize{ 句子}};
+          [.\node[inner sep=1pt,fill=red!30](sn1){NP\scriptsize{ 名}};
+               [.\node[inner sep=1pt,fill=blue!30](sn2){NN\tiny{ 名词}}; \node(sw1){猫}; ]
+          ]
+          [.\node[inner sep=1pt,fill=red!30](sn3){VP\scriptsize{ 动}};
+               [.\node[inner sep=1pt,fill=blue!30](sn4){VV\tiny{ 动词}}; \node(sw2){喜欢}; ]
+               [.\node[inner sep=1pt,fill=green!30](sn5){VP\scriptsize{ 动}};
+                     [.\node[inner sep=1pt,fill=green!30](sn6){VV\tiny{ 动词}}; \node(sw1){吃}; ]
+                     [.\node[inner sep=1pt,fill=green!30](sn7){NN\tiny{ 名词}}; \node(sw1){鱼}; ]
+               ]
+          ]
+     ]
+
+
+
+\end{scope}
+
+\begin{scope}[xshift=2in,yshift=-0.4in]
+
+\node [,inner sep=2pt] (w1) at (0,0) {猫};
+\node [anchor=west,inner sep=2pt] (w2) at ([xshift=0.8em,yshift=3em]w1.east) {喜欢};
+\node [anchor=west,inner sep=2pt] (w3) at ([xshift=4.5em]w1.east) {吃};
+\node [anchor=west,inner sep=2pt] (w4) at ([xshift=2em,yshift=-3em]w3.east) {鱼};
+
+\draw [-,ultra thick,ublue] (w1.north east) -- (w2.south) node [pos=0.3, above, xshift=-0.5em] {\color{red}{\tiny{主谓}}};
+\draw [-,ultra thick,red] (w3.north west) -- (w2.south) node [pos=0.3, above, xshift=0.5em] {\color{red}{\tiny{连动}}};
+\draw [-,ultra thick,ugreen] (w3.south east) -- (w4.north west) node [pos=0.5, above, xshift=0.5em] {\color{red}{\tiny{谓宾}}};
+
+\end{scope}
+
+\end{tikzpicture}
+
+

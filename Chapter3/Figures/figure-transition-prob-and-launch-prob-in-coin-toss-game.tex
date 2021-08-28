@@ -1,0 +1,62 @@
+\begin{tikzpicture}
+	\begin{scope}
+	\node[minimum width=3em,minimum height=1.5em] (o) at (0,0){};
+	
+	\node[anchor=west,inner sep=0pt] (ca) at ([yshift=0.2em,xshift=1.4em]o.east){\small\sffamily\bfseries{硬币$\boldsymbol A$}};
+	\node[anchor=west,inner sep=0pt] (cb) at ([xshift=1.4em]ca.east){\small\sffamily\bfseries{硬币$\boldsymbol B$}};
+	\node[anchor=west,inner sep=0pt] (cc) at ([xshift=1.4em]cb.east){\small\sffamily\bfseries{硬币$\boldsymbol C$}};
+	
+	\node[anchor=north,inner sep=0pt] (ra) at ([yshift=-0.6em,xshift=-0.4em]o.south){\small\sffamily\bfseries{硬币$\boldsymbol A$}};
+	\node[anchor=north,inner sep=0pt] (rb) at ([yshift=-1.5em]ra.south){\small\sffamily\bfseries{硬币$\boldsymbol B$}};
+	\node[anchor=north,inner sep=0pt] (rc) at ([yshift=-1.6em]rb.south){\small\sffamily\bfseries{硬币$\boldsymbol C$}};
+	
+	\node[anchor=north,inner sep=0pt] (n11) at ([yshift=-1em]ca.south){\small{$\frac{1}{3}$}};
+	\node[anchor=north,inner sep=0pt] (n21) at ([yshift=-1em]n11.south){\small{$\frac{1}{3}$}};
+	\node[anchor=north,inner sep=0pt] (n31) at ([yshift=-1.2em]n21.south){\small{$\frac{1}{3}$}};
+	
+	\node[anchor=north,inner sep=0pt] (n12) at ([yshift=-1em]cb.south){\small{$\frac{1}{3}$}};
+	\node[anchor=north,inner sep=0pt] (n22) at ([yshift=-1em]n12.south){\small{$\frac{1}{3}$}};
+	\node[anchor=north,inner sep=0pt] (n32) at ([yshift=-1.2em]n22.south){\small{$\frac{1}{3}$}};
+	
+	\node[anchor=north,inner sep=0pt] (n13) at ([yshift=-1em]cc.south){\small{$\frac{1}{3}$}};
+	\node[anchor=north,inner sep=0pt] (n23) at ([yshift=-1em]n13.south){\small{$\frac{1}{3}$}};
+	\node[anchor=north,inner sep=0pt] (n33) at ([yshift=-1.2em]n23.south){\small{$\frac{1}{3}$}};
+	
+	\draw[thick] (o.north west) -- (o.south east);
+	\node[anchor=south west] at ([yshift=-1em,xshift=-1.4em]o.45){\tiny{第$i+1$次}};
+	\node[anchor=north east] at ([yshift=1em,xshift=1em]o.-135){\tiny{第$i$次}};
+	
+	\begin{pgfonlayer}{background}
+        	\node [rectangle,inner sep=0.8em,rounded corners=2pt,fill=red!25] [fit = (o)(n33)(cc) ] (box0) {};
+    	\end{pgfonlayer}
+   \node[anchor=south] at (box0.north){\scriptsize{转移概率$\funp{P}$(第$i+1$次|第$i$次)}};
+	\end{scope}
+	
+	\begin{scope}[xshift=8.5cm]
+	\node[minimum width=3em,minimum height=1.5em] (o) at (0,0){};
+	
+	\node[anchor=west,inner sep=0pt] (ca) at ([yshift=0.2em,xshift=1.4em]o.east){\small\sffamily\bfseries{正面}};
+	\node[anchor=west,inner sep=0pt] (cb) at ([xshift=1.4em]ca.east){\small\sffamily\bfseries{反面}};
+	
+	\node[anchor=north,inner sep=0pt] (ra) at ([yshift=-0.6em,xshift=-0.4em]o.south){\small\sffamily\bfseries{硬币$\boldsymbol A$}};
+	\node[anchor=north,inner sep=0pt] (rb) at ([yshift=-1.5em]ra.south){\small\sffamily\bfseries{硬币$\boldsymbol B$}};
+	\node[anchor=north,inner sep=0pt] (rc) at ([yshift=-1.5em]rb.south){\small\sffamily\bfseries{硬币$\boldsymbol C$}};
+	
+	\node[anchor=north,inner sep=0pt] (n11) at ([yshift=-1.4em]ca.south){\footnotesize{$0.3$}};
+	\node[anchor=north,inner sep=0pt] (n21) at ([yshift=-1.7em]n11.south){\footnotesize{$0.5$}};
+	\node[anchor=north,inner sep=0pt] (n31) at ([yshift=-1.8em]n21.south){\footnotesize{$0.7$}};
+	
+	\node[anchor=north,inner sep=0pt] (n12) at ([yshift=-1.4em]cb.south){\footnotesize{$0.7$}};
+	\node[anchor=north,inner sep=0pt] (n22) at ([yshift=-1.7em]n12.south){\footnotesize{$0.5$}};
+	\node[anchor=north,inner sep=0pt] (n32) at ([yshift=-1.7em]n22.south){\footnotesize{$0.3$}};
+	
+	\draw[thick] (o.north west) -- (o.south east);
+	\node[anchor=south west] at ([yshift=-1em,xshift=-1.4em]o.45){\tiny{可见}};
+	\node[anchor=north east] at ([yshift=1em,xshift=1em]o.-135){\tiny{隐含}};
+	
+	\begin{pgfonlayer}{background}
+        	\node [rectangle,inner sep=0.5em,rounded corners=2pt,fill=red!25] [fit = (o)(n32)(rc)(cb) ] (box1) {};
+    	\end{pgfonlayer}
+   \node[anchor=south] at (box1.north){\scriptsize{发射概率$\funp{P}$(可见状态|隐含状态)}};
+	\end{scope}
+\end{tikzpicture}

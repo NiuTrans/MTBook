@@ -1,0 +1,62 @@
+%%% outline
+%-------------------------------------------------------------------------
+\newlength{\bc}
+\setlength{\bc}{0.5cm}
+\begin{tikzpicture}
+\begin{scope}
+  \filldraw [fill=white,drop shadow] (0,0) rectangle (\bc*5,\bc*5);
+    \filldraw [fill=black] (\bc*2,0) rectangle (\bc*3,\bc*1);
+    \filldraw [fill=black] (\bc*1,\bc*1) rectangle (\bc*2,\bc*2);
+    \filldraw [fill=black] (\bc*4,\bc*2) rectangle (\bc*5,\bc*3);
+    \filldraw [fill=black] (\bc*3,\bc*3) rectangle (\bc*4,\bc*4);
+    \filldraw [fill=black] (0,\bc*4) rectangle (\bc*1,\bc*5);
+    \draw [step=\bc, very thin, color=gray] (0,0) grid (\bc*5,\bc*5);
+    \draw [line width=1pt] (0,0) -- (0,\bc*5)--(\bc*5,\bc*5) -- (\bc*5,0) -- (0,0);
+    
+    \coordinate (o) at (0,\bc*5);
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm]o.west){我};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc]o.west){对};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*2]o.west){你};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*3]o.west){感到};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*4]o.west){满意};
+     
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.2cm,yshift=0.4em]o.east){I};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc,yshift=0.4em]o.east){am};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*2,yshift=0.4em]o.east){satisfied};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*3,yshift=0.4em]o.east){with};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*4,yshift=0.4em]o.east){you};
+	\node[anchor=east,inner sep=0pt,font=\small] at([xshift=\bc*4.5,yshift=-1.0cm-\bc*4]o.west){(a)对齐实例1};
+\end{scope}
+\begin{scope}[xshift=17.0em]
+    \filldraw [fill=white,drop shadow] (0,0) rectangle (\bc*8,\bc*6);
+    \filldraw [fill=black] (0,\bc*5) rectangle (\bc*1,\bc*6);
+    \filldraw [fill=black] (\bc*1,\bc*3) rectangle (\bc*2,\bc*4);
+    \filldraw [fill=black] (\bc*2,\bc*2) rectangle (\bc*3,\bc*3);
+    \filldraw [fill=black] (\bc*3,\bc*2) rectangle (\bc*4,\bc*3);
+    \filldraw [fill=black] (\bc*4,\bc*1) rectangle (\bc*5,\bc*2);
+    \filldraw [fill=black] (\bc*5,0) rectangle (\bc*6,\bc*1);
+    \filldraw [fill=black] (\bc*6,\bc*4) rectangle (\bc*7,\bc*5);
+    \filldraw [fill=black] (\bc*7,\bc*4) rectangle (\bc*8,\bc*5);
+    \draw [step=\bc, very thin, color=gray] (0,0) grid (\bc*8,\bc*6);
+    \draw [line width=1pt] (0,0) -- (0,\bc*6)--(\bc*8,\bc*6) -- (\bc*8,0) -- (0,0);
+    
+    \coordinate (o) at (0,\bc*6);
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm]o.west){他};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc]o.west){每天};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*2]o.west){乘坐};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*3]o.west){地铁};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*4]o.west){去};
+    \node[anchor=east,inner sep=0pt,font=\footnotesize] at([xshift=-0.4em,yshift=-0.25cm-\bc*5]o.west){上班};
+    
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm,yshift=0.4em]o.east){He};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc,yshift=0.4em]o.east){takes};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*2,yshift=0.4em]o.east){the};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*3,yshift=0.4em]o.east){subway};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*4,yshift=0.4em]o.east){to};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*5,yshift=0.4em]o.east){work};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*6,yshift=0.4em]o.east){every};
+    \node[anchor=west,inner sep=0pt,font=\footnotesize,rotate=45] at([xshift=0.1cm+\bc*7,yshift=0.4em]o.east){day};
+    \node[anchor=east,inner sep=0pt,font=\small] at([xshift=\bc*6.0,yshift=-1.0cm-\bc*5]o.west){(b)对齐实例2};
+\end{scope}
+\end{tikzpicture}
+%---------------------------------------------------------------------

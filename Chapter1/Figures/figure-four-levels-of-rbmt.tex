@@ -1,0 +1,52 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  短语系统的架构
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{node1} = [minimum width=7em,minimum height=1.7em,draw,thick,fill=red!20,rounded corners=0.3em];
+\tikzstyle{node2} = [minimum width=7em,minimum height=2.5em,draw,thick,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{node3} = [minimum width=7em,minimum height=2.5em,draw,thick,fill=green!20,rounded corners=0.3em];
+\tikzstyle{node4} = [minimum width=7em,minimum height=1.7em,draw,thick,fill=orange!20,rounded corners=0.3em];
+\tikzstyle{node5} = [minimum width=4.5em,minimum height=1.7em,thick,dashed];
+
+\node [node1,anchor=south west] (s1) at (0,0) {{ \small{源语言词串}}};
+\node [node2,anchor=south] (s2) at ([xshift=2.5em,yshift=2em]s1.north) {};
+\node [anchor=north,minimum height=1.2em] (s21) at (s2.north) {{ \small{源语言}}};
+\node [anchor=south,minimum height=1.2em] (s22) at (s2.south) {{ \small{句法结构}}};
+\node [node3,anchor=south] (s3) at ([xshift=2.5em,yshift=2em]s2.north) {};
+\node [anchor=north,minimum height=1.2em] (s31) at (s3.north) {{ \small{源语言}}};
+\node [anchor=south,minimum height=1.2em] (s32) at (s3.south) {{ \small{语义结构}}};
+\node [node4,anchor=south] (s4) at ([xshift=6em,yshift=2em]s3.north) {{ \small{中间语言（知识表示）}}};
+
+\node [node3,anchor=north] (t1) at ([xshift=6em,yshift=-2em]s4.south) {};
+\node [anchor=north,minimum height=1.2em] (t11) at (t1.north) {{ \small{目标语言}}};
+\node [anchor=south,minimum height=1.2em] (t12) at (t1.south) {{ \small{语义结构}}};
+\node [node2,anchor=north] (t2) at ([xshift=2.5em,yshift=-2em]t1.south) {};
+\node [anchor=north,minimum height=1.2em] (t21) at (t2.north) {{ \small{目标语言}}};
+\node [anchor=south,minimum height=1.2em] (t22) at (t2.south) {{ \small{句法结构}}};
+\node [node1,anchor=north] (t3) at ([xshift=2.5em,yshift=-2em]t2.south) {{ \small{目标语言词串}}};
+
+\node [anchor=north] (l1) at ([yshift=-2em]s4.south) {{ \small{语义\ 转换}}};
+\node [anchor=north] (l2) at ([yshift=-3em]l1.south) {{ \small{句法\ 转换}}};
+\node [anchor=north] (l3) at ([yshift=-2.5em]l2.south) {{ \small{词汇\ 转换}}};
+
+\node [node5,anchor=north,draw] (st1) at ([xshift=-3em,yshift=-0.5em]l3.south) {{ \small{分析部分}}};
+\node [node5,anchor=north,draw] (st2) at ([xshift=3em,yshift=-0.5em]l3.south) {{ \small{生成部分}}};
+
+\draw [->,thick] (s1.north) -- ([xshift=-0.6em]s2.south);
+\draw [->,thick] ([xshift=0.6em]s2.north) -- (s3.south);
+\draw [->,thick] ([xshift=1.2em]s3.north) -- ([xshift=-2.7em]s4.south);
+\draw [->,thick] ([xshift=2.7em]s4.south) -- ([xshift=-1.2em]t1.north);
+\draw [->,thick] (t1.south) -- ([xshift=-0.6em]t2.north);
+\draw [->,thick] ([xshift=0.6em]t2.south) -- (t3.north);
+\draw [->,thick] (s3.east) -- (t1.west);
+\draw [->,thick] (s2.east) -- (t2.west);
+\draw [->,thick] (s1.east) -- (t3.west);
+
+\draw [-] ([xshift=0.1em]s4.south) -- ([xshift=0.1em,yshift=-14em]s4.south);
+
+
+\end{scope}
+\end{tikzpicture}
+\end{center}

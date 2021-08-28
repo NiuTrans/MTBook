@@ -1,0 +1,76 @@
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+%%% outline
+%-------------------------------------------------------------------------
+
+\vspace{0.3em}
+\begin{tikzpicture}
+
+\begin{scope}
+\node [] (input) at (-0.6em,0) {{\scriptsize 猫喜欢吃鱼}};
+
+{
+\begin{scope}[scale=0.8,xshift=0.9in,yshift=-0.87in,level distance=20pt,sibling distance=-1pt,grow'=up]
+{\scriptsize
+\Tree[.\node(sn0){IP};
+          [.\node(sn1){NP};
+               [.\node(sn2){NN}; \node(sw1){猫}; ]
+          ]
+          [.\node(sn3){VP};
+               [.\node(sn4){VV}; \node(sw2){喜欢}; ]
+               [.\node(sn5){VP}; \edge[roof]; \node(sw3){吃 \ 鱼}; ]
+          ]
+     ]
+}
+\end{scope}
+
+\node [anchor=west,draw,thick,inner sep=3pt,ublue] (mtengine) at ([xshift=1.0in]input.east) {{\scriptsize 核心引擎}};
+
+\begin{scope}[scale=0.8,xshift=3.0in,yshift=-0.87in,level distance=20pt,sibling distance=-3pt,grow'=up]
+{\scriptsize
+\Tree[.\node(tn0){S};
+          [.\node(tn1){NP};
+               [.\node(tn2){NNS}; \node(tw1){cats}; ]
+          ]
+          [.\node(tn3){VP};
+               [.\node(tn4){VB}; \node(tw2){like}; ]
+               [.\node(tn5){VP}; \edge[roof]; \node(tw3){eating fish}; ]
+          ]
+     ]
+}
+
+\end{scope}
+}
+
+\node [] (output) at ([xshift=3.35in]input.east) {{\scriptsize Cats like eating fish}};
+
+\draw[->,thick] ([xshift=-1pt]input.east) -- ([xshift=8pt]input.east);
+\draw[->,thick] ([xshift=-6pt]output.west) -- ([xshift=2pt]output.west);
+
+{
+\draw[->,thick] ([xshift=-10pt]mtengine.west) -- ([xshift=-2pt]mtengine.west);
+\draw[->,thick] ([xshift=2pt]mtengine.east) -- ([xshift=10pt]mtengine.east);
+}
+
+{
+\node[minimum height=4em,minimum width=4.5em] (inputmarking) at (0.85in,-0.39in) {};
+\node[minimum height=4em,minimum width=5.2em] (outputmarking) at (2.55in,-0.39in) {};
+}
+
+\node [anchor=south] (inputlabel) at ([yshift=-0.5em]input.north) {{\scriptsize \color{red}{\textbf{输入}}}};
+\node [anchor=south] (outputlabel) at ([yshift=-0.5em]output.north) {{\scriptsize \color{red}{\textbf{输出}}}};
+
+{
+\node [anchor=west] (mtinputlabel) at ([xshift=0.35in]inputlabel.east) {{\scriptsize \color{red}{\textbf{实际的输入}}}};
+\node [anchor=west] (mtoutputlabel) at ([xshift=1.0in]mtinputlabel.east) {{\scriptsize \color{red}{\textbf{实际的输出}}}};
+\node[rectangle,draw=ublue, inner sep=2pt, thick] [fit = (mtinputlabel) (mtoutputlabel) (inputmarking) (outputmarking)] {};
+}
+
+\end{scope}
+
+\end{tikzpicture}
+
+
+
+

@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+	\tikzstyle{unit} = [draw,circle,thick,align=center,fill=green!30,minimum size=1em]
+		
+		\node[minimum width=3em,minimum height=1.8em] (o) at (0,0){};
+		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_A) at ([xshift=-0em,yshift=-1em]o.south){隐含状态$A$};
+		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_B) at ([yshift=-1.6em]state_A.south){隐含状态$B$};
+		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_C) at ([yshift=-1.6em]state_B.south){隐含状态$C$};
+		\node[anchor=north,inner sep=1pt,font=\footnotesize] (state_D) at ([yshift=-1.6em]state_C.south){隐含状态$D$};
+		
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c1) at ([yshift=0.2em,xshift=3em]o.east){$T$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c2) at ([xshift=6em]c1.east){$F$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c3) at ([xshift=6em]c2.east){$F$};
+		\node[anchor=west,inner sep=1pt,font=\footnotesize] (c4) at ([xshift=6em]c3.east){$T$};
+		\node[anchor=south,font=\scriptsize] (cl1) at (c1.north) {时刻1};
+		\node[anchor=south,font=\scriptsize] (cl2) at (c2.north) {时刻2};
+		\node[anchor=south,font=\scriptsize] (cl3) at (c3.north) {时刻3};
+		\node[anchor=south,font=\scriptsize] (cl4) at (c4.north) {时刻4};
+		
+		\node[anchor=north,unit,fill=red!30] (u11) at ([yshift=-1.6em]c1.south){};
+		\node[anchor=north,unit] (u21) at ([yshift=-1.6em]u11.south){};
+		\node[anchor=north,unit] (u31) at ([yshift=-1.6em]u21.south){};
+		\node[anchor=north,unit] (u41) at ([yshift=-1.6em]u31.south){};
+		
+		\node[anchor=north,unit,fill=red!30] (u12) at ([yshift=-1.6em]c2.south){};
+		\node[anchor=north,unit] (u22) at ([yshift=-1.6em]u12.south){};
+		\node[anchor=north,unit] (u32) at ([yshift=-1.6em]u22.south){};
+		\node[anchor=north,unit] (u42) at ([yshift=-1.6em]u32.south){};
+		
+		\node[anchor=north,unit,fill=red!30] (u13) at ([yshift=-1.6em]c3.south){};
+		\node[anchor=north,unit] (u23) at ([yshift=-1.6em]u13.south){};
+		\node[anchor=north,unit] (u33) at ([yshift=-1.6em]u23.south){};
+		\node[anchor=north,unit] (u43) at ([yshift=-1.6em]u33.south){};
+		
+		\node[anchor=north,unit,fill=red!30] (u14) at ([yshift=-1.6em]c4.south){};
+		\node[anchor=north,unit] (u24) at ([yshift=-1.6em]u14.south){};
+		\node[anchor=north,unit] (u34) at ([yshift=-1.6em]u24.south){};
+		\node[anchor=north,unit] (u44) at ([yshift=-1.6em]u34.south){};
+		
+		\node[anchor=south west,align=center,font=\footnotesize] (label) at ([yshift=-1.4em,xshift=-4em]o.45){可见状态序列};
+		\draw[->] ([xshift=-0.2em]label.east) --  ([xshift=0.7em]label.east);
+	
+		\draw[->,line width=1pt] (u11.east) -- node[above,red!50,font=\footnotesize]{0.65}(u12.west);
+		\draw[->,line width=1pt] (u12.east) -- node[above,red!50,font=\footnotesize]{0.55}(u13.west);
+		\draw[->,line width=1pt] (u12.east) -- node[right,pos=0.6,font=\footnotesize,xshift=0.2em]{0.45}(u23.west);
+		\draw[->,line width=1pt] (u13.east) -- node[above,red!50,font=\footnotesize]{0.5}(u14.west);
+		\draw[->,line width=1pt] (u13.east) -- node[right,pos=0.6,font=\footnotesize,xshift=0.2em]{0.5}(u24.west);
+		\draw[->,line width=1pt] (u11.east) -- node[right,font=\footnotesize,xshift=0.4em,yshift=-0.1em]{0.35}(u22.west);	
+		\draw[->,line width=1pt] (u22.east) -- node[left,pos=0.4,font=\footnotesize,yshift=0.1em,xshift=-0.3em]{0.3}(u13.west);
+		\draw[->,line width=1pt] (u22.east) -- node[below,font=\footnotesize,yshift=0.2em]{0.2}(u23.west);
+		\draw[->,line width=1pt] (u22.east) -- node[below,font=\footnotesize,yshift=0.1em]{0.2}(u33.west);
+		\draw[->,line width=1pt] (u22.east) -- node[below,font=\footnotesize,yshift=-0.1em]{0.3}(u43.west);
+		\draw[->,line width=1pt] (u23.east) -- node[left,pos=0.4,font=\footnotesize,xshift=-0.2em]{0.35}(u14.west);
+		\draw[->,line width=1pt] (u23.east) -- node[below,font=\footnotesize,yshift=0.2em]{0.15}(u24.west);
+		\draw[->,line width=1pt] (u23.east) -- node[below,font=\footnotesize,xshift=0.4em,yshift=-0.2em,pos=0.6]{0.15}(u34.west);
+		\draw[->,line width=1pt] (u23.east) -- node[below,font=\footnotesize,yshift=-0.3em]{0.35}(u44.west);
+		
+\end{tikzpicture}

@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\tikzstyle{hide} = [draw,inner sep=2pt,thick,align=center,drop shadow,fill=green!30,font=\footnotesize,minimum height=1.8em,minimum width=1.8em]
+	\tikzstyle{see} = [draw,inner sep=2pt,thick,align=center,drop shadow,fill=red!35,font=\footnotesize,minimum height=1.2em,minimum width=1.2em,circle]
+		
+		\node[hide] (h1) at (0,0){C};
+		\node[hide,anchor=west] (h2) at ([xshift=2.4em]h1.east){B};
+		\node[hide,anchor=west] (h3) at ([xshift=2.4em]h2.east){A};
+		\node[hide,anchor=west] (h4) at ([xshift=2.4em]h3.east){B};
+		\node[hide,anchor=west] (h5) at ([xshift=2.4em]h4.east){C};
+		\node[hide,anchor=west] (h6) at ([xshift=2.4em]h5.east){A};
+
+		\node[see,anchor=north] (s1) at ([yshift=-1.6em]h1.south){正};
+		\node[see,anchor=north] (s2) at ([yshift=-1.6em]h2.south){正};
+		\node[see,anchor=north] (s3) at ([yshift=-1.6em]h3.south){反};
+		\node[see,anchor=north] (s4) at ([yshift=-1.6em]h4.south){反};
+		\node[see,anchor=north] (s5) at ([yshift=-1.6em]h5.south){正};
+		\node[see,anchor=north] (s6) at ([yshift=-1.6em]h6.south){反};
+		
+		\draw[->,line width=1.4pt] (h1.east) -- node[above]{$\frac{1}{3}$}(h2.west);
+		\draw[->,line width=1.4pt] (h2.east) -- node[above]{$\frac{1}{3}$}(h3.west);
+		\draw[->,line width=1.4pt] (h3.east) -- node[above]{$\frac{1}{3}$}(h4.west);
+		\draw[->,line width=1.4pt] (h4.east) -- node[above]{$\frac{1}{3}$}(h5.west);
+		\draw[->,line width=1.4pt] (h5.east) -- node[above]{$\frac{1}{3}$}(h6.west);
+		
+		\draw[->,line width=1.4pt,blue!60] (h1.south) -- node[right,black]{\footnotesize $0.7$}(s1.north);
+		\draw[->,line width=1.4pt,blue!60] (h2.south) -- node[right,black]{\footnotesize $0.5$}(s2.north);
+		\draw[->,line width=1.4pt,blue!60] (h3.south) -- node[right,black]{\footnotesize $0.7$}(s3.north);
+		\draw[->,line width=1.4pt,blue!60] (h4.south) -- node[right,black]{\footnotesize $0.5$}(s4.north);
+		\draw[->,line width=1.4pt,blue!60] (h5.south) -- node[right,black]{\footnotesize $0.7$}(s5.north);
+		\draw[->,line width=1.4pt,blue!60] (h6.south) -- node[right,black]{\footnotesize $0.7$}(s6.north);
+		
+		\begin{pgfonlayer}{background}
+        	\node [draw,rectangle,inner sep=1em,rounded corners=2pt,fill=gray!20] [fit = (h1)(s1)(h6) (s6)] (box) {};
+    	\end{pgfonlayer}
+		\node[anchor=north,font=\footnotesize] (note) at ([xshift=0.4em,yshift=-1.4em]s1.south){图示说明：};
+		\node[anchor=north,hide,minimum height=1em,minimum width=1em] (one_h) at ([xshift=-0.6em,yshift=-1em]note.south){};
+		\node[anchor=west,font=\scriptsize] at ([xshift=0.2em]one_h.east){一个隐含状态};
+		\node[anchor=north,see] (one_s) at ([yshift=-1.4em]one_h.south){};
+		\node[anchor=west,font=\scriptsize] at ([xshift=0.2em]one_s.east){一个可见状态};
+		\draw[->,line width=1.4pt] ([xshift=8.4em]one_h.east) -- ([xshift=9.4em]one_h.east);
+		\node[anchor=west,align=left,font=\scriptsize] at ([xshift=9.6em]one_h.east){从一个隐含状态到下一个隐含状态的\\转换，该过程隐含着转移概率};
+		\draw[->,line width=1.4pt,blue!60] ([yshift=-2em,xshift=8.9em]one_h.east) --([yshift=-3em,xshift=8.9em]one_h.east) ;
+		\node[anchor=west,align=left,font=\scriptsize] at ([yshift=-2.5em,xshift=9.6em]one_h.east){从一个隐含状态到可见状态的输出，\\该过程隐含着发射概率};
+		
+\end{tikzpicture}

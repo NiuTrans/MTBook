@@ -1,0 +1,81 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 什么是解码
+\begin{tikzpicture}
+
+\begin{scope}[minimum height = 18pt]
+
+\node[anchor=east] (s0) at (-0.5em, 0) {$\seq{s}$：};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s1) at (0, 0) {\footnotesize{桌子 上}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em]s1.east) {\footnotesize{有}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s3) at ([xshift=1em]s2.east) {\footnotesize{一个 苹果}};
+
+\node[anchor=east] (t0) at (-0.5em, -1.5) {$\seq{t}$：};
+
+\node[anchor=north] (l) at ([xshift=7em,yshift=-0.5em]t0.south) {\small{(a)\ 初始化状态}};
+\end{scope}
+
+
+
+\begin{scope}[xshift=17em,minimum height = 18pt]
+
+\node[anchor=east] (s0) at (-0.5em, 0) {$\seq{s}$：};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s1) at (0, 0) {\footnotesize{桌子 上}};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em]s1.east) {\footnotesize{有}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s3) at ([xshift=1em]s2.east) {\footnotesize{一个 苹果}};
+
+\node[anchor=east] (t0) at (-0.5em, -1.5) {$\seq{t}$：};
+{
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (t1) at (0, -1.5) {\footnotesize{There is}};
+\path[<->, thick] (s2.south) edge (t1.north);
+}
+
+\node[anchor=north] (l) at ([xshift=7em,yshift=-0.5em]t0.south) {\small{(b)\ 找到译文第一个词 }};
+\end{scope}
+
+
+
+\begin{scope}[yshift=-9.5em,minimum height = 18pt]
+
+\node[anchor=east] (s0) at (-0.5em, 0) {$\seq{s}$：};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s1) at (0, 0) {\footnotesize{桌子 上}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em]s1.east) {\footnotesize{有}};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (s3) at ([xshift=1em]s2.east) {\footnotesize{一个 苹果}};
+
+\node[anchor=east] (t0) at (-0.5em, -1.5) {$\seq{t}$：};
+{
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (t1) at (0, -1.5) {\footnotesize{There is}};
+\path[<->, thick] (s2.south) edge (t1.north);
+}
+{
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (t2) at ([xshift=1em]t1.east) {\footnotesize{an apple}};
+\path[<->, thick] (s3.south) edge (t2.north);
+}
+\node[anchor=north] (l) at ([xshift=7em,yshift=-0.5em]t0.south) {\small{(c)\ 找到译文第二个词}};
+\end{scope}
+
+
+
+
+\begin{scope}[xshift=17em,yshift=-9.5em,minimum height = 18pt]%[scale=0.5]
+
+\node[anchor=east] (s0) at (-0.5em, 0) {$\seq{s}$：};
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (s1) at (0, 0) {\footnotesize{桌子 上}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s2) at ([xshift=1em]s1.east) {\footnotesize{有}};
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (s3) at ([xshift=1em]s2.east) {\footnotesize{一个 苹果}};
+
+\node[anchor=east] (t0) at (-0.5em, -1.5) {$\seq{t}$：};
+{
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (t1) at (0, -1.5) {\footnotesize{There is}};
+\path[<->, thick] (s2.south) edge (t1.north);
+}
+{
+\node[anchor=west,fill=green!20,draw,thick,rounded corners=0.3em] (t2) at ([xshift=1em]t1.east) {\footnotesize{an apple}};
+\path[<->, thick] (s3.south) edge (t2.north);
+}
+{
+\node[anchor=west,fill=red!20,draw,thick,rounded corners=0.3em] (t3) at ([xshift=1em]t2.east) {\footnotesize{on the table}};
+\path[<->, thick] (s1.south) edge (t3.north);
+}
+\node[anchor=north] (l) at ([xshift=7em,yshift=-0.5em]t0.south) {\small{(d)\ 找到译文第三个词}};
+\end{scope}
+\end{tikzpicture}

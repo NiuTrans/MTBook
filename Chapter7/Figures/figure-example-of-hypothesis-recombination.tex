@@ -1,0 +1,138 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%% 假设重组
+\begin{tikzpicture}
+\begin{scope}
+{
+\node [anchor=north,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h0) at (0,0) {\small{null}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl0) at (h0.north west) {\scriptsize{{\color{white} \textbf{0}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt0) at (h0.east) {\tiny{{\color{white} \textbf{$\funp{P}$=1}}}};
+
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h2) at ([xshift=2.2em,yshift=3.5em]h0.east) {\small{an}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h3) at ([xshift=2.2em]h2.east) {\small{apple}};
+
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl2) at (h2.north west) {\scriptsize{{\color{white} \textbf{1}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl3) at (h3.north west) {\scriptsize{{\color{white} \textbf{2}}}};
+
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt2) at (h2.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.3}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt3) at (h3.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.5}}}};
+
+\draw [->,very thick,ublue] ([xshift=0.1em]pt0.south) -- ([xshift=-0.1em]h2.west);
+\draw [->,very thick,ublue] ([xshift=0.1em]pt2.south) -- ([xshift=-0.1em]h3.west);
+
+{
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h1) at ([xshift=7em]h0.east) {\small{an apple}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl1) at (h1.north west) {\scriptsize{{\color{white} \textbf{1-2}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt1) at (h1.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.5}}}};
+\draw [->,very thick,ublue] ([xshift=0.1em]pt0.south) -- ([xshift=-0.1em]h1.west);
+}
+}
+{
+\node [anchor=north west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h4) at ([yshift=-9em]h0.south west) {\small{null}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h5) at ([xshift=2.2em]h4.east) {\small{he}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h6) at ([xshift=2.2em,yshift=3.5em]h4.east) {\small{it}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h8) at ([xshift=2.2em]h6.east) {\small{is not}};
+
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl4) at (h4.north west) {\scriptsize{{\color{white} \textbf{0}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h5.north west) {\scriptsize{{\color{white} \textbf{1}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h6.north west) {\scriptsize{{\color{white} \textbf{1}}}};
+
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h8.north west) {\scriptsize{{\color{white} \textbf{2}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt4) at (h4.east) {\tiny{{\color{white} \textbf{$\funp{P}$=1}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt5) at (h5.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.3}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt6) at (h6.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.4}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt8) at (h8.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.2}}}};
+
+\draw [->,very thick,ublue] ([xshift=0.1em]pt4.south) -- ([xshift=-0.1em]h5.west);
+\draw [->,very thick,ublue] ([xshift=0.1em]pt4.south) -- ([xshift=-0.1em]h6.west);
+\draw [->,very thick,ublue] ([xshift=0.1em]pt6.south) -- ([xshift=-0.1em]h8.west);
+
+{
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h7) at ([xshift=2.2em]h5.east) {\small{is not}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt7) at (h7.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.2}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h7.north west) {\scriptsize{{\color{white} \textbf{2}}}};
+\draw [->,very thick,ublue] ([xshift=0.1em]pt5.south) -- ([xshift=-0.1em]h7.west);
+}
+}
+
+\node[anchor=north] (l1) at ([xshift=5.5em,yshift=-1em]h0.south) {\scriptsize{原假设}};
+\node[anchor=north] (l2) at ([xshift=5.5em,yshift=-1em]h4.south) {\scriptsize{原假设}};
+\node[anchor=north] (part1) at ([xshift=16em,yshift=-3em]h0.south){\small{（a）译文相同时的假设重组}};
+
+\end{scope}
+
+
+
+
+
+\begin{scope}[xshift = 16em, yshift = 0em]
+{
+\node [anchor=north,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h0) at (0,0) {\small{null}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl0) at (h0.north west) {\scriptsize{{\color{white} \textbf{0}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt0) at (h0.east) {\tiny{{\color{white} \textbf{$\funp{P}$=1}}}};
+
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h2) at ([xshift=2.2em,yshift=3.5em]h0.east) {\small{an}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h3) at ([xshift=2.2em]h2.east) {\small{apple}};
+
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl2) at (h2.north west) {\scriptsize{{\color{white} \textbf{1}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl3) at (h3.north west) {\scriptsize{{\color{white} \textbf{2}}}};
+
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt2) at (h2.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.3}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt3) at (h3.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.5}}}};
+
+\draw [->,very thick,ublue] ([xshift=0.1em]pt0.south) -- ([xshift=-0.1em]h2.west);
+\draw [->,very thick,ublue] ([xshift=0.1em]pt2.south) -- ([xshift=-0.1em]h3.west);
+
+{
+\draw [->,ultra thick,red,line width=2pt,opacity=0.7] ([xshift=0.1em]pt0.south) -- ([xshift=-1em,yshift=-0.1em]h3.south);
+}
+}
+{
+\node [anchor=north west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h4) at ([yshift=-9em]h0.south west) {\small{null}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h5) at ([xshift=2.2em]h4.east) {\small{he}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h6) at ([xshift=2.2em,yshift=3.5em]h4.east) {\small{it}};
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em] (h8) at ([xshift=2.2em]h6.east) {\small{is not}};
+
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl4) at (h4.north west) {\scriptsize{{\color{white} \textbf{0}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h5.north west) {\scriptsize{{\color{white} \textbf{1}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h6.north west) {\scriptsize{{\color{white} \textbf{1}}}};
+
+\node [anchor=north west,inner sep=1.0pt,fill=black] (hl5) at (h8.north west) {\scriptsize{{\color{white} \textbf{2}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt4) at (h4.east) {\tiny{{\color{white} \textbf{$\funp{P}$=1}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt5) at (h5.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.3}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt6) at (h6.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.4}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black] (pt8) at (h8.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.2}}}};
+
+\draw [->,very thick,ublue] ([xshift=0.1em]pt4.south) -- ([xshift=-0.1em]h5.west);
+\draw [->,very thick,ublue] ([xshift=0.1em]pt4.south) -- ([xshift=-0.1em]h6.west);
+\draw [->,very thick,ublue] ([xshift=0.1em]pt6.south) -- ([xshift=-0.1em]h8.west);
+
+{
+\draw [->,ultra thick,red,line width=2pt,opacity=0.7] ([xshift=0.1em]pt5.south) -- ([xshift=-1em,yshift=-0.1em]h8.south);
+}
+}
+
+{
+{
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em,opacity=0.6] (h1) at ([xshift=7em]h0.east) {\small{an apple}};
+\node [anchor=north west,inner sep=1.0pt,fill=black,opacity=0.6] (hl1) at (h1.north west) {\scriptsize{{\color{white} \textbf{1-2}}}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black,opacity=0.6] (pt1) at (h1.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.5}}}};
+}
+{
+\node [anchor=west,inner sep=2pt,fill=red!40,minimum height=2em,minimum width=3em,opacity=0.6] (h7) at ([xshift=2.2em]h5.east) {\small{is not}};
+\node [anchor=north,rotate=90,inner sep=1pt,minimum width=2em,fill=black,opacity=0.6] (pt7) at (h7.east) {\tiny{{\color{white} \textbf{$\funp{P}$=0.2}}}};
+\node [anchor=north west,inner sep=1.0pt,fill=black,opacity=0.6] (hl5) at (h7.north west) {\scriptsize{{\color{white} \textbf{2}}}};
+}
+}
+
+\node [anchor=west] (l1) at ([xshift=1em, yshift=0.5em]h1.east) {\footnotesize{舍弃概率}};
+\node [anchor=west] (l11) at ([xshift=0em, yshift=-1em]l1.west) {\footnotesize{较低假设}};
+\node [anchor=west] (l2) at ([xshift=1em, yshift=0.5em]h7.east) {\footnotesize{舍弃概率}};
+\node [anchor=west] (l21) at ([xshift=0em, yshift=-1em]l2.west) {\footnotesize{较低假设}};
+
+\node[anchor=north] (l1) at ([xshift=7.5em,yshift=-1em]h0.south) {\scriptsize{重组假设}};
+\node[anchor=north] (l2) at ([xshift=7.5em,yshift=-1em]h4.south) {\scriptsize{重组假设}};
+\node[anchor=north] (part2) at ([xshift=0em,yshift=-14em]h0.south){\small{（b）译文不同时的假设重组}};
+\end{scope}
+
+
+\end{tikzpicture}

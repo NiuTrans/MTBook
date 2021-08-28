@@ -1,0 +1,41 @@
+\begin{tikzpicture}
+	\tikzstyle{class} = [draw,inner sep=2pt,thick,align=center,drop shadow,fill=green!30,font=\footnotesize,minimum height=1.6em,minimum width=3.4em,rotate=-90]
+	\tikzstyle{word} = [draw,inner sep=2pt,thick,align=center,drop shadow,fill=red!35,font=\footnotesize,minimum height=1.4em,minimum width=1.6em]
+		
+		\coordinate (o) at (0,0);
+		\node[anchor=west,class] (c1) at ([xshift=0em]o.east){B-CIT};
+		\node[anchor=west,class] (c2) at ([xshift=4em]o.east){O};
+		\node[anchor=west,class] (c3) at ([xshift=8em]o.east){B-CNT};
+		\node[anchor=west,class] (c4) at ([xshift=12em]o.east){I-CNT};
+		\node[anchor=west,class] (c5) at ([xshift=16em]o.east){I-CNT};
+		\node[anchor=west,class] (c6) at ([xshift=20em]o.east){I-CNT};
+		\node[anchor=west,class] (c7) at ([xshift=24em]o.east){O};
+		\node[anchor=west,class] (c8) at ([xshift=28em]o.east){O};
+		
+		\node[anchor=north,word] (w1) at ([xshift=-0.8em,yshift=-4em]c1.north){北京};
+		\node[anchor=north,word] (w2) at ([xshift=-0.8em,yshift=-4em]c2.north){是};
+		\node[anchor=north,word] (w3) at ([xshift=-0.8em,yshift=-4em]c3.north){中华};
+		\node[anchor=north,word] (w4) at ([xshift=-0.8em,yshift=-4em]c4.north){人民};
+		\node[anchor=north,word] (w5) at ([xshift=-0.8em,yshift=-4em]c5.north){共和};
+		\node[anchor=north,word] (w6) at ([xshift=-0.8em,yshift=-4em]c6.north){国};
+		\node[anchor=north,word] (w7) at ([xshift=-0.8em,yshift=-4em]c7.north){的};
+		\node[anchor=north,word] (w8) at ([xshift=-0.8em,yshift=-4em]c8.north){首都};
+		
+		\draw[->,line width=1.4pt] (c1.north) -- (c2.south);
+		\draw[->,line width=1.4pt] (c2.north) -- (c3.south);
+		\draw[->,line width=1.4pt] (c3.north) -- (c4.south);
+		\draw[->,line width=1.4pt] (c4.north) -- (c5.south);
+		\draw[->,line width=1.4pt] (c5.north) -- (c6.south);
+		\draw[->,line width=1.4pt] (c6.north) -- (c7.south);
+		\draw[->,line width=1.4pt] (c7.north) -- (c8.south);
+		
+		\draw[->,line width=1.4pt] (c1.east) -- (w1.north);
+		\draw[->,line width=1.4pt] (c2.east) -- (w2.north);
+		\draw[->,line width=1.4pt] (c3.east) -- (w3.north);
+		\draw[->,line width=1.4pt] (c4.east) -- (w4.north);
+		\draw[->,line width=1.4pt] (c5.east) -- (w5.north);
+		\draw[->,line width=1.4pt] (c6.east) -- (w6.north);
+		\draw[->,line width=1.4pt] (c7.east) -- (w7.north);
+		\draw[->,line width=1.4pt] (c8.east) -- (w8.north);
+		
+\end{tikzpicture}

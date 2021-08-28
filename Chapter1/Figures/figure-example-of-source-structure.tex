@@ -1,0 +1,33 @@
+%------------------------------------------------------------------------------------------------------------
+%%%  句法树(层次短语)
+\begin{tikzpicture}
+{\small
+\begin{scope}[sibling distance=25pt, level distance = 25pt]
+{\scriptsize
+\Tree[.\node(r){IP};
+        [.\node(n11){NP}; [.\node(n21){PN};  [.\node(l1){她};]]]
+        [.\node(n12){VP}; 
+            [.\node(n22){BA}; \node(l2){把}; ]
+            [.\node(n23){IP};
+                [. \node(n31){NP}; 
+                    [. \node(n41){QP}; 
+                        [. \node(n51){CD};  \node(l3){一};]
+                        [. \node(n52){CLP};  [.\node(n61){M};  [.\node(l4){束};]]]
+                    ]
+                    [. \node(n42){NP};  [.\node(n53){NN};  [.\node(l5){花};]]]
+                ]
+                [. \node(n32){VP}; 
+                    [. \node(n43){VV};  \node(l6){放在};]
+                    [. \node(n44){LCP};
+                        [. \node(n54){NP};  [.\node(n62){NN};  [.\node(l7){桌};]]] 
+                        [. \node(n55){LC};  \node(l8){上};]
+                    ]
+                ]
+            ]
+        ]
+        [.\node(n13){PU};  \node(l9){。};]
+     ]
+}
+\end{scope}
+}
+\end{tikzpicture}

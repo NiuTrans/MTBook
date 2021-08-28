@@ -1,0 +1,65 @@
+
+\definecolor{ublue}{rgb}{0.152,0.250,0.545}
+\definecolor{ugreen}{rgb}{0,0.5,0}
+
+
+%%% outline
+%-------------------------------------------------------------------------
+
+
+\begin{tikzpicture}
+
+\begin{scope}[xshift=-0.3in]
+{
+{\small
+\node [anchor=north west] (entry1) at (0,0) {{1:} 很};
+\node [anchor=north west] (entry2) at ([yshift=0.1em]entry1.south west) {{2:} 高};
+\node [anchor=north west] (entry3) at ([yshift=0.1em]entry2.south west) {{3:} 现在};
+\node [anchor=north west] (entry4) at ([yshift=0.1em]entry3.south west) {{4:} 物价};
+\node [anchor=north west] (entry5) at ([yshift=0.1em]entry4.south west) {{5:} 确实};
+\node [anchor=north west] (entry6) at ([yshift=0.1em]entry5.south west) {{6:} 实现};
+\node [anchor=south west] (dictionarylabel) at (entry1.north west) {{\color{ublue} 分词词典}};
+}
+}
+
+\begin{pgfonlayer}{background}
+{
+\node[rectangle,draw=ublue, inner sep=0.2em,thick] [fit = (entry1) (entry2) (entry3) (entry4) (entry5) (entry6) (dictionarylabel)] {};
+}
+\end{pgfonlayer}
+
+\end{scope}
+
+{
+\begin{scope}[xshift=1.5in,yshift=1em]
+\node [anchor=west] (c1) at (0,0) {确};
+\node [anchor=west] (c2) at ([xshift=0em]c1.east) {实};
+\node [anchor=west] (c3) at ([xshift=0em]c2.east) {现};
+\node [anchor=west] (c4) at ([xshift=0em]c3.east) {在};
+\node [anchor=west] (c5) at ([xshift=0em]c4.east) {物};
+\node [anchor=west] (c6) at ([xshift=0em]c5.east) {价};
+\node [anchor=west] (c7) at ([xshift=0em]c6.east) {很};
+\node [anchor=west] (c8) at ([xshift=0em]c7.east) {高};
+\end{scope}
+}
+
+{
+\node [anchor=west,thick,draw,minimum width=3.4em,minimum height=1.5em,ugreen] (w1) at (c3.west){};
+\draw [->,thick,ugreen] (entry3.30) ..controls +(70:1) and +(south:1.5).. ([xshift=0.3em]w1.south) node [pos=0.5, above] {\footnotesize{命中}};
+}
+
+
+
+{
+\node [anchor=west,very thick,draw,dotted,minimum width=3.4em,minimum height=1.9em,ublue] (w3) at (c2.west){};
+\draw [->,very thick,dotted,ublue] ([yshift=-0.2em]entry6.30) ..controls +(60:2) and +(south:3).. ([xshift=-0.6em]w3.south) node [pos=0.5, below] {\color{ublue}{\footnotesize{命中}}};
+}
+
+
+\end{tikzpicture}
+
+
+%---------------------------------------------------------------------
+
+
+

@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+	\tikzstyle{hide} = [draw,line width=1pt,inner sep=2pt,fill=green!30,minimum size=2em]
+		
+		\node[hide] (y1) at (0,0){$y_1$};
+		\node[anchor=west,hide](y2)at([xshift=2.4em]y1.east){$y_2$};
+		\node[anchor=west,hide](y3)at([xshift=2.4em]y2.east){$y_3$};
+		\node[anchor=west,line width=1pt,inner sep=2pt,minimum size=2em](dots)at([xshift=2.4em]y3.east){$\cdots$};
+		\node[anchor=west,hide](yn-1)at([xshift=2.4em]dots.east){$y_{m-1}$};
+		\node[anchor=west,hide](yn)at([xshift=2.4em]yn-1.east){$y_m$};
+		
+		\node[anchor=north,draw,line width=1pt,inner sep=2pt,fill=red!30,minimum height=2em,minimum width=12em](see)at ([yshift=-3em,xshift=2em]y3.south){${x}=(x_1,x_2,\ldots,x_{m-1},x_m)$};
+		\node[anchor=south,font=\footnotesize] at ([yshift=1em,xshift=2em]y3.north){待预测的隐含状态序列};
+		\node[anchor=north,font=\footnotesize] at ([yshift=-1em]see.south){可见状态序列};
+		
+		\draw[line width=1pt] (y1.east) -- (y2.west);
+		\draw[line width=1pt] (y2.east) -- (y3.west);
+		\draw[line width=1pt] (y3.east) -- (dots.west);
+		\draw[line width=1pt] (dots.east) -- (yn-1.west);
+		\draw[line width=1pt] (yn-1.east) -- (yn.west);
+		\draw[line width=1pt] (y1.south) -- (see.north);
+		\draw[line width=1pt] (y2.south) -- (see.north);
+		\draw[line width=1pt] (y3.south) -- (see.north);
+		\draw[line width=1pt] (yn-1.south) -- (see.north);
+		\draw[line width=1pt] (yn.south) -- (see.north);	
+\end{tikzpicture}

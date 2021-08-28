@@ -1,0 +1,50 @@
+%%%------------------------------------------------------------------------------------------------------------
+%%%  短语系统的架构
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}
+
+\tikzstyle{datanode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=red!20,rounded corners=0.3em];
+\tikzstyle{modelnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{decodingnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=green!20,rounded corners=0.3em];
+
+\node [datanode,anchor=north west] (s1) at (0,0) {{ \small{语言1}}};
+\node [datanode,anchor=north] (s2) at ([yshift=-4.5em]s1.south) {{ \small{语言3}}};
+\node [datanode,anchor=west] (s3) at ([xshift=4.5em]s1.east) {{ \small{语言2}}};
+\node [datanode,anchor=north] (s4) at ([yshift=-4.5em]s3.south) {{ \small{语言4}}};
+\node [circle,draw,thick,anchor=north west,inner sep=2pt,fill=blue!30] (m1) at ([xshift=0.8em,yshift=-0.5em]s1.south east) {{ \small{中间语言}}};
+
+\draw [<->,very thick] (s1.south) -- (m1.170);
+\draw [<->,very thick] (s2.north) -- (m1.190);
+\draw [<->,very thick] (s3.south) -- (m1.10);
+\draw [<->,very thick] (s4.north) -- (m1.-10);
+
+\node [anchor=north] (l) at ([xshift=5em,yshift=-1em]s2.south) {\footnotesize{(a) 基于中间语言的方法}};
+
+
+\end{scope}
+
+\begin{scope}[xshift=21em]
+
+\tikzstyle{datanode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=red!20,rounded corners=0.3em];
+\tikzstyle{modelnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=blue!20,rounded corners=0.3em];
+\tikzstyle{decodingnode} = [minimum width=5em,minimum height=1.7em,draw,thick,fill=green!20,rounded corners=0.3em];
+
+\node [datanode,anchor=north west] (s1) at (0,0) {{ \small{语言1}}};
+\node [datanode,anchor=north] (s2) at ([yshift=-4.5em]s1.south) {{ \small{语言3}}};
+\node [datanode,anchor=west] (s3) at ([xshift=4.5em]s1.east) {{ \small{语言2}}};
+\node [datanode,anchor=north] (s4) at ([yshift=-4.5em]s3.south) {{ \small{语言4}}};
+
+\draw [<->,very thick] (s1.south) -- (s2.north);
+\draw [<->,very thick] (s1.east) -- (s3.west);
+\draw [<->,very thick] (s3.south) -- (s4.north);
+\draw [<->,very thick] (s2.east) -- (s4.west);
+\draw [<->,very thick] (s1.south east) -- (s4.north west);
+\draw [<->,very thick] (s2.north east) -- (s3.south west);
+
+\node [anchor=north] (l) at ([xshift=5em,yshift=-1em]s2.south) {\footnotesize{(b) 基于转换的方法}};
+
+\end{scope}
+
+\end{tikzpicture}
+\end{center}

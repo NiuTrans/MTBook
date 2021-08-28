@@ -1,0 +1,86 @@
+%\usetikzlibrary{backgrounds} 
+%\usetikzlibrary{fit}
+\begin{tikzpicture}[scale=0.5]
+	\tikzstyle{unit} = [draw,inner sep=1.2pt,font=\scriptsize,minimum height=1em]
+	\tikzstyle{box} = [draw,rectangle,inner xsep=1.4pt,inner ysep=3pt]
+	\tikzstyle{bad_tag} = [inner sep=1pt,align=center,font=\scriptsize,text=red,minimum height=0.8em]
+	\tikzstyle{ok_tag} = [inner sep=1pt,align=center,font=\scriptsize,text=ugreen,minimum height=0.8em]
+	
+	\coordinate (o) at (0, 0);
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] (n1_1) at ([yshift=8em]o.east){\textbf{Source}};
+	\node[unit,anchor=west,fill=green!30](n1_2) at ([xshift=2.2em]n1_1.east){Nach};
+	\node[unit,anchor=west,fill=green!30](n1_3) at ([xshift=0.6em]n1_2.east){Zubereitung};
+	\node[unit,anchor=west,fill=green!30](n1_4) at ([xshift=1.2em]n1_3.east){im};
+	\node[unit,anchor=west,fill=green!30](n1_5) at ([xshift=0.6em]n1_4.east){Kühlschrank};
+	\node[unit,anchor=west,fill=green!30](n1_6) at ([xshift=0.6em]n1_5.east){aufbewahren};
+	\node[unit,anchor=west,fill=green!30](n1_7) at ([xshift=1.2em]n1_6.east){und};
+	\node[unit,anchor=west,fill=green!30](n1_8) at ([xshift=0.6em]n1_7.east){innerhalb};
+	\node[unit,anchor=west,fill=green!30](n1_9) at ([xshift=0.6em]n1_8.east){vonf};
+	\node[unit,anchor=west,fill=green!30](n1_10) at ([xshift=0.6em]n1_9.east){24};
+	\node[unit,anchor=west,fill=green!30](n1_11) at ([xshift=1.2em]n1_10.east){Stunden};
+	\node[unit,anchor=west,fill=green!30](n1_12) at ([xshift=0.6em]n1_11.east){aufbrauchen};
+
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] (n2_1) at ([yshift=-2em]o.east){\textbf{MT}};
+	\node[unit,anchor=west,fill=red!30](n2_2) at ([xshift=5em]n2_1.east){After};
+	\node[unit,anchor=west,fill=red!30](n2_3) at ([xshift=0.6em]n2_2.east){reconstitution};
+	\node[unit,anchor=west,fill=red!30](n2_4) at ([xshift=1.2em]n2_3.east){in};
+	\node[unit,anchor=west,fill=red!30](n2_5) at ([xshift=0.6em]n2_4.east){the};
+	\node[unit,anchor=west,fill=red!30](n2_6) at ([xshift=0.6em]n2_5.east){refrigerator};
+	\node[unit,anchor=west,fill=red!30](n2_7) at ([xshift=1.2em]n2_6.east){and};
+	\node[unit,anchor=west,fill=red!30](n2_8) at ([xshift=0.6em]n2_7.east){used};
+	\node[unit,anchor=west,fill=red!30](n2_9) at ([xshift=0.6em]n2_8.east){within};
+	\node[unit,anchor=west,fill=red!30](n2_10) at ([xshift=0.6em]n2_9.east){24};
+	\node[unit,anchor=west,fill=red!30](n2_11) at ([xshift=1.2em]n2_10.east){hours};
+	\begin{pgfonlayer}{background}
+        \node [box,fill=green!5] [fit = (n1_2) (n1_3)] (box1_1) {};
+        \node [box,fill=green!5] [fit = (n1_4) (n1_5) (n1_6)] (box1_2) {};
+        \node [box,fill=green!5] [fit = (n1_7) (n1_8) (n1_9) (n1_10)] (box1_3) {};
+        \node [box,fill=green!5] [fit = (n1_11) (n1_12) ] (box1_4) {};
+        
+        \node [box,fill=red!5] [fit = (n2_2) (n2_3)] (box2_1) {};
+        \node [box,fill=red!5] [fit = (n2_4) (n2_5) (n2_6)] (box2_2) {};
+        \node [box,fill=red!5] [fit = (n2_7) (n2_8) (n2_9) (n2_10)] (box2_3) {};
+        \node [box,fill=red!5] [fit = (n2_11)] (box2_4) {};
+    \end{pgfonlayer}
+	
+	\node[bad_tag,anchor=north] at ([yshift=-2pt]box2_1.south){BAD\_word\_order};
+	\node[ok_tag,anchor=north] at ([yshift=-2pt]box2_2.south){OK};
+	\node[bad_tag,anchor=north] at ([yshift=-2pt]box2_3.south){BAD};
+	\node[ok_tag,anchor=north] (tag_1) at ([yshift=-2pt]box2_4.south){OK};
+	
+	\node[ok_tag,anchor=north] (gap_1) at ([xshift=-7em,yshift=-3em]box2_1.south){OK};
+	\node[bad_tag,anchor=north] (gap_2) at ([xshift=7em,yshift=-3em]box2_1.south){BAD\_omission};
+	\node[ok_tag,anchor=north] (gap_3) at ([xshift=6.8em,yshift=-3em]box2_2.south){OK};
+	\node[ok_tag,anchor=north] (gap_4) at ([xshift=7.5em,yshift=-3em]box2_3.south){OK};
+	\node[ok_tag,anchor=north] (tag_2) at ([xshift=2.5em,yshift=-3em]box2_4.south){OK};
+
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] at ([xshift=5.2em]tag_1.east){\textbf{Phrase-target tags}};
+	
+	\node[anchor=west,inner sep=0pt,align=center,font=\scriptsize] at ([xshift=8.4em]tag_2.east){\textbf{Gap tags}};
+	
+	\draw[blue!30,line width=1pt] (n1_2.south) -- (n2_2.north);
+	\draw[blue!30,line width=1pt] (n1_2.south) -- (n2_3.north);
+	\draw[blue!30,line width=1pt] (n1_3.south) -- (n2_3.north);
+	\draw[blue!30,line width=1pt] (n1_4.south) -- (n2_4.north);
+	\draw[blue!30,line width=1pt] (n1_4.south) -- (n2_5.north);
+	\draw[blue!30,line width=1pt] (n1_4.south) -- (n2_6.north);
+	\draw[blue!30,line width=1pt] (n1_5.south) -- (n2_6.north);
+	\draw[blue!30,line width=1pt] (n1_6.south) -- (n2_6.north);
+	\draw[blue!30,line width=1pt] (n1_7.south) -- (n2_7.north);
+	\draw[blue!30,line width=1pt] (n1_8.south) -- (n2_9.north);
+	\draw[blue!30,line width=1pt] (n1_9.south) -- (n2_9.north);
+	\draw[blue!30,line width=1pt] (n1_10.south) -- (n2_10.north);
+	\draw[blue!30,line width=1pt] (n1_11.south) -- (n2_11.north);
+	\draw[blue!30,line width=1pt] (n1_12.south) -- (n2_11.north);	
+	
+	\draw[dotted,thick](gap_1.north) -- ([yshift=3em]gap_1.north);
+	\draw[dotted,thick](gap_2.north) -- ([yshift=3em]gap_2.north);
+	\draw[dotted,thick](gap_3.north) -- ([yshift=3em]gap_3.north);
+	\draw[dotted,thick](gap_4.north) -- ([yshift=3em]gap_4.north);
+	\draw[dotted,thick](tag_2.north) -- ([yshift=3em]tag_2.north);
+	
+	
+\end{tikzpicture}
