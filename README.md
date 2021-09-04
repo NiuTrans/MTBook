@@ -14,8 +14,6 @@
 *百度网盘：* [https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g](https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g) 提取码：MTBK 
 </div>
 
-:sunny: **谢谢大家的关注，完整版来了！** :grin:
-
 这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍（前身为《机器翻译：统计建模与深度学习方法》）。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
 本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：
@@ -232,6 +230,8 @@ xelatex mt-book-xelatex
 本书的开源内容基于The Creative Commons Attribution-NonCommercial 4.0 Unported License（[link](https://creativecommons.org/licenses/by-nc/4.0)）
 
 ## 更新历史
+
+2021年8月25日  勘误与部分内容修正 V0.32 
 
 2021年2月1日   修复大量的文字错误 V0.31
 
