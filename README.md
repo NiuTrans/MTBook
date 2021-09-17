@@ -224,6 +224,23 @@ xelatex mt-book-xelatex
 
 注：编译tex文件会依赖一些宏包。如果有任何编译错误，建议将宏包更新至最新版本。
 
+## 引用
+
+```shell
+肖桐 朱靖波，机器翻译：基础与模型，电子工业出版社, 2021.
+```
+bib文件
+```shell
+@book{xiao-and-zhu-mtbook-2021,
+      title = {机器翻译：基础与模型},
+      publisher = {电子工业出版社},
+      year = {2021},
+      author = {肖桐 朱靖波},
+      address = {北京},
+      isbn = {9787121335198}
+}
+```
+
 ## 课件
 
 本教程部分章节的课件已开放（我们对部分章节进行了合并，课件的顺序与书中章节的顺序并不完全一致）。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
