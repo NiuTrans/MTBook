@@ -12,6 +12,9 @@
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
 *百度网盘：* [https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g](https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g) 提取码：MTBK 
+
+*纸质版:green_book:：* [京东](https://item.jd.com/13415772.html) 
+
 </div>
 
 这是一个教程，目的是对机器翻译的基础知识和建模方法进行较为系统的介绍，并在此基础上对机器翻译的一些前沿技术展开讨论（前身为《机器翻译：统计建模与深度学习方法》）。其内容被编纂成书，可以供计算机、人工智能相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
