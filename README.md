@@ -235,7 +235,7 @@ bib文件
       title = {机器翻译：基础与模型},
       publisher = {电子工业出版社},
       year = {2021},
-      author = {肖桐 朱靖波},
+      author = {肖桐 and 朱靖波},
       address = {北京},
       isbn = {9787121335198}
 }
