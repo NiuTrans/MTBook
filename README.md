@@ -13,7 +13,7 @@
 
 *百度网盘：* [https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g](https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g) 提取码：MTBK 
 
-*纸质版:green_book:：* [京东](https://item.jd.com/13415772.html) 
+*纸质版:green_book:：* [京东](https://item.jd.com/13415772.html) [当当](http://product.dangdang.com/29305889.html) 
 
 </div>
 
