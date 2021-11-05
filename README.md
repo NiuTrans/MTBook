@@ -11,10 +11,13 @@
 
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
-*百度网盘：* [https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g](https://pan.baidu.com/s/1S4EOfNyyjCVGlMe9Ektn2g) 提取码：MTBK 
+*百度网盘：* [https://pan.baidu.com/s/1NlYuYG4TCnI0MUiim5bUiQ](https://pan.baidu.com/s/1NlYuYG4TCnI0MUiim5bUiQ) 提取码：MTBK 
+
+*纸质版:green_book:：* [京东](https://item.jd.com/13415772.html) [当当](http://product.dangdang.com/29305889.html) 
+
 </div>
 
-这是一个教程，目的是对机器翻译的统计建模和深度学习方法进行较为系统的介绍（前身为《机器翻译：统计建模与深度学习方法》）。其内容被编纂成书，可以供计算机相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
+这是一个教程，目的是对机器翻译的基础知识和建模方法进行较为系统的介绍，并在此基础上对机器翻译的一些前沿技术展开讨论（前身为《机器翻译：统计建模与深度学习方法》）。其内容被编纂成书，可以供计算机、人工智能相关专业高年级本科生及研究生学习之用，亦可作为自然语言处理，特别是机器翻译相关研究人员的参考资料。本书用tex编写，所有源代码均已开放。
 
 本书共分为四个部分，每部分由若干章节组成，章节的顺序参考了机器翻译技术发展的时间脉络，同时兼顾了机器翻译知识体系的内在逻辑。各部分的主要关系如下（如果无法显示图片可以稍后再试）：
 
@@ -221,9 +224,26 @@ xelatex mt-book-xelatex
 
 注：编译tex文件会依赖一些宏包。如果有任何编译错误，建议将宏包更新至最新版本。
 
+## 引用
+
+```shell
+肖桐 朱靖波，机器翻译：基础与模型，电子工业出版社, 2021.
+```
+bib文件
+```shell
+@book{xiao-and-zhu-mtbook-2021,
+      title = {机器翻译：基础与模型},
+      publisher = {电子工业出版社},
+      year = {2021},
+      author = {肖桐 and 朱靖波},
+      address = {北京},
+      isbn = {9787121335198}
+}
+```
+
 ## 课件
 
-本教程部分章节的课件已开放（我们对有些章节进行了合并）。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
+本教程部分章节的课件已开放（我们对部分章节进行了合并，课件的顺序与书中章节的顺序并不完全一致）。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
 
 ## 开源协议
 
