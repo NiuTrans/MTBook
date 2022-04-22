@@ -222,7 +222,9 @@ xelatex mt-book-xelatex
 
 2. 调用texhash更新latex格式文件
 
-注：编译tex文件会依赖一些宏包。如果有任何编译错误，建议将宏包更新至最新版本。
+注1：编译tex文件会依赖一些宏包。如果有任何编译错误，建议将宏包更新至最新版本。
+
+注2：部分系统可能需要安装中文字体，在网站[https://www.wfonts.com/](https://www.wfonts.com/)搜索字体，如：SimSun（宋体）和Microsoft YaHei（微软雅黑），安装字体即可。
 
 ## 引用
 
