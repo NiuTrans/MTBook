@@ -196,7 +196,7 @@
 ## 源代码
 
 
-本书的tex源代码地址为：[https://github.com/NiuTrans/MTBook/src](https://github.com/NiuTrans/MTBook/src)
+本书的tex源代码地址为：[https://github.com/NiuTrans/MTBook/tree/master/src](https://github.com/NiuTrans/MTBook/tree/master/src)
 
 编译前需要安装[MikTeX](https://miktex.org/)，并在MikTeX Console中下载并更新编译所需宏包。之后，编译src目录下的mt-book-xelatex.tex即可得到pdf文件，编译指令如下：
 
