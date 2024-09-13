@@ -13,9 +13,9 @@
 
 *百度网盘：* [https://pan.baidu.com/s/1a0OG5Qnb9WGlitPsvbtx6A](https://pan.baidu.com/s/1a0OG5Qnb9WGlitPsvbtx6A) 提取码：MTBK 
 
-*纸质版:green_book:：* [京东](https://item.jd.com/13415772.html) [当当](http://product.dangdang.com/29305889.html) 
+*纸质版：* [京东](https://item.jd.com/13415772.html) [当当](http://product.dangdang.com/29305889.html) 
 
-*豆瓣评分:pencil2:：* [豆瓣](https://book.douban.com/subject/35596115) 
+*豆瓣评分：* [豆瓣](https://book.douban.com/subject/35596115) 
 
 </div>
 
@@ -28,7 +28,11 @@
 <img src="guideline.png" width=80% height=80% />
 </div>
 
-## 内容
+## 完整PDF版
+
+本书的完整pdf版本：[mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
+
+## 章节内容（HTML版）
 
 <a href="https://opensource.niutrans.com/mtbook/coverpage.html" title="封面、前言和目录">封面、前言和目录</a>
 
@@ -192,8 +196,6 @@
 **<a href="https://opensource.niutrans.com/mtbook/references.html" title="参考文献">参考文献</a>**
 
 **<a href="https://opensource.niutrans.com/mtbook/index.html" title="索引">索引</a>**
-
-注：本书的pdf版本可以从GitHub仓库获取[https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
 
 ## 源代码
 
