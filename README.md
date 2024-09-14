@@ -30,7 +30,7 @@
 
 本书的完整pdf版本：[mt-book.pdf](https://github.com/NiuTrans/MTBook/blob/master/mt-book.pdf)
 
-## 章节内容（HTML版）
+## 章节内容（Web版）
 
 <a href="https://opensource.niutrans.com/mtbook/coverpage.html" title="封面、前言和目录">封面、前言和目录</a>
 
