@@ -246,7 +246,7 @@ bib文件
 
 ## 课件
 
-本教程部分章节的课件已开放（我们对部分章节进行了合并，课件的顺序与书中章节的顺序并不完全一致）。pdf版本的地址为[slides](./slides)
+本教程部分章节的课件已开放（我们对部分章节进行了合并，课件的顺序与书中章节的顺序并不完全一致）。pdf版本的地址为[https://github.com/NiuTrans/MTBook/tree/master/slides](https://github.com/NiuTrans/MTBook/tree/master/slides)
 
 ## 开源协议
 
