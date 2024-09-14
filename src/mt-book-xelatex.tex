@@ -66,12 +66,50 @@
 %----------------------------------------------------------------------------------------
 
 \begingroup
-\thispagestyle{empty}
+%\thispagestyle{empty}
 
-\begin{tikzpicture}[remember picture,overlay]
-\node[inner sep=0pt] (background) at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{fig-cover.jpg}};
+%\begin{tikzpicture}[remember picture,overlay]
+%\node[inner sep=0pt] (background) at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{fig-cover.jpg}};
+%\end{tikzpicture}
 
-\end{tikzpicture}
+\begin{titlepage}
+
+\raggedleft % right alignment
+
+\vspace*{\baselineskip}
+
+\vspace*{0.167\textheight}
+
+%------------------------------------------------
+%	Title and subtitle
+%------------------------------------------------
+
+\textbf{\Huge\sffamily\bfseries {机器翻译：基础与模型}}\\[\baselineskip]
+
+\vspace{1em}
+
+%------------------------------------------------
+%	Author
+%------------------------------------------------
+
+{\Large 肖桐\ \ 朱靖波} \\
+
+\vfill
+
+%------------------------------------------------
+%	Affiliation
+%------------------------------------------------
+
+{\large \textsc{东北大学自然语言处理实验室}}\\
+\vspace{0.8em}
+{\large \&} \\
+\vspace{0.8em}
+{\large \textsc{小牛翻译}}
+
+\vspace*{4\baselineskip} % Whitespace at the bottom of the page
+
+\end{titlepage}
+
 \vfill
 \endgroup·
 
@@ -83,7 +121,9 @@
 ~\vfill
 \thispagestyle{empty}
 
-\noindent Copyright \copyright\ 2020 肖桐\ \ 朱靖波\\
+\noindent 机器翻译：基础与模型
+
+\noindent Copyright \copyright\ 2020-2024 肖桐\ \ 朱靖波\\
 
 \noindent \textsc{东北大学自然语言处理实验室\ $\cdot$\ 小牛翻译}\\
 
