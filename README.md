@@ -7,7 +7,7 @@
 
 *顾问：姚天顺 (Tianshun Yao)*    *王宝库 (Baoku Wang)*
 
-*网站：*[https://opensource.niutrans.com/mtbook/homepage.html](https://opensource.niutrans.com/mtbook/homepage.html)
+*网站：*[https://niutrans.github.io/MTBook/](https://niutrans.github.io/MTBook/) or [https://opensource.niutrans.com/mtbook/homepage.html](https://opensource.niutrans.com/mtbook/homepage.html)
 
 *GitHub：*[https://github.com/NiuTrans/MTBook](https://github.com/NiuTrans/MTBook)
 
@@ -27,7 +27,7 @@
 
 本书的完整pdf版本：[mt-book.pdf](./mt-book.pdf)
 
-## 章节内容（HTML版）
+## 章节内容（Web版）
 
 <a href="https://opensource.niutrans.com/mtbook/coverpage.html" title="封面、前言和目录">封面、前言和目录</a>
 
@@ -232,7 +232,7 @@ xelatex mt-book-xelatex
 ```
 bib文件
 ```shell
-@book{xiao-and-zhu-mtbook-2021,
+@book{xiao-zhu:2021mtbook,
       title = {机器翻译：基础与模型},
       publisher = {电子工业出版社},
       year = {2021},
@@ -252,6 +252,8 @@ bib文件
 
 ## 更新历史
 
+2024年9月14日  勘误与部分内容修正 V0.33 
+
 2021年8月25日  勘误与部分内容修正 V0.32 
 
 2021年2月1日   修复大量的文字错误 V0.31
@@ -266,8 +268,8 @@ bib文件
 
 感谢为本书做出贡献的小牛团队（部分）成员
 
-*曹润柘、曾信、孟霞、单韦乔、周涛、周书含、许诺、李北、许晨、林野、李垠桥、王子扬、刘辉、张裕浩、冯凯、罗应峰、魏冰浩、王屹超、李炎洋、胡驰、姜雨帆、田丰宁、刘继强、张哲旸、陈贺轩、牛蕊、杜权、张春良、王会珍、张俐、马安香、胡明涵*
+*曹润柘、曾信、孟霞、单韦乔、周涛、周书含、许诺、李北、许晨、林野、李垠桥、王子扬、刘辉、张裕浩、冯凯、罗应峰、魏冰浩、王屹超、李炎洋、胡驰、姜雨帆、田丰宁、刘继强、张哲旸、陈贺轩、牛蕊、吴钰璋、甘阳、杜权、张春良、王会珍、张俐、马安香、胡明涵*
 
 ## 联系我们
 
-有任何问题请联系xiaotong [at] mail.neu.edu.cn （肖桐） 或 caorz0628 [at] qq.com（曹润柘）
+有任何问题请联系xiaotong [at] mail.neu.edu.cn （肖桐） 或 614517171 [at] qq.com（吴钰璋）
