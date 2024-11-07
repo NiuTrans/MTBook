@@ -900,7 +900,7 @@ c(\cdot) & \textrm{当计算最高阶模型时}  \\
 \parinterval 通常，$\textrm{score}(\cdot)$也被称作{\small\bfnew{模型得分}}\index{模型得分}（Model Score\index{Model Score}）。如图\ref{fig:2-14}所示，可知红线所示单词序列“<sos>\ I\ agree\ <eos>”的模型得分为：
 \begin{eqnarray}
 &&\textrm{score(<sos>\ I\ agree\ <eos>)}   \nonumber \\
-& = & \log \funp{P}(\textrm{<sos>}) + \log \funp{P}(\textrm{I} | \textrm{<sos>}) + \log \funp{P}(\textrm{agree} | \textrm{<sos>\ I}) + \log \funp{P}(\textrm{<sos>}| \textrm{<sos>\ I\ agree})   \nonumber \\
+& = & \log \funp{P}(\textrm{<sos>}) + \log \funp{P}(\textrm{I} | \textrm{<sos>}) + \log \funp{P}(\textrm{agree} | \textrm{<sos>\ I}) + \log \funp{P}(\textrm{<eos>}| \textrm{<sos>\ I\ agree})   \nonumber \\
 & = & 0-0.5-0.2-0.8   \nonumber \\
 & = & -1.5
 \label{eq:2-44}
